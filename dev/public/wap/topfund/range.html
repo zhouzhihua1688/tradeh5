@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!--<meta charset="GBK">-->
+	 <meta charset="utf8">
+	<title>投资范围</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../css/topfund/base.css">
+	<script type="text/javascript" src="../js/lib/zepto.min.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+	<script type="text/javascript" src="../js/common.js?20210302"> </script>
+
+	<script>
+       	setFont();
+		window.onresize = function () {
+			setFont();
+		}
+		function setFont() {
+			var windowWidth = document.documentElement.clientWidth;
+			windowWidth = windowWidth > 750 ? 750 : windowWidth;
+			document.documentElement.style.fontSize = windowWidth / (750 / 40) + "px";
+		}
+	</script>
+	<style type="text/css">
+		body { background-color: #fff;}
+		ul li p { font-size: .7rem; color: #000000; line-height: 1.5;}
+		ul li { padding: 1.1rem .75rem 0;}
+	</style>
+</head>
+<body>
+	<ul>
+		<li><p id="investscope"></p></li>
+		<!--<li><p>① 本资产管理计划拟受让标的资产，并且通过实施资金监管的方式确保资金专项用于目标项目的开发建设支出。</p></li>
+		<li><p>② 投资资金闲置时可投资于银行存款、货币市场基金、银行理财产品或其他低风险金融产品。</p></li>-->
+	</ul>
+	<script>
+
+        $("#investscope").html(App.getSession("investscope"));
+	</script>
+</body>
+</html>

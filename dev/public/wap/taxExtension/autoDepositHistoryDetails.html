@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>自动购买详情</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base_v1.css">
+    <link rel="stylesheet" href="../css/taxExtension/payment.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+</head>
+<body>
+<div class="content">
+    <ul class="grid-list" style="padding:0 0 0 .75rem ">
+        <li class="grid-list-item heigth-100 BankCard">
+            <div class="row">
+                <div class="flex">
+                    <p>计划名称</p>
+                    <p id="planName"></p>
+                </div>
+            </div>
+        </li>
+        <li class="grid-list-item heigth-100 BankCard">
+            <div class="row">
+                <div class="flex">
+                    <p>基金名称</p>
+                    <p id="fundNm"></p>
+                </div>
+            </div>
+        </li>
+        <li class="grid-list-item heigth-100 BankCard">
+            <div class="row">
+                <div class="flex">
+                    <p>绑定手机</p>
+                    <p id="mobile"></p>
+                </div>
+            </div>
+        </li>
+        <li class="grid-list-item heigth-100 BankCard">
+            <div class="row">
+                <div class="flex">
+                    <p>税延账户</p>
+                    <p id="purType"></p>
+                </div>
+            </div>
+        </li>
+        <li class="grid-list-item heigth-100 BankCard">
+            <div class="row">
+                <div class="flex">
+                    <p>基金代码</p>
+                    <p id="fundId"></p>
+                </div>
+            </div>
+        </li>
+        <li class="grid-list-item heigth-100 BankCard">
+            <div class="row">
+                <div class="flex">
+                    <p>收费方式</p>
+                    <p id="shareType"></p>
+                </div>
+            </div>
+        </li>
+        <li class="grid-list-item heigth-100 BankCard">
+            <div class="row">
+                <div class="flex">
+                    <p>支付方式</p>
+                    <p id="payType"></p>
+                </div>
+            </div>
+        </li>
+        <li class="grid-list-item heigth-100 BankCard">
+            <div class="row">
+                <div class="flex">
+                    <p>状态</p>
+                    <p id="status"></p>
+                </div>
+            </div>
+        </li>
+        <li class="grid-list-item heigth-100 BankCard">
+            <div class="row">
+                <div class="flex">
+                    <p>购买周期</p>
+                    <p id="cycle"></p>
+                </div>
+            </div>
+        </li>
+        <li class="grid-list-item heigth-100 BankCard">
+            <div class="row">
+                <div class="flex">
+                    <p>购买时间</p>
+                    <p id="payDate"></p>
+                </div>
+            </div>
+        </li>
+        <li class="grid-list-item heigth-100 BankCard">
+            <div class="row">
+                <div class="flex">
+                    <p>购买金额(元)</p>
+                    <p id="depositAmt"></p>
+                </div>
+            </div>
+        </li>
+        <li class="grid-list-item heigth-100 BankCard" style="margin-bottom: 3rem">
+            <div class="row">
+                <div class="flex">
+                    <p>购买记录</p>
+                    <div class="lh-100 margin-r75" >
+                        <a class=" iconi icon-arrow-right"></a>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script type="text/javascript" src="../js/common.js?20210302"></script>
+<script type="text/javascript" src="../js/taxExtension/autoDepositHistoryDetails.js"></script>
+</body>
+</html>

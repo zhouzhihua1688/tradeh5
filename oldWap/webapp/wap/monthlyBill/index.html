@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <!--<meta charset="GBK">-->
+      <meta charset="utf8">
+      <title>月度账单</title>
+      <meta name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+      <link rel="stylesheet" href="css/base.css">
+      <script>
+            // 相对字体大小设置
+            var oHtml = document.documentElement;
+            getFont();
+            window.onresize = function () {
+                  getFont();
+            }
+
+            function getFont() {
+                  var screenWidth = oHtml.clientWidth;
+                  if (screenWidth <= 320) {
+                        oHtml.style.fontSize = '17.06px';
+                  } else if (screenWidth >= 750) {
+                        oHtml.style.fontSize = '40px';
+                  } else {
+                        oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+                  }
+            }
+      </script>
+      <style>
+            body {
+                  overflow-x: hidden;
+                  background: #fff;
+            }
+
+            .main {
+                  margin: 0px;
+                  padding: 0px;
+                  background-color: #f6f6f6;
+            }
+
+            /* 蓝色 */
+            .blue .head {
+                  width: 100%;
+                  height: 3.0rem;
+                  background: url('img/fengmian_blue.png') no-repeat;
+                  background-size: 100% auto;
+                  margin-bottom: -1px;
+                  position: relative;
+            }
+
+            /* 橙色 */
+            .orange .head {
+                  width: 100%;
+                  height: 3.0rem;
+                  background: url('img/fengmian_orange.png') no-repeat;
+                  background-size: 100% auto;
+                  margin-bottom: -1px;
+                  position: relative;
+            }
+
+            /* 红色 */
+            .red .head {
+                  width: 100%;
+                  height: 3.0rem;
+                  background: url('img/fengmian_red.png') no-repeat;
+                  background-size: 100% auto;
+                  margin-bottom: -1px;
+                  position: relative;
+            }
+
+            /* 金色 */
+            .gold .head {
+                  width: 100%;
+                  height: 3.0rem;
+                  background: url('img/fengmian_gold.png') no-repeat;
+                  background-size: 100% auto;
+                  margin-bottom: -1px;
+                  position: relative;
+            }
+
+            /* .head .content {
+                  width: 90%;
+                  margin: 0 auto;
+                  padding-top: 0.75rem;
+            }
+
+            .head .content .img {
+                  vertical-align: middle;
+                  border-radius: 1.25rem;
+                  background: url('img/fengmian.png') no-repeat;
+                  background-size: 100% 100%;
+                  display: inline-block;
+            }
+
+            .head .content span {
+                  margin-left: 0.5rem;
+                  color: #fff;
+                  font-size: 0.75rem;
+                  margin-top: 0.2rem;
+                  display: inline-block;
+            } */
+
+            /* 蓝色 */
+            .blue .middle {
+                  width: 100%;
+                  height: 20.5rem;
+                  background: url('img/fengmian_blue01.png') no-repeat;
+                  background-size: 100% 100%;
+            }
+
+            /* 橙色 */
+            .orange .middle {
+                  width: 100%;
+                  height: 20.5rem;
+                  background: url('img/fengmian_orange01.png') no-repeat;
+                  background-size: 100% 100%;
+            }
+
+            /* 红色 */
+            .red .middle {
+                  width: 100%;
+                  height: 20.5rem;
+                  background: url('img/fengmian_red01.png') no-repeat;
+                  background-size: 100% 100%;
+            }
+
+            /* 金色 */
+            .gold .middle {
+                  width: 100%;
+                  height: 20.5rem;
+                  background: url('img/fengmian_gold01.png') no-repeat;
+                  background-size: 100% 100%;
+            }
+
+
+            .middle .text {
+                  width: 90%;
+                  margin: 0 auto;
+                  color: #fff;
+                  font-size: 0.85rem;
+                  padding-top: 1rem;
+            }
+
+            .middle .text2 {
+                  width: 90%;
+                  margin: 0 auto;
+                  color: #fff;
+                  font-size: 1.2rem;
+                  margin-top: 0.65rem;
+            }
+
+            .middle .text3 {
+                  width: 90%;
+                  margin: 0 auto;
+                  color: #fff;
+                  font-size: 0.85rem;
+                  margin-top: 1.25rem;
+            }
+
+            .middle .text4 {
+                  width: 90%;
+                  margin: 0 auto;
+                  color: #fff;
+                  font-size: 1.95rem;
+                  margin-top: 0.5rem;
+            }
+
+            /* 蓝色 */
+            .blue .footer {
+                  width: 100%;
+                  height: 6.5rem;
+                  background: url('img/fengmian_blue02.png') no-repeat;
+                  background-size: 100% 100%;
+                  margin-top: -0.1rem;
+            }
+
+            /* 橙色 */
+            .orange .footer {
+                  width: 100%;
+                  height: 6.5rem;
+                  background: url('img/fengmian_orange02.png') no-repeat;
+                  background-size: 100% 100%;
+                  margin-top: -0.1rem;
+            }
+
+            /* 红色 */
+            .red .footer {
+                  width: 100%;
+                  height: 6.5rem;
+                  background: url('img/fengmian_red02.png') no-repeat;
+                  background-size: 100% 100%;
+                  margin-top: -0.1rem;
+            }
+
+            /* 金色 */
+            .gold .footer {
+                  width: 100%;
+                  height: 6.5rem;
+                  background: url('img/fengmian_gold02.png') no-repeat;
+                  background-size: 100% 100%;
+                  margin-top: -0.1rem;
+            }
+
+            .footer .text {
+                  width: 10.0rem;
+                  height: 2.25rem;
+                  border: 1px solid #fff;
+                  border-radius: 5px;
+                  margin: 0 auto;
+                  text-align: center;
+                  line-height: 2.25rem;
+                  color: #fff;
+                  font-size: 0.75rem
+            }
+
+
+            /* 蓝色 */
+            .blue .last {
+                  width: 100%;
+                  background: url('img/footer_blue.png') no-repeat;
+                  background-size: 100% 100%;
+                  margin-top: -0.1rem;
+                  padding: 6rem 0.0rem;
+            }
+
+            /* 橙色 */
+            .orange .last {
+                  width: 100%;
+                  background: url('img/footer_orange.png') no-repeat;
+                  background-size: 100% 100%;
+                  margin-top: -0.1rem;
+                  padding: 6rem 0.0rem;
+            }
+
+            /* 红色 */
+            .red .last {
+                  width: 100%;
+                  background: url('img/footer_red.png') no-repeat;
+                  background-size: 100% 100%;
+                  margin-top: -0.1rem;
+                  padding: 6rem 0.0rem;
+            }
+
+            /* 金色 */
+            .gold .last {
+                  width: 100%;
+                  background: url('img/footer_gold.png') no-repeat;
+                  background-size: 100% 100%;
+                  margin-top: -0.1rem;
+                  padding: 6rem 0.0rem;
+            }
+
+
+            .layer {
+                  z-index: 9999999;
+                  position: fixed;
+                  top: 0;
+                  left: 0;
+                  background-color: rgba(255, 255, 255, 0.6);
+                  height: 100%;
+                  width: 100%;
+                  overflow: auto;
+            }
+
+            .layer-wrap {
+                  position: absolute;
+                  left: 50%;
+                  top: 50%;
+                  -webkit-transform: translate(-50%, -50%);
+                  transform: translate(-50%, -50%);
+                  margin: 0;
+                  width: 80%;
+                  /* background: #fff;  */
+                  -webkit-border-radius: 5px;
+                  padding: 0 0.75rem 0.75rem 0.75rem;
+            }
+
+            .layer-body {
+                  padding: 7% 8% 1% 8%;
+                  text-align: center;
+            }
+
+            .layer-wrap .layer-body p {
+                  font-size: 14px;
+                  line-height: 21px;
+                  color: #666;
+                  display: inline-block;
+                  text-align: justify
+            }
+
+            .layer-wrap .layer-body span {
+                  font-size: 16px;
+                  display: block;
+                  padding-top: 10px;
+                  color: #333;
+                  font-weight: 600;
+            }
+
+            .layer-wrap .but {
+                  width: 100%;
+                  height: 2rem;
+                  color: #148ce6;
+                  text-align: center;
+                  line-height: 2rem;
+                  font-size: 0.75rem;
+                  border-top: 1px solid #eee
+            }
+
+            .layer-wrap button:focus {
+                  outline: none;
+            }
+
+            .noselect {
+
+                  -webkit-touch-callout: none;
+                  /* iOS Safari */
+
+                  -webkit-user-select: none;
+                  /* Chrome/Safari/Opera */
+
+                  -khtml-user-select: none;
+                  /* Konqueror */
+
+                  -moz-user-select: none;
+                  /* Firefox */
+
+                  -ms-user-select: none;
+                  /* Internet Explorer/Edge */
+
+                  user-select: none;
+                  /* Non-prefixed version, currently
+
+            not supported by any browser */
+
+            }
+
+            #cutDown {
+                  display: none;
+                  position: fixed;
+                  width: 100%;
+                  height: 100%;
+                  left: 0;
+                  top: 0;
+                  background-color: rgba(0, 0, 0, 0.7);
+                  z-index: 9999999;
+            }
+            .head{
+                  position: relative;
+            }
+            .head .icon {
+			width: 100%;
+			position: absolute;
+			top: 1rem;
+		}
+
+		.head .icon .img {
+			width: 1.45rem;
+			height: 1.45rem;
+			vertical-align: middle;
+			margin-left: 0.75rem;
+			background: url('img/fengmian.png') no-repeat;
+			background-size: 100% 100%;
+			display: inline-block;
+		}
+
+		.head .icon span {
+			color: #fff;
+			font-size: 0.75rem;
+			margin-left: 0.5rem;
+		}
+            .icon {
+                  display: inline-block;
+                  width: 10px;
+                  height: 10px;
+                  background-size: contain;
+                  vertical-align: middle;
+                  margin-right: 5px;
+                  margin-top: -4px;
+                  }
+      </style>
+</head>
+
+<body class="orange">
+      <div id="cutDown">
+
+      </div>
+      <div class="main" style="display:none;">
+            <div class="head">
+                  <div class="icon">
+				<div id="avatarImage" style="width:1.45rem;height:1.45rem;border-radius:2.5rem;" class="img"></div>
+				<span id="custName">
+                              
+				</span>
+			</div>
+                  <!-- <div class="content">
+                        <div style="width:1.45rem;height:1.45rem;border-radius:2.5rem;" id="avatarImage" class="img">
+                              < <img src="img/fengmian.png" alt=""> -->
+                        <!-- </div>
+                        <span id="custName"></span>
+                  </div> --> 
+            </div>
+            <div class="middle">
+                  <div class="text">我的$month月投资表现</div>
+                  <div class="text2" id="txt"></div>
+                  <div class="text3">我的$month月收益率</div>
+                  <div class="text4" id="totalProfitRate"></div>
+            </div>
+            <div class="footer">
+                  <div class="text"><a href="javascript:;" id="bill"
+                              style="text-decoration:none;color:#fff;">查看我的月度账单</a></div>
+                  <div id="printHide" data-html2canvas-ignore  class="noselect printHide"
+                        style="text-align: center;padding-top: .325rem;font-size: .6rem;">
+                        <span style="vertical-align: middle;" class="noselect">长按保存图片到手机</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26px"
+                              height="24px" style="vertical-align: middle; transform: scale(.65);">
+                              <path fill-rule="evenodd" fill="rgb(255, 255, 255)"
+                                    d="M23.233,23.016 L2.830,23.016 C1.725,23.016 0.830,22.120 0.830,21.016 L0.830,20.161 L0.830,18.216 L0.830,11.278 C0.830,10.769 1.242,10.357 1.750,10.357 L1.845,10.357 C2.353,10.357 2.765,10.769 2.765,11.278 L2.765,16.223 C2.787,16.222 2.808,16.216 2.830,16.216 L23.233,16.216 C23.236,16.216 23.240,16.217 23.244,16.217 L23.244,11.278 C23.244,10.769 23.656,10.357 24.164,10.357 L24.312,10.357 C24.821,10.357 25.232,10.769 25.232,11.278 L25.232,18.216 L25.232,20.161 L25.232,21.016 C25.232,22.120 24.337,23.016 23.233,23.016 ZM13.018,17.667 C11.957,17.667 11.096,18.540 11.096,19.616 C11.096,20.692 11.957,21.564 13.018,21.564 C14.079,21.564 14.939,20.692 14.939,19.616 C14.939,18.540 14.079,17.667 13.018,17.667 ZM14.001,12.013 C13.681,12.333 13.163,12.333 12.844,12.013 L7.464,6.961 C7.145,6.642 7.145,6.124 7.464,5.804 C7.784,5.485 8.302,5.485 8.622,5.804 L12.413,9.365 L12.413,1.099 C12.413,0.587 12.828,0.172 13.340,0.172 L13.448,0.172 C13.960,0.172 14.375,0.587 14.375,1.099 L14.375,9.325 L17.896,5.804 C18.215,5.485 18.733,5.485 19.053,5.804 C19.372,6.124 19.372,6.642 19.053,6.961 L14.001,12.013 Z" />
+                        </svg>
+                  </div>
+            </div>
+            <div class="last">
+            </div>
+
+      </div>
+
+      <!-- 弹窗-->
+      <div class="layer" style="display: none">
+            <div class="layer-wrap">
+                  <div class="layer-body">
+                        <p><img src="img/loading.png" alt=""></p>
+                  </div>
+                  <!-- <div class="but">确定</div> -->
+            </div>
+      </div>
+      <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+      <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+      <script type="text/javascript" src="../js/common.js?20210106"></script>
+      <script type="text/javascript" src="./js/html2canvas.js"></script>
+      <script>
+            var yearMonth = App.getUrlParam("yearMonth");
+            var currencyType = App.getUrlParam("currencyType");
+            var year = yearMonth.substr(0, 4);
+            var month = Number(yearMonth.substr(4));
+            var version = App.getUrlParam("version");
+            window.onload = function () {
+                  $("#printHide").hide();
+                  Promise.all([getCustInfo(), getInfo()]).then(function (results) {
+                        var timeout = 0;
+                        // $("#printHide").show();
+                        if (isIosApp()) {
+                              $("#printHide").show();
+                        }
+                        $("#printHide").on('touchstart', () => {
+                              timeout = setTimeout(() => {
+                                    downloadFile();
+                              }, 500); // 长按时间超过1000ms，则执行传入的方法 
+                        });
+                        $("#printHide").on('touchend', () => {
+                              clearTimeout(timeout); // 长按时间少于1000ms，不会执行传入的方法
+                        });
+                  }).catch(error => {
+                        console.log(error);
+                  })
+            }
+            
+                  $("#bill").attr("href", String(window.location).replace('index', 'bill_detail'));
+                  // getCustInfo();
+                  // getInfo();
+                  // $("#printHide").hide();
+            //数据展示主函数
+            function getInfo() {
+                  return new Promise(function (resolve, reject) {
+                        App.get("/assetcenter/v1/asset/monthly-bill/info?currencyType=" + currencyType +
+                              "&yearMonth=" + yearMonth, null,
+                              function (result) {
+                                    if (result.body != undefined && result.body != null) {
+                                          var body = result.body;
+                                          if (body != undefined && body != "") {
+                                                var rate = (body.profitRate * 100).toFixed(2);
+
+                                                var preFix = '';
+                                                var themeStyle = '';
+                                                var txt = '';
+                                                if (String(rate).indexOf("-") == -1) { //正
+                                                      preFix = '+';
+                                                      if (Number(rate) >= 1) { //red
+                                                            themeStyle = '4';
+                                                            txt = '红红火火，蒸蒸日上';
+                                                      } else { //orange
+                                                            themeStyle = '1';
+                                                            txt = '小有收获，踏实赚钱';
+                                                      }
+                                                } else { //负
+                                                      preFix = '-';
+                                                      if (Number(String(rate).replace("-", "")) >=
+                                                            1) { //blue
+                                                            themeStyle = '2';
+                                                            txt = '不畏浮云，坚信长期';
+                                                      } else { //gold
+                                                            themeStyle = '3';
+                                                            txt = '不急不躁，静待花开';
+                                                      }
+                                                }
+                                                $("#bill").attr("href", $("#bill").attr("href") +
+                                                      "&billStyle=" + themeStyle);
+                                                $("#txt").html(txt);
+                                                $("#totalProfitRate").html(
+                                                      '<span style="font-size: 1.15rem">' +
+                                                      preFix + '</span>' + String(rate).replace(
+                                                            "-", "") +
+                                                      '<span style="font-size:0.9rem">%</span>');
+                                                if (themeStyle == '2') { //blue
+                                                      $("body").removeClass().addClass("blue");
+                                                      $('#printHide').css('color', '#2194ff').find(
+                                                            'path').css('fill', '#2194ff');
+                                                } else if (themeStyle == '3') { //gold
+                                                      $("body").removeClass().addClass("gold");
+                                                      $('#printHide').css('color', '#ba9228').find(
+                                                            'path').css('fill', '#ba9228');
+                                                } else if (themeStyle == '4') { //red
+                                                      $("body").removeClass().addClass("red");
+                                                      $('#printHide').css('color', '#e74134').find(
+                                                            'path').css('fill', '#e74134');
+                                                } else { //orange
+                                                      $("body").removeClass().addClass("orange");
+                                                      $('#printHide').css('color', '#ff7f01').find(
+                                                            'path').css('fill', '#ff7f01');
+                                                }
+                                                $(".layer").hide();
+                                                $(".main").show();
+
+                                          }
+                                    } 
+                                    resolve();
+
+                              })
+                  })
+
+            }
+
+            function getCustInfo() {
+			return new Promise((resolve, reject) => {
+				App.get("/icif/v1/custs/get-simple-by-cust-no", null, function (result) {
+					if (result.body != undefined && result.body != null) {
+						var body = result.body;
+						if (body != undefined && body != "") {
+							// $("#avatarImage").css({
+							// 	"background": "url('" + body.avatarImage + "')",
+							// 	"background-size": "100% 100%"
+                                          // });
+                                          getBase64FromImageUrl(body.avatarImage);
+                                          $("#custName").html(body.nickname)
+                                          $(".main").html($(".main").html().replace(/\$month/g,
+                                                month));
+						}
+						resolve();
+					}
+				});
+			})
+
+		}
+         // 截图
+		function downloadFile() {
+			//截图目标div
+			var dom = $(".main");
+			// 创建一个新的canvas
+			var Canvas = document.createElement('canvas');
+			var width = document.body.clientWidth; // 可见屏幕的宽
+			var height = document.body.clientHeight; // 可见屏幕的高
+			var scale = window.devicePixelRatio; // 设备的devicePixelRatio
+			// 将Canvas画布放大scale倍，然后放在小的屏幕里，解决模糊问题
+			Canvas.width = width * scale;
+			Canvas.height = height * scale;
+			Canvas.getContext('2d').scale(scale, scale);
+			window.pageYoffset = 0;
+			document.documentElement.scrollTop = 0;
+			document.body.scrollTop = 0;
+			setTimeout(function () {
+				html2canvas(dom, {
+					canvas: Canvas,
+					scale,
+					useCORS: true,
+					width: width + 'px',
+					hegiht: height + 'px'
+				}).then((canvas) => {
+					var context = canvas.getContext('2d');
+					// 关闭抗锯齿形
+					context.mozImageSmoothingEnabled = false;
+					context.webkitImageSmoothingEnabled = false;
+					context.msImageSmoothingEnabled = false;
+					context.imageSmoothingEnabled = false;
+					// var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+					// save_link.href = canvas.toDataURL('image/jpg');;
+					// save_link.download = picDate + '.jpg';
+
+					// var event = document.createEvent('MouseEvents');
+					// event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false,
+					// 	false, false, false, 0, null);
+					// save_link.dispatchEvent(event);
+					var img = Canvas2Image.convertToImage(canvas, canvas.width, canvas.height);
+					$('#cutDown').append(img);
+					img.style.cssText = "width:80%;height:90%;position:absolute;top:0;left:0;right:0;bottom:0;margin:auto";
+                              $('#cutDown').show();
+					$("#cutDown").click(function(){
+					      e = window.event || e;
+					      var obj = e.srcElement || e.target;
+					      if($(obj).is("img")) {
+					            return false;
+					      }
+					      else{
+					            $("#cutDown").hide();
+					      }
+					}) 
+				})
+			}, 100)
+
+            }
+            function getBase64FromImageUrl(URL) {
+		var img = new Image();
+		var dataURL=null;
+		img.setAttribute('crossOrigin', 'anonymous');
+		img.src = URL;
+		img.onload = function() {
+			var canvas = document.createElement("canvas");
+			canvas.width = this.width;
+			canvas.height = this.height;
+
+			var ctx = canvas.getContext("2d");
+			ctx.drawImage(this, 0, 0);
+			dataURL = canvas.toDataURL("image/png");
+			$("#avatarImage").css({"background":"url('"+dataURL+"')","background-size":"100% 100%"});
+			// $("#avatarImage").attr('src',dataURL)
+		};
+	}
+      </script>
+      <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta charset="gbk">-->
+    <title></title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        }
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+                oHtml.style.fontSize = '17.06px';
+            }else if(screenWidth >= 750){
+                oHtml.style.fontSize = '40px';
+            }else{
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+            }
+        }
+        document.title="\u200E";
+    </script>
+    <style>
+    body{background:#fff}
+    .main{width:100%;}
+    .icon{width:80%;margin:0 auto;margin-top:1rem}
+    .icon div{width:2.75rem;height:3.0rem;background: url('img/icon.png') no-repeat;background-size: 100% 100%;}
+    .question{width:80%;color:#000;font-size:0.7rem;margin:0 auto;margin-top:1rem;text-align: justify;font-weight:bold}
+    .biaoti{width:80%;color:#000;font-size:0.7rem;margin:0 auto;margin-top:1rem;text-align: justify;}
+    .new{width:80%;height:1.5rem;margin:0 auto;color:#fb5c5f;margin-top:2rem;}
+    .new a{padding:0 1rem;line-height:1.5rem;float:right;border:1px solid #fb5c5f;border-radius:1.25rem;text-align:center;font-size: 0.7rem}
+    .understand{width:80%;height:1.5rem;margin:0 auto;color:#fb5c5f;margin-top:0.75rem; margin-bottom: 4.5rem;}
+    .understand a{padding:0 1rem;line-height:1.5rem;float:right;border:1px solid #fb5c5f;border-radius:1.25rem;text-align:center;font-size: 0.7rem;}
+    .footer {position: fixed;z-index: 1;}
+    </style>
+
+</head>
+<body>
+    <div class="main">
+        <div class="icon">
+            <div></div>
+        </div>
+        <!-- <div class="question">您的理财习惯很好！超过了99%的用户！</div> -->
+        <div class="biaoti">你知道吗？虽然财富不尽相同，但人人都有“三笔钱”：</div>
+        <div class="biaoti">1、日常花销的钱：比如每月吃饭坐车的钱</div>
+        <div class="biaoti">2、实现中短期目标的钱：比如娃下个学期的学费</div>
+        <div class="biaoti">3、追求中长期增值的钱：比如十年后才会用到的钱</div>
+        <div class="biaoti">合理为财富分类，可以让你的财富状态更加健康。</div>
+        <div class="question">怎样才能合理规划3笔钱？</div>
+        <div class="new"><a href="./calculation_change_mgmt1.html">先为我详细介绍三笔钱</a></div>
+        <div class="understand"><a href="./planList.html">直接帮我规划投资方案</a></div>   
+    </div>
+    <!-- <div class="footer">
+        <a href="#"></a>
+    </div> -->
+    <script>
+        // $('.new a').click(function(){
+        //     Storage.set('step','1')
+        // })
+        // $('.understand a').click(function(){
+        //     Storage.set('step','2')
+        // })
+    </script>
+</body>
+</html>

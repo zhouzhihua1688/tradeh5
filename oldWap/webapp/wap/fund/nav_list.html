@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>净值查询</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/fund/nav-list.css"/>
+    <script type="text/javascript" src="../js/lib/weixin.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/iscroll.js"></script>
+</head>
+<script>
+    $("body").hide();
+
+</script>
+<body>
+<div class="top-bar" style="display: none;">
+    <div class="f-white f18">净值查询</div>
+</div>
+<div class="top_nav" style="display: none;">
+    <div class="top_nav_left">净值日期</div>
+    <div class="top_nav_mid">净值 </div>
+    <div class="top_nav_right">涨跌幅</div>
+</div>
+<div id="wrapper" class="wrapper-top_show">
+    <div id="scroller">
+        <div id="pullDown">
+            <span class="pullDownIcon"></span><span class="pullDownLabel">下拉刷新...</span>
+        </div>
+
+        <div style="width: 100%;">
+            <ul id="thelist">
+            </ul>
+        </div>
+        <div id="pullUp">
+            <span class="pullUpIcon"></span><span class="pullUpLabel">上拉刷新更多</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../js/common.js?20210106"></script>
+<script type="text/javascript" src="../js/fund/nav-list.js"></script>
+<script>
+    function showout(){
+        if(typeof WeixinJSBridge == "undefined"){
+            $(".top_nav").css({'display':'-webkit-box'});
+            $(".top-bar").css({'display':'-webkit-box'});
+        }
+    }
+    $(function(){
+        $(".top-bar").hide();
+
+        setTimeout("showout();",1000);
+    });
+</script>
+</body>
+</html>

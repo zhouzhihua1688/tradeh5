@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>信息披露</title>
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <script>
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '20px';
+            } else if (screenWidth >= 640) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (640 / 40) + 'px';
+            }
+        }
+        window.onload = function () {
+            // 解决:active在ios系统没效果的问题
+            document.body.addEventListener('touchstart', function () {});
+        };
+    </script>
+    <style>
+        .main {
+            background: #fff;
+        }
+
+        .main .top {
+            padding: .65rem .75rem;
+            border-bottom: 1px solid #eee;
+            display: block;
+        }
+
+        .top {
+            background: #fff;
+            display: flex;
+            display: -webkit-flex;
+            justify-content: center;
+            align-items: center;
+            -webkit-justify-content: center;
+            -webkit-align-items: center;
+        }
+
+        .main .top .p1,
+        .author .top .p1 {
+            font-size: .7rem;
+            color: #000;
+        }
+
+        .main .top .p2 {
+            font-size: .65rem;
+            color: #666;
+            margin-top: .4266rem;
+        }
+    </style>
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="top">
+            <p class="p1"></p>
+            <p class="p2"></p>
+        </div>
+        <div class="text" style="padding:.5rem .75rem;line-height: 1.5;font-size: .65rem;word-break: break-word;">
+
+        </div>
+    </div>
+    <script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+    <script>
+        $(function () {
+            var render = {
+                init() {
+                    this.getList(this.data.serialno)
+                },
+                data: {
+                    serialno: utils.getUrlParam("serialno"),
+                },
+                getList(serialno) {
+                    /* 获取投顾公告 */
+                    var url =
+                        `/productcenter/v1/new/compose/fundgroup/single/announcement/content?serialno=${serialno}`;
+
+                    $.get(url, (result) => {
+                        if (result.returnCode == 0 && result.body != undefined && result.body !=
+                            null) {
+                            var data = result.body;
+                            var year = data.updateDate.substr(0, 4)
+                            var month = data.updateDate.substr(4, 2)
+                            var day = data.updateDate.substr(6)
+                            $('.top .p1').text(data.title)
+                            $('.top .p2').text(`${year}-${month}-${day}`)
+                            $('.main .text').html(data.content)
+                        }
+                    });
+                },
+            }
+            render.init()
+        });
+    </script>
+</body>
+
+</html>

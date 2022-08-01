@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>创建计划</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base_bank.css">
+    <link rel="stylesheet" href="./css/createPlan.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="app"  v-show='fundList.length>0' v-cloak style="height: 100vh;position:relative">
+    <div class="main" >
+    <div class="investment" >
+        <div class="item-title">每期投资金额</div>
+        <div class="enter-amount">
+            <div class="mark">￥</div>
+            <div class="enter-money">
+                <div class="input-number"><input type="number"  placeholder="请输入投资金额，100元起" v-model='mip.mipbuyamt'></div>
+            </div>
+        </div>
+        <div class="plan-head">
+            <div class="plan-title">计划名称</div>
+            <div class="plan-name"><input type="text" v-model="mip.mipName" @input='planNameChanged'><img src="img/close.png" alt="" @click="clearMipName()"></div>
+        </div>
+    </div>
+
+    <div class="operate-cycle  border-b selected-deduction-cycle">
+        <span class="font-30" style="padding-left: 0.75rem;">定投周期</span>
+        <div class="select">
+            <span class="font-30 appDate">{{mipCycleDisplay}}</span>
+            <img src="img/arr.png" alt="">
+        </div>
+    </div>
+
+    <!-- 扣款期数 -->
+    <div class="choose-time animated slideInDown " style="display: none;z-index: 10;">
+        <ul class="list-group no-margin-top lh-100">
+            <li class="bottom-border font-28" data-choose-time="MM">
+                <div>每月<span class="annulus"></span></div>
+            </li>
+            <li class="bottom-border font-28" data-choose-time="2W">
+                <div>每双周<span class="annulus"></span></div>
+            </li>
+            <li class="bottom-border font-28" data-choose-time="WW">
+                <div>每周<span class="annulus"></span></div>
+            </li>
+            <li class="bottom-border font-28" data-choose-time="DD">
+                <div>每日<span class="annulus"></span></div>
+            </li>
+        </ul>
+    </div>
+    <div class="layer choose-time2" style="display: none; z-index:99">
+        <ul class="list-group no-margin-top lh-100" style="padding-bottom:3.25rem;"></ul>
+    </div>
+
+    <div class="time-tips">下次扣款时间<span>{{nextMipDate}}</span>遇非交易日顺延</div>
+
+    <div class="fund-paymode font-30">
+        <span>支付方式</span>
+        <div class="select" @click="selectPayWay" >
+            <span class="font-30">{{bankInfo.bankGrpName}}</span>
+            <img src="img/arr.png" alt="">
+        </div>
+    </div>
+
+    <div class="new-add" >新增以下{{fundList.length>0?fundList.length:'--'}}个<span>定期不定额股债性价比策略</span>投资计划:</div>
+    <div class="plan-list">
+        <div class="plan-box">
+            <ul>
+                <li v-for='fund in fundList'>
+                    <div class="fund-title"><span class="fundName">{{fund.fundName}}</span><span class="fundId">{{fund.fundId}}</span>
+                    </div>
+                    <div class="fund-money">
+                        <div class="fund-text">每期投资金额：</div>
+                        <div class="fund-number">{{childMipAmtDisplay}}</div>
+                    </div>
+                    <div class="fixed-invest">
+                        <div class="fixed-text" style="color: #999;">定投名称：</div>
+                        <div class="fixed-name">{{childMipNameDisplay(fund)}}</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div style="padding-bottom:3rem">
+        <ul v-for='(childList,index) in contractList' :key='index'>
+            <li> 
+        <div class="agreement">
+            <div class="unicheck">
+                <div :class="'choose-img ' + (contractList[index]['ischeck']?'bgActive':'nobgActive')" @click="agreeClick(index)" ref="agreement"></div>
+            </div>
+                <div class="agree">我已同意<a class="agree-color" v-for='(contact,index) of childList["list"]' :key='index' href="contact.url">《{{contact.title}}》{{index===childList["list"].length-1?'':'、'}}</a>
+            </div>
+        </div>
+    </li>
+</ul>
+
+    </div>
+    <!-- <div class="next-step" @click = 'planOpreate'>确定</div> -->
+    <!-- 银行卡 -->
+    <div class="layer animated slideInDown" id="bankCardList" style="display: none;z-index:99">
+        <ul class="grid-list" style="height: 92%;overflow-x: scroll;">
+            
+            <!-- //wap只需支持快捷和招行一网通 20210705全放开 -->
+            <li :class="'grid-list-item heigth-130 bottom-border ' + (item.tradeFlag === '1' ? '' : 'not-support-bank-card-color')" v-for="(item,index) in cardList" :key="index" @click="selectBankCard(item)"  v-if="(item.tradeFlag === '1') && (true || item.signWay == null || item.signWay == 1 || item.signWay == 7)">
+                <div class="row">
+                    <div class="lh-130" v-if="item.bankGrpName.indexOf('现金宝') === -1">
+                        <img :src="'/mobileEC/images/bank/'+item.bankNo+'.png'" class="bank-logo-new"/>
+                    </div>
+                    <div class="lh-130" v-else>
+                        <img src="/tradeh5/newWap/base/img/icon_05.png" alt="" style="width:1rem;height:1rem;margin-left: 0.3rem;margin-right: 17px;">
+                    </div>
+                    <div class="col-1">
+                        <div class="list-title">
+                            <p class="bank-name" v-if="item.bankGrpName.indexOf('现金宝') === -1">{{item.bankGrpName}} [ {{item.bankAccoDisplay}} ]</p>
+                            <p class="bank-name" v-else>{{item.bankGrpName}}</p>
+                            <p class="bank-id" v-text="item.limitRemark"></p>
+                        </div>
+                    </div>
+                    <div :class="'lh-130 ' + (item.signWay ==='1'?'shorcut':(item.signWay ==='2'?'union':'E-bank'))" v-if="item.bankGrpName.indexOf('现金宝') === -1">
+                        <a class="icon icon-shorcut" v-show="item.signWay =='1'">快捷</a>
+                        <a class="icon icon-union" v-show="item.signWay =='2'">银联通</a>
+                        <a class="icon icon-E-bank" v-show="item.signWay =='3'">网银</a>
+                        <a class="icon icon-E-bank" v-show="item.signWay =='4'">联通</a>
+                        <a class="icon icon-E-bank" v-show="item.signWay =='6'">云闪付</a>
+                        <a class="icon icon-E-bank" v-show="item.signWay =='7'">一网通</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <footer class="fixed-bottom border-top-red add_card_btn" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+            <ul class="grid-list">
+                <li class="grid-list-item heigth-100 lh-100 text-center font-34">
+                    <a class="goBindCard" href="/mobileEC/wap/card/bindCardInputCardInfo.html?fr=add" class="red">+添加银行卡</a>
+                </li>
+            </ul>
+        </footer>
+    </div>
+    </div>
+    <div class="next-step" @click = 'planOpreate' ref='newTop'>确定</div>
+</div>
+
+<script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script src="/tradeh5/newWap/base/js/lib/vue.js"></script>
+<script src="/tradeh5/newWap/base/js/lib/moment.min.js"></script>
+<script src="./js/createPlan.js"></script>
+</body>
+</html>

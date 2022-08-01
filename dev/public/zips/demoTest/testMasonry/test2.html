@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+    <script src="./jquery-3.5.1.min.js"></script>
+    <script src="./masonry.pkgd.min.js"></script>
+</head>
+<body>
+    <style>
+    html, body {height: 100%;min-height: 100%;}
+    .container {width: 100%; height: 100%; }
+    .card { width: 50%; }
+    .card.c1 {height: 100px; background-color: bisque;}
+    .card.c2 {height: 50px; background-color: gray;}
+    .card.c3 {height: 130px; background-color: burlywood;}
+    .card.c4 {height: 30px; background-color: #444;}
+    .card.c5 {height: 30px; background-color: #555;}
+    .card.c6 {height: 30px; background-color: #666;}
+    .card.c7 {height: 30px; background-color: #777;}
+    .card.c8 {height: 30px; background-color: #888;}
+    .card.c9 {height: 30px; background-color: #999;}
+    </style>
+    <div class="container">
+        <div class="card c1"></div>
+        <div class="card c2"></div>
+        <div class="card c3"></div>
+        <div class="card c4"></div>
+        <div class="card c5"></div>
+        <div class="card c6"></div>
+        <div class="card c7"></div>
+        <div class="card c8"></div>
+        <div class="card c9"></div>
+    </div>
+<script>
+var $container = $('#container');
+
+$(function() {
+    $grid = $('.container').masonry({
+        // columnWidth: '50%',
+        itemSelector: '.card'
+    });
+    for (let i = 0; i < 10; i++) {
+        setTimeout(function(){
+            // var tmp = '<div class="card c9"></div>';
+            var $tmp = $('<div class="card c' + (i+1) + '"></div>');
+            $grid.append( $tmp ).masonry( 'appended', $tmp )
+        }, 500*(i+1))
+        
+    }
+    
+});
+
+</script>
+</body>
+</html>

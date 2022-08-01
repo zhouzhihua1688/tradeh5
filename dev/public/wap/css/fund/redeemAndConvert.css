@@ -1,0 +1,343 @@
+[v-cloak] {
+  display: none;
+}
+.rc-tab-bar{
+  width: 100%;
+  display: flex;
+  background-color: #fff;
+}
+.rc-tab-bar li{
+  box-sizing: border-box;
+  flex: 1;
+  height: 2.25rem;
+  line-height: 2.25rem;
+  color: #000;
+  font-size: .75rem;
+  text-align: center;
+}
+.rc-tab-bar li.actives{
+  color: #fb5c5f;
+  border-bottom: 1px solid #fb5c5f;
+}
+.rc-convert .dim{
+  list-style: none;
+}
+.rc-transfund{
+  width: 100%;
+  position: relative;
+  background: #fff;
+  margin-bottom: .5rem;
+}
+.rc-outfund{
+  height: 2.5rem;
+  z-index: 0;
+}
+.rc-outfund .out {
+  background: #148ce6;
+  font-size: 0.6rem;
+  text-align: center;
+  line-height: 0.75rem;
+  border-radius: 2px;
+  margin-top: 1.1rem;
+  margin-left: 0.75rem;
+  float: left;
+  color: #fff;
+  padding: 1px 3px;
+}
+.rc-outfund .text{
+  width: 80%;
+  height: 100%;
+  float: left;
+  margin-left: 0.35rem;
+}
+.rc-outfund .text .fund_text{
+  overflow: hidden;
+  display: inline-block;
+  max-width: 78%;
+  font-size: 0.75rem;
+  margin-top: 0.95rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #000;
+  vertical-align: middle;
+}
+.rc-outfund .text span{
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.65rem;
+  /* margin-top: 0.5rem; */
+  color: #666;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+.rc-middle{
+  width: 100%;
+  height: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.rc-middle .rc-first{
+  height: 1px;
+  background: #efefef;
+  width: 40%;
+}
+.rc-middle .rc-second{
+  width: 20%;
+  height: 0.75rem;
+  border: 1px solid #ccc;
+  /* float: left; */
+  text-align: center;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.rc-middle .rc-second .icon{
+  width: 0.45rem;
+  height: 0.45rem;
+  background: url(../../images/fundgroup/fund_icon2.png) no-repeat;
+  background-size: 100% 100%;
+  display: inline-block;
+  margin-top: 0.1rem;
+  vertical-align: top;
+  padding: 0 5px;
+}
+.rc-middle .rc-second .resale {
+  font-size: 0.5rem;
+  color: #666;
+  display: inline-block;
+  vertical-align: top;
+}
+.rc-middle .rc-third {
+  height: 1px;
+  width: 40%;
+  background: #efefef;
+  /* margin-top: 0.4rem; */
+}
+.rc-infund{
+  padding: 0 .75rem;
+  height: 2.5rem;
+}
+.rc-infund a{
+  display: block;
+  width: 90%;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  color: #148ce6;
+  font-size: .75rem;
+}
+.rc-infund .infund-text{
+  height: 2.5rem;
+  line-height: 2.5rem;
+}
+.rc-infund .infund-text span{
+  vertical-align: middle;
+}
+.rc-infund .infund-text .intext{
+  padding: 1px 3px;
+  background-color: #fb5c5f;
+  color: #fff;
+  font-size: 0.6rem;
+  border-radius: 2px;
+}
+.rc-infund .infund-text .fund-name{
+  display: inline-block;
+  color: #000;
+  font-size: .75rem;
+  margin-left: .4rem;
+  max-width: 70%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.rc-infund .infund-text .fund-code{
+  font-size: .65rem;
+  margin-left: .5rem;
+}
+.rc-transNum{
+  background-color: #fff;
+}
+.transNum-title{
+  padding: .75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.transNum-title span{
+  color: #000;
+  font-size: .75rem;
+}
+.transNum-title a{
+  font-size: 0.65rem;
+  color: #40a7ef;
+}
+.rc-tips{
+  font-size: .6rem;
+  color: #666;
+  padding: 0 .75rem .5rem .75rem;
+}
+.rc-tips span {
+  color: #fb5c5f;
+}
+.rc-percent{
+  width: 100%;
+  height: 2.25rem;
+  background: #fff;
+  font-size: 0.75rem;
+  color: #000;
+  border-bottom: 1px solid #eee;
+  
+}
+.rc-percent .third,.rc-percent .two,.rc-percent .all{
+  width: 3.0rem;
+  height: 1rem;
+  border: 1px solid #ccc;
+  float: left;
+  border-radius: 1.25rem;
+  text-align: center;
+  line-height: 1rem;
+  margin-left: 0.75rem;
+}
+.rc-desc{
+  padding: 0 .75rem;
+  height: 2rem;
+  line-height: 2rem;
+  font-size: .65rem;
+}
+.rc-desc span,.rc-reckon span{
+  color: #fb5c5f;
+}
+.rc-reckon{
+  padding: .35rem .75rem;
+  font-size: .6rem;
+  line-height: 1.5;
+}
+.rc-reckon a{
+  color: #148ce6;
+}
+.rc-toggle{
+  display: flex;
+  padding: 0 .7rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  background-color: #fff;
+  justify-content: space-between;
+  align-items: center;
+  color: #000;
+}
+/* .rc-toggle>div{
+  display: flex;
+  align-items: center;
+} */
+.rc-toggle img{
+  width: .4rem;
+  margin-left: .5rem;
+  vertical-align: middle;
+  margin-top: -3px;
+}
+.rc-confirm{
+  padding: .75rem;
+  padding-bottom: 2rem;
+}
+.rc-confirm a{
+  display: block;
+  width: 100%;
+  height: 2.25rem;
+  line-height: 2.25rem;
+  text-align: center;
+  color: #fff;
+  font-size: 0.85rem;
+  border-radius: 2px;
+  background: #ddd6d6;
+}
+.rc-confirm-fina{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, .7);
+  display: none;
+  z-index: 5;
+}
+.rc-confirm-fina span{
+  color: #fb5c5f;
+}
+.rc-confirm-fina .Bomb-box .Bomb-box-main{
+  transform: translate(-50%,-50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0 ;
+}
+.rc-confirm-fina .Bomb-box .Bomb-box-main .text-center{
+  padding-top: .75rem;
+  word-break:break-all;
+  color: #000;
+  text-align: justify;
+}
+.rc-confirm-fina .Bomb-box .Bomb-box-main .text-center a{
+  color: #148ce6;
+}
+.rc-confirm-fina .Bomb-box-footer{
+  display: flex;
+}
+.rc-confirm-fina .Bomb-box-footer a{
+  flex: 1;
+}
+.rc-confirm-fina .Bomb-box-footer a:nth-child(1){
+  border-right: 1px #eee solid;
+}
+
+.agreement {
+  /* display: flex; */
+  /* align-items: center; */
+  padding: .75rem;
+  /* padding-right: .75rem; */
+  font-size: .65rem;
+  color: #666;
+}
+
+/* .form-content .form-box .agreement label {
+ 
+} */
+
+.agreement label input[type="checkbox"] {
+  display: none;
+}
+
+.agreement input[type="checkbox"]+i {
+  display: block;
+  width: .65rem;
+  height: .65rem;
+  box-sizing: border-box;
+  border: 1px #666 solid;
+  border-radius: 50%;
+  margin-top: 3px;
+}
+
+.agreement input[type="checkbox"]:checked+i {
+  display: block;
+  width: .65rem;
+  height: .65rem;
+  border:none;
+  background: url('../../images/fund/check.png') no-repeat;
+  background-size: 100% 100%;
+}
+.agreement p{
+  margin-left: .5rem;
+}
+.styleFlex{
+  display: flex;
+}
+.new-mask{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, .7);
+  display: none;
+  z-index: 5;
+}

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>完成</title>
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/common.css">
+    <link rel="stylesheet" href="css/planSuccess.css">
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="block">
+                <div class="title">
+                    <div class="img"></div>
+                    <div class="text">创建成功</div>
+                </div>
+                <div class="desc">{{localDate}}</div>
+            </div>
+            <div class="line-red"></div>
+            <div class="block">
+                <div class="title">
+                    <div class="img1"></div>
+                    <div class="text">邀请家庭成员加速目标完成</div>
+                    <!-- ，<a href="inviteMemList.html">立即邀请</a> -->
+                </div>
+            </div>
+            <div class="line-gray"></div>
+            <div class="block" style="margin-top: 2.5rem  /* 100/40 */">
+                <div class="title">
+                    <div class="img1"></div>
+                    <div class="text">设置家庭成员权限<div class="alert"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="block2">
+                <div class="arrow"></div>
+                <div class="content">
+                    <div class="item" @click="modifyDialog(1)">
+                        <div class="text1">仅查看</div>
+                        <div class="text2">{{viewOnlyText}}</div>
+                        <div class="img"></div>
+                    </div>
+                    <div class="item" @click="modifyDialog(3)">
+                        <div class="text1">可投资</div>
+                        <div class="text2">{{investableText}}</div>
+                        <div class="img"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="next-btn">确认</div>
+        </div>
+        <div class="Bomb-box">
+            <div class="Bomb-box-main">
+                <div class="Bomb-box-content">
+                    <p class="text-center" style="color: #666;" v-text="tipInfo">
+                       
+                    </p>
+                </div>
+                <a class="Bomb-box-ok" href="javascript:;"
+                    onclick="this.parentElement.parentElement.style='display:none'">我知道了</a>
+            </div>
+        </div>
+        <div class="role" v-show="(list.length>0)&&roleShow">
+            <div class="roleWarpper">
+                <div class="title">
+                    <a href="javascript:;" @click="roleShow=false">取消</a>
+                    <span>{{roleTitle}}</span>
+                    <a href="javascript:;" @click="modifySuccse">完成</a>
+                </div>
+                <div class="roleList">
+                    <div class="flex">
+                        <span>全部</span>
+                        <label for="checkAll">
+                            <input type="checkbox" id="checkAll" @click="checkAll" v-model="checked">
+                            <i></i>
+                        </label>
+                        　　
+                    </div>
+                    <ul>
+                        　　<li v-for="(item,index) in list" :key="index" class="flex">
+                            　<span>{{item.memberRoleName}} ({{item.memberNameDisplay}})</span>
+                            <label :for="'role'+index">
+                                <input type="checkbox" :id="'role'+index" v-model="checkModel"
+                                    :value="item.limitItemId">
+                                <i></i>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+    <script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/lib/vue.min.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    list: [],
+                    checked: false, //是否全选
+                    checkModel: [], //双向数据绑定的数组，
+                    protectItemId: '',
+                    protectItemType: '',
+                    permission: 1,
+                    roleShow: false,
+                    roleTitle: '仅查看',
+                    accountId: '',
+                    localDate:'',
+                    beneficiary:'',
+                    tipInfo:'',
+                }
+            },
+            watch: {
+                checkModel() {
+                    if (this.checkModel.length == this.list.length) {
+                        this.checked = true;
+                    } else {
+                        this.checked = false;
+                    }
+                }
+            },
+            computed: {
+                // 仅查看文案
+                viewOnlyText: function () {
+                    var arr = []
+                    this.list.forEach((item) => {
+                        if (item.permission === 1) {
+                            arr.push(item.memberRoleName)
+                        }
+                    })
+                    return arr.join('、');
+                },
+                // 可投资文案
+                investableText: function () {
+                    var arr = []
+                    this.list.forEach((item) => {
+                        if (item.permission === 3) {
+                            arr.push(item.memberRoleName)
+                        }
+                    })
+                    return arr.join('、');
+                }
+
+            },
+            mounted() {
+                // 创建计划到完成页面时
+                this.beneficiary=utils.getSession('__memberid');
+                window.sessionStorage.removeItem('_createInit');
+                $('.alert').on('click', function () {
+                    this.tipInfo=" “仅查看”表示家庭成员可查看该计划下的资产，但不能投资。“可投资”表示家庭成员可以向该计划进行投资。";
+                    $('.Bomb-box').show();
+                }.bind(this));
+                $(".next-btn").click(function () {
+                    window.location.href = "/tradeh5/newWap/familyAccount/home.html"
+                })
+                this.accountId = utils.getSession('_setAccountId');
+                this.getRoleList(this.accountId);
+                Date.prototype.Format = function (fmt) { //author: meizz 
+                    var o = {
+                        "M+": this.getMonth() + 1, //月份 
+                        "d+": this.getDate(), //日 
+                        "h+": this.getHours(), //小时 
+                        "m+": this.getMinutes(), //分 
+                        "s+": this.getSeconds(), //秒 
+                        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+                        "S": this.getMilliseconds() //毫秒 
+                    };
+                    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 -
+                        RegExp.$1.length));
+                    for (var k in o)
+                        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1
+                            .length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                    return fmt;
+                }
+                this.localDate=new Date().Format("yyyy-MM-dd hh:mm:ss");  
+            },
+            methods: {
+                checkAll() {
+                    if (this.checked) {
+                        this.checkModel = [];
+                    } else {
+                        this.checkModel = this.list.map((item) => item.limitItemId)
+                    }
+                },
+                // 展示roleList弹窗，并且赋值操作
+                modifyDialog: function (permission) {
+                    (permission == 1) && (this.roleTitle = "仅查看");
+                    (permission == 3) && (this.roleTitle = "可投资");
+                    this.checkModel = [];
+                    this.permission = permission;
+                    this.roleShow = true;
+                    this.list.forEach((item) => {
+                        if (item.permission == permission) {
+                            this.checkModel.push(item.limitItemId);
+                        }
+                    })
+                },
+                // 完成按钮---修改权限
+                // 修改权限列表
+                modifySuccse: function () {
+                    var limitItemAndPermissionVoList;
+                    var params = {};
+                    limitItemAndPermissionVoList = this.list.map((item) => {
+                        return {
+                            limitItemId: item.limitItemId,
+                            limitItemType: item.limitItemType,
+                            permission: this.checkModel.includes(item.limitItemId) ? this
+                                .permission : (item.permission == this.permission ? 0 : item
+                                    .permission)
+                        }
+                    });
+                    console.log('123',this.list.filter(item=>item.limitItemId==this.beneficiary)[0]);
+                    console.log('123',this.list);
+                    console.log(this.beneficiary);
+                    if(this.list.filter(item=>item.limitItemId==this.beneficiary)[0]&&(this.list.filter(item=>item.limitItemId==this.beneficiary)[0].permission==this.permission)&&(limitItemAndPermissionVoList.filter(item=>item.limitItemId==this.beneficiary)[0].permission==0)){
+                        this.roleShow = false;
+                        this.tipInfo="计划受益者不能修改为无权限";
+                        $('.Bomb-box').show();
+                        return;
+                    }
+                    params.limitItemAndPermissionVoList = limitItemAndPermissionVoList;
+                    params.protectItemId = this.protectItemId;
+                    params.protectItemType = this.protectItemType;
+                    utils.ajax({
+                        url: '/sfs/v1/permission/item',
+                        type: 'POST',
+                        data: params,
+                        success: function (result) {
+                            if (result.returnCode === 0) {
+                                // console.log(result);
+                                this.roleShow = false;
+                                this.getRoleList(this.accountId);
+                            }
+                        }.bind(this)
+                    })
+                },
+                // 获取权限列表
+                getRoleList(accountId) {
+                    utils.ajax({
+                        url: '/sfs/v1/permission/item?protectItemType=1&protectItemId=' + accountId,
+                        success: function (result) {
+                            if (result.returnCode === 0) {
+                                console.log(result);
+                                this.protectItemId = result.body.protectItemId;
+                                this.protectItemType = result.body.protectItemType;
+                                this.list = result.body.limitMemberAndPermissionVoList
+                            }
+                        }.bind(this)
+                    })
+                },
+
+            }
+        })
+    </script>
+</body>
+
+</html>

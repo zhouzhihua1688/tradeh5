@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta charset="utf8">-->
+    <title>常见问题</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <script type="text/javascript" src="js/zepto.min.js"></script>
+    <script>
+        setFont();
+        window.onresize = function () {
+            setFont();
+        };
+        function setFont() {
+            var windowWidth = $(window).width();
+            windowWidth = windowWidth > 750 ? 750 : windowWidth;
+            $("html").css({"fontSize": windowWidth / (750 / 40)});
+        }
+
+    </script>
+    <style type="text/css">
+        .font-arial {
+            font-family: Arial;
+        }
+        body { font-size: 14px;}
+        @media only screen and (max-width: 320px) {
+            body { font-size: 12px;}
+        }
+        button { outline: none; }
+        img {  vertical-align: top;  border: 0;  outline: 0;  width: 100%;  height: auto; }
+        p { line-height: 1.5;  word-wrap: break-word;  text-align: justify; font-size: 1.1em;}
+
+        .content { padding: 0 0.56rem 2em; background-color: #fff; }
+        h2 { font-size: 1.3em; font-weight: bolder; padding: 0.8em 0; color: #000;}
+
+        section article { padding:0 1rem;}
+        .section1 h4,
+        .section1 h3 { font-size: 1.15em;}
+        .section1 h4 { padding: 4px 0;}
+        .section1 .img-box { padding: 8px 0; }
+        .padding-bottom { padding-bottom: 0.6em;}
+        p .tips  { font-size: .8em; color: #999999;}
+        .red { color: #fb5c5f;}
+
+
+    </style>
+</head>
+<body>
+<div class="content">
+    <section class="section1">
+        <h2>1. 如何设置工资宝？</h2>
+        <article>
+            <h3>APP端共有三个入口：</h3>
+            <h4>①【首页】->【工资宝】；</h4>
+            <div class="img-box"><img src="img/flow_chart_01.png" alt="【首页】->【工资宝】"/></div>
+            <h4>②【首页】->【充值】->【自动充值】；</h4>
+            <div class="img-box"><img src="img/flow_chart_02.png" alt="【首页】->【充值】->【工资宝】"/></div>
+            <h4>③【首页】->【现金宝】->【自动充值】。</h4>
+            <div class="img-box"><img src="img/flow_chart_03.png" alt="【首页】->【现金宝】->【工资宝】"/></div>
+            <h4>进入工资宝设置界面，流程如下：</h4>
+            <p>① 选择银行卡</p>
+            <p>② 填写充值金额（金额0.01元起）</p>
+            <p>③ 选择充值周期、日期（每月/每双周/每周）</p>
+            <p>④ 填写备注内容（如“工资20170804”，也可不填）</p>
+        </article>
+    </section>
+    <section>
+        <h2>2. 通过工资宝转入的资金进到哪了？</h2>
+        <article>
+            <p class="padding-bottom">工资宝转入的资金自动转入现金宝中，可以在[首页]-[现金宝]-[交易查询]查看到转入的资产和每日收益。</p>
+            <p><span class="tips">温馨提示：现金宝支持当日充值当日取出，如临时需要资金，可直接从现金宝中取出即可。资金取出秒级到账，不收手续费。具体可参见取现页面的《取现规则》。</span></p>
+        </article>
+    </section>
+    <section>
+        <h2>3. 工资宝当月转入失败怎么办？</h2>
+        <article>
+            <p class="padding-bottom">我司会在每个基金交易日凌晨2:00左右对当天所有需要发起扣款的工资宝计划执行扣款，为保证每月工资能顺利转入，<span class="red">建议设置转入日期为每月工资下发日的后一日；</span></p>
+            <p>如扣款失败，系统会发送短信进行提醒，您可在资金充足时登录现金宝APP手动转入。</p>
+        </article>
+    </section>
+    <section>
+        <h2>4. 工资宝计划的扣款规则是怎样的？</h2>
+        <article>
+            <p class="padding-bottom">当天设置的工资宝计划在<span class="red">下一个自然日生效</span>。由于节假日当天转入无收益，工资宝的扣款只在基金交易日发起，设置的转入日期如遇节假日，<span class="red">会自动顺延到节假日后的下一个基金交易日发起扣款</span>；</p>
+            <p class="padding-bottom">系统在每个基金交易日09:00—10:00左右对当天所有需要发起扣款的工资宝计划执行扣款，为保证每月工资能顺利转入成功，<span class="red">建议设置转入日期为每月工资下发日的后一日。</span></p>
+            <p><span class="tips">温馨提醒：货币基金不等同于银行存款，基金投资需谨慎。设置工资宝前请仔细阅读工资宝服务协议了解相关规则。</span></p>
+        </article>
+    </section>
+</div>
+</body>
+</html>

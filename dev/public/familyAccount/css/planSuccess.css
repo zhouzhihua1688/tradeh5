@@ -1,0 +1,213 @@
+html,body{
+    width: 100%;
+    height: 100%;
+}
+body {
+    background-color: #fff;
+}
+
+.container {
+    position: relative;
+    padding: 0 0.75rem /* 30/40 */;
+}
+
+.line-red {
+    position: absolute;
+    top: 1rem /* 40/40 */;
+    left: 1.475rem /* 59/40 */;
+    width: 0;
+    height: 2.6rem /* 100/40 */;
+    border-left: 0.05rem /* 2/40 */ solid #fb5c5f;
+}
+
+.line-gray {
+    position: absolute;
+    top: 4.6rem /* 40/40 */;
+    left: 1.475rem /* 59/40 */;
+    width: 0;
+    height: 2.6rem /* 100/40 */;
+    border-left: 0.05rem /* 2/40 */ solid #ccc;
+}
+
+.block {
+    margin-top: 1.5rem /* 60/40 */;
+}
+
+.block .title {
+    display: flex;
+}
+
+.block .title .img {
+    margin-left: 0.25rem /* 10/40 */;
+    width: 1rem /* 40/40 */;
+    height: 1rem /* 40/40 */;
+    background: url("/tradeh5/newWap/familyAccount/img/plan_end.png") no-repeat;
+    background-size: cover;
+}
+
+.block .title .img1 {
+    margin-left: 0.25rem /* 10/40 */;
+    width: 1rem /* 40/40 */;
+    height: 1rem /* 40/40 */;
+    background: url("/tradeh5/newWap/familyAccount/img/plan_waiting.png") no-repeat;
+    background-size: cover;
+}
+
+.block .title .text {
+    flex: 1;
+    padding-left: 0.75rem /* 30/40 */;
+    font-size: 0.75rem /* 30/40 */;
+    height: 1rem /* 40/40 */;
+    line-height: 1rem /* 40/40 */;
+}
+
+.block .title .text .alert {
+    display: inline-block;
+    margin-left: 0.25rem /* 10/40 */;
+    width: 0.75rem /* 30/40 */;
+    height: 0.75rem /* 30/40 */;
+    vertical-align: middle;
+    background: url("/tradeh5/newWap/familyAccount/img/tanhao.png") no-repeat;
+    background-size: cover;
+}
+
+.block .desc {
+    margin-top: 0.25rem /* 10/40 */;
+    padding-left: 2rem /* 80/40 */;
+    font-size: 0.65rem /* 26/40 */;
+    color: #666;
+}
+
+.block2 {
+    position: relative;
+    height: 5rem /* 200/40 */;
+    padding-left: 2rem /* 80/40 */;
+}
+
+.block2 .arrow {
+    position: absolute;
+    top: -0.125rem /* -5/40 */;
+    left: 2.75rem /* 110/40 */;
+    width: 0.375rem /* 15/40 */;
+    height: 0.375rem /* 15/40 */;
+    background-color: #f6f6f6;
+    transform: rotate(45deg);
+}
+
+.block2 .content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.25rem /* 10/40 */;
+    border-radius: 0.075rem /* 3/40 */;
+    width: 100%;
+    height: 4.75rem /* 190/40 */;
+    background-color: #f6f6f6;
+}
+
+.block2 .content .item {
+    flex: 1;
+    display: flex;
+    line-height: 2.375rem /* 95/40 */;
+    padding: 0 0.75rem /* 30/40 */;
+    font-size: 0.7rem /* 28/40 */;
+}
+
+.block2 .content .item .text1 {
+    width: 2.5rem /* 100/40 */;
+}
+
+.block2 .content .item .text2 {
+    flex: 1;
+    padding-right: 0.25rem /* 10/40 */;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.block2 .content .item .img {
+    margin-top: 0.8rem /* 32/40 */;
+    width: 0.4rem /* 16/40 */;
+    height: 0.75rem /* 30/40 */;
+    background: url("/tradeh5/newWap/familyAccount/img/arr.png") no-repeat;
+    background-size: cover;
+}
+
+.next-btn {
+    margin-top: 1.25rem /* 50/40 */;
+    height: 2.25rem /* 90/40 */;
+    line-height: 2.25rem /* 90/40 */;
+    font-size: 0.85rem /* 34/40 */;
+    color: #fff;
+    background-color: #0757b2;
+    text-align: center;
+    border-radius: 0.075rem /* 3/40 */;
+}
+.role{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.7);
+    z-index: 2;
+    font-size: .75rem;
+}
+.role .roleWarpper{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 19.75rem;
+    background-color: #fff;
+    z-index: 10;
+}
+.role .roleWarpper .title{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1.25rem;
+    line-height: 2.25rem;
+    border-bottom: 1px solid #eeeeee;
+}
+.role .roleWarpper .title>a{
+    font-size: .7rem;
+}
+.role .roleWarpper .roleList{
+    margin-left: .75rem;
+    padding-left: .5rem;
+    
+}
+.role .roleWarpper .roleList ul{
+    height: 15rem;
+   overflow-y: scroll;
+}
+.role .roleWarpper .roleList .flex{
+    display: flex;
+    height: 2.5rem;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px #eee solid;
+    padding-right: 1.25rem;
+}
+.role label input[type="checkbox"] {
+    display: none;
+}
+
+.role input[type="checkbox"]+i {
+    display: block;
+    width: .75rem;
+    height: .75rem;
+    box-sizing: border-box;
+    border: 1px #666 solid;
+    border-radius: 50%;
+    /* margin-top: 2px; */
+}
+
+.role input[type="checkbox"]:checked+i {
+    display: block;
+    width: .75rem;
+    height: .75rem;
+    border: 0;
+    background: url('../img/active.png') no-repeat;
+    background-size: 100% 100%;
+}

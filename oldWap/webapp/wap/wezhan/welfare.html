@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--<meta charset="GBK">-->
+    <meta charset="utf8">
+    <title>福利</title>
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/wezhan/base_wezhan.css">
+    <link rel="stylesheet" type="text/css" href="../css/wezhan/welfare.css?1">
+    <link rel="stylesheet" type="text/css" href="../css/base.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        .side-right { position: fixed; right: 0;  bottom:20%;z-index:99;display:none;}
+  		.click_hide{height:.8rem;width:100%;bottom:.25rem;position:absolute}
+    </style>
+</head>
+
+<body>
+    <div class="main"  id="panel">
+	<div class="side-right" id="side-right">
+    </div>
+        <div class="head">
+            <div class="text">你有<span class="number" id="red_num">0</span>个红包、<span class="number" id="cop_num">0</span> 张卡券待领取</div>
+        </div>
+
+        <div class="aircle">
+            <div class="first">
+                <a href="redEnvelopes.html">
+                    <div class="icon">
+                        <div class="icon_text" id="red" style="display:none;"></div>
+                    </div>
+                    <div class="red_text">红包</div>
+                </a>
+            </div>
+            <div class="second">
+                <a href="redEnvelopes.html?f=c">
+                    <div class="icon">
+                        <div class="icon_text" id="coup" style="display:none;"></div>
+                    </div>
+                    <div class="red_text">卡券</div>
+                </a>
+            </div>
+            <div class="third">
+                <a href="javascript:;" id="tfb">
+                    <div class="icon">
+                        
+                    </div>
+                    <div class="red_text">添富币</div>
+                </a>
+            </div>
+        </div>
+        <div class="active">
+            <div class="text">获取福利</div>
+            <div class="much"><!--<a href="javascript:;">更多活动</a>--></div>
+        </div>
+
+    </div>
+	
+    <div class="footer_btn">
+        <a href="service.html">
+            <img src="../images/wezhan/footer_01.png" alt="" >
+            <span>服务</span>
+        </a>
+        <a href="viewPoint.html">
+            <img src="../images/wezhan/footer_02.png" alt="">
+            <span>观点</span>
+        </a>
+        <a href="javascript:;">
+            <img src="../images/wezhan/footer3.png" alt="">
+            <span class="active_color">福利</span>
+        </a>
+    </div>
+    <script src="../js/lib/jquery.3.4.1.min.js" type="text/javascript"></script>
+	<script src="../js/common.js?20210106" type="text/javascript"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script>
+    //根据访问域名判断环境修改跳转地址前缀
+	var prefix = "https://app.99fund.com";
+    var domain = document.domain;
+    if(domain.indexOf("sit") >= 0){//sit
+    	prefix = "http://appsit.99fund.com.cn:7081";
+    }else if(domain.indexOf("uat") >= 0){//uat
+    	prefix = "http://appuat.99fund.com.cn:7081";
+    }
+    var url = "/activity-center/act-resources/taskPages/task/wdtfh/coinList.html?f=wz";
+    $("#tfb").attr("href",prefix+url);
+	getPackets(1,1,1000);
+	//红包数据
+	function getPackets(stat,pageNo,pageSize){
+			console.log(stat,pageNo,pageSize)
+
+		App.getNoJump("/mobileEC/services/activity/query_bonus_list_by_query_tp?queryTp=" + stat+"&pageNo="+pageNo+"&pageSize="+pageSize, null, function(result){
+            if(result.returnCode == 0){
+                if(result.body != undefined && result.body != null){
+                    var lists = result.body.result;
+                    if(lists != undefined && lists != ""){
+                        $("#red_num").html(parseInt(lists.length));
+						if(parseInt(lists.length) > 0){
+							$("#red").show();
+						}
+                    }
+                    getCoupons(0,1,1000);
+                }
+            } else {
+                $(".head").hide();
+                $(".aircle").hide();
+            }
+		});
+	}
+	//礼券列表数据			
+	function getCoupons(stat,pageNo,pageSize){
+			console.log(stat,pageNo,pageSize)
+		App.get("/mobileEC/services/coupon/query_coupon_list?status=" + stat+"&pageNo="+pageNo+"&pageSize="+pageSize, null, function(result){
+
+			if(result.body != undefined && result.body != null){
+				var lists = result.body.list;
+				if(lists != undefined && lists != ""){
+					$("#cop_num").html(parseInt(lists.length));
+					if(parseInt(lists.length) > 0){
+						$("#coup").show();
+					}
+				}
+			}
+		});
+	}
+	
+	$(function () {
+        var url = App.projectNm + "/app_func/query_cust_layout?layoutId=wap_welfare&r=" + (Math.random()*10000).toFixed(0);
+
+        App.get(url,null,function(result){
+            // console.log("layout:", result);
+            if (result.body.layout != undefined && result.body.layout != null){
+                var layoutList = result.body.layout;
+                var isAddLine = true;
+                var size = layoutList.length;
+                for (var index in layoutList) {
+                    if (index == size - 1) {
+                        isAddLine = false;
+                    }
+                    Layout.drawingLayout('#panel', layoutList[index], index, isAddLine);
+                }
+            }
+        });
+    });
+	
+	
+var Layout = {
+    wapWelfareList: {
+        base_frame:"<div class='wapWelfareList_{index}' ></div>",
+        data_frame:"<a href='{url}'><div style='font-size:0;background:#fff'><img src='{imageUrl}' width='375px' height='99px'></div></a>"
+            +"<div class='five_active'><div class='active_text'>{picUpperLeftContext}</div>"
+			+"<div class='active_time'>{picLowerRightContext}</div></div>"
+    },
+	floatingImage:{
+        base_frame:"<div class='side-right floatingImage_{index}' ></div>",
+        data_frame:"<a href='{btnUrl}'><img src='{imageUrl}'>{btnName}</a>"
+	},
+    /***
+     * 绘制布局
+     */
+    drawingLayout:function (panel, layout, index, isAddLine) {
+        if(layout != undefined && layout != null){
+            var frame = Layout[layout.temId];
+
+            var panelHtml = frame.base_frame.replace(/\{index\}/g, index);
+            $(panel).append(panelHtml);
+            if (isAddLine) {
+                $(panel).append(Layout.wap_line);
+            }
+            var url = App.applicationNm + layout.requestUrl;
+            if (layout.requestMethod == 'GET'){
+                App.get(url, function () {
+                    if(layout.temId == "wap_banner"){
+                        var mySwiper = new Swiper ('.swiper-container', {
+                            direction: 'horizontal',
+                            loop: true,
+                            autoplay:{disableOnInteraction: false},
+                            // 如果需要分页器
+                            pagination: {
+                                el: '.swiper-pagination'
+                            }
+                        });
+                    }
+                }, function (result) {
+                    if (result.body != undefined && result.body != null) {
+                        Layout.drawingLayoutContent(layout, index, frame, result.body.theme);
+                    }
+                });
+            }else {
+                App.post(url, null, null, function (result) {
+                    if (result.body != undefined && result.body != null) {
+                        Layout.drawingLayoutContent(layout, index, frame, result.body.theme);
+                    }
+                });
+            }
+        }
+    },
+    /***
+     * 布局内容加载
+     */
+    drawingLayoutContent:function (layout, index, frame, theme) {
+        var blankClass = "." + layout.temId + "_" + index;
+        var contentHtml = "";
+        var themeInfo = theme[0];
+
+        if(App.isNotNull(themeInfo)){
+            $(blankClass + '_title').html(themeInfo.themeTitle);
+            $(blankClass + '_subTitle').html(themeInfo.themesubTitle);
+            $(blankClass + '_moreTxt').html(themeInfo.viewmoreTitle);
+            if(App.isNotEmpty(themeInfo.viewmoreUrl)){
+                $(blankClass + '_moreTxt').attr('href', themeInfo.viewmoreUrl);
+            }
+        }
+
+        if(layout.temId == "wapWelfareList" ){
+            contentHtml = Layout.drawingWelfareList(frame, theme);
+        }else if(layout.temId == "floatingImage"){
+			if(theme[0].object[0] != null){
+				$("#side-right").show().html("<a href='"+theme[0].object[0].btnUrl+"'>"+theme[0].object[0].btnName+"</a><div class='click_hide'></div>");
+				if(theme[0].object[0].imageUrl != ''){
+					$("#side-right a").html("<img src='"+theme[0].object[0].imageUrl+"' style='width:"+theme[0].object[0].imgWidth+"'>")
+				}
+			}
+			$(".click_hide").click(function(){
+				$("#side-right").hide()
+			});
+        }
+        if(App.isNotEmpty(contentHtml)){
+            $(blankClass).append(contentHtml);
+        }
+    },
+
+    /***
+     * 活动列表模块
+     */
+    drawingWelfareList:function (frame, theme) {
+        var html = "";
+        if (theme != undefined && theme != null && theme.length > 0) {
+            theme[0].object.forEach(function (item) {
+                html += frame.data_frame.replace("{url}", item.url)
+                                        .replace("{imageUrl}", item.imageUrl)
+										.replace("{picUpperLeftContext}", item.picUpperLeftContext)
+                                        .replace("{picLowerRightContext}", item.picLowerRightContext);
+            });
+        }
+        return html;
+    }
+ };
+ 
+	</script>
+</body>
+
+</html>

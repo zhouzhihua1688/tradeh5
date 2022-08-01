@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>亲情账户</title>
+    <link rel="stylesheet" href="../base/css/base.css">
+    <link rel="stylesheet" href="./css/home.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+    <script type="text/javascript" src="../base/js/needLogin.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+        /* 202110105修改样式-start */
+        .header-asset .member-list .jump-member .img-boxs .role {
+            visibility: hidden;
+            position: relative;
+            left: 50%;
+            z-index: 1;
+            width: 1.2rem;
+            height: 0.65rem;
+            line-height: .65rem;
+            text-align: center;
+            border-radius: 0.325rem;
+            margin-left: -0.6rem;
+            margin-top: -0.325rem;
+            border: 1px solid #FB5C5F;
+            box-sizing: border-box;
+            font-size: .3rem;
+            color: #FB5C5F;
+            background-color: #fff;
+            margin-bottom: 0rem;
+        }
+        .header-asset .member-list .jump-member img {
+            margin-top: 0.35rem;
+            margin-bottom: 0rem;
+        }
+        /* 202110105修改样式-end */
+      
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <a href="./familyMember.html" class="member font-28" v-show="!isInvestment">家庭成员</a>
+        <div class="header-banner" v-if="!isInvestment&&recommendHeader.length>0">
+            <img :src="recommendHeader[0].imageUrl" alt="" @click="headJump(recommendHeader[0].url)">
+            <!-- <a :href="recommendHeader[0].url" ></a> -->
+        </div>
+        <div class="header-asset-wrapper" v-if="isInvestment">
+            <div class="header-asset">
+                <a href="javascript:;" class="toogle-view" @click="viewJump(currentMemberInfo.memberId)"><img
+                        src="./img/home/icon-toggle.png">切换视角</a>
+                <p class="title">账户列表<span>点击头像查看投资详情</span></p>
+                <div class="member-list">
+                    <div class="members" v-for="(item,index) in memberList" :class="{active:index===currentMemberIndex}"
+                        @click="selectMember(index,item)">
+                        <div class="img-boxs">
+                            <i></i>
+                            <img :src="item.avatarImage" alt=""
+                                onerror="this.onerror=null;this.src='./img/home/avatar-default.png'">  
+                            <div class="role" v-if="item.custNo!==selfCustNo&&!item.admin"></div> <!-- 这里加一个节点只是用作让名字文本对其在同一水平线-->  
+                            <div class="role" v-if='item.custNo===selfCustNo' :class="{active:item.custNo===selfCustNo}">
+                                我
+                            </div>
+                            <!-- 1、当前如果既是管理员又是本人登录，则展示标签：我
+                                2、当前如果是本人登录，但非管理员，则展示标签我。管理员成员头像下展示：管理员 -->
+                            <div class='role' v-if='item.custNo!==selfCustNo&&item.admin'  :class="{active:item.custNo!==selfCustNo&&item.admin}">管理员</div>
+                        </div>
+                        <p>{{item.memberNameDisplay}}</p>
+                        <p>({{item.memberRoleName}})</p>
+                    </div>
+                    <div class="jump-member" @click="jumpMemberList">
+                        <div class="img-boxs">
+                            <img src="./img/home/member.png" alt="">
+                            <div class="role"></div>
+                        </div>    
+                            <p>查看家庭</p>
+                            <p>成员</p>
+                    </div>
+                </div>
+                <div class="asset-card">
+                    <!-- 总资产后面需要加上   ： （元） -->
+                    <p class="asset-title" v-cloak>总资产{{'（'+currentMemberInfo.currencyTypeUnit +'）'}}</p>
+                    <p class="asset-num">{{currentMemberInfo.assetTotalAmount | moneyFormat}}</p>
+                    <div class="asset-info">
+                        <div class="text-l">
+                            <p v-if="currentMemberInfo.yieldDate">
+                                最新收益({{currentMemberInfo.yieldDate | yieldDateFormat}})</p>
+                            <p v-else>最新收益</p>
+                            <p :style="currentMemberInfo.lastYield <0?'color:green':''">
+                                {{currentMemberInfo.lastYield | moneyFormat}}</p>
+                        </div>
+                        <div class="text-c">
+                            <p>持有收益</p>
+                            <p>{{currentMemberInfo.holdYield |moneyFormat}}</p>
+                        </div>
+                        <div class="text-r">
+                            <p>累计收益</p>
+                            <p>{{currentMemberInfo.totalYield |moneyFormat}}</p>
+                        </div>
+                    </div>
+                    <a href="javascript:;" class="asset-tip" @click="cardJump"
+                        v-if="currentMemberInfo.investMemberCount>0">
+                        <span>{{currentMemberInfo.investMemberCount}}位家庭成员正在参与投资</span>
+                        <img src="./img/home/arrow.png" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="content-layout" >
+            <div class="layout-card" v-for="(item,index) in recommendCard"
+                :style="'background: url('+item.productBackgroundImageUrl+');background-size: 100% 100%;'"  @click="jumpPinMoney(index)">
+                <div class="title">
+                    <img :src="item.secondaryInfoImgUrl" alt="">
+                    <p>{{item.secondaryInfoTitle}}</p>
+                    <span>{{item.secondaryInfoContent}}</span>
+                </div>
+                <template
+                    v-if="currentMemberInfo.accountTypeAssets&&currentMemberInfo.accountTypeAssets[index].assetTotalAmountDisplay">
+                    <p class="money">
+                        <span>￥</span>{{currentMemberInfo.accountTypeAssets[index].assetTotalAmountDisplay|moneyFormat}}
+                    </p>
+                    <div class="btns" v-if="index==0">
+                        <a href="javascript:;"
+                            :style="'color:'+item.secondaryInfoTypeName+';border: 1px solid'+item.secondaryInfoTypeName"
+                            @click.stop="moneyOut" v-if="Number(currentMemberInfo.accountTypeAssets[0].assetTotalAmountDisplay)!==0">取出</a>
+                        <a href="javascript:;" :style="'background-color: '+item.secondaryInfoTypeName"
+                            @click.stop="moneyPush">存入</a>
+                    </div>
+                    <div class="btns" v-else>
+                        <a href="javascript:;" :style="'background-color: '+item.secondaryInfoTypeName"
+                            @click.stop="jumpNewPage(item)">查看详情</a>
+                    </div>
+                </template>
+                <template v-else>
+                    <p class="text" v-html="item.productOperateDesc"></p>
+                    <a class="btn" :style="'background-color: '+item.secondaryInfoTypeName"
+                        @click.stop="moneyfirstPush(index)">{{item.prdBtnName}}</a>
+                </template>
+
+            </div>
+        </div>  
+        <!-- <a href="javascript:;" class="recommend"><img src="./img/home/gift.png" alt=""></a> -->
+        <!--广告图 -->
+        <template v-if="recommendAd.length>0"> 
+            <div style="width:100%;overflow-x: auto;white-space: nowrap;">
+                <a v-for="(item,index) in recommendAd" :href="item.url" class="recommend" style="padding: 0.5rem 0rem 0 0rem;display: inline-block;"><img :src="item.imageUrl" alt="" :style="recommendAd.length>1?'width:17rem':''"></a>
+            </div>
+        </template>
+        <div class="content-discovery">
+            <p class="title">成长发现</p>
+            <div class="discovery-waterfall">
+            </div>
+        </div>
+        <div class="more">{{bottomTips}}</div>
+    </div>
+    <script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+    <script src="./js/masonry.pkgd.min.js"></script>
+    <script src="./js/imagesloaded.min.js"></script>
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+    <script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    //瀑布流
+                    myWaterfall: null,
+                    // 推荐系统的四部分数据
+                    recommendHeader: [], // 头部
+                    recommendCard: [], // card卡片
+                    recommendAd: [], //广告
+                    recommendCommunity: [], //社区，暂无
+                    // 用户的亲情宝信息
+                    selfCustNo: '', //自身的custno
+                    selfMemberId:'', //自身的成员编码
+                    teamId:'',//所在的家庭编号
+                    isInvestment: false, //是否已投资
+                    memberList: [], // 家庭成员list
+                    currentMemberIndex: 0,
+                    currentMemberInfo: {}, //当前成员信息
+                    pageNo: 1,
+                    pageSize: 10,
+                    bottomTips: '加载更多',
+                    loadOver: false,
+                    loading:false
+                }
+            },
+            created() {
+                this.getDiscoveryInfo();
+                this.getHomeInfo();
+                this.getLayoutData();
+                this.isOpen();
+            },
+            mounted() {
+                let _this = this;
+                this.myWaterfall = $('.discovery-waterfall').masonry({
+                    itemSelector: '.card'
+                });
+
+                let scrollDom = document.querySelector('#app');
+                scrollDom.addEventListener('scroll', function () {
+                    // setTimeout(()=>{
+                    //     utils.hideTips();
+                    //     utils.showTips('scrollHeight'+this.scrollHeight+'clientHeight'+this.clientHeight+'scrollTop'+this.scrollTop)
+                    // }, 1000)
+                    // 20220106，华为机型，拉到最底部，this.scrollTop < this.scrollHeight - this.clientHeight，触发不了加载更多，兼容性修复+10
+                    if (this.scrollTop+10 >= this.scrollHeight - this.clientHeight && !_this.loadOver&&!_this.loading) {
+                        _this.loading = true;
+                        _this.bottomTips = '加载更多';
+                        _this.getDiscoveryInfo();
+                    }
+                })
+
+            },
+            methods: {
+                //是否开户
+                isOpen: function () {
+                    utils.ajax({
+                        url: '/sfs/v1/accounts/is-open?version=6.6',
+                        success: function (result) {
+                            if (result.returnCode === 0) {
+                                (!result.body.isOpen) && (window.location.href =
+                                    "/tradeh5/newWap/familyAccount/open.html");
+                                // 记录custNo
+                                result.body && result.body.member && (this.selfCustNo = result.body.member.custNo);
+                                //自身的成员编码
+                                result.body && result.body.member && (this.selfMemberId = result.body.member.memberId);
+                                //所在的家庭编号
+                                result.body && result.body.member && (this.teamId = result.body.member.teamId);
+                                // 切换儿童视角
+                                if (result.body && result.body.member && result.body.member
+                                    .birthday) {
+                                    let birthday =
+                                        `${result.body.member.birthday.slice(0,4)}-${result.body.member.birthday.slice(4,6)}-${result.body.member.birthday.slice(6,8)}`
+                                        .split('-');
+                                    let age = this.getAge(birthday)[0];
+                                    //当前置页面不为儿童视角页面时才跳转
+                                    var fromPiggy = utils.getUrlParam("fromPiggy");
+                                    if (age <= 16 && !fromPiggy) {
+                                        //此处直接跳转儿童视角 
+                                        this.viewJump(result.body.member.memberId);
+                                    }
+                                }
+                                this.isVisible(result.body.teamId);
+                            }
+                        }.bind(this)
+                    })
+                },
+                // 查询是否有可见的亲情宝计划。
+                isVisible(teamId) {
+                    utils.ajax({
+                        url: '/sfs/v1/accounts/plans/permission/count?teamId=' + teamId,
+                        success: function (result) {
+                            if (result.returnCode === 0) {
+                                console.log('isVisible', result);
+                                if (result.body && result.body > 0) {
+                                    this.isInvestment = true;
+                                    this.getMemberList(teamId);
+                                }else{
+                                    this.isInvestment = false;
+                                }
+                            }
+                        }.bind(this)
+                    })
+                },
+                // 成员信息
+                memberDetail(memberId) {
+                    var url = '/sfs/v1/accounts/assets/account-type/total?memberId=' + memberId;
+                    utils.get(url, null, function (result) {
+                        var body = result.body;
+                        if (result.returnCode == 0) {
+                            this.currentMemberInfo = result.body;
+                        }
+                    }.bind(this));
+                },
+                // 获取成员列表
+                getMemberList(teamId) {
+                    utils.ajax({
+                        url: '/sfs/v1/accounts/member/list?sortType=2&teamId=' + teamId,
+                        success: function (result) {
+                            if (result.returnCode === 0) {
+                                this.memberList = result.body;
+                                // 默认获取第一个成员信息
+                                this.selectMember(0, this.memberList[0]);
+                            }
+                        }.bind(this)
+                    })
+                },
+                // 选择成员
+                selectMember(index, item) {
+                    this.currentMemberIndex = index;
+                    this.memberDetail(item.memberId);
+                },
+                // 获取主页头图//和推荐系统地址一致暂用推荐系统
+                getHomeInfo() {
+                    utils.ajax({
+                        url: '/sfs/v1/teams/home',
+                        success: function (result) {
+                            console.log(result);
+                        }.bind(this)
+                    })
+                },
+                // 获取布局数据
+                getLayoutData: function () {
+                    $.ajax({
+                        url: '/res/v1/app-func-layout/location-info?layoutId=familyHome',
+                        success: function (result) {
+                            if (result.returnCode === 0) {
+                                if (result.body && result.body.appLayoutFuncInfoList && result
+                                    .body.appLayoutFuncInfoList.length > 0) {
+                                    Promise.all(result.body.appLayoutFuncInfoList.map(item =>
+                                        this.getRecommendData(item.layoutId, item
+                                            .funcmodId))).then((resultArr) => {
+                                        this.recommendHeader = resultArr[0];
+                                        this.recommendCard = resultArr[1];
+                                        this.recommendAd = resultArr[2];
+                                        this.recommendCommunity = resultArr[3];
+                                    }).catch((error) => {
+
+                                    })
+                                }
+                            }
+                        }.bind(this)
+                    })
+                },
+                // 获取推荐数据
+                getRecommendData: function (layoutId, funcModId) {
+                    return new Promise((resolve, reject) => {
+                        $.ajax({
+                            url: '/res/v1/app-func-layout/theme-infos-app?layoutId=' +
+                                layoutId +
+                                '&funcModId=' + funcModId,
+                            success: function (result) {
+                                if ((result.returnCode === 0) && result.body && result
+                                    .body.length > 0) {
+                                    resolve(result.body[0].object)
+                                }
+                            }.bind(this),
+                            error: function (error) {
+                                resolve([]);
+                            }
+                        })
+                    })
+
+                },
+                // 获取成长发现的内容
+                getDiscoveryInfo() {
+                    var _this = this;
+                    utils.ajax({
+                        url: `/cms-service/v1/fundarticles/catalog?catalogId=5212&&pageNo=${this.pageNo}&pageSize=${this.pageSize}`,
+                        success: function (result) {
+                            if (result.body && result.body.length < this.pageSize) {
+                                this.loadOver = true;
+                                this.bottomTips = '没有更多了';
+                                return;
+                            }
+                            let str = '';
+                            result.body.forEach((item, index) => {
+                                str += `<a class="card card${index}" href="${item.url}">
+                                    <img src="${item.picture}" />`
+                                if (item.showTitle) {
+                                    str += `<p class="show-title">${item.showTitle}</p>`;
+                                }
+                                if (item.tags) {
+                                    str +=
+                                        `<div class="tags"><span>${item.tags}</span></div>`
+                                }
+                                str += `</a>`
+                            })
+                            let tmp = $(str);
+                            this.myWaterfall.append(tmp).masonry('appended', tmp);
+                            this.myWaterfall.imagesLoaded().progress(function () {
+                                _this.myWaterfall.masonry('layout');
+                            });
+                            this.loading = false;
+                            this.pageNo++;
+                        }.bind(this)
+                    })
+                },
+                // 存入取出
+                moneyOut() {
+                    var url = "./pocketMoneyOut.html?"
+                    var arAcct = this.currentMemberInfo.accountTypeAssets[0].arAcct;
+                    url +=
+                        `arAcct=${arAcct}&memberId=${this.currentMemberInfo.memberId}&teamId=${this.currentMemberInfo.teamId}`
+
+                    window.location.href = url;
+                },
+                moneyPush() {
+
+                    var url = "./pocketMoneyPush.html?"
+                    var arAcct = this.currentMemberInfo.accountTypeAssets[0].arAcct;
+                    url +=
+                        `arAcct=${arAcct}&memberId=${this.currentMemberInfo.memberId}&teamId=${this.currentMemberInfo.teamId}`
+
+                    window.location.href = url;
+                },
+                moneyfirstPush(index) {
+                    if (index === 0) {
+                        var url = "./pocketMoneyPush.html?"
+                        var arAcct;
+                        this.currentMemberInfo&&this.currentMemberInfo.accountTypeAssets&&this.currentMemberInfo.accountTypeAssets[0]&&(arAcct=this.currentMemberInfo.accountTypeAssets[0].arAcct)
+                        // 如果有合约账号
+                        if (arAcct) {
+                            url +=
+                                `arAcct=${arAcct}&memberId=${this.currentMemberInfo.memberId}&teamId=${this.currentMemberInfo.teamId}`
+                        } else {
+                            if(this.currentMemberInfo&&this.currentMemberInfo.memberId){
+                                // 有可见的亲情宝计划-已获取成员列表
+                                url +=`memberId=${this.currentMemberInfo.memberId}&teamId=${this.currentMemberInfo.teamId}`
+                            }else{
+                                // 无可见的亲情宝计划-未获取成员列表
+                                url +=`memberId=${this.selfMemberId}&teamId=${this.teamId}`
+                            }
+                        }
+                        window.location.href = url;
+                    } else {
+                        window.location.href = './createPlan.html';
+                    }
+                },
+                jumpNewPage(item) {
+                    window.location.href=`./personalPlanList.html?memberId=${this.currentMemberInfo.memberId}&teamId=${this.currentMemberInfo.teamId}`;
+                },
+                headJump(url) {
+                    window.location.href = url;
+                },
+                viewJump(memberId) {
+                    // 跳转儿童视角memberId
+                    if (utils.isProdEnv()) {
+                        window.location.href = window.origin +
+                            "/activity-center/act-resources/pages/familyAccount/piggyBank.html?memberId=" +
+                            memberId;
+                    } else {
+                        window.location.href =
+                            "http://appuat.99fund.com.cn:7081/activity-center/act-resources/pages/familyAccount/piggyBank.html?memberId=" +
+                            memberId;
+                    }
+
+                },
+                cardJump() {
+                    let url;
+                    if (this.currentMemberInfo.memberId) {
+                        url = 'assetDetail.html?teamId=' + this.currentMemberInfo.teamId + '&memberId=' + this
+                            .currentMemberInfo.memberId
+                    } else {
+                        url = 'assetDetail.html?teamId=' + this.currentMemberInfo.teamId
+                    }
+                    window.location.href = url;
+                },
+                //跳转零花钱
+                jumpPinMoney(index){
+                    // index=0为零花钱
+                    if(index==0){
+                        // 有成员列表以投资情况
+                        if(Object.keys(this.currentMemberInfo).length>0&&this.currentMemberInfo.memberId){
+                            window.location.href="./pinMoney.html?memberId="+this.currentMemberInfo.memberId+'&teamId='+this.currentMemberInfo.teamId;
+                        }else{
+                            // 无成员列表无投资
+                            window.location.href="./pinMoney.html?memberId="+this.selfMemberId+'&teamId='+this.teamId;
+                        }
+                    }
+                },
+                // 跳转成员列表
+                jumpMemberList(){
+                    window.location.href = "./familyMember.html"
+                },
+                // 根据出生日期计算当前年龄
+                getAge(birthday) {
+                    let date = new Date()
+                    let today = [date.getFullYear(), date.getMonth() + 1, date.getDate()]
+                    let age = today.map((value, index) => {
+                        return value - birthday[index]
+                    })
+                    // 当天数为负数时，月减 1，天数加上月总天数
+                    if (age[2] < 0) {
+                        let lastMonth = new Date(today[0], today[1], 0)
+                        age[1]--
+                        age[2] += lastMonth.getDate()
+                    }
+                    if (age[1] < 0) {
+                        age[0]--
+                        age[1] += 12
+                    }
+                    return age
+                }
+            },
+            // components: {
+            //     vueWaterfallEasy
+            // },
+            filters: {
+                // 千分符
+                moneyFormat(val) {
+                    if (val) {
+                        val = val.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                    }
+                    return val;
+                },
+                // 收益日期
+                yieldDateFormat(val) {
+                    if (val) {
+                        val = val.slice(4, 6) + '.' + val.slice(6, 8);
+                    }
+                    return val;
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

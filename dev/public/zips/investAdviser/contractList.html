@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成分基金相关协议或文件</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <script src="./js/baseHead.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        [v-cloak] {display:none;}
+        .contractList {
+            padding: 0 .75rem;
+            font-size: .75rem;
+            /* line-height: 1rem; */
+        }
+        p {
+            padding: .75rem 0;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+  <div class="contractList" id="app" v-cloak>
+    <!-- <p><a href="javascript:;">汇添富民营超级基金产品成分基金相关协议或文件</a></p> -->
+    <!-- <p><a href="javascript:;">汇添富上证综合定期开放基金产品成分基金相关协议或文件</a></p> -->
+    <p v-if="contractList.length>0" v-for="(item,index) in contractList">
+        <a href="javascript:;" @click="openContract(item)">{{item.agreementName}}</a>
+    </p>
+  </div>
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/vue.js"></script>
+  <script>
+    var vm = new Vue({
+        el: '#app',
+        data() {
+            return {
+                contractList: [],   // 协议列表
+            }
+        },
+        computed: {
+            
+        },
+        created() {
+            let groupIdList = utils.getUrlParam('groupIdList');
+            groupIdList = decodeURIComponent(groupIdList).split(',');
+            this.getContractList(groupIdList);
+            console.log(groupIdList)
+        },
+        methods: {
+            // 打开协议链接
+            openContract: function(item){
+                // agreementLinkType: "pdf"
+                // agreementLinkUrl: "http://appuat.99fund.com.cn:7081/mobile-bff/v1/unification/obs-download-role-anonymous?filePath=%E4%BA%B2%E6%83%85%E6%97%A5%E8%AE%B0%E9%9C%80%E6%B1%820805.docx&downloadType=attachment&container=groupReport"
+                // agreementName: "2"
+                // contractCategory: "IA"
+                // countDown: 10
+                // displayMode: "0"
+                // investAgreementType: null
+                if(isApp()){
+                    if(item.agreementLinkType == 'pdf'){
+                        window.location.href = 'htffundxjb://action?type=url&linkType=pdf&link=' + btoa(item.agreementLinkUrl);
+                    }else{
+                        window.location.href = 'htffundxjb://action?type=url&link=' + btoa(item.agreementLinkUrl);
+                    }
+                } else {
+                    window.location.href=item.agreementLinkUrl;
+                }
+            },
+            getContractList: function(groupIdList) {
+                // groupIdList = ['A6104', 'A6106'];
+                if(!groupIdList || !Array.isArray(groupIdList)){
+                    utils.showTips({
+                        content: '没有对应的组合协议',
+                        // complete: function(){
+                        //     window.location.href = './index.html';
+                        // }
+                    });
+                    return;
+                }
+                let detailList = groupIdList.map((groupId)=>{
+                    return new Promise((resolve, reject) => {
+                        // 详情接口不需要登录态
+                        $.ajax({
+                            url: "/mobile-bff/v1/fund-group/detailInfo?groupId=" + groupId,
+                            type: 'GET',
+                            success: function (result) {
+                                if(result.returnCode === 0 && Array.isArray(result.body.adviserContractList)){
+                                    resolve(result.body.adviserContractList);
+                                } else {
+                                    console.log('getContractListByGroupId error', result);
+                                    resolve('');
+                                }
+                            }.bind(this)
+                        })
+                    })
+                });
+                
+                Promise.all(detailList).then((items)=>{
+                    // console.log('items=', items);
+                    items.forEach(item=>{
+                        // 每个item为具体groupId对应的contractList
+                        console.log(item);
+                        this.contractList = this.contractList.concat(item);
+                    })
+                    if(this.contractList.length==0){
+                        utils.showTips({
+                            content: '没有对应的组合协议',
+                            // complete: function(){
+                            //     window.location.href = './index.html';
+                            // }
+                        });
+                    }
+                });
+            },
+            
+        }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>跟我投</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="../wap/css/base.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        body,html{background: #f6f6f6;}
+        body {left: 0%; right: 0%;font:14px 'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+        button { outline: none;  }
+          /* 图片自适应 */
+        img {
+              width: 100%;
+              height: auto;
+              width: auto\9; /* ie8 */
+              -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/
+              border: none;
+              vertical-align: top;
+              outline: none;
+              display: block;
+            }
+        p { word-wrap: break-word; text-align: justify; }
+        table { width: 100%;border-collapse:collapse; }
+        .main{width:100%;height:100%;}
+        .head{width:100%;height:7.875rem;background: url('img/follow_01.png') no-repeat;background-size:100% 100%;position:relative;}
+        .head .text{color:#fff;font-size: 0.65rem;bottom:0.75rem;position:absolute;left:4.0rem;} 
+        .content{width:100%;height:10.95rem;background: url('img/follow_02.png') no-repeat;background-size:100% 100%;margin-top:-0.1rem;}
+        .content .title{color:#000;font-size: 1.2rem;font-weight: bold;padding-top:2.65rem;text-align:center}
+        .content .shouyi{color:#f4333c;font-size:1.5rem;margin-top:0.5rem;text-align:center;font-weight:bold}
+        .content .thisYear{color:#666;font-size:0.65rem;text-align:center}
+        .content .buy{width:10.0rem;height:1.75rem;margin:0 auto;color:#fff;font-size:0.8rem;line-height:1.75rem;text-align: center;background: #fe7e01;border-radius:3px;margin-top:0.5rem;}
+        footer {position: fixed; width: 100%; height:2.5rem; left: 0; bottom: 0; background-color: #fff; font-size:0.85rem; border-right: 1px solid #fff; }
+        footer ul li{float:left; width:50%; background: #0757b2; }
+        footer ul li a {display: block}
+        footer ul li a {width: 100%; height:2.5rem; text-align: center; line-height:2.5rem; color: #fff; font-size:0.85rem; }
+        footer ul li:nth-of-type(1){background: #fff;}
+        footer ul li:nth-of-type(1) a{color: #0757b2;}
+
+        .side-right { position: fixed; right: 0; top:5%; bottom:80%;z-index:99}
+        .side-right a {color:#fff;text-align:center; font-size: .7rem;width:3.75rem ;  line-height: 1.4rem;height:1.4rem; background: url('img/fenxiang.png') no-repeat;background-size: 100% 100%; box-shadow: 4px 4px 4px rgba(0,0,0,.2); display: block; }
+    </style>
+</head>
+<body>
+  <div class="side-right">
+
+  </div>
+  <div class="main">
+     <div class="head">
+        <div class="text">多种风格 优势互补 分散风险 降低波动</div>
+     </div>
+     <div class="content">
+        <div class="title">汇添富跟我投</div>
+        <div class="shouyi" id="fromYear"><span style="font-size:0.65rem">%</span></div>
+        <div class="thisYear"  id="fromYear_name">今年以来收益率</div>
+        <div class="buy">立即购买</div>
+     </div>
+     <div><img src="img/follow_03.png" alt=""></div>
+     <div><img src="img/down.png" alt="" class="down"></div>
+     <div class="show_up" style="display: none;height:100%;width:100%;padding-bottom:2.5rem">
+       <div><img src="img/up.png" alt="" class="up"></div>
+       <div><img src="img/follow_04.png" alt=""></div>
+       <div><img src="img/follow_05.png" alt=""></div>
+       <div><img src="img/follow_06.png" alt=""></div>
+       <div><img src="img/follow_07.png" alt=""></div>
+       <div><img src="img/follow_08.png" alt=""></div>
+       <div><img src="img/follow_09.png" alt=""></div>
+     </div>
+  </div>
+  <footer>
+    <ul>
+         <li>
+            <a href="javascript:;" class="investment">定投</a>
+        </li>
+        <li>
+            <a href="javascript:;" class="buy">立即购买</a>
+        </li>
+    </ul>
+  </footer>
+    <script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src = "https://static.99fund.com/mobile/wap-lib/js/basic.js"></script>
+	<script type="text/javascript" src = "../wap/js/common.js?20210106"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script>
+	var is_set_pwd_show_tip_err_code = '0';
+$(function(){
+    $('.redeem div').click(function () {
+      if ($(this).hasClass("hot")) {
+          return;
+      }
+      $(this).addClass("hot").siblings().removeClass('hot');
+    });
+// 下拉更多
+    $(".down").click(function(){
+      $(".show_up").slideDown(1000)
+      $(".down").hide()
+    })
+    $(".up").click(function(){
+      $(".show_up").slideUp(1000)
+      $(".down").show()
+      $(".show_up").hide()
+    })
+    $(".investment").click(function () {
+        buttonJump('MIP');
+    });
+	$(".buy").click(function(){
+		 buttonJump('BUY');
+	});
+
+//特殊处理 weixin登录态
+function buttonJump(type) {
+
+	if(HTF.isWeixin()){
+        var code = HTF.getUrlParam("code");
+        var ssoCookie = HTF.getCookie("sso_cookie");
+
+        if (HTF.isNotBlank(ssoCookie)) {
+        	entryChannel = App.getCookie("entryChannel");
+        	loginChannel = App.getCookie("loginChannel");
+        	if((loginChannel != "" && entryChannel != "" && loginChannel != entryChannel) || (loginChannel == "" && entryChannel != "" )){
+				//以当前登录的为主
+	            if(HTF.isNotBlank(code)) {
+	                // code存在，发送codeLoginRequest.ajax请求，使用code登陆并获取sso_cookie
+	                HTF.codeLoginRequest(code);
+	            } else {
+	            	if (type == 'MIP'){
+				        HTF.next_jump = prefix + "/mobileEC/wap/fundgroup/create_mip.html?groupId=A0069";
+				    }else if (type == 'BUY'){
+				        HTF.next_jump = prefix + "/mobileEC/wap/fundgroup/follow_me_payment.html?groupId=A0069&fundIds=519066,519069,470009,001668,006113,006408&percents=20,20,15,15,15,15";
+				    }
+	                // code不存在，需要登录信息的业务逻辑触发时，再去获取code
+	                 HTF.getCode();
+	            }
+        	}
+            // ssoCookie存在，已登录状态，无需处理code
+            // 业务逻辑ajax请求正常处理对应（带着sso_cookie）
+			if(is_set_pwd_show_tip_err_code == "2"){
+		        $(".tip2").show();
+		        $("#add_bind_card").attr("href", "../wap/card/bindCardInputCardInfo.html?referUrl=" + encodeURIComponent(document.URL));
+		        return;
+		    }else if (type == 'MIP'){
+		        window.location.href = "../wap/fundgroup/create_mip.html?groupId=A0069";
+		    }else if (type == 'BUY'){
+		        window.location.href = "../wap/fundgroup/follow_me_payment.html?groupId=A0069&fundIds=519066,519069,470009,001668,006113,006408&percents=20,20,15,15,15,15";
+		    }
+        } else {
+            // ssoCookie不存在，未登录状态
+            if(HTF.isNotBlank(code)) {
+                // code存在，发送codeLoginRequest.ajax请求，使用code登陆并获取sso_cookie
+                HTF.codeLoginRequest(code);
+            } else {
+            	if (type == 'MIP'){
+			        HTF.next_jump = prefix + "/mobileEC/wap/fundgroup/create_mip.html?groupId=A0069";
+			    }else if (type == 'BUY'){
+			        HTF.next_jump = prefix + "/mobileEC/wap/fundgroup/follow_me_payment.html?groupId=A0069&fundIds=519066,519069,470009,001668,006113,006408&percents=20,20,15,15,15,15";
+                // code不存在，需要登录信息的业务逻辑触发时，再去获取code
+                 HTF.getCode();
+                 }
+            }
+        }
+	}else{
+	    if(is_set_pwd_show_tip_err_code == "1"){
+	        $(".login_tip").show();
+	        return;
+	    }else if(is_set_pwd_show_tip_err_code == "2"){
+	        $(".tip2").show();
+	        $("#add_bind_card").attr("href", "../wap/card/bindCardInputCardInfo.html?referUrl=" + encodeURIComponent(document.URL));
+	        return;
+	    }else if (type == 'MIP'){
+	        window.location.href = "../wap/fundgroup/create_mip.html?groupId=A0069";
+	    }else if (type == 'BUY'){
+	        window.location.href = "../wap/fundgroup/follow_me_payment.html?groupId=A0069&fundIds=519066,519069,470009,001668,006113,006408&percents=20,20,15,15,15,15";
+	    }
+	}
+
+}
+
+        // 今年以来
+    getYieldfromyear();
+    function getYieldfromyear(){
+        $.get("/mobile-bff/v1/fund-group/detailInfo?groupId=A0069", function(resultStr){
+			var result = typeof resultStr === 'string' ? JSON.parse(resultStr) : resultStr;
+            if(result.returnCode == 0){
+                var detailInfo = result.body;
+                if(detailInfo != undefined && detailInfo != ""){
+
+                    $("#fromYear_name").html(detailInfo.displayYieldTypeNm);
+                    $("#fromYear").html(detailInfo.displayYield + "%");
+                    if(detailInfo.displayYield == null){
+                        $("#fromYear").html("--");
+                    } else if(Number(detailInfo.displayYield) < 0){
+                        $("#fromYear").removeClass("red");
+                        $("#fromYear").addClass("green");
+                    } else {
+                        $("#fromYear").addClass("red");
+                        $("#fromYear").removeClass("green");
+                    }
+                }
+            }else{
+                alert(result.returnMsg);
+            }
+        });
+    }
+})
+</script>
+</body>
+</html>

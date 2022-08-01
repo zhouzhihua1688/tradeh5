@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>投顾定投</title>
+  <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+  <link rel="stylesheet" href="./css/investPurchaseMip.css">
+  <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+
+<body>
+  <div id="app" v-cloak style="padding-bottom: 2.8rem;">
+    <div class="fund-title margin-b20">
+      <p><span class="font-30 black">{{groupInfo.groupname}}</span><span
+          class="font-26 grey">{{groupInfo.groupid}}</span></p>
+      <a :href="'/mobileEC/adviser/investGroupDetails.html?groupId='+groupInfo.groupid"><img src="./images/arr.png" /></a>
+    </div>
+    <div class="invest-amount">
+      <div class="invest-money">每期投资金额 (元)</div>
+      <div class="invest-rule"></div>
+    </div>
+    <!-- 输入金额 -->
+    <div class="enter-amount">
+      <div class="mark">￥</div>
+      <div class="enter-money">
+        <div class="turn-chinese"><img src="images/triangle.png"><span v-text="chinese"></span></div>
+        <div class="input-number"><input type="number" value="" :placeholder="groupInfo.initLimitAmount+'元起'" v-model="inputValue"></div>
+      </div>
+      <div class="close" @click="close" v-show="inputValue"><img src="images/close.png"></div>
+    </div>
+    <div class="fund-operate margin-b20">
+      <!-- <p class="operate-title black font-30 border-b">每期投资金额（元）</p>
+      <div class="operate-amount border-b">
+        <span>￥</span>
+        <input type="text" placeholder="100元起">
+        <img src="./images/close.png" alt="">
+      </div> -->
+      <div class="invest">
+        <div class="invest-account">投顾账户</div>
+        <template v-if="acctMode==1">
+          <p>{{currentAcctName}}</p>
+        </template>
+        <template v-else>
+          <div class="invest-input"><input v-if="currentAcctType==='string'" type="text" name="acctName"
+              autofocus="autofocus" v-model.trim="currentAcctName" />
+            <p v-else>{{currentAcctName}}</p>
+          </div>
+          <div class="invest-choose" @click="chooseAccount" v-if="arAcctList.length>0">选择已有账户</div>
+        </template>
+      </div>
+      <div class="operate-cycle  border-b selected-deduction-cycle">
+        <span class="font-30">扣款周期</span>
+        <div class="select">
+          <span class="font-30 appDate">每月01日</span>
+          <img src="./images/arr.png" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="fund-paymode font-30" @click="showCard=true">
+      <span>支付方式</span>
+      <div class="select">
+        <span class="font-30">{{currentPayInfo.bankGrpName}}</span>
+        <img src="./images/arr.png" alt="">
+      </div>
+    </div>
+
+    <!-- 选择支付方式浮层 -->
+    <div class="choose-pay animated slideInDown" style="z-index:100;" v-if="showCard" @click="showCard=false">
+      <div class="bank-card">
+        <div v-for="(item,index) in bankList" @click.stop="choosePay(index)">
+          <template v-if="item.cashFrom=='V'">
+            <div class="xjb">
+              <div class="xjb-img"><img src="images/xjb.png" alt=""></div>
+              <div class="xjb-title">
+                <div class="xjb-name">{{item.bankGrpName}}</div>
+                <div class="xjb-balance">{{item.limitRemark}}</div>
+              </div>
+            </div>
+          </template>
+          <template v-else>
+            <div class="card">
+              <div class="card-img"><img :src="'/mobileEC/images/bank/'+item.bankNo+'.png'" alt=""></div>
+              <div class="card-title">
+                <div class="card-name">{{item.bankGrpName}} [{{item.bankAccoDisplay}}]</div>
+                <div class="card-balance">{{item.limitRemark}}</div>
+              </div>
+              <div class="card-btn">
+                <div class="card-text" :class="signWayTransfer(item.signWay).class">
+                  {{signWayTransfer(item.signWay).text}}</div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <div class="paymode-info grey" v-show="currentPayInfo&&currentPayInfo.cashFrom=='V'">
+      <p class="font-24">现金宝可用余额<span class="red">{{utils.formatMoney(xjbBalance)}}</span>元</p>
+      <a :href="'/mobileEC/wap/account/topup.html?forwardUrl='+forwardUrl" class="font-26">去充值</a>
+    </div>
+    <p class="estimated-time font-24 grey">下次扣款时间<span class="red">{{nextMipDate}}</span>，遇非交易日顺延</p>
+    <div class="agreement" v-if="adviserContractList.length>0">
+      <div class="unicheck">
+        <div class="choose-img" @click="checkBox()" :class="bgIndex ==0 ? 'nobgActive':'bgActive'"></div>
+      </div>
+      <div class="agree">我已同意<a class="agree-color" v-for="(contItem,contIndex) in adviserContractList"
+        href="javascript:;" @click="openAgreementLink(contItem)">《{{contItem.agreementName}}》{{(contIndex+1)==(adviserContractList.length)?'':'、'}}</a>
+      </div>
+    </div>
+
+    <div class="next-step" :class="{active:footerActvie}" @click="buy">下一步</div>
+
+    <!-- <div class="mask-protocol" style="display: none;" v-show="protocolShow">
+      <div class="protocol-wraper">
+        <div class="protocol-pdf">
+          
+        </div>
+        <p class="fixed-top">{{pdfInfo.agreementName}}</p>
+          <button class="fixed-btn" disabled @click="pdfConfirm">我知道了{{pdfInfo.countDown}}s</button>
+      </div>
+    </div> -->
+    <div class="mask-protocol" style="display: none;" v-show="protocolShow">
+      <div class="agreement-new">
+        <div class="agreement-head">
+          <div class="agreement-title" style="margin-left: 1.75rem;text-align: center;">基金投顾风险揭示书</div>
+          <!-- <img src="./images/close_02.png" alt="" class="agreement-close" @click="agreementClose"> -->
+        </div>
+        <div class="agreement-iframe">
+          <!-- <iframe :src="iframeUrl" style="width:100%;height:100%" scrolling="auto" frameborder="0"></iframe> -->
+          <iframe v-show='toggleGroupType=="M"' src="./invest_adviser_agreement_m.html" style="width:100%;height:100%" scrolling="auto" frameborder="0"></iframe>
+          <iframe v-show='toggleGroupType=="G"' src="./invest_adviser_agreement_g.html" style="width:100%;height:100%" scrolling="auto" frameborder="0"></iframe>
+        </div>
+        <div class="take-care">注：您可通过截屏的方式留存相关信息</div>
+        <div class="agreement-btn" :class="{active:iKnow}" @click="pdfConfirm">{{countDownBlock}}</div>
+      </div>
+    </div>
+    <!-- 选择已有账户浮层 -->
+    <div class="layer animated slideInDown" style="z-index:100;" v-if="showAccount" @click="closeAccount()">
+      <div class="account">
+        <div class="account-title">已有账户</div>
+        <div class="account-List" v-if="arAcctList.length>0" v-for="(item,index) in arAcctList"
+          @click.stop="selectArAcct(index)">
+          <div class="account-name" v-text="item.arAcctName"></div>
+          <div><img src="images/arr.png" alt=""></div>
+        </div>
+        <div class="newAccount" @click.stop="selectArAcct('create')">
+          <div class="addAccount">+使用新账户</div>
+        </div>
+      </div>
+    </div>
+    <!-- 扣款期数 -->
+    <div class="choose-time animated slideInDown " style="display: none;z-index: 10;">
+        <ul class="list-group no-margin-top lh-100">
+            <li class="bottom-border font-28" data-choose-time="MM"><div>每月<span class="annulus"></span></div></li>
+            <li class="bottom-border font-28" data-choose-time="2W"><div>每双周<span class="annulus"></span></div></li>
+            <li class="bottom-border font-28" data-choose-time="WW"><div>每周<span class="annulus"></span></div></li>
+            <!-- <li class="bottom-border font-28" data-choose-time="ED"><div>每日<span class="annulus"></span></div></li> -->
+            <!-- 投顾定投没有每日选项 -->
+        </ul>
+    </div>
+    <div class="layer choose-time2" style="display: none; z-index: 10;">
+        <ul class="list-group no-margin-top lh-100"></ul>
+    </div>
+
+  </div>
+  <script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+  <script src="/tradeh5/newWap/base/js/utils.js"></script>
+  <script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script>
+  <script src="./js/investPurchaseMip.js"></script>
+</body>
+
+</html>

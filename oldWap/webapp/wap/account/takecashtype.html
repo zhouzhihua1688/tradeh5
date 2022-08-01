@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>现金宝</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/takecashtype.css"/>
+
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+</head>
+<body>
+<div class="top-bar">
+    <div class="f-white f18">现金宝</div>
+</div>
+<div class="dialog-area background-orange f-white"><div style="padding: 8px">请选择取现方式</div></div>
+<div class="card-list1" id="cashType_1">
+    <div class="card-detail">
+        <div class="f-black">普通取现（当天有收益）</div>
+        <div class="f11">预计<span id="next_date"></span>，不限额度，不限次数</div>
+    </div>
+</div>
+<div class="card-list1" id="cashType_2">
+    <div class="card-detail">
+        <div class="f-black">快速取现（当天无收益）</div>
+        <div class="f11">预计今天到账，取现资金今天不产生收益</div>
+    </div>
+</div>
+<div class="dialog-area"><div class="dialog-agreement"><a href="https://trade.99fund.com/common/realcash_agreement_card.html">查看快速取现协议</a></div></div>
+<script type="text/javascript" src="../js/common.js?20210106"></script>
+<script type="text/javascript">
+    $(function(){
+        function selectType(val){
+            var takeType = {};
+            if(val == 1){
+                takeType.title = "快速取现";
+                takeType.text = "当天无收益";
+                takeType.val = "1";
+            }else{
+                takeType.title = "普通取现";
+                takeType.text = "当天有收益";
+                takeType.val = "0";
+            }
+            App.setSession(App.takeBackType, takeType);
+            window.location = "./" + App.getUrlParam("u") + ".html";
+        }
+
+        function init(){
+            var url = App.projectNm + "/etrading/get_take_back_date?date="+ (new Date()).getTime();
+            App.get(url,null,function(result){
+                $("#next_date").html(result.body.info);
+
+                App.bind("#cashType_1", "tap", function(){selectType(0)});
+                App.bind("#cashType_2", "tap", function(){selectType(1)});
+            });
+        }
+
+        init();
+    });
+</script>
+</body>
+</html>

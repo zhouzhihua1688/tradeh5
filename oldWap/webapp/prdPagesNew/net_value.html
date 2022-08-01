@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <!-- <meta charset="GBK"> -->
+    <meta charset="utf8">
+    <title>净值查询</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        };
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            screenWidth = screenWidth > 750 ? 750 : screenWidth;
+            oHtml.style.fontSize = screenWidth/(750/40)+'px';
+
+        }
+    </script>
+    <style type="text/css">
+        .font-arial{ font-family: Arial; }
+        body,html{background: #f6f6f6;}
+        body {left: 0%; right: 0%;font:14px 'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+        button { outline: none;  }
+        img { vertical-align: top;border: none;outline: none;width: 100%; display: block;}
+        p { word-wrap: break-word; text-align: justify; }
+        table { width: 100%;border-collapse:collapse; }
+        a{display: block;}
+        .main{width:100%;background:#ffffff;}
+        .head{width:100%;height:1.75rem;color:#000;border-bottom:1px solid #efefef;}
+        .head div{height:1.75rem;float:left;text-align:center;line-height:1.75rem;font-size:0.7rem;}
+        .head div:nth-of-type(1){width:25%;padding-left:0.75rem;text-align:left;}
+        .head div:nth-of-type(2),.head div:nth-of-type(3){width:22%;}
+        .head div:nth-of-type(4){width:22%;text-align:right;float:right;padding-right:0.75rem;}
+
+        .title_tip{height:2.5rem;border-bottom:1px solid #efefef;clear:both;color:#000;}
+        .title_tip div{height:2.5rem;float:left;text-align:center;line-height:2.5rem;font-size:0.75rem;}
+        .title_tip div:nth-of-type(1){width:25%;padding-left:0.75rem;text-align:left;}
+        .title_tip div:nth-of-type(2),.title_tip div:nth-of-type(3){width:22%;text-indent:1rem;}
+        .title_tip div:nth-of-type(4){text-align:right;float:right;padding-right:0.75rem;}
+        .red{color:#fb5c5f;}
+        .green{color:#009944;}
+    </style>
+</head>
+<body>
+    <div class="main" id="list"><!--
+        <div class="head">
+            <div>日期</div>
+            <div>单位净值</div>
+            <div>累积净值</div>
+            <div>累计增长率</div>
+        </div>
+        <div class="title_tip">
+            <div>2020.05.20</div>
+            <div>1.896</div>
+            <div>2.912</div>
+            <div class="red">0.16%</div>
+        </div>
+         <div class="title_tip">
+            <div>2020.05.19</div>
+            <div>1.896</div>
+            <div>2.912</div>
+            <div class="red">0.21%</div>
+        </div>
+         <div class="title_tip">
+            <div>2020.05.18</div>
+            <div>1.896</div>
+            <div>2.912</div>
+            <div class="green">-0.63%</div>
+        </div>
+         <div class="title_tip">
+            <div>2020.05.17</div>
+            <div>1.896</div>
+            <div>2.912</div>
+            <div class="green">-0.73%</div>
+        </div>
+         <div class="title_tip">
+            <div>2020.05.16</div>
+            <div>1.896</div>
+            <div>2.912</div>
+            <div class="red">0.21%</div>
+        </div>
+         <div class="title_tip">
+            <div>2020.05.15</div>
+            <div>1.896</div>
+            <div>2.912</div>
+            <div class="green">-0.63%</div>
+        </div>
+     -->
+    </div>
+</body>
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/common.js?20210106" type="text/javascript"></script>
+<script>
+var fundId = App.getUrlParam("productId");
+	queryNavs()
+	function queryNavs(){
+	    var url = "/productcenter/v1/new/compose/funds/single/vip/curve/yield/navday/all/collections?fundId="+fundId+"&r=" + (new Date()).getTime();
+	    App.get(url, null, function(result) {
+	        var body = result.body;
+	        if (body != null && body != undefined) {
+	        var htm='          <div class="head">'
+		              +'<div>日期</div>'
+		              +'<div>单位净值</div>'
+		              +'<div>累积净值</div>'
+		              +'<div>累计增长率</div>'
+		          +'</div>';
+	        	for(var k in body){
+	        	var item = body[k];
+	        	var rate = '';
+	        	if(String(item.sumOfYield).indexOf('-') > -1){
+	        		rate = '<div class="green">'+item.sumOfYield+'%</div>';
+	        	}else{
+	        		rate = '<div class="red">+'+item.sumOfYield+'%</div>';
+	        	}
+	        	htm+='	<div class="title_tip">'
+		              +'<div>'+dateFmt(item.navDate)+'</div>'
+		              +'<div>'+item.navDisplay+'</div>'
+		              +'<div>'+item.sumOfNav+'</div>'
+		              +rate
+		          +'</div>';
+	        	}
+	        	$("#list").html(htm);
+	        }
+	    });
+	}
+	//格式化输入日期
+	function dateFmt(toFormat) {
+		toFormat = String(toFormat);
+		return toFormat.substr(0,4)+'.'+toFormat.substr(4,2)+'.'+toFormat.substr(6,2);
+	};
+	</script>
+</html>

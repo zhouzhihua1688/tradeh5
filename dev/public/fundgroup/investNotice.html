@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>信息披露</title>
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="css/investNotice.css">
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+
+<body>
+    <div class="content">
+        <!-- <div class="list">
+            <div class="text">汇添富香港优势精选混合型证券投资基金更新招募说明书(2021年4月14日更新)<img class="tag" src="img/tag.png"></div>
+            <div class="date">2021.04.14</div>
+        </div> -->
+        <div style="display: none;" class="origin"></div>
+    </div>
+    <script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+    <script>
+        $(function () {
+            var render = {
+                init() {
+                    this.getList(this.data.groupId)
+                    this.mountEvent()
+                },
+                data: {
+                    groupId: utils.getUrlParam("groupId"),
+                    pageSize: 5,
+                    pageNum: 1,
+                    total: 0
+                },
+                loadMore() {
+                    this.data.pageNum += 1;
+                    this.getList(this.data.groupId)
+                },
+                mountEvent() {
+                    var serialnoClassList = ['date', 'text', 'list']
+                    $('.content').on('click', (event) => {
+                        if (event.target.className === 'more') {
+                            this.loadMore()
+                        } else if (serialnoClassList.indexOf(event.target.className) != -1) {
+                            this.goToDetail(event.target.dataset.no)
+                        }
+                    })
+                },
+                goToDetail(serialno) {
+                    window.location.href = `/tradeh5/newWap/fundgroup/noticeDetail.html?serialno=${serialno}`
+                },
+                getList(groupId) {
+                    /* 获取投顾公告 */
+                    var url =
+                        `/productcenter/v1/new/compose/fundgroup/single/announcement/collections?groupId=${groupId}&pageNo=${this.data.pageNum}&pageSize=${this.data.pageSize}`;
+
+                    $.get(url, (result) => {
+                        if (result.returnCode == 0 && result.body) {
+                            this.data.total = result.body.resultTotalNum;
+                            var str = '';
+                            if(result.body.announcementVOList && result.body.announcementVOList.length == 0){
+                                str = '<div style="padding: 1rem; text-align: center;">暂无重大事项披露，感谢您的关注。</div>';
+                                return $('.origin').before(str);
+                            }
+                            result.body.announcementVOList.forEach(item => {
+                                var updateMsg = '';
+                                var year = item.updateTimestamp.substr(0, 4);
+                                var month = item.updateTimestamp.substr(5, 2);
+                                var day = item.updateTimestamp.substr(8, 2);
+                                if(item.createTimestamp !== item.updateTimestamp){
+                                    updateMsg = `（${year}年${month}月${day}日更新）`;
+                                } 
+
+                                str += `<div class="list" data-no='${item.serialno}'>
+                                                <div class="text" data-no='${item.serialno}'>${item.title}${updateMsg}</div>
+                                                <div class="date" data-no='${item.serialno}'>${year}-${month}-${day}</div>
+                                        </div>`
+                            })
+                            $('.origin').before(str);
+
+                            if (this.data.total > (this.data.pageSize * this.data.pageNum)) {
+                                if (!$('.more').length) {
+                                    $('.origin').after(`<div class="more">加载更多</div>`)
+                                }
+                            } else {
+                                $('.more').hide()
+                            }
+                        }
+                    });
+                },
+            }
+            render.init()
+        });
+    </script>
+</body>
+
+</html>

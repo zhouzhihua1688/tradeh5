@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>注册成功</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        }
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+                oHtml.style.fontSize = '17.06px';
+            }else if(screenWidth >= 750){
+                oHtml.style.fontSize = '40px';
+            }else{
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+            }
+        }
+    </script>
+    <style type="text/css">
+        /* reset css */
+        *{ margin: 0; padding: 0;}
+        html{font-size: 100%;}
+        body{ background-color: #f0f0f0;color: #666; }
+        ul, ol, dl{ list-style: none;}
+        em, i{ font-style: normal;}
+        input{ border: 0;}
+        img{ display: block;max-width: 100%;height: auto;}
+        a{ text-decoration: none;}
+
+        .wrap{
+            padding: 25% 5% 5%;
+        }
+        .wrap-top{
+            text-align: center;
+            margin-bottom: 1em;
+        }
+        .wrap-top img{
+            display: inline-block;
+            width: 14%;
+            vertical-align: bottom;
+
+        }
+        .wrap-top span{
+            display: inline-block;
+            font-size: 1.5em;
+            line-height: 1.8em;
+            color: #333;
+        }
+        .wrap p{
+            font-size: 1em;
+            line-height: 1.5em;
+            text-align: center;
+        }
+        .wrap-bottom{
+            width: 100%;
+            margin: 2em auto;
+        }
+        .wrap-bottom a{
+            width: 48%;
+            height: 2em;
+            line-height: 2em;
+            cursor: pointer;
+            text-align: center;
+            font-size: 1.2em;
+            outline: none;
+            -webkit-tap-highlight-color:transparent;
+        }
+        .btn-border{
+            border: 1px solid #fe7e01;
+            color: #fe7e01;
+            border-radius: 4px;
+            float: left;
+        }
+        .btn-background {
+            float: right;
+            border: 1px solid #fe7e01;
+            background-color:#fe7e01;
+            color: #fff;
+            border-radius: 4px;
+        }
+        .btn-background1{height:2.25rem;width:50%;display: block;margin: 0 auto;background:#fe7e01;clear: both;border-radius: 4px;text-align: center;line-height:2.25rem;color:#fff;}
+        .btn-background2{height:2.25rem;width:50%;display: inline;margin: 0 auto;clear: both;border-radius: 4px;text-align: center;line-height:2.25rem;color:rgb(0, 139, 255)}
+        .wrap-bottom2{
+            width: 100%;
+            margin: 2em auto;
+            text-align:center;
+        }
+        .wrap-bottom2 a{
+            width: 48%;
+            height: 2em;
+            line-height: 2em;
+            cursor: pointer;
+            text-align: center;
+            outline: none;
+            -webkit-tap-highlight-color:transparent;
+        }
+        .huode{width:100%;}
+        .huode span{
+            width:85%;height:0.75rem;
+            margin: 0 auto;margin-top:1.375rem;display: block;line-height: 0.7rem;color:#666666;font-size: 0.65rem;text-align: center
+        }
+        .invite,.question{width:100%;}
+        .invite span{width:57%;display: block;font-size:0.65rem;margin:0 auto;margin-top:8.75rem;
+            text-align: center;
+        }
+        .question span{width:100%;height:0.75rem;margin: 0 auto;
+            margin-top:1.375rem;display: block;line-height: 0.7rem;color:#666666;
+            font-size:0.6rem;margin-top:3.5rem;text-align: center} 
+    </style>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/weixin.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script type="text/javascript" src="js/reg_sucess.js"></script>
+</head>
+<body>
+    <h3 class="title">成功</h3>
+    <div class="wrap">
+        <div class="wrap-top">
+            <img src="img/icon4.png" alt="icon4">
+            <span>注册成功！</span>
+        </div>
+
+        <p style="font-size:0.8rem;color:#666666">您已成功注册现金宝账号，</p>
+        <p style="font-size:0.8rem;color:#666666">请牢记您的用户名和登录密码！</p>
+
+        <div class="wrap-bottom">
+            <a href="http://www.99fund.com/m_weixin.htm" class="btn-border">下载APP体验</a>
+            <a href="javascript:;" class="btn-background" id="confirm_main">添加银行卡</a>
+        </div><br/><br/>
+        
+        <div class="huode">
+           <span>您已获得立讯精密员工专属好礼，请下载APP领取</span> 
+        </div>
+        <div class="invite">
+           <span>邀请新客户可再享受邀请好礼<br/>前往<a href="javascript:;" id="next" style="color:#148ce6">生成专属邀请二维码</a></span> 
+        </div>
+        <div class="question">
+           <span>如奖励领取有问题，请联系汇添富客服电话：<a href="tel:400-888-9918" style="color:#148ce6">400-888-9918</a></span> 
+        </div>
+
+    </div>
+    <!--输入密码弹出框-->
+    <div class="modal-fade" id="modal" style="display:none;">
+        <!-- <form class="" action="addCard.html"> -->
+            <div class="modal-body setpwd">
+                <h4 class="modal-title settitle">设置交易密码</h4>
+                <p class="notice setnotice">为了您的资金安全，请设置您的交易密码</p>
+
+                <div class="modal-input cls-trade-pwd">
+                    <input type="password" maxlength="6" class="trade-pwd" placeholder="设置交易密码"/>
+                    <span class="error">X</span>
+                </div>
+                <div class="modal-input cls-trade-pwd-again">
+                    <input type="password" maxlength="6" class="trade-pwd-again" placeholder="再次确认交易密码"/>
+                    <span class="error">X</span>
+                </div>
+
+                <div class="modal-bottom">
+                    <button class="btnleft" id="cancel_modal" type="button">取消</button>
+                    <button class="btnright" id="confirm_modal" type="button">确定</button>
+                </div>
+            </div>
+       <!--  </form> -->
+    </div>
+    <div class="mask"></div><!--透明背景层-->
+    <!-- <script src="js/zepto.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            /* 输入密码弹出框js */
+            $("#cancel_modal").on("click",function(){
+                $("#modal").css("display","none");
+                $("body").css("overflow", "auto");
+                $("div.mask").hide();
+            });
+            /* 点击ID为confirm_main的按钮弹出输入密码框 */
+            $("#confirm_main").on("click",function(){
+                $("#modal").css("display","block");
+                $("body").css("overflow", "hidden");
+                $("div.mask").show();
+            });
+            /* 点击输入框出X号 */
+            var bind_name="input";//定义所要绑定的事件名称
+            if(navigator.userAgent.indexOf("MSIE")!=-1){
+                bind_name="propertychange";//判断是否为IE内核 IE内核的事件名称要改为propertychange
+            }
+            $(".modal-input input").on(bind_name,function(){
+                $(this).siblings('.error').css("display","block");
+                if($(this).val() == ""){
+                    $(this).next().css("display","none");
+                }
+            });
+            $(".modal-input .error").on("click",function(){
+                $(this).css("display","none").siblings('input').val('').focus();
+            });
+        })
+    </script> -->
+    <script type="text/javascript">
+    //根据访问域名判断环境修改跳转地址前缀
+    var prefix = "https://huodong.99fund.com";
+    var domain = document.domain;
+    if(domain.indexOf("sit") >= 0){//sit
+     prefix = "http://mcpsit.99fund.com.cn:7955";
+    }else if(domain.indexOf("uat") >= 0){//uat
+     prefix = "http://mcpuat.99fund.com.cn:7955";
+    }
+    var url = "/mcpweb/uppages/lixunMGM/index.html";
+    $("#next").attr("href",prefix+url);
+    </script>
+</body>
+</html>

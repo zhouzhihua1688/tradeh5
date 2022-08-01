@@ -1,0 +1,142 @@
+/*body {  font-family: inherit;}*/
+.font-arial { font-family: Arial;}
+p { line-height: 1.5;}
+.btn-box { display: block; margin: 1rem .75rem; }
+.btn {color: #fff; width: 100%; height: 2.25rem; line-height: 2.25rem; border-radius: 4px; font-size: .75rem;}
+.btn-default{ background-color: #cccccc; }
+.btn-primary { background-color: #fb5c5f; }
+
+.icon { display: inline-block;  width: 0.75rem; height: 0.75rem; vertical-align: middle; margin: -2px 0px 0 0; padding: 0 5px;  }
+.icon-camera {   background: url("../img/camera.png") no-repeat center center; background-size: contain; width: 1rem; height: 1rem;}
+.icon-arrow-right { background: url("../img/arrow.png") no-repeat center center; background-size: contain; }
+.icon-question { background: url("../img/question.png") no-repeat center center; background-size: contain; }
+.icon-ok-red { background: url("../img/ok_red.png") no-repeat center center; background-size: contain; }
+.icon-close { background: url("../img/error.png") no-repeat center center; background-size: contain; }
+
+.red { color: #fb5c5f !important; }
+.black { color: #333333 !important; }
+
+.list-group { margin: 0.5rem 0; background-color: #fff;padding: 0 0.75rem; }
+.list-group .list-group-item { min-height: 1.725rem; line-height: 1.725rem; }
+.row { display: -webkit-flex; display: flex;}
+.col-1 { -webkit-flex: 1; flex: 1; }
+.col-2 { -webkit-flex: 2; flex: 2; }
+.col-3 { -webkit-flex: 3; flex: 3; }
+.col-4 { -webkit-flex: 4; flex: 4; }
+.col-5 { -webkit-flex: 5; flex: 5; }
+.col-6 { -webkit-flex: 6; flex: 6; }
+.col-7 { -webkit-flex: 7; flex: 7; }
+.col-8 { -webkit-flex: 8; flex: 8; }
+.col-9 { -webkit-flex: 9; flex: 9; }
+.col-10 { -webkit-flex: 10;flex: 10; }
+.col-11 { -webkit-flex: 11;flex: 11; }
+.col-12 { -webkit-flex: 12;flex: 12; }
+
+.bottom-border{ border-bottom: solid 1px #eeeeee; }
+.heigth-130 { height: 3.5rem !important; }
+.grid-list { padding: 0 0.75rem; height: auto; box-sizing: border-box;width: 100%; background-color: #fff;  }
+.grid-list-item {  height: 3.25rem;}
+
+.no-padding { padding: 0;}
+.no-padding-top { padding-top: 0;}
+.no-padding-bottom { padding-bottom: 0;}
+.no-padding-left { padding-left: 0;}
+.no-padding-rigth { padding-right: 0;}
+.no-margin-left {   margin-left: 0;}
+.no-margin-top { margin-top: 0;}
+.no-margin { margin: 0;}
+
+table { border-collapse: collapse; width: 100%;}
+
+.font-28 { font-size: .7rem !important; }
+.font-30 { font-size: .75rem !important; }
+.font-32 { font-size: .8rem !important; }
+.font-34 { font-size: .85rem !important; }
+.font-40 { font-size: 1rem !important;}
+
+/* S modal of dialog */
+.modal{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    z-index: 100;
+}
+.modal-bg{
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: #333;
+    -webkit-opacity: 0.7;
+    -moz-opacity: 0.7;
+    -ms-opacity: 0.7;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+}
+.modal-content{
+    width: 70%;
+    background-color: #f5f5f5;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    margin-left: -35%;
+    z-index: 10;
+    border-radius: 3px;
+    overflow: hidden;
+    font-family: 'microsoft yahei';
+    font-size: 16px;
+    color: #666;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.modal-header{
+    overflow: hidden;
+}
+.modal-header .modal-title{
+    float: left;
+    color: #333;
+    line-height: 32px;
+}
+.modal-header .close{
+    float: right;
+    color: #fb6809;
+    font-size: 30px;
+    background-color: #fff;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    width: auto;
+    height: auto;
+    line-height: normal;
+}
+.modal-body{
+    text-align: center;
+    margin: 2em 0;
+    padding: 5px 10px;
+}
+.modal-footer{
+    border-top: 1px solid #dddddd;
+    text-align: center;
+}
+.btn-orange{
+    color: #2181f7;
+    font-size: 18px;
+    height: 2.5em;
+    line-height: 2.5em;
+    border-radius: 5px;
+    text-align: center;
+    display: inline-block;
+    font-family: 'microsoft yahei';
+    text-decoration: none;
+    outline: 0;
+    display: block;
+    width: 100%;
+}
+/* E modal of dialog */

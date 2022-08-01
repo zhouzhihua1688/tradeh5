@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!--<meta charset="GBK">-->
+	<meta charset="utf8">
+	<title>   </title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../css/bill/base.css">
+	<link rel="stylesheet" href="../css/bill/main.css?02">
+	<link rel="stylesheet" href="../css/bill/swiper.min.css">
+	<style type="text/css">
+		body{color: #666;background-color: #f6f6f6}
+		.section-banner{
+			position: relative;
+			margin-top: 0.5rem;
+		}
+		.section-banner a{
+			position: absolute;
+			width: 7.5rem;
+			height: 1.25rem;
+			display: table-cell;
+			text-align: center;
+			vertical-align: middle;
+			border-radius: 0.6rem;
+			border: solid 1px #fff;
+			color: #fff;
+			font-size: 0.8rem;
+			bottom: 0.5rem;
+			left: 50%;
+			margin-left: -3.75rem;
+		}
+		.section-main{
+
+		}
+		.section-main ul li{
+			padding: 0.95rem 0 0.95rem 0;
+			border-top: solid 1px #eeeeee;
+			background-color: #fff;
+		}
+		.main-title{
+			padding: 0 0.75rem 0 0.75rem;
+			line-height: 2.25rem;
+			border-top:solid 1px #eeeeee ;
+			font-size: 0.75rem;
+			color: #000;
+			background-color: #fff;
+		}
+		.main-content{
+			padding: 0 0.75rem 0 0.75rem;
+		}
+		.main-content .content-l{
+			text-align: center;
+			padding-right: 0.5rem;
+			margin-top: 0.5rem;
+		}
+		.main-content .content-l p{
+			font-size: 1rem;
+			color: #f95d1f;
+		}
+		.main-content .content-l p span{
+			font-size: 0.6rem;
+			color: #f95d1f;
+		}
+		.main-content .content-l span{font-size: 0.65rem;}
+		.content-r {
+			padding-left: 1rem;
+			border-left: solid 1px #eeeeee;
+		}
+		.content-r p{
+			font-size: 0.75rem;
+			color: #000;
+		}
+		.content-r .fundname{font-size: 0.65rem;line-height: 1.85rem}
+		.content-r div span{
+			color: #fb5c5f;
+			font-size: 0.55rem;
+		}
+		.content-r div .radius-s{
+			background-color: #fee5e5;
+			padding: 0.1rem 0.5rem 0.1rem 0.5rem;
+			border-radius: 0.4rem;
+		}
+		.content-r div .firstspan {margin-right: 0.2rem}
+		.content-r div span a{
+			text-decoration: line-through;
+		}
+		.scale-half{ transform: scale(.8); -webkit-transform: scale(.8);   }
+		.benchmark-hide{display: none;}
+		.module{display: none;}
+		.warn-img{
+			width: 0.75rem;
+			height: 0.75rem;
+			background: url(../images/bill/warningIcon.png) no-repeat;
+			background-size: 100% 100%;
+			display: inline-block;
+			vertical-align: middle;
+			margin-left: 0.4rem;
+			margin-top: -0.25rem;
+		}
+
+		.swiper-box {
+			position: relative;
+			background-color: white;
+			padding: 0 0 1rem 0;
+		}
+
+		.swiper-box .swiper-container {
+			width: 18rem;
+			height: 10rem;
+			box-shadow: #ccc 0 0 5px;
+		}
+
+		.swiper-box .swiper-slide {
+			background: #fff;
+			box-sizing: border-box;
+			flex-direction: column;
+			justify-content: space-around;
+			align-items: center;
+			display: flex;
+			padding: 1rem 0;
+		}
+
+
+		.swiper-box .swiper-pagination {
+			position: absolute;
+			top: 100%;
+			left: 50%;
+			transform: translateX(-50%);
+			margin-top: -1rem;
+		}
+
+		.swiper-box .swiper-pagination .bullet {
+			width: .4rem;
+			height: .4rem;
+			background: #dddddd;
+			margin-right: .5rem;
+			transition: all .2s linear;
+			display: inline-block;
+			border-radius: 100%;
+		}
+
+		.swiper-box .swiper-pagination .bullet-active {
+			width: 16px;
+			border-radius: 8px;
+			background-color: #fb5c5f;
+			opacity: 1;
+		}
+
+		.swiper-box .title {
+			font-size: .8rem;
+			color: #000;
+		}
+
+		.swiper-box .subtitle {
+			font-size: .7rem;
+			font-weight: 200;
+			color: #666666;
+			letter-spacing:.1rem
+		}
+
+		.swiper-box .yield {
+			font-size: 1.4rem;
+			color: #f4333c;
+			font-weight: 900;
+		}
+
+		.swiper-box .yieldText {
+			font-size: .7rem;
+			font-weight: 200;
+			color: #666666;
+		}
+
+		.swiper-box .btn {
+			font-size: .8rem;
+			background-color: #fb5c5f;
+			color: #fff;
+			text-decoration: none;
+			padding: .4rem 3rem;
+			border-radius: 2px;
+		}
+	</style>
+	<script>
+		setFont();
+		window.onresize = function () {
+			setFont();
+		}
+		function setFont() {
+			var windowWidth = document.documentElement.clientWidth;
+			windowWidth = windowWidth > 750 ? 750 : windowWidth;
+			document.documentElement.style.fontSize = windowWidth / (750 / 40) + "px";
+		}
+
+	</script>
+</head>
+
+<body>
+	<section id="bill_info_panel" style="display: none;">
+		<div style="background: #fff;">
+			<header>
+				<div class="calendar">
+					<div class="calendar-gray" style="padding-bottom: 1rem;">
+						<!--<div class="fastener-wrap">
+							<span class="fastener"></span>
+							<span class="fastener"></span>
+							<span class="fastener"></span>
+							<span class="fastener"></span>
+						</div>-->
+						<div class="question-mark">
+							<a href="javascript:void(0);" class="btn-question"></a>
+						</div>
+
+						<div class="calendar-table">
+							<table>
+								<tr>
+									<td><span class="month"></span>月总收益(<span class="currency-type-unit">元</span>)</td>
+									<td><span class="month"></span>月总收益率</td>
+								</tr>
+								<tr class="font-60 red">
+									<td class="font-arial" id="total_income" style="white-space:nowrap;"></td>
+									<td class="font-arial"><span id="total_income_rate"></span><small class="font-32" id="total_income_rate_unit">&nbsp;&nbsp;%</small></td>
+								</tr>
+								<tr>
+									<td>持有盈亏(<span class="currency-type-unit">元</span>)：<span class="font-arial" id="hold_profit"></span><div class="line-y"></div></td>
+									<td><span style="white-space:nowrap;">已实现盈亏(<span class="currency-type-unit">元</span>)：</span><span class="font-arial" id="real_profit" style="white-space: nowrap; display: inline-block;" ></span></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</header>
+		</div>
+
+		<div>
+			<nav class="nav asset">
+				<ul>
+					<li class="active" id="income_tab">
+						<a href="javascript: void(0);">盈亏</a>
+					</li>
+					<li id="asset_tab">
+						<a href="javascript: void(0);">资产</a>
+					</li>
+				</ul>
+			</nav>
+			<section style="padding: 1px 0;background-color: #fff;">
+				<div class="benchmark-con">
+					<div class="benchmark">
+						<!--<img src="img/spot_white.png" alt="">-->
+                        <hr>
+						<div class="xjb clearfix benchmark-hide">
+							<div class="left">
+							</div>
+							<div class="right">
+							</div>
+							<div class="top-box">
+								<div class="top"></div>
+							</div>
+							<span class="Profit-val"></span>
+							<span class="Profit-name">现金宝</span>
+						</div>
+						<div class="fund clearfix benchmark-hide">
+							<div class="left">
+							</div>
+							<div class="right">
+							</div>
+							<div class="top-box">
+								<div class="top">
+								</div>
+							</div>
+							<span class="Profit-val"></span>
+							<span class="Profit-name">基金</span>
+						</div>
+						<div class="regular clearfix benchmark-hide">
+							<div class="left">
+							</div>
+							<div class="right">
+							</div>
+							<div class="top-box">
+								<div class="top">
+								</div>
+							</div>
+							<span class="Profit-val"></span>
+							<span class="Profit-name">定期</span>
+						</div>
+						<div class="high clearfix benchmark-hide">
+							<div class="left">
+							</div>
+							<div class="right">
+							</div>
+							<div class="top-box">
+								<div class="top">
+								</div>
+							</div>
+							<span class="Profit-val"></span>
+							<span class="Profit-name">资管</span>
+						</div>
+					</div>
+				</div>
+				<div style="display: none;">
+					<div id="pie3" style="width: 18.7rem; height: 9rem;"></div>
+				</div>
+			</section>
+
+		</div>
+
+		<div class="module" id="cash_table">
+			<h3>现金宝</h3>
+			<div class="table-wrap">
+				<table>
+					<tr>
+						<th style="width: 40%">产品名称</th>
+						<th style="width: 20%">参考市值</th>
+						<th style="width: 20%">当月收益</th>
+						<th style="width: 20%">当月年化</th>
+					</tr>
+					<tbody id="cash_tbody">
+					<!--<tr>
+						<td>汇添富现金宝 001050</td>
+						<td>8,888,123.89</td>
+						<td>1230.34</td>
+						<td>13.45%</td>
+					</tr>-->
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+		<div class="module" id="regular_table">
+			<h3>定期</h3>
+			<div class="table-wrap">
+				<table>
+					<tr>
+						<th style="width: 40%">产品名称</th>
+						<th style="width: 30%">参考市值</th>
+						<th style="width: 30%">收益</th>
+					</tr>
+					<tbody id="regular_tbody">
+					<!--<tr>
+						<td>汇添富理财7天 001050</td>
+						<td>8,888,123.89</td>
+						<td>13.45%</td>
+					</tr>-->
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="module" id="fund_table">
+			<h3>基金</h3>
+			<div class="fund-chart">
+				<!--<h4>当月收益率<span id="my_fund_rate"></span>％，跑<span id="show_str">赢</span>沪深300（<span id="hs300"></span>%）</h4>-->
+				<div id="pie1" style="width: 18.64rem; height: 13rem;"></div>
+			</div>
+			<div class="table-wrap">
+				<table>
+					<tr>
+						<th style="width: 40%">产品名称</th>
+						<th style="width: 20%">参考市值</th>
+						<th style="width: 20%">收益</th>
+						<th style="width: 20%">收益率</th>
+					</tr>
+					<tbody id="fund_tbody">
+					<!--<tr>
+						<td>汇添富成长多因子量化策略股票 001050</td>
+						<td>8,888,123.89</td>
+						<td>1230.34</td>
+						<td>13.45%</td>
+					</tr>-->
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="module" id="group_table">
+			<h3>组合</h3>
+			<div class="table-wrap">
+				<table>
+					<tr>
+						<th style="width: 40%">产品名称</th>
+						<th style="width: 20%">参考市值</th>
+						<th style="width: 20%">收益</th>
+						<th style="width: 20%">收益率</th>
+					</tr>
+					<tbody id="group_tbody">
+					<!--<tr>
+
+						<td><span>添富盈2号</span><span class="clear-gra">清盘中</span></td>
+						<td>&#45;&#45;</td>
+						<td>&#45;&#45;</td>
+						<td>&#45;&#45;</td>
+					</tr>
+					<tr>
+						<td><span>添富盈2号</span></td>
+						<td>8,888,123.89</td>
+						<td>1230.34</td>
+						<td>13.45%</td>
+					</tr>-->
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="module" id="vip_table">
+			<h3>资管</h3>
+			<div class="table-wrap">
+				<table>
+					<tr>
+						<th style="width: 40%">产品名称</th>
+						<th style="width: 20%">参考市值</th>
+						<th style="width: 20%">收益</th>
+						<th style="width: 20%">收益率</th>
+					</tr>
+					<tbody id="vip_tbody">
+					<!--<tr>
+
+						<td><span>添富盈2号</span><span class="clear-gra">清盘中</span></td>
+						<td>&#45;&#45;</td>
+						<td>&#45;&#45;</td>
+						<td>&#45;&#45;</td>
+					</tr>
+					<tr>
+						<td><span>添富盈2号</span></td>
+						<td>8,888,123.89</td>
+						<td>1230.34</td>
+						<td>13.45%</td>
+					</tr>-->
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!--
+		<div class="result">
+			<div id="risk_panel">
+				<h3>您的<span class="month"></span>月份资产体检结果</h3>
+				<a class="result-link" href="javascript:void(0);">
+					<div class="person">
+						<p id="leverNm"></p>
+					</div>
+				</a>
+			</div>
+			<h4>根据您的资产体检结果，为您量身定制投资组合</h4>
+			<div class="prod" id="btn_buy">
+				<h5 id="groupname"></h5>
+				<div class="text-1">适合人群：
+					<span id="grouptypeNm"></span> &nbsp;&nbsp;&nbsp;&nbsp; 组合风险：
+					<span id="risklevelNm"></span>
+				</div>
+				<div class="text-2">模拟历史年化业绩：
+					<span class="red font-arial" id="nearYearProfit"></span>
+				</div>
+				<a href="javascript:void(0);" class="btn-buy" style="z-index: 999999">立即购买</a>
+			</div>
+		</div>
+		<div class="swiper-box" style="display: none;">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+
+				</div>
+
+			</div>
+			<div class="swiper-pagination"></div>
+		</div>
+		<div class="view-details investmentIndicator_link">
+			<img alt="" class="investmentIndicator_icon">
+		</div>-->
+	</section>
+	<!--<section id="bill_recommend_panel" style="display: none;">
+
+		<section class="section-main">
+			<p class="main-title">推荐产品</p>
+			<ul id="recommend_product">
+				&lt;!&ndash;<li>
+					<div class="main-content clearfix">
+						<div class="fl content-l">
+							<p>39.80<span>%</span></p>
+							<span>最近一年收益率</span>
+						</div>
+						<div class="fl content-r">
+							<p>风口将至“医”触即发</p>
+							<span class="fundname">汇添富医疗服务混合</span>
+							<div>
+								<span class="radius-s firstspan">费率：<a href="javascript:void(0)">1.50%</a>  0.15%</span>
+								<span class="">10元起投</span>
+							</div>
+						</div>
+					</div>
+				</li>&ndash;&gt;
+			</ul>
+		</section>
+        <div class="view-details investmentIndicator_link">
+            <img alt="" class="investmentIndicator_icon">
+        </div>
+	</section>-->
+	<footer>
+		<a href="javascript:void(0)" id="advertising"></a>
+
+	</footer>
+
+	<div class="dialog" style="display:none;">
+		<div class="dialog-wrap">
+			<div class="dialog-body">
+				<p class="dialog-content">
+
+				</p>
+			</div>
+			<div class="layer-footer">
+				<a class="close" href="javascript:void(0)">我知道了</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="layer" style="display:none;">
+		<div class="layer-wrap">
+			<div class="layer-body">
+				<h5>1.盈亏数据说明</h5>
+				<p>
+					1）盈亏数据根据您持有的基金份额是否已经赎回，分为“持有盈亏”、“已实现盈亏”、“累计盈亏”；
+					<br> 2）持有盈亏：截止本月最后一个自然日持有的份额所对应的本月度盈亏；
+					<br> 3）已实现盈亏：已赎回的份额、转换出的份额对应的本月度盈亏（不包含现金分红）；
+					<br> 4）累计盈亏：本月度总盈亏，即为持有盈亏和已实现盈亏之和。
+					<br>
+				</p>
+				<h5>2.一只基金，多次申购、赎回是如何计算盈亏的
+				</h5>
+				<p>
+					1）系统将按照“先进先出”的原则计算（即先购买的份额先赎回）
+					<br> 2）赎回的时候根据赎回确认金额和该部分份额对应的购买成本来计算“已实现盈亏”
+					<br> 3）剩余部分份额为现阶段持有份额，对应的盈亏为“持有盈亏”
+					<br>
+				</p>
+			</div>
+			<div class="layer-footer">
+				<a class="close" href="javascript:void(0)">我知道了</a>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../js/lib/zepto.min.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+	<script type="text/javascript" src="../js/common.js?20210302"></script>
+	<script src="../js/lib/echarts.common.min.js"></script>
+	<script src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script src="../js/bill/swiper.min.js"></script>
+	<script src="../js/bill/main.js?01"></script>
+	<script src="../js/bill/fund.js?01"></script>
+	<script src="../js/bill/asset.js?02"></script>
+	<script>
+        (function () {
+            $('body').on('touchend', function () {
+                $('.benchmark').children().hide().show();
+            });
+            $("#risk_panel").click(function(e) {
+                e.stopPropagation();
+                window.location.href = "htffundxjb://action?type=as&subType=test";
+            });
+            var yearMonth = App.getUrlParam("yearMonth");
+            var currencyType = App.getUrlParam("currencyType");
+            var year = yearMonth.substr(0, 4);
+            var month = Number(yearMonth.substr(4));
+            $(".month").html(month);
+            $("title").html(month + "月份账单");
+			if (currencyType != "156"){
+			    $(".currency-type-unit").html("美元");
+			}
+            loadBillInfo(yearMonth, currencyType);
+		})();
+        
+        function setInverstmentIndicator(urlPrefix, yearMonth) {
+            //http://10.50.115.97:8080/htfweb/mobileweb/vane/201804/banner/banner.png
+            var investmentIndicator_icon = urlPrefix + "/htfweb/mobileweb/vane/$YYYYMM/banner/banner.png".replace("$YYYYMM", yearMonth);
+            var investmentIndicator_link = urlPrefix + "/htfweb/mobileweb/vane/$YYYYMM/index.html".replace("$YYYYMM", yearMonth);
+            //$(".investmentIndicator_icon").error(function () {
+                $(".investmentIndicator_link").hide();
+            //});
+            $(".investmentIndicator_icon").attr("src", investmentIndicator_icon);
+            $(".investmentIndicator_link").click(function () {
+                window.location.href = investmentIndicator_link;
+            });
+        }
+        
+        /**
+         * 获取下一个月
+         *
+         * @date 格式为yyyy-mm-dd的日期，如：2014-01-25
+         */
+        function getNextMonth(year, month, day) {
+            var days = new Date(year, month, 0);
+            days = days.getDate(); //获取当前日期中的月的天数
+            var year2 = year;
+            var month2 = parseInt(month) + 1;
+            if (month2 == 13) {
+                year2 = parseInt(year2) + 1;
+                month2 = 1;
+            }
+            var day2 = day;
+            var days2 = new Date(year2, month2, 0);
+            days2 = days2.getDate();
+            if (day2 > days2) {
+                day2 = days2;
+            }
+            if (month2 < 10) {
+                month2 = '0' + month2;
+            }
+
+            var t2 = year2 + '-' + month2 + '-' + day2;
+            return t2;
+        }
+
+        function setField(field, val, unit) {
+            if(Number(val.replace(/,/g, '')) > 0) {
+                $(field).css('color', '#fe5a5b');
+                $(unit).css('color', '#fe5a5b');
+            }else if (Number(val.replace(/,/g, '')) < 0) {
+                $(field).css('color', '#009944');
+                $(unit).css('color', '#009944');
+            }else{
+                $(field).css('color', '#000');
+                $(unit).css('color', '#000');
+            }
+            $(field).html(val);
+        }
+
+        function loadBillInfo(yearMonth, currencyType) {
+            var year = yearMonth.substr(0, 4);
+            var month = Number(yearMonth.substr(4));
+
+            App.get(App.projectNm + "/account/monthly_asset_bill_info?yearMonth=" + yearMonth + "&currencyType=" + currencyType, null, function(result){
+                //alert(resultStr);
+                if(result.returnCode == 0){
+                    var billInfo = result.body.monthlyBillInfo;
+
+                    setInverstmentIndicator(billInfo.htfwebUrlPrefix, yearMonth);
+
+                    if(billInfo != undefined && billInfo != null && billInfo.isForward == "0") {
+                        setField($("#total_income"), billInfo.totalIncome);
+                        setField($("#total_income_rate"), billInfo.totalIncomeRate, $("#total_income_rate_unit"));
+                        setField($("#hold_profit"), billInfo.holdProfit);
+                        setField($("#real_profit"), billInfo.realProfit);
+
+                        loadFundChartData(yearMonth, currencyType);
+						$("#bill_info_panel").show();
+                        //checkRiskLevel();
+                        //queryAdvertising();
+						//queryRecommendProduct_new();
+
+                        var lossInfoList = billInfo.profitLossInfo;
+                        if (lossInfoList != undefined && lossInfoList != null) {
+                            // 柱状图
+                            var asset = new Array();
+                            lossInfoList.forEach(function (item, index) {
+                                var object = new Object();
+                                object.name = item.assetTypeName;
+                                object.value = item.income;
+                                object.type = Number(item.assetType);
+                                asset[index] = object;
+                            })
+                            setAsset(asset, currencyType);
+                        }
+
+                        var assetsInfoList = billInfo.assetsInfo;
+                        if (assetsInfoList != undefined && assetsInfoList != null && assetsInfoList.length > 0) {
+                            // 饼图
+                            var asset = new Array();
+                            assetsInfoList.forEach(function (item, index) {
+                                var object = new Object();
+                                object.name = item.assetTypeName;
+                                object.value = item.capital;
+                                object.showVal = item.capitalStr;
+                                object.percent = item.capRatio;
+                                asset[index] = object;
+                            });
+                            setMyChart(asset);
+                        }else {
+                            $("#income_tab").attr('style', 'border-bottom:none');
+                            $("#income_tab").html(month + "月盈亏");
+                            $("#asset_tab").hide();
+						}
+
+                        var cashList = billInfo.cashAssertDetailInfo;
+                        if (cashList != undefined && cashList != null && cashList.length > 0) {
+                            var tbody = "";
+                            cashList.forEach(function (item) {
+                                tbody +=
+                                    "<tr><td>" + item.productName + " " + item.productId + "</td>" +
+                                    "<td>" + item.marketValue + "</td>" +
+                                    "<td>" + item.income + "</td>" +
+                                    "<td>" + item.incomeRate + "%</td></tr>";
+                            });
+                            $("#cash_tbody").html(tbody);
+                            $("#cash_table").show();
+                        }
+
+                        var regularList = billInfo.regularProductDetailInfo;
+                        if (regularList != undefined && regularList != null && regularList.length > 0) {
+                            var tbody = "";
+                            regularList.forEach(function (item) {
+                                tbody +=
+                                    "<tr><td>" + item.productName + " " + item.productId + "</td>" +
+                                    "<td>" + item.marketValue + "</td>" +
+                                    "<td>" + item.income + "</td></tr>";
+                            });
+                            $("#regular_tbody").html(tbody);
+                            $("#regular_table").show();
+                        }
+
+                        var fundList = billInfo.fundProductDetailInfo;
+                        if (fundList != undefined && fundList != null && fundList.length > 0) {
+                            var tbody = "";
+                            fundList.forEach(function (item) {
+                                tbody +=
+                                    "<tr><td>" + item.productName + " " + item.productId + "</td>" +
+                                    "<td>" + item.marketValue + "</td>" +
+                                    "<td>" + item.income + "</td>" +
+                                    "<td>" + item.incomeRate + "%</td></tr>";
+                            });
+                            $("#fund_tbody").html(tbody);
+                            $("#fund_table").show();
+                        }
+
+                        var groupList = billInfo.groupProductDetailInfo;
+                        if (groupList != undefined && groupList != null && groupList.length > 0) {
+                            var tbody = "";
+                            groupList.forEach(function (item) {
+                                tbody +=
+                                    "<tr><td>" + item.productName + " " + item.productId + "</td>" +
+                                    "<td>" + item.marketValue + "</td>" +
+                                    "<td>" + item.income + "</td>" +
+                                    "<td>" + item.incomeRate + "%</td></tr>";
+                            });
+                            $("#group_tbody").html(tbody);
+                            $("#group_table").show();
+                        }
+
+                        var vipList = billInfo.vipProductDetailInfo;
+                        if (vipList != undefined && vipList != null && vipList.length > 0) {
+                            var tbody = "";
+                            vipList.forEach(function (item) {
+                                if ("1" == item.isLiquidation) {
+                                    tbody +=
+                                        "<tr><td><span>" + item.productName + "</span><span class=\"clear-gra\">清盘中</span></td>" +
+                                        "<td>--</td>" +
+                                        "<td>--</td>" +
+                                        "<td>--</td></tr>";
+                                } else if ("2" == item.isLiquidation) {
+                                    tbody +=
+                                        "<tr><td><span>" + item.productName + "</span><span class=\"clear-gra\">浮动收益</span></td>" +
+                                        "<td>--</td>" +
+                                        "<td>--</td>" +
+                                        "<td>--</td></tr>";
+                                } else {
+                                    tbody +=
+                                        "<tr><td><span>" + item.productName + "</span></td>" +
+                                        "<td>" + item.marketValue + "</td>" +
+                                        "<td>" + item.income + "</td>" +
+                                        "<td>" + item.incomeRate + "%</td></tr>";
+                                }
+                            });
+                            $("#vip_tbody").html(tbody);
+                            $("#vip_table").show();
+                        }
+                    // }else {
+                    //     queryRecommendProduct();
+                    //     $("#bill_recommend_panel").show();
+					}
+
+                }else{
+                    alert(result.returnMsg);
+                }
+
+            });
+        }
+
+        function loadFundChartData(yearMonth, currencyType) {
+
+            App.get(App.projectNm + "/account/monthly_fund_chart?yearMonth=" + yearMonth + "&currencyType=" + currencyType, null ,function(result){
+                //alert(resultStr);
+                if(result.returnCode == 0){
+                    var myFundRate = result.body.myFundRate;
+                    var calHS300Rate = result.body.calHS300Rate;
+                    $("#hs300").html(calHS300Rate);
+                    $("#my_fund_rate").html(myFundRate);
+                    if(Number(myFundRate) > Number(calHS300Rate)) {
+                        $("#show_str").html("赢");
+                    }else{
+                        $("#show_str").html("输");
+                    }
+                    // 收益率
+                    var fundList = result.body.fundList;
+                    // 沪深300
+                    var hs300List = result.body.hs300List;
+					if(fundList != undefined && fundList != null && fundList.length == 0){
+                        $(".fund-chart").hide();
+					}else{
+                        setChart(fundList, hs300List);
+					}
+                }else{
+                    alert(result.returnMsg);
+                }
+
+            });
+        }
+
+        function checkRiskLevel() {
+
+            App.get(App.projectNm + "/adviser/cust_asset_check", null, function(result){
+                //alert(resultStr);
+                if(result.returnCode == 0) {
+                    var assetCheckInfo = result.body.assetCheckInfo;
+                    if (assetCheckInfo != undefined && assetCheckInfo != null) {
+                        $("#leverNm").html(assetCheckInfo.leverNm);
+
+                        var fundGroupDetailInfo = assetCheckInfo.fundGroupDetailInfo;
+                        if (fundGroupDetailInfo != undefined && fundGroupDetailInfo != null) {
+                            $("#groupname").html(fundGroupDetailInfo.groupname);
+                            $("#grouptypeNm").html(fundGroupDetailInfo.grouptypeNm);
+                            $("#risklevelNm").html(fundGroupDetailInfo.risklevelNm);
+                            // $("#nearYearProfit").html(fundGroupDetailInfo.nearYearProfit + "%");
+                            $("#btn_buy").click(function (e) {
+                                e.stopPropagation();
+                                if(fundGroupDetailInfo.groupid == "A0081"){
+                                    window.location.href = "../fundgroup/group_fund_details_xjj.html?groupId=" + fundGroupDetailInfo.groupid;
+                                } else {
+                                    window.location.href = "../fundgroup/group_fund_details.html?groupId=" + fundGroupDetailInfo.groupid;
+                                }
+                            });
+                        }
+                    }
+                }else{
+                    alert(result.returnMsg);
+                }
+
+            }, function () {
+
+            });
+        }
+
+        function queryAdvertising() {
+            var url = App.projectNm + "/app_func/query_theme_infos_config?layoutId=monthlyBillAdvert&date=" + (new Date()).getTime();
+            App.get(url, null, function(res) {
+                if (res.returnCode == 0 && res.body != undefined && res.body != null) {
+                    var themeList = res.body.theme;
+                    for (i in themeList) {
+                        var themeDataList = themeList[i].object;
+                        for (j in themeDataList) {
+                            themeData = themeDataList[j];
+                            $("#advertising").html("<img src='" + themeData.imageUrl + "' alt=''>");
+                            $("#advertising").click(function () {
+                                window.location.href = themeData.url;
+                            });
+                        }
+                    }
+                }
+            })
+        };
+
+		function queryRecommendProduct_new() {
+			var url = App.projectNm + "/app_func/query_theme_infos_config?layoutId=monthlyBillProduct&date=" + (new Date()).getTime();
+			App.get(url, null, function(res) {
+				if (res.returnCode == 0 && res.body != undefined && res.body != null) {
+					var themeList = res.body.theme;
+					var htmlCode = "";
+					for (i in themeList) {
+						var themeDataList = themeList[i].object;
+						for (j in themeDataList) {
+							themeData = themeDataList[j];
+							var str = "<div class='swiper-slide'>" +
+									"                    <h2 class='title'>"+themeData.fundGroupTitle+"</h2>" +
+									"                    <p class='subtitle'>"+themeData.fundGroupSubtitle+"</p>" +
+									"                    <p class='yield'>"+themeData.recomElementVal+"<span style='font-size: .8rem;'>"+themeData.recomElementUnit+"</span></p>" +
+									"                    <p class='yieldText'>"+themeData.recomElementNm+"</p>" +
+									"                    <a class='btn' href='javascript:;' onclick='forward(\""+ themeData.fundGroupId+"\")'>立即购买</a>" +
+									"                </div>";
+							htmlCode += str;
+						}
+						$(".swiper-wrapper").html(htmlCode);
+
+						if(themeDataList.length > 0 ){
+							$("#btn_buy").hide();
+							$(".swiper-box").show();
+
+							var mySwiper = new Swiper('.swiper-container', {
+								autoplay: {
+									delay: 3000,
+									disableOnInteraction: true,
+								},//自动滚动
+								direction: 'horizontal', // 横向切换选项
+								speed: 1000,//速度
+								roundLengths: true, //数值取整
+								watchOverflow: true,//因为仅有1个slide，swiper无效
+								// 如果需要分页器
+								pagination: {
+									el: '.swiper-pagination',
+									clickable: true,
+									bulletClass: 'bullet',
+									bulletActiveClass: 'bullet-active'
+
+								}
+							})
+						}
+					}
+				}
+			})
+		};
+
+        function queryRecommendProduct() {
+            var url = App.projectNm + "/app_func/query_theme_infos_config?layoutId=monthlyBillProduct&date=" + (new Date()).getTime();
+            App.get(url, null, function(res) {
+                if (res.returnCode == 0 && res.body != undefined && res.body != null) {
+                    var themeList = res.body.theme;
+                    var htmlCode = "";
+                    for (i in themeList) {
+                        var themeDataList = themeList[i].object;
+                        for (j in themeDataList) {
+                            themeData = themeDataList[j];
+                            var str = "<li onclick='forward(\"" + themeData.fundId + "\")'>" +
+                                "<div class='main-content clearfix'>" +
+                                "<div class='fl content-l'>" +
+                                "<p>" + themeData.recomelementval + "<span>%</span></p>" +
+                                "<span>" + themeData.recomelementnm + "</span>" +
+                                "</div>" +
+                                "<div class='fl content-r'>" +
+                                "<p>" + themeData.fundTitle + "</p>" +
+                                "<span class='fundname'>" + themeData.fundsubTitle + "</span>" +
+                                "<div>" +
+                                "<span class='radius-s firstspan'>费率：<a href='javascript:void(0)'>" + themeData.oldFee + "</a>  " + themeData.nowFee + "</span>" +
+                                "<span class=''>" + themeData.threshold + "</span>" +
+                                "</div>" +
+                                "</div>" +
+                                "</div>" +
+                                "</li>";
+                            htmlCode += str;
+                        }
+                    }
+                    $("#recommend_product").html(htmlCode);
+                }
+            })
+        };
+
+        function forward(fundId) {
+        	if(fundId.indexOf("A") > -1){
+				window.location.href = "../fundgroup/group_fund_details.html?groupId=" + fundId;
+			} else {
+				window.location.href = "../fund/steadyCombination.html?fundId=" + fundId;
+			}
+        }
+
+	</script>
+</body>
+
+</html>

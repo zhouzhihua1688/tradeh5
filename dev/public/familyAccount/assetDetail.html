@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>资产明细</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../base/css/base.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+    <script type="text/javascript" src="../base/js/needLogin.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+	</script>
+   <style>
+	body,html{background: #f6f6f6;}
+	body {left: 0%; right: 0%;font:14px 'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+	button { outline: none;  }
+	  /* 图片自适应 */
+	img {width: 100%; height: auto; width: auto\9; /* ie8 */ -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/ border: none; vertical-align: top; outline: none; display: block; }
+	.main{width:100%;height:100%;padding-bottom:3rem;}
+	.head{width:18.75rem;height:5.75rem;background: url('img/assetDetails.png') no-repeat;background-size: 100% 100%;}
+	.head .save{font-size:0.65rem;color:#fff;padding-top:1.25rem;text-align: center}
+	.head .money{font-size:1.35rem;color:#fff;text-align: center;margin-top:0.45rem;}
+	.touzi{width:100%;height:2.0rem;background: #fff;position: relative;top:-0.5rem;border-radius:10px 10px 0 0;color:#666;line-height:2rem;display:flex;justify-content:space-between;align-items: center;border-bottom:1px solid #eee;}
+	.touzi div{width:22%;font-size:0.65rem;color:#666;text-align: center;}
+	.touzi div:nth-of-type(1){margin-left:-0.75rem;}
+	.touzi div:nth-of-type(3){text-align:right}
+	.touzi div:nth-of-type(4){margin-right:0.75rem;text-align:right}
+	.memberList{width:100%;height:3.0rem;background: #fff;position: relative;top:-0.5rem;color:#666;display:flex;justify-content:space-between;align-items: center;border-bottom:1px solid #eee;}
+	.memberList div{width:22%;font-size:0.7rem;color:#000;text-align: center;}
+	.memberList div:nth-of-type(1) span{display: inline-block;text-indent: 0.75rem;text-align:left}
+	.memberList div:nth-of-type(1) span:nth-of-type(2){font-size: .5rem;}
+	.memberList div:nth-of-type(1){margin-left:-0.5rem;}
+	.memberList div:nth-of-type(3){text-align:right}
+	.memberList div:nth-of-type(4){margin-right:0.75rem;text-align:right}
+</style>
+</head>
+<body>
+	<div class="main">
+		<div class="head">
+			<div class="save"><span id="investMemberCount"></span>位家庭成员正在投资，总资产(元) </div>
+			<div class="money assetTotalAmount"></div>
+		</div>
+		<div class="touzi">
+			<div>成员</div>
+			<div>投资资产(元)</div>
+			<div class="yieldDate"></div>
+			<div>累计收益</div>
+		</div>
+
+
+		 
+	 </div>
+<script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../base/js/utils.js"></script>
+
+<script>
+    // 关闭浮层
+	$(".close").click(function(){
+        $(".mask,.layer0").hide()
+    })
+	var teamId = utils.getUrlParam("teamId");
+	var memberId = utils.getUrlParam("memberId");
+	$(function(){
+		showAssetDetail();
+	});
+
+
+	//计划详情
+	function showAssetDetail(){
+		utils.get('/sfs/v1/accounts/assets/cust?teamId='+teamId+'&memberId='+memberId,null,function(result){
+			var body = result.body;
+			if(result.returnCode == 0){
+				$(".assetTotalAmount").html(formatMoney(body.assetTotalAmount));
+				$("#investMemberCount").html(body.investMemberCount);
+				
+				var custAssetVos = body.custAssetVos;
+				if(custAssetVos.length > 0){
+					var htm = '';
+					custAssetVos.forEach(function(item,index){
+						htm+='	    <div class="memberList">'+
+									'<div>'+
+										'<span>'+item.memberName+'</span>'+
+										'<span>('+item.memberRoleName+')</span>'+
+									'</div>'+
+									'<div>'+formatMoney(item.assetTotalAmount)+'</div>'+
+									'<div style="color:'+showColor(item.lastYield)+'">'+formatMoney(item.lastYield)+'</div>'+
+									'<div  style="color:'+showColor(item.totalYield)+'">'+formatMoney(item.totalYield)+'</div>'+
+								'</div>';
+						if(item.yieldDate){
+							$(".yieldDate").html((item.yieldDate ? item.yieldDate.substring(4,6)+'.'+item.yieldDate.substring(6,8):'--')+'收益')
+						}
+						
+					});
+					$(".touzi").after(htm);
+				}
+			}
+		});
+	}
+
+</script>
+</body>
+</html>

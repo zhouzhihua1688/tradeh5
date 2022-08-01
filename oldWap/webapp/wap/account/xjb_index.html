@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>现金宝资产</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <style>
+        html,
+        body {
+            background-color: #f6f6f6;
+            width: 100%;
+            height: 100%;
+            color: #666;
+            font: 14px 'Microsoft YaHei', Tahoma, Arial, sans-serif;
+        }
+
+        .content {
+            padding: .75rem .75rem 0 .75rem;
+            margin-bottom: 8rem;
+        }
+
+        .content header {
+            background: url("../images/account/header.png")no-repeat;
+            background-size: 100% 100%;
+            color: #fff;
+            padding: 1rem .75rem;
+            font-size: .65rem;
+            font-weight: 100;
+            border-radius: .2rem;
+        }
+
+        .content .money {
+            font-size: 1.3rem;
+            padding: .75rem 0;
+
+        }
+
+        .content .yield {
+            padding-top: .45rem;
+        }
+
+        .content .yield .span {
+            display: inline-block;
+            width: 50%;
+        }
+
+
+        .content .tag span {
+            display: inline-block;
+            padding: .3rem .75rem;
+            font-size: .65rem;
+            border-radius: 1rem;
+            background: #fff;
+            margin-right: .25rem;
+        }
+
+        .content .tag {
+            margin-top: .5rem;
+
+        }
+
+        .content .tag .active {
+            background: #fb5c5f;
+            color: #fff;
+        }
+
+        .content .tag img {
+            width: .75rem;
+            height: .75rem;
+            vertical-align: middle;
+            margin-top: -.2rem;
+            margin-left: .25rem;
+        }
+
+        .content .echart {
+            margin-top: .5rem;
+            padding: .75rem;
+            background: #fff;
+            border-radius: .2rem .2rem 0 0;
+        }
+
+        .content .echart ul {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: .5px solid #eee;
+            padding-bottom: .8rem;
+            margin-bottom: 1rem;
+        }
+
+        .content .black {
+            color: #000;
+        }
+
+        .content .red {
+            color: #f4333c;
+        }
+
+
+        .content .echart ul span {
+            display: block;
+            font-size: .65rem;
+        }
+
+        .content .echart ul li span:nth-of-type(2) {
+            margin-top: .5rem;
+        }
+
+        .content .echart ul li:nth-of-type(1) {
+            text-align: left;
+        }
+
+        .content .echart ul li:nth-of-type(2) {
+            text-align: center;
+        }
+
+        .content .echart ul li:nth-of-type(3) {
+            text-align: right;
+        }
+
+        .content .detail span {
+            font-size: .75rem;
+            font-weight: 900;
+            color: #000;
+        }
+
+        .content .detail p:nth-of-type(1) {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content .detail p:nth-of-type(2) {
+            font-size: .65rem;
+            margin-top: .5rem;
+        }
+
+        .content .detail a {
+            font-size: .65rem;
+            padding: .1rem .6rem;
+            border-radius: 1rem;
+            border: .5px solid #148ce6;
+
+        }
+
+        .content .time {
+            background: #fff;
+            font-size: .7rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+        }
+
+        .content .time p {
+            padding: .5rem 0;
+            width: 33.33%;
+            flex-grow: 1;
+            border: 1px solid #eee;
+            margin-left: -1px;
+        }
+
+        .content .tips {
+            font-size: .65rem;
+            text-align: center;
+        }
+
+        .content .tips p {
+            margin-top: .75rem;
+        }
+
+        .content .tips a {
+            display: block;
+            margin-top: .75rem;
+            color: #148ce6;
+        }
+
+        .btn {
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+        }
+
+        .btn li {
+            box-sizing: border-box;
+            padding: .75rem;
+            width: 33.33%;
+            flex-grow: 1;
+            background-color: #fd7e23;
+            font-size: .85rem;
+            color: #fff;
+        }
+
+        .btn li:nth-of-type(2) {
+            border-right: 1px solid #fff;
+            border-left: 1px solid #fff;
+        }
+
+        .btn .active {
+            color: #fd7e23;
+            background-color: #fff;
+        }
+
+        .time .active {
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+<div class="content">
+    <header>
+        <p style=" opacity: .7;">现金宝资产(元)</p>
+        <p class="money totalBalance"></p>
+        <p class="yield" style=" opacity: .7;"><span class="span">昨日收益(元)</span><span class="span">累计收益(元)</span></p>
+        <p class="yield"><span class="span"><span id="lastDayProfit"></span>(<span class="profitDay"></span>)</span><span class="span totalProfit"></span></p>
+    </header>
+    <div class="tag">
+        <!--<span class="active">现金宝B</span>
+        <span>现金宝A</span>
+        <img src="../images/account/point.png" alt="">-->
+    </div>
+    <div class="echart">
+        <ul>
+            <li>
+                <span>持有份额</span>
+                <span class="black balanceDisplay"></span>
+            </li>
+            <li>
+                <span>万份收益</span>
+                <span class="red fundIncomeUnitDisplay"></span>
+            </li>
+            <li>
+                <span>昨日收益</span>
+                <span class="red lastDayProfit"></span>
+            </li>
+        </ul>
+        <div class="detail">
+            <p><span class="detailTitle"></span><a class="visitProductDetail" href="javascript:;">查看详情</a></p>
+            <p>七日年化收益率(％)</p>
+        </div>
+        <div>
+            <div id="pie2" style="width: 100%; height: 11rem;"></div>
+        </div>
+        <div class="noData" style="display: none;">
+            <p>没有足够的数据可展示</p>
+        </div>
+    </div>
+    <div class="time">
+        <p class="active">7天</p>
+        <p>1个月</p>
+        <p>2个月</p>
+    </div>
+    <div class="tips" style="display: none;">
+        <p>建议您将A类份额一键转购立享更高收益</p>
+        <a href="../fund/convert.html">立即转购</a>
+    </div>
+</div>
+<ul class="btn">
+    <li class="active takeBack">取现</li>
+    <li class="autoRecharge">自动充值</li>
+    <li class="recharge">充值</li>
+</ul>
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/lib/echarts.min.js"></script>
+<script type="text/javascript" src="../js/lib/phone-size.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script type="text/javascript" src="../js/common.js?20210106"></script>
+<script type="text/javascript" src="../js/account/xjb_index.js"></script>
+
+</body>
+
+</html>

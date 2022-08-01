@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>定投明细</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/fundgroup/public.css">
+    <link rel="stylesheet" href="../css/common.css">
+</head>
+
+<body>
+    <div class="content">
+        <div>
+
+            <ul class="grid-list" style="padding:0 0 0 .75rem ">
+                <li class="grid-list-item heigth-100 BankCard">
+                    <div class="row">
+                        <div class="flex">
+                            <p>基金名称</p>
+                            <p id="groupName"></p>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid-list-item heigth-100 BankCard">
+                    <div class="row">
+                        <div class="flex">
+                            <p>收费方式</p>
+                            <p>前端收费</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid-list-item heigth-100 BankCard">
+                    <div class="row">
+                        <div class="flex">
+                            <p>支付方式</p>
+                            <p id="payWay"></p>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid-list-item heigth-100 BankCard">
+                    <div class="row">
+                        <div class="flex">
+                            <p>状态</p>
+                            <p id="mipStatus"></p>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid-list-item heigth-100 BankCard">
+                    <div class="row">
+                        <div class="flex">
+                            <p>定投方式</p>
+                            <p id="mipWay"></p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+            </ul>
+        </div>
+        <div style="margin-top: .5rem;">
+            <ul class="grid-list" style="padding:0 0 0 .75rem ">
+                </li>
+                <li class="grid-list-item heigth-100 BankCard">
+                    <div class="row">
+                        <div class="flex">
+                            <p>扣款周期</p>
+                            <p id="deductionCycle"></p>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid-list-item heigth-100 BankCard">
+                    <div class="row">
+                        <div class="flex">
+                            <p>每期投资金额（元）</p>
+                            <p id="mipAmt">0.00</p>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210302"></script>
+    <script type="text/javascript" src="../js/fundgroup/mip_fund_details.js"></script>
+</body>
+
+</html>

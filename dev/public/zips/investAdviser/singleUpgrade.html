@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>选择升级方案</title>
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/single.css?111">
+  <link rel="stylesheet" href="./css/result_dialog.css">
+  <script src="./js/baseHead.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div class="wrapper">
+      <div class="group-info clearfix">
+        <p class="fl">已选组合</p>
+        <p class="fr" v-cloak>{{groupInfo.groupName}}</p>
+      </div>
+      <!-- /* 9560 升级页活动包修改点 #5  */ -->
+      <div class="group-info clearfix">
+        <span style="display:flex;justify-content: space-between;border-top: 1px solid #eeeeee;">
+        <p class="fl">持有金额</p>
+        <p class="fr" v-cloak>{{marketValue}} 元</p>
+        </span>
+      </div>
+      
+      <div class="container">
+        <div class="content">
+          <div class="single-title" v-if="firstData.length>0">建议升级策略</div>
+          <div class="invest-card" v-for="(item,index) in firstData" :style="index+1===firstData.length?'margin-bottom:0':''">
+            <div class="title-r fr radio" style="vertical-align:top">
+              <input type="radio" :id="'radio'+index" :checked="item.defaultOption" hidden>
+              <label :for="'radio'+index"  @click="toggleSelect(index,'first')"></label>
+            </div>
+            <template v-if="item.isCheckedAuto==='Y'">
+              <div>
+                
+                <div class="invest-title clearfix">
+                  <div class="title-l fl">
+                    <p @click="gotoDetailsPage(item.defaultToProduct)"><span>{{allData[item.defaultToProduct].groupname}}</span><img src="./img/headers/black_arrow.png" /></p>
+                    <p><span v-for="(labItem,labIndex) in currentContext(item.defaultToProduct).label">{{labItem}}</span></p>
+                  </div>
+                </div>
+                <div class="invest-section">
+                  <div class="section-l text-l">
+                    <p>{{currentContext(item.defaultToProduct).investTarget}}</p>
+                    <p>您的投资目标</p>
+                  </div>
+                  <div class="section-c text-c">
+                    <!-- <p>{{currentContext(item.defaultToProduct).targetRetreat}}以内</p>
+                    <p>目标回撤控制</p> -->
+                    <p>{{currentContext(item.defaultToProduct).assetPostion}}</p>
+                    <p class='flex-row'>{{currentContext(item.defaultToProduct).title2}} <i class='icon-i iconTip2' style='display: none;'></i></p>
+
+                  </div>
+                  <div class="section-r text-r">
+                    <p>{{currentContext(item.defaultToProduct).RecommendedHoldingTime}}</p>
+                    <p>建议持有</p>
+                  </div>
+                </div>
+                <div class="invest-desc">
+                  <img src="./img/headers/icons_02.png" /><span>{{currentContext(item.defaultToProduct).desc}}</span>
+                </div>
+              </div>
+            </template>
+            <template v-if="item.isCheckedAuto==='N'">
+              <div>
+                <div class="invest-title clearfix">
+                  <div class="title-l fl">
+                    <p @click="gotoDetailsPage(item.otherToProduct)"><span>{{allData[item.otherToProduct].groupname}}</span><img src="./img/headers/black_arrow.png" /></p>
+                    <p><span v-for="(labItem,labIndex) in currentContext(item.otherToProduct).label">{{labItem}}</span></p>
+                  </div>
+                </div>
+                <div class="invest-section">
+                  <div class="section-l text-l">
+                    <p>{{currentContext(item.otherToProduct).investTarget}}</p>
+                    <p>您的投资目标</p>
+                  </div>
+                  <div class="section-c text-c">
+                    <!-- <p>{{currentContext(item.otherToProduct).targetRetreat}}以内</p>
+                    <p>目标回撤控制</p> -->
+                    <p>{{currentContext(item.otherToProduct).assetPostion}}</p>
+                    <p class='flex-row'>{{currentContext(item.otherToProduct).title2}} <i class='icon-i iconTip2' style='display: none;'></i></p>
+                  </div>
+                  <div class="section-r text-r">
+                    <p>{{currentContext(item.otherToProduct).RecommendedHoldingTime}}</p>
+                    <p>建议持有</p>
+                  </div>
+                </div>
+                <div class="invest-desc">
+                  <img src="./img/headers/icons_02.png" /><span>{{currentContext(item.otherToProduct).desc}}</span>
+                </div>
+              </div>
+            </template>
+            <div class="service" v-show="item.defaultOption">
+              <div class="radio">
+                <input type="radio" v-model="item.isCheckedAuto" value="Y" :id="'radio1'+index" hidden @change="radioChanged(item)">
+                <label :for="'radio1'+index" data-attr="自动调仓模式"  @click="iconTips('automatic')"></label>
+                <!-- <span>自动调仓服务</span> -->
+                <span class='icon-i' style="margin-left:4.5rem" @click="iconTips('automatic')"></span><!--20211201新加icon-->
+              </div>
+              <div class="radio">
+                <input type="radio" v-model="item.isCheckedAuto" value="N" :id="'radio2'+index" hidden @change="radioChanged(item)">
+                <label :for="'radio2'+index" data-attr="手动调仓模式" @click="iconTips('Manual')"></label>
+                <!-- <span>我要手动调仓</span> -->
+                <span class='icon-i' style="margin-left:4.5rem" @click="iconTips('Manual')"></span><!--20211201新加icon-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="single-title" v-if="otherData.length>0">全部策略</div>
+          <div class="invest-card" v-for="(item,index) in otherData" :style="index+1===otherData.length?'margin-bottom:0':''">
+            <div class="title-r fr radio" style="vertical-align:top">
+              <input type="radio" :id="'radio3'+index" :checked="item.defaultOption" hidden>
+              <label :for="'radio3'+index" @click="toggleSelect(index,'other')"></label>
+            </div>
+            <template v-if="item.isCheckedAuto==='Y'">
+              <div>
+                
+                <div class="invest-title clearfix">
+                  <div class="title-l fl">
+                    <p @click="gotoDetailsPage(item.defaultToProduct)"><span>{{allData[item.defaultToProduct].groupname}}</span><img src="./img/headers/black_arrow.png" /></p>
+                    <p><span v-for="(labItem,labIndex) in currentContext(item.defaultToProduct).label">{{labItem}}</span></p>
+                  </div>
+                </div>
+                <div class="invest-section">
+                  <div class="section-l text-l">
+                    <!-- <p>{{currentContext(item.defaultToProduct).targetYearYield.split('-')[0].split('%')[0]}}<span>%</span>-{{currentContext(item.defaultToProduct).targetYearYield.split('-')[1].split('%')[0]}}<span>%</span></p> -->
+                    <p>{{currentContext(item.defaultToProduct).investTarget}}</p>
+                    <p>您的投资目标</p>
+                  </div>
+                  <div class="section-c text-c">
+                    <!-- <p>{{currentContext(item.defaultToProduct).targetRetreat}}以内</p>
+                    <p>目标回撤控制</p> -->
+                    <p>{{currentContext(item.defaultToProduct).assetPostion}}</p>
+                    <p class='flex-row'>{{currentContext(item.defaultToProduct).title2}} <i class='icon-i iconTip2' style='display: none;'></i></p>
+                  </div>
+                  <div class="section-r text-r">
+                    <p>{{currentContext(item.defaultToProduct).RecommendedHoldingTime}}</p>
+                    <p>建议持有</p>
+                  </div>
+                </div>
+                <div class="invest-desc">
+                  <img src="./img/headers/icons_02.png" /><span>{{currentContext(item.defaultToProduct).desc}}</span>
+                </div>
+              </div>
+            </template>
+            <template v-if="item.isCheckedAuto==='N'">
+              <div>
+                <div class="invest-title clearfix">
+                  <div class="title-l fl">
+                    <p @click="gotoDetailsPage(item.otherToProduct)"><span>{{allData[item.otherToProduct].groupname}}</span><img src="./img/headers/black_arrow.png" /></p>
+                    <p>  <span v-for="(labItem,labIndex) in currentContext(item.otherToProduct).label">{{labItem}}</span></p>
+                  </div>
+                  
+                </div>
+                <div class="invest-section">
+                  <div class="section-l text-l">
+                    <!-- <p>{{currentContext(item.otherToProduct).targetYearYield.split('-')[0].split('%')[0]}}<span>%</span>-{{currentContext(item.otherToProduct).targetYearYield.split('-')[1].split('%')[0]}}<span>%</span></p> -->
+                   <p>{{currentContext(item.otherToProduct).investTarget}}</p>
+                    <p>您的投资目标</p>
+                  </div>
+                  <div class="section-c text-c">
+                    <!-- <p>{{currentContext(item.otherToProduct).targetRetreat}}以内</p>
+                    <p>目标回撤控制</p> -->
+                    <p>{{currentContext(item.otherToProduct).assetPostion}}</p>
+                    <p class='flex-row'>{{currentContext(item.otherToProduct).title2}} <i class='icon-i iconTip2' style='display: none;'></i></p>
+                  </div>
+                  <div class="section-r text-r">
+                    <p>{{currentContext(item.otherToProduct).RecommendedHoldingTime}}</p>
+                    <p>建议持有</p>
+                  </div>
+                </div>
+                <div class="invest-desc">
+                  <img src="./img/headers/icons_02.png" /><span>{{currentContext(item.otherToProduct).desc}}</span>
+                </div>
+              </div>
+            </template>
+            <div class="service" v-show="item.defaultOption">
+              <div class="radio">
+                <input type="radio" v-model="item.isCheckedAuto" value="Y" :id="'radio4'+index" hidden @change="radioChanged(item)">
+                <label :for="'radio4'+index" data-attr="自动调仓模式" @click="iconTips('automatic')"></label>
+                <!-- <span>自动调仓服务</span> -->
+                <span class='icon-i' style="margin-left:4.5rem" @click="iconTips('automatic')"></span><!--20211201新加icon-->
+              </div>
+              <div class="radio">
+                <input type="radio" v-model="item.isCheckedAuto" value="N" :id="'radio5'+index" hidden @change="radioChanged(item)">
+                <label :for="'radio5'+index" data-attr="手动调仓模式" @click="iconTips('Manual')"></label>
+                <!-- <span>我要手动调仓</span> -->
+                <span class='icon-i' style="margin-left:4.5rem" @click="iconTips('Manual')"></span><!--20211201新加icon-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+     <!-- pdf协议弹窗 -->
+     <!-- <div class="mask-protocol" style="display: none;" v-show="protocolShow">
+      <div class="protocol-wraper">
+        <div class="protocol-pdf">
+          
+        </div>
+        <p class="fixed-top"><img src="./img/close.png" alt="" class="close-img" @click="protocolShow=false"> {{pdfInfo&&pdfInfo.agreementName}}</p>
+          <button class="fixed-btn" disabled @click="pdfConfirm">我知道了{{pdfInfo&&pdfInfo.countDown}}s</button>
+      </div>
+    </div> -->
+    <div class="footer-fix" v-if="firstData.length>0">
+      <div class="footer-btn" @click="upgradeBtn">立即升级</div>
+    </div>
+    <div class="mask-protocol" style="display: none;" v-show="protocolShow">
+      <div class="agreement-new">
+        <div class="agreement-head"> 
+          <div class="agreement-title" style="margin-left: 1.75rem;text-align: center;">基金投顾风险揭示书</div> 
+          <img src="./img/close_02.png" alt="" class="agreement-close" @click="agreementClose">       
+        </div>
+        <div class="agreement-iframe">
+          <!-- <iframe :src="iframeUrl" style="width:100%;height:100%" scrolling="auto" frameborder="0"></iframe> -->
+          <iframe v-show='toggleGroupType=="M"' src="./invest_adviser_agreement_m.html" style="width:100%;height:100%" scrolling="auto" frameborder="0"></iframe>
+          <iframe v-show='toggleGroupType=="G"' src="./invest_adviser_agreement_g.html" style="width:100%;height:100%" scrolling="auto" frameborder="0"></iframe>
+          <!-- <iframe v-show='toggleGroupType=="ALL"' src="./invest_adviser_agreement_all.html" style="width:100%;height:100%" scrolling="auto" frameborder="0"></iframe> -->
+        </div>
+        <div class="take-care">注：您可通过截屏的方式留存相关信息</div>
+        <div class="agreement-btn" :class="{active:iKnow}" @click="pdfConfirm">{{countDownBlock}}</div>
+      </div>
+    </div>
+
+
+    <!--12.07签署相关协议 -->
+    <div class="mask-protocol" style="display: none;" v-show="signAgreementShow">
+      <div class="agreement-new" v-cloak>
+        <div class="agreement-head">
+          <div class="agreement-title" style="width: 100%; font-size: .8rem; margin-left: 1.75rem;;text-align:center">
+            签署相关协议</div>
+          <img src="./img/close_02.png" alt="" class="agreement-close" @click="signAgreementShow=!signAgreementShow">
+        </div>
+        <div  v-if="contractList.length>0" style="width: 100%;height: 10rem;  overflow-y: scroll;">
+          <p style='padding: 0.8rem;'><strong>我已阅读并同意以下协议：</strong> </p>
+          <p v-for="(item,index) in contractList"
+          style='display: flex;justify-content: space-between;padding: 0.8rem;border-top: #eeeeee solid .5px;'>
+          <a href="javascript:;" @click="openContract(item)">{{item.agreementName}}</a>  
+          <a  href="javascript:;" @click="openContract(item)"> <img style="width:50%" src="./img/headers/huiRight2.png" ></a>
+          </p>
+        </div>
+        
+        <div class="agreement-btn" style='background:#0757b2' @click="upgrade">确认签署</div>
+      </div>
+    </div>
+    <!--  -->
+  </div>
+  <script src="./js/jquery-3.2.1.min.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/pdf.js?123"></script>
+  <script src="./js/vue.min.js"></script>
+  <!-- <script src="./js/vue.js"></script> -->
+  <script src="./js/single.js?20220121"></script>
+</body>
+
+</html>

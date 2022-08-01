@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>我的自选</title>
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="css/index.css?111">
+    <link rel="stylesheet" href="./css/swiper-4.2.2.min.css">
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <style>
+        .cell {
+            height: 4rem;
+            /* padding: 0 0.75rem; */
+            display: flex;
+            align-items: center;
+        }
+
+        .head-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .head-item .head-item-img {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+            overflow: hidden;
+        }
+
+        .head-item .head-item-content {
+            height: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+        }
+
+        .head-item .head-item-content .content-top,
+        .head-item .head-item-content .content-bottom {
+            display: flex;
+            align-items: center;
+        }
+
+        .head-item .head-item-content .content-name {
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #000000;
+            margin-right: 0.75rem;
+        }
+
+        .head-item .head-item-content .content-date {
+            font-size: 0.6rem;
+            color: #666666;
+        }
+
+        .head-item .head-item-content .content-state {
+            width: 1.5rem;
+            height: 0.75rem;
+            background: #FFEFEF;
+            border-radius: 0.1rem;
+            font-size: 0.6rem;
+            font-weight: 500;
+            color: #FB5C5F;
+            height: 0.75rem;
+            text-align: center;
+            margin-right: 0.55rem;
+            line-height: 0.75rem;
+        }
+
+        .head-item .head-item-content .content-language {
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: #000000;
+        }
+        #fundList ,.tabContent .width30{width:40%}
+        #groupList{width:50%!important}
+        .color-have{display: inline-block;text-align: center;line-height: 0.75rem;font-size: 0.6rem}
+        .footer{height:2.25rem;background: #fff;
+        /* line-height: 2rem */
+        }
+        .slideList{width:100%;z-index: 1000;position: fixed;left: 0;bottom:2.25rem;
+        background: #fff;border-bottom:1px solid #eee;box-shadow:5px 5px 10px #666;}
+        .slideList .slideDiv{width:100%;margin: 0 auto;display: flex;justify-content: space-around;}
+        .slideList .slideDiv div{width:30%;text-align: center;font-size:0.65rem;padding:1.25rem 0.25rem;border-right:1px solid #eee}
+        .slideList .slideDiv div:last-child{border-right:none}
+        .slideList .slideDiv div .title{color:#666}
+        .slideList .slideDiv div .money{color:#FB5C5F;font-size:0.75rem;font-weight:bold}
+        .slideList .slideDiv div .numberNav{color:#FB5C5F}
+        .switchtab li{width:100%;display: flex;}
+        .switchtab li .title{width:88%;margin-left: 0.75rem;}
+        .switchtab li span:nth-of-type(2){width:0.75rem;height:0.75rem;background: url(img/unchoose.png) no-repeat;background-size: 100% 100%;display: inline-block;}
+        .switchtab li span.activeIcon{width:0.75rem;height:0.75rem;background: url(img/choose.png) no-repeat;background-size: 100% 100%;display: inline-block;}
+        .swiper-pagination-bullet-active {
+			opacity: 1;
+			/* width: .5rem;
+			height: .25rem; */
+			/* border-radius: 2.5rem; */
+			background: #fb5c5f;
+		}
+        .fundMask,.groupMask,.investMask {
+                width: 100%;
+                height: 2000%;
+                position: absolute;
+                top:6.5rem;
+                left: 0;
+                background: rgba(0, 0, 0, .7);
+                display: none;
+                z-index: 999;
+            }
+        .addFundChoose,.addGroupChoose,.addInvestChoose{width:8rem;height:1.5rem;border:1px solid #fb5c5f;margin:0 auto;border-radius: 1.25rem;
+            color:#fb5c5f;text-align: center;line-height: 1.5rem;font-weight: bold}  
+
+        .slideList .swiper-slide {                
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            width:30%;
+        }
+        /* .slideList .swiper-slide:nth-child(2n) {   
+           width: 30%;
+        }
+        .slideList .swiper-slide:nth-child(3n) {  
+           width: 30%;
+        }       */
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+</head>
+
+<body style="background:#fff">
+<div id="app" v-cloak>
+    <div class="content" style="padding-bottom:10rem">
+        <div class="content1">
+            <!-- tab选项 -->
+            <div class="tab">
+                <ul class="flex tab-left"  v-for="(item,index) in tabList" :key="index">
+                    <!-- .active为选中样式 -->
+                    <li v-text="item" @click="changeClassify(item, index)" :class="{'active':index == classifyIndex}"></li>
+                    <p v-if="index!=3"></p>
+                    <!-- <li>组合</li>
+                    <p></p>
+                    <li>投顾</li>
+                    <p></p>
+                    <li>基金经理</li> -->
+                </ul>
+                <div class="flex tab-right">
+                    <div class="flex marR" @click="jumpInformation()">
+                            <img src="./img/consulticon.png" alt="" srcset="">
+                            <div>资讯</a></div>
+                    </div>
+                    <div class="flex" @click="jumpFreeToDiscuss()">
+                        <img src="./img/talkicon.png" alt="" srcset="">
+                        <div>讨论</div>
+                    </div>
+                </div>
+            </div>
+
+            <!--非货币基金,组合,投顾-->
+            <!-- <div  v-show="fundList.length>0"> -->
+                <div class="flex fund-name" v-show="classifyIndex!=3">
+                    <div class=" text-left width60" v-if="classifyIndex==0&&fundList.length>0">基金名称</div>
+                    <div class=" text-left width60" v-if="classifyIndex==1&&fundGroupList.length>0">组合名称</div>
+                    <div class=" text-left width60" v-if="classifyIndex==2&&investList.length>0">投顾名称</div>
+                    <div class="flex width30 flexB" id="fundList" v-show="classifyIndex==0&&fundList.length>0">
+                        <div class="flex header"  @click="fundSort()">
+                            <div>
+                                <div>估值</div>
+                                <div class="color666" v-text="fundNavDate"></div>
+                            </div>
+                            <div class="flex-c" style="margin-left: .25rem;" v-if="!sort">
+                                <img src="./img/top3.png" alt="">
+                                <img src="./img/bottom.png" alt="">
+                            </div>
+                            <div class="flex-c" style="margin-left: .25rem;" v-if="sort=='0'">
+                                <img src="./img/top3.png" alt="">
+                                <img src="./img/triangle.png" alt=""style="height:0.35rem;margin-top:0.1rem;">
+                            </div> 
+                            <div class="flex-c" style="margin-left: .25rem;" v-if="sort=='1'">
+                                <img src="./img/triangle.png" alt="" style="height:0.35rem;margin-bottom:0.1rem;transform: rotate(180deg)">
+                                <img src="./img/bottom.png" alt="">
+                            </div>
+                        </div>
+                        <div class="flex header" id="selectTime">
+                            <div class="flex flex-c">
+                                <div>净值</div>
+                                <div id="showTime" class="color666" v-text="fundDateText?fundDateText:'--'"></div>
+                            </div>
+                            <img src="./img/bottom.png" alt="" class="imgUp" @click="showImgUp()">
+                            <img src="./img/bottom.png" style="display:none;transform: rotate(180deg)" alt="" class="imgDown" @click="showImgDown()">
+                        </div>
+                    </div>
+                    <div class="flex width30 flexB" id="groupList"  v-show="classifyIndex!=0">
+                        <div class="flex header" @click="groupClickSort()" v-show="classifyIndex==1&&fundGroupList.length>0">
+                            <div>
+                                <div>估值涨跌</div>
+                                <div class="color666" v-text="groupNavDate?groupNavDate:'--'"></div>
+                            </div>
+                            <!-- <div class="flex-c" style="margin-left: .25rem;">
+                                <img src="./img/top3.png" alt="">
+                                <img src="./img/bottom.png" alt="">
+                            </div> -->
+
+                            <div class="flex-c" style="margin-left: .25rem;" v-if="!groupSort">
+                                <img src="./img/top3.png" alt="">
+                                <img src="./img/bottom.png" alt="">
+                            </div>
+                            <div class="flex-c" style="margin-left: .25rem;" v-if="groupSort=='0'">
+                                <img src="./img/top3.png" alt="">
+                                <img src="./img/triangle.png" alt=""style="height:0.35rem;margin-top:0.1rem;">
+                            </div> 
+                            <div class="flex-c" style="margin-left: .25rem;" v-if="groupSort=='1'">
+                                <img src="./img/triangle.png" alt="" style="height:0.35rem;margin-bottom:0.1rem;transform: rotate(180deg)">
+                                <img src="./img/bottom.png" alt="">
+                            </div>
+                        </div>
+                        <div class="flex header" @click="investClickSort()" v-show="classifyIndex==2&&investList.length>0">
+                            <div>
+                                <div>估值涨跌</div>
+                                <div class="color666" v-text="investNavDate?investNavDate:'--'"></div>
+                            </div>
+                            <!-- <div class="flex-c" style="margin-left: .25rem;">
+                                <img src="./img/top3.png" alt="">
+                                <img src="./img/bottom.png" alt="">
+                            </div> -->
+
+                            <div class="flex-c" style="margin-left: .25rem;" v-if="!investSort">
+                                <img src="./img/top3.png" alt="">
+                                <img src="./img/bottom.png" alt="">
+                            </div>
+                            <div class="flex-c" style="margin-left: .25rem;" v-if="investSort=='0'">
+                                <img src="./img/top3.png" alt="">
+                                <img src="./img/triangle.png" alt=""style="height:0.35rem;margin-top:0.1rem;">
+                            </div> 
+                            <div class="flex-c" style="margin-left: .25rem;" v-if="investSort=='1'">
+                                <img src="./img/triangle.png" alt="" style="height:0.35rem;margin-bottom:0.1rem;transform: rotate(180deg)">
+                                <img src="./img/bottom.png" alt="">
+                            </div>
+                        </div>
+                        <!-- 组合 -->
+                        <div class="flex header" id="selectTime" v-show="classifyIndex==1&&fundGroupList.length>0">
+                            <div class="flex flex-c">
+                                <div>收益率</div>
+                                <div id="showTime" class="color666" v-text="groupDateText?groupDateText:'--'"></div>
+                            </div>
+                            <!-- <img src="./img/bottom.png" alt=""> -->
+                            <img src="./img/bottom.png" alt="" class="imgGroupUp" @click="showGroupUp()">
+                            <img src="./img/bottom.png" style="display:none;transform: rotate(180deg)"class="imgGroupDown" alt="" @click="showGroupDown()">
+                        </div>
+                        <!-- 投顾 -->
+                        <div class="flex header" id="selectTime" v-show="classifyIndex==2&&investList.length>0">
+                                <div class="flex flex-c">
+                                    <div>收益率</div>
+                                    <div id="showTime" class="color666" v-text="investDateText?investDateText:'--'"></div>
+                                </div>
+                                <img src="./img/bottom.png" alt="" class="imgInvestUp" @click="showInvestUp()">
+                                <img src="./img/bottom.png" style="display:none;transform: rotate(180deg)" alt="" class="imgInvestDown" alt="" @click="showInvestDown()">
+                        </div>
+                    </div>
+
+                </div>
+                <ul class="switchtab clearfix fundActiveIcon" style="display: none;z-index: 99999;">
+                    <li style="border-bottom:1px solid #eee" v-for="(item,index) in dateList" :key="index" @click=fundActiveIcon(item,index)>
+                        <span class="title">{{item.name}}</span>
+                        <span :class="{'activeIcon':index == activeIndex}"></span>
+                    </li>
+                    <!-- <li>近三月</li>
+                    <li>近六月</li>
+                    <li>近一年</li>
+                    <li>成立以来</li> -->
+                </ul>
+                <ul class="switchtab clearfix groupActiveIcon" style="display: none;z-index: 99999;">
+                        <li style="border-bottom:1px solid #eee" v-for="(item,index) in GroupTabList" :key="index" @click=groupActiveIcon(item,index)>
+                            <span class="title">{{item.name}}</span>
+                            <span :class="{'activeIcon':index == groupIndex}"></span>
+                        </li>
+                        <!-- <li>近三月</li>
+                        <li>近六月</li>
+                        <li>近一年</li>
+                        <li>成立以来</li> -->
+                </ul>
+                <ul class="switchtab clearfix investActiveIcon" style="display: none;z-index: 99999;">
+                        <li style="border-bottom:1px solid #eee" v-for="(item,index) in GroupTabList" :key="index" @click=investActiveIcon(item,index)>
+                            <span class="title">{{item.name}}</span>
+                            <span :class="{'activeIcon':index == investIndex}"></span>
+                        </li>
+                        <!-- <li>近三月</li>
+                        <li>近六月</li>
+                        <li>近一年</li>
+                        <li>成立以来</li> -->
+                </ul>
+                <div class="fundMask" style="display:none"></div>
+                <div class="groupMask" style="display:none"></div>
+                <div class="investMask" style="display:none"></div>
+                <!-- 基金类型 -->
+                <div class="tabContent">
+                    <div v-if="classifyIndex==0">
+                        <div v-if="fundList.length>0">
+                            <div class="flex kinds" v-for="(item,index) in fundList" :key="index">
+                                <a style="width:60%;color:#000" :href="'https://app.99fund.com/mobileEC/wap/fund/steadyCombination.html?fundId=' + item.fundId">      
+                                    <div class=" text-left width60" style="line-height: 1rem;width:65%">
+                                        <!-- <div class="hidden" v-text="item.fundNm?item.fundNm.substr(0,8)+'...':''"></div> -->
+                                        <div class="hidden" v-text="item.fundNm?item.fundNm:''"></div>
+                                        <div class="text-left font-size26 color666" style="margin-top: .15rem;display: inline-block" v-text="item.fundId"></div>
+                                        <span class="color-have"  v-show="item.isHold">持有</span>
+                                    </div> 
+                                </a>       
+                                    <div class="flex width30 flexB">
+                                        <div class="  flex-c">
+                                            <div v-if="!item.netValue&&!item.changePercent" v-text="'--'"></div>
+                                            <div v-else>
+                                                <div v-text="item.netValue?item.netValue.toFixed(4):'--'"></div>
+                                                <div v-if="item.changePercent||item.changePercent==0">
+                                                    <div class="color-green font-size26" style="color:#159848" v-if="item.changePercent<0">{{item.changePercent.toFixed(2)}}%</div>
+                                                    <div class="color-green font-size26" style="color:#000" v-if="item.changePercent==0">{{item.changePercent.toFixed(2)}}%</div>
+                                                    <div class="color-green font-size26" style="color:#FB5C5F" v-if="item.changePercent>0">+{{item.changePercent.toFixed(2)}}%</div>
+                                                </div>
+                                                <div v-else v-text="'--'"></div>
+                                            </div>    
+                                        </div>
+                                        <div class=" flex-c">
+                                            <div v-if="!item.nav&&!item.quoteChange" v-text="'--'"></div>
+                                            <div v-else>
+                                                <div v-text="item.nav?item.nav:'--'"></div>
+                                                <div v-if="item.quoteChange">
+                                                    <div class="color-red font-size26" style="color:#159848" v-if="item.quoteChange<0">{{item.quoteChange}}%</div>
+                                                    <div class="color-red font-size26" style="color:#000" v-if="item.quoteChange==0">{{item.quoteChange}}%</div>
+                                                    <div class="color-red font-size26" style="color:#FB5C5F"  v-if="item.quoteChange>0">+{{item.quoteChange}}%</div>
+                                                </div> 
+                                                <div v-else v-text="'--'"></div> 
+                                                <div v-if="item.navDt && item.navDtString!=fundDateText" class="font-size26">({{item.navDtString}})</div>
+                                            </div>     
+
+                                        </div>
+                                    </div>   
+                            </div>
+                        </div>    
+                        <div v-else style="margin-top:2rem">暂无基金数据</div>  
+                    </div>
+                    <!-- 组合 -->
+                    <div v-if="classifyIndex==1">
+                        <div v-if="fundGroupList.length>0">
+                            <div class="flex kinds" v-for="(item,index) in fundGroupList" :key="index">
+                                <a style="width:60%;color:#000" v-if="item.tag=='养老'||item.tag=='智投'||item.tag=='指数'" :href="'https://app.99fund.com/mobileEC/wap/fundgroup/group_fund_details.html?groupId=' + item.fundGroupId"> 
+                                    <div class=" text-left width60" style="line-height: 1rem;width:65%">
+                                        <!-- <div class="hidden" v-text="item.fundGroupName?item.fundGroupName.substr(0,8)+'...':''"></div> -->
+                                        <div class="hidden" v-text="item.fundGroupName?item.fundGroupName:''"></div>
+                                        <div class="text-left font-size26 color666" style="margin-top: .15rem;display: inline-block" v-text="item.fundGroupId"></div>
+                                        <span class="color-have"  v-text="item.tag"></span>
+                                    </div>
+                                </a>
+                                <a style="width:60%;color:#000" v-if="item.tag=='实盘'" :href="'https://app.99fund.com/mobileEC/wap/fundgroup/fund_group_show.html?groupId=' + item.fundGroupId"> 
+                                    <div class=" text-left width60" style="line-height: 1rem;width:65%">
+                                        <!-- <div class="hidden" v-text="item.fundGroupName?item.fundGroupName.substr(0,8)+'...':''"></div> -->
+                                        <div class="hidden" v-text="item.fundGroupName?item.fundGroupName:''"></div>
+                                        <div class="text-left font-size26 color666" style="margin-top: .15rem;display: inline-block" v-text="item.fundGroupId"></div>
+                                        <span class="color-have"  v-text="item.tag"></span>
+                                    </div>
+                                </a>
+                                <a style="width:60%;color:#000" v-if="item.tag=='策略'" :href="'https://app.99fund.com/mobileEC/wap/fundgroup/follow_me_details.html?groupId=' + item.fundGroupId">          
+                                    <div class=" text-left width60" style="line-height: 1rem;width: 65%">
+                                        <!-- <div class="hidden" v-text="item.fundGroupName?item.fundGroupName.substr(0,8)+'...':''"></div> -->
+                                        <div class="hidden" v-text="item.fundGroupName?item.fundGroupName:''"></div>
+                                        <div class="text-left font-size26 color666" style="margin-top: .15rem;display: inline-block" v-text="item.fundGroupId"></div>
+                                        <span class="color-have"  v-text="item.tag"></span>
+                                    </div>
+                                </a>
+                                <div class="flex width30 flexB">
+                                    <div class="  flex-c">
+                                        <!-- <div v-text="item.navQuoteChange"></div> -->
+                                        <div v-if="item.changePercent">
+                                            <div class="color-green font-size26" style="color:#159848" v-if="item.changePercent<0">{{item.changePercent}}%</div>
+                                            <div class="color-green font-size26" style="color:#000" v-if="item.changePercent==0">{{item.changePercent}}%</div>
+                                            <div class="color-green font-size26" style="color:#FB5C5F" v-if="item.changePercent>0">+{{item.changePercent}}%</div>
+                                        </div>
+                                        <div v-else v-text="'--'"></div>       
+                                    </div>
+                                    <div class=" flex-c">
+                                        <!-- <div v-text="item.navQuoteChangeNum?item.navQuoteChangeNum:'--'"></div> -->
+                                        <div v-if="item.navQuoteChange">
+                                            <div class="color-red font-size26" style="color:#159848" v-if="item.navQuoteChange<0">{{item.navQuoteChangeNum.toFixed(2) }}%</div>
+                                            <div class="color-red font-size26" style="color:#000" v-if="item.navQuoteChange==0">{{item.navQuoteChangeNum.toFixed(2)}}%</div>
+                                            <div class="color-red font-size26" style="color:#FB5C5F"  v-if="item.navQuoteChange>0">+{{item.navQuoteChangeNum.toFixed(2)}}%</div>
+                                        </div>
+                                        <div v-else v-text="'--'"></div>
+                                        <div v-if="item.navDate&&item.navDate.replace(/(\d{4})(\d{2})(\d{2})/g, '$2$3')!=groupMatchDate" v-text="item.navDate.replace(/(\d{4})(\d{2})(\d{2})/g, '($2.$3)')" style="font-size:0.6rem;color:#666"></div>       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
+                        <div v-else style="margin-top:2rem">暂无组合数据</div>  
+                    </div>
+                    <!-- 投顾-->
+                    <div v-if="classifyIndex==2">
+                        <div v-if="investList.length>0">
+                            <div class="flex kinds" v-for="(item,index) in investList" :key="index">
+                                <a style="width:60%;color:#000" :href="'https://wx.99fund.com/mobileEC/adviser/investGroupDetails.html?groupId=' + item.fundGroupId">          
+                                    <div class=" text-left width60" style="line-height: 1rem;width: 65%">
+                                        <!-- <div class="hidden" v-text="item.fundGroupName?item.fundGroupName.substr(0,8)+'...':''"></div> -->
+                                        <div class="hidden" v-text="item.fundGroupName?item.fundGroupName:''"></div>
+                                        <div class="text-left font-size26 color666" style="margin-top: .15rem;display: inline-block" v-text="item.fundGroupId"></div>
+                                        <!-- <span class="color-have"  v-show="item.isHold">持有</span> -->
+                                    </div>
+                                </a>
+                                <div class="flex width30 flexB">
+                                    <div class="  flex-c">
+                                        <!-- <div v-text="item.navQuoteChange"></div> -->
+                                        <div v-if="item.netChange">
+                                            <div class="color-green font-size26" style="color:#159848" v-if="item.netChange<0">{{item.netChange}}%</div>
+                                            <div class="color-green font-size26" style="color:#000" v-if="item.netChange==0">{{item.netChange}}%</div>
+                                            <div class="color-green font-size26" style="color:#FB5C5F" v-if="item.netChange>0">+{{item.netChange}}%</div>
+                                        </div>    
+                                        <div v-else v-text="'--'"></div>      
+                                    </div>
+                                    <div class=" flex-c">
+                                        <!-- <div v-text="item.navQuoteChangeNum?item.navQuoteChangeNum:'--'"></div> -->
+                                        <div v-if="item.navQuoteChange">
+                                            <div class="color-red font-size26" style="color:#159848" v-if="item.navQuoteChange<0">{{item.navQuoteChangeNum.toFixed(2) }}%</div>
+                                            <div class="color-red font-size26" style="color:#000" v-if="item.navQuoteChange==0">{{item.navQuoteChangeNum.toFixed(2)}}%</div>
+                                            <div class="color-red font-size26" style="color:#FB5C5F"  v-if="item.navQuoteChange>0">+{{item.navQuoteChangeNum.toFixed(2)}}%</div>
+                                        </div>  
+                                        <div v-else v-text="'--'"></div>
+                                        <div  v-if="item.navQuoteChange">
+                                            <div v-if="item.navDate&&item.navDate.replace(/(\d{4})(\d{2})(\d{2})/g, '$2$3')!=matchDate" v-text="item.navDate.replace(/(\d{4})(\d{2})(\d{2})/g, '($2.$3)')" style="font-size:0.6rem;color:#666"></div> 
+                                        </div>   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else style="margin-top:2rem">暂无投顾数据</div>    
+                    </div>
+                    <!-- 基金经理 模板-->
+                    <div v-if="classifyIndex==3">
+                        <div v-if="managerList.length>0">
+                            <div class="cell" v-for="(item,index) in managerList" :key="index">
+                                <a style="color:#000" :href="'https://www.99fund.com/main/h5fwpd/H5singleFundManager/'+item.fundManagerId+'.shtml?'">      
+
+                                <div class="head-item">
+                                    <img :src="item.fundManagerPicUrl" class="head-item-img" alt="">
+
+                                    <div class="head-item-content">
+                                        <div class="content-top">
+                                            <span class="content-name" v-text="item.fundManagerName"></span>
+                                            <span class="content-date" v-text="item.fundManagerTakeOffice"></span>
+                                        </div>
+                                        <div class="content-bottom">
+                                            <div class="content-state" v-text="item.fundManagerTrendTagName"></div>
+                                            <span class="content-language" v-text="item.fundManagerTrendTitle"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                </a>
+                            </div>
+                       </div>
+                       <div v-else style="margin-top:2rem">暂无关注的基金经理</div>    
+                    </div>
+                </div>
+            <!-- </div> -->
+
+            <!--货币基金 -->
+            <div v-if="classifyIndex==0">
+                <div style="width:18.75rem;height:0.5rem;background:#f6f6f6;margin-left:-0.75rem"  v-if="fundMoneyList&&fundMoneyList.length>0"></div>
+                <div style="margin-top:0.5rem;" v-if="fundMoneyList&&fundMoneyList.length>0">
+                    <div class="flex fund-name">
+                        <div class=" text-left width60">基金名称</div>
+                        <div class="flex flexB"   style="width:50%">
+                            <div class="flex header" @click="fundMoneySort()">
+                                <div>
+                                    <div>万份收益</div>
+                                    <div class="color666" v-text="fundMoneyNavDate?fundMoneyNavDate:'--'"></div>
+                                </div>
+                                <!-- <div class="flex-c" style="margin-left: .25rem;">
+                                    <img src="./img/top3.png" alt="">
+                                    <img src="./img/bottom.png" alt="">
+                                </div> -->
+
+                                <div class="flex-c" style="margin-left: .25rem;" v-if="!moneySort">
+                                    <img src="./img/top3.png" alt="">
+                                    <img src="./img/bottom.png" alt="">
+                                </div>
+                                <div class="flex-c" style="margin-left: .25rem;" v-if="moneySort=='0'">
+                                    <img src="./img/top3.png" alt="">
+                                    <img src="./img/triangle.png" alt=""style="height:0.35rem;margin-top:0.1rem;">
+                                </div> 
+                                <div class="flex-c" style="margin-left: .25rem;" v-if="moneySort=='1'">
+                                    <img src="./img/triangle.png" alt="" style="height:0.35rem;margin-bottom:0.1rem;transform: rotate(180deg)">
+                                    <img src="./img/bottom.png" alt="">
+                                </div>
+                            </div>
+                        
+                            <div class="flex header" @click="fundMoneyYearSort()">
+                                <div>
+                                    <div>七日年化</div>
+                                    <div class="color666" v-text="fundMoneyNavDate?fundMoneyNavDate:'--'"></div>
+                                </div>
+                                <!-- <div class="flex-c" style="margin-left: .25rem;">
+                                    <img src="./img/top3.png" alt="">
+                                    <img src="./img/bottom.png" alt="">
+                                </div> -->
+
+                                <div class="flex-c" style="margin-left: .25rem;" v-if="!moneyYearSort">
+                                    <img src="./img/top3.png" alt="">
+                                    <img src="./img/bottom.png" alt="">
+                                </div>
+                                <div class="flex-c" style="margin-left: .25rem;" v-if="moneyYearSort=='0'">
+                                    <img src="./img/top3.png" alt="">
+                                    <img src="./img/triangle.png" alt=""style="height:0.35rem;margin-top:0.1rem;">
+                                </div> 
+                                <div class="flex-c" style="margin-left: .25rem;" v-if="moneyYearSort=='1'">
+                                    <img src="./img/triangle.png" alt="" style="height:0.35rem;margin-bottom:0.1rem;transform: rotate(180deg)">
+                                    <img src="./img/bottom.png" alt="">
+                                </div>
+                            </div>
+                        
+                        
+                        </div>
+
+                    </div>
+                
+                    <!--货币 基金类型列表 -->
+                    <div class="tabContent">
+                        <div>
+                            <div class="flex kinds" v-for="(item,index) in fundMoneyList" :key="index">
+                                <a style="width:60%;color:#000" :href="'https://app.99fund.com/mobileEC/wap/fund/steadyCombination.html?fundId=' + item.fundId">      
+                                    <div class=" text-left width60" style="line-height: 1rem;width:65%">
+                                        <!-- <div class="hidden" v-text="item.fundNm?item.fundNm.substr(0,8)+'...':''"></div> -->
+                                        <div class="hidden" v-text="item.fundNm?item.fundNm:''"></div>
+                                        <div class="text-left font-size26 color666" style="margin-top: .15rem;display: inline-block" v-text="item.fundId"></div>
+                                        <span class="color-have"  v-show="item.isHold">持有</span>
+                                    </div>
+                                </a>
+                                <div class="flex width30 flexB">
+                                    <div class="  flex-c">
+                                        <!-- <div v-if="!item.income&&!item.yield" v-text="'--'"></div> -->
+                                        <!-- <div v-else> -->
+                                            <div v-text="item.income?item.income:'--'"></div>
+                                            <!-- <div v-if="item.yield">
+                                                <div class="color-green font-size26" style="color:#159848" v-if="item.yield<0">{{item.yield}}%</div>
+                                                <div class="color-green font-size26" style="color:#000" v-if="item.yield==0">{{item.yield}}%</div>
+                                                <div class="color-green font-size26" style="color:#FB5C5F" v-if="item.yield>0">+{{item.yield}}%</div>
+                                            </div>
+                                            <div v-else v-text="'--'"></div>  -->
+                                        <!-- </div>      -->
+                                    </div>
+                                    <div class=" flex-c">
+                                        <!-- <div v-if="!item.nav&&!item.quoteChange" v-text="'--'"></div> -->
+                                        <!-- <div v-else> -->
+                                            <!-- <div v-text="item.quoteChange?item.quoteChange:'--'"></div> -->
+                                            <div v-if="item.yield">
+                                                <div class="color-red font-size26" style="color:#159848" v-if="item.yield<0">{{item.yield}}%</div>
+                                                <div class="color-red font-size26" style="color:#000" v-if="item.yield==0">{{item.yield}}%</div>
+                                                <div class="color-red font-size26" style="color:#FB5C5F"  v-if="item.yield>0">+{{item.yield}}%</div>
+                                            </div>    
+                                            <div v-else v-text="'--'"></div>
+                                        <!-- </div>     -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            <!-- 组合现金+组合 -->
+            <div v-if="classifyIndex==1">
+                <div style="width:18.75rem;height:0.5rem;background:#f6f6f6;margin-left:-0.75rem"  v-if="groupAddMoneyList&&groupAddMoneyList.length>0"></div>
+                <div  v-if="groupAddMoneyList&&groupAddMoneyList.length>0">
+                    <div class="flex fund-name">
+                        <div class=" text-left width60">组合名称</div>
+                        <div class="flex flexB"   style="width:60%">
+                                <div class="flex header" @click="addDayGroupSort()">
+                                    <div>
+                                        <div>日涨跌幅</div>
+                                        <div class="color666" v-text="groupAddNavDate?groupAddNavDate:'--'"></div>
+                                    </div>
+                                    <!-- <div class="flex-c" style="margin-left: .25rem;">
+                                        <img src="./img/top3.png" alt="">
+                                        <img src="./img/bottom.png" alt="">
+                                    </div> -->
+    
+                                    <div class="flex-c" style="margin-left: .25rem;" v-if="!dayGroupSort">
+                                        <img src="./img/top3.png" alt="">
+                                        <img src="./img/bottom.png" alt="">
+                                    </div>
+                                    <div class="flex-c" style="margin-left: .25rem;" v-if="dayGroupSort=='0'">
+                                        <img src="./img/top3.png" alt="">
+                                        <img src="./img/triangle.png" alt=""style="height:0.35rem;margin-top:0.1rem;">
+                                    </div> 
+                                    <div class="flex-c" style="margin-left: .25rem;" v-if="dayGroupSort=='1'">
+                                        <img src="./img/triangle.png" alt="" style="height:0.35rem;margin-bottom:0.1rem;transform: rotate(180deg)">
+                                        <img src="./img/bottom.png" alt="">
+                                    </div>
+                                </div>
+                            
+                                <div class="flex header" @click="addDayGroupMoneySort()">
+                                    <div>
+                                        <div>日万元收益</div>
+                                        <div class="color666" v-text="groupAddNavDate?groupAddNavDate:'--'"></div>
+                                    </div>
+                                    <!-- <div class="flex-c" style="margin-left: .25rem;">
+                                        <img src="./img/top3.png" alt="">
+                                        <img src="./img/bottom.png" alt="">
+                                    </div> -->
+    
+                                    <div class="flex-c" style="margin-left: .25rem;" v-if="!dayGroupMoneySort">
+                                        <img src="./img/top3.png" alt="">
+                                        <img src="./img/bottom.png" alt="">
+                                    </div>
+                                    <div class="flex-c" style="margin-left: .25rem;" v-if="dayGroupMoneySort=='0'">
+                                        <img src="./img/top3.png" alt="">
+                                        <img src="./img/triangle.png" alt=""style="height:0.35rem;margin-top:0.1rem;">
+                                    </div> 
+                                    <div class="flex-c" style="margin-left: .25rem;" v-if="dayGroupMoneySort=='1'">
+                                        <img src="./img/triangle.png" alt="" style="height:0.35rem;margin-bottom:0.1rem;transform: rotate(180deg)">
+                                        <img src="./img/bottom.png" alt="">
+                                    </div>
+                                </div>
+                            
+                            
+                            </div>
+
+                    </div>
+                    <div class="tabContent">
+                        <!-- 组合 -->
+                        <div>
+                            <div class="flex kinds" v-for="(item,index) in groupAddMoneyList" :key="index">
+                                <a style="width:60%;color:#000" :href="'https://app.99fund.com/mobileEC/wap/fundgroup/group_fund_details_xjj.html?groupId=' + item.fundGroupId">          
+                                    <div class=" text-left width60" style="line-height: 1rem;width: 65%">
+                                        <!-- <div class="hidden" v-text="item.fundGroupName?item.fundGroupName.substr(0,8)+'...':''"></div> -->
+                                        <div class="hidden" v-text="item.fundGroupName?item.fundGroupName:''"></div>
+                                        <div class="text-left font-size26 color666" style="margin-top: .15rem;display: inline-block" v-text="item.fundGroupId"></div>
+                                        <!-- <span class="color-have"  v-show="item.isHold">持有</span> -->
+                                    </div>
+                                </a>
+                                <div class="flex width30 flexB">
+                                    <div class="  flex-c">
+                                        <div v-if="item.dayQuoteChange">
+                                            <div class="color-green font-size26" style="color:#159848" v-if="item.dayQuoteChange<0">{{item.dayQuoteChange}}%</div>
+                                            <div class="color-green font-size26" style="color:#000" v-if="item.dayQuoteChange==0">{{item.dayQuoteChange}}%</div>
+                                            <div class="color-green font-size26" style="color:#FB5C5F" v-if="item.dayQuoteChange>0">+{{item.dayQuoteChange}}%</div>
+                                        </div>
+                                        <div v-else v-text="'--'"></div>
+                                    </div>
+                                    <div class=" flex-c">
+                                        <!-- <div v-text="item.navQuoteChangeNum?item.navQuoteChangeNum:'--'"></div> -->
+                                        <div v-if="item.dayIncome">
+                                            <div class="color-red font-size26" style="color:#159848" v-if="item.dayIncome<0">{{item.dayIncome}}</div>
+                                            <div class="color-red font-size26" style="color:#000" v-if="item.dayIncome==0">{{item.dayIncome}}</div>
+                                            <div class="color-red font-size26" style="color:#FB5C5F"  v-if="item.dayIncome>0">{{item.dayIncome}}</div>
+                                        </div>    
+                                        <div v-else v-text="'--'"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 添加自选 -->
+            <!-- <div class="addFundChoose" v-show="classifyIndex==0" style="margin-top:3rem">+添加自选</div>
+            <div class="addGroupChoose" v-show="classifyIndex==1"  style="margin-top:3rem">+添加自选</div>
+            <div class="addInvestChoose" v-show="classifyIndex==2"  style="margin-top:3rem">+添加自选</div>   -->
+        </div>
+    </div>
+    <!-- 底部上证指数 -->
+    <!-- <div class="showFooterDetail">
+
+         <div class="flex footer1" style="overflow: scroll;border:1px solid red">
+            <div class="flex flex-c" style="width: 34%;border-right: 1px solid #ccc;padding: .75rem;">
+                <div>深证成指</div>
+                <div class="flex color-red">3084.28 <img style="width:0.35rem;height:.5rem;margin-left: .25rem;"
+                        src="./img/top2.png" alt=""></div>
+                <div class="flex">
+                    <div class="color-red">+29.29</div>
+                    <div class="color-red">+0.96%</div>
+                </div>
+            </div>
+        </div> 
+    </div> -->
+    <div class="slideList" >
+        <div class="swiper-container" style="width:100%">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" v-for="(item,index) in footerList">
+                    <div class="slideDiv" style="width:100%;margin: 0 auto;display: flex;justify-content: space-around;">
+                        <div style="width:100%">
+                            <p class="title" v-text="item.indexName"></p>
+                            <p class="money" style="color:#159848" v-if="item.indexValue<0">{{item.indexValue}}
+                                <!-- <img style="width:0.35rem;height:.5rem;margin-left: .25rem;"
+                            src="./img/top2.png" alt=""> -->
+                               <span>↓</span>
+                            </p>
+                            <p class="money" style="color:#fb5c5f" v-if="item.indexValue>=0">{{item.indexValue}}
+                                <span>↑</span>
+                            </p>
+                            <p class="numberNav">
+                                <span style="margin-right:0.15rem">
+                                    <span style="color:#159848" v-if="item.indexChange<0">{{item.indexChange}}</span>
+                                    <span style="color:#fb5c5f" v-if="item.indexChange>=0">{{item.indexChange}}</span>
+                                </span>
+                                <span>
+                                    <span style="color:#159848" v-if="item.changePercent<0">{{item.changePercent}}%</span>
+                                    <span style="color:#fb5c5f" v-if="item.changePercent>=0">{{item.changePercent}}%</span>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <!-- <div class="swiper-pagination"></div> -->
+        </div>            
+    </div>
+    <div class="footer" >
+        <!-- 初始底部 -->
+       <div class="flex flexB" style="padding:0.75rem 0;"> 
+            <div class="swiper-container banner" style="width:88%;margin-left: -0.1rem">
+				<div class="swiper-wrapper" style="width:100%;">
+                    <div class="swiper-slide" v-for="(item,index) in footerList">
+                           <div style="display: flex;">
+                                <div style="width:60%;">
+                                     <div class="color666" style="display:inline-block" v-text="item.indexName"></div>
+                                     <div class="color-red" style="margin: 0 .25rem;display:inline-block;color:#159848" v-if="item.indexValue<0">{{item.indexValue}}
+                                        <span>↓</span>
+                                    </div>
+                                     <div class="color-red" style="margin: 0 .25rem;display:inline-block;color:#fb5c5f" v-if="item.indexValue>=0">{{item.indexValue}}
+                                        <span>↑</span>
+                                    </div>
+                                     <!-- <img style="width:0.35rem;height:.5rem;display:inline-block" src="./img/top2.png" alt=""> -->
+                                </div>
+                                <div class="" style="width:40%;text-align: right"> 
+                                    <div class="color-red" style="display:inline-block;color:#159848" v-if="item.changePercent<0">{{item.changePercent}}%
+                                       <span>↓</span>      
+                                    </div>
+                                    <div class="color-red" style="display:inline-block;color:#fb5c5f" v-if="item.changePercent>=0">{{item.changePercent}}%
+                                    <span>↑</span></div>
+                                    <!-- <img style="width:0.35rem;height:.5rem;margin-left: .25rem;display:inline-block" src="./img/top2.png" alt=""> -->
+                                </div>
+                           </div>
+                    </div>
+                    <!-- <div class="swiper-slide" >
+                            <div style="display: flex;">
+                                 <div style="width:60%;">
+                                      <div class="color666" style="display:inline-block">上证综指</div>
+                                      <div class="color-red" style="margin: 0 .25rem;display:inline-block">1000.64</div>
+                                      <img style="width:0.35rem;height:.5rem;display:inline-block" src="./img/top2.png" alt="">
+                                 </div>
+                                 <div class="" style="width:30%;text-align: right">
+                                    
+                                         <div class="color-red" style="display:inline-block">4.23%</div>
+                                         <img style="width:0.35rem;height:.5rem;margin-left: .25rem;display:inline-block" src="./img/top2.png" alt="">
+                                 </div>
+                            </div>
+                    </div> -->
+				</div>
+				<!-- <div class="swiper-pagination"></div> -->
+            </div>
+            <div id="compositeUp" @click="compositeUp()" style="width:10%;position:absolute;bottom:.6rem;right:.65rem;text-align: center"> 
+                <img  style="width:0.75rem;height:.5rem;" src="./img/top1.png" alt="">
+            </div>
+            <div id="compositeDown" @click="compositeDown()" style="width:10%;position:absolute;bottom:.6rem;right:.65rem;text-align: center;display:none"> 
+                <img  style="width:0.75rem;height:.5rem;transform: rotate(180deg)" src="./img/top1.png" alt="">
+            </div>
+            
+        </div>
+
+    </div>
+</div>    
+<script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+<script src="js/swiper-5.4.5.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script>
+
+<script src="js/index.js"></script>
+<script>
+
+  
+    $(function(){  
+        $('.slideList').slideUp();
+        var thumbsArray = [];
+        var mySwiper = new Swiper('.footer .swiper-container', {
+        direction: 'vertical',
+        loop: true,
+        autoplay: true,
+        observer: true,
+        observerParents: true,
+        // autoplay: {
+        // 	disableOnInteraction: false
+        // },
+        // 如果需要分页器
+            pagination: {
+                // el: '.swiper-pagination',
+                clickable: true
+            },
+            on: {
+                init: function () {
+                    thumbsArray.push(this)    //每次生成swiper，就把这个swiper放入到我们定义的数组内
+                },
+           }
+
+       });
+
+
+        var mySwiper2 = new Swiper('.slideList .swiper-container', {
+            direction: 'horizontal',
+            loop: true,
+            // autoplay: true,
+            observer: true,
+            // observerParents: true,
+            observeParents:false,
+            onSlideChangeEnd: function(mySwiper2){
+                mySwiper2.update();
+                mySwiper2.startAutoplay();
+                mySwiper2.reLoop();
+            },
+            autoplayDisableOnInteraction : false,//手动滑动后自动轮播失效 解决移动端问题
+            // slidesPerView:3,
+            slidesPerView : 'auto',
+            // slidesPerGroup: 3,
+            // spaceBetween:10,   //slide间隙
+            // autoplay: {
+            // 	disableOnInteraction: false
+            // },
+            on: {
+                init: function () {
+                    thumbsArray.push(this)    //每次生成swiper，就把这个swiper放入到我们定义的数组内
+                }
+            },
+            // 如果需要分页器
+            pagination: {
+                    el: '.slideList .swiper-pagination',
+                    // bulletClass : 'slideBanner',
+                    clickable: true, // 允许点击小圆点跳转
+                    // renderCustom:2
+            }
+                
+       });
+
+
+        // $('#compositeUp').click(function () {
+        //     $('.slideList').slideDown();
+        //     $('#compositeUp').hide();
+        //     $('#compositeDown').show();
+        // })
+        // $('#compositeDown').click(function () {
+        //     $('.slideList').slideUp();
+        //     $('#compositeUp').show();
+        //     $('#compositeDown').hide();
+        // })
+    })
+  
+    // $('.tab li').click(function () {
+    //     $(this).addClass('active').siblings('li').removeClass('active')
+    //     if ($(this).index() == 0) { //基金  
+    //         $('.tabContent').html(html)
+    //     } else if ($(this).index() == 2) { //组合
+    //         $('.tabContent').html(html)
+    //     } else if ($(this).index() == 4) { //投顾
+    //         $('.tabContent').html(html)
+    //     } else if ($(this).index() == 6) { //基金经理
+    //         $('.tabContent').html(managerHtml)
+    //     }
+    // })
+    // $('#selectTime').click(function () {
+    //     $('.switchtab').slideToggle()
+    // })
+    // $('.switchtab li').click(function () {
+    //     if ($(this).index() == 0) { //01:一月
+    //         queryDt = "01";
+    //         queryDt_old = "1";
+    //         $('#showTime').html('近一月')
+    //         $('.switchtab').hide()
+    //     } else if ($(this).index() == 1) { //02：三月
+    //         queryDt = "02";
+    //         queryDt_old = "9";
+    //         $('#showTime').html('近三月')
+    //         $('.switchtab').hide()
+    //     } else if ($(this).index() == 2) { //03：六月
+    //         queryDt = "03";
+    //         queryDt_old = "2";
+    //         $('#showTime').html('近六月')
+    //         $('.switchtab').hide()
+    //     } else if ($(this).index() == 3) { //05：一年
+    //         queryDt = "05";
+    //         queryDt_old = "3";
+    //         $('#showTime').html('近一年')
+    //         $('.switchtab').hide()
+    //     } else if ($(this).index() == 4) { //08：成产以来
+    //         queryDt = "08";
+    //         queryDt_old = "4";
+    //         $('#showTime').html('成立以来')
+    //         $('.switchtab').hide()
+    //     }
+    // });
+   
+</script>
+</body>
+
+</html>

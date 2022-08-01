@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>银行卡绑定成功</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+	<style type="text/css">
+        /* reset css */
+        *{ margin: 0; padding: 0;}
+        html{font-size: 100%;}
+        body{ font: 14px/1em Microsoft YaHei,sans-serif; background-color: #fff;color: #666; }
+        ul, ol, dl{ list-style: none;}
+        div, dl, dt, dd, ul, li, p{ overflow: hidden;}
+        em, i{ font-style: normal;}
+        input{ border: 0;}
+        img{ display: block;max-width: 100%;height: auto;}
+        a{ text-decoration: none;}
+
+        .wrap{
+            padding: 15% 5% 6%;
+            background-color: #f6f6f6;
+        }
+        .wrap-top{
+            text-align: center;
+            margin-bottom: 1em;
+        }
+        .wrap-top img{
+            display: inline-block;
+            width: 12%;
+            vertical-align: bottom;
+
+        }
+        .wrap-top span{
+            display: inline-block;
+            font-size: 1.4em;
+            line-height: 1.8em;
+            color: #333;
+            padding-left: 3px;
+        }
+        .wrap p{
+            font-size: 1em;
+            line-height: 1.5em;
+            text-align: center;
+        }
+        .surv{
+            padding: 10px  5% 0; 
+            text-align: center;
+        }
+        .surv h4{
+            font-size: 1em;
+            line-height: 2.5em;
+            border-bottom: 1px dotted #cccccc;
+        }
+        .qt{
+            padding: 17px;
+            padding-right: 0;
+            font-size:14px;
+            color: #505050;
+        }
+        .qt p{
+            margin-bottom: 15px;
+        }
+        .qt label input{
+            width:16px;
+            height:16px;
+            vertical-align: middle;
+        }
+        .qt .yes{
+            margin-right:125px;
+        }
+        .sub{
+            padding:5%;
+        }
+        .sub button{
+            width:100%;
+            height: 40px;
+            font-size:1.3em;
+            line-height: 40px;
+            border:0;
+            color: #fff;
+            background-color: #fe7e01;
+            border-radius:4px;
+        }
+        
+	</style>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script type="text/javascript">
+	function jumpSubmmit(){
+		var startDateStr = App.getUrlParam("startDateStr");/*活动开始日期*/
+		var endDateStr = App.getUrlParam("endDateStr");/*活动结束日期*/
+		window.location.href='./submitSuccessDoubleProfit.html?startDateStr=' + startDateStr + "&endDateStr=" + endDateStr;
+	}
+	</script>
+</head>
+<body>
+    <h3 class="title">成功</h3>
+    <div class="wrap">
+        <div class="wrap-top">
+            <img src="img/icon4.png" alt="icon4">
+            <span>银行卡绑定成功！</span>
+        </div>
+        <p>添富现金宝，放心存，随心取！</p>
+        <p>收益多多，安全性佳！</p>
+        <p>可购多种理财产品，投资更省心！</p>
+    </div>
+    <div class="surv">
+        <h4>用户调研</h4>
+    </div>
+    <div class="qt">
+        <p>1.请问您认为这次微信绑卡过程是否流畅 ？</p>
+        <label for="yes" class="yes">
+            <input type="radio" name="lc" id="yes" checked> 流畅
+        </label>
+        <label for="no">
+            <input type="radio" name="lc" id="no"> 不流畅
+        </label>
+    </div>
+    <div class="qt" style="padding-top: 0px;">
+        <p>2.页面文字是否易于浏览？</p>
+        <label for="yes_pa" class="yes">
+            <input type="radio" name="pa" id="yes_pa" checked> 是
+        </label>
+        <label for="no_pa">
+            <input type="radio" name="pa" id="no_pa"> 不是
+        </label>
+    </div>
+    <div class="qt" style="padding-top: 0px;">
+        <p>3.整体配色是否干净不影响阅读？</p>
+        <label for="yes_co" class="yes">
+            <input type="radio" name="co" id="yes_co" checked> 是
+        </label>
+        <label for="no_co">
+            <input type="radio" name="co" id="no_co"> 不是
+        </label>
+    </div>
+    <div class="sub">
+        <button  type="submit" onclick="javascript:jumpSubmmit();">提交</button>
+    </div>
+</body>
+</html>

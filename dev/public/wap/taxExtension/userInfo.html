@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>税延养老账户信息</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base_v1.css">
+    <link rel="stylesheet" href="../css/taxExtension/payment.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <style>
+        .list-group-item  input{margin-left: .75rem;text-align: left;}
+        .footer{
+            position: fixed;
+            left:0;
+            bottom:0;
+            width: 100%;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            background: #fe7e01;
+            font-size: 0.85rem;
+            color:#fff;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <div>
+        <div class="user-info">账户信息</div>
+        <ul class="grid-list" style="padding:0 0 0 .75rem ">
+            <li class="grid-list-item heigth-100 BankCard">
+                <div class="row">
+                    <div class="flex">
+                        <p name="tpp">姓名</p>
+                        <p id="name"></p>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 BankCard">
+                <div class="row">
+                    <div class="flex">
+                        <p name="tpp">证件号码</p>
+                        <p name="tpp" id="idno">310****9876(身份证)</p>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 BankCard">
+                <div class="row">
+                    <div class="flex">
+                        <p>证件有效期</p>
+                        <p id="certValidDate"></p>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 BankCard">
+                <div class="row">
+                    <div class="flex">
+                        <p>税延养老账户</p>
+                        <p id="pitdInvestAcct"></p>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 BankCard">
+                <div class="row">
+                    <div class="flex">
+                        <p>手机号码</p>
+                        <p id="mobile"></p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <div class="user-info">单位信息</div>
+        <ul class="grid-list" style="padding:0 0 0 .75rem ">
+            <li class="grid-list-item heigth-100 BankCard">
+                <div class="row">
+                    <div class="flex">
+                        <p>工作单位</p>
+                        <p><input type="text" id="employer" style="text-align: right; font-size: .75rem;" readonly="readonly"/></p>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 BankCard">
+                <div class="row">
+                    <div class="flex">
+                        <p>企业证件号</p>
+                        <p><input type="text" id="enterpriseIdNumber" style="text-align: right; font-size: .75rem;" readonly="readonly"/></p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <section>
+        <div>
+            <button class="btn-orange" style="margin-bottom: 0.8rem" id="btn-submit" data-click-tp="edit">编辑</button>
+        </div>
+    </section>
+</div>
+
+<div class="mask"></div>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <p class="Bomb-box-tips" style="padding-top: 0.75rem;"></p>
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;">确定</a>
+    </div>
+</div>
+
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script type="text/javascript" src="../js/common.js?20210302"></script>
+<script type="text/javascript" src="../js/taxExtension/userInfo.js"></script>
+
+</body>
+</html>

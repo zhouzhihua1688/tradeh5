@@ -1,0 +1,82 @@
+body {
+    background-color: #f6f6f6;
+}
+
+.title {
+    line-height: 0.9rem /* 36/40 */;
+    padding: 0.225rem 0.6rem 0.225rem 0.75rem;
+    font-size: 0.6rem /* 24/40 */;
+    color: #666;
+}
+
+.content {
+    background-color: #fff;
+    padding-left: 0.75rem /* 30/40 */;
+}
+
+.content .pwd {
+    height: 2.5rem /* 100/40 */;
+    line-height: 2.5rem /* 100/40 */;
+    border-bottom: 0.025rem /* 1/40 */ solid #efefef;
+}
+
+.content .pwd > input {
+    padding: 0;
+    width: 100%;
+    color: #000;
+    font-size: 0.7rem /* 28/40 */;
+    height: 1.5rem /* 60/40 */;
+}
+
+.desc {
+    margin-top: .5rem;
+    padding: 0 0.2rem /* 24/40 */ 0 0.75rem /* 30/40 */;
+    line-height: 0.875rem /* 35/40 */;
+    font-size: 0.6rem /* 24/40 */;
+    color: #666;
+    white-space: pre-wrap;
+}
+
+.show-pwd {
+    margin-top: 0.5rem /* 20/40 */;
+    height: 1rem /* 40/40 */;
+    line-height: 1rem;
+    padding-left: 0.75rem /* 30/40 */;
+    color: #666;
+    font-size: 0.65rem /* 26/40 */;
+}
+
+.show-pwd .show-pwd-img-no {
+    display: inline-block;
+    width: 0.5rem /* 20/40 */;
+    height: 0.5rem /* 20/40 */;
+    margin-left: 0.125rem /* 5/40 */;
+    margin-right: 0.2rem /* 15/40 */;
+    background: url("/tradeh5/newWap/realNameRegister/img/no_check.png") no-repeat;
+    background-size: cover;
+}
+
+.show-pwd .show-pwd-img {
+    display: inline-block;
+    width: 0.5rem /* 20/40 */;
+    height: 0.5rem /* 20/40 */;
+    margin-left: 0.125rem /* 5/40 */;
+    margin-right: 0.2rem /* 15/40 */;
+    background: url("/tradeh5/newWap/realNameRegister/img/check.png") no-repeat;
+    background-size: cover;
+}
+
+.next-btn {
+    height: 2.25rem /* 90/40 */;
+    line-height: 2.25rem /* 90/40 */;
+    text-align: center;
+    background-color: #ffd9b3;
+    color: #fff;
+    margin: 1.125rem 0.75rem 0 .75rem /* 30/40 */;
+    font-size: 0.85rem /* 34/40 */;
+    border-radius: 0.075rem /* 3/40 */;
+}
+
+.next-btn.active {
+    background-color: #fe7e01;
+}

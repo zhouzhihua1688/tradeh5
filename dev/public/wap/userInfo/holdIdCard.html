@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>上传证件照片</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/userInfo/common.css">
+    <link rel="stylesheet" href="../css/userInfo/idCardUpdate.css">
+    <style>
+        .card-pros,
+        .card-cons {
+            overflow: hidden;
+            position: relative;
+            left: 50%;
+            width: 17.25rem;
+            height: 9rem;
+            background: #eee;
+            border-radius: .25rem;
+            margin-left: -8.625rem;
+        }
+
+        html {
+            background: #fff
+        }
+    </style>
+</head>
+
+<body>
+<div class="content1">
+    <div style="margin-top:0.75rem;font-size: 0.7rem;">需要您上传<span style="color:#fe5a5b">手持开户的证件</span>：</div>
+    <div class="card-pros" style="margin-top:0.75rem"><img id="card-1" src="../images/userInfo/hold.png"/><input
+            type="file" class="file file-3" accept="image/*" multiple/></div>
+</div>
+<div class="content2" style="padding-top:1.5rem">
+    <div class="styleTip" style="padding-top:1rem">
+        <!--<img src="../images/userInfo/examples.jpg" alt="">-->
+        <img src="../images/userInfo/holdFlag.png" alt="">
+        <a href="javascript:;" class="tap-tap"></a>
+    </div>
+</div>
+<div class="footer">
+    <a href="javascript:;" style="background: #0757b2">提交</a>
+</div>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <p class="Bomb-box-tips">您的证件照片已上传成功</p>
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;">我知道了</a>
+    </div>
+</div>
+<div class="tip-dailog">
+    <div class="tip-main">
+        <div class="tip-h">
+            照片要求
+            <a href="javascript:;" class="close-btn close-tip"></a>
+        </div>
+        <div class="tip-c">
+            <img src="../images/userInfo/iconimg.png" alt="">
+        </div>
+        <div class="tip-m">
+            <p>1、证件必须是清晰彩色原件电子版，可以是扫描件或者数码拍摄照片；</p>
+            <p>2、仅支持jpg/jpeg/bmp/png的图片格式。</p>
+        </div>
+        <div class="tip-f">
+            <a href="javascript:;" class="tip-ok close-tip">确认</a>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/lib/phone-size.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script type="text/javascript" src="../js/common.js?20210302"></script>
+<script type="text/javascript" src="../js/userInfo/holdIdCard.js"></script>
+</body>
+
+</html>

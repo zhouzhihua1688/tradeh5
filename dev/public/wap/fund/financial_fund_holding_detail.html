@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf8">
+    <title>理财产品明细</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../css/base.css">
+	<link rel="stylesheet" href="../css/base_v1.css">
+	<style type="text/css">
+		.font-arial{ 
+			font-family: Arial;
+			color: #000;
+		}
+		section{
+			background-color: #fff;
+			overflow: hidden;
+		}
+		.icon {
+		display: inline-block;
+		width: .8rem;height: .8rem;
+		vertical-align:middle; margin:auto; margin-left: .3rem; padding:0;
+		}
+
+		.left{
+			float: left;
+		}
+		.right{
+			float: right;
+		}
+
+		/*弹框1*/
+		.Bomb-box,.Bomb-box1{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }		
+		.Bomb-box1 .Bomb-box-main{  width: 15rem; height:10.8rem; position :absolute; top:50%; right:50%; margin-right: -7.5rem; margin-top: -5.4rem; background-color: #fff;  /*margin: 6rem auto 0;*/  border-radius: 0.3rem;  }		
+		.Bomb-box .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+		.Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+		.Bomb-box .Bomb-box-ok,.Bomb-box1 .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+		.Bomb-box .Bomb-box-content,.Bomb-box1 .Bomb-box-content{ padding:.75rem 1.5rem; }
+
+		.content1{
+			margin-top:0rem;
+			padding-left: .75rem;
+			margin-bottom: .5rem;
+		}
+		.content1 table{
+			width: 100%;
+			border-collapse: collapse;
+			font-size:.75rem;
+		}
+		.content1 table tr{height:2.5rem;border-bottom: 1px #eee solid;}
+		.content1 table tr td img{width:.4rem;height:.75rem;position: relative;top:2px;}
+		.content1 table tr td span{color:#000;font-weight: bold;}
+		/* .content1 table tr td:nth-of-type(1){color:#000;font-weight: bold;} */
+		.content1 table tr td:nth-of-type(2){text-align: right;padding-right:.75rem;}
+
+		.content2{
+			margin-top:.5rem;
+			padding-left: .75rem;
+			margin-bottom: .5rem;
+		}
+		.content2 table{
+			width: 100%;
+			border-collapse: collapse;
+			font-size:.75rem;
+		}
+		.content2 table tr{height:2.5rem;border-bottom: 1px #eee solid;}
+		.content2 table tr td img{width:.4rem;height:.75rem;position: relative;top:2px;}
+		.content2 table tr td:nth-of-type(1){color:#000;}
+		.content2 table tr td:nth-of-type(2){text-align: right;padding-right:.75rem;}
+
+		.content3{
+			margin-top:.5rem;
+			padding-left: .75rem;
+			margin-bottom: .5rem;
+		}
+		.content3 table{
+			width: 100%;
+			border-collapse: collapse;
+			font-size:.75rem;
+		}
+		.content3 table tr{height:2.5rem;border-bottom: 1px #eee solid;}
+		.content3 table tr td img{width:.4rem;height:.75rem;position: relative;top:2px;}
+		.content3 table tr td:nth-of-type(1){color:#000;}
+		.content3 table tr td:nth-of-type(2){text-align: right;padding-right:.75rem;}
+
+
+		.content4{
+			margin-top:.5rem;
+			padding-left: .75rem;
+			margin-bottom: .5rem;
+		}
+		.content4 table{
+			width: 100%;
+			border-collapse: collapse;
+			font-size:.75rem;
+		}
+		.content4 table tr{height:2.5rem;border-bottom: 1px #eee solid;}
+		.content4 table tr td img{width:.4rem;height:.75rem;position: relative;top:2px;}
+		.content4 table tr td:nth-of-type(1){color:#000;}
+		.content4 table tr td:nth-of-type(2){text-align: right;padding-right:.75rem;}
+		.content4 table tr td img.icon{display: inline-block;width: .8rem;height: .8rem;vertical-align: middle;margin: auto;margin-left: .3rem;margin-bottom: .3rem;padding: 0;position: relative}
+
+		.footer_fiexd{position:fixed;left: 0;bottom: 0;width:100%;background: #f6f6f6;}
+		.footer_fiexd ul{display: flex;}
+		.footer_fiexd ul li{flex: 1;height:2.5rem;background:#fe7e01 ;}
+		/* .footer_fiexd ul li:nth-of-type(1){	} */
+		.footer_fiexd ul li:nth-of-type(1){border-right: 1px #ffbf80 solid;background: #fff;}
+		.footer_fiexd ul li a{display:block;width:100%;height: 100%;line-height: 2.5rem;text-align: center;color:#fff;font-size: .8rem;}
+		.footer_fiexd ul li:first-child a{color: #fe7e01;border-top: 1px #eee solid;}
+		.footer_fiexd ul li:last-child {border-left: 1px #ffbf80 solid;}
+
+		.prompt{width:100%;}
+		.prompt>div{width:90%;margin:0 auto;font-size:0.6rem;color:#666;margin-top:0.75rem;}
+    </style>
+</head>
+<body>
+    <section class="content1">
+        <table>
+            <tbody>
+                <tr class="get-fund-information">
+                    <td style="margin-left: .75rem" id="view_fundNmId"></td>
+                    <td><img src="../images/fund/arrow.png"></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <section class="content2">
+        <table>
+            <tbody>
+                <tr>
+                    <td style="margin-left: .75rem">持有资产(元)</td>
+                    <td><span class="font-arial" id="unionBalance"></span></td>
+                </tr>
+                <tr>
+                    <td>可用份额(份)</td>
+                    <td><span class="font-arial" id="avaliable" ></span></td>
+                </tr>
+                <tr>
+                    <td>到期日</td>
+                    <td class="font-arial" id="carryDate"></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <section class="content3">
+        <table>
+            <tbody>
+                <tr>
+                    <td style="margin-left: .75rem">分红方式</td>
+                    <td class="font-arial" id="melonmd">现金分红</td>
+                </tr>
+                <tr>
+                    <td>最新净值(<span id="navDt">-</span>)</td>
+                    <td class="font-arial" id="nav"></td>
+                </tr>
+                <tr class='query-current-profit'>
+                    <td>本期累计收益(元)</td>
+                    <td><span class="font-arial" id='carryTotalProfit'></span>&nbsp<img src="../images/fund/arrow.png"></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <section class="content4">
+        <table>
+            <tbody>
+                <tr class="query-product-trade-record">
+                    <td>交易记录</td>
+                    <td><img src="../images/fund/arrow.png"></td>
+                </tr>
+                <tr>
+                    <td>到期后<img src="../images/fund/question.png" class="icon icon-question1" alt=""></td>
+                    <td class='setRedeem'><span class="font-arial" id='redeemType'>自动续期</span>&nbsp<img src="../images/fund/arrow.png"></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+	<div class="prompt">
+        <div id='prompt1'>产品到期日（2021.06.21）15:00前可支持修改</div>
+    </div>
+
+
+	<div class="footer_fiexd">
+		<p id="view_feeRate" class="fee-rate"></p>
+	</div>
+	<div class="footer_fiexd">
+		<ul style="width: 100%;">
+			<!-- <li class="redeem-li"><a href="javascript:;" class="redeem">申购</a></li> -->
+			<li class="buy-li"><a href="javascript:;" class="buy">申购</a></li>
+			<!-- <li class="investment-li"><a href="javascript:;" class="investment">赎回设置</a></li> -->
+			<li class="redeem-li"><a href="javascript:;" class="redeem">赎回设置</a></li>
+			<li class="transfer-li"><a href="javascript:;" class="transfer">转换</a></li>
+		</ul>
+	</div>
+
+	<!-- 提示弹窗 -->
+	<div class="Bomb-box" style="display: none;">
+		<div class="Bomb-box-main">
+			<div class="Bomb-box-content">
+				<p class="text-center"></p>
+			</div>
+			<a class="Bomb-box-ok" href="javascript:;">确定</a>
+		</div>
+	</div>
+	    <!-- 问号弹窗 -->
+		<div class="Bomb-box1" style="display: none;">
+			<div class="Bomb-box-main">
+				<div class="Bomb-box-content">
+					<p class="text-center"></p>
+				</div>
+				<a class="Bomb-box-ok" href="javascript:;">确定</a>
+			</div>
+		</div>
+
+	
+	<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+	<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../js/lib/echarts.min.js"></script>
+	<script type="text/javascript" src="../js/lib/phone-size.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+	<script type="text/javascript" src="../js/common.js?20210302"></script>
+	<script type="text/javascript" src="../js/fund/financial_fund_holding_detail.js?20210420"></script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta charset="gbk">-->
+    <title>投顾测算</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/localStorage.js"></script>
+    <script type="text/javascript" src="js/common.js?20210106"></script>
+    <script type="text/javascript" src="../js/lib/jquery.base64.js"></script>
+
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%
+        }
+
+        body {
+            background: #fff
+        }
+
+        .main {
+            width: 100%;
+        }
+
+        .icon {
+            width: 80%;
+            margin: 0 auto;
+            margin-top: 1rem
+        }
+
+        .icon div {
+            width: 2.75rem;
+            height: 3.0rem;
+            background: url('img/icon.png') no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .question {
+            width: 80%;
+            color: #000;
+            font-size: 0.7rem;
+            margin: 0 auto;
+            margin-top: 1rem;
+            text-align: justify;
+            font-weight: bold
+        }
+
+        .biaoti {
+            width: 80%;
+            color: #000;
+            font-size: 0.7rem;
+            margin: 0 auto;
+            margin-top: 0.75rem;
+            text-align: justify;
+        }
+
+        .first_text {
+            height: 1rem;
+            position: absolute;
+            left: 0;
+            bottom: -0.05rem;
+            z-index: 20
+        }
+
+        .red_text {
+            width: 2.75rem;
+            height: 0.15rem;
+            background: #fececf;
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            bottom: 0.25rem;
+            z-index: 10
+        }
+
+        .red_text1 {
+            width: 2.75rem;
+            height: 0.15rem;
+            background: #ffd8b2;
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            bottom: 0.25rem;
+            z-index: 10
+        }
+
+        .red_text2 {
+            width: 2.75rem;
+            height: 0.15rem;
+            background: #b8dcf7;
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            bottom: 0.25rem;
+            z-index: 10
+        }
+
+        .next {
+            width: 80%;
+            height: 1.5rem;
+            margin: 0 auto;
+            margin-top: 1.5rem;
+            margin-bottom: 5rem;
+        }
+
+        .next a {
+            padding: 0 1rem;
+            line-height: 1.5rem;
+            float: right;
+            border-radius: 1.25rem;
+            text-align: center;
+            font-size: 0.7rem;
+            border: 1px solid #999;
+            color: #999;
+        }
+
+        .active {
+            border: 1px solid #fb5c5f !important;
+            color: #fb5c5f !important;
+        }
+
+        .input_box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            border-bottom: 1px #eee solid;
+            line-height: 2.5rem;
+            margin: 0 auto;
+        }
+
+        .input_box input {
+            width: 90%;
+            height: 2.5rem;
+            font-size: 1rem;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .input_box span {
+            color: #000;
+            font-size: .7rem;
+            margin-top: .2rem;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 1%;
+            z-index: 1;
+        }
+
+        .mask {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0%;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .7);
+            z-index: 10;
+
+        }
+
+        .mask_2 {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .7);
+            z-index: 10;
+        }
+
+        .mask_3 {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .7);
+            z-index: 10;
+        }
+
+        .mask_4 {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .7);
+            z-index: 10;
+        }
+
+        .answer {
+            position: absolute;
+            top: 50%;
+            margin-top: -3.125rem;
+            left: 50%;
+            margin-left: -7.5rem;
+            width: 15rem;
+            height: 6.5rem;
+            background-color: #fff;
+            border-radius: 0.15rem;
+            z-index: 20;
+        }
+
+        .answer .answer_text {
+            margin: 0.75rem;
+            height: 3.75rem;
+            border-bottom: 1px #eee solid;
+            line-height: 3.75rem;
+            text-align: center;
+            color: #666666;
+        }
+
+        .answer .close {
+            display: block;
+            height: 1.5rem;
+            line-height: 0.5rem;
+            color: #0070fa;
+            text-align: center;
+        }
+
+        input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+            color: #999;
+            font-size: .7rem;
+            font-weight: normal;
+        }
+
+        input:-moz-placeholder, textarea:-moz-placeholder {
+            color: #999;
+            font-size: .7rem;
+            font-weight: normal;
+        }
+
+        input::-moz-placeholder, textarea::-moz-placeholder {
+            color: #999;
+            font-size: .7rem;
+            font-weight: normal;
+        }
+
+        input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+            color: #999;
+            font-size: .7rem;
+            font-weight: normal;
+        }
+    </style>
+
+</head>
+<body>
+<div class="main">
+    <div class="icon">
+        <div></div>
+    </div>
+    <div class="biaoti title1" style="display:none;font-weight: bold;position: relative;margin-top:1.5rem"><span
+            class="first_text">零钱管理</span><span class="red_text"></span></div>
+    <div class="biaoti title2" style="display:none;font-weight: bold;position: relative;margin-top:1.5rem"><span
+            class="first_text">稳健理财</span><span class="red_text1"></span></div>
+    <div class="biaoti title3" style="display:none;font-weight: bold;position: relative;margin-top:1.5rem"><span
+            class="first_text">长期投资</span><span class="red_text2"></span></div>
+    <div class="biaoti" style="margin-top:2rem">接下来请告诉我您的实际需求，我来帮您生成指导方案，按需填写即可，无需每项都填。</div>
+    <div class="box1">
+        <div class="biaoti" id="biaoti1" style="margin-top:1rem;margin-bottom: .5rem;">您准备一次性投入多少钱？</div>
+        <div class="input_box">
+            <input type="number" pattern="number" placeholder="一次性投入最少填1000" id="val1" autocomplete="off" onkeyup="value=value.replace(/[^\d\.]/g,'')"/>
+            <span>元</span>
+        </div>
+    </div>
+    <div class="box2">
+        <div class="biaoti" id="biaoti2" style="margin-top:1.5rem;margin-bottom: .5rem;">您准备每月定投多少钱？</div>
+        <div class="input_box">
+            <input type="number" pattern="number" placeholder="每月定投最少填200" id="val2" autocomplete="off" onkeyup="value=value.replace(/[^\d\.]/g,'')"/>
+            <span>元</span>
+        </div>
+    </div>
+    <div class="box3" style="display: none">
+        <div class="biaoti" style="margin-top:1rem;margin-bottom: .5rem;">您准备一次性投入【稳健小确幸】多少钱？</div>
+        <div class="input_box">
+            <input type="number" pattern="number" placeholder="一次性投入最少填1000" id="val3" autocomplete="off" onkeyup="value=value.replace(/[^\d\.]/g,'')"/>
+            <span>元</span>
+        </div>
+    </div>
+    <div class="box4" style="display: none">
+        <div class="biaoti" style="margin-top:1.5rem;margin-bottom: .5rem;">您准备每月定投【稳健小确幸】多少钱？</div>
+        <div class="input_box">
+            <input type="number" pattern="number" placeholder="每月定投最少填200" id="val4" autocomplete="off" onkeyup="value=value.replace(/[^\d\.]/g,'')"/>
+            <span>元</span>
+        </div>
+    </div>
+    <div class="next"><a id="jump" href="javascript:void(0);" style="margin-bottom: 6rem;">填好了</a></div>
+</div>
+
+<div class="footer">
+    <a href="#"></a>
+</div>
+<div class="mask" style="display: none;">
+    <div class="answer">
+        <div class="answer_text">填写不正确</div>
+        <a class="close">确定</a>
+    </div>
+</div>
+<div class="mask_2" style="display: none;">
+    <div class="answer">
+        <div class="answer_text">至少要填写一项</div>
+        <a class="close">确定</a>
+    </div>
+</div>
+<div class="mask_3" style="display: none;">
+    <div class="answer">
+        <div class="answer_text">一次性投入金额小于1000</div>
+        <a class="close">确定</a>
+    </div>
+</div>
+<div class="mask_4" style="display: none;">
+    <div class="answer">
+        <div class="answer_text">定投金额小于200</div>
+        <a class="close">确定</a>
+    </div>
+</div>
+</body>
+<script>
+    var data = {}
+    $('.close').click(function () {
+        $('.mask').hide();
+        $('.mask_2').hide();
+        $('.mask_3').hide();
+        $('.mask_4').hide();
+    })
+    var planTargetResult = '';
+    var model = getQueryVariable('model');
+    var investmentTp = getQueryVariable('data');
+    action();
+    var planDurationTime = getQueryVariable('planDurationTime');
+    var planTarget = getQueryVariable('planTarget');
+    planTarget = decodeURI(decodeURI(planTarget));
+    var initPurchaseAmt = 0;
+    var mipBaseAmt = 0;
+    var initPurchaseAmt1 = 0;
+    var mipBaseAmt1 = 0;
+    var rcmdProducts;
+    var planSerialNo = '';
+    var arAcct = '';
+
+    function action() {
+        if (model == '2') {
+            $('.title2').show()
+            switch (investmentTp) {
+                case '1':
+                    $('.box2').hide();
+                    break;
+                case '2':
+                    $('.box1').hide();
+                    break;
+            }
+        } else if (model == '1') {
+            $('.title1').show()
+        } else if (model == '4') {
+            switch (investmentTp) {
+                case '1':
+                    $('#biaoti1').html("您准备一次性投入【跟我投】多少钱");
+                    $('.box2').hide();
+                    $('.box3').show();
+                    break;
+                case '2':
+                    $('#biaoti2').html("您准备每月定投【跟我投】多少钱？");
+                    $('.box1').hide();
+                    $('.box4').show();
+                    break;
+                case '3':
+                    $('#biaoti1').html("您准备一次性投入【跟我投】多少钱？");
+                    $('#biaoti2').html("您准备每月定投【跟我投】多少钱？");
+                    $('.box3').show();
+                    $('.box4').show();
+                    $('input').focus(function () {
+                        $('body').attr('height', 'auto');
+                        this.scrollIntoView();
+
+                        //ios 软键盘遮挡输入框解决方法 待测
+                        // setTimeout(function(){
+                        //     document.body.scrollTop = document.body.scrollHeight;
+                        // },300);
+                    });
+                    $('input').blur(function () {
+                        $('body').attr('height', 'auto');
+                    });
+                    break;
+            }
+            $('.title3').show();
+        } else {
+            switch (investmentTp) {
+                case '1':
+                    $('.box2').hide();
+                    break;
+                case '2':
+                    $('.box1').hide();
+                    break;
+            }
+            $('.title3').show();
+        }
+    }
+
+    $('.input_box').click(function () {
+        $('.footer').hide();
+    })
+
+    var isActive = false;
+    $("#val1").on('input', function (e) {
+        var value2 = $("#val2").val();
+        var value = $(this).val();
+        if (value >= 1000 || value2 >= 200) {
+            isActive = true;
+            $('.next a').addClass('active')
+        } else {
+            $('.next a').removeClass('active')
+            isActive = false;
+        }
+    })
+    $("#val2").on('input', function (e) {
+        var value1 = $("#val1").val();
+        var value = $(this).val();
+        if (value >= 200 || value1 >= 1000) {
+            isActive = true;
+            $('.next a').addClass('active')
+        } else {
+            $('.next a').removeClass('active')
+            isActive = false;
+        }
+        if (model != '4') {
+            setTimeout(function () {
+                $('.footer').show();
+            }, 2000)
+        }
+    })
+    $('#val3').on('input', function (e) {
+        var value1 = $('#val1').val();
+        var value2 = $("#val2").val();
+        var value3 = $("#val4").val();
+        var value = $(this).val();
+        if (value >= 1000 || value2 >= 200 || value1 >= 1000 | value3 >= 200) {
+            isActive = true;
+            $('.next a').addClass('active')
+        } else {
+            $('.next a').removeClass('active')
+            isActive = false;
+        }
+    })
+    $('#val4').on('input', function (e) {
+        var value1 = $('#val1').val();
+        var value2 = $("#val2").val();
+        var value3 = $("#val3").val();
+        var value = $(this).val();
+        if (value >= 1000 || value2 >= 200 || value1 >= 1000 || value3 >= 200) {
+            isActive = true;
+            $('.next a').addClass('active')
+        } else {
+            $('.next a').removeClass('active')
+            isActive = false;
+        }
+        setTimeout(function () {
+            $('.footer').show();
+        }, 2000)
+    })
+
+    $('.next a').click(function () {
+        var value1 = $("#val1").val();
+        var value2 = $("#val2").val();
+        var value3 = $("#val3").val();
+        var value4 = $("#val4").val();
+        console.log(value1, value2, value3, value4);
+        initPurchaseAmt = value1;
+        initPurchaseAmt1 = value3;
+        mipBaseAmt1 = value4;
+        mipBaseAmt = value2;
+        if (value1 && value1 < 1000) {
+            $('.mask_3').show()
+            return;
+        }
+        if (value2 && value2 < 200) {
+            $('.mask_4').show()
+            return;
+        }
+        if (value3 && value3 < 1000) {
+            $('.mask_3').show()
+            return;
+        }
+        if (value4 && value4 < 200) {
+            $('.mask_4').show()
+            return;
+        }
+        if (!isActive) {
+            $('.mask_2').show()
+            return;
+        } else {
+            nextClick();
+        }
+    })
+
+    function nextClick() {
+        var productId = "";
+        var productId2 = "";
+        switch (model) {
+            case "1":
+                productId = 'A0901'
+                break;
+            case "2":
+                productId = 'A0902'
+                break;
+            case "3":
+                productId = 'A0903';
+                break;
+            case "4":
+                productId = 'A0902';
+                productId2 = 'A0903'
+                break
+        }
+        if (model == '4') {
+            data = {
+                'planDetails': [{
+                    "initPurchaseAmt": initPurchaseAmt,
+                    "investType": investmentTp,
+                    "mipBaseAmt": mipBaseAmt,
+                    "productId": productId
+                }, {
+                    "initPurchaseAmt": initPurchaseAmt1,
+                    "investType": investmentTp,
+                    "mipBaseAmt": mipBaseAmt1,
+                    "productId": productId2
+                }],
+                'planDurationTime': planDurationTime,
+                'planTarget': planTarget,
+                'planType': model
+            }
+        } else {
+            data = {
+                'planDetails': [{
+                    "initPurchaseAmt": initPurchaseAmt,
+                    "investType": investmentTp,
+                    "mipBaseAmt": mipBaseAmt,
+                    "productId": productId
+                }],
+                'planDurationTime': planDurationTime,
+                'planTarget': planTarget,
+                'planType': model
+            }
+        }
+
+        $.ajax({
+            url: "/ias/v1/plans/new-plan", data: JSON.stringify(data),
+            type: "POST",
+            contentType: 'application/json',
+            beforeSend: function (req) {
+                req.setRequestHeader("version", "4.30");
+                req.setRequestHeader("linksource", "WAP");
+            },
+            success: function (result) {
+                if (result.body != undefined && result.body != null && result.returnCode == 0) {
+                    var info = result.body;
+                    if (info != null && info != '') {
+                        arAcct = info.arAcct;
+                        planSerialNo = info.planSerialNo;
+                        planTargetResult = info.planTarget;
+                        rcmdProducts = info.rcmdProducts;
+                        window.location.href = "htffundxjb://action?type=adviser&link=htffundxjb://action?type=adviser&subType=plan&planSerialNo=" + planSerialNo;
+                    }
+                } else {
+                    $('.mask').show();
+                }
+            }, dataType: "json", error: function (e) {
+            }, async: true
+        });
+    }
+
+</script>
+</html>

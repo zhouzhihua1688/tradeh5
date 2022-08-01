@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>充值取现</title>
+
+    <link rel="stylesheet" type="text/css" href="../css/base.css">
+    <link rel="stylesheet" type="text/css" href="../css/wezhan/base_wezhan.css">
+    <link rel="stylesheet" type="text/css" href="../css/wezhan/topUpAndCash.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        };
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+                oHtml.style.fontSize = '17.06px';
+            }else if(screenWidth >= 750){
+                oHtml.style.fontSize = '40px';
+            }else{
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+            }
+        }
+    </script>
+    <style>
+		.answer .answer_text {
+		    margin: 0 .75rem;
+		    height: 4.25rem;
+		    border-bottom: 1px #eee solid;
+		    line-height: 2rem;
+		    text-align: center;
+		    color: #666666;
+		}
+            .answer .close{
+	        height: 4rem !important;
+	    	line-height: 4rem !important;
+        }
+</style>
+</head>
+<body>
+
+
+<div class="active_content">
+    <div class="layer_content">
+        <div class="banner">
+            <h4>
+                <span>现金管理总资产(元)</span>
+                <i class="question"></i>
+            </h4>
+            <h2>
+                <span class="figure isshow total_balance">0.00</span>
+                <span class="figure enshow" style="display: none">****</span>
+                <i class="eyes"></i>
+            </h2>
+            <div class="tables">
+                <div class="table_left">
+                    <p>昨日收益(元)</p>
+                    <span class="isshow total_income">0.00</span>
+                    <span class="enshow" style="display: none">****</span>
+                </div>
+                <div class="table_right">
+                    <p>累计收益(元)</p>
+                    <span class="isshow total_profit">0.00</span>
+                    <span class="enshow" style="display: none">****</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="product_card1">
+            <div class="product_title">
+                <i></i><span>活期随充随用，快取额度5万</span>
+            </div>
+            <div class="product_content">
+                <div class="content_card content_card1">
+                    <p class="up_text">
+                        <span class="text1 black">现金宝</span><span class="text2 gray">七日年化</span><span class="text3 red bold xjb_income">0.0000</span>
+                    </p>
+                    <p class="down_text xjb_remark">
+                        <span class="down_text1 black bold xjb_balance">0.00</span><span class="down_text2 red bold xjb_day_yield">+0.00</span>
+                    </p>
+                    <a href="javascript:;" class="btn1 xjb_take_back">取现</a>
+                    <a href="javascript:;" class="btn2 xjb_recharge">充值</a>
+                </div>
+                <div class="content_card content_card2">
+                    <p class="up_text">
+                        <span class="text1 black">现金+</span><span class="text2 gray">近一年收益率</span><span class="text3 red bold xjj_income">0.0000</span>
+                    </p>
+                    <p class="down_text xjj_remark">
+                        <span class="down_text1 black bold xjj_balance">0.00</span><span class="down_text2 red bold xjj_day_yield">+0.00</span>
+                    </p>
+                    <a href="javascript:;" class="btn1 xjj_take_back">取出</a>
+                    <a href="javascript:;" class="btn2 xjj_recharge">存入</a>
+                </div>
+            </div>
+        </div>
+        <!--<div class="product_card2">
+            <a href="https://activity.99fund.com/activity-center/act-resources/pages/xinfazhuanqu20200920/index.html"><img src="../images/wezhan/newbanner.jpg"></a>
+        </div>-->
+        <div class="product_card2">
+            <div class="product_title">
+                <i></i><span>用现金管家，过省心生活</span>
+            </div>
+            <div class="product_list">
+				<div class="func_list_1"></div><!--
+                <a href="javascript:;" class="list list1">
+                    <p class="black">工资宝</p>
+                    <div class="middle">
+                        <h4 class="black"><span>07-25</span><span>2,000.00元</span><span>已转</span></h4>
+                        <h4 class="gray"><span>08-15</span><span>600.00元</span><span>将转</span></h4>
+                    </div>
+                </a>-->
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+<div class="mask">
+    <div class="answer">
+        <div class="answer_text">包括您的现金宝资产和现金+组合资产</div>
+        <a href="javascript:;" class="close">确定</a>
+    </div>
+</div>
+
+	<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+	<script src="../js/common.js?20210106" type="text/javascript"></script>
+    <script type="text/javascript" src="../js/wezhan/topUpAndCash.js"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script>
+    var eyeFlag=true;
+    $(".question").click(function () {
+        $(".mask").show();
+    });
+    $(".close").click(function () {
+        $(".mask").hide();
+    });
+    $(".eyes").click(function () {console.log(eyeFlag);
+        if(eyeFlag){
+            $(".eyes").css({"background": "url(../images/wezhan/closeEyes.png) no-repeat no-repeat","background-size": "100% 100%"});
+            $(".enshow").show();
+            $(".isshow").hide();
+            eyeFlag=false;
+        }else{
+            $(".eyes").css({"background": "url(../images/wezhan/openEyes.png) no-repeat no-repeat", "background-size": "100% 100%"});
+            $(".enshow").hide();
+            $(".isshow").show();
+            eyeFlag=true;
+        }
+    });
+
+</script>
+</body>
+</html>

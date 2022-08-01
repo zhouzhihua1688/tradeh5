@@ -1,0 +1,112 @@
+@charset "utf-8";
+.main{
+	width:100%;
+	height:100%;
+	margin:0px;
+	padding:0px;
+	/* padding-bottom: 2.5rem; */
+	/* background:#fff; */
+}
+.head{
+	width:16.75rem;
+	height:auto;
+    margin:0 auto;
+    margin-top: 0.5rem;
+}
+.number{
+	width:16.75rem;
+	height:auto;
+	background:url(../../images/wezhan/liquan.png) no-repeat;
+	background-size:100% 100%;
+	/* height:1rem; */
+	text-align: center;
+	/* margin-top:1.5rem; */
+}
+.number .first{
+ 	font-size:1.5rem;
+ 	color:#f4333c;
+ 	text-align: center;
+ 	display: inline-block;
+ 	margin-top:1.25rem;
+
+ }
+ .number .second{
+ 	font-size:2rem;
+ 	color:#f4333c;
+ 	text-align: center;
+ 	display: inline-block;
+ 	margin-top:1.25rem;
+ }
+ .quan{
+ 	font-size: 0.75rem;
+ 	color:#000;
+ 	text-align: center;
+ 	margin-top:0.5rem;
+ }
+ .use{
+ 	width:10rem;
+ 	height:1.75rem;
+ 	margin:0 auto;
+ 	margin-top:1rem;
+ 	background: #fe7e01;
+ 	border-radius:3px;
+
+ }
+ .gary_bg{
+	 background: rgb(204, 204, 204) !important;
+ }
+ .use a{
+ 	    display: block;
+      	text-align: center;
+      	line-height: 1.75rem;
+		  font-size: 0.75rem;
+		  color: #fff;
+ }
+ .number .third,.number .four,.number .five,.number .six{
+ 	color:#000;
+ 	text-align: left;
+ 	margin-left:1.65rem;
+ 	font-size: 0.6rem;
+ }
+ .number .third{
+ 	margin-top:2.45rem;
+ }
+ .number .four,.number .five,.number .six{
+ 	margin-top:0.5rem;
+ }
+ .zhishi{
+ 	width:90%;
+ 	margin:0 auto;
+ 	color:#666666;
+ 	margin-top:1.25rem;
+ 	font-size: 0.6rem;
+ }
+ .xian{
+ 	width:6.5rem;
+ 	height:1px;
+ 	background:#666666;
+ 	display: inline-block;
+ 	margin-bottom:0.25rem;
+ }
+ .finish{
+ 	width:90%;
+ 	margin:0 auto;
+ 	font-size: 0.6rem;
+ 	color:#666666;
+ 	margin-top:1.25rem;
+ }
+ .fixed_btn{
+	 position: fixed;
+	 top: 1rem;
+	 right: 0;
+	 display: block;
+	 width: 3rem;
+	 height: 1.5rem;
+	 line-height: 1.5rem;
+	 font-size: .65rem;
+	 color: #fb5c5f;
+	 text-align: center;
+	 background: #fee1e3;
+	 border-radius: .75rem 0 0 .75rem;
+	 box-shadow: 0 0 10px #ebe5e3;
+ }

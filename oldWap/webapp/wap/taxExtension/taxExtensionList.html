@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>税延养老</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base_v1.css">
+    <link rel="stylesheet" href="../css/swiper-4.2.2.min.css">
+    <link rel="stylesheet" href="../css/taxExtension/payment.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <style>
+        .list-group-item input {
+            margin-left: .75rem;
+            text-align: left;
+        }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            background: #fe7e01;
+            font-size: 0.85rem;
+            color: #fff;
+            text-align: center;
+        }
+
+        .header img {
+            display: block;
+        }
+
+        .content-header {
+            background: #fff;
+            line-height: 2.25rem;
+            border-bottom: 0.025rem #eeeeee solid;
+            padding-left: .75rem;
+            font-size: 0;
+        }
+
+        .content-header i, .content-header span {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .content-header i {
+            width: 0.45rem;
+            height: .5rem;
+            background: url("../images/icon_1.png") no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .content-header span:nth-of-type(1) {
+            font-size: .75rem;
+            color: #000000;
+            margin-left: 0.2rem;
+        }
+
+        .content-header span:nth-of-type(2) {
+            font-size: 0.65rem;
+            color: #666666;
+            margin-left: .5rem;
+        }
+
+        .content-lists {
+            background: #fff;
+            text-align: center;
+            padding-bottom: 1rem;
+            border-bottom: 0.025rem #eeeeee solid;
+        }
+
+        .content-lists h2 {
+            font-size: 1.05rem;
+            font-weight: bold;
+            line-height: 1.05rem;
+            padding-top: 1rem;
+            color: #010101;
+        }
+
+        .content-lists p {
+            margin-top: .5rem;
+            line-height: 0.6rem;
+            font-size: 0.6rem;
+        }
+
+        .content-lists p span {
+            display: inline-block;
+            margin-right: 0.65rem;
+        }
+
+        .content-lists p span:nth-child(3) {
+            margin-right: 0;
+        }
+
+        .content-lists h4 {
+            margin: .75rem 0;
+            font-size: 0.9rem;
+            font-weight: bold;
+            line-height: 0.9rem;
+            color: #f4333c
+        }
+
+        .content-lists .detail {
+            padding: .5rem 0;
+            height: 1.5rem;
+            width: 92%;
+            margin: 0 auto;
+            background: #ffeeef;
+            border-radius: 1.25rem;
+            text-align: left;
+            font-size: 0;
+        }
+
+        .content-lists .detail span {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .content-lists .detail span:nth-child(1) {
+            line-height: 1.1;
+            padding: 0 .5rem 0 .75rem;
+            border-right: 0.025rem #fda5a7 solid;
+            color:#fb5c5f;
+            font-size: 0.7rem;
+        }
+        .content-lists .detail span:nth-child(2){
+            line-height: 1.5rem;
+            margin-left: .5rem;
+            font-size: 0.6rem;
+        }
+        .content-lists .buy{
+            display: block;
+            width:9rem;
+            height: 1.75rem;
+            line-height: 1.75rem;
+            border: 0.025rem #fb5c5f solid;
+            border-radius: .875rem;
+            color:#fb5c5f;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: .75rem;
+        }
+        .content{
+            margin-bottom: 3rem;
+        }
+        .footer{
+            width: 100%;
+        }
+        .footer a{
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            z-index: 10;
+            display: block;
+            width: 100%;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            text-align: center;
+            text-decoration: none;
+            font-size: 0.85rem;
+            color:#fff;
+            background: #fe7e01;
+        }
+        .swiper-banner{height: 7.5rem; }
+    </style>
+</head>
+<body>
+<!--<div class="header">
+    <img src="../images/taxExtension/header.png" alt="">
+</div>-->
+
+<section id="panel">
+    <!--<div class="content">
+        <div class="content-header">
+            <i></i>
+            <span>精选推荐</span>
+            <span>根据您的投资偏好给您推荐一下产品</span>
+        </div>
+        <div>
+            <div class="content-lists list-one">
+                <h2>汇添富税延养老1号</h2>
+                <p><div><span>目标日期</span><span>锁定期3年</span><span>双基金经理</span></div></p>
+                <h4>10月26日结束募集</h4>
+                <div class="detail">
+                    <span>精选<br>理由</span>
+                    <span>主要适配于70后在2035年前退休的人群</span>
+                </div>
+                <a href="javascript:;" class="buy">立即购买</a>
+            </div>
+            <div class="content-lists list-two">
+                <h2>汇添富税延养老1号</h2>
+                <p><span>目标日期</span><span>锁定期3年</span><span>双基金经理</span></p>
+                <h4>10月26日结束募集</h4>
+                <div class="detail">
+                    <span>精选<br>理由</span>
+                    <span>主要适配于70后在2035年前退休的人群</span>
+                </div>
+                <a href="javascript:;" class="buy">立即购买</a>
+            </div>
+        </div>
+    </div>-->
+</section>
+<div class="footer">
+    <a href="openAccount.html">立即开户</a>
+</div>
+
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/lib/swiper-4.2.2.min.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script type="text/javascript" src="../js/common.js?20210106"></script>
+<script type="text/javascript" src="../js/layout.js"></script>
+<script type="text/javascript" src="../js/taxExtension/taxExtensionList.js"></script>
+
+</body>
+</html>

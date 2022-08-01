@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!--<meta charset="GBK">-->
+	<meta charset="utf8">
+	<title>资管产品详情</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,viewport-fit=cover">
+	<link rel="stylesheet" href="css/base.css">
+	<script>
+		setFont();
+		window.onresize = function () {
+			setFont();
+		}
+		function setFont() {
+			var windowWidth = document.documentElement.clientWidth;
+			windowWidth = windowWidth > 750 ? 750 : windowWidth;
+			document.documentElement.style.fontSize = windowWidth / (750 / 40) + "px";
+		}
+
+	</script>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+	<header>
+		<div class="row">
+			<div class="col">
+				<div id="profitMode"></div>
+				<div><span class="rate font-60"><span id="expectYield"></span></span></div>
+			</div>
+			<div class="line-y"></div>
+			<div class="col">
+				<div>投资期限</div>
+				<div><span class="deadline font-60"><span id="fundperiodsplit"></span><small><span id="fundPeriodunit"></span></small></span></div>
+			</div>
+		</div>
+	</header>
+	<div class='476225-prompt' style="margin:0.5rem; font-size: 0.6rem; display: none;">预计下次开放退出时间为<font color="#FB5C5F">2022年4月27日</font>，具体以管理人公告为准。</div>
+	<main>		
+		<h2 class="border-bottom">产品说明</h2>
+		<div class="border-bottom padding-20 margin-left-30">
+			<dl>
+				<dt>产品名称</dt>
+				<dd id="fundNm"></dd>
+			</dl>
+			<dl>
+				<dt>风险等级</dt>
+				<dd id="riskLvl"></dd>
+			</dl>
+			<dl>
+				<dt>购买限制</dt>
+				<dd id="quotaDesc"></dd>
+			</dl>
+			<!--<dl>
+				<dt>产品期限</dt>
+				<dd id="deadLine"></dd>
+			</dl>-->
+			<dl>
+				<dt>托管人</dt>
+				<dd id="trusteename"></dd>
+			</dl>
+			<dl>
+				<dt>投资经理</dt>
+				<dd id="investbroker"></dd>
+			</dl>
+		</div>
+		<div class="border-bottom padding-20 margin-left-30">
+			<dl>	
+				<dt>认购费率</dt>
+				<dd id="subscriptionRate"></dd>
+			</dl>
+			<dl>
+				<dt>申购费率</dt>
+				<dd id="purchaseRate"></dd>
+			</dl>
+			<dl>
+				<dt>年固定管理费</dt>
+				<dd id="managerratio"></dd>
+			</dl>
+			<dl>
+				<dt>年托管费率</dt>
+				<dd id="trusteeratio"></dd>
+			</dl>
+			<dl>
+				<dt>客户服务费</dt>
+				<dd id="custserviceratio"></dd>
+			</dl>
+		</div>
+		<div class="padding-20 margin-left-30">
+			<dl>	
+				<dt>参与退出</dt>
+				<dd><p id="fundopenruledesc"><!--每周二开放参与退出；<br>
+						到期(7天)需提出退出申请，如未提交，将自动滚存入下一运作周期；<br>
+						具体到期时间以公告为准，请关注产品公告。--></p></dd>
+			</dl>
+		</div>
+	</main>
+	<section class="section-main">
+		<ul>
+			<li class="firstLi"><a href="target.html"><span class="zd-m">投资目标</span><div class="arrow"><img src="img/icon1.png" alt=""></div></a></li>
+			<li><a href="range.html"><span class="zd-m">投资范围</span><div class="arrow"><img src="img/icon1.png" alt=""></div></a></li>
+			<li id="achievementdata" style="display: none;"><a href="achievementdata.html"><span class="zd-m">业绩报酬</span><div class="arrow"><img src="img/icon1.png" alt=""></div></a></li>
+			<li id="prd_introduction_li" style="display:none;"><a href="javascript:void(0);" id="prd_introduction"><span class="zd-m">产品介绍</span><div class="arrow"><img src="img/icon1.png" alt=""></div></a></li>
+		</ul>
+	</section>
+	<p id="huitianliBottomTips" style="display:none;" class="padding-20 margin-left-30 font-75">*该产品为净值化产品，可能存在本金损失的风险。</div></p>
+	<!--<footer>
+		<ul>
+			<li><a href="javascript:void(0)">确认购买</a></li>
+		</ul>
+	</footer>-->
+	<script type="text/javascript" src="js/zepto.min.js"></script>
+	<script type="text/javascript" src="../basic/basic.js"> </script>
+	<script>
+
+        function requestTopFinancialDetail(){
+            var fundId = WAP.getUrlParam("productId");
+
+            if("H69800" == fundId){
+                $("#prd_introduction_li").show();
+                $("#prd_introduction").attr("href", "https://www.99fund.com/htfweb/mobileweb/2018061217340/huitianliA/index.html");
+			}else if("H70800" == fundId){
+                $("#prd_introduction_li").show();
+                $("#prd_introduction").attr("href", "https://www.99fund.com/htfweb/mobileweb/201807071044/huitianliA2/index.html");
+			}else if("H70900" == fundId){
+                $("#prd_introduction_li").show();
+                $("#prd_introduction").attr("href", "https://www.99fund.com/htfweb/mobileweb/201807071099/huitianliA3/index.html");
+			}
+
+            $.get("/mobile-bff/v1/vip/top-detailInfo?fundId=" + fundId, function(resultStr){
+                //alert(resultStr);
+                var result = resultStr;
+                if(result.returnCode == 0){
+                    var detailInfo = result.body;
+                    if(detailInfo != undefined && detailInfo != null) {
+
+                        if(detailInfo.profitMode != null && detailInfo.profitMode != undefined){
+                            $("#profitMode").html(detailInfo.profitMode);
+						} else {
+                            $("#profitMode").html("业绩基准");
+						}
+                        if(detailInfo.balanceTemplate != null && detailInfo.balanceTemplate != undefined && detailInfo.balanceTemplate == 'A') {
+                            $("#huitianliBottomTips").show();
+                        }
+
+                        $("#expectYield").html(detailInfo.yieldRate);
+
+						//20210913  添添红9号476225产品详情页文案特殊处理
+						if("476225" == fundId){
+							$("#fundperiodsplit").html('--');
+							$("#fundPeriodunit").html('');
+							$('.476225-prompt').show();
+						}							
+						else{
+							$("#fundperiodsplit").html(detailInfo.fundperiodsplit);
+							$("#fundPeriodunit").html(detailInfo.fundPeriodunit);
+						}
+
+                        $("#fundNm").html(detailInfo.fundNm);
+                        $("title").html(detailInfo.fundNm);
+                        $("#riskLvl").html(detailInfo.riskLvl);
+                        $("#quotaDesc").html(detailInfo.quotaDesc);
+                        /*$("#deadLine").html(detailInfo.deadLine + detailInfo.fundPeriodunit);*/
+                        $("#trusteename").html(detailInfo.trusteename);
+                        $("#investbroker").html(detailInfo.investbroker);
+
+                        $("#subscriptionRate").html(detailInfo.subRate + "%");
+                        $("#purchaseRate").html(detailInfo.currentrate + "%");
+
+                        $("#managerratio").html(detailInfo.managerratio + "%");
+                        $("#trusteeratio").html(detailInfo.trusteeratio + "%");
+                        $("#custserviceratio").html(detailInfo.custserviceratio + "%");
+                        $("#fundopenruledesc").html(detailInfo.fundopenruledesc);
+
+                        WAP.setSession("investtarget", detailInfo.investtarget);
+                        WAP.setSession("investscope", detailInfo.investscope);
+
+                        if(!WAP.isEmpty(detailInfo.achievementdata)){
+                            $("#achievementdata").show();
+                            WAP.setSession("achievementdata", detailInfo.achievementdata);
+						}
+
+                    }
+                }else{
+                    alert(result.returnMsg);
+                }
+            });
+        }
+        requestTopFinancialDetail();
+	</script>
+</body>
+
+</html>

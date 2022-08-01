@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>注册成功</title>
+    <link rel="stylesheet" type="text/css" href="css/basekc.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script>
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            screenWidth = screenWidth > 640 ? 640 : screenWidth;
+            oHtml.style.fontSize = screenWidth / 7.5 + 'px';
+        }
+    </script>
+    <style type="text/css">
+        .part{
+            position: absolute;
+            left: 0;
+            top: 3.9rem;
+            width: 100%;
+            text-align: center;
+            background-color: transparent;
+        }
+        .part img{
+            width: 5.11rem;
+            margin-bottom: 0.1rem;
+        }
+        .success{
+            position: absolute;
+            left: 2.75rem;
+            top: 1.75rem;
+            width: 1.93rem;
+        }
+        .part a{
+            width: 5.11rem;
+            height: 0.97rem;
+            background: url(img/kechuang/btn2.png?1) no-repeat center;
+            background-size: 5.11rem;
+            display: block;
+            margin: auto;
+            margin-bottom: 0.1rem;
+            text-align: center;
+            line-height: 0.97rem;
+            font-size: 0.3rem;
+            color: #fca628;
+        }
+        .part a:nth-of-type(2){
+            background-image: url(img/kechuang/btn1.png?1);
+            color: #6ad5ff;
+        }
+    </style>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/weixin.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script type="text/javascript" src="js/reg_sucess.js"></script>
+</head>
+<body>
+<div class="active_content">
+    <div class="active_layer">
+        <img src="img/kechuang/register_bg.jpg?1">
+    </div>
+    <div class="active_layer">
+        <img src="img/kechuang/register_bg1.jpg">
+        <div class="part">
+            <a href="javascript:;" id="confirm_main">1元试一试</a>
+            
+        </div>
+        <img src="img/kechuang/btn_word1.png?1" class="success">
+    </div>
+
+</div>
+    <!--输入密码弹出框-->
+    <div class="modal-fade" id="modal" style="display:none;">
+
+            <div class="modal-body setpwd">
+                <h4 class="modal-title settitle">设置交易密码</h4>
+                <p class="notice setnotice">为了您的资金安全，请设置您的交易密码</p>
+
+                <div class="modal-input cls-trade-pwd">
+                    <input type="password" maxlength="6" class="trade-pwd" placeholder="设置交易密码"/>
+                    <span class="error">X</span>
+                </div>
+                <div class="modal-input cls-trade-pwd-again">
+                    <input type="password" maxlength="6" class="trade-pwd-again" placeholder="再次确认交易密码"/>
+                    <span class="error">X</span>
+                </div>
+
+                <div class="modal-bottom">
+                    <button class="btnleft" id="cancel_modal" type="button">取消</button>
+                    <button class="btnright" id="confirm_modal" type="button">确定</button>
+                </div>
+            </div>
+       <!--  </form> -->
+    </div>
+    <div class="mask"></div><!--透明背景层-->
+
+</body>
+</html>

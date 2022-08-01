@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf8">
+    <title>赎回设置</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../css/base.css">
+	<link rel="stylesheet" href="../css/base_v1.css">
+	<style type="text/css">
+		.font-arial{ font-family: Arial; }
+		section{
+			background-color: #fff;
+			overflow: hidden;
+		}
+
+		.left{
+			float: left;
+		}
+		.right{
+			float: right;
+		} 
+
+		/*弹框1*/
+		.Bomb-box,.Bomb-box1{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+		.Bomb-box .Bomb-box-main,.Bomb-box1 .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+		.Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+		.Bomb-box .Bomb-box-ok,.Bomb-box1 .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+		.Bomb-box .Bomb-box-content,.Bomb-box1 .Bomb-box-content{ padding:.75rem 1.5rem; }
+
+		.content1{
+			margin-top:0rem;
+			padding-left: .75rem;
+			margin-bottom: 0.5rem;
+		}
+		.content1 table{
+			width: 100%;
+			border-collapse: collapse;
+			font-size:.75rem;
+		}
+		.content1 table tr{height:2.5rem;border-bottom: 1px #eee solid;}
+		.content1 table tr td img{width:.4rem;height:.75rem;position: relative;top:2px;}
+		.content1 table tr td:nth-of-type(1){color:#000;}
+		.content1 table tr td:nth-of-type(2){text-align: right;padding-right:.75rem;}
+
+		.content2{
+			display: none;
+			margin-top:.5rem;
+			padding-left: .75rem;
+			margin-bottom: 0.5rem;
+		}
+		.content2 table{
+			width: 100%;
+			/* border-collapse: collapse; */
+			font-size:.75rem;
+		}
+		.content2 table tr{height:2.5rem;border-bottom: 1px #eee solid;}
+		.content2 table tr td img{width:.4rem;height:.75rem;position: relative;top:2px;}
+		.content2 table tr td:nth-of-type(1){color:#000;}
+
+
+        .confirm{width:100%;height:2.25rem;}
+        .confirm>a{width:90%;height:2.25rem;display: block; text-align: center;line-height:2.25rem; margin:0 auto;font-size:0.6rem;color:#666;margin-top:0.75rem;background:#fd7e23;color:#fff;font-size:0.85rem;border-radius:2px;}
+
+		.money{width:70%;height:2.5rem;line-height:2.5rem;display:flex;}
+        .input{width:70%;height:2.5rem;color: #000;border:none;font-size:1rem;outline:none;}
+
+		input[type="redeemText"] {
+    	border: none;
+    	-moz-box-flex: 1;
+    	-webkit-box-flex: 1;
+    	box-flex: 1;
+    	-webkit-appearance: none;
+    	-webkit-tap-highlight-color: rgba(255,0,0,0);
+    	line-height: 1rem;
+    	font-size: 100%;
+		height: 1rem;
+		padding-top: 0.25rem;
+		padding-bottom: 0.25rem;
+		padding-left: 0.4rem;
+		padding-right: 0.4rem;
+}
+
+		.content2 .ml10{
+			height: .75rem;
+    		width: .75rem;
+			/* color: #40a7ef; */
+        }
+		.content2 .all{
+			margin-left: .5rem;
+    		color: #40a7ef;
+			font-size: 100%;
+        }
+
+		.prompt{width:100%;}
+		.prompt>div{width:90%;margin:0 auto;font-size:0.6rem;color:#666;margin-top:0.75rem;}
+
+
+		.redeem{width:100%;height:2.5rem;background:#fff;border-bottom:1px solid #eee;}
+        .redeem .left{width:50%;font-size:0.75rem;color:#000;margin-left:0.75rem;text-align:left;line-height:2.5rem;float:left;}
+        .redeem .right{width:40%;font-size:0.75rem;margin-right:0.75rem;color:#000;float:right;text-align:right;line-height:2.5rem}
+        .redeem .right div:nth-of-type(1){text-align:left;float:left;}
+        .redeem .right div:nth-of-type(2){text-align:right;float:right;}
+		.redeem .right.t1 {font-size:0.75rem;margin-right:0.75rem;color:#000;float:right;text-align:right;line-height:2.5rem;align-items: center;height: 2.5rem; width:40%}
+		.redeem .right span {align-items: center;height: 2.5rem;}
+
+		/* .redeem .right.t1 {display: flex;flex-direction: row;flex-wrap: nowrap;align-items: center;height: 2.5rem;} */
+		.redeem .right img {width: 0.4rem;margin: auto; text-align:center}
+
+		.mask {
+			width: 100%;
+			height: 120%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: rgba(0, 0, 0, .7);
+			display: none;
+			z-index: 99999999;
+		}
+		#myGift1, #myGift0, #myGift2, #myDate {
+			background-color: #ffffff;
+			height: auto;
+			width: 18.9rem;
+			position: fixed;
+			bottom: 0;
+			left: 45%;
+			overflow: auto;
+			z-index: 99999999;
+			margin-left: -8.5rem;
+			border-radius: 10px;
+		}
+		.slideInUp .giftlist .title {
+			height: 2rem;
+			width: 100%;
+			text-align: center;
+			line-height: 2rem;
+			font-size: .7rem;
+			color: #000;
+		}
+
+		.slideInUp .giftlist .titleClose {
+			height: 2rem;
+			width: 100%;
+			text-align: center;
+			line-height: 2rem;
+			font-size: .7rem;
+			color: #000;
+		}
+		
+    </style>
+</head>
+<body>
+    <div class="redeem" id="selectGift1">
+		<div class='left'>到期后处理方式</div>
+		<div class='right t1' >
+			<span id='tl' >自动续期</span>
+			<img src="../images/arr.png" alt="">
+		</div>
+	</div>
+
+	<section class="content2">
+		<!-- <li class="high"> -->
+			<table>
+				<tbody>
+					<tr>
+						<!-- <td style="margin-left: .75rem">自动赎回份数</td> -->
+						<td style="width: 28%;">自动赎回份数</td>
+						<td style="width: 45%"><input type="redeemText" id="subQuty" name="subQuty" value=""  placeholder="请输入赎回份额" style="width:6rem"><img class="ml10" id='delete' src="../images/del.png" style="display: none;"></td>
+						<td style="padding-right: .75rem;padding-left: .65rem;" class="all" id='all'>全部赎回</td>
+					</tr>
+				</tbody>
+			</table>
+	</section>	
+    <div class="prompt">
+        <div id='prompt1' style="display: none; ">当前份额XXX份，如设置自动赎回部分份额，产品到期时系统将只赎回指定份额，剩余份额将自动续期。</div>
+    </div>
+    <div class="confirm">
+        <a href="javascript:void(0)" id="btn-submit">保存</a>
+    </div>
+    <div class="prompt">
+        <div id='prompt2'>产品到期日</div>
+    </div>
+    <!-- 弹窗 -->
+    <div class="tips" id="alert_tip" style="display:none">
+        <div>
+            <p class="tips_text" id="alert_msg"></p>
+            <a href="javascript:;"><p class="button"><span>取消</span><span id="goTo">继续赎回</span></p></a>
+        </div>
+    </div>
+	<div class="mask"></div>
+	<div class="layer animated slideInUp" id="myGift1" style="display:none;">
+		<div class="giftlist">
+			<a href="javascript:;">
+				<div class="title" style="height:3rem;line-height:3rem;" data="0">自动续期</div></a>
+			<a href="javascript:;">
+				<div class="title" style="height:3rem;line-height:3rem;border-top:1px solid #eee" data="1">自动赎回</div></a>
+			<div style="height:0.25rem;background:#f6f6f6"></div>
+			<div class="titleClose" style="height:3rem;line-height:3rem;">
+				<a href="javascript:;" style="color:#008ae9;font-size:0.75rem" id="close">取消</a>
+			</div>      
+		</div>
+	</div>
+
+
+    <!-- 提示弹窗 -->
+    <div class="Bomb-box" >
+        <div class="Bomb-box-main">
+			<p class="Bomb-box-tips" style="padding-top: 0.75rem;"></p>
+            <div class="Bomb-box-content">
+                <p class="text-center"></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;">我知道了</a>
+        </div>
+    </div>
+    <!-- 弹窗 -->
+    <div class="tips" id="c_more_list" style="display:none">
+        <div>
+            <p class="tips_text" id="info2"></p>
+			<div id="list_" style="padding-top:.5rem;">
+
+
+            </div>
+            <p class="button"><span>确定</span></p>
+        </div>
+    </div>
+
+	<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+	<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../js/lib/echarts.min.js"></script>
+	<script type="text/javascript" src="../js/lib/phone-size.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+	<script type="text/javascript" src="../js/common.js?20210302"></script>
+	<script type="text/javascript" src="../js/fund/financial_fund_redeem.js?20210322"></script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script type="text/javascript">
+		window.addEventListener(('orientationchange' in window ? 'orientationchange' : 'resize'), (function() {
+		  function c() {
+			var d = document.documentElement;
+			var cw = d.clientWidth || 750;
+			d.style.fontSize = (20 * (cw / 375)) > 40 ? 40 + 'px' : (20 * (cw / 375)) + 'px';
+		  }
+		  c();
+		  return c;
+		})(), false);
+	  </script>
+
+<script>
+
+var branchCode = '247';
+var redeemObj = {};
+redeemObj.redeemReqDetail = [];
+
+</script>
+
+</body>
+</html>

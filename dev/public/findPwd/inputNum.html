@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>身份验证</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/findPwd/css/IDcheck.css">
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+<body>
+<div class="step2">
+    <div class="title">
+        验证码已发送至您<span class="red"></span>的手机上
+    </div>
+    <div class="input-block">
+        <div class="img">
+            <img src="/tradeh5/newWap/findPwd/img/pen.png">
+        </div>
+        <div class="content">
+            <input type="text" class="input-code" maxlength="6">
+        </div>
+        <div class="text sendCode">
+            60秒后重发
+        </div>
+    </div>
+    <div class="next-btn">
+        下一步
+    </div>
+</div>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;"
+           onclick="this.parentElement.parentElement.style='display:none'">我知道啦</a>
+    </div>
+</div>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+<script>
+    $(function () {
+        var time = 60;
+        var intervalFlag = true;
+        var intervalID = 0;
+        var serialNo = utils.getUrlParam('serialNo');
+        var mobileNo = utils.getSession('__findPwdInfo').mobile;
+        $('.red').text(mobileNo.slice(0, 3) + '****' + mobileNo.slice(-4));
+
+        sendCodeBySerialNo(serialNo, mobileNo);
+
+        $('.sendCode').on('click', function () {
+            if (intervalFlag || !serialNo || !mobileNo) { // 计时器存在
+                return false;
+            }
+            sendCodeBySerialNo(serialNo, mobileNo);
+        });
+
+        function sendCodeBySerialNo(serialNo, mobileNo) {
+            utils.ajax({
+                url: '/mobile-bff/v1/account/getback-resend-auth-code',
+                type: 'POST',
+                data: {
+                    serialNo: serialNo,
+                    mobileNo: mobileNo
+                },
+                success: function (result) {
+                    if (result.returnCode == 0) {
+                        intervalFlag = true;
+                        $('.sendCode').text(time + '秒后重发');
+                        intervalID = setInterval(function () {
+                            time--;
+                            if (time === 0) {
+                                time = 60;
+                                $('.sendCode').text('发送验证码');
+                                intervalFlag = false;
+                                clearInterval(intervalID);
+                            } else {
+                                $('.sendCode').text(time + '秒后重发');
+                            }
+                        }, 1000);
+                    } else if (result.returnCode != 0 && result.returnCode != 9999) {
+                        $('.text-center').text(result.returnMsg);
+                        $('.Bomb-box').show();
+                    } else {
+                        $('.text-center').text('系统异常，请稍后再试!');
+                        $('.Bomb-box').show();
+                    }
+                },
+                error: function () {
+                    $('.text-center').text('系统异常，请稍后再试!');
+                    $('.Bomb-box').show();
+                }
+            });
+        }
+
+        $('.input-code').on('input', function (event) {
+            if ($(this).val()) {
+                $('.next-btn').addClass('active');
+            } else {
+                $('.next-btn').removeClass('active');
+            }
+        });
+
+        $('.next-btn').on('click', function () {
+            if (!serialNo || !$(this).hasClass('active')) {
+                return false;
+            }
+            utils.ajax({
+                url: '/mobile-bff/v1/account/getback-login-pwd-confirm',
+                type: 'POST',
+                data: {
+                    serialNo: serialNo,
+                    authCode: $('.input-code').val()
+                },
+                success: function (result) {
+                    if (result.returnCode == 0) {
+                        window.location.href = '/tradeh5/newWap/findPwd/setPwd.html?serialNo=' + encodeURIComponent(result.body.serialNo);
+                    } else if (result.returnCode != 0 && result.returnCode != 9999) {
+                        $('.text-center').text(result.returnMsg);
+                        $('.Bomb-box').show();
+                    } else {
+                        $('.text-center').text('系统异常，请稍后再试!');
+                        $('.Bomb-box').show();
+                    }
+                },
+                error: function () {
+                    $('.text-center').text('系统异常，请稍后再试!');
+                    $('.Bomb-box').show();
+                }
+            });
+        });
+
+    });
+</script>
+</body>
+</html>

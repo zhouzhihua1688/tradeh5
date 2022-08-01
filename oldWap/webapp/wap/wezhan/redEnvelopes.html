@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf8">
+    <title>礼券红包</title>
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/wezhan/base_wezhan.css">
+    <link rel="stylesheet" type="text/css" href="../css/wezhan/red_envelopes.css?1">
+    <link rel="stylesheet" type="text/css" href="../css/base.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="content1_1">
+        <ul class="clearfix border tab">
+            <li class="active first">我的红包</li>
+            <li class="first">我的礼券</li>
+        </ul>
+        <!-- 红包 -->
+        <section class="content1_2">
+            <ul class="clearfix border tab2">
+                <li class="active first">未领取</li>
+                <li class="first">已领取</li>
+            </ul>
+            <!-- 未领取 -->
+            <div class="qiehuan">
+                <div class="have_data unget" style="display: none;">
+                    
+                </div>
+                <div class="no_data">
+                    <img src="../images/wezhan/default_bg.png" alt="">
+                    <p>没有可领用的红包，去<a href="welfare.html"><span>活动中心赚取红包</span></a>吧</p>
+                </div>
+                <div class="check">
+                    <a href="invalidRedEnvelopes.html"><span>查看失效红包 >></span></a>
+                </div>
+            </div>
+    
+            <!-- 第二个的切换 已经领取-->
+            <div class="" style="display:none">
+                <div class="text_number">已领取<span style="color:#fb5c5f" id="bonusCount"></span>个红包，共计<span
+                        style="color:#fb5c5f" id="bonusAmt"></span>元</div>
+                <div class="qiehuan get">
+                    
+                </div>
+               
+                <div class="null" style="display:none">——— 没有更多红包了 ———</div>
+                    
+            </div>
+        </section>
+        <!-- 礼券 -->
+        <section class="content1_2" style="display: none;">
+            <ul class="clearfix border tab2">
+                <li class="active first">未使用</li>
+                <li class="first">已使用</li>
+            </ul>
+            <!-- 未使用 -->
+        <div class="qiehuan1">
+            <div class="have_data unuse" style="display: none;">
+
+            </div>
+            <div class="no_data">
+                <img src="../images/wezhan/default_bg.png" alt="">
+                <p>没有可使用的礼券，去<a href="welfare.html"><span>活动中心赚取礼券</span></a>吧</p>
+            </div>
+                
+            <div class="check">
+                <a href="invalidCardTicket.html"><span>查看过期礼券 >></span></a>
+            </div>
+        </div>
+
+        <!-- 第二个的切换 已经使用-->
+        <div class="" style="display:none">
+            <div class="qiehuan1 used">
+          
+            </div>
+            <div class="null" style="display:none">——— 没有更多礼券了 ———</div>
+        </div>
+        </section>
+    </div>
+	<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+	<script src="../js/common.js?20210106" type="text/javascript"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script>
+        $(function () {
+			var custNo = App.getCookie("sso_cookie_ext_dp");
+			var f = App.getUrlParam("f");
+			App.clearSession();
+			//初始化变量
+			var stat = 0;
+			var pageNo = 1;
+			var pageSize = 10;
+			var more = false;
+			var menu = 0;
+            if(f == "c"){
+            	menu = 1;
+            	$('.tab li').eq(1).addClass("active").siblings().removeClass('active');
+            	$('.tab li').parent().siblings().hide().eq(1).show();
+            	getCoupons(0,pageNo,pageSize);
+            }else{
+				getPackets(0,pageNo,pageSize);
+			}
+			//一级菜单切换
+            $('.tab li').click(function () {
+				pageNo = 1;
+				more = false;
+				menu = $(this).index();
+                if ($(this).hasClass("active")) {
+                    return;
+                }
+                $(this).addClass("active").siblings().removeClass('active');
+                $(this).parent().siblings().hide().eq($(this).index()).show();
+				if(menu == 0){
+					getPackets(0,pageNo,pageSize);
+				}else{
+					getCoupons(0,pageNo,pageSize);
+				}
+				$(".have_data").hide();
+				$(".no_data").show();
+				$(".null").hide();
+            });
+
+			//二级菜单切换
+            $('.tab2 li').click(function () {
+				pageNo = 1;
+				more = false;
+				stat = $(this).index();
+                if ($(this).hasClass("active")) {
+                    return;
+                }
+				if(menu == 0){
+					getPackets(stat,pageNo,pageSize);
+				}else{
+					getCoupons(stat,pageNo,pageSize);
+				}
+				
+                $(this).addClass("active").siblings().removeClass('active');
+                $(this).parent().siblings().hide().eq($(this).index()).show();
+				
+
+            });
+			//红包统计数据
+			function getStatistics(){
+				App.get(App.projectNm+"/activity/query_cust_bonus_statistics", null, function(result){
+
+					var body = result.body;
+					if(body != undefined && body != null){
+						$("#bonusAmt").html(body.bonusAmt);
+						$("#bonusCount").html(body.bonusCount);
+					}
+				});
+			}
+			//红包列表数据
+			function getPackets(stat,pageNo,pageSize){
+					var queryTp = "1";
+					if(stat == "1"){
+						queryTp = "2";
+					}
+					getStatistics()
+
+				App.get(App.projectNm+"/activity/query_bonus_list_by_query_tp?queryTp=" + queryTp+"&pageNo="+pageNo+"&pageSize="+pageSize, null, function(result){
+
+					if(result.body != undefined && result.body != null){
+						var lists = result.body.result;
+						$(".no_data").show();
+						if(lists != undefined && lists != ""){
+							var htm = '';
+							var id = 'unget';
+							var show_div = 'have_data';
+							var opacity = '';
+							if(stat == "1"){
+								id = 'get';
+								opacity = "opacity:0.7";
+								show_div = 'get';
+							}		
+
+							for(var i in lists){ 
+								var item = lists[i] ;
+								//未领取写入session
+								var onclk = '';
+								if(item.stCode == "0"){
+									App.setSession(custNo+item.bonusId,item);
+									onclk = ' onclick="window.location=\'redDetails.html?id='+item.bonusId+'\'" ';
+								}
+								
+								var cls = "";
+								if(item.debit.length > 5){
+									if(item.debit.length <= 8){
+										cls = 'm1';
+									}else{
+										cls = 'm2';
+									}
+								}
+								htm+='<div class="qiehuan_content" style="'+opacity+'" '+onclk+'>'
+										+'<div class="icon"></div>'
+										+'<div class="text" style="margin-left:0.35rem">'
+											+'<div class="text_icon">'
+												+'<span class="first">￥</span>'
+												+'<span class="second '+cls+'">'+item.debit+'</span>'
+											+'</div>'
+										+'</div>'
+										+'<div class="dashed" style="margin-left:0.5rem"></div>'
+										+'<div class="hongbao">'
+											+'<div class="hongbao_text">'
+												+'<div class="first"><span></span>红包来源： '+item.bonusFrom+'</div>'
+												+'<div class="second"><span></span>有效期<i>'+item.startDate+'</i>至<p class="text_time">'
+												+item.availDate+'</p>'
+												+'</div>'
+											+'</div>'
+										+'</div>';
+									
+								if(stat == "0"){
+									htm+='<div class="dashed" style="margin-left:0.5rem"></div><div class=" promptly"><a href="javascript:;" '+onclk+'>立即领取</a></div></div>';
+								}else{
+									htm+='</div>';
+								}
+								
+							}
+							if(pageNo == "1"){//第一页
+								$("."+id).html("");
+								if(lists.length == 0){
+									more = true;
+									$("."+show_div).hide();
+									$(".null").show();
+								}else if (lists.length <= pageSize){
+									more = true;
+									$("."+show_div).show();
+									$(".no_data").hide();
+									$(".null").show();
+								}else{
+									more = false;
+									$("."+show_div).show();
+									$(".no_data").hide();
+								}
+							}else{
+								$("."+show_div).show();
+								$(".no_data").hide();
+								if(lists.length ==0 || lists.length <= pageSize){
+									more = true;
+								}else{
+									more = false;
+								}
+							}
+							$("."+id).append(htm);
+						}else{
+							more = true;
+							$(".null").show();
+						}
+					 }
+				});
+			}
+			
+			//礼券列表数据			
+			function getCoupons(stat,pageNo,pageSize){
+					console.log(stat,pageNo,pageSize)
+				App.get(App.projectNm+"/coupon/query_coupon_list?status=" + stat+"&pageNo="+pageNo+"&pageSize="+pageSize, null, function(result){
+
+					if(result.body != undefined && result.body != null){
+						var lists = result.body.list;
+						$(".no_data").show();
+						if(lists != undefined && lists != ""){
+							var htm = '';
+							var id = 'unuse';
+							var show_div = 'have_data';
+							
+							if(stat == 1){
+								
+								id = 'used';
+								show_div = 'used';
+							}
+
+							for(var i in lists){ 
+								var item = lists[i] ;
+								//item.dueRemind 到期提醒 1是需要展示
+								var unuse = "";
+								var opacity = "opacity:0.7";
+								if(stat == 0){
+									opacity = '';
+									unuse = '<div class="dashed"></div><div class=" promptly"><a href="giftDetails.html?id='+item.couponSerialNo+'">立即使用</a></div>';
+								}
+								var suffix = '';
+								if(item.fullInfo.funcValueSuffix != ""){
+									suffix = '<i style="font-size:0.75rem">'+item.fullInfo.funcValueSuffix+'</i>';
+								}
+								htm+='<div class="qiehuan_content1" style="'+opacity+'" onclick="window.location=\'giftDetails.html?id='+item.couponSerialNo+'\'" >'
+										+'<div class="icon"></div>'
+										+'<div class="text">'
+											+'<div class="text_icon1">';
+											if(item.dueRemind == "1"){
+												htm+='<span class="position_top">即将到期</span>';
+											}
+												htm+='<span class="first">'+item.fullInfo.funcValuePrefix+'</span>'
+												+'<span class="second">'+item.couponAmt+suffix+'</span>'
+												+'<p class="third">'+item.fullInfo.couponTypeName+'</p>'
+											+'</div>'
+										+'</div>'
+										+'<div class="dashed"></div>'
+										+'<div class="hongbao">'
+											+'<div class="hongbao_text">'
+												+'<div class="first_repeat"><span></span>'+item.simpleRemarks[0]+'</div>'
+												+'<div class="second"><span></span>'+item.simpleRemarks[1]+'</div>';
+												if(item.simpleRemarks[2] != "" && item.simpleRemarks[2] != undefined){
+													htm+='<div class="third"><span></span>'+item.simpleRemarks[2]+'</div>';
+												}
+											htm+='</div>'
+										+'</div>'
+										+unuse
+									+'</div>';
+									
+									//写入session
+									App.setSession(custNo+item.couponSerialNo,item);
+								
+							}
+							if(pageNo == "1"){//第一页
+								$("."+id).html("");
+								if(lists.length ==0){
+									more = true;
+									$("."+show_div).hide();
+									$(".no_data").show();
+									$(".null").show();
+								}else if (lists.length <= pageSize){
+									more = true;
+									$("."+show_div).show();
+									$(".no_data").hide();
+									$(".null").show();
+								}else{
+									more = false;
+									$("."+show_div).show();
+									$(".no_data").hide();
+								}
+							}else{
+								$("."+show_div).show();
+								$(".no_data").hide();
+								if(lists.length ==0 || lists.length <= pageSize){
+									more = true;
+								}else{
+									more = false;
+								}
+							}
+							$("."+id).append(htm);
+						}else{
+							more = true;
+							$(".null").show();
+						}
+					 }
+				});
+			}
+
+			//下拉加载分页
+			var totalHeight = $(document).height();//整个文档高度
+			var seeHeight = $(window).height();//浏览器可视窗口高度
+			var thisBodyHeight = $(document.body).height();//浏览器当前窗口文档body的高度
+			var totalBodyHeight = $(document.body).outerHeight(true);//浏览器当前窗口文档body的总高度 包括border padding margin
+			var thisWidth = $(window).width(); //浏览器当前窗口可视区域宽度
+			var thisDocumentWidth = $(document).width();//浏览器当前窗口文档对象宽度
+			var thisBodyWidth = $(document.body).width();//浏览器当前窗口文档body的宽度
+			var totalBodyWidth = $(document.body).outerWidth(true);//浏览器当前窗口文档body的总宽度 包括border padding margin
+			var scrollTop = $(window).scrollTop();//浏览器可视窗口顶端距离网页顶端的高度（垂直偏移）
+			// console.log(totalHeight,seeHeight,thisBodyHeight,totalBodyHeight,thisWidth,thisDocumentWidth,thisBodyWidth,totalBodyWidth,scrollTop);
+			//添加滚动事件
+			$(window).scroll(function(){
+			 scrollTop = $(window).scrollTop();
+			 totalHeight = $(document).height();
+			 if(scrollTop+seeHeight+50>totalHeight){
+				if(!more){console.log(more,pageNo);
+					pageNo++;
+					if(menu == 0){
+						getPackets(stat,pageNo,pageSize);
+					}else{
+						getCoupons(stat,pageNo,pageSize);
+					}
+				} 
+			 }
+			})
+        })
+    </script>
+</body>
+
+</html>

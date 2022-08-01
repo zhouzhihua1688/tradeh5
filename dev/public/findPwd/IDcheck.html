@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>身份验证</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/findPwd/css/IDcheck.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/findPwd/css/mobileSelect.css">
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+<body>
+<div class="step1">
+    <div class="container">
+        <div class="title">请填写您的身份信息</div>
+    </div>
+    <div class="input-name">
+        <div class="name-label">姓&nbsp;&nbsp;&nbsp;&nbsp;名</div>
+        <div class="name-input">
+            <input id="inputName" type="text" placeholder="请输入您的姓名">
+        </div>
+    </div>
+    <div class="id-info">
+        <div class="input-block">
+            <div class="name-label">证件类型</div>
+            <div class="name-input">
+                <span id="idType">身份证</span>
+            </div>
+            <div class="arrow">
+                <img src="/tradeh5/newWap/findPwd/img/arrow.png">
+            </div>
+        </div>
+        <div class="input-block">
+            <div class="name-label">证件号码</div>
+            <div class="name-input">
+                <input id="idNo" type="text" placeholder="请输入您的证件号码">
+            </div>
+        </div>
+    </div>
+    <div class="next-btn">
+        下一步
+    </div>
+</div>
+<div id="selectType" style="display: none;"></div>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;"
+           onclick="this.parentElement.parentElement.style='display:none'">我知道啦</a>
+    </div>
+</div>
+<div class="Bomb-box-download">
+    <div class="Bomb-box-main">
+        <div class="Bomb-box-content">
+            <p class="text-center">当前不支持该功能，请下载现金宝继续操作</p>
+        </div>
+        <a class="Bomb-box-ok" href="http://99fund.com/m.htm">下载现金宝</a>
+    </div>
+</div>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+<script src="/tradeh5/newWap/findPwd/js/mobileSelect.min.js"></script>
+<script>
+    $(function () {
+        //滑动验证码初始化,_fmOpt必须为全局变量
+        window._fmOpt = {
+            display: 'popup',
+            partner: 'huitianfu',
+            appName: 'huitianfu_h5',
+            fmb: true,
+            initialTime: new Date().getTime(),
+            token: 'huitianfu' + '-' + new Date().getTime() + '-' + Math.random().toString(16).substr(2),
+            getinfo: function () {
+                return 'e3Y6ICIyLjUuMCIsIG9zOiAid2ViIiwgczogMTk5LCBlOiAianMgbm90IGRvd25sb2FkIn0=';
+            },
+            env: 1
+        };
+        var fm = document.createElement('script');
+        fm.type = 'text/javascript';
+
+        fm.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'static.tongdun.net/captcha/main/tdc.js?ver=1.0&t=' + (new Date().getTime() / 600000).toFixed(0);
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(fm, s);
+        var selectType = new MobileSelect({
+            trigger: '#selectType',
+            wheels: [
+                {data: ['身份证', '中国护照', '户口本', '台胞证', '港澳通行证']}
+            ],
+            transitionEnd: function (indexArr, data) {
+                //console.log(data);
+            },
+            callback: function (indexArr, data) {
+                $('#idType').text(data[0]);
+            }
+        });
+        $('.id-info .input-block:first-child').on('click', function () {
+            selectType.show();
+        });
+        $('#inputName').on('input', function (event) {
+            if ($(this).val() && $('#idNo').val()) {
+                $('.next-btn').addClass('active');
+            } else {
+                $('.next-btn').removeClass('active');
+            }
+        });
+        $('#idNo').on('input', function (event) {
+            if ($(this).val() && $('#inputName').val()) {
+                $('.next-btn').addClass('active');
+            } else {
+                $('.next-btn').removeClass('active');
+            }
+        });
+        // 下一步按钮点击事件
+        $('.step1 .next-btn').on('click', function () {
+            if (!$(this).hasClass('active')) {
+                return false;
+            }
+            _fmOpt.onSuccess = function (slideAuthCode) {     // 验证成功回调，有效token由此传入
+                var idTp = 'M';
+                if ($('#idType').html() === '身份证') {
+                    idTp = '0'
+                }
+                if ($('#idType').html() === '中国护照') {
+                    idTp = '1'
+                }
+                if ($('#idType').html() === '户口本') {
+                    idTp = '5'
+                }
+                if ($('#idType').html() === '台胞证') {
+                    idTp = 'A'
+                }
+                if ($('#idType').html() === '港澳通行证') {
+                    idTp = '4'
+                }
+                utils.ajax({
+                    url: '/mobile-bff/v1/account/check-cust-status',
+                    data: {
+                        invtp: 1,
+                        invnm: $('#inputName').val(),
+                        idtp: idTp,
+                        idno: $('#idNo').val(),
+                        slideAuthCode: slideAuthCode
+                    },
+                    success: function (result) {
+                        if (result.returnCode == 0) {
+                            utils.setSession('__findPwdInfo', result.body.custStatus);
+                            if (result.body.custStatus.status === 'Y' && !result.body.mobileNo) { // 已实名且没有手机号
+                                $('.Bomb-box-download').show();
+                                // getbackLoginPwdChain(result.body.serialNo);
+                            } else if (result.body.custStatus.status === 'Y' && result.body.mobileNo) { // 已实名且有手机号
+                                window.location.href = '/tradeh5/newWap/findPwd/askPhone.html?serialNo=' + encodeURIComponent(result.body.serialNo);
+                            } else if (result.body.custStatus.status !== 'Y') { // 非实名户，引导用户输入手机号
+                                window.location.href = '/tradeh5/newWap/findPwd/inputPhone.html?serialNo=' + encodeURIComponent(result.body.serialNo);
+                            }
+                        } else if (result.returnCode != 0 && result.returnCode != 9999) {
+                            $('.text-center').text(result.returnMsg);
+                            $('.Bomb-box').show();
+                        } else {
+                            $('.text-center').text('系统异常，请稍后再试!');
+                            $('.Bomb-box').show();
+                        }
+                    },
+                    error: function () {
+                        $('.text-center').text('系统异常，请稍后再试!');
+                        $('.Bomb-box').show();
+                    }
+                });
+            }
+            //获取滑动验证码开始
+            $.ajax({
+                url: '/cos/v1/identity/captcha/token?validateType=1',
+                data: {},
+                dataType: 'json',
+                t: new Date(),
+                success: function (result) {
+                    if (result.returnCode == 0) {
+                        _fmOpt.triggerCaptcha(result.body);     //渲染验证码
+                    } else {
+                        alert('系统异常，请稍后再试!');
+                    }
+                },
+                error: function () {
+                    alert('系统异常，请稍后再试!');
+                }
+            });
+        });
+
+        // 获取验证链路接口调用
+        function getbackLoginPwdChain(serialNo) {
+            utils.ajax({
+                url: '/mobile-bff/v1/account/getback-login-pwd-chain',
+                type: 'POST',
+                data: {
+                    sceneMode: 'NO_MOBILE',  // 场景码(NO_MOBILE：无手机号，CANNOT_RECEIVE_SMS：无法接收短信，RECEIVE_SMS：可以接收短信
+                    serialNo: serialNo
+                },
+                success: function (result) {
+                    if (result.returnCode == 0) {
+                        window.location.href = '/tradeh5/newWap/findPwd/setPwd.html?serialNo=' + encodeURIComponent(result.body.serialNo);
+                    } else if (result.returnCode != 0 && result.returnCode != 9999) {
+                        $('.text-center').text(result.returnMsg);
+                        $('.Bomb-box').show();
+                    } else {
+                        $('.text-center').text('系统异常，请稍后再试!');
+                        $('.Bomb-box').show();
+                    }
+                },
+                error: function () {
+                    $('.text-center').text('系统异常，请稍后再试!');
+                    $('.Bomb-box').show();
+                }
+            });
+        }
+    });
+
+</script>
+</body>
+</html>

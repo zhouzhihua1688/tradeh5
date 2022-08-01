@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>服务</title>
+
+    <link rel="stylesheet" type="text/css" href="../css/base.css">
+    <link rel="stylesheet" type="text/css" href="../css/wezhan/base_wezhan.css">
+    <link rel="stylesheet" type="text/css" href="../css/wezhan/service.css">
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css">
+    <style>
+        .container{padding-bottom: 3rem;}
+        .side-right { position: fixed; right: 0;  bottom:20%;z-index:99;display:none;}
+		.click_hide{height:.8rem;width:100%;bottom:.25rem;position:absolute}
+    </style>
+    <script>
+        // https://wxappdev.99fund.com/mobileEC/wap/wezhan/service.html?channelCode=airstar
+        // https://wxappdev.99fund.com/tradeh5/newWap/wezhan/service.html?channelCode=airstar&token=6380ca3900af465e8de9c6643ce68a3c
+        // window.location.href = window.location.href.replace('/mobileEC/wap/wezhan/service.html', '/tradeh5/newWap/wezhan/service.html')
+
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        }
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+                oHtml.style.fontSize = '17.06px';
+            }else if(screenWidth >= 750){
+                oHtml.style.fontSize = '40px';
+            }else{
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+            }
+        }
+    </script>
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+
+<body>
+    <div class="container">
+	<div class="side-right" id="side-right">
+    </div>
+        <div class="header">
+            <div class="login-header" style="display: none;">
+                <div class="header_inside">
+                    <h2><span class="translucent70">总资产(元)</span><span class="figure1 isshow totalAmt"></span><span
+                            class="figure1 enshow" style="display: none;vertical-align: middle;
+                margin-right: .5rem;">****</span><i class="eyes"></i></h2>
+                    <h2><span class="translucent70">现金宝(元)</span><span class="isshow figure2 balance"></span><span
+                            class="enshow figure2" style="display: none;vertical-align: middle;
+                margin-right: .5rem;">****</span><span class="translucent70">(昨日收益<em
+                            style="font-style: normal; color: #fff; vertical-align: middle;"
+                            class="isshow figure3 income"></em><em style="font-style: normal; color: #fff; vertical-align: middle;
+                display: none;" class="enshow figure3">****</em>)</span></h2>
+                </div>
+                <a href="JavaScript:;" class="arrow_r"></a>
+            </div>
+            <div class="no-login-header" style="display: none;">
+                <div class="header_inside">
+                    <h2><span class="translucent70">资产管理规模</span><span class="figure1 isshow">8000亿+</span></h2>
+                    <h2><span class="translucent70">平台注册客户</span><span class="isshow figure2">1亿+</span></h2>
+                </div>
+                <div class="no-login-header-div">
+                    <a href="JavaScript:;" class="login-a">登录</a>/<a href="JavaScript:;" class="register-a">注册</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- S 小米金融测试使用 -->
+        <section id="testUrl">
+            <p></p>
+        </section>
+        <!-- E 小米金融测试使用 -->
+
+        <section id="panel">
+
+            <!--<div class="fc_btn">
+                <a href="#">
+                    <img></img>
+                    <p>充值取现</p>
+                </a>
+                <a href="#">
+                    <img></img>
+                    <p>买基金</p>
+                </a>
+                <a href="#">
+                    <img></img>
+                    <p>买组合</p>
+                </a>
+                <a href="#">
+                    <img></img>
+                    <p>账户管理</p>
+                </a>
+            </div>-->
+            <!--<div class="radio_play">
+                <div style="width: 100%;height: 0.5rem;background-color: #f6f6f6;"></div>
+                <ul class="wrap">
+                    <li class="jingzhi div-jump list" style=" margin-top: 0.01rem;">
+                        <p><img src="../images/wezhan/laba.png" alt="" style="margin-right: .45rem;"><span
+                                id="soundHoldNotice1">基金挑花眼，怎么选择更省心？现金宝App“跟...</span></p>
+                    </li>
+                    <li class="jingzhi div-jump list" style=" margin-top: 0.01rem;">
+                        <p><img src="../images/wezhan/laba.png" alt="" style="margin-right: .45rem;"><span
+                                id="soundHoldNotice2">基金挑花眼，怎么选择更省心？现金宝App“跟...</span></p>
+                    </li>
+                    <li class="jingzhi div-jump list" style=" margin-top: 0.01rem;">
+                        <p><img src="../images/wezhan/laba.png" alt="" style="margin-right: .45rem;"><span
+                                id="soundHoldNotice3">基金挑花眼，怎么选择更省心？现金宝App“跟...</span></p>
+                    </li>
+                </ul>
+            </div>-->
+
+
+            <!--<div class="swiper-container" id="swiper1">
+                <div class="swiper-wrapper">
+                    <a href="#" class="swiper_img        swiper-slide">
+                        <img src="../images/wezhan/swiper_img.png" alt="">
+                    </a>
+                    <a href="#" class="swiper_img        swiper-slide">
+                        <img src="../images/wezhan/swiper_img.png" alt="">
+                    </a>
+                    <a href="#" class="swiper_img        swiper-slide">
+
+                    </a>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>-->
+            <!--<div class="practical">
+                <div class="btn_title">
+                    实用工具
+                </div>
+                <div class="practical_btn">
+                    <a href="#">
+                        <img></img>
+                        <p>净值估算</p>
+                    </a>
+                    <a href="#">
+                        <img></img>
+                        <p>定投计算器</p>
+                    </a>
+                    <a href="#">
+                        <img></img>
+                        <p>养老计算器</p>
+                    </a>
+                    <a href="#">
+                        <img></img>
+                        <p>市场热力</p>
+                    </a>
+                </div>
+            </div>-->
+
+        </section>
+
+        <div class="service_sub" style="display: none;" id="dinyue">
+			<mark></mark>
+            <div class="service_title">
+                <p>服务订阅</p>
+                <!--<p><span>实例说明</span><i class="question"></i></p>-->
+            </div>
+            <div class="category_panel">
+                <!--<div class="switch">
+                    <div class="switch_content switch1">
+                        <div class="content_l">
+                            <p>净值更新提醒</p>
+                            <p>每日净值更新时主动通知您查看</p>
+                        </div>
+                        <div class="content_r" onclick="handerCategorySwitch('1')">
+                            <a href="javascript:;" class="switch_close"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="switch">
+                    <div class="switch_content switch2">
+                        <div class="content_l">
+                            <p>基金动向跟踪</p>
+                            <p>您已订阅4只基金的动态推送<a href="javascript:;">管理</a></p>
+                        </div>
+                        <div class="content_r" onclick="handerCategorySwitch('2')">
+                            <a href="javascript:;" class="switch_close"></a>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+    <div class="footer_btn">
+        <a href="#">
+            <img src="../images/wezhan/footer1.png" alt="">
+            <span class="active_color">服务</span>
+        </a>
+        <a href="./viewPoint.html">
+            <img src="../images/wezhan/footer_02.png" alt="">
+            <span>观点</span>
+        </a>
+        <a href="./welfare.html">
+            <img src="../images/wezhan/footer_03.png" alt="">
+            <span>福利</span>
+        </a>
+    </div>
+    <div class="mask">
+        <div class="answer">
+            <div class="answer_text">123123123123</div>
+            <a href="javascript:;" class="close">确定</a>
+        </div>
+    </div>
+
+    <!-- <a href="#" class="go_home">回首页</a> -->
+    <!-- <script type="text/javascript" src="https://static.99fund.com/js/stat/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script> -->
+
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/swiper-4.2.2.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script type="text/javascript" src="https://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>  
+	<script>
+	function wxShare(){
+		var curUrl = window.location.href;
+		var shareLink = curUrl;//分享链接  默认是当前url
+
+		if(shareLink.indexOf("?") != -1){
+
+			shareLink = shareLink.split("?")[0];
+		}
+		if(shareLink.indexOf("&") != -1){
+
+			shareLink = shareLink.split("&")[0];
+		}
+
+			//如果有微信加的标识则去掉
+		if(curUrl.indexOf("isappinstalled") != -1){
+			window.location.href = shareLink;
+		}
+		//微信设置
+		
+		var shareIcon = "http://static.99fund.com/mobile/app_inner/newsShare/img/zixun_logo.png";
+		var shareDesc = '0.1折起买好基,更有贴心投资服务>>';//分享内容描述 可以自定义
+		var shareTitile = '现金宝App,汇添富旗下官方理财平台';//分享标题 可以自定义
+		var t = new Date().getTime();
+		var curHttp = window.location.origin;
+
+		var ajaxUrl = curHttp+"/activity-center/api/v1/weixin/weixin-jsapi-sign?system=1&currentUrl="+curUrl;
+
+		// ajax请求后台接口，获取微信签名
+		$.ajax({
+			url: ajaxUrl,
+			data:{
+				url: curUrl
+			},
+			type: 'GET',
+			dataType: 'json',
+			success: function (res) {
+				if(res.returnCode==0){
+					
+					wx.config({
+					//    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+						appId: res.body.appId, // 必填，换成你公众号里的appid
+						timestamp: res.body.timestamp, // 必填，生成签名的时间戳
+						nonceStr: res.body.nonceStr, // 必填，生成签名的随机串
+						signature: res.body.signature,// 必填，签名
+						jsApiList: ['checkJsApi','updateTimelineShareData','hideOptionMenu','updateAppMessageShareData'] // 必填，需要使用的JS接口列表
+					});
+
+					wx.ready(function(){
+
+				 //wx.hideOptionMenu();/***隐藏分享菜单****/   
+							 wx.checkJsApi({  
+							  jsApiList: [  
+								'getLocation',  
+								'updateTimelineShareData',  
+								'updateAppMessageShareData'  
+							  ],  
+							  success: function (res) {  
+								//alert(res.errMsg);  
+							  }  
+							});  
+
+						wx.updateAppMessageShareData({//分享给好友接口自定义数据  标题和内容描述可以自定义修改
+							title: shareTitile, // 分享标题
+							desc: shareDesc, // 分享描述
+							link: shareLink, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+							imgUrl: shareIcon, // 分享图标
+							success: function () {
+								// 用户点击了分享后执行的回调函数
+								console.log('用户点击了分享');
+							}
+						});
+
+
+
+						wx.updateTimelineShareData({//分享到朋友圈接口自定义数据 标题和内容描述可以自定义修改
+							title: shareTitile, // 分享标题
+							desc: shareDesc, // 分享描述
+							link: shareLink, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+							imgUrl: shareIcon, // 分享图标
+							success: function () {
+								// 用户点击了分享后执行的回调函数
+								console.log('用户点击了分享');
+							}
+						});
+
+					});
+					wx.error(function(res){
+						console.log('wx jsapi fail');
+					});
+
+
+
+				}else{
+					console.log(res.returnMsg);
+				}
+			},
+			error: function (e) {
+				console.log(e);
+			}
+		});
+	}
+	wxShare();
+	var curUrl = window.location.href;
+	$(function(){
+		setTimeout(function () {
+			if(curUrl.indexOf("dinyue") > -1){
+
+				//滚动到订阅位置
+				function heightToTop(){
+					return $("mark").offset().top;
+				}
+				window.scrollTo({
+					top:heightToTop(),
+					behavior:'smooth'
+				});
+			}
+		},600)
+	});
+	</script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script type="text/javascript" src="../js/layout.js?t=1"></script>
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/utils.js?t=1"></script>
+    <script type="text/javascript" src="../js/wezhan/service.js?20210106"></script>
+</body>
+
+</html>

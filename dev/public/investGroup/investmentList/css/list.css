@@ -1,0 +1,101 @@
+* {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+.content {
+    padding-left: .75rem;
+		background-color: #fff;
+}
+select{
+	-webkit-appearance:none;
+
+-moz-appearance:none;
+
+ appearance:none; /*去掉下拉箭头*/
+ background: #fff url('../img/arrow-b.png') no-repeat;
+
+ background-size:.45rem .3rem;
+}
+.header {
+    height: 2.5rem;
+    padding: 0.5rem 0.75rem;
+    background-color: #f6f6f6;
+    display: flex;
+    align-items: center;
+}
+
+.select_year {
+    height: 1.5rem;
+    /* width: 5rem; */
+    width: auto;
+    padding: 0 1rem;
+    padding-right: 1.5rem;
+    text-align: center;
+    text-align-last: center;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    border: none;
+    background-position:4.1rem center;
+}
+
+.select_month {
+    /* width: 5rem; */
+    height: 1.5rem;
+    width: auto;
+    padding: 0 1.5rem;
+    font-size: 0.75rem;
+    border-radius: 1rem;
+    text-align: center;
+    text-align-last: center;
+    border: none;
+    margin-left: 1rem;
+    background-position:3.5rem center;
+}
+option{
+    text-align: center;
+}
+
+.report_content{
+    /* height: 3.75rem; */
+    padding: .75rem 0;
+		padding-right: .75rem;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #eee;
+}
+.report_name{
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #000;
+    font-weight: bold;
+}
+.report_name i{
+	display: inline-block;
+	width: .4rem;
+	height: .75rem;
+	background: url('../img/arrow-r.png') no-repeat;
+	background-size: 100% 100%;
+}
+.report_type{
+    height: 0.75rem;
+    margin-left: 0.5rem;
+    font-size: 0.6rem;
+    padding: 0 0.2rem;
+    border-radius: 3px;
+    color: #fb5c5f;
+    border:1px solid #fb5c5f;
+    font-weight: normal;
+}
+.report_time{
+    font-size: 0.6rem;
+    margin-top: 0.6rem;
+    color: #666;
+}

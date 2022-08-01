@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>意向登记</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/fund/payment1.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <style>
+        .section1 p {  padding: 0 1.5rem; font-size: 0.6rem; color: #666; line-height: 1.75rem;height: 1.75rem;}
+        .section2 p {  padding: 0 1.75rem; font-size: 0.6rem; color: #666; line-height: 1.75rem;height: 1.75rem;}
+        /*.section1 P:first-child~p { padding-top: 0;}*/
+        .bank-name { height: 1rem;}
+        /* 弹窗 */
+        .tip{position: fixed;
+            top: 0;
+            left: 0;
+            background-color: rgba(0,0,0,0.7);
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            font-size: 0.6rem;
+            z-index: 999;
+        }
+        .tip .tip_wrap{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+            margin: 0;
+            width:80%;
+            /*height:16rem;*/
+            background: #fff;
+            -webkit-border-radius: 5px;
+        }
+        .tip .tip_wrap .tip_content h3{font-size:.75rem;font-weight: bold;color:#000;text-align: center;margin-top: 1rem;}
+        .tip .tip_wrap .tip_content h4{margin-top: .5rem;text-align: center;font-size: .7rem;}
+        .tip .tip_wrap .tip_content h4:nth-of-type(2){color:#fb5c5f;margin-top: .4rem;}
+        .tip .tip_wrap .tip_content p{padding:0 1.5rem 0 1.5rem;font-size: .7rem;margin-top: .7rem;line-height: 1rem;margin-bottom: 1rem;}
+        .tip .tip_wrap .tip_content{border-bottom: 1px #eee solid;}
+        .tip .tip_wrap .tip_btn ul li{text-align: center;font-size: .75rem;color:#006bfe;}
+        .tip .tip_wrap .tip_btn ul li a{display:block;text-align: center;font-size: .75rem;width:100%;padding:1rem 0;}
+
+        .tip2{position: fixed;
+            top: 0;
+            left: 0;
+            background-color: rgba(0,0,0,0.7);
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            font-size: 0.6rem;
+            z-index: 999;
+        }
+        .tip2 .tip_wrap{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+            margin: 0;
+            width:80%;
+            /*height:16rem;*/
+            background: #fff;
+            -webkit-border-radius: 5px;
+        }
+        .tip2 .tip_wrap .tip_content p{padding:0 1.5rem 0 1.5rem;font-size: .7rem;margin-top: .7rem;line-height: 1rem;margin-bottom: 1rem;text-align: center;line-height: 1rem;}
+        .tip2 .tip_wrap .tip_content{border-bottom: 1px #eee solid;}
+        .tip2 .tip_wrap .tip_btn ul li{text-align: center;font-size: .75rem;color:#006bfe;}
+        .tip2 .tip_wrap .tip_btn ul li a{display:block;text-align: center;font-size: .75rem;width:100%;padding:.7rem 0;}
+        .gift {height:  2.5rem; padding:0 .75rem;background: #fff;overflow: hidden;}
+        .gift p{line-height: 2.5rem}
+        .gift p img{
+            width: .4rem;
+            height: .75rem;
+            position: relative;
+            top: 2px;
+        }
+
+        .gift p:first-child{color:#000;}
+        .left{float: left;width: 65%;}
+        .right{float: right;width: 35%;}
+        .list-group-item  input{margin-left: .75rem;text-align: left;}
+        .rules span { width: .6rem; height: .6rem; vertical-align: middle; background: url("../images/chose1_y.png") no-repeat left center; display: inline-block;  background-size: contain; margin: -.2rem .25rem 0 -.75rem; }
+        .rules span.current { background-image: url("../images/chose1.png");}
+        .rules a { color: #3295e8; cursor: pointer;}
+        .not-support-bank-card-color {background-color: #F6F6F6}
+
+        .grid-list li{padding: 0 0; border-bottom: 1px #efefef solid;}
+        .section-tips{margin-top: .75rem;}
+        .section-tips-title{margin-left: .75rem;margin-top: .5rem;color: #666666;font-size: .6rem;font-weight: bold;}
+        .section-tips-content{margin-left: .75rem;margin-right: .75rem;color: #666666;font-size: .6rem;}
+    </style>
+</head>
+<body>
+<div id="view">
+    <div class="content">
+        <div>
+            <ul class="grid-list" style="padding:0 0 0 .75rem ">
+                <li class="grid-list-item heigth-100 BankCard fundName-li">
+                    <div class="row">
+                        <div class="flex">
+                            <p>基金名称</p>
+                            <p id="fundNm"></p>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid-list-item heigth-100 selectBankCard">
+                    <div class="row">
+                        <div class="flex">
+                            <p>支付方式</p>
+                            <p class="" style="margin:0;" id="payWay">现金宝</p>
+                        </div>
+                        <div class="lh-100 payMethod">
+                        </div>
+                        <div class="lh-100 margin-r75" >
+                            <a class=" iconi icon-arrow-right"></a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <section class="section1 remark_tip" style="display: flex;">
+            <!--<p class="red" style="display: none;">该银行系统维护，8月1日00:00-8月2日00:00服务将暂停，请重新选择</p>-->
+            <p> </p><img src="../images/question.png" onclick="showQuestion()" style="width: .75rem; height: .75rem; margin-top: .5rem; display: none;" />
+        </section>
+        <ul class="grid-list" style="padding:0 0 0 .75rem ">
+            <li class="grid-list-item heigth-100 BankCard">
+                <div class="row">
+                    <div class="flex">
+                        <p>时间</p>
+                        <p>认购开放日</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <!--<ul class="grid-list" style="padding: 0px 0px 0px 0.75rem;">
+            <li class="grid-list-item heigth-100 BankCard">
+                <div class="row">
+                    <div class="flex">
+                        <p>登记金额(元）</p>
+                        <p>
+                            <input type="number" id="purchaseAmt" data-rquire-msg="充值金额不能为空" class="font-28" style="width: 4rem;">
+                            <input type="hidden" id="minPurAmt">
+                        </p>
+                    </div>
+                </div>
+            </li>
+        </ul>-->
+        <ul class="list-group no-margin switchlock-off" style="padding:0 0 0 .75rem;">
+            <li class="list-group-item deposit-amount">
+                <h4>登记金额(元)</h4>
+                <div class="deposit-start">
+                    <span>￥</span>
+                    <input type="text" id="purchaseAmt" placeholder="请输入金额">
+                    <input type="hidden" id="minPurAmt">
+                </div>
+            </li>
+        </ul>
+        <section>
+            <div>
+                <button class="btn-orange" id="btn-submit">确认登记</button>
+            </div>
+        </section>
+        <section>
+            <p class="section-tips">温馨提示：</p>
+            <p class="section-tips-title">1.登记之后还需要做什么？</p>
+            <p class="section-tips-content">意向登记仅为登记您的购买意向，在基金即将发行时，我们会提醒您关注账户资金情况，确保有充足的资金支持购买。在产品正式销售之后，我们会发短信进行提醒确认，回复“Y”之后，系统才会协助发起扣款，如不回复，或回复“N”视为放弃，请您后续留意短信通知。</p>
+            <p class="section-tips-title">2.做了意向登记是否意味着锁定额度？</p>
+            <p class="section-tips-content">进行意向登记并完成确认后，我们会在基金正式发行后的第一时间接受您的认购申请，只要第一个工作日的销量未超过募集上限，您的认购即可确认，但一旦基金在发行首日就超出募集上限，您将和所有的客户一起按照比例进行配售。
+            </p>
+        </section>
+    </div>
+    <div class="layer animated slideInDown" id="bankCardList" style="display: none">
+        <ul class="grid-list">
+            <li :class="'grid-list-item heigth-130 bottom-border ' + (item.tradeFlag === '1' ? '' : 'not-support-bank-card-color')" v-for="(item,index) in cards" :key="index" @click="selectBankCard(item)">
+                <div class="row">
+                    <div class="lh-130" v-if="item.bankGrpName.indexOf('现金宝') === -1">
+                        <i :class="'bank no-margin-left ico_' + item.bankNo"></i>
+                    </div>
+                    <div class="lh-130" v-else>
+                        <img src="../images/fund/icon_05.png" alt="" style="width:1rem;height:1rem;margin-left: 0.3rem;margin-right: 17px;">
+                    </div>
+                    <div class="col-1">
+                        <div class="list-title">
+                            <p class="bank-name" v-if="item.bankGrpName.indexOf('现金宝') === -1">{{item.bankGrpName}} [ {{item.bankAccoDisplay}} ]</p>
+                            <p class="bank-name" v-else>{{item.bankGrpName}}</p>
+                            <p class="bank-id" v-text="item.limitRemark"></p>
+                        </div>
+                    </div>
+                    <div :class="'lh-130 ' + (item.signWay ==='1'?'shorcut':(item.signWay ==='2'?'union':'E-bank'))" v-if="item.bankGrpName.indexOf('现金宝') === -1">
+                        <a class="icon icon-union">银联通</a>
+                        <a class="icon icon-E-bank">网银</a>
+                        <a class="icon icon-shorcut">快捷</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="mask"></div>
+</div>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <p class="Bomb-box-tips" style="padding-top: 0.75rem;"></p>
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;">确定</a>
+    </div>
+</div>
+<div class="sm_tip" style="display: none;">
+    <p> 该产品风险等级（高）超过您的风险承受承受等级（保守型）。</p>
+</div>
+<div class="tip" style="display: none;">
+    <div class="tip_wrap">
+        <div class="tip_content">
+            <h3>风险警示及确认</h3>
+            <div id="risk_tip" style="padding: 0rem 1rem 0rem 1rem;">
+                <p>该产品风险等级<span style="color:#fb7678;">（高）</span>超过您的风险承受等级<span style="color:#fb7678;">（保守型）</span>。购买该产品可能导致您承担超出您承受能力的损失及不利后果。</p>
+                <p><span style="color:#fb7678;">以上为风险警示，点击“继续购买”视为您承诺以下内容：</span><br>本人已阅读上述风险警示内容，已知悉该产品风险等级高于本人风险承受能力，并已充分了解该产品风险特征及可能产生的不利后果。经审慎考虑，本人仍坚持申请购买，并自愿承担由此可能产生的一切不利后果。贵司及销售人员不存在主动向本人推介该产品的行为。</p>
+            </div>
+        </div>
+        <div class="tip_btn" >
+            <ul style="width: 100%;">
+                <li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid"><a
+                        href="javascript:;" class="close_tip">放弃购买</a></li>
+                <li style="float: left;width:50%;box-sizing: border-box;"><a href="javascript:void(0);" id="continue_pur">继续购买</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="tip2 evaluation_risk_tip" style="display: none;">
+    <div class="tip_wrap">
+        <div class="tip_content">
+            <p id="evaluation_tip">您还未做风险测评，请先做测评</p>
+        </div>
+        <div class="tip_btn" >
+            <ul style="width: 100%;">
+                <li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid" class="close_tip"><a
+                        href="javascript:;">取消</a></li>
+                <li style="float: left;width:50%;box-sizing: border-box;"><a href="../common/riskTest.html" id="go_to_risk_test">去测评</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="tip2 bind_card_tip" style="display: none;">
+    <div class="tip_wrap">
+        <div class="tip_content">
+            <p id="bind_card_tip">您还未绑定银行卡，请先绑定银行卡</p>
+        </div>
+        <div class="tip_btn" >
+            <ul style="width: 100%;">
+                <li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid" class="close_tip"><a
+                        href="javascript:;">取消</a></li>
+                <li style="float: left;width:50%;box-sizing: border-box;"><a href="../card/manage_card.html" id="go_to_bind_card">添加银行卡</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="tip2 bind_card_tip_1" style="display: none;">
+    <div class="tip_wrap">
+        <div class="tip_content">
+            <p id="bind_card_tip_1">当前无可用支付方式，请绑定支持的银行卡或联系客服</p>
+        </div>
+        <div class="tip_btn" >
+            <ul style="width: 100%;">
+                <li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid" class="close_tip"><a href="javascript:;">我知道了</a></li>
+                <li style="float: left;width:50%;box-sizing: border-box;"><a href="../card/manage_card.html" id="bind_card">添加银行卡</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="tip2 recharge_tip" style="display: none;">
+    <div class="tip_wrap">
+        <div class="tip_content">
+            <p id="recharge_tip">现金宝余额不足，请立即充值</p>
+        </div>
+        <div class="tip_btn" >
+            <ul style="width: 100%;">
+                <li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid" class="close_tip"><a
+                        href="javascript:;">取消</a></li>
+                <li style="float: left;width:50%;box-sizing: border-box;"><a href="../account/topup.html" id="go_to_recharge">去充值</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script type="text/javascript" src="../js/lib/vue.min.js"></script>
+<script type="text/javascript" src="../js/common.js?20210106"></script>
+<script type="text/javascript" src="../js/fund/reservationSubPayment.js?20210106"></script>
+</body>
+</html>

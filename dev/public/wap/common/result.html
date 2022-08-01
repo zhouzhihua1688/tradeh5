@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta charset="gbk">-->
+    <title>测评风险</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/riskbase.css">
+    <script type="text/javascript" src="../js/zepto.min.js"></script>
+    <script src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script src="../../basic/basic.js?20210128"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210302"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        }
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+                oHtml.style.fontSize = '17.06px';
+            }else if(screenWidth >= 750){
+                oHtml.style.fontSize = '40px';
+            }else{
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+            }
+        }
+    </script>
+    <style>
+    body{background:#fff}
+    
+    .tip .tip_wrap .tip_content p{font-size:0.65rem;color:#bcbcbc;text-align: left;margin-top: 1rem;}
+    .tip .tip_wrap .tip_content h4{margin-top: .5rem;text-align:left;font-size:1.4rem;color:#000;padding: 0 1.5rem 0 1.5rem;}
+    .tip .tip_wrap .tip_content h4:nth-of-type(2){color:#fb5c5f;margin-top: .4rem;}
+    .tip .tip_wrap .tip_content p{padding:0 1.5rem 0 1.5rem;font-size: .7rem;margin-top: .7rem;line-height: 1rem;margin-bottom: 0rem;}
+    /* .tip .tip_wrap .tip_content{border-bottom: 1px #eee solid;} */
+
+    .tip .tip_wrap .tip_btn ul{width:85%;height:2.2rem;margin:0 auto;margin-top:1rem;}
+
+    .tip .tip_wrap .tip_btn ul li{text-align: center;font-size: .75rem;color:#fb5c5f;width:7rem;height:2.2rem;background:#fff;border:1px solid #fb5c5f;border-radius:50px;}
+
+    .tip .tip_wrap .tip_btn ul li a{display:block;text-align: center;font-size: .75rem;width:7rem;height:2.2rem;line-height:2.2rem}
+    .tip .tip_wrap .tip_btn ul li.active{background:#fb5c5f;color:#fff;}
+    .tip .tip_wrap .go_rule { margin-top: 2rem;text-align: center;}
+    .tip .tip_wrap .go_rule a{ color: #148ce6;text-decoration: none;}
+
+    .tip2{position: fixed;
+			top: 0;
+			left: 0;
+			background-color: rgba(0,0,0,0.7);
+			height: 100%;
+			width: 100%;
+			overflow: auto;
+			font-size: 0.6rem;
+			z-index: 999;
+		}
+    .tip2 .tip_wrap{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        margin: 0;
+        width:80%;
+        background: #fff;
+        -webkit-border-radius: 5px;
+    }
+    .tip2 .tip_wrap .tip_content div{padding:0 1.5rem 0 1.5rem;font-size: .7rem;margin-top: .7rem;margin-bottom: 1rem;text-align: center;line-height: 1rem; color:#666}
+    .tip2 .tip_wrap .tip_content{border-bottom: 1px #eee solid;}
+    .tip2 .tip_wrap .tip_btn ul li{text-align: center;font-size: .75rem;color:#006bfe;}
+    .tip2 .tip_wrap .tip_btn ul li a{display:block;text-align: center;font-size: .75rem;width:100%;padding:.7rem 0;}
+
+    /* 20220119 APP内，回首页按钮去掉 */
+    .go_home {display: none;}
+    </style>
+
+</head>
+<body>
+    <div class="tip" style="display: block;">
+      <div class="tip_wrap">
+        <div class="tip_content">
+          <p>你的风险测评结果</p>
+          <h4 id="riskLevelZh"></h4>
+<!--        <p>根据适当性匹配规则，您适合投资风险等级为<span style="color:#fe5a5b;" >低风险、中低风险、中风险</span>的产品。该适当性匹配意见不表明我司对产品或服务的风险和收益作出任何实质性判断或保证。<br><span style="color:#fe5a5b;">您当前持有超出您风险承受等级的产品，请知晓相应的风险。</span></p>-->
+          <p id="riskLevelMatchesDesc"></p>
+
+        </div>
+        <div class="tip_btn" >
+          <ul style="text-align: center;">
+            <li style="float: left;box-sizing: border-box;" id="isShow">
+			<a href="javascript:;" id="testAgain">重新测评</a></li>
+            <li style="box-sizing: border-box;display: inline-block;" class="active"><a  onclick="forwordUrl()">确认</a></li>
+          </ul>
+        </div>
+        <div class="go_rule"><a href="http://static.99fund.com/mobile/app_inner/saleProperly/matchingRule.html">了解匹配规则</a></div>
+      </div>
+    </div>
+
+    <div class="tip2" style="display: none;" id="showTips">
+        <div class="tip_wrap">
+            <div class="tip_content">
+                <div id="riskLevelMsg"></div>
+            </div>
+            <div class="tip_btn" >
+                <ul style="width: 100%;">
+                    <li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid" id='gotoUrl'><a
+                            href="javascript:;">查看详情</a></li>
+                    <li style="float: left;width:50%;box-sizing: border-box;"><a href="javascript:;" id='iKnow'>继续投资</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../js/lib/echarts.min.js"></script>
+ <script>
+     $(function(){
+        // 20220119 APP内，回首页按钮去掉
+        if(!isApp()) {
+            $('.go_home').show();
+        }
+        checkSwitch(checkFlag);
+        //检测每天是否测评的开关
+        function checkSwitch(cb){
+            utils.ajax({
+                url: '/icif/v1/risks/risk-level-and-switch',
+                success: function (result) {
+                    if (result.returnCode === 0) {
+                        // 开关已经打开
+                        (result.body.evalDayOneTimeSwitch == '1')&&cb(); 
+                    }
+                }.bind(this)
+            })
+        }
+        //  判断当天是否已做过测评
+        function checkFlag(){
+            utils.ajax({
+                url: '/icif/v1/risks/risk-level',
+                success: function (result,status,xhr) {
+                    if (result.returnCode === 0) {
+                        var serverTime = xhr.getResponseHeader('x-server-time').replace(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/g, '$1$2$3');
+                        var textTime = result.body.evalDate;
+                        var localTime = formatTime(new Date().getTime()).replace(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/g, '$1$2$3');
+                        // console.log(serverTime,textTime,localTime);
+                        if(serverTime){
+                            if(serverTime==textTime){
+                                $("#isShow").hide();
+                            }
+                        }else{
+                            if(localTime==textTime){
+                                $("#isShow").hide();
+                            }
+                        }
+                        
+                    }
+                }.bind(this)
+                
+            })
+        }
+    
+     })
+     function formatTime(timestamp) {
+        var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+        var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+        var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+        var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+        var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+        return Y + M + D + h + m + s;
+    }
+     function checkAdroid(){
+        //  20211120添加url上有forwardUrl参数一定跳转会原页面的流程 S
+        var forwardUrl = App.getUrlParam("forwardUrl");
+        if(App.isNotEmpty(forwardUrl)){
+            window.location.href = decodeURIComponent(forwardUrl);
+            return;
+        }
+        //  20211120添加url上有forwardUrl参数一定跳转会原页面的流程 E
+
+        // 20220120 优化，app内直接跳到风险测评结果页 S  ------ 20220613 去掉优化，改回去；有第二种场景再做特殊处理
+         var u = navigator.userAgent;
+         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+         if(isAndroid){
+            handler.goBack(true);
+         } else {
+             window.location.href = "http://www.99fund.com?pageforward=1";
+         }
+        // window.location.href = 'htffundxjb://action?type=riskTest&subType=home';
+        // 20220120 优化，app内直接跳到风险测评结果页 E  ------ 20220613 去掉优化，改回去；有第二种场景再做特殊处理
+     };
+
+    function checkWap() {
+        var forwardUrl = App.getUrlParam("forwardUrl");
+        if(App.isNotEmpty(forwardUrl)){
+			if(forwardUrl.indexOf("monthly")>-1){
+			window.location.href = App.getSession("monthly");
+			}else{
+            window.location.href = decodeURIComponent(forwardUrl);
+			}
+        }else{
+            window.location.href = "../wezhan/service.html";
+        }
+    }
+    function forwordUrl(){
+        utils.post({
+            url: '/mobile-bff/v1/confirm/risk-level-result',
+            success: function (result) {
+
+            }.bind(this)
+        })
+        setTimeout(()=>{
+            if(isApp()){
+                checkAdroid();
+            }else{
+                checkWap();
+            }  
+        })
+    }
+    //查询高于客户风险等级的定投计划
+    function warnRiskLevel(){
+        utils.get({
+            url:"/ats-ng/v1/manage/contract-query/risk-not-match",
+            success: function (result){
+                if (result.returnCode === 0 && result.body){
+                    if(result.body.fundContract && result.body.fundContract.length > 0){
+                        var fundContractLength = result.body.fundContract.length;
+                        // var investAdvisoryContractLength = result.body.investAdvisoryContract.length;
+                        // var allLength = fundContractLength+ investAdvisoryContractLength;
+                        $('#riskLevelMsg').html('根据您的风险等级，您的'+ fundContractLength + '笔定投计划不符合现有风险等级要求，请确认继续投资或查看详情后修改。')
+                        $('#showTips').show();
+                        $('#riskLevelMsg').show();
+                        if(fundContractLength > 0){
+                            riskfundContractNo = result.body.fundContract;
+                        }
+                        // if(investAdvisoryContractLength > 0){
+                        //     riskInvestAdvisoryContractNo = result.body.investAdvisoryContract;
+                        // }
+                    }
+                }    
+
+
+            }
+        });
+    }
+
+    $('#testAgain').click(function(){
+        var forwardUrl = App.getUrlParam("forwardUrl");
+        var url =  "riskTest.html?forwardUrl=" + forwardUrl;
+        window.location.href = url;
+    });
+
+    $('#gotoUrl').click(function(){
+        var url =  "/mobileEC/wap/fundgroup/my_mip.html?riskfundContractNo=" + encodeURIComponent(riskfundContractNo);
+        window.location.href = url;
+
+    });
+
+    $('#iKnow').click(function(){
+        $('#showTips').hide();
+    });
+
+      $('.tip_btn li').click(function () {
+          if ($(this).hasClass("active")) {
+              return;
+          }
+          $(this).addClass("active").siblings().removeClass('active');
+      });
+      var result = App.getSession("riskTest");
+      // console.log("result-----"+console.log(JSON.stringify(result)));
+      var riskLevelZh = result.body.riskLevelZh;
+      var investorTypeName = result.body.investorTypeName;
+      var riskLevelMatchesDesc = result.body.riskLevelMatchesDesc;
+      // var investorTypeName = result.body.investorTypeName;
+      // var riskLevelMatchesDesc = result.body.riskLevelMatchesDesc;
+      // var levelTxt = riskName+"<span id='investorTypeName' style='font-size:0.7rem;color:#bcbcbc'>("+investorTypeName+")</span>";
+      $("#riskLevelZh").html(riskLevelZh + '<span style="font-size:0.7rem;color:#bcbcbc">(' + investorTypeName + ')</span>');
+      $("#riskLevelMatchesDesc").html(riskLevelMatchesDesc);
+      var riskfundContractNo = []; 
+    //   var riskInvestAdvisoryContractNo = [];
+      warnRiskLevel();
+ </script>   
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>历史计划</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base_v1.css">
+    <link rel="stylesheet" href="../css/taxExtension/payment.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <style>
+        html,body{
+            background: #f6f6f6;
+        }
+        .footer a{
+            display: block;
+            position: fixed;
+            left:0;
+            bottom:0;
+            width: 100%;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            text-align: center;
+            text-decoration: none;
+            background: #fe7e01;
+            color:#fff;
+            font-size: 0.85rem;
+        }
+        /*.content{*/
+            /*background: #fff;*/
+        /*}*/
+        .content .list{
+            padding-left: 0.75rem;
+            margin-bottom: .5rem;
+            background: #fff;
+        }
+        .content h4{
+            padding-top: .75rem;
+            line-height: 0.6rem;
+            font-size: 0;
+        }
+        .content h4 i,.content h4 span{
+            display: inline-block;
+            vertical-align: middle;
+            font-size: .6rem;
+            color:#666666;
+        }
+        .content h4 i{
+            width: 0.1rem;
+            height: .6rem;
+            border-radius: 1px;
+            background: #fb5c5f;
+            margin-right: 0.35rem;
+        }
+        .content h4 a{
+            float: right;
+            margin-right: .75rem;
+            font-size: .6rem;
+        }
+        .content .plan-time{
+            font-size: 0.8rem;
+            color:#000;
+            line-height: 2.15rem;
+            border-bottom: 1px #efefef solid;
+            overflow: hidden;
+        }
+        .plan-time span{
+            float: left;
+        }
+        .plan-time span:nth-child(1){
+            margin-right: 0.625rem;
+        }
+        .plan-time a{
+            float: right;
+            width: 0.4rem;
+            height: 0.75rem;
+            margin-right: .75rem;
+            margin-top:0.7rem ;
+        }
+        .content .fundname-time{
+            margin-right: .75rem;
+            line-height: 1.75rem;
+            color:#666666;
+            overflow: hidden;
+        }
+        .fl{
+            float: left;
+        }
+        .fr{
+            float: right;
+        }
+        .history-plan{
+            display: block;
+            padding-top: .75rem;
+            line-height: 0.65rem;
+            font-size: .65rem;
+            text-align: center;
+        }
+        .history-plan i{
+            display: inline-block;
+            width: 0.35rem;
+            height: 0.6rem;
+            background: url("../images/taxExtension/blueArrow.png") no-repeat;
+            background-size: 100% 100%;
+            vertical-align: bottom;
+            margin-left: .3rem;
+        }
+        .bottom-space{
+            width: 100%;
+            padding-bottom:2.5rem ;
+        }
+        .more-div{ line-height: 2rem; background-color: #fff; vertical-align: middle; height: 2rem;}
+    </style>
+</head>
+<body>
+<div class="content">
+    <div class="list-view">
+        <!--<div class="list list1">
+            <h4><i></i><span>计划名称</span></h4>
+            <div class="plan-time"><span>01月12日</span><span>购买23,000.00元</span><a class=" iconi icon-arrow-right"></a></div>
+            <div class="fundname-time"><span class="fl">汇添富税延养老1号 (006678)</span><span class="fr">2019-01-23</span></div>
+        </div>
+        <div class="list list2">
+            <h4><i></i><span>我的养老1号</span></h4>
+            <div class="plan-time"><span>每月22日</span><span>自动足额购买</span><a class=" iconi icon-arrow-right"></a></div>
+            <div class="fundname-time"><span class="fl">汇添富税延养老1号 (006678)</span></div>
+        </div>
+        <div class="list list3">
+            <h4><i></i><span>计划名称</span><a href="javascript:;">已暂停</a></h4>
+            <div class="plan-time"><span>01月12日</span><span>购买23,000.00元</span><a class=" iconi icon-arrow-right"></a></div>
+            <div class="fundname-time"><span class="fl">汇添富税延养老1号 (006678)</span></div>
+        </div>-->
+    </div>
+    <div class="more-div">
+        <a href="javascript:;" class="history-plan blue-link more-btn">加载更多...</a>
+    </div>
+</div>
+
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script type="text/javascript" src="../js/common.js?20210106"></script>
+<script type="text/javascript" src="../js/taxExtension/autoDepositPlanHistoryList.js"></script>
+</body>
+</html>

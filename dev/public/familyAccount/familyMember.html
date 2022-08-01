@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>家庭成员</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/common.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+    <script type="text/javascript" src="../base/js/needLogin.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        body,html{background: #f6f6f6;}
+        body {left: 0%; right: 0%;font:14px 'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+        button { outline: none;  }
+          /* 图片自适应 */
+        img {width: 100%; height: auto; width: auto\9; /* ie8 */ -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/ border: none; vertical-align: top; outline: none; display: block; }
+        .main{width:100%;height:100%;display: none;}
+        .tipText{font-size: 0.6rem;color:#666;padding:0.75rem 0 0 0.75rem;display: inline-block;}
+        .tipText img{width:0.75rem;height:0.75rem;display: inline-block;vertical-align: top;margin-left:0.25rem;}
+        .list{width:17.25rem;height:4.0rem;background: #fff;margin:0 auto;display:flex;justify-content:space-between;align-items: center;border-radius: 0.2rem;margin-top:0.5rem;}
+	    .list div{width:22%;}
+	    .list div:nth-of-type(1){margin-left:0.75rem;}
+        .list div:nth-of-type(1) img{
+            border-radius: 50%;
+        }
+	    .list div:nth-of-type(2){width:40%;text-align:left;margin-left:0.75rem;}
+        .list div:nth-of-type(3){width:49%;}
+	    .list div .img img{width:3.0rem;height:3.0rem;border-radius: 1.25rem;}
+	    .list div .one{font-size:0.85rem;color:#000;display: inline-block;}
+        .list div .one img{width:0.8rem;height:0.8rem;display: inline-block;vertical-align: middle;margin-top:-0.25rem;margin-left:0.5rem;}
+	    .list div .two{font-size:0.65rem;color:#666;margin-top:0.35rem;}
+	    .list div .three{width:3.0rem;height:1.25rem;border-radius:50px 50px;text-align:center;line-height:1.25rem;font-size:0.65rem;color:#fff;background: #fb5c5f;margin-left:1.5rem;float: right;margin-right: .75rem; }
+        .list div .four{font-size: 0.6rem;color:#666;margin-top:0.25rem;margin-right: .75rem;    float: right;}
+        .list div .five{font-size: 0.6rem;color:#fb5c5f;margin-top:0.25rem; border: 1px #fb5c5f solid;border-radius: .5rem;margin-right: .75rem;padding-left: .45rem; text-align: center;   }
+        .manage{width:4.25rem;height:1.25rem;background:#fff;border-radius: 50px 50px;margin:0 auto;margin-top:1.25rem;text-align:center;margin-bottom: 3.5rem;}
+        .manage div{font-size: 0.65rem;color:#148ce6;display: inline-block;line-height: 1.25rem}
+        .manage div img{width:0.35rem;height:0.6rem;display: inline-block;vertical-align: middle;margin-top:-0.1rem;margin-left:0.25rem;}
+	    .tips { position: fixed; top: 0; left: 0; bottom: 0; right: 0; background-color: rgba(0, 0, 0, 0.507); font-size: .7rem; }
+        .tips>div {background: #fff; position: absolute; left: 10%; right: 10%; top: 50%; transform: translateY(-50%); padding: .5rem .75rem 0; border-radius: .2rem; }
+        .tips .tips_text {padding: .75rem; text-align:center;color:#000;}
+        .tips .button {display: flex; align-items: center; text-align: center; border-top: 1px solid #eee;margin-top: .75rem;}
+        .tips .button span {margin-top: .25rem; padding: .625rem 0; margin-bottom: .25rem; width:100%; color: #1370fa; }
+        .tips .button span:nth-of-type(1) {border-right: 1px solid #eee;}
+        .tips .name{width:13.25rem;height:1.5rem;border:1px solid #eee;margin:0 auto;border-radius:0.125rem;}
+        .tips .name input{width:13.25rem;height:1.5rem;}
+        input::-webkit-input-placeholder {
+        color: #999;
+      }
+      input::-moz-input-placeholder {
+        color: #999;
+      }
+      input::-ms-input-placeholder {
+        color: #999;
+      }
+        footer {position: fixed; width: 100%; left: 0; bottom: 0; background-color: #fff; font-size: .85rem; }
+        footer ul { color: #fe5a5b; display: flex; display: -webkit-flex; }
+        footer ul li { display:flex;justify-content:space-between;align-items: center;
+          border-right:0.025rem solid #fff;
+        }
+        footer ul li:nth-of-type(1){width:100%;}
+        footer ul li:last-child {width:100%;background:#0757b2; border-right: none;}
+        footer ul li a{ height: 2.5rem; text-align: center; line-height: 2.5rem; color: #fff;font-size:0.85rem;}
+        footer ul li a{ display: block; }
+        .mobileSelect .content {
+            width:95%;
+            display: block;
+            position: fixed;
+            z-index: 889;
+            color: black;
+            -webkit-transition: all 0.4s;
+            transition: all 0.4s;
+            bottom:1rem;
+            left: 0.5rem;
+            background: white;
+            border-radius: 10px;
+        }
+        .mobileSelect-show .content {
+          bottom:100px;
+        }
+    </style>
+    <!-- 两种蒙层样式 -->
+    <style>
+        .wx-mask,.copy-mask{
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: none;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,.7);
+            z-index:100000;
+        }
+        .wx-mask img{
+            position: absolute;
+            left: 50%;
+            width: 15.75rem;
+            margin-left: -7.875rem;
+        }
+
+        .copy-mask .copy-content{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 15rem;
+            border-radius: .15rem;
+            background-color: #fff;
+            padding: 1rem .75rem;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 0;
+        }
+        .copy-mask .copy-title{
+            font-size: .75rem;
+        }
+        .copy-mask .copy-text{
+            margin: 1rem .75rem;
+            padding: .75rem;
+            line-height: 1.5;
+            background-color: #f6f6f6;
+            font-size: .7rem;
+            color: #666;
+            border-radius: .15rem;
+        }
+        .copy-mask .copy-text p{
+            word-wrap : break-word ;
+        }
+        .copy-mask .copy-content img{
+            width: 10.5rem;
+        
+        }
+        .goBackFamily {
+            display: inline-block;
+            width:6.25rem;
+            height: 1.25rem;
+            background: #fff;
+            border-radius: 50px 50px;
+            margin: 0 auto;
+            margin-top: 1.25rem;
+            text-align: center;
+            margin-bottom: 3.5rem;
+            line-height: 1.25rem;
+            color: #148ce6;
+        }
+        .goBackFamily div img {
+            width: 0.35rem;
+            height: 0.6rem;
+            display: inline-block;
+            vertical-align: middle;
+            margin-top: -0.1rem;
+            margin-left: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+
+    <div class="all" >
+        
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="manage" style=" display: inline-block;">
+            <div><span id="trigger">管理成员</span><img src="img/blueRight.png" alt=""></div>
+        </div>
+        <div class="goBackFamily">
+            <div><a href="/tradeh5/newWap/familyAccount/home.html"><span>回亲情宝首页</span><img src="img/blueRight.png" alt=""></a></div>
+        </div>
+    </div>
+     <footer>
+        <ul>
+            <li>
+                <!-- <a href="javascript:;" onclick="showNo()" style="color:#fff;background:#0757b2;width:100%">+邀请新成员</a> -->
+                
+                <a href="inviteMemList.html" style="color:#fff;background:#0757b2;width:100%">+邀请新成员</a>
+            </li>
+        </ul>
+    </footer>
+
+</div>
+
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;"
+           onclick="this.parentElement.parentElement.style='display:none'">确定</a>
+    </div>
+</div>
+<div class="wx-mask">
+    <img src="./img/wx-mask.png" alt="">
+</div>
+<div class="copy-mask">
+    <div class="copy-content">
+        <h4 class="copy-title">邀请链接已复制</h4>
+        <div class="copy-text">
+            <p></p>
+        </div>
+        <a style="display:inline-block" href="weixin://"><img src="./img/copy.png" alt=""></a>
+    </div>
+</div>
+<script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../base/js/utils.js"></script>
+<script>
+    function showNo(){
+        $('.text-center').text('请前往APP查看更多功能');
+        $('.Bomb-box').show();
+        return false;
+    }
+// 关闭弹窗
+$(".close").click(function(){
+    $(".tips").hide();
+})  
+$("#trigger").click(function(){
+    $('.text-center').text('请前往APP查看更多功能');
+    $('.Bomb-box').show();
+    return false;
+})  
+$(function(){
+    
+    getAccount();
+})
+//当前用户的custno
+var userInfo =  utils.getSession(utils.userInfo);
+var currentCustNo = userInfo.custNo;
+// 判断浏览器类型
+var ua = navigator.userAgent.toLowerCase();
+function getAccount(){
+    utils.get('/sfs/v1/accounts/is-open?version=6.6',null,function(result){
+        if(result.returnCode == 0){
+            if(result.body.isOpen){
+                teamId = result.body.teamId
+                getTeam(teamId);
+            }
+        }
+    });
+}
+function getTeam(teamId){
+	utils.get('/sfs/v1/accounts/member/list?teamId='+teamId,null,function(result){
+        if(result.returnCode == 0){
+            var list = result.body;
+            var htm = '';
+            var isAdmin = false;
+            list.forEach(function(item,index){
+                if(item.custNo == currentCustNo && item.admin){
+                    isAdmin = true;
+                }
+            });
+
+            list.forEach(function(item,index){
+                var statMsg = '';
+                if(isAdmin){//当前登录的用户是管理员
+                    if(item.memberStatus == "2"){//未邀请
+                        statMsg = '<p class="five">关联现金宝账户</p>';
+                    }else if(item.memberStatus == "3"){//邀请未验证
+                        statMsg = '<p class="four">等待对方接受邀请 <span style="color:#1370fa" class="reInvite">重发</span></p>';
+                    }else{
+                        if(item.investPlanCount > 0){
+                        statMsg = '<p class="four">正在投资'+item.investPlanCount+'个计划</p>';
+                        }else{
+                            statMsg = '<p class="four">还未进行投资</p>';
+                        }
+                    }
+                    htm+='<div class="list" data-all='+JSON.stringify(item)+'><div class="img"><img src="'+item.avatarImage+'" alt=""></div><div><p class="one"><span class="name">'+
+                        item.memberRoleName+'</span><img src="img/familySet.png" alt="" data-memberid="'+item.memberId+'" class="setRole"></p><p class="two">'+
+                            item.memberNameDisplay+'</p></div><div>'+(item.admin ? '<p class="three">管理员</p>':'')+
+                        statMsg+'</div></div>';
+                }else{
+                    if(item.custNo == currentCustNo){
+                        if(item.investPlanCount > 0){
+                                statMsg = '<p class="four">正在投资'+item.investPlanCount+'个计划</p>';
+                        }else{
+                            statMsg = '<p class="four">还未进行投资</p>';
+                        }
+                        htm+='<div class="list" data-all='+JSON.stringify(item)+'><div class="img"><img src="'+item.avatarImage+'" alt=""></div><div><p class="one"><span class="name">'+
+                            item.memberRoleName+'</span><img src="img/familySet.png" alt="" data-memberid="'+item.memberId+'" class="setRole"></p><p class="two">'+
+                                item.memberNameDisplay+'</p></div><div>'+(item.admin ? '<p class="three">管理员</p>':'')+
+                            statMsg+'</div></div>';  
+                    }else{
+                        if(item.investPlanCount > 0){
+                                statMsg = '<p class="four">正在投资'+item.investPlanCount+'个计划</p>';
+                        }else{
+                            if(item.custNo){
+                                statMsg = '<p class="four">还未进行投资</p>';
+                            }
+                            
+                        }
+                        htm+='<div class="list" data-all='+JSON.stringify(item)+'><div class="img"><img src="'+item.avatarImage+'" alt=""></div><div><p class="one"><span class="name">'+
+                            item.memberRoleName+'</span></p><p class="two">'+
+                                item.memberNameDisplay+'</p></div><div>'+(item.admin ? '<p class="three">管理员</p>':'')+
+                            statMsg+'</div></div>';  
+                    }
+
+                }
+                
+                
+            });
+            $(".all").append(htm);
+            // ,
+            $(".five").click(function(){
+                var originValue=$(this).parent().parent().attr('data-all');
+                var updateInviteMember='';
+                originValue&&(updateInviteMember=JSON.parse(originValue));
+                console.log(updateInviteMember);
+                var avatarImage=updateInviteMember.avatarImage;
+                var teamMemberRole=updateInviteMember.memberRole;
+                var memberStatus=updateInviteMember.memberStatus;
+                var memberName=updateInviteMember.memberNameDisplay;
+                var memberRoleName=updateInviteMember.memberRoleName;
+                var memberId=updateInviteMember.memberId;
+                window.location.href='/tradeh5/newWap/familyAccount/inviteMember.html?avatarImage='+avatarImage+'&teamMemberRole='+teamMemberRole+'&memberStatus='+memberStatus+'&memberName='+memberName+'&memberRoleName='+memberRoleName+'&memberId='+memberId;
+                // $('.text-center').text('请前往APP查看更多功能');
+                // $('.Bomb-box').show();
+                // return false;
+            }) 
+            $(".reInvite").click(function(){
+                var data=$(this).parent().parent().parent().attr('data-all');
+                var memberId=JSON.parse(data).memberId;
+                var params={
+                    acceptMode: "MOBILE",
+                    memberId
+                }
+                utils.ajax({
+                    url: '/sfs/v1/accounts/member/invitation',
+                    type: 'POST',
+                    data: params,
+                    success: function (result) {
+                        if (result.returnCode === 0) {
+                            var inviteId=result.body.inviteId;
+                            var inviteCode=result.body.inviteCode;
+                            var domain=window.location.origin;
+                            var jumpUrl=`${domain}/mobileEC/wap/login/home_login.html?inviteCode=${inviteId}-${inviteCode}`
+                            // 微信
+                            if(ua.match(/MicroMessenger/i)=="micromessenger"){
+                                utils.setSession('__qqbOrigin','wechat');
+                                window.location.href=jumpUrl;
+                            }
+                            // 非微信
+                            else{
+                                copyUrl(jumpUrl);
+                            }   
+                        }
+                    }.bind(this)
+                })
+            })
+            $(".setRole").click(function(event){
+                var memberid = event.currentTarget.dataset.memberid;
+                window.location.href='updateMemberProfile.html?memberId='+memberid;
+            });
+            $(".main").show();
+        }
+    });
+}
+// 复制url
+function copyUrl(text){
+    var url=text;
+    var oInput = document.createElement('input');
+    oInput.value = url;
+    document.body.appendChild(oInput);
+    oInput.select(); // 选择对象
+    document.execCommand("Copy"); // 执行浏览器复制命令
+    oInput.className = 'oInput';
+    oInput.style.display='none';
+    $(".copy-text p").text(text);
+    $(".copy-mask").show();
+}
+
+
+</script>
+</body>
+</html>

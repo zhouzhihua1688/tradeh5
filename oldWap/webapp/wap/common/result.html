@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta charset="gbk">-->
+    <title>测评风险</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/riskbase.css">
+    <script type="text/javascript" src="../js/zepto.min.js"></script>
+    <script src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script src="../../basic/basic.js?20210128"></script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        }
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+                oHtml.style.fontSize = '17.06px';
+            }else if(screenWidth >= 750){
+                oHtml.style.fontSize = '40px';
+            }else{
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+            }
+        }
+    </script>
+    <style>
+    body{background:#fff}
+    
+    .tip .tip_wrap .tip_content p{font-size:0.65rem;color:#bcbcbc;text-align: left;margin-top: 1rem;}
+    .tip .tip_wrap .tip_content h4{margin-top: .5rem;text-align:left;font-size:1.4rem;color:#000;padding: 0 1.5rem 0 1.5rem;}
+    .tip .tip_wrap .tip_content h4:nth-of-type(2){color:#fb5c5f;margin-top: .4rem;}
+    .tip .tip_wrap .tip_content p{padding:0 1.5rem 0 1.5rem;font-size: .7rem;margin-top: .7rem;line-height: 1rem;margin-bottom: 0rem;}
+    /* .tip .tip_wrap .tip_content{border-bottom: 1px #eee solid;} */
+
+    .tip .tip_wrap .tip_btn ul{width:85%;height:2.2rem;margin:0 auto;margin-top:1rem;}
+
+    .tip .tip_wrap .tip_btn ul li{text-align: center;font-size: .75rem;color:#fb5c5f;width:7rem;height:2.2rem;background:#fff;border:1px solid #fb5c5f;border-radius:50px;}
+
+    .tip .tip_wrap .tip_btn ul li a{display:block;text-align: center;font-size: .75rem;width:7rem;height:2.2rem;line-height:2.2rem}
+    .tip .tip_wrap .tip_btn ul li.active{background:#fb5c5f;color:#fff;}
+    </style>
+
+</head>
+<body>
+    <div class="tip" style="display: block;">
+      <div class="tip_wrap">
+        <div class="tip_content">
+          <p>你的风险测评结果</p>
+<!--          <h4>稳健型 <span style="font-size:0.7rem;color:#bcbcbc">(普通投资者)</span></h4>-->
+            <h4 id="levelTxt"></h4>
+         <!--  <h4>（普通投资者）</h4> -->
+<!--          <p>根据适当性匹配规则，您适合投资风险等级为<span style="color:#fe5a5b;" >低风险、中低风险、中风险</span>的产品。该适当性匹配意见不表明我司对产品或服务的风险和收益作出任何实质性判断或保证。<br><span style="color:#fe5a5b;">您当前持有超出您风险承受等级的产品，请知晓相应的风险。</span></p>-->
+<!--            <p id = "riskLevelMatchesDesc"></p>-->
+
+        </div>
+        <div class="tip_btn" >
+          <ul>
+            <li style="float: left;box-sizing: border-box;" >
+			<a href="riskTest.html">重新测评</a></li>
+            <li style="float: right;box-sizing: border-box;" class="active"><a  onclick="forwordUrl()">确认</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="../js/lib/echarts.min.js"></script>
+ <script>
+     function checkAdroid(){
+         var u = navigator.userAgent;
+         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+         if(isAndroid){
+            handler.goBack(true);
+         } else {
+             window.location.href = "http://www.99fund.com?pageforward=1";
+         }
+     };
+
+    function checkWap() {
+        var forwardUrl = App.getUrlParam("forwardUrl");
+        if(App.isNotEmpty(forwardUrl)){
+			if(forwardUrl.indexOf("monthly")>-1){
+			window.location.href = App.getSession("monthly");
+			}else{
+            window.location.href = forwardUrl;
+			}
+        }else{
+            window.location.href = "../wezhan/service.html";
+        }
+    }
+    function forwordUrl(){
+
+		if(isApp()){
+			checkAdroid();
+		}else{
+			checkWap();
+		}        
+
+    }
+
+
+
+      $('.tip_btn li').click(function () {
+          if ($(this).hasClass("active")) {
+              return;
+          }
+          $(this).addClass("active").siblings().removeClass('active');
+      });
+      var result = App.getSession("riskTest");
+      // console.log("result-----"+console.log(JSON.stringify(result)));
+      var riskName = result.body.riskLevelZh;
+      // var investorTypeName = result.body.investorTypeName;
+      // var riskLevelMatchesDesc = result.body.riskLevelMatchesDesc;
+      // var levelTxt = riskName+"<span id='investorTypeName' style='font-size:0.7rem;color:#bcbcbc'>("+investorTypeName+")</span>";
+      $("#levelTxt").html(riskName);
+      // $("#riskLevelMatchesDesc").html(riskLevelMatchesDesc);
+
+ </script>   
+</body>
+</html>

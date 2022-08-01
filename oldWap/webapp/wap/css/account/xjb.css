@@ -1,0 +1,44 @@
+html{
+    background-color: #ffffff;
+}
+
+.dialog-area1{
+    margin-top: 12px;
+    margin-bottom: 12px;
+    width: 100%;
+    line-height: 20px;
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+
+.dialog-area2{
+    width: 100%;
+}
+
+.dialog-area3{
+    padding: 10px;
+    padding-left: 20px;
+    -webkit-box-align:center;
+    line-height: 30px;
+}
+
+.dialog-area4{
+    padding: 10px;
+}
+
+.dialog-area1 .left{
+    width: 50%;
+    text-align: center;
+    border-right: 1px #cccccc solid;
+}
+
+.dialog-area1 .right{
+    width: 50%;
+    text-align: center;
+}
+
+.button-area {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}

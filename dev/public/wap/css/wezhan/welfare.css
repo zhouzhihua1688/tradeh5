@@ -1,0 +1,187 @@
+@charset "utf-8";
+.main{
+	width:100%;
+	height:100%;
+	margin:0px;
+	padding:0px;
+	padding-bottom: 5rem;
+}
+.head{
+	width:100%;
+	height:5rem;
+	margin:0px;
+	padding:0px;
+	background: url(../../images/wezhan/welfare_01.png) no-repeat;
+	background-size: 100% 100%;
+	position: relative;
+}
+.head .text{
+	width:12rem;
+	height:1rem;
+	position: absolute;
+	left:50%;
+	margin-left:-4.575rem;
+	/* margin:0 auto; */
+	bottom:0.85rem;
+	color:#fff;
+	font-size: 0.65rem;
+	/* letter-spacing:0.02rem; */
+}
+.head .text .number{
+     background: #fff;
+     width:0.65rem;
+     height:0.75rem;
+     display: inline-block;
+     color:#F4333C;
+     text-align: center;
+     line-height: 0.75rem;
+     border-radius:4px;
+     font-weight: bold;
+}
+.aircle{
+	width；100%;
+	height:6.25rem;
+	background: #fff;
+}
+.aircle .first,.aircle .second,.aircle .third{
+	width:33%;
+	height:100%;
+	/* border:1px solid red; */
+	text-align: center;
+	float:left;
+}
+.aircle .first .icon,.aircle .second .icon,.aircle .third .icon{
+	width:4.15rem;
+	height:3.575rem;
+	margin:0 auto;
+	margin-top:0.65rem;
+	position:relative;
+}
+.aircle .first .icon{
+    background: url(../../images/wezhan/welfare_02.png) no-repeat;
+	background-size: 100%;
+	margin-left:1.5rem;
+}
+.aircle .second .icon{
+    background: url(../../images/wezhan/welfare_03.png) no-repeat;
+	background-size: 100%;
+	margin-left:1.5rem;
+}
+.aircle .third .icon{
+    background: url(../../images/wezhan/welfare_08.png) no-repeat;
+	background-size: 100%;
+	margin-left:1.5rem;
+}
+
+.aircle .first .icon .icon_text,.aircle .second .icon .icon_text,.aircle .third .icon .icon_text{
+    position: absolute;
+    right: 0;
+	top: 0;
+	width: 1.75rem;
+    height: .75rem;
+	background: url(../../images/wezhan/icontext.png) no-repeat no-repeat;
+	background-size: 100% 100%;
+}
+
+.aircle .first .icon .icon_text,.aircle .second .icon .icon_text,.aircle .third .icon .icon_text{
+    position: absolute;
+    right: -.4rem;
+	top: -.1rem;
+	width: 2.2rem;
+    height: .95rem;
+	line-height: .95rem;
+	text-align: center;
+    font-size: 0.5rem;
+    font-size: 0.5rem;
+    color: #fff;
+	-ms-transform-origin-x: 0;
+	-moz-transform-origin-x: 0;
+	-o-transform-origin-x: 0;
+	-webkit-transform-origin-x: 0;
+	transform: scale(0.80);
+	-ms-transform: scale(0.80);
+	-moz-transform: scale(0.80);
+	-webkit-transform: scale(0.80);
+	-o-transform: scale(0.80);
+	-webkit-transform: scale(0.80);
+}
+.first .red_text,.second .red_text{
+    width:1.625rem;
+    height:0.7rem;
+    font-size: 0.75rem;
+    color:#000;
+    line-height:1rem;
+    margin-left:2.25rem;
+    margin-top:0.5rem;
+}
+.third .red_text{
+    width:2.5rem;
+    height:0.7rem;
+    font-size: 0.75rem;
+    color:#000;
+    line-height:1rem;
+    margin-left:2rem;
+    margin-top:0.5rem;
+}
+.active{
+	width:100%;
+	height:2.25rem;
+	margin-top:0.5rem;
+	background:#fff;
+}
+.active .text{
+	height:100%;
+	font-size: 0.75rem;
+	color:#000;
+	/* font-weight: bold; */
+	line-height: 2.25rem;
+	margin-left:0.75rem;
+	float:left;
+}
+.active .much{
+	height:100%;
+	font-size: 0.65rem;
+	color:#666;
+	line-height: 2.25rem;
+	margin-right:0.75rem;
+	float:right;
+}
+.slide{
+	height:5rem;
+	width:100%;
+	background:url(../../images/wezhan/welfare_05.png) no-repeat;
+	background-size: 100% 100%;
+}
+.slide2{
+	height:5rem;
+	width:100%;
+	background:url(../../images/wezhan/welfare_06.png) no-repeat;
+	background-size: 100% 100%;
+}
+.slide3{
+	height:5rem;
+	width:100%;
+	background:url(../../images/wezhan/welfare_07.png) no-repeat;
+	background-size: 100% 100%;
+}
+.five_active{
+	width:100%;
+	height:1.65rem;
+	background: #fff;
+	border-bottom:1px solid #EEEEEE;
+}
+.active_text{
+	font-size: 0.7rem;
+	color: #000;
+	margin-left:0.75rem;
+	float: left;
+}
+.active_time{
+	font-size: 0.6rem;
+	color:#666;
+	margin-right:0.75rem;
+	float:right;
+	margin-top: .15rem;
+}
+
+    

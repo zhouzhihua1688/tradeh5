@@ -1,0 +1,464 @@
+@charset "utf-8";
+
+/* 禁用iPhone中Safari的字号自动调整,如横屏时会重新计算 */
+html {
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+input{
+	border: none;
+	outline-style: none;
+}
+
+/* 去除iPhone中默认的input样式 */
+input[type="submit"], input[type="reset"], input[type="button"], input {
+	-webkit-appearance: none;
+	resize: none;
+}
+
+/* 取消链接高亮  */
+body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* 设置HTML5元素为块 */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+/* 图片自适应 */
+img {
+	width: 100%;
+	height: auto;
+	width: auto\9; /* ie8 */
+	-ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/
+	border: none;
+}
+
+/* 初始化 */
+body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+body {
+	font: 14px 'Microsoft YaHei', Tahoma, Arial, sans-serif;
+	color: #666666;
+	background-color: #f6f6f6;
+	max-width: 750px;
+	min-width: 320px;
+	margin: 0 auto;
+}
+em, i {
+	font-style: normal;
+}
+
+.clearfix:after{
+	content:"";
+	display:block;
+	height:0;
+	visibility:hidden;
+    clear:both;
+}
+.clearfix {
+    zoom:1;
+}
+.left{
+	float: left;
+}
+.right{
+	float: right;
+}
+a{
+	text-decoration: none;
+	color: inherit;
+}
+a:hover {
+	text-decoration: none;
+}
+ul, ol {
+	list-style: none;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+	font-weight: normal;
+}
+footer{
+	position: fixed;
+	width: 100%;
+	height: 1rem;
+	left: 0;
+	bottom: 0;
+}
+footer ul li{
+	float: left;
+	width: 2.5rem;
+	text-align: center;
+	line-height: 1rem;
+	background-color: #FE7E01;
+	color: #fff;
+	border-left: 0.01rem solid rgba(255,255,255,0.6);
+	box-sizing: border-box;
+}
+footer ul li:first-of-type{
+	background-color: #fff;
+	color: #FE7E01;
+}
+.c_bank{
+	height: 1.4rem;
+	background: #fff url(../../images/account/arr.png) no-repeat 7.04rem center;
+	background-size: 0.16rem;
+	padding: 0.3rem;
+	box-sizing: border-box;
+	margin-bottom: 0.2rem;
+}
+.pic{
+	width: 0.6rem;
+	height: 0.6rem;
+	padding: 0.1rem 0;
+	margin-right: 0.2rem;
+}
+.c_bank_info{
+	width: 4rem;
+}
+.c_bank_info h3{
+	font-size:0.30rem;
+	font-family:PingFang-SC-Regular;
+	font-weight:400;
+	color:rgba(0,0,0,1);
+	line-height:1;
+	margin-bottom: 0.22rem;
+}
+.c_bank_info p{
+	font-size:0.24rem;
+	font-family:PingFang-SC-Regular;
+	font-weight:400;
+	color:rgba(102,102,102,1);
+	line-height:1;
+}
+.c_type{
+	height: 1rem;
+	line-height: 1rem;
+	border-bottom: 0.02rem solid #eee;
+	padding-left: 0.6rem;
+	background: url(../../images/account/sel.png) no-repeat left center;
+	background-size: 0.3rem;
+}
+.cash_type{
+	padding: 0 0.3rem;
+	background-color: #fff;
+	margin-bottom: 0.2rem;
+}
+.c_type h4{
+	font-size:0.30rem;
+	font-family: PingFang-SC-Regular;
+	font-weight:400;
+	color:rgba(0,0,0,1);
+	line-height:1rem;
+	float: left;
+	margin-right: 0.2rem;
+}
+.c_type p{
+	float: left;
+	font-size: 0.26rem;
+	color: #666666;
+	font-family:PingFang-SC-Regular;
+}
+.c_type span{
+	color: #FB5C5F;
+}
+.c_type i{
+	font-style: normal;
+}
+.selected{
+	background: url(../../images/account/sel2.png) no-repeat left center;
+	background-size: 0.3rem;
+}
+.cash_amount{
+	padding: 0.3rem 0.3rem 0;
+	background-color: #fff;
+	margin-bottom: 0.3rem;
+}
+.cash_amount h2{
+	font-size:0.30rem;
+	font-family:PingFang-SC-Regular;
+	font-weight:400;
+	color:rgba(0,0,0,1);
+	line-height:1;
+	margin-bottom: 0.22rem;
+}
+.input_box{
+	border-bottom: 0.02rem solid #eee;
+	background: url(../../images/account/cash_icon.png) no-repeat 0.46rem center;
+	background-size: 0.33rem;
+	height: 1.1rem;
+	padding: 0.33rem 0;
+	padding-left: 1.1rem;
+	box-sizing: border-box;
+}
+.input_box input{
+	width: 3rem;
+	line-height: 0.44rem;
+	height: 100%;
+	font-size: 0.3rem;
+	font-family: PingFang-SC-Regular;
+	color: #333;
+}
+.input_box p{
+	font-size:0.26rem;
+	font-family:PingFang-SC-Regular;
+	font-weight:400;
+	color:rgba(20,140,230,1);
+	/*line-height:20px;*/
+}
+.cash_amount h6{
+	font-size:0.26rem;
+	font-family:PingFang-SC-Regular;
+	font-weight:400;
+	color:rgba(102,102,102,1);
+	line-height: 0.8rem;
+}
+.c_rule p{
+	text-align: right;
+	font-size:0.26rem;
+	font-family:PingFang-SC-Regular;
+	font-weight:400;
+	color:rgba(20,140,230,1);
+}
+.c_rule{
+	padding: 0 0.3rem;
+	margin-bottom: 0.49rem;
+}
+.makesure a{
+	display: block;
+	width:6.90rem;
+	height:0.90rem;
+	background:rgba(254,126,1,1);
+	border-radius:0.04rem;
+	margin: auto;
+	text-align: center;
+	font-size:0.30rem;
+	font-family:PingFang-SC-Regular;
+	font-weight:400;
+	line-height: 0.9rem;
+	color:rgba(255,255,255,1);
+	margin-bottom: 0.3rem;
+}
+p.intr{
+	padding: 0 0.3rem;
+	font-size:0.24rem;
+	font-family:PingFang-SC-Regular;
+	font-weight:400;
+	color:rgba(102,102,102,1);
+	line-height:.36rem;
+}
+.loginreturn{
+	padding-top: 1.8rem;
+}
+.loginreturn h3{
+	font-size:0.32rem;
+	font-family:PingFang-SC-Regular;
+	height: 0.5rem;
+	font-weight:400;
+	color:rgba(51,51,51,1);
+	line-height:0.5rem;
+	text-align: center;
+	padding-left: 0.7rem;
+	background: url(../../images/account/icon.png) no-repeat 2.63rem center;
+	background-size: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+.loginreturn p{
+	text-align: center;
+	font-size:0.26rem;
+	font-family:PingFang-SC-Regular;
+	font-weight:400;
+	color:rgba(102,102,102,1);
+	line-height:0.52rem;
+	margin-bottom: 0.5rem;
+}
+.loginreturn a,.cash_success a{
+	display: block;
+	width:6.90rem;
+	height:0.90rem;
+	background:rgba(254,126,1,1);
+	border-radius:0.04rem;
+	margin: auto;
+	font-size:0.30rem;
+	font-family:PingFang-SC-Regular;
+	font-weight:400;
+	color:rgba(255,255,255,1);
+	text-align: center;
+	line-height: 0.9rem;
+}
+.cash_success{
+	padding: 0.6rem 0.3rem;
+}
+.process_type{
+	margin-bottom: 1.1rem;
+}
+.process_type h3{
+	padding-left: 0.8rem;
+	font-size:0.3rem;
+	font-family: PingFang-SC-Regular;
+	font-weight:400;
+	color:rgba(0,0,0,1);
+	background: url(../../images/account/sel2.png) no-repeat 0.1rem top;
+	background-size: 0.4rem;
+}
+.process_type span{
+	color: #FB5C5F;
+}
+.receive{
+	position: relative;
+}
+.receive:before{
+	content: '';
+	position: absolute;
+	width: 0.02rem;
+	height: 1.2rem;
+	background-color: #FB5C5F;
+	left: 0.28rem;
+	top: -1.2rem;
+}
+#second{
+	background: url(../../images/account/icon22.png) no-repeat 0.1rem top;
+    background-size: .4rem;
+}
+.cash_success p{
+	text-align: center;
+	font-size:0.26rem;
+	font-family:PingFang-SC-Regular;
+	font-weight:400;
+	color:rgba(102,102,102,1);
+	line-height:0.52rem;
+	margin-bottom: 0.5rem;
+}
+.alert-password-background {
+    position: absolute;
+    background-image: url(../../images/common/background-70.png);
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 640px;
+    z-index: 10;
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+
+.alert-dialog{
+    width: 240px;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+.alert-dialog .alert-title{
+    width: 100%;
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.alert-dialog .alert-subtitle{
+    width: 90%;
+    padding-bottom: 8px;
+    margin-left: 5%;
+}
+
+.alert-dialog .alert-input {
+    width: 88%;
+    margin-left: 5%;
+    border: 1px #ebebeb solid;
+}
+
+.alert-dialog .alert-button {
+    width: 100%;
+    margin-top: 9px;
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+
+.alert-dialog .alert-button .button-left{
+    width: 50%;
+    text-align: center;
+    border-top: 1px #ebebeb solid;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.alert-dialog .alert-button .button-right{
+    width: 50%;
+    text-align: center;
+    border-top: 1px #ebebeb solid;
+    border-left: 1px #ebebeb solid;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    box-sizing:border-box;
+}
+
+.button-style{
+    border: none;
+    background: none;
+    color: #2d6590;
+    width: 90%;
+    height: 100%;
+}
+
+.dialog-agreement{
+            padding-left: 8px;
+            padding-top: 5px;
+            text-decoration:underline;
+}
+
+.dialog-agreement a{
+    color: #999999;
+    font-size: 12px;
+}
+
+.takeCashNextDate{
+    font-size: 12px;
+    /* color: #ff8203; */
+}
+
+.bankitems{
+	position: relative;
+	min-height: 1.3rem;
+	padding-left: 0.3rem;
+}
+.bankitems span{
+	display: block;
+	font-size:0.22rem;
+	font-family:PingFang-SC-Regular;
+	font-weight:400;
+	color:rgba(153,153,153,1);
+	line-height:1;
+	margin-top: 0.1rem;
+}
+.banklist .active{
+	background-color: #FFF7F7;
+}
+.banklist .invalid{
+	background-color: #F6F6F6;
+}
+.bankcontent{
+	border-bottom: 0.02rem solid #eee;
+	padding: 0.3rem 0.3rem 0.3rem 0.12rem;
+	box-sizing: border-box;
+}
+/*按钮默认银联通 orange:网银  blue:通联  purple: 快捷*/
+.banklist .orange{
+	border-color: #FE7E01;
+	color: #FE7E01;
+}
+.banklist .blue{
+	border-color: #148CE6;
+	color: #148CE6;
+}
+.banklist .purple{
+	border-color: #A571FD;
+	color: #A571FD;
+}

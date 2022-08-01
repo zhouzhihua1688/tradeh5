@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组合升级</title>
+  <link rel="stylesheet" href="./css/base.css">
+  <script src="./js/baseHead.js"></script>
+
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+    .flex-row {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .flex-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .justify-start {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .justify-center {
+      display: flex;
+      justify-content: center;
+    }
+
+    .justify-end {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .justify-evenly {
+      display: flex;
+      justify-content: space-evenly;
+    }
+
+    .justify-around {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .justify-between {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .items-start {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .items-center {
+      display: flex;
+      align-items: center;
+    }
+
+    .items-end {
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .text-wrapper {
+      padding: 11px 0;
+      color: rgb(251, 92, 95);
+      font-size: 13px;
+      line-height: 13px;
+      white-space: nowrap;
+      background-color: rgb(255, 250, 199);
+    }
+
+    .text_1 {
+      margin-left: 15px;
+    }
+
+    .list-item {
+      padding-bottom: 13.5px;
+      background-color: rgb(255, 255, 255);
+      border-radius: 4px;
+    }
+
+    .top-group {
+      padding: 13.5px 15px 9px 15.5px;
+      border-bottom: solid 1px rgb(238, 238, 238);
+    }
+
+    .equal-division {
+      margin-top: 15.5px;
+    }
+
+    .right-text-wrapper {
+      padding: 0 7px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #ffffff;
+      align-self: center;
+      color: rgb(255, 255, 255);
+      font-size: 12px;
+      line-height: 25px;
+      white-space: nowrap;
+      background-color: rgb(251, 92, 95);
+      border-radius: 12.5px;
+      height: 25px;
+    }
+
+    .equal-division-item {
+
+      padding: 9.5px 0 9.5px;
+      flex: 1 1 106.5px;
+      
+      text-align: left;
+      padding-left: .75rem;
+    }
+
+    .equal-division-item_1 {
+      margin-left: 13px;
+      padding-top: 9.5px;
+      flex: 1 1 106.5px;
+    }
+
+    .equal-division-item_2 {
+      margin-left: 13px;
+      padding: 9.5px .75rem 10px 8.5px;
+      flex: 1 1 106.5px;
+    }
+
+    .top-group_1 {
+      line-height: 15px;
+      white-space: nowrap;
+    }
+
+    .bottom-group {
+      margin-top: 9.5px;
+      color: rgb(102, 102, 102);
+      font-size: 12px;
+      line-height: 12.5px;
+      white-space: nowrap;
+    }
+
+    .text_10 {
+      margin-right: 2.5px;
+    }
+
+    .text_12 {
+      color: rgb(102, 102, 102);
+      font-size: 12px;
+      line-height: 11.5px;
+      white-space: nowrap;
+    }
+
+    .text_14 {
+      margin-top: 18.5px;
+      color: rgb(0, 0, 0);
+      font-size: 16px;
+      line-height: 14px;
+      white-space: nowrap;
+    }
+
+    .text_16 {
+      color: rgb(102, 102, 102);
+      font-size: 12px;
+      line-height: 11.5px;
+      white-space: nowrap;
+    }
+
+    .text_18 {
+      margin-top: 10.5px;
+      color: rgb(244, 51, 60);
+      font-size: 16px;
+      line-height: 14px;
+      white-space: nowrap;
+    }
+
+    .bottom-group_1 {
+      margin-top: 5.5px;
+      line-height: 11px;
+      white-space: nowrap;
+    }
+
+    .text_24 {
+      color: rgb(102, 102, 102);
+      font-size: 12px;
+      line-height: 11.5px;
+      white-space: nowrap;
+    }
+
+    .text_26 {
+      margin-top: 20px;
+      color: rgb(244, 51, 60);
+      font-size: 16px;
+      line-height: 12px;
+      white-space: nowrap;
+    }
+
+    .text_3 {
+      color: rgb(0, 0, 0);
+      font-size: 16px;
+      line-height: 15.5px;
+    }
+
+    .text_5 {
+      color: rgb(102, 102, 102);
+      font-size: 13px;
+      line-height: 10px;
+    }
+
+    .text_8 {
+      margin-right: 8.5px;
+      margin-bottom: 1.5px;
+    }
+
+    .text_20 {
+      color: rgb(244, 51, 60);
+      font-size: 12px;
+      line-height: 11.5px;
+    }
+
+    .text_22 {
+      color: rgb(244, 51, 60);
+      font-size: 12px;
+      line-height: 11.5px;
+    }
+
+    .group_2 {
+      padding: 12px 15px;
+    }
+
+    .text_2 {
+      color: rgb(102, 102, 102);
+      font-size: 14px;
+      line-height: 13.5px;
+      white-space: nowrap;
+    }
+
+    .list {
+      margin-top: 10px;
+    }
+
+    .list-item:not(:first-of-type) {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" v-cloak>
+    <div class="flex-col text-wrapper" style="flex-direction: row; justify-content: space-between;">
+      <!-- 9584 升级页活动包和投顾主页活动包调整点 #2  -->
+      <!-- <span class="text_1">{{beforeDeadline}}前升级，升级资产免投顾费</span> -->
+      <!-- <span class="text_1">升级资产可享投顾费全免</span> -->
+      <a href="https://activity.99fund.com/activity-center/act-resources/pages/shengjiQA202112/index.html" style="margin: 0 .75rem; color: #148ce6;">升级常见问题></a>
+    </div>
+    <div class="flex-col group_2">
+      <span class="text_2">以下组合可升级为投顾服务</span>
+      <div class="flex-col list">
+        <div class="list-item flex-col" :key="i" v-for="(item, i) in fundLists">
+          <div class="top-group justify-between">
+            <div class="flex-col">
+              <div class="top-group_1">
+                <span class="text_3">{{item.productName}} </span>
+                <span class="text_5">{{item.productId}}</span>
+              </div>
+              <div class="bottom-group flex-row">
+                <!-- <span>最新持仓涨跌 ({{item.yieldDate}})</span> -->
+                <!-- <span class="text_8">{{' '+item.Latestrisefall}}</span> -->
+                <span>{{item.subTitle}}</span>
+              </div>
+            </div>
+            <div class="right-text-wrapper flex-col items-end">
+              <span class="text_10" @click=upgradeSingle(item,programme)>立即升级</span>
+            </div>
+          </div>
+          <div class="equal-division flex-row">
+            <div class="equal-division-item flex-col ">
+              <span class="text_12">持有金额(元)</span>
+              <span class="text_14">{{item.marketValue}}</span>
+            </div>
+            <div class="equal-division-item_1 flex-col items-center">
+              <span class="text_16">持有收益</span>
+              <span class="text_18" :style="'color:' + (item.balanceProfit==0?'#000':(item.balanceProfit>0?'#f4333c':'#159848'))">{{item.balanceProfit}}</span>
+              <div class="bottom-group_1">
+                <!-- <span class="text_20"></span> -->
+                <span class="text_22" :style="'color:' + (item.balanceProfit==0?'#000':(item.balanceProfit>0?'#f4333c':'#159848'))">({{(Number(item.balanceYield)*100).toFixed(2)+'%'}})</span>
+              </div>
+            </div>
+            <div class="equal-division-item_2 flex-col items-end">
+              <span class="text_24">最新收益({{item.yieldDate | dateFormat}})</span>
+              <span class="text_26" :style="'color:' + (item.lastProfit==0?'#000':(item.lastProfit>0?'#f4333c':'#159848'))">{{Number(item.lastProfit).toFixed(2)}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="./js/jquery-3.2.1.min.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/vue.min.js"></script>
+  <!-- <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.14/vue.js"></script> -->
+  <script src="./js/combUpgrade.js"></script>
+</body>
+
+</html>

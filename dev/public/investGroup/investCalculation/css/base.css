@@ -1,0 +1,166 @@
+@charset "utf-8";
+
+/* 禁用iPhone中Safari的字号自动调整,如横屏时会重新计算 */
+html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+input {
+    border: none;
+    outline-style: none;
+}
+
+/* 去除iPhone中默认的input样式 */
+input[type="submit"], input[type="reset"], input[type="button"], input {
+    -webkit-appearance: none;
+    resize: none;
+}
+
+/* 取消链接高亮  */
+body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* 设置HTML5元素为块 */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+/* 图片自适应 */
+img {
+    width: 100%;
+    height: auto;
+    width: auto \9; /* ie8 */
+    -ms-interpolation-mode: bicubic; /*为了照顾ie图片缩放失真*/
+    border: none;
+}
+
+/* 初始化 */
+body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+/*body {  font: 14px 'Microsoft YaHei', Tahoma, Arial, sans-serif;  color: #666666;  background-color: #f6f6f6;   margin: 0 auto;  }*/
+body {
+    font-size: 14px;
+    color: #666666;
+    background-color: #f6f6f6;
+    margin: 0 auto;
+    font-family: "PingFang SC", "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
+
+em, i {
+    font-style: normal;
+}
+
+.clearfix:after {
+    content: "";
+    display: block;
+    visibility: hidden;
+    height: 0;
+    clear: both;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+select:focus {
+    outline: none;
+}
+
+/*公共样式*/
+body {
+    color: #fff;
+    max-width: 750px;
+    margin: 0 auto;
+    background-color:#f6f6f6;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+.mian {
+    padding: 1rem .875rem 3rem .875rem;
+}
+
+.content {
+    overflow: hidden;
+}
+
+.content a {
+    display: block;
+}
+.content a:nth-of-type(1){
+    float: left;
+}
+.content a:nth-of-type(2){
+    float: right;
+}
+.content a > img {
+    width:8.1rem ;
+    height: 8.35rem;
+}
+.content1,.content2{
+    margin-bottom: .5rem;
+}
+.footer{
+    position: fixed;
+    bottom: .75rem;
+    left: .75rem;
+    width: 17.25rem;
+    height: 3.8rem;
+    background: url(../img/footer.png) no-repeat;
+    background-size: 100% 100%;
+    z-index: 10;
+}
+.footer a{
+    position: absolute;
+    right: 0.75rem;
+    top: 1.25rem;
+    width: 2.5rem;
+    height: 1.25rem;
+    z-index: 11;
+}
+.layout {
+    display: none;
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    width: 70px;
+    height: 70px;
+    z-index: 1001;
+    text-align:center;
+    border-radius: 5px;
+}

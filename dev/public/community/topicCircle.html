@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>基金热聊</title>
+    <link rel="stylesheet" href="../base/css/base.css">
+    <link rel="stylesheet" href="../base/css/common.css">
+    <link rel="stylesheet" href="./css/mint.css">
+    <link rel="stylesheet" href="./css/neplayer.min.css">
+    <link rel="stylesheet" href="./css/swiper-4.2.2.min.css">
+    <link rel="stylesheet" href="./css/topicCircle.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+</head>
+
+<body>
+    <div id="app" style="overflow:scroll;height:100vh;position:relative" >
+        <div class="shareDiv" v-if='isShare'>
+            <a class="share" href="shareAct?eventCode=COMMUNITY_FUND_CIRCLE_FX&eventId=ALL">分享</a>
+        </div>
+        <div class="topBanner">
+        </div>
+        <div class="info">
+            <div class="infoLeft">精选讨论区</div>
+            <!-- <div class="infoRight">查看全部</div> -->
+        </div>
+
+        <div class="content">
+
+        </div>
+        <div style="background-color: #fff;padding: .65rem;font-weight: bold;">全部动态</div>
+        <!-- <post :list='msgAllData'></post> -->
+        <post :url='postUrl' ref="post"></post>
+
+    </div>
+    <script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+    <script src="./js/moment.min.js"></script>
+    <script src="./js/mint.js"></script>
+    <script src="./js/neplayer.min.js"></script>
+    <script src="../base/js/lib/swiper-4.2.2.min.js"></script>
+    <script src="./components/post2.js"></script>
+    <script src="./js/wxShare.js"></script>
+    <script>
+        showList()
+        function showList(){
+            utils.get('/sfs/api/v1/bbs/product?pageNum=1&pageSize=3',null,function(res){
+                var body = res.body;
+                if(body){
+
+                    var htm1 = '';
+                    var productList = body.rows;
+                    console.log("22222")
+                    console.log(productList)
+                    if(productList){
+                        productList.forEach(function(item,index){
+                        // isplus取值及对应关系  0:green   1:red   2:grey
+                        var numLable = String(item.yieldNumDisplay!=null?item.yieldNumDisplay:'--');
+                        var isplus = (/^\+\d+/.test(numLable)?1:(/^\-\d+/.test(numLable)?0:2));
+                        // var isplus = String(item.yieldNumDisplay).indexOf('-') > -1 ? 0 : (String(item.yieldNumDisplay).indexOf('+') > -1 ? 1 : 2);
+                        htm1+='<div class="item ">'
+                        +'<div class="itemLeft '+(isplus==1 ? 'red' : (isplus==0 ? 'green' : 'grey'))+'"><span class="leftRate">' + 
+                            (isplus==1 ? '+' : (isplus==0 ? '-': '')) + (numLable=='--'?numLable:numLable.replace(/^(\+|\-)/,''))+'</span><span class="leftDate">'+
+                            (item.yieldCopyWrite?item.yieldCopyWrite:'更新中')+'</span>'
+                        +'</div>'
+                        +'<div class="itemRight" data="'+item.productId+'"><span class="rightTitle">'+item.title+'</span><span  class="rightContent">'+(item.lastPostContent?item.lastPostContent:'')+'</span></div>'
+                        +'</div>';
+                        });
+                    }else{
+                        htm1 = '<div style="text-align:center">暂无内容</div>';  
+                    }
+
+                    $(".content").html(htm1);
+                    $(".itemRight").click(function(){
+                        if(isApp()){
+                            window.location.href = 'htffundxjb://action?type=url&link=' + btoa(location.origin + '/tradeh5/newWap/community/topicDetailList.html?productId=' + $(this).attr('data'));
+                        }else{
+                            window.location.href = location.origin + '/tradeh5/newWap/community/topicDetailList.html?productId=' +  $(this).attr('data');
+                        }
+                    });
+                }
+            });
+        }
+
+        
+        if(utils.isWeixin()){
+            wxShare('COMMUNITY_FUND_CIRCLE_FX','ALL');
+        }
+
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    msgAllData: [],
+                    userInfo: '',
+                    allLoaded: false,
+                    popupVisible: false,
+                    userAgent: navigator.userAgent,
+                    // 上拉加载
+                    pageSize: 10,
+                    pageNum: 1,
+                    // share
+                    isShare: false,
+
+                    postUrl: '/sfs/api/v1/post/product',
+                }
+            },
+            mounted: function () {
+                this.isShare=isApp()?true:false;  
+                $(".infoRight").click(function(){
+                    if(isApp()){
+                            window.location.href = 'htffundxjb://action?type=url&link=' + btoa(location.origin + '/tradeh5/newWap/community/allFundList.html');
+                    }else{
+                        window.location.href = location.origin + '/tradeh5/newWap/community/allFundList.html';
+                    }
+                });
+            },
+            created() {
+                // this.getMsgList(true);
+            },
+            methods: {
+                // 点赞
+                thumb(item) {
+                    var params={
+                        itemId: item.postId,
+                        status:1
+                    }
+                    console.log(params);
+                    // return;
+                    utils.ajax({
+                        url: "/sfs/api/v1/thumb/topic",
+                        type:'POST',
+                        data:params,
+                        success: function (result) {
+                            this.getMsgList(true);
+                        }.bind(this)
+                    });
+                },
+                newComment(item) {
+                    var params={
+                        id: item.postId,
+                        itemId: item.postId,
+                        itemType: "2",
+                        userAgent: this.userAgent,
+                        userIp: this.userIp
+                    }
+                    console.log(params);
+                    // return;
+                    utils.ajax({
+                        url: "/sfs/api/v1/comment",
+                        type:'POST',
+                        data:params,
+                        success: function (result) {
+                            this.getMsgList(true);
+                        }.bind(this)
+                    });
+
+                },
+                getMsgList(flag, flag2) {
+                    utils.ajax({
+                        url: "/sfs/api/v1/post/product",
+                        data: { pageNum: this.pageNum, pageSize: this.pageSize },
+                        success: function (result) {
+                            if (flag) {
+                                this.msgAllData = result.body;
+                                // this.$refs.loadmore.onTopLoaded();
+                                this.allLoaded = false;
+                            }
+                            if (flag2) {
+                                if (result.body.length === 0) {
+                                    this.allLoaded = true;// 若数据已全部获取完毕
+                                    this.$refs.loadmore.onBottomLoaded();
+                                }
+                                this.msgAllData = this.msgAllData.concat(result.body);
+                            }
+                            this.msgAllData.forEach((item) => {
+                                item.currentComment = '';
+                            })
+                        }.bind(this)
+                    });
+                },
+               
+            }
+        })
+    </script>
+</body>
+
+</html>

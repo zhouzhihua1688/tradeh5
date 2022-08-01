@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>话题广场</title>
+    <link rel="stylesheet" href="../base/css/base.css">
+    <link rel="stylesheet" href="./css/topicPub.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="search-box" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 300ms; transform: translate(0px, 0px) translateZ(0px);"><form class="search-form">
+            <img src="./img/Rectangle4.png" alt="" style="width: 0.65rem; height: 0.65rem; margin-left: 0.75rem;" @click='keyword=""'> 
+            <input type="text" style="padding:0;outline-style: none;" placeholder="搜索话题" class="search" v-model.trim.lazy='keyword'></form>
+        </div>
+        <div class="content allList" style="display: block;">
+            <div id="menu">                
+
+            </div>
+            <div id="right">
+                
+            </div>
+
+        </div>
+        <div class="content searchList" style="display: none;">
+            <div id="search">
+              
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+    <script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+    <script>
+    new Vue({
+    el: '#app',
+    data: {
+         keyword: '', //search
+    },
+    watch: {
+         keyword() {
+            showTopic('',this.keyword);             
+         }
+     },
+    });
+ 
+    showCategory();
+    showTopic('','');
+    //话题分类接口
+    function showCategory(){
+        var url = '';
+        var data = {};
+
+        utils.post('/sfs/api/v1/category/list',JSON.stringify(data),function(res){
+
+            var menuList = res.body;
+            var htm = '<div class="menuItem current" data="">全部</div>';
+            menuList.forEach(function(item,index){
+                
+                htm+= '<div class="menuItem" data="'+item.id+'">'+item.name+'</div>';                
+                
+            });
+            $("#menu").html(htm);
+            $(".menuItem").click(function(){
+                $(this).siblings().removeClass("current");
+                $(this).addClass("current");
+                showTopic($(this).attr('data'),'');
+            });
+        });
+    }
+    //话题列表
+    function showTopic(categoryId,words){
+        var url = '/sfs/api/v1/topic/list';
+        var data = {};
+        if(categoryId){
+            data.categoryId = categoryId;
+        }
+        if(words){
+            data.topicName = words;
+        }
+        utils.post(url,JSON.stringify(data),function(res){
+
+            var contentList = res.body.rows;
+            var htm = '';
+            contentList.forEach(function(item,index){
+                
+                htm+= '<div class="contentList">'+
+                    '<div class="itemTitle" data="'+item.id+'">'+ item.name +'</div>'+
+                    '<div class="itemBottom"><span>浏览'+ item.viewCount +'</span><span style="padding: .5rem;">讨论'+ item.postCount +'</span>  </div>'+
+                    '</div>';                
+                
+            });
+            if(words){
+                $(".allList").hide();
+                $(".searchList").show();
+                $("#search").html(htm);
+            }else{                
+                $(".searchList").hide();
+                $(".allList").show();
+                $("#right").html(htm);
+            }
+            $(".itemTitle").click(function(){
+                if(isApp()){
+                    window.location.href = 'htffundxjb://action?type=url&link='+btoa(location.origin+'/tradeh5/newWap/community/topicDetail.html?topicId='+$(this).attr('data'));
+                }else{
+                    window.location.href = location.origin+'/tradeh5/newWap/community/topicDetail.html?topicId='+$(this).attr('data')
+                }
+            });
+        });
+    }
+    //格式化浏览数 讨论数
+    function showCount(num){
+        str = '';
+        if(num > 10000){
+
+        }else{
+
+        }
+        return str;
+    }
+
+    </script>
+</body>
+
+</html>

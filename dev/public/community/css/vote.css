@@ -1,0 +1,158 @@
+/*
+* @Author: mazhuo
+* @Date:   2021-09-08 13:41:22
+* @Last Modified by:   mazhuo
+* @Last Modified time: 2021-09-28 14:56:34
+*/
+
+/* 单选未选择 */
+.vote{width:100%;height:2.5rem;display: flex;justify-content: space-between;align-items: center;}
+.vote .first{width:6.75rem;height:2rem;background: url('../img/redLeft.png') no-repeat;background-size: 100% 100%;
+ margin-left:1.75rem;text-align: center;line-height: 2rem}
+.vote .vs{width:1.25rem;height:0.7rem;background: url('../img/vs.png') no-repeat;background-size: 100% 100%;margin:0 0.25rem;}
+.vote .second{width:6.75rem;height:2rem;background: url('../img/blueRight.png') no-repeat;background-size: 100% 100%;
+ margin-right:1.75rem;text-align: center;line-height: 2rem}
+.vote div .buy{font-size:0.75rem;text-align: center;display:block;color:#fff;}
+.vote div .nobuy{font-size:0.75rem;text-align: center;display:block;color:#fff;}
+
+.vote .first .bar{width:5rem;height:0.5rem;background: #fff;display: inline-block;margin-left:0.75rem;border-radius:1.25rem;}
+.vote .second .bar{width:5rem;height:0.5rem;background: #fff;display: inline-block;border-radius:1.25rem;}
+.vote .bar .tiao{
+ width:0px;height:0.5rem; 
+ background:#f3d0d0;
+ text-align:center;
+ border-radius:1.25rem;
+}
+.vote .first .number{display: inline-block;color:#fff;}
+.vote .second .number{display: inline-block;color:#fff;margin-left:0.75rem;}
+
+/* 单选已选择 */
+.choiceVote{width:100%;padding:0.5rem 0rem;}
+.selectTip{width:100%;display: flex;justify-content: space-between;align-items: center;font-size:0.75rem}
+.selectTip div{width:50%;padding:0 0.75rem;font-size:0.75rem;color:#148ce6;}
+.selectTip div:nth-of-type(2){text-align:right}
+.selectTip div.active{color:#fb5c5f}
+.select{width:100%;height:1.75rem;display: flex;justify-content: space-between;align-items: center;font-size:0.75rem}
+.select .first{width:20%;margin-left:0.75rem;color:#fb5c5f;font-weight:bold;
+	/* text-indent:0.5rem */
+}
+.select .second{width:100%;display: flex;justify-content: space-between;align-items: center;border-radius:50px;background:#fff;}
+.select .second .left{
+    width:0%;
+    /* height:0.5rem;  */
+    /* margin: 0 auto; */
+    border-left:0.75rem solid transparent;
+    border-right:1rem solid #fb5c5f;
+    border-bottom:0.75rem solid ;
+    color: #fb5c5f;
+    border-radius: 50px 100px 100px 0px;
+    transform: rotate(-180deg);
+    margin-left:0.5rem;
+}
+.select .second .right{width:0%;
+    border-left:0.75rem solid transparent;
+    border-right:1rem solid #148ce6;
+    border-bottom:0.75rem solid ;
+    color: #148ce6;
+    border-radius: 50px 100px 100px 0px;
+    margin-left: -0.45rem;
+    transform: rotate(360deg);
+    /* margin-left: 0.05rem; */
+}
+.select .four{width:20%;text-align:center;
+    margin-right:0.75rem;color:#148ce6;font-weight:bold;padding-left:0.5rem;}
+
+
+
+/* 多选投票样式 */
+.moreSelect{width:17.25rem;margin:0 auto;background: #f6f6f6;padding:0.75rem 0;border-radius:3px}
+.moreSelect .list{width:16.0rem;height:1.75rem;text-align:center;line-height:1.75rem;background: #FFF;margin:0 auto;border:1px solid #ccc;
+    margin-top: 0.5rem;border-radius: 5px;color: #148ce6;font-size: 0.75rem;position: relative;
+}
+.moreSelect .list.remoActive{width:16.0rem;height:1.75rem;text-align:center;line-height:1.75rem;background: #FFF;margin:0 auto;border:1px solid #ccc;
+    margin-top: 0.5rem;border-radius: 5px;color: #148ce6;font-size: 0.75rem;position: relative;
+}
+.moreSelect .list.moreActive{width:16.0rem;height:1.75rem;text-align:center;line-height:1.75rem;background: #FFF;margin:0 auto;border:1px solid #fb5c5f;
+    margin-top: 0.5rem;border-radius: 5px;color: #fb5c5f;font-size: 0.75rem}
+
+.moreSelect .list .text{position: absolute;top:0;left:50%;margin-left:-1rem;}
+
+.moreSelect .tick{width:90%;position: absolute;top:0;left:0.75rem;display: flex;justify-content: space-between;align-items: center;} 
+
+.moreSelect .confirm{width: 10.0rem;height: 1.75rem;background:#fececf;color:#fff;font-size: 0.75rem;border:none;border-radius: 1.25rem;margin:0 auto;text-align:center;line-height:1.75rem;margin-top:0.75rem;}
+.moreSelect .confirmActive{width: 10.0rem;height: 1.75rem;background:#fb5c5f;color:#fff;font-size: 0.75rem;border:none;border-radius: 1.25rem}
+
+.moreSelect .list .tiao.grey{width:0px; height:1.75rem; background:#eee; text-align:center;}
+
+.moreSelect .list .tiao.red{width:0px;height:1.75rem; background:#ffefef; text-align:center; }
+
+
+
+
+
+ /* 底部弹窗    */
+/* 浮层 */
+.layer0 { background-color: #ffffff; height: 100%; width: 100%; position: fixed;left:0; overflow: auto;z-index: 10;}
+.layer0{
+    /* background-color: #4c4c4c; */
+
+   /*  background: rgba(0, 0, 0, 0);
+    height:auto;
+    width:17.75rem;
+    position: fixed;
+    bottom: 0;
+    left:50%;
+    overflow: auto;
+    z-index:99999999;
+    margin-left:-8.875rem;
+    border-radius:10px; */
+
+    position: fixed;
+    top: 0;
+    left:50%;
+    background-color: rgba(0,0,0,0.5);
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    font-size: 0.6rem;
+    z-index: 999;
+    bottom: 0px;
+    margin-left:-9.35rem;
+   }
+
+/* .mask {
+    width: 100%;
+    height:160%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .7);
+    display: none;
+    z-index:99999999;
+} */
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@keyframes slideInDown{
+    0%{opacity:0;-webkit-transform:translateY(-2000px);-ms-transform:translateY(-2000px);transform:translateY(-2000px)}
+    100%{-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}}
+ 
+@keyframes slideInUp{
+    0%{opacity:0;-webkit-transform:translateY(60%);-ms-transform:translateY(60%);transform:translateY(60%)}
+    100%{-webkit-transform:translateY(0%);-ms-transform:translateY(0%);transform:translateY(0%)}}    
+.slideInDown{-webkit-animation-name:slideInDown;animation-name:slideInDown}
+.slideInUp{-webkit-animation-name:slideInUp;animation-name:slideInUp;}
+.slideInUp .giftlist .noTips{height:2rem;text-align:center;line-height: 2rem;font-size:0.85rem;color:#148ce6;}
+.slideInUp .giftlist ul {overflow-y: auto;padding-bottom: 2.5rem;height:19rem;}
+.slideInUp .giftlist ul li{height:2.5rem;line-height: 2.5rem;text-align: center;padding: 0 .75rem;font-size: .6rem;overflow: hidden;}
+.slideInUp .giftlist ul li span{display: inline-block;color:#666;}
+.slideInUp .giftlist ul li .circle{width: .8rem; height: .8rem; vertical-align: middle; border-radius: 50%; margin-top: .8rem; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -o-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box;}
+.slideInUp .giftlist .noTips{height:3rem;line-height:3rem;border-bottom:1px solid #eee;background: #fff;}
+.slideInUp .giftlist :last-child .noTips{border-radius:10px;}
+.layer0 .close{height:3rem;line-height:3rem;margin-top:0.5rem;text-align:center;background: #fff;border-radius: 10px;margin-bottom: 1rem;}
+
+.slideInUp .close_button{width:100%;height:2.5rem;border-top: 1px #fb5c5f solid;color:#fb5c5f;font-size: .75rem;text-align: center;line-height: 2.5rem;position: fixed;bottom:30%;z-index: 10;background: #fff;}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>注册成功</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <style type="text/css">
+        /* reset css */
+        *{ margin: 0; padding: 0;}
+
+        body{ background-color: #f0f0f0;color: #666; }
+        ul, ol, dl{ list-style: none;}
+        em, i{ font-style: normal;}
+        input{ border: 0;}
+        img{ display: block;max-width: 100%;height: auto;}
+        a{ text-decoration: none;}
+
+        .wrap{
+            padding: 25% 5% 5%;
+        }
+        .wrap-top{
+            text-align: center;
+            margin-bottom: 1em;
+        }
+        .wrap-top img{
+            display: inline-block;
+            width: 9%;
+            vertical-align: bottom;
+
+        }
+        .wrap-top span{
+            display: inline-block;
+            font-size: 1.2em;
+            line-height: 1.8em;
+            color: #333;
+            margin-left: 5px;
+        }
+        .wrap p{
+            font-size: 0.9em;
+            line-height: 1.5em;
+            text-align: center;
+        }
+        .wrap-bottom{
+            width: 100%;
+            margin: 2em auto;
+        }
+        .wrap-bottom a{
+            width: 100%;
+            height: 3em;
+            line-height: 3em;
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.9em;
+            outline: none;
+            -webkit-tap-highlight-color:transparent;
+        }
+        .btn-border{
+            border: 1px solid #fe7e01;
+            color: #fff;
+            border-radius: 4px;
+            float: left;
+            background-color: #fe7e01;
+        }
+        .btn-background {
+            float: right;
+            border: 1px solid #fe7e01;
+            background-color:#fe7e01;
+            color: #fff;
+            border-radius: 4px;
+        }
+        .title-p {color: #8D9594;}
+        .title-p a{color: #2A8EFF;}
+	</style>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+</head>
+<body>
+    <h3 class="title">成功</h3>
+    <div class="wrap">
+        <div class="wrap-top">
+            <img src="img/icon4.png" alt="icon4">
+            <span>注册成功！</span>
+        </div>
+
+        <p class="title-p" style="margin-top: 30px">您已获得汇添富赠送添富币奖励,</p>
+        <p class="title-p">请<a href="http://www.99fund.com/m_weixin.htm">下载现金宝App</a>,至"我的"-"我的添富币"页面查看</p>
+
+        <div class="wrap-bottom">
+            <a href="http://www.99fund.com/m_weixin.htm" class="btn-border">下载App领取</a>
+            <!--<a href="javascript:;" class="btn-background" id="confirm_main">添加银行卡</a>-->
+        </div>
+        <div style="position: absolute; bottom: 2rem;">
+            <p style="font-size: 0.9em;line-height: 1.5em;color: #9BA4A3;text-align: center;">注: 最终添富币领取数量请以现金宝App页面展示为准。</p>
+        </div>
+    </div>
+
+    <div class="mask"></div><!--透明背景层-->
+    <!-- <script src="js/zepto.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            /* 输入密码弹出框js */
+            $("#cancel_modal").on("click",function(){
+                $("#modal").css("display","none");
+                $("body").css("overflow", "auto");
+                $("div.mask").hide();
+            });
+            /* 点击ID为confirm_main的按钮弹出输入密码框 */
+            $("#confirm_main").on("click",function(){
+                $("#modal").css("display","block");
+                $("body").css("overflow", "hidden");
+                $("div.mask").show();
+            });
+            /* 点击输入框出X号 */
+            var bind_name="input";//定义所要绑定的事件名称
+            if(navigator.userAgent.indexOf("MSIE")!=-1){
+                bind_name="propertychange";//判断是否为IE内核 IE内核的事件名称要改为propertychange
+            }
+            $(".modal-input input").on(bind_name,function(){
+                $(this).siblings('.error').css("display","block");
+                if($(this).val() == ""){
+                    $(this).next().css("display","none");
+                }
+            });
+            $(".modal-input .error").on("click",function(){
+                $(this).css("display","none").siblings('input').val('').focus();
+            });
+        })
+    </script> -->
+</body>
+</html>

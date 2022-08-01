@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资产管理</title>
+    <link rel="stylesheet" href="./css/base-a.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        };
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+</head>
+<body>
+    <section class="content1">
+        <ul class="clearfix border tab1">
+            <li class="active"><a>现金宝</a></li>
+            <li><a>基金</a></li>
+            <li><a>组合</a></li>
+            <li><a>资管</a></li>
+        </ul>
+        <!-- 现金宝 -->
+        <div class="cashCoin">
+            <div class="content">
+                <!-- <div class="card">
+                <h4 class="title">现金宝资产(元)</h4>
+                <h2 class="sum">61806,025.02</h2>
+                <div class="desc">
+                    <div class="text-left">
+                        <p>万份收益(元)</p>
+                        <p>0.6638</p>
+                    </div>
+                    <div class="text-center">
+                        <p>昨日收益(06.18)</p>
+                        <p>3.56</p>
+                    </div>
+                    <div class="text-right">
+                        <p>累计收益(元)</p>
+                        <p>2893.6</p>
+                    </div>
+                </div>
+            </div> -->
+            <!-- <div class="echart-title clearfix">
+                <div class="text-l fl">
+                    <p><span>汇添富现金宝货币A</span>000300</p>
+                    <p>七日年化收益率(％)</p>
+                </div>
+                <a href="javascript:;" class="text-r fr">查看详情</a>
+            </div> -->
+            </div>
+            
+            <div class="echart-list" id="pie">
+
+            </div>
+            <ul class="translate-table text-center">
+                <li class="translate-active" data-day="7">7天</li>
+                <li data-day="30">1个月</li>
+                <li data-day="60">2个月</li>
+            </ul>
+        </div>
+        <!-- 基金 -->
+        <div class="fund" style="display:none">
+            <!-- <div class="card">
+                <h4 class="title">总资产</h4>
+                <i class="currency"></i>
+                <h2 class="sum">23,658,001.000</h2>
+                <div class="desc1">
+                    <div class="text-left">
+                        <p>最新收益(08-24)</p>
+                        <p>322,569.00</p>
+                    </div>
+                    <div class="text-left">
+                        <p>累计收益</p>
+                        <p>322,569.00</p>
+                    </div>
+                </div>
+            </div> -->
+            <!-- <div class="fund-sort clearfix">
+                <p class="fl">持有基金</p>
+                <div class="select-btn fr">
+                    <span>按类型排序</span>
+                    <img src="./img/select.png" alt="">
+                </div>
+            </div> -->
+            <!-- <div class="view-list">
+                <!-- <div class="combination-list">
+                    <h4><img src="./img/icon.png">定期组合</h4>
+                    <div class="content">
+                        <div class="content-t">
+                            <div class="content-t-l">
+                                <p class="text1">稳稳小确幸定期组合 <span>A0081</span></p>
+                                <p class="text2">最新持仓涨跌(09-18） 0.12%</p>
+                            </div>
+                            <img src="./img/arrow.png" alt="">
+                        </div>
+                        <div class="content-b">
+                            <div class="text-left">
+                                <p>持有金额(元)</p>
+                                <p class="black">345,789.00</p>
+                            </div>
+                            <div class="text-center">
+                                <p>最新收益(08-29)</p>
+                                <p class="red">589.00</p>
+                            </div>
+                            <div class="text-right">
+                                <p>累计收益</p>
+                                <p class="red">2,266.00</p>
+                            </div>
+                        </div>
+                        <p class="status status-red">分红中</p>
+                    </div>
+                </div> -->
+                <!-- <div class="noData">
+                    <img src="./img/lost.png" alt="">
+                    <p class="text">暂无美元资产</p>
+                </div>
+            </div> -->
+        </div>
+        <!-- 组合 -->
+        <div class="combination" style="display:none">
+            <!-- <div class="card">
+                <h4 class="title">总资产</h4>
+                <h2 class="sum">23,658,001.000</h2>
+                <div class="desc1">
+                    <div class="text-left">
+                        <p>最新收益(08-24)</p>
+                        <p>322,569.00</p>
+                    </div>
+                    <div class="text-left">
+                        <p>累计收益</p>
+                        <p>322,569.00</p>
+                    </div>
+                </div>
+            </div>
+            <div class="view-list">
+                <!-- <div class="combination-list">
+                    <h4><img src="./img/icon.png">定期组合</h4>
+                    <div class="content">
+                        <div class="content-t">
+                            <div class="content-t-l">
+                                <p class="text1">稳稳小确幸定期组合 <span>A0081</span></p>
+                                <p class="text2">最新持仓涨跌(09-18） 0.12%</p>
+                            </div>
+                            <img src="./img/arrow.png" alt="">
+                        </div>
+                        <div class="content-b">
+                            <div class="text-left">
+                                <p>持有金额(元)</p>
+                                <p class="black">345,789.00</p>
+                            </div>
+                            <div class="text-center">
+                                <p>最新收益(08-29)</p>
+                                <p class="red">589.00</p>
+                            </div>
+                            <div class="text-right">
+                                <p>累计收益</p>
+                                <p class="red">2,266.00</p>
+                            </div>
+                        </div>
+                        <p class="status-red">分红中</p>
+                    </div>
+                </div> -->
+                <!-- <div class="noData">
+                    <img src="./img/lost.png" alt="">
+                    <p class="text">暂无美元资产</p>
+                </div> -->
+            <!-- </div>  -->
+        </div>
+        <!-- 资产 -->
+        <div class="asset" style="display:none">
+            <!-- <div class="card">
+                <h4 class="title">总资产</h4>
+                <h2 class="sum">23,658,001.000</h2>
+                <div class="desc1">
+                    <div class="text-left">
+                        <p>持有收益</p><img src="./img/icon-th.png" alt="" />
+                        <p>322,569.00</p>
+                    </div>
+                    <div class="text-left">
+                        <p>最新收益(05.16)</p>
+                        <p>322,569.00</p>
+                    </div>
+                </div>
+                <div class="query-box">
+                    <p class="transaction-query"><span>交易查询</span><img src="./img/arrow-white.png" alt=""></p>
+                </div>
+            </div> -->
+            <!-- <div class="view-list">
+                <div class="combination-list">
+                    <h4>策略组合</h4>
+                    <div class="content">
+                        <div class="content-t">
+                            <div class="content-t-l">
+                                <p class="text1">稳稳小确幸定期组合 <span>A0081</span></p>
+                                <p class="text2">最新持仓涨跌(09-18） 0.12%</p>
+                            </div>
+                            <img src="./img/arrow.png" alt="">
+                        </div>
+                        <div class="content-b">
+                            <div class="text-left">
+                                <p>持有金额(元)</p>
+                                <p class="black">345,789.00</p>
+                            </div>
+                            <div class="text-center">
+                                <p>最新收益(08-29)</p>
+                                <p class="red">589.00</p>
+                            </div>
+                            <div class="text-right">
+                                <p>累计收益</p>
+                                <p class="red">2,266.00</p>
+                            </div>
+                        </div>
+                        <div class="radio-box">
+                            <p class="radio-content">
+                                <img src="./img/horn.png" alt="">
+                                <span>消费需求在弱经济环境下表现稳健</span>
+                            </p>
+                        </div>
+                        <!-- <p class="status status-red">分红中</p> -->
+                    <!-- </div>
+                </div>
+            </div> --> 
+         </div>
+    </section>
+    <footer class="footer0 clearfix text-center">
+        <a href="/mobileEC/wap/account/cash.html">取现</a>
+        <a href="/mobileEC/wap/account/autoTopUpCM.html?handTp=C">自动充值</a>
+        <a href="/mobileEC/wap/account/topup.html">充值</a>
+    </footer>
+    <footer class="footer1 clearfix text-center" style="display: none;">
+        <a href="/mobileEC/wap/fundgroup/my_mip.html">我的定投</a>
+        <a href="/mobileEC/wap/fund/all_funds.html">查看更多产品</a>
+    </footer>
+    <footer class="footer2 clearfix text-center" style="display: none;">
+        <a href="/mobileEC/wap/fundgroup/my_mip.html">我的定投</a>
+    </footer>
+    <footer class="footer3 clearfix text-center" style="display: none;">
+        <a href="/mobileEC/wap/fund/all_funds.html">查看更多产品</a>
+    </footer>
+    <div class="mask"></div>
+    <div class="select-box">
+        <div class="select-header">
+            <a href="javascript:;" class="select-cancel">取消</a>
+            <span>选择分类排序</span>
+            <a href="javascript:;" class="select-ok">完成</a>
+        </div>
+        <ul class="select-content">
+            <li data-choose="MARKETVALUE">
+                <span>按市值排序</span><i></i>
+            </li>
+            <li data-choose="FUNDTYPE">
+                <span>按类型排序</span><i class="choose-active"></i>
+            </li>
+            <li data-choose="LASTPROFIT">
+                <span>按最新收益排序</span><i></i>
+            </li>
+            <li data-choose="BALANCEPROFIT">
+                <span>按持有收益排序</span><i></i>
+            </li>
+        </ul>
+    </div>
+    <div class="Bomb-box">
+        <div class="Bomb-box-main">
+            <!-- <p class="Bomb-box-tips" style="padding-top: 0.75rem;"></p> -->
+            <div class="Bomb-box-content">
+                <p class="text-center"></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;">我知道啦</a>
+        </div>
+    </div>
+    <script src="./js/echart.min.js"></script>
+    <script src="./js/jquery-3.2.1.min.js"></script>
+    <script src="./js/asset.js"></script>
+    
+</body>
+
+</html>

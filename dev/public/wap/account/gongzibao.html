@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	 <meta charset="utf-8">
+	<!--<meta charset="utf8">-->
+	<title>工资宝</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/base.css">
+	<link rel="stylesheet" href="../css/base_wx.css">
+	<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+	<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../js/lib/weixin.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+	<script type="text/javascript" src="../js/common.js?20210302"></script>
+	<script type="text/javascript" src="../js/account/gongzibao.js"></script>
+	<style type="text/css">
+		.font-arial{ font-family: Arial; }
+		body { color: #7a6a53; padding-bottom:3rem;}
+		button { outline: none; }
+		img { vertical-align: top; border: 0;outline: 0;width: 100%;height: auto;}
+		p { line-height: 1.5; word-wrap: break-word; text-align: justify; }
+		table { width: 100%;border-collapse:collapse; }
+		.hide { display: none !important; }
+
+		.blue { color: #1057a0;}
+		.left{ float: left; }
+		.right{ float: right; }
+		.hide { display: none; }
+		.text-center { text-align: center; }
+		.text-left { text-align: left;}
+		.black { color: #333333; }
+		.bold { font-weight: bold;}
+		.margin-bottom-20 { margin-bottom: 20px;}
+		.font-24 { font-size: 0.6rem !important;}
+		.font-26 { font-size: 0.65rem !important;}
+		.font-28 { font-size: 0.7rem !important;}
+		.font-20 { font-size: 0.5rem !important;}
+		.orange { color: #fe7e01; }
+
+		.section2 { position: relative; }
+		.section2>div { position: absolute; top: 0; width: 100%; left: 0;}
+		.section2>div p { padding: 0 1.18rem; }
+		
+		.section3 { padding: 0 ; background-color: #ffffff;  background: -webkit-linear-gradient(#fee3d0, #fffefd); background: linear-gradient(#fee3d0, #fffefd); }
+		.section3 ul li>div { padding-bottom: 0.5rem;}
+		.section3 .image-box { float: left; padding-top: 0.24rem; width: 1.9rem;margin: 0 1.25rem 0 2rem; }
+		.section3 .text-box { float: left; width: 12.4rem; }
+		.section3 .text-box h3 { font-size: 0.75rem; font-weight: bolder; }
+		.section3 .text-box	p { font-size: 0.65rem; font-weight: bolder; margin: 0.3rem 0 0.3rem; }
+		.section3 .line-x { height: 1px;width: 100%;background: url("../images/gongzibao/line-x.png") no-repeat left center; background-size: contain; }
+
+		.section4 {  background-color: #ffffff;}
+		.section4 img { width: 100%;}
+		.section4 p { padding: 0.75rem 0 1.2rem 1.35rem; font-size: 0.6rem;}
+
+		.section5 { padding: 0.85rem 0 0 0.7rem; background-color: #fff; width: 100%; overflow: hidden;box-sizing: border-box;}
+		.section5 .box-left { float: left; width: 9rem; position: relative; overflow: hidden; }
+		.section5 .box-left .text-wrap { position: absolute; top: 0;}
+		.section5 .box-left .text-wrap p { font-size: 0.58rem; width: 7.8rem; text-align: center; line-height: 1.5; padding: 0;}
+		.section5 .box-left .text-wrap p:first-child { position: absolute; top: 5.3rem; left: 0;}
+		.section5 .box-left .text-wrap p:nth-child(2){ position: absolute; top: 13rem; left: 0;}
+		.section5 .box-left .text-wrap p:last-child { position: absolute; top: 21.3rem; left: 0;}
+		.section5 .box-right { float: left; width: 9rem; margin-left: -.45rem; overflow: hidden; }
+		.section5 .box-right h3 { font-size: 0.75rem; font-weight: bolder; margin-top: 1rem;}
+		.section5 .box-right h3 div, .section5 p { padding-left: 1.2rem; line-height: 1.5;}
+		.section5 .box-right p { font-size: 0.6rem; margin-top: 0.5rem;}
+		.section5 .box-right ul li:nth-child(1) { height: 7rem;}
+		.section5 .box-right ul li:nth-child(2) { height: 7.6rem;}
+
+
+		.section6 { padding-bottom: 1.5rem; background-color: #ffffff;  background: -webkit-linear-gradient(#fff, #feeee2); background: linear-gradient(#fff, #feeee2); }
+		.section6 h2 { padding: 1.35rem 0 .9rem;}
+		.section6>div { width: 16.22rem; margin: 0 auto; border-radius: 5px;background-color: #ffa820; padding: 0.9rem 1.25rem; box-sizing: border-box; }
+		.section6>div p { font-size: 0.65rem; line-height: 0.9rem; color: #ffffff;}
+
+		.section7 { background-color: #fff6e4; padding: 0.8rem 1.1rem; font-size: 0.5rem;   }
+		.section7 hr { border: 1px solid transparent; border-top: 1px solid #d7c3a6;marign:0.5rem 0; }
+
+		footer { position: fixed; bottom: 0; left: 0; width: 100%; height: 2.5rem; line-height: 2.5rem;background-color: #ff7e00; text-align: center;}
+		footer a { display: block; color: #ffffff; font-size: 0.85rem;}
+		.cite { width: 0.8rem; height: 0.8rem; line-height:0.775rem;display: inline-block; border-radius: 50%; box-sizing: border-box;
+		border: 1px solid #fe7e01; font-size: 0.5rem; text-align: center; color: #fe7e01;vertical-align: top; transform: scale(0.6,0.6);
+			-webkit-transform: scale(0.6,0.6); margin-top: -4px; margin-left: -2px;}
+	</style>
+</head>
+<body>
+<section class="section1">
+	<img src="../images/gongzibao/bg_02.png" alt="">
+	<img src="../images/gongzibao/bg_03.png" alt="">
+</section>
+<section class="section2">
+	<img src="../images/gongzibao/bg_04.png" alt="">
+	<div><p class="font-26">轻松设置后，系统自动为您每月买入汇添富现金宝货币基金获取收益。</p></div>
+</section>
+<section class="section3">
+	<ul>
+		<li>
+			<div class="clearfix">
+				<div class="image-box">
+					<img src="../images/gongzibao/icon_17.png" alt="">
+				</div>
+				<div class="text-box">
+					<h3>收益日日结，天天享复利</h3>
+					<p>最新收益<span class="orange">4.859%</span><i class="cite">1</i></p>
+					<div class="line-x"></div>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div class="clearfix">
+				<div class="image-box">
+					<img src="../images/gongzibao/icon_23.png" alt="">
+				</div>
+				<div class="text-box">
+					<h3>每月自动存钱，省心省力</h3>
+					<p>买入周期及金额，随时可调整</p>
+					<div class="line-x"></div>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div class="clearfix">
+				<div class="image-box">
+					<img src="../images/gongzibao/icon_29.png" alt="">
+				</div>
+				<div class="text-box">
+					<h3>强制储蓄，从此告别月光</h3>
+					<p>养成良好理财习惯</p>
+					<div class="line-x"></div>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div class="clearfix">
+				<div class="image-box">
+					<img src="../images/gongzibao/icon_35.png" alt="">
+				</div>
+				<div class="text-box">
+					<h3>快速取现，合理用钱不耽误</h3>
+					<p>最快<span class="orange">1秒钟</span>到账，额度高达<span class="orange">500万</span></p>
+					<div class="line-x"></div>
+				</div>
+			</div>
+		</li>
+	</ul>
+</section>
+<section class="section4">
+	<h2><img src="../images/gongzibao/bg_23.png" alt=""></h2>
+	<p>假如2016.01.01起每月1号存入:</p>
+</section>
+<section class="section5 clearfix">
+	<div class="box-left">
+		<img src="../images/gongzibao/person_38.png" alt="">
+		<img src="../images/gongzibao/person_42.png" alt="">
+		<img src="../images/gongzibao/person_46.png" alt="">
+		<div class="text-wrap">
+			<p>羡慕别人住大房子</p>
+			<p>爱美妆，不要“月光”</p>
+			<p>顾家，也要照顾自己的小爱好</p>
+		</div>
+	</div>
+	<div class="box-right">
+		<ul>
+			<li>
+				<h3>“存小钱换大房间，<div>会理财更会生活”</div></h3>
+				<p>本金+收益<span class="orange">18,461.01</span>元<br>每月存1000 坚持1.5年</p>
+			</li>
+			<li>
+				<h3>“一款口红买遍所有色号，<div>奖励会理财的自己”</div></h3>
+				<p>本金+收益<span class="font-arial orange">55,383.03</span>元<br>每月存3000 坚持1.5年</p>
+			</li>
+			<li>
+				<h3>“限量版手办收集达人，<div>会理财更会玩”</div></h3>
+				<p>本金+收益<span class="orange">147,688.08</span><i class="cite">2</i>元<br>每月存8000 坚持1.5年</p>
+			</li>
+		</ul>
+	</div>
+</section>
+<section class="section6">
+	<h2><img src="../images/gongzibao/bg_10.png" alt=""></h2>
+	<div>
+		<p>本活动面向汇添富基金所有用户，用户了解工资宝知识后体验工资宝，首次成功完成一笔1000元（含）及以上的工资宝扣款，即有机会赢取红包，最高888元哦！</p>
+	</div>
+</section>
+<section class="section7">
+	<p>风险提示：本材料仅供交流之用，不构成任何法律文件。基金管理人承诺以诚实信用、勤勉尽责的原则管理和运用基金资产，但不保证本基金一定盈利，也不保证最低收益。基金业绩表现数据经基金托管人复核，请登录汇添富官网查看自成立以来的完整业绩。基金的过往业绩及其净值高低并不预示其未来业绩表现，基金管理人管理的其他基金的业绩不构成对上述基金业绩表现的保证。投资人应当认真阅读《基金合同》、《招募说明书》等基金法律文件，基金管理人提醒投资人基金投资的“买者自负”原则。购买货币市场基金并不等于将资金作为存款存放在银行或者存款类金融机构，基金投资需谨慎。</p>
+	<hr>
+	<p>[1]数据来自汇添富基金官网，截至2017年7月24日<br>[2]本数据均来自于第三方，为基金历史数据,并不代表其将来表现。本公司不对数据的准确性、真实性、完整性、有效性、及时性及安全性负责，也不对这些数据的使用后果负任何责任</p>
+</section>
+<footer>
+	<ul>
+		<li><a href="./autoTopUpCM.html?handTp=C">立即开通</a></li>
+	</ul>
+</footer>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <p class="Bomb-box-tips" style="padding-top: 0.75rem;"></p>
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;">确定</a>
+    </div>
+</div>
+</body>
+</html>

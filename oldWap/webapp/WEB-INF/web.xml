@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<display-name></display-name>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath*:/spring/applicationContext-axis.xml,
+			WEB-INF/applicationContext.xml
+		</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>log4jConfiguration</param-name>
+		<param-value>classpath:log4j2.xml</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>weixinQueryFilter</filter-name>
+		<filter-class>com.fund.etrading.mclient.listener.WeixinQueryFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>sessionFilter</filter-name>
+		<filter-class>com.fund.etrading.mclient.listener.SessionFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>com.fund.etrading.mclient.listener.EncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>useragents</param-name>
+			<param-value>Mac</param-value>
+		</init-param>
+	</filter>
+	<filter>
+		<filter-name>cat-filter</filter-name>
+		<filter-class>com.dianping.cat.servlet.CatFilter</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>tracingFilter</filter-name>
+		<filter-class>com.htffund.etrade.tracing.filter.DelegatingTracingFilter</filter-class>
+		<init-param>
+			<!--zipkin服务器地址-->
+			<param-name>zipkin.server.url</param-name>
+			<param-value>${mobile-ng.zipkin.base-url}/api/v2/spans</param-value>
+		</init-param>
+		<init-param>
+			<param-name>application.name</param-name>
+			<param-value>${mobile-ng.app.name}</param-value>
+		</init-param>
+		<init-param>
+			<!--抽样率，1表示全部抽样，0不抽样-->
+			<param-name>zipkin.sampler</param-name>
+			<param-value>${mobile-ng.sleuth.sampler.percentage}</param-value>
+		</init-param>
+	</filter>
+
+
+
+	<filter-mapping>
+		<filter-name>tracingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+    	<filter-name>cat-filter</filter-name>
+    	<url-pattern>/*</url-pattern>
+    	<dispatcher>REQUEST</dispatcher>
+    	<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>weixinQueryFilter</filter-name>
+		<url-pattern>/wap/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>sessionFilter</filter-name>
+		<url-pattern>/services/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>sessionFilter</filter-name>
+		<url-pattern>/pages/c*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>sessionFilter</filter-name>
+		<url-pattern>/wapServices/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>sessionFilter</filter-name>
+		<url-pattern>/wap/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>sessionFilter</filter-name>
+		<url-pattern>/common/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>sessionFilter</filter-name>
+		<url-pattern>/uploadIdCard</url-pattern>
+	</filter-mapping>
+	<listener>
+		<listener-class>com.fund.etrading.mclient.listener.SpringContextLoaderListener</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>MobileECServlet</servlet-name>
+		<servlet-class>com.fund.etrading.mclient.servlet.MobileECServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>UploadIdCardServlet</servlet-name>
+		<servlet-class>com.fund.etrading.mclient.servlet.UploadIdCardPicServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>MCheckImageServlet</servlet-name>
+		<servlet-class>com.fund.etrading.mclient.servlet.MCheckImageServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>TwoDimensionCodeServlet</servlet-name>
+		<servlet-class>com.fund.etrading.mclient.servlet.TwoDimensionCodeServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>DownLoadFileServlet</servlet-name>
+		<servlet-class>com.fund.etrading.mclient.servlet.DownLoadFileServlet</servlet-class>
+	</servlet>
+	
+	<!-- <servlet>
+		<servlet-name>ConfManageSaveServlet</servlet-name>
+		<servlet-class>com.fund.etrading.mclient.servlet.ConfManageSaveServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>ConfManageQueryServlet</servlet-name>
+		<servlet-class>com.fund.etrading.mclient.servlet.ConfManageQueryServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>ConfManageLoginServlet</servlet-name>
+		<servlet-class>com.fund.etrading.mclient.servlet.ConfManageLoginServlet</servlet-class>
+	</servlet> -->
+  <servlet>
+    <servlet-name>ReloadServlet</servlet-name>
+    <servlet-class>com.fund.etrading.mclient.servlet.ReloadServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>InfoServlet</servlet-name>
+    <servlet-class>com.fund.etrading.mclient.servlet.InfoServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>JsonpServlet</servlet-name>
+    <servlet-class>com.fund.etrading.mclient.servlet.JsonpServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ThirdpartyServlet</servlet-name>
+    <servlet-class>com.fund.etrading.mclient.servlet.ThirdpartyServlet</servlet-class>
+  </servlet>
+
+	<servlet-mapping>
+		<servlet-name>UploadIdCardServlet</servlet-name>
+		<url-pattern>/uploadIdCard</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>MobileECServlet</servlet-name>
+		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>MobileECServlet</servlet-name>
+		<url-pattern>/wapServices/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>MCheckImageServlet</servlet-name>
+		<url-pattern>/imageServices</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>TwoDimensionCodeServlet</servlet-name>
+		<url-pattern>/twoCodeImage</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DownLoadFileServlet</servlet-name>
+		<url-pattern>/downloadFile</url-pattern>
+	</servlet-mapping>
+	<!-- <servlet-mapping>
+		<servlet-name>ConfManageSaveServlet</servlet-name>
+		<url-pattern>/confSave</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConfManageQueryServlet</servlet-name>
+		<url-pattern>/confQuery</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConfManageLoginServlet</servlet-name>
+		<url-pattern>/confLogin</url-pattern>
+	</servlet-mapping> -->
+  <servlet-mapping>
+    <servlet-name>ReloadServlet</servlet-name>
+    <url-pattern>/ReloadServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>InfoServlet</servlet-name>
+    <url-pattern>/InfoServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>JsonpServlet</servlet-name>
+    <url-pattern>/jsonpService</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ThirdpartyServlet</servlet-name>
+    <url-pattern>/thirdpartyServices</url-pattern>
+  </servlet-mapping>
+
+</web-app>

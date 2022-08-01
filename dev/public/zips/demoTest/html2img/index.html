@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9938 收益率自动更新的网页banner</title>
+    <style>
+@charset "utf-8";
+
+body{margin:0; padding: 10px; color: #333; font-family: 'simsun', Arial; font-size: 1em; line-height: 1.4;background-color: #fff;}
+/* a{outline: none;color: #333;} */
+
+div { width: 960px; margin: 0 auto;}
+h1 { display: block; text-align:center; font-size: 1.5em; margin: 30px 0;}
+h2 { font-size: 1em;}
+p.paddL { padding-left: 35px}
+@media screen and (max-width: 960px) { div {width: 98%;} }
+@media screen and (max-width: 960px) { div {margin: 0 auto;} }
+
+body{ padding: 0; color: #000; line-height: 1.5; }
+body::-webkit-scrollbar{ display: none; }
+.underline { text-decoration:underline; }
+h1{ font-size: 1em; margin-bottom: 0; }
+p{ font-size: .96em; }
+pre{ font-size: .96em; font-family: 'simsun', Arial; white-space: pre-wrap; word-break: break-all; }
+    </style>
+</head>
+<body>
+    <div style="background: url('/tradeh5/newWap/base/img/logo.png') no-repeat center top;">
+        <pre>
+
+9938 收益率自动更新的网页banner
+测试zip包
+
+<span id='fundName'></span>    <span id='fundId'></span>
+收益率<span id='yield'></span>
+
+当前时间：<label id="currentTime"></label>
+
+
+
+        </pre>
+    </div>
+<script src="https://static.99fund.com/js/lib/jquery-3.4.1.min.js"></script>
+<script>
+
+    $.post({
+        url: '/mobile-bff/v1/fund/detailInfo',
+        data: JSON.stringify({fundId: '012830'}),
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function(result){
+            if (result.returnCode == 0 && result.body) { 
+                var fundId = result.body.fundId;
+                var fundName = result.body.fundNm;
+
+                var yield = Number(result.body.yield).toFixed(2) + '%';
+
+                // console.log(result)
+                $('#fundId').text(fundId)
+                $('#fundName').text(fundName)
+                $('#yield').text(yield)
+
+                var ddd = new Date();
+                ddd = ddd.toLocaleString();
+                $('#currentTime').text(ddd)
+
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

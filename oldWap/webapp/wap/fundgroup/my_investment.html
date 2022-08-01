@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!--<meta charset="GBK">-->
+	 <meta charset="utf8">
+	<title>我的添富智投</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/base.css">
+	<link rel="stylesheet" href="../css/base_v1.css">
+    <link rel="stylesheet" type="text/css" href="../css/fundgroup/my_investment.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        }
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+                oHtml.style.fontSize = '17.06px';
+            }else if(screenWidth >= 750){
+                oHtml.style.fontSize = '40px';
+            }else{
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+            }
+        }
+    </script>
+</head>
+<body>
+	<section class="content1">
+        <div class="money">
+             <p>总市值(元)</p>
+             <span class="font-arial" id="totalFGAsset">0.00</span>
+        </div>
+		<ul style="text-align: center;">
+			<li>
+				<h4 class="font26">昨日盈亏(元)</h4>
+				<p class="font-arial font40 red" id="totalFGYesterdayProfit">0.00</p>
+			</li>
+                    
+    			<li>
+    				<h4 class="font26 historical-detail">持有盈亏(元)&nbsp;</h4>
+    				<p class="font-arial font40 red" id="totalFGIncome">0.00</p>
+    			</li>
+            
+            <li>
+                <h4 class="font26 historical-detail">累计盈亏(元)</h4>
+                <p class="font-arial font40 red" id="totalFGProfit">0.00</p>
+            </li>
+		</ul>
+	</section>
+     <div class="huixian">              
+     </div>
+     <section class="fund-group-list">
+        <!--<div class="qiehuan content1_1">
+           <div class="qiehuan_content">
+               <table>
+                   <tr>
+                       <td>汇添富进取组合 <span style="color:#999999;font-size: .6rem">A0012</span></td>
+                       <td class="color-red">组合已偏离</td>
+                   </tr>
+               </table>
+
+               <table>
+                    <tr>
+                        <td>参考市值</td>
+                        <td class="" style="padding-left:2.5rem">持有盈亏</td>
+                        <td class="">昨日盈亏(05-18)</td>
+                    </tr>
+                    <tr>
+                        <td style="color:#000">994.89</td>
+                        <td class="color-red" style="padding-left:2.5rem">21.51</td>
+                        <td class="color-red">4.51(0.97%)</td>
+                    </tr>
+                </table>
+           </div>
+           <div class="gary_bg"></div>
+        </div>-->
+    </section>
+    <div style="height: 3rem;">
+    </div>
+    <div class="btn-bottom">
+       <a href="../wezhan/combinationZone.html" class="btn btn-light">投资更多产品</a>
+    </div>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script type="text/javascript" src="../js/fundgroup/my_investment.js"></script>
+
+</body>
+</html>

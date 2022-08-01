@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>添卡成功</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script>
+    // 相对字体大小设置
+    var oHtml = document.documentElement;
+    getFont();
+    window.onresize = function () {
+        getFont();
+    }
+
+    function getFont() {
+        var screenWidth = oHtml.clientWidth;
+        if (screenWidth <= 320) {
+            oHtml.style.fontSize = '17.06px';
+        } else if (screenWidth >= 750) {
+            oHtml.style.fontSize = '40px';
+        } else {
+            oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+        }
+    }
+   </script>
+	<style type="text/css">
+        /* reset css */
+        *{ margin: 0; padding: 0;}
+        html{font-size: 100%;}
+        body{ background-color: #f0f0f0;color: #666; }
+        ul, ol, dl{ list-style: none;}
+        div, dl, dt, dd, ul, li, p{ overflow: hidden;}
+        em, i{ font-style: normal;}
+        input{ border: 0;}
+        img{ display: block;max-width: 100%;height: auto;}
+        a{ text-decoration: none;}
+
+        .wrap{
+            padding: 25% 5% 5%;
+        }
+        .wrap-top{
+            text-align: center;
+            margin-bottom: 1em;
+        }
+        .wrap-top img{
+            display: inline-block;
+            width: 10%;
+            vertical-align: bottom;
+
+        }
+        .wrap-top span{
+            display: inline-block;
+            font-size: 1.5em;
+            line-height:2em;
+            color: #333;
+        }
+        .wrap p{
+            font-size: 1em;
+            line-height: 1.5em;
+            text-align: center;
+        }
+        .wrap-bottom{
+            width: 100%;
+            margin: 2em auto;
+        }
+        .wrap-bottom a{
+            width: 48%;
+            height:2.25rem;
+            line-height: 2.25rem;
+            cursor: pointer;
+            text-align: center;
+            font-size:0.75em;
+        }
+        .btn-border{
+            border: 1px solid #fe7e01;
+            color: #fe7e01;
+            border-radius: 4px;
+            float: left;
+        }
+        .btn-background {
+            float: right;
+            border: 1px solid #fe7e01;
+            background-color:#fe7e01;
+            color: #fff;
+            border-radius: 4px;
+        }
+        .btn-background1{height:2.25rem;width:50%;display: block;margin: 0 auto;background:#fe7e01;clear: both;border-radius: 4px;text-align: center;line-height:2.25rem;color:#fff;}
+        .btn-background2{height:2.25rem;width:50%;display: inline;margin: 0 auto;clear: both;border-radius: 4px;text-align: center;line-height:2.25rem;color:rgb(0, 139, 255)}
+        
+        .wrap-bottom2{
+            width: 100%;
+            margin: 2em auto;
+            text-align:center;
+        }
+        .wrap-bottom2 a{
+            width: 48%;
+            height: 2em;
+            line-height: 2em;
+            cursor: pointer;
+            text-align: center;
+            outline: none;
+            -webkit-tap-highlight-color:transparent;
+        }
+	</style>
+      
+</head>
+<body>
+    <h3 class="title">成功</h3>
+    <div class="wrap">
+        <div class="wrap-top">
+            <img src="img/icon4.png" alt="icon4">
+            <span style="font-size:0.8rem">银行卡绑定成功！</span>
+        </div>
+
+        <p style="font-size:0.65rem">添富现金宝，放心存，随心取！</p>
+        <p style="font-size:0.65rem">收益多多，安全性佳！</p>
+        <p style="font-size:0.65rem">可购多种理财产品，投资更省心！</p>
+
+        <div class="wrap-bottom">
+            <a href="http://www.99fund.com/m_weixin.htm" class="btn-border">下载APP体验</a>
+            <a href="../wezhan/service.html" class="btn-background">立即购买基金</a>
+        </div>
+        <div class="wrap-bottom2" style="font-size:0.65rem">如您是上汽经销商员工，请<a id="next" href="https://huodong.99fund.com/mcpweb/uppages/shangqiMGM/index.html" class="btn-background2">返回领取专属邀请码</a>
+        </div>
+    </div>
+    
+    
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/weixin.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script type="text/javascript" src="js/addCardSuccessN.js"></script>
+    <script type="text/javascript">
+    //根据访问域名判断环境修改跳转地址前缀
+	var prefix = "https://huodong.99fund.com";
+    var domain = document.domain;
+    if(domain.indexOf("sit") >= 0){//sit
+    	prefix = "http://mcpsit.99fund.com.cn:7955";
+    }else if(domain.indexOf("uat") >= 0){//uat
+    	prefix = "http://mcpuat.99fund.com.cn:7955";
+    }
+    var url = "/mcpweb/uppages/shangqiMGM/index.html";
+    $("#next").attr("href",prefix+url);
+    </script>
+</body>
+</html>

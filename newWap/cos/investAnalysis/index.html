@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投资行为分析</title>
+    <link rel="stylesheet" href="./css/base-a.css">
+    <link rel="stylesheet" href="./css/investAnalysis.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        };
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="view">
+    <!-- 频繁交易分析结果 -->
+    <div class="frequent-result result-box">
+        <h2 class="title">
+            <i class="title-icon"></i>
+            <span class="title-text"></span>
+        </h2>
+        <div class="content">
+            <div class="echart" id="pie1"></div>
+            <div class="desc">
+                <img src="./img/yh.png" alt="">
+                <p class="desc-text">一般来说，不随意赎回的客户相比随意赎回的客户，长期平均收益率要高不少哦~</p>
+            </div>
+        </div>
+    </div>
+    <!-- 持有时间分析结果 -->
+    <div class="hold-result result-box">
+        <h2 class="title">
+            <i class="title-icon"></i>
+            <span class="title-text"></span>
+        </h2>
+        <div class="content">
+            <img class="static-img" src="./img/static_0.png" alt="">
+            <div class="desc" style="margin-top: .5rem;">
+                <img src="./img/yh.png" alt="">
+                <p class="desc-text">一般来说，长期持有基金可以获得更高的收益。</p>
+            </div>
+        </div>
+    </div>
+    <!-- 周期性投资分析结果 -->
+    <div class="regular-result result-box">
+        <h2 class="title">
+            <i class="title-icon"></i>
+            <span class="title-text"></span>
+        </h2>
+        <div class="content">
+            <div class="echart" id="pie2"></div>
+            <img class="static-img" src="./img/static_02.png" alt="" style="display: none;">
+            <div class="desc" style="margin-top: .5rem;">
+                <img src="./img/yh.png" alt="">
+                <p class="desc-text">定投可以规避市场大起大落带来的风险，也可以为您免去选择申购时机的烦恼，是非常好用的投资工具。</p>
+            </div>
+        </div>
+    </div>
+    <!-- 追涨杀跌分析结果 -->
+    <div class="chase-result result-box">
+        <h2 class="title">
+            <i class="title-icon"></i>
+            <span class="title-text"></span>
+        </h2>
+        <div class="content">
+            <img class="static-img" src="./img/static_03.png" alt="" >
+            <div class="desc" style="margin-top: .5rem;">
+                <img src="./img/yh.png" alt="">
+                <p class="desc-text">数据显示，追涨杀跌可能会导致收益下降，投资需要保持冷静哦~</p>
+            </div>
+        </div>
+    </div>
+    <!-- 持仓集中分析结果 -->
+    <div class="concentration-result result-box">
+        <h2 class="title ">
+            <i class="title-icon"></i>
+            <span class="title-text"></span>
+        </h2>
+        <div class="content">
+            <div class="middle-content">
+                <div class="echart" id="pie3"></div>
+                <div class="charts-list"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <!-- <p class="Bomb-box-tips" style="padding-top: 0.75rem;"></p> -->
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;">我知道啦</a>
+    </div>
+</div>
+    <script src="./js/jquery-3.2.1.min.js"></script>
+    <script src="./js/echart.min.js"></script>
+    <script src="./js/investAnalysis.js"></script>
+</body>
+
+</html>

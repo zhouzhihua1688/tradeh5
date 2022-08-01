@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--<meta charset="GBK">-->
+    <meta charset="utf8">
+    <title>全部基金</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/base_v1.css">
+    <!-- <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css"> -->
+    <link rel="stylesheet" href="../css/fund/all_funds.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        .search-box {
+            width: 92%;
+            padding: .5rem .75rem;
+            background-color: #fff;
+            /* border-bottom: 1px #eee solid; */
+        }
+
+        .search-form {
+            display: flex;
+            align-items: center;
+            height: 1.5rem;
+            border-radius: .75rem;
+            background-color: #f6f6f6;
+            line-height: 1.5rem;
+        }
+
+        .search-form .search {
+            width: 90%;
+            height: 1rem;
+            line-height:1rem;
+            font-size: .65rem;
+            background-color: rgba(255, 255, 255, 0);
+            margin-left: .5rem;
+        }
+        .wrapper {position:fixed;height:4.75rem;width: 100%;overflow: hidden;background: #fff;color:#000;margin-bottom: .5rem;z-index: 999;}
+        .wrapper .scroller {position:absolute; top: 2.5rem;left: 0;}
+        .search-box{position: fixed;top: 0;left: 0;z-index: 1000;}
+        .mask{position: fixed;background: #f6f6f6;height:.5rem;width:100%;top: 4.75rem;z-index: 999;}
+        #left_div1{
+            width: 100%;
+            position: fixed;
+            z-index: 999;
+            background: #fff;
+            border-bottom: 1px #eee solid;
+            font-size: .65rem;
+            top: 5.25rem;
+        }
+        
+        #right_div1{
+            width: 100%;
+            overflow: hidden;
+            position: fixed;
+            z-index: 999;
+            font-size: .65rem;
+            top: 5.25rem;
+        }
+    </style>
+
+</head>
+
+<body>
+<div id="content">
+<div class="search-box" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 300ms; transform: translate(0px, 0px) translateZ(0px);"><form class="search-form">
+<img src="../images/fund/Rectangle 4.png" alt="" style="width: 0.65rem; height: 0.65rem; margin-left: 0.75rem;"> 
+<input type="text" style="padding:0;outline-style: none;" placeholder="基金代码/拼音/首字母" class="search"></form></div>
+    
+    <div class="wrapper" id="wrappers">
+    
+
+        <div class="scroller">
+            <ul class="clearfix">
+                <li class="cur" @click="setType('all')">
+                    <a href="javascript:void(0)">全部基金</a>
+                </li>
+                <!--<li @click="setType('gz')">
+                    <a href="javascript:void(0)">我的自选</a>
+                </li>-->
+                <li @click="setType('gp')">
+                    <a href="javascript:void(0)">股票型</a>
+                </li>
+                <li @click="setType('hh')">
+                    <a href="javascript:void(0)">混合型</a>
+                </li>
+                <li @click="setType('zq')">
+                    <a href="javascript:void(0)">债券型</a>
+                </li>
+                <li @click="setType('zs')">
+                    <a href="javascript:void(0)">指数型</a>
+                </li>
+                <li @click="setType('hb')">
+                    <a href="javascript:void(0)">货币型</a>
+                </li>
+                <li @click="setType('qt')">
+                    <a href="javascript:void(0)">其他基金</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="mask"></div>
+    <div class="content">
+        <div class="all_funds">
+            <div class="container-fluid">
+                <div id="left_div">
+                    <div id="left_div1">
+                        <table id="left_table1">
+                            <tr>
+                                <th>基金名称</th>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="left_div2">
+                        <table id="left_table2">
+                            <tr v-for="(item,index) in viewData" :key="index" @click="queryFundDetail(item.fundId)">
+                                <th v-text="item.name" :style="item.specialImgUrl === '' ? '' : 'background: url(../../'+ item.specialImgUrl +') left top no-repeat;background-size :1.2rem 1.2rem;'"></th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div id="right_div">
+                    <div id="right_div1">
+                        <div id="right_divx">
+                            <table id="right_table1">
+                                <tbody>
+                                <tr class="fund_type_tab_view">
+                                    <th @click="sort('dwjz')">单位净值
+                                        <span class="active_down"></span>
+                                    </th>
+                                    <th @click="sort('rzf')">日涨幅
+                                        <span class="active_down"></span>
+                                    </th>
+                                    <th @click="sort('yzf')">月涨幅
+                                        <span class="active_down"></span>
+                                    </th>
+                                    <th @click="sort('jzf')">季涨幅
+                                        <span class="active_down"></span>
+                                    </th>
+                                    <th @click="sort('nzf')">年涨幅
+                                        <span class="active_down"></span>
+                                    </th>
+                                </tr>
+                                <tr class="fund_type_tab_view" style="display: none;">
+                                    <th @click="sort('wfsy')">万份收益
+                                        <span class="active_down"></span>
+                                    </th>
+                                    <th @click="sort('qrnh')">七日年化
+                                        <span class="active_down"></span>
+                                    </th>
+                                    <th @click="sort('rzf')">日涨幅
+                                        <span class="active_down"></span>
+                                    </th>
+                                    <th @click="sort('yzf')">月涨幅
+                                        <span class="active_down"></span>
+                                    </th>
+                                    <th @click="sort('jzf')">季涨幅
+                                        <span class="active_down"></span>
+                                    </th>
+                                    <th @click="sort('nzf')">年涨幅
+                                        <span class="active_down"></span>
+                                    </th>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="right_div2">
+                        <table id="right_table2">
+                            <tr v-for="(item,index) in viewData" :key="index" @click="queryFundDetail(item.fundId)">
+                                <td>
+                                    <em v-text="item.fundTp === '1' ? item.incomeUnit : item.nav"></em>
+                                    <br>
+                                    <span v-text="item.fundSt ==='1' ? '-' : (item.navDt === '' ? nowDate: item.navDt)"></span>
+                                </td>
+                                <td v-text="item.day==='--'? '-':item.day+'%'" :style="item.day==='--'? '' : (item.day>=0?'color:red;':'color:green;')"></td>
+                                <td v-text="item.month==='--'? '-':item.month+'%'" :style="item.month==='--'? '' : (item.month>=0?'color:red;':'color:green;')"></td>
+                                <td v-text="item.season==='--'? '-':item.season+'%'" :style="item.season==='--'? '' : (item.season>=0?'color:red;':'color:green;')"></td>
+                                <td v-text="item.year==='--'? '-':item.year+'%'" :style="item.year==='--'? '' : (item.year>=0?'color:red;':'color:green;')"></td>
+
+                            </tr>
+                        </table>
+                        <table id="right_table3" style="display: none;">
+                            <tr v-for="(item,index) in viewData" :key="index" @click="queryFundDetail(item.fundId)">
+                                <td>
+                                    <em v-text="item.fundTp === '1' ? Number(item.incomeUnit).toFixed(4) : item.nav"></em>
+                                    <br>
+                                    <span v-text="item.fundSt ==='1' ? '-' : (item.navDt === '' ? nowDate: item.navDt)"></span>
+                                </td>
+                                <td v-text="item.yield==='--'? '-':Number(item.yield).toFixed(2)+'%'" :style="item.yield==='--'? '' : (item.yield>=0?'color:red;':'color:green;')"></td>
+                                <td v-text="item.day==='--'? '-':item.day+'%'" :style="item.day==='--'? '' : (item.day>=0?'color:red;':'color:green;')"></td>
+                                <td v-text="item.month==='--'? '-':item.month+'%'" :style="item.month==='--'? '' : (item.month>=0?'color:red;':'color:green;')"></td>
+                                <td v-text="item.season==='--'? '-':item.season+'%'" :style="item.season==='--'? '' : (item.season>=0?'color:red;':'color:green;')"></td>
+                                <td v-text="item.year==='--'? '-':item.year+'%'" :style="item.year==='--'? '' : (item.year>=0?'color:red;':'color:green;')"></td>
+
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="data_more" @click="dataMore" style="display: none">
+            <a href="javascript:;">加载更多</a><img src="../images/Rolling.gif" alt="">
+        </div>
+    </div>
+</div>
+
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/lib/iscroll.js"></script>
+    <script type="text/javascript" src="../js/lib/navbarscroll.js"></script>
+    <script type="text/javascript" src="../js/lib/vue.min.js"></script>
+    <script type="text/javascript" src="../js/fund/all_funds.js"></script>
+    <script>
+    
+    $(".search-box").click(function(){
+    	window.location.href = 'fund_search.html';
+    });
+    </script>
+</body>
+
+</html>

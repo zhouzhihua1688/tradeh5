@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!--<meta charset="GBK">-->
+	 <meta charset="utf8">
+	<title>添富指数</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="css/base.css">
+	<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/zepto.min.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        };
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            screenWidth = screenWidth > 750 ? 750 : screenWidth;
+            oHtml.style.fontSize = screenWidth/(750/40)+'px';
+
+        }
+    </script>
+	<style type="text/css">
+        body { font-size: 12px; }
+        img { display: block; max-width: 100%; height: auto; border: 0; }
+        section { background-color: #fff; overflow: hidden; }
+        small { font-size: 12px; }
+        p { text-align: justify; }
+        .right { float: right; width: 50%;}
+        .left { float: left; width: 50%;}
+        .icon { display: inline-block; width: 10px; height: 10px; background-size: contain; vertical-align: middle; margin-right: 5px; margin-top: -4px; }
+        .font-arial { font-family: Arial; }
+        .red { color: #f85d63; }
+        .green { color: #009944 !important;}
+        .btn { display: block; outline: 0 none; -webkit-appearance: none; box-sizing: border-box; padding: 0; text-align: center; font-size: 18px; height: 47px; line-height: 47px; overflow: hidden; text-overflow: ellipsis; word-break: break-word; white-space: nowrap; color: #000; background-color: #fff; border: 1PX solid #ddd; border-radius: 5px; }
+        .btn-primary { color: #fff; background-color: #3883ff; border: 1PX solid #108ee9; border-radius: 5px; }
+        .btn-red { color: #fff; background-color: #fb5c5f; border: 1PX solid #fb5c5f; border-radius: 5px; }
+        .product { padding: 1.5rem; margin-bottom: .5rem; background-color: #fff;  text-align: center; }
+        .product h2 { font-size: 1.05rem; font-weight: bolder; }
+        .product h3 { margin-top: 10px; font-size: .65rem; word-break: break-all;}
+        .product .safety {  display: inline-block; padding: 0 0.3rem; margin: 0.8rem auto  0; color: #f4333c; font-size: 0.55rem; outline: 0 none;  -webkit-appearance: none;  box-sizing: border-box;  overflow: hidden;  text-overflow: ellipsis;  word-break: break-word;  white-space: nowrap;  }
+        .product .safety span { display: inline-block; padding: 2px 6px; border: 1px solid #f4333c; margin-right: 0.4rem; margin-left: 0.4rem; margin-top: 0.05rem; }
+        .product .rate { margin-top: 1.2rem; color: #f4333c; font-family: Arial; font-size: .7rem; vertical-align: bottom; }
+        .product .rate span { font-size: 1.72rem; }
+        .product .rate span:first-child { padding-left: 10px; }
+        .product p { text-align: center; padding-bottom: 1.17rem; font-size: .6rem; }
+
+    </style>
+</head>
+<body>
+
+<header class="banner">
+    <h1><img src="img/banner4.jpg" alt=""></h1>
+</header>
+<div class="indexProducts">
+    <!-- <div class="product">
+        <h2>添富医药行业精选</h2>
+        <h3>医药行业崛起势不可挡，结合布局把握良“基”</h3>
+        <div class="safety"><span>中高风险</span><span>费率1折</span></div>
+        <div class="clearfix">
+            <div class="left">
+                <div class="rate"><span class="font-arial">42.21</span>%</div>
+                <p>模拟历史年化业绩</p>
+            </div>
+            <div class="right">
+                <div class="rate"><span class="font-arial">42.21</span>%</div>
+                <p>日涨跌幅(2018-02-06)</p>
+            </div>
+        </div>
+        <a type="button" class="btn btn-red" href="javascript: void(0)">立即购买</a>
+    </div>
+    <div class="product">
+        <h2>添富消费智造双轮驱动</h2>
+        <h3>小购物车装满大消费，智造升级时不我待</h3>
+        <div class="safety"><span>中高风险</span><span>费率1折</span></div>
+        <div class="clearfix">
+            <div class="left">
+                <div class="rate"><span class="font-arial">42.21</span>%</div>
+                <p>模拟历史年化业绩</p>
+            </div>
+            <div class="right">
+                <div class="rate green"><span class="font-arial">-42.21</span>%</div>
+                <p>日涨跌幅(2018-02-06)</p>
+            </div>
+        </div>
+        <a type="button" class="btn btn-red" href="javascript: void(0)">立即购买</a>
+    </div>
+    <div class="product">
+        <h2>添富中港专注价值</h2>
+        <h3>搭乘沪港深顺风车，价值投资正当时</h3>
+        <div class="safety"><span>中高风险</span><span>费率1折</span></div>
+        <div class="clearfix">
+            <div class="left">
+                <div class="rate"><span class="font-arial">42.21</span>%</div>
+                <p>模拟历史年化业绩</p>
+            </div>
+            <div class="right">
+                <div class="rate green"><span class="font-arial">-42.21</span>%</div>
+                <p>日涨跌幅(2018-02-06)</p>
+            </div>
+        </div>
+        <a type="button" class="btn btn-red" href="javascript: void(0)">立即购买</a>
+    </div> -->
+</div>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.base64.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/basic.js"></script>
+
+<script>
+$(function(){
+
+	$.get("/productcenter/v1/new/info/fundgroup/list/fundgroup-type/collections?fundgroupType=03", function(result){
+	//	var result = JSON.parse(resultStr);
+		if(result.returnCode == 0){
+			var indexFundGroupList = result.body;
+            for(var i in indexFundGroupList){
+            	var fundGroup = indexFundGroupList[i];
+            	var fundGroupId = fundGroup.groupId;
+            	var fundGroupName = fundGroup.groupName;
+            	var fundgroupAdvise = fundGroup.fundgroupAdvise;
+            	var nearYearProfit = fundGroup.yearReturn;
+            	var oneMonthProfit = fundGroup.monthlyReturn;
+            	var dayYield = fundGroup.dailyGrowthRate;
+            	var dayYieldDt = fundGroup.latestNavDate.substr(0,4) + "-" + fundGroup.latestNavDate.substr(4,2) + "-" + fundGroup.latestNavDate.substr(-2,2);;
+            	if(dayYieldDt == null || dayYieldDt == ''){
+            		dayYieldDt = "--";
+            	}
+            	if(fundgroupAdvise == null){
+            		fundgroupAdvise = "";
+            	}
+
+                if(dayYield == null ){
+                    dayYield = "--";
+                }else{
+                	dayYield = dayYield.toFixed(2);
+                }
+                var boolNearYearProfit = false;
+                if(eval(oneMonthProfit) < 0){
+                    boolNearYearProfit = true;
+				}
+                if(oneMonthProfit == null ){
+                    oneMonthProfit = "--";
+                }else{
+                	oneMonthProfit = oneMonthProfit.toFixed(2);
+                }
+                var boolDayYield = false;
+                if(dayYield != "--" && eval(dayYield) < 0){
+                    boolDayYield = true;
+                }
+            	var normalPageUrl = "";
+            	if (normalPageUrl !=null && normalPageUrl != '') {
+            		normalPageUrl = $.base64.encode(normalPageUrl);
+            		normalPageUrl = "htffundxjb://action?type=fg&subType=fgd&groupId=" + fundGroupId
+            				+ "&link=" + normalPageUrl;
+            	} else {
+            		normalPageUrl = "htffundxjb://action?type=fg&subType=fgd&groupId=" + fundGroupId
+    						+ "&link="; 
+            	}
+
+                var purUrl = "htffundxjb://action?type=fg&subType=fgp&groupId=" + fundGroupId;
+            	var groupListHtml = "<div class='product'>" +
+										"<h2 onclick='toDetailPage(\"" + normalPageUrl + "\")'>"+ fundGroupName + "</h2>" +
+										"<h3 onclick='toDetailPage(\"" + normalPageUrl + "\")'>"+ fundgroupAdvise + "</h3>" +
+										"<div class='clearfix' onclick='toDetailPage(\"" + normalPageUrl + "\")'><div class='left'>" +
+										"	<div class='rate " + (boolNearYearProfit? "green":"") + "'>" +
+										"<span class='font-arial'>"+ oneMonthProfit + "</span>" + ((oneMonthProfit == "--")? "":"%") + "</div>" +
+										"<p>近一个月收益率</p></div>" +
+										"<div class='right'>" +
+										"<div class='rate " + (boolDayYield? "green":"") + "'>" +
+										"<span class='font-arial'>" + dayYield + "</span>" + ((dayYield == "--")? "":"%") + "</div>" +
+										"<p>日涨跌幅(" + dayYieldDt + ")</p></div></div>" +
+										"<a type='button' class='btn btn-red' href='" + purUrl + "'>立即购买</a></div>";
+            	$(".indexProducts").append(groupListHtml);
+            }
+		 }else{
+			alert(result.returnMsg);
+		}
+	});
+});
+
+function toDetailPage(url) {
+    if(url != undefined && url != null && url != ""){
+        window.location.href = url;
+    }
+}
+
+</script>
+</body>
+</html>

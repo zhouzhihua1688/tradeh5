@@ -1,0 +1,65 @@
+html,body {background: #f6f6f6;}
+[v-cloak] {display: none;}
+.fgx{width:100%;border-top:1px solid #eee;padding:0!important;}
+.fund-title{height:2.5rem;padding: 0rem 0.75rem;background: #fff;} 
+.fund-title .fund-name{font-size: 0.75rem;color:#000;font-weight: bold;line-height: 2.5rem;display:inline-block}
+.fund-title .fund-number{font-size: 0.65rem;color:#666;line-height:2.5rem;display:inline-block;margin-left:0.1rem;}
+.redeem-amount{padding:0.625rem 0.75rem;display: flex; justify-content: space-between; align-items: center;background: #fff;}
+.redeem-amount div{width:50%;}
+.redeem-amount .redeem-title{font-size:0.75rem;color:#000;display: block}
+.redeem-amount .redeem-explain{font-size: 0.6rem;color:#666;}
+.redeem-amount .redeem-money{text-align: right;font-size:0.8rem;color:#000;}
+.roll-out{padding:0.75rem 0.75rem 0.25rem 0.75rem;display: flex; justify-content: space-between; align-items: center;margin-top:0.5rem;background: #fff;}
+.roll-out .roll-money{font-size:0.75rem;color:#000;}
+.roll-out .roll-rule{font-size:0.65rem;color:#148ce6;}
+.enter-amount{display: flex; justify-content: space-between; align-items: center;padding: 0 0.75rem 1rem 0.75rem;background: #fff;}
+.enter-amount .mark{width:20%;font-size:1.5rem;color:#000;margin-top:0.75rem;text-align:center}
+.enter-amount .enter-money{width:70%;}
+.enter-amount .enter-money img{width: .5rem;height: .35rem;}
+.enter-amount .turn-chinese span{font-size:0.6rem;color:#666;margin-left:0.25rem;}
+.enter-amount .input-number input{width:100%;color:#000;font-size:1.5rem;padding:0.2rem 0rem 0.2rem 0rem;outline: none;height:2rem}
+.enter-amount .input-number.small-font input {font-size:.75rem;}
+.enter-amount .close{width:10%;text-align:right}
+.enter-amount .close img{width:0.75rem;height:0.75rem}
+
+.billie{width:100%;height:2.25rem;background:#fff;font-size:0.65rem;color:#666;border-bottom:1px solid #eee;}
+.billie .one-third,.billie .half{width:3.0rem;height:1rem;border:1px solid #ccc;float:left;border-radius:1.25rem;text-align:center;line-height:1rem;margin-left:0.75rem;} 
+.billie .all{width:3.0rem;height:1rem;float:left;border-radius:1.25rem;text-align:center;line-height:0.95rem;margin-left:0.75rem;border:1px solid #ccc;} 
+
+.active{color:#fb5c5f;border:1px solid #fb5c5f!important;}
+.billie .text{color:#40a7ef;display: inline-block;float:right;margin-right:0.75rem;font-size:0.75rem;}
+.description,.last{padding:0.625rem 0.75rem;color:#666;font-size:0.6rem;line-height:0.95rem}
+.excess{display: flex; justify-content: space-between; align-items: center;padding:1rem 0.75rem;background:#fff}
+.excess div{width:50%;font-size: 0.75rem}
+.excess .give-up{text-align:right}
+.excess .give-up img{width: 0.4rem;height: 0.75rem;vertical-align: middle;margin-left:0.5rem;margin-top: -0.1rem;}
+.footer_fiexd {position: fixed; z-index: 9; left: 0; bottom: 0; height: 2.5rem; width: 100%;background: #fe7e01;}
+.footer_fiexd div{text-align:center;line-height:2.5rem;color:#fff;font-size:0.85rem} 
+.layer{background-color: #ffffff; height:27rem; width: 100%; position: fixed; bottom: 0; left: 0; overflow: auto; z-index:99; top:auto; }
+.mask {width: 100%; height:200%; position: absolute; top: 0; left: 0; background: rgba(0, 0, 0, .7); display: none; z-index:9; } 
+.animated {-webkit-animation-duration: 1s; animation-duration: 1s; -webkit-animation-fill-mode: both; animation-fill-mode: both; } @keyframes slideInDown{
+0%{opacity:0;-webkit-transform:translateY(-000px);-ms-transform:translateY(-2000px);transform:translateY(-2000px)}
+100%{-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}}
+
+@keyframes slideInUp{
+0%{opacity:0;-webkit-transform:translateY(100%);-ms-transform:translateY(100%);transform:translateY(100%)}
+100%{-webkit-transform:translateY(58%);-ms-transform:translateY(58%);transform:translateY(58%)}} 
+.slideInDown{-webkit-animation-name:slideInDown;animation-name:slideInDown}
+.slideInUp{-webkit-animation-name:slideInUp;animation-name:slideInUp;}
+.slideInUp .show-tips .show-list{width:100%;text-align:center;line-height: 2rem;font-size:0.85rem;color:#148ce6;height:3rem;line-height:3rem;border-top:1px solid #eee;}
+.slideInUp .show-tips :last-child .show-list{border-radius:0 0 10px 10px;}
+.slideInUp .close{height:3rem;line-height:3rem;margin-top:0.5rem;text-align:center;background: #fff;border-radius: 10px;margin-bottom: 1rem;}
+
+.checkOut,.detailOut{z-index: 9999; display: none; position: fixed; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.7); bottom:0; height: 100%; width: 100%;}
+.checkOut-wrap,.detailOut-wrap {width: 80%; background-color: #fff; border-radius:6px; position: relative; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.checkOut-body,.detailOut-body {padding:0.85rem 0.85rem 0.5rem 0.85rem; text-align: center; }
+.checkOut-wrap .checkOut-body p,.detailOut-wrap .detailOut-body p{font-size:0.7rem; line-height: 21px; color: #666; display: inline-block; text-align: justify; }
+.checkOut-wrap .checkBtn,.detailOut-wrap .detailBtn{width:100%;display: flex; justify-content: space-between; align-items: center;height:2.5rem;border-top:1px solid #eee;}
+.checkOut-wrap .checkBtn div,.detailOut-wrap .detailBtn div{width:50%;text-align:center;color:#3389fe;font-size:0.75rem;height:2.5rem;line-height: 2.5rem;border-left: 1px solid #eee;}
+.detailOut .detailOut_desc span{color:#f4333c}
+.detailOut .detaiList{width:100%;display: flex; justify-content: space-between; align-items: center;padding:0.75rem 0rem;}
+.detailOut .detaiList div{padding:0 0.85rem;font-size:0.7rem}
+.detailOut .detaiList .detaiList-name{width:70%;}
+.detailOut .detaiList .detaiList-money{width:30%;text-align:right;}
+.detailOut .detaiList .detaiList-money .amount{font-size:0.6rem;color:#666;}
+

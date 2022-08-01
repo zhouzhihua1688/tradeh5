@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>转换</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/fundgroup/base1.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+		#layout{display:none;}
+        body,html{background: #f6f6f6;}
+        body {left: 0%; right: 0%;font:14px 'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+        button { outline: none;  }
+          /* 图片自适应 */
+        img {
+              width: 100%;
+              height: auto;
+              width: auto\9; /* ie8 */
+              -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/
+              border: none;
+              vertical-align: top;
+              outline: none;
+              display: block;
+            }
+        p { word-wrap: break-word; text-align: justify; }
+        table { width: 100%;border-collapse:collapse; }
+        .main{width:100%;height:100%;}
+        .redeem{width:100%;height:2.25rem;background:#fff;
+           display:flex;justify-content:space-between;align-items: center;
+        }
+        .redeem div{width:50%;height:2.25rem;line-height:2.25rem;font-size:0.75rem;color:#000;text-align: center}
+        .redeem div.hot{color:#fb5c5f;border-bottom:2px solid #fb5c5f;}
+        .head{width:100%;height:1.75rem;background:#fffac7;line-height:1.75rem;}
+        .head .left{width:100%;font-size:0.6rem;color:#fe5a5b;
+            /* float:left; */
+            /* margin-left:0.75rem; */
+            text-indent: 0.75rem;
+            overflow: hidden;
+            white-space: nowrap;text-overflow: ellipsis;}
+        .fund{width:100%;padding:0.05rem 0rem;position:relative;background: #fff;}
+
+        .fund .first{height:2.5rem;z-index:0}
+        .fund .first .out{width:1.5rem;height:0.75rem;background:#148ce6;font-size:0.6rem;text-align: center;
+            line-height: 0.75rem;border-radius:2px;margin-top:1.1rem;margin-left:0.75rem;float:left;color:#fff;}
+        .fund .first .text{width:80%;height:100%;float:left;margin-left:0.35rem;}
+        .fund .first .text .fund_text{font-size: 0.75rem;margin-top:0.95rem;color:#000}
+        .fund .first .text .fund_text span{font-size: 0.65rem;margin-top:0.5rem;color:#666;margin-left:0.5rem;}
+        .fund .first .text .fund_text2{font-size:0.6rem;margin-top:0.35rem;color:#666;}
+        .fund .first .text .fund_text2 span{color:#fb5c5f;}
+
+        .fund .middle{width:100%;height:0.75rem;display:flex;justify-content:space-between;align-items: center;}
+        .fund .middle div:nth-of-type(1){width:42%;}
+        .fund .middle .first{height:1px;background:#efefef;
+            /* margin-left:0.75rem; */
+            /* float:left; */
+            /* margin-top:0.4rem; */
+        }
+        .fund .middle .second{
+            width:3rem;
+            height:0.75rem;border:1px solid #ccc;
+            /* float:left; */
+            text-align:center; border-radius:50px;}
+
+        .fund .middle .second .icon{width:0.45rem;height:0.45rem;background: url('../images/fundgroup/fund_icon2.png') no-repeat;background-size:100% 100%;display:inline-block;margin-top:0.1rem;vertical-align: top;}
+        .fund .middle .second .resale{font-size: 0.5rem;color: #666;display:inline-block;vertical-align: top;
+           }
+        .fund .middle .third{height:1px;width:42%;background:#efefef;float:left;display: inline-block;
+            /* margin-top:0.4rem; */
+        }
+
+        .fund .second{height:2.5rem;z-index:0;clear: both;border-bottom:1px solid #efefef;}
+        .fund .second .out{width:1.5rem;height:0.75rem;background:#fb5c5f;font-size:0.6rem;text-align: center;
+            line-height: 0.75rem;border-radius:2px;margin-top:0.65rem;margin-left:0.75rem;float:left;color:#fff;}
+        .fund .second .text{width:80%;height:100%;float:left;margin-left:0.35rem;line-height: 2.5rem;}
+        .fund .second .text .fund_text{font-size: 0.75rem;color:#000}
+        .fund .second .text .fund_text span{font-size: 0.65rem;margin-top:0.5rem;color:#666;margin-left:0.5rem;}
+        .fund .second .text .fund_text2{font-size:0.6rem;margin-top:0.35rem;color:#666;}
+        .fund .second .text .fund_text2 span{color:#fb5c5f;}
+        .zhuanhuan{clear: both;width:100%;height:1.75rem;text-indent:0.75rem;line-height:1.75rem;font-size: 0.65rem;color:#666;background: #fff;}
+        .share{height:2.5rem;width:100%;line-height: 2.5rem;display:flex;justify-content:space-between;align-items: center;margin-top:0.5rem;background: #fff;}
+        .share .text{color:#000;font-size:0.75rem;margin-left:0.75rem;}
+        .share .text1{color:#40a7ef;font-size:0.75rem;margin-right:0.75rem;}
+        .amount{height:2.5rem;width:100%;background: #fff;}
+        .amount .text{width:80%;color:#000;font-size:1.5rem;margin-left:0.75rem;float:left;}
+
+        .amount input{width:80%;height:2.5rem;font-size:1rem;color:#000;}
+        .amount .icon{width:0.35rem;background: url('../images/fundgroup/fund_icon3.png')no-repeat; 
+         background-size:100% 100%;
+         float:right;margin-right:0.75rem;margin-top:0.87rem;}
+        .bifen{width:100%;height:2.75rem;background:#fff;font-size:0.75rem;color:#666;border-bottom:1px solid #eee;}
+        .bifen .third,.bifen .two{width:3.0rem;height:1rem;border:1px solid #ccc;float:left;border-radius:1.25rem;text-align:center;line-height:1rem;margin-left:0.75rem;} 
+        .bifen .all{width:3.0rem;height:1rem;float:left;border-radius:1.25rem;text-align:center;line-height:1rem;margin-left:0.75rem;border:1px solid #ccc;}
+        .active{color:#fb5c5f;border:1px solid #fb5c5f!important;}
+        .bifen .text{color:#40a7ef;display: inline-block;float:right;margin-right:0.75rem;font-size:0.75rem;}
+        .current{height:1.75rem;width:100%;background: #fff;}
+        .current div{margin-left:0.75rem;color:#666666;line-height:1.75rem;text-align:left;}
+
+        .shangxian{width:100%;height:2.5rem;display:flex;justify-content:space-between;align-items: center;border-bottom:1px solid #eee;background: #fff;margin-top:0.5rem;clear:both}
+        .shangxian div{font-size:0.7rem;}
+        .shangxian div:nth-of-type(1){text-align: left;text-indent:0.75rem;color:#000;line-height:2.5rem;display:inline-block;}
+        .shangxian div:nth-of-type(2){text-align: center;color:#000;display: inline-block;}
+        .shangxian .right img{display: inline-block;vertical-align: top;margin-right:0.75rem;margin-top:0.1rem;}
+        .yugu{width:100%;padding:0.5rem 0rem;}
+        .yugu .text{width:92%;font-size:0.6rem;color:#666;margin-left:0.75rem;text-align: justify;margin-right:0.75rem;}
+        .confirm{width:100%;height:2.25rem;}
+        .confirm>a{width:17.25rem;height:2.25rem;display: block; text-align: center;line-height:2.25rem; margin:0 auto;font-size:0.6rem;color:#666;margin-top:0.75rem;background:#ddd6d6;color:#fff;font-size:0.85rem;border-radius:2px;}
+
+        .chineseText{font-size: .6rem;color:#000;}
+        .chineseText img {width: .5rem; height: .35rem;margin-left:2rem;display:inline-block; vertical-align: middle;}
+		.layer { background-color: #ffffff; height: 100%; width: 100%; position: fixed;
+		  /*top: 0;*/
+		left:0; overflow: auto;z-index: 10;}
+	   #myGift1{
+		background-color: #ffffff;
+		height:27rem;
+		width: 100%;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		overflow: auto;
+		z-index: 10;
+		top:auto;
+	   }
+	   @keyframes slideInDown{
+		0%{opacity:0;-webkit-transform:translateY(-000px);-ms-transform:translateY(-2000px);transform:translateY(-2000px)}
+		100%{-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}}
+	 
+		@keyframes slideInUp{
+		0%{opacity:0;-webkit-transform:translateY(100%);-ms-transform:translateY(100%);transform:translateY(100%)}
+		100%{-webkit-transform:translateY(65%);-ms-transform:translateY(65%);transform:translateY(65%)}}  
+		
+        .section2 p {padding: 0.75rem .75rem; font-size: 0.5rem; color: #666; line-height: 1rem; margin: 0;}
+        .rules span {width: .6rem; height: .61rem; vertical-align: middle; background: url(../images/fundgroup/chose1_y.png) no-repeat left center; display: inline-block; background-size: contain; margin: -.2rem .25rem 0 -.75rem; }
+        .rules span.current { background-image: url("../images/fundgroup/chose1.png");}
+
+        .tips .nameList{width:100%; display:flex;justify-content:space-between;align-items: center;}
+        .tips .nameList div{width:50%;}
+        .tips .nameList .one{padding-left:0.45rem;font-weight:bold;color:#000}
+        .tips .nameList .two{font-size:0.65rem;color:#666;padding-right:0.45rem;text-align:right}
+        
+        .tips .detailList{width:100%; display:flex;justify-content:space-between;align-items: center;}
+        .tips .detailList div{width:50%;}
+        .tips .detailList .one{padding-left:0.45rem;color:#666;font-size:0.6rem;}
+        .tips .detailList .two{font-size:0.6rem;color:#000;padding-right:0.45rem;text-align:right}
+         
+        .button{width:100%;font-size: 0.7rem}
+        .tips .button span {
+            margin-top: .25rem;
+            padding: .625rem 0;
+            margin-bottom: .25rem;
+            width: 100%;
+            color: #1370fa;
+        }
+        .tips .button span:nth-of-type(1) {border-right:0px;}
+        /* 弹窗 */
+        .tip{position: fixed;
+			top: 0;
+			left: 0;
+			background-color: rgba(0,0,0,0.7);
+			height: 100%;
+			width: 100%;
+			overflow: auto;
+			font-size: 0.6rem;
+			z-index: 999;
+		}
+		.tip .tip_wrap{
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			-webkit-transform: translate(-50%,-50%);
+			transform: translate(-50%,-50%);
+			margin: 0;
+			width:80%;
+			/*height:16rem;*/
+			background: #fff;
+			-webkit-border-radius: 5px;
+		}
+        .tip .tip_wrap .tip_content h3{font-size:.75rem;font-weight: bold;color:#000;text-align: center;margin-top: 1rem;}
+		.tip .tip_wrap .tip_content h4{margin-top: .5rem;text-align: center;font-size: .7rem;}
+		.tip .tip_wrap .tip_content h4:nth-of-type(2){color:#fb5c5f;margin-top: .4rem;}
+		.tip .tip_wrap .tip_content p{padding:0 1.5rem 0 1.5rem;font-size: .7rem;margin-top: .7rem;line-height: 1rem;margin-bottom: 1rem;}
+		.tip .tip_wrap .tip_content{border-bottom: 1px #eee solid;}
+		.tip .tip_wrap .tip_btn ul li{text-align: center;font-size: .75rem;color:#006bfe;}
+		.tip .tip_wrap .tip_btn ul li a{display:block;text-align: center;font-size: .75rem;width:100%;padding:1rem 0;}
+
+        .tip2{position: fixed;
+			top: 0;
+			left: 0;
+			background-color: rgba(0,0,0,0.7);
+			height: 100%;
+			width: 100%;
+			overflow: auto;
+			font-size: 0.6rem;
+			z-index: 999;
+		}
+		.tip2 .tip_wrap{
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			-webkit-transform: translate(-50%,-50%);
+			transform: translate(-50%,-50%);
+			margin: 0;
+			width:80%;
+			/*height:16rem;*/
+			background: #fff;
+			-webkit-border-radius: 5px;
+		}
+	    .tip2 .tip_wrap .tip_content p{padding:0 1.5rem 0 1.5rem;font-size: .7rem;margin-top: .7rem;line-height: 1rem;margin-bottom: 1rem;text-align: center;line-height: 1rem;}
+	    .tip2 .tip_wrap .tip_content{border-bottom: 1px #eee solid;}
+	    .tip2 .tip_wrap .tip_btn ul li{text-align: center;font-size: .75rem;color:#006bfe;}
+	    .tip2 .tip_wrap .tip_btn ul li a{display:block;text-align: center;font-size: .75rem;width:100%;padding:.7rem 0;}
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="redeem">
+       <div id="redeemBtn">赎回</div>
+       <div class="hot">转换</div>
+    </div>
+	<!--
+    <div class="head">
+       <div class="left">今天转换比赎回后再买入可提前4天。</div>
+    </div>-->
+    <div class="fund">
+       <div class="first">
+           <div class="out">转出</div>
+           <div class="text">
+               <div class="fund_text gName"> </div>
+
+           </div>
+       </div>
+        <input type="hidden" value="" id="minRedeemAmount">
+		<input type="hidden" value="" id="holdRedeemAsset">
+		<input type="hidden" value="0" id="largeRedeemFlag">
+       <div class="middle">
+           <div class="first"></div>
+           <div class="second">
+               <div class="icon"></div>
+               <div class="resale">转换为</div>
+           </div>
+           <div class="third"></div>
+       </div>
+        <div class="second transIn" style="display:none">
+           <div class="out">转入</div>
+           <div class="text">
+               <div class="fund_text" style="margin-top: -0.25rem;" id="transInfo"></div>
+           </div>
+           <img src="../images/fundgroup/arr.png" alt="" style="width:0.4rem;height:0.75rem;display: inline-block;vertical-align: middle;margin-top:0.75rem">
+       </div>
+       <div class="second selectFund">
+           <div class="text">
+               <div class="fund_text" id="selectFund" style="color:#40a7ef;text-indent:0.45rem">+选择转入基金</div>
+           </div>
+       </div>
+       <div class="second selectGroup">
+           <div class="text">
+               <div class="fund_text" id="selectGroup" style="color:#40a7ef;text-indent:0.45rem">+选择转入组合</div>
+           </div>
+       </div>
+   </div>
+   <div class="zhuanhuan" id="zhuanhuan1" style="display:none">不想转换为组合，可<span style="color:#148ce6" id="transFund">转换为基金</span></div>
+   <div class="zhuanhuan" id="zhuanhuan2" style="display:none">不想转换为基金，可<span style="color:#148ce6" id="transGroup">转换为组合</span></div>
+   <div class="share">
+       <div class="text">转换金额(元)</div>
+       <div class="text1"><a href="javacript:;" id="rule">交易规则</a></div>
+   </div>
+
+	
+	<div class="amount money">
+        <p class="chineseText">
+          <img src="../images/triangle.png">
+          <span></span>
+        </p>
+        <div class="text">￥<input type="text" placeholder="" id="subQuty" value=""></div>
+        <div class="icon del" id="icon"></div>
+   </div>
+	
+    <div class="bifen">
+        <div class="left third">1/3</div>
+        <div class="left two">1/2</div>
+        <div class="left all"  id="all">全部</div>
+		<div class="text" id="custom" style="display:none;">自定义转换</div>
+    </div>
+    <div class="current">
+       <div>当前可转出金额<span style="color:#fb5c5f" id="hold"></span> </div>
+   </div>
+    <div class="yugu">
+        <div class="text" id="info"></div>
+    </div>
+   <div class="shangxian" id="selectGift1">
+        <div class="left">如遇转换上限</div>
+        <div class="right">
+            <div id="tl">放弃超额</div>
+            <div><img src="../images/fundgroup/arr.png" alt="" style="width:0.4rem;height:0.75rem;"></div>
+        </div>
+    </div>
+	
+    <div class="section2 contract-div" style="padding: 0 0 1rem 0;display:none;position:relative">
+        <p class="rules" style="font-size:0.65rem;margin-left: .75rem;"><span id="isRead" class="chose-icon"></span>&nbsp我已阅读并了解<a href="javascript:;" style="color:#008ae9">各基金产品资料概要</a></p>
+    </div>
+	
+	
+    <div class="confirm" style="padding-bottom:2rem;">
+        <a href="javascript:;" id="btn-submit">下一步</a>
+    </div>
+</div>
+
+	<div class="mask"></div>
+<div class="layer animated slideInUp" id="myGift1" style="display:none;">
+    <div class="giftlist">
+        <a href="javascript:;">
+            <div class="title" style="height:3rem;line-height:3rem;" data="0">放弃超额</div></a>
+        <a href="javascript:;">
+            <div class="title" style="height:3rem;line-height:3rem;border-top:1px solid #eee" data="1">继续赎回</div></a>
+        <div style="height:0.25rem;background:#f6f6f6"></div>
+        <div class="title" style="height:3rem;line-height:3rem;">
+            <a href="javascript:;" style="color:#008ae9;font-size:0.75rem" id="close">取消</a>
+        </div>      
+    </div>
+</div>
+
+
+<div class="tip" style="display: none;">
+		<div class="tip_wrap">
+			<div class="tip_content">
+				<h3>风险警示及确认</h3>
+                <div id="risk_tip" style="padding: 0rem 1rem 0rem 1rem;">
+                    <p>该产品风险等级<span style="color:#fb7678;">（高）</span>超过您的风险承受等级<span style="color:#fb7678;">（保守型）</span>。购买该产品可能导致您承担超出您承受能力的损失及不利后果。</p>
+                    <p><span style="color:#fb7678;">以上为风险警示，点击“继续购买”视为您承诺以下内容：</span><br>本人已阅读上述风险警示内容，已知悉该产品风险等级高于本人风险承受能力，并已充分了解该产品风险特征及可能产生的不利后果。经审慎考虑，本人仍坚持申请购买，并自愿承担由此可能产生的一切不利后果。贵司及销售人员不存在主动向本人推介该产品的行为。</p>
+                </div>
+            </div>
+			<div class="tip_btn" >
+				<ul style="width: 100%;">
+					<li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid"><a
+							href="javascript:;" class="close_tip">放弃购买</a></li>
+					<li style="float: left;width:50%;box-sizing: border-box;"><a href="javascript:void(0);" id="continue_pur">继续购买</a></li>
+				</ul>
+			</div>
+		</div>
+</div>
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script type="text/javascript" src="../js/common.js?20210106"></script>
+<script>
+var transferType ;
+var branchCode = '247';
+
+var groupId = App.getUrlParam("groupId");
+var balanceSerialNo = App.getUrlParam("balanceSerialNo");
+var allBalanceRedeem = false;
+var transferInPrdid = App.getUrlParam("transferInPrdid");
+var isSupportCustomImport = App.getUrlParam("isSupportCustomImport");
+var tranferObj = {};
+
+$("#btn-submit").css({'background-color':'#ddd6d6'});
+
+$("#redeemBtn").click(function(){
+	window.location.href = 'redeem.html?groupId='+groupId+'&balanceSerialNo='+balanceSerialNo;
+});
+$("#selectFund,#transFund").click(function(){
+	window.location.href = 'selectFunds.html?groupId='+groupId+'&balanceSerialNo='+balanceSerialNo;
+});
+$("#selectGroup,#transGroup").click(function(){
+	window.location.href = 'selectGroup.html?groupId='+groupId+'&balanceSerialNo='+balanceSerialNo;
+});
+
+$(".giftlist a").on("click",function(event){
+	$("#tl").html($(this).children(".title").html());
+	$("#largeRedeemFlag").val($(this).children(".title").attr('data'));
+    $("#myGift1").hide();
+    $(".mask").hide();
+})
+$("#selectGift1").click(function(){
+	$("#myGift1").show();
+	$(".mask").show();
+})
+$('.money input').on('input', function () {//格式化input
+	var val = $(this).val().replace(/[,A-z]/g, '');
+	$('.chineseText span').text(changeNumMoneyToChinese(val))
+})
+$('.del').on('click', function () {//清空input
+	$('.money input').val('')
+	$('.chineseText span').text(changeNumMoneyToChinese(''))
+	$("#info").html('');
+	$("#btn-submit").css({'background-color':'#ddd6d6'});
+   $('.bifen .left').each(function () {   //切换
+		if ($(this).hasClass("active")) {
+			$(this).removeClass('active');
+		}
+	   
+	});
+	App.unbind('#btn-submit', "tap",purchaseCheck);
+
+})
+isSupportCustom();
+function isSupportCustom(isSupportCustomOutport){
+        if(App.isNotEmpty(transferInPrdid)){
+        showSmTip();
+        $("#transInfo").html(App.getSession("transin_"+transferInPrdid)+'<span>'+transferInPrdid+'</span>');
+        $(".transIn").show();
+        if(transferInPrdid.indexOf('A') > -1 || transferInPrdid.indexOf('Z') > -1){//组合
+            $("#transInfo").click(function(){
+                window.location.href = 'selectGroup.html?groupId='+groupId+'&balanceSerialNo='+balanceSerialNo;
+            });
+            $("#zhuanhuan2").hide();
+            $("#zhuanhuan1").show();
+            transferType = 'gg';
+            $(".contract-div").show();
+        }else{
+            $("#transInfo").click(function(){
+                window.location.href = 'selectFunds.html?groupId='+groupId+'&balanceSerialNo='+balanceSerialNo;
+            });
+            $("#zhuanhuan1").hide();
+            $("#zhuanhuan2").show();
+            transferType = 'gf';
+        }
+        tranferObj.inGroupName = App.getSession("transin_"+transferInPrdid);
+        tranferObj.transferType = transferType;
+        if((isSupportCustomImport=='y')||(isSupportCustomOutport=='y')){
+            $("#custom").show();
+        }else{
+            $("#custom").hide();
+        }
+        $(".selectFund").hide();
+        $(".selectGroup").hide();
+        
+        $("#custom").click(function(){
+            App.setSession("fundGroup_transfer",tranferObj);
+            window.location.href = 'tranfer_custom.html?groupId='+groupId+'&balanceSerialNo='+balanceSerialNo+'&transferInPrdid='+transferInPrdid;
+        });
+    }
+}
+
+// if(App.isNotEmpty(transferInPrdid)){
+// 	showSmTip();
+// 	$("#transInfo").html(App.getSession("transin_"+transferInPrdid)+'<span>'+transferInPrdid+'</span>');
+// 	$(".transIn").show();
+// 	if(transferInPrdid.indexOf('A') > -1 || transferInPrdid.indexOf('Z') > -1){//组合
+// 		$("#transInfo").click(function(){
+// 			window.location.href = 'selectGroup.html?groupId='+groupId+'&balanceSerialNo='+balanceSerialNo;
+// 		});
+// 		$("#zhuanhuan2").hide();
+// 		$("#zhuanhuan1").show();
+// 		transferType = 'gg';
+//         $(".contract-div").show();
+// 	}else{
+// 		$("#transInfo").click(function(){
+// 			window.location.href = 'selectFunds.html?groupId='+groupId+'&balanceSerialNo='+balanceSerialNo;
+// 		});
+// 		$("#zhuanhuan1").hide();
+// 		$("#zhuanhuan2").show();
+//         transferType = 'gf';
+// 	}
+// 	tranferObj.inGroupName = App.getSession("transin_"+transferInPrdid);
+// 	tranferObj.transferType = transferType;
+//     if((isSupportCustomImport=='Y')||(isSupportCustomOutport=='Y')){
+//         $("#custom").show();
+//     }else{
+//         $("#custom").hide();
+//     }
+// 	$(".selectFund").hide();
+// 	$(".selectGroup").hide();
+	
+// 	$("#custom").click(function(){
+// 		App.setSession("fundGroup_transfer",tranferObj);
+// 		window.location.href = 'tranfer_custom.html?groupId='+groupId+'&balanceSerialNo='+balanceSerialNo+'&transferInPrdid='+transferInPrdid;
+// 	});
+// }
+	//勾选
+$(".rules").click(function () {
+	$(".chose-icon").toggleClass("current");
+	checkSub();
+});
+$("#subQuty").on("input", function () {
+	checkSub()
+});
+function checkSub(){
+	var contractLength = $(".contract-div").children("p").length;
+	var chkCnt = 0;
+	$(".contract-div").children("p").each(function(){
+		if($(this).children("span").hasClass("current")){
+			chkCnt+=1;
+		}
+	});
+	var amt = $("#subQuty").val().replace(/[,A-z]/g, '');
+	if(Number(amt) > 0 ){
+		if(amt.length > 11){
+			amt = amt.substring(0,11);
+		}
+		$("#subQuty").val(App.formatMoney(amt).replace('.00',''));
+		var minAmt = $("#minRedeemAmount").val();
+		var maxAmt = $("#holdRedeemAsset").val()
+		if(Number(amt) >= Number(minAmt)){
+			
+			redeemEsti();
+		}
+		$("#close").show();
+	}else{
+		$("#subQuty").val('');
+	}
+	var isCheck = false;
+	if(transferType == 'gg'){
+		isCheck = (contractLength == chkCnt);
+	}else{
+		isCheck = true;
+	}
+	console.log(isCheck);
+    if(Number($("#subQuty").val().replace(/[,A-z]/g, '')) > 0  && isCheck && App.isNotEmpty(transferInPrdid)){
+    	$("#btn-submit").css({'background-color':'#fd7e23'});
+		App.unbind('#btn-submit', "tap",purchaseCheck);
+    	App.bind('#btn-submit', "tap",purchaseCheck);
+		
+    }else{
+		$("#btn-submit").css({'background-color':'#ddd6d6'});
+    	App.unbind('#btn-submit', "tap",purchaseCheck);
+    	
+    }
+}
+
+
+$(function(){
+
+    $('.redeem div').click(function () {
+        if ($(this).hasClass("hot")) {
+            return;
+        }
+        $(this).addClass("hot").siblings().removeClass('hot');
+    });
+    $('.bifen .left').click(function () {   //切换
+        if ($(this).hasClass("active")) {
+            return;
+        }
+        $(this).addClass("active").siblings().removeClass('active');              
+    });
+	//组合详情
+	getHoldDetail()
+})
+function getHoldDetail(){
+	var url = '/mobile-bff/v1/fund-group/hold/detailInfo?groupId=' + groupId+ '&balanceSerialNo=' + balanceSerialNo;
+    
+    App.get(url, null, function(result){
+		if(result.returnCode == 0){
+			branchCode = result.body.branchCode;
+			var holdGroupInfo = result.body.holdGroupInfo;
+			var isSupportCustomOutport = result.body.isSupportCustomOutport?(result.body.isSupportCustomOutport.toLowerCase().trim()):'';
+			tranferObj.outGroupName = holdGroupInfo.groupname;
+			$(".gName").html(holdGroupInfo.groupname+'<span>'+groupId+'</span>');
+			$(".gAsset").html(App.formatMoney(holdGroupInfo.holdRedeemAsset));
+			$("#holdRedeemAsset").val(holdGroupInfo.holdRedeemAsset);
+			$("#hold").html(App.formatMoney(holdGroupInfo.holdRedeemAsset));
+			$("#able").html(holdGroupInfo.holdRedeemAsset);
+			$("#subQuty").attr("placeholder","最多可转换"+result.body.holdRedeemAsset+"元");
+			$("#minRedeemAmount").val(result.body.minRedeemAmount);
+            isSupportCustomOutport&&isSupportCustom(isSupportCustomOutport);
+			//填充中文金额
+			$("#all").click(function(){
+				$("#subQuty").val($("#hold").html());
+				var val = $("#subQuty").val().replace(/[,A-z]/g, '');
+				$('.chineseText span').text(changeNumMoneyToChinese(val))
+
+				checkSub()
+			});
+			
+
+			if($("#hold").html().replace(/,/g, "") > 0){
+
+				$(".two").click(function(){
+					$("#subQuty").val(App.formatMoney($("#hold").html().replace(/,/g, "")/2));
+
+					var val = $("#subQuty").val().replace(/[,A-z]/g, '');
+					$('.chineseText span').text(changeNumMoneyToChinese(val))
+					checkSub()
+				});
+				$(".third").click(function(){
+					$("#subQuty").val(App.formatMoney($("#hold").html().replace(/,/g, "")/3));
+					var val = $("#subQuty").val().replace(/[,A-z]/g, '');
+					$('.chineseText span').text(changeNumMoneyToChinese(val))
+
+					checkSub()
+				});
+				
+			}
+
+		}
+	});
+
+}
+//交易规则跳转
+var url = '../../common/productTransferRule.html?transferOutPrdid='+groupId;
+ 
+if(transferInPrdid != '' && (transferInPrdid.indexOf('A') > -1 || transferInPrdid.indexOf('Z') > -1)){
+	$("#rule").attr('href', url + '&tansferType=gg&transferInPrdid='+transferInPrdid);
+}else{
+
+	$("#rule").attr('href', url + '&tansferType=gf&transferInPrdid='+transferInPrdid);
+}
+//校验数据
+
+
+function purchaseCheck(){
+
+		
+    if (riskInfo.code != '0000') {
+        if (riskInfo.code == '9990' || riskInfo.code == '9991' || riskInfo.code == '9993') {
+            $("#evaluation_tip").html(riskInfo.msg);
+            $(".evaluation_risk_tip").show();
+            return;
+        } else if (riskInfo.code == '9992' && App.isNotEmpty(riskInfo.subMsg)) {
+            $("#risk_tip").html(riskInfo.subMsg);
+            $(".tip").show();
+            return;
+        }
+    }else{
+		purchase()
+	}
+
+}
+$(".close_tip").click(function () {
+
+    $(this).parents(".tip").hide();
+    $(this).parents(".tip2").hide();
+});
+$("#continue_pur").on("click", purchase);
+//
+function purchase(){
+	if(App.isNotEmpty(transferInPrdid)){
+	
+		showSmTip();
+	
+		tranferObj.amt = $("#subQuty").val().replace(/,/g, "");
+		tranferObj.allBalanceRedeem = allBalanceRedeem;
+		tranferObj.largeFlg = $("#largeRedeemFlag").val();	
+		tranferObj.transferType = transferType;
+		App.setSession("fundGroup_transfer",tranferObj);
+		//写入session
+		window.location.href = 'transfer_confirm.html?groupId='+groupId+'&balanceSerialNo='+balanceSerialNo+'&transferInPrdid='+transferInPrdid+'&custom=0';
+	}
+}
+
+function redeemEsti(){
+	if(App.isNotEmpty(transferInPrdid)){
+		var url = '/mobile-bff/v1/fund-group/convert-fee-tips/estimate';
+		if(transferType == 'gg'){
+			var data = JSON.stringify({
+				"ogroupId": transferInPrdid,
+				"accptmd":"M",
+				"groupId":groupId,
+				"transferAmt": $("#subQuty").val().replace(/[,A-z]/g, ''),
+				"balanceSerialno":balanceSerialNo,
+				"branchCode":branchCode
+			});
+		}else{
+			var data = JSON.stringify({
+				"ofundid":transferInPrdid,
+				"accptmd":"M",
+				"groupId":groupId,
+				"transferAmt": $("#subQuty").val().replace(/[,A-z]/g, ''),
+				"balanceSerialno":balanceSerialNo,
+				"branchCode":branchCode
+			});
+		}
+		App.post(url, data,null, function(result){
+			if(result.returnCode == 0){
+				if(result.body != null){
+					$("#info").html(result.body.estimateRedeemFeeTip);
+				}
+			}
+		});	
+	}
+
+}
+var riskInfo = {code: '0000', msg: ''};
+
+function showSmTip() {
+
+    var url = App.projectNm + "/common/check_union_risk_level?productId=" + transferInPrdid;
+
+    App.get(url, null, function (result) {
+        if (result.body != undefined && result.body != null) {
+
+            riskInfo = result.body;
+            if (result.body.code == '9990' || result.body.code == '9991' || result.body.code == '9993') {
+                $("#evaluation_tip").html(result.body.msg);
+                $(".evaluation_risk_tip").show();
+            } else if (result.body.code == '9992') {
+                $(".sm_tip").show();
+                setTimeout(function () {
+                    $(".sm_tip").hide()
+                }, 2000);
+            }
+            
+            if (result.body.code == '9992'){
+            	App.setSession("reminderType",0)
+            }else if (result.body.code == '9994'){
+            	App.setSession("reminderType",1)
+            }else{
+            	App.setSession("reminderType",2)
+            }
+        }
+    });
+}
+
+</script>
+</body>
+</html>

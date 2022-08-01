@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html class="login-page">
+<head>
+
+        <!-- Basic Page Needs
+  ================================================== -->
+        <meta charset="utf-8">
+        <title>填写验证码</title>
+        <meta name="description" content="">
+        <meta name="author" content="J.Chen">
+        <!-- 让IE浏览器用最高级内核渲染页面 还有用 Chrome 框架的页面用webkit 内核
+  ================================================== -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<!-- IOS6全屏 Chrome高版本全屏
+  ================================================== -->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes"> 
+        <meta name="format-detection" content="telephone=no">
+        <!-- 让360双核浏览器用webkit内核渲染页面
+  ================================================== -->
+	<meta name="renderer" content="webkit">
+        <!-- Mobile Specific Metas
+  ================================================== -->
+		<!-- !!!注意 minimal-ui 是IOS7.1的新属性，最小化浏览器UI -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no, minimal-ui">
+
+        <!-- CSS
+  ================================================== -->
+	<link href="css/reset.css" rel="stylesheet" type="text/css">
+	<link href="css/style_r.css" rel="stylesheet" type="text/css">
+    <script src="js/zepto.min.js"></script>
+    <script src="js/touch.js"></script>
+	<script src="js/js.js"></script>
+        <!-- Favicons
+        ================================================== -->
+	<!--<link rel="shortcut icon" href="favicon.ico" >-->
+		<!-- Android 主屏图标
+        ================================================== -->	
+	<!--<link rel="icon" sizes="196x196" href="touch-icon.png">-->
+		<!-- IOS 主屏图标
+        ================================================== -->
+	<!--<link rel="apple-touch-icon" href="touch-icon-iphone.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="touch-icon-ipad.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="touch-icon-iphone-retina.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.png">-->
+		<!-- Javascript
+        ================================================== -->
+</head>
+<body>
+<div class="conWrap">
+    <div class="regWrap">
+        <p class="regTopTips">该手机还没注册？请输入验证码，设置密码，快速注册后体验</p>
+        <div style="display: -webkit-box;width: 100%;">
+            <div style="width: 60%;">
+                <input type="text" id="authCode" class="txt txt01" placeholder="请输入验证码">
+            </div>
+            <div style="width: 40%;">
+                <span id="timePanel" class="codeNum"><span id="time">59</span>秒后重发</span>
+                <a id="resendBtn" href="javascript:void(0)" class="btn1">重新获取验证码</a>
+            </div>
+        </div>
+        <input type="password" id="pwd" class="txt txt02" placeholder="请设置登录密码，不少于6个字符">
+        <p class="txTips">可使用英文、数字</p>
+    </div>
+    <div class="btnWrap">
+        <a href="javascript:void(0)" id="btn_next" class="btn">下一步</a>
+        <a href="http://static.99fund.com/mobile/agreement/online_agreement.html" class="agree">查看《汇添富手机注册协议》</a>
+    </div>
+</div>
+<!--遮罩层-->
+<div class="share_overmask">
+	<div class="share_words"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>添加银行卡</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/base_wx.css">
+    <link rel="stylesheet" href="../css/taxExtension/LCalendar.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <style>
+        .section1 h1 { font-size: 0.65rem;}
+        .content h1 { line-height: 1.75rem; padding:0 0.75rem; }
+        .section2 .row div:first-child { width: 3.6rem; }
+        div input { line-height: 2.5rem; height: 2.5rem; background-color: rgba(0,0,0,0);}
+        .layer .list-group { margin-bottom: 5rem;}
+    </style>
+</head>
+<body>
+<div class="content">
+    <section class="section1"><h1>请绑定账户本人的银行卡</h1></section>
+    <section class="section2">
+        <ul class="list-group no-margin">
+            <li class="list-group-item lh-100 heigth-100 bottom-border">
+                <div class="row">
+                    <div class="font-28">卡&nbsp;&nbsp;&nbsp;&nbsp;号</div>
+                    <div class="col-8 heigth-100">
+                        <input class="font-28 bankCardNo" type="text"  maxlength="23" onkeyup="this.value=this.value.replace(/\s/g,'').replace(/(\d{4})(?=\d)/g,'$1 ');" placeholder="请输入15~19位储蓄卡卡号" data-rquire-msg="储蓄卡卡号不能为空">
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item  lh-100 heigth-100">
+                <div class="row selectBankCard-bind">
+                    <div class="font-28">银&nbsp;&nbsp;&nbsp;&nbsp;行</div>
+                    <div class="col-1 font-28 blue"><font id="bank_name_panel">请选择</font> 储蓄卡</div>
+                    <div>
+                        <i class="icon icon-arrow-right"></i>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="list-group" id="userInfo_panel">
+            <li class="list-group-item bottom-border">
+                <div class="row">
+                    <div class="font-28  lh-100 heigth-100">姓&nbsp;&nbsp;&nbsp;&nbsp;名</div>
+                    <div class="col-8 heigth-100">
+                        <input class="font-28 invNm" type="text" placeholder="请输入您的真实姓名"  data-rquire-msg="姓名不能为空">
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="font-28 lh-100">身份证</div>
+                    <div class="col-8  font-28 heigth-100 "><input class="font-28 idCard" type="text" placeholder="请输入身份证号码" data-rquire-msg="身份证号码不能为空"></div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="font-28 lh-100">证件有效期</div>
+                    <div class="col-8  font-28 heigth-100 "><input class="font-28 idCardValidDate" type="text" readonly="readonly" placeholder="请选择证件有效期" data-rquire-msg="证件有效期不能为空"></div>
+                </div>
+            </li>
+        </ul>
+        <ul class="list-group" id="phone-panel">
+            <li class="list-group-item lh-100 heigth-100">
+                <div class="row">
+                    <div class="font-28">手机号</div>
+                    <div class="col-8 font-28 heigth-100"><input class="font-28 phone" type="number" maxlength="12" placeholder="请输入手机号码"  data-rquire-msg="手机号码不能为空"></div>
+                    <div>
+                        <i class="icon icon-question"></i>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <section class="section3">
+        <div class="rules">
+            <p><i class="chose-icon current" opt="0"></i>&nbsp;&nbsp;同意<a class="color-blue" id="protocolUrl" href="javascript:;">《快捷支付业务协议》</a></p>
+        </div>
+        <div>
+            <button class="btn-orange" id="btn-submit">确认</button>
+        </div>
+    </section>
+</div>
+<div class="layer animated slideInDown" id="bankCardList" style="display: none;">
+    <ul class="list-group no-margin-top">
+        <!--<li class="list-group-item bottom-border lh-100">-->
+            <!--<div class="row">-->
+                <!--<div class="">-->
+                    <!--<i class="bank ico_102 no-margin-left"></i>-->
+                <!--</div>-->
+                <!--<div class="col-1">-->
+                    <!--<p class="bank-name font-28">招商银行</p>-->
+                <!--</div>-->
+                <!--<div class="union">-->
+                    <!--<a class="icon icon-union">银联通</a>-->
+                    <!--<a class="icon icon-E-bank">网银</a>-->
+                    <!--<a class="icon icon-shorcut">快捷</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</li>-->
+    </ul>
+</div>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <p class="Bomb-box-tips"  style="padding-top: 0.75rem;"></p>
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;">确定</a>
+    </div>
+</div>
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/lib/weixin.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script type="text/javascript" src="../js/common.js?20210106"></script>
+<script type="text/javascript" src="../js/lib/LCalendar.js"></script>
+<script type="text/javascript" src="../js/card/bindCardInputCardInfo.js?20210106"></script>
+</body>
+</html>

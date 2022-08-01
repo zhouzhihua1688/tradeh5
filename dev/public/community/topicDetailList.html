@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="../base/css/base.css">
+    <link rel="stylesheet" href="../base/css/common.css">
+    <link rel="stylesheet" href="./css/mint.css">
+    <link rel="stylesheet" href="./css/swiper-4.2.2.min.css">
+    <link rel="stylesheet" href="./css/neplayer.min.css">
+    <link rel="stylesheet" href="./css/topicDetailList.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+    <script>document.title = '\u200D';  //页面title为空</script>
+    <style>
+        [v-cloak]{
+            display: none
+        }        
+    </style>
+</head>
+
+<body>
+    <div id="app" style="overflow:scroll;height:100vh" v-cloak>
+        <div class="content">
+            <div class="item">
+                <div class="itemLeft red"><span class="leftRate"></span><span class="leftDate"></span></div>
+                <div class="itemRight">
+                    <span class="rightTitle"></span>
+                    <span class="infoDesc"></span>
+                    <div class="shareDiv" v-show='!isShare'>
+                        <a :href="'shareAct?eventCode=COMMUNITY_FUND_BBS_FX&eventId='+productId" class="share">分享</a>
+                    </div>
+                </div>
+                <div id="productCategoryId" style="display: none;"></div>
+            </div>
+        </div>
+        <div style="background-color: #fff;padding: .75rem;font-weight: bold;">讨论区热帖
+            <div class="topicBanner" style="margin-right: -0.75rem;" v-show='topicItems.length>0'>
+                <div id="topicList" >
+                    <div class="topicItem" v-for='(item,index) in topicItems' :key= 'index'><a href="javascript:;" @click='gotoTopic(item.topicId)' class="topicName" >{{item.topicNameDisplay.length>11?item.topicNameDisplay.substring(0,10)+'...':item.topicNameDisplay}}</a></div>
+                </div>
+            </div>
+        </div>
+        <!-- <post :list='msgAllData'></post> -->
+        
+        <post :url='postUrl' ref="post"></post>
+    </div>
+    <script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+    <script type="text/javascript" src="../base/js/lib/swiper-4.2.2.min.js"></script>
+    <script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+    <script src="./js/moment.min.js"></script>
+    <script src="./js/mint.js"></script>
+    <script src="./js/neplayer.min.js"></script>
+    <!-- <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script> -->
+    <script src="./components/post2.js"></script>
+    <script src="./js/wxShare.js"></script>
+
+    <script>
+        var topicId = utils.getUrlParam('topicId');
+        if (topicId) {
+            showDetail(topicId);
+        }
+        var productId = utils.getUrlParam('productId');
+        if (productId) {
+            showProductDetail(productId);
+            if(utils.isWeixin()){
+                wxShare('COMMUNITY_FUND_BBS_FX',productId);
+            }
+        }        
+
+        function showDetail(topicId) {
+            utils.get('/sfs/api/v1/topic/' + topicId, null, function (res) {
+                var body = res.body;
+                if (body) {
+                    $(".infoTitle").html(body.name);
+                    $(".infoDesc").html('讨论' + body.postCount);
+                    $(".content").html(body.content);
+                    if (body.follow) {
+                        $("#follow").attr('data', 0);
+                        $("#follow").html('已关注');
+                    } else {
+                        $("#follow").attr('data', 1);
+                        $("#follow").html('+关注');
+                    }
+                    //卡片列表
+                    if (body.cardList) {
+                        var cardList = body.cardList;
+                        var htm = '';
+                        cardList.forEach(function (item, index) {
+                            htm += '<div class="swiper-slide detail" data="' + item.wapUrl + '"><div class="items">' + item.title + '</div></div>';
+                        });
+                        $(".swiper-wrapper").html(htm);
+                        var swiper = new Swiper('#swip1', {
+                            slidesPerView: 3,
+                            spaceBetween: 30,
+                            pagination: {
+                                el: '.swiper-pagination',
+                                clickable: false,
+                            },
+                        });
+                        $(".detail").click(function () {
+                            if (isApp()) {
+                                window.location.href = 'htffundxjb://action?type=url&link=' + btoa($(this).attr("data"));
+                            } else {
+                                window.location.href = $(this).attr("data");
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        function showProductDetail(productId) {
+
+            utils.get('/sfs/api/v1/bbs/product/' + productId, null, function (res) {
+                var body = res.body;
+                if (body) {
+                    if (String(body.yieldNumDisplay).indexOf('-') == -1) {
+                        $(".leftRate").html('+' + body.yieldNumDisplay.replace('+', ''));
+                        $(".itemLeft").removeClass('green').addClass('red');
+                    } else {
+                        $(".leftRate").html(body.yieldNumDisplay);
+                        $(".itemLeft").removeClass('red').addClass('green');
+                    }
+                    $(".leftDate").html(body.yieldCopyWrite);
+                    $(".rightTitle").html(body.title);
+                    $(".infoDesc").html('讨论'+body.postCount);
+                    $("#productCategoryId").html(body.productCategoryId);
+                }
+            });
+        }
+
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    msgAllData: [],
+                    productId:'',
+                    topicItems:[],
+                    userInfo: '',
+                    allLoaded: false,
+                    popupVisible: false,
+                    userAgent: navigator.userAgent,
+                    // 上拉加载
+                    pageSize: 10,
+                    pageNum: 1,
+                    // share
+                    isShare: false,
+
+                    postUrl: '/sfs/api/v1/post/product?productId=' + utils.getUrlParam('productId'),
+                }
+            },
+            created() {
+                // this.getMsgList(true);
+                let productId = utils.getUrlParam('productId');
+                this.productId = productId;
+                this.getTopicItems(productId);
+                
+            },
+            mounted: function () {
+                this.isShare=isApp()?true:false;  
+                $("#follow").click(function () {
+                    var txt = $(this).html();
+                    var data = {};
+                    data.itemId = topicId;
+                    data.status = $("#follow").attr('data');
+                    utils.post('/sfs/api/v1/follow/topic', JSON.stringify(data), function (res) {
+                        if (res.returnCode == 0) {
+                            if (txt != '已关注') {
+                                $("#follow").attr('data', 0);
+                                $("#follow").html('已关注');
+                            } else {
+                                $("#follow").attr('data', 1);
+                                $("#follow").html('+关注');
+                            }
+                        }
+                    });
+
+                });
+
+            },
+            
+            watch: {
+                // showTopicIndex: function(newVal, oldVal) {
+                //     if(newVal !== oldVal) {
+                //         this.getMsgList(true, '', topicAllData[showTopicIndex].id);
+                //     }
+                // },
+                topicItems: {
+                    handler: function(newVal, oldVal){
+                        console.log('topicItems newVal=', newVal)
+                        console.log('topicItems oldVal=', oldVal)
+
+                    },
+                    deep: true
+                },
+            },
+            
+            methods: {
+                getMsgList(flag, flag2) {
+                    utils.ajax({
+                        url: "/sfs/api/v1/post/product?productId=" + utils.getUrlParam("productId"),
+                        data: { pageNum: this.pageNum, pageSize: this.pageSize },
+                        success: function (result) {
+                            if (flag) {
+                                this.msgAllData = result.body;
+                                // this.$refs.loadmore.onTopLoaded();
+                                this.allLoaded = false;
+                            }
+                            if (flag2) {
+                                if (result.body.length === 0) {
+                                    this.allLoaded = true;// 若数据已全部获取完毕
+                                    this.$refs.loadmore.onBottomLoaded();
+                                }
+                                this.msgAllData = this.msgAllData.concat(result.body);
+                            }
+                            this.msgAllData.forEach((item) => {
+                                item.currentComment = '';
+                            })
+                        }.bind(this)
+                    });
+                },
+                getTopicItems(productId){
+                    utils.get({
+                        url:"/sfs/api/v1/bbs/product/topic",
+                        data:{productId:productId},
+                        success: function (result){
+                            this.topicItems=result.body.sort(this.compare('topicNameDisplay'));
+                        }.bind(this)
+                    });
+                },
+                compare(key){
+                    return (a,b)=>(b[key].length-a[key].length);                    
+                },                
+                gotoTopic(topicId) {//查看话题详情
+                    if(isApp()){
+                        window.location.href = 'htffundxjb://action?type=url&link=' + btoa(location.origin + '/tradeh5/newWap/community/topicDetail.html?topicId=' + topicId);
+                    }else{
+                        window.location.href = location.origin + '/tradeh5/newWap/community/topicDetail.html?topicId=' + topicId;
+                    }
+                },
+            }
+        })
+
+
+        //app调用 获取发帖管理话题信息
+        function toAppItemInfo() {
+            // itemType:{topic:{type:'1',name:'话题'},post:{type:'2',name:'动态'},fund:{type:'3',name:'基金'},comment:{type:'4',name:'留言'},reply:{type:'5',name:'回复'},user:{type:'6',name:'用户'},activity:{type:'8',name:'活动'}},
+            var itemInfo = {
+                itemType: '3',  //话题
+                itemCategory: $("#productCategoryId").html(),  // 基金:'1', 组合:'2', 实盘:'4'   20210628
+                itemId: utils.getUrlParam('productId'),
+                itemName: $(".rightTitle").html()
+            };
+            console.log('toAppInfo itemInfo', itemInfo);
+            return itemInfo;
+        }
+
+
+    </script>
+
+</body>
+
+</html>

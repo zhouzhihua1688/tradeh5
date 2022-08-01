@@ -1,0 +1,407 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!-- <meta charset="gbk"> -->
+	<title>我的资产</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../css/base.css">
+	<link rel="stylesheet" href="../css/base_v1.css">
+	<style type="text/css">
+		.font-arial{ font-family: Arial; }
+		section{
+			background-color: #fff;
+		}
+		.left{
+			float: left;
+		}
+		.right{
+			float: right;
+		}
+		.next{
+			display: inline-block;
+			width: 8px;
+			height: 16px;
+			background: url(../images/icon01.png) no-repeat left top;
+			-webkit-background-size: contain;
+			background-size: contain;
+			vertical-align: middle;
+			margin-left: 7px;
+		}
+		.content1 ul{
+			padding: 20px 0;
+		}
+		.content1 ul li:first-child{
+			padding-left: 15px;
+		}
+		.content1 ul li:last-child{
+			padding-right: 10px;
+		}
+		.content2{
+			position: relative;
+		}
+		.content2 p{
+			color: #333333;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			-webkit-transform: translate(-50%,-50%);
+			-ms-transform: translate(-50%,-50%);
+			-o-transform: translate(-50%,-50%);
+			transform: translate(-50%,-50%);
+			margin:0 auto;
+		}
+		.content2 .quan{
+			position: absolute;
+			left:34%;
+			top:28%;
+			margin:0 auto;
+		}
+		table{
+			width: 100%;
+			border-collapse: collapse;
+		}
+		table th{
+			font-weight: normal;
+			font-size: 12px;
+			color: #333333;
+			line-height: 35px;
+			text-align: left;
+		}
+		table th:first-child{
+			padding-left: 40px;
+		}
+		table td{
+			height: 65px;
+		}
+		table td span:nth-of-type(even){
+			color:#666666;
+			background:red;
+			display: block;
+		}
+		table tr{
+			border-bottom: 1px solid #eeeeee;
+		}
+		table tbody tr:last-child{
+			border-bottom: 0;
+		}
+		table tbody i{
+			display: inline-block;
+			width:0.5rem;
+			height:0.5rem;
+			border-radius:50%;
+			margin-right: 10px;
+		}
+		table tbody .square1{
+			background-color: #ffdc7f;
+		}
+		table tbody .square2{
+			background-color: #ffb415;
+		}
+		table tbody .square3{
+			background-color: #ff8100;
+		}
+		table tbody .square4{
+			background-color: #ff5a00;
+		}
+		table tbody .square5{
+			background-color: #ec3d00;
+		}
+		table tbody .square6{
+			background-color: #ff586d;
+		}
+		table tbody .square7{
+			background-color: #ff9985;
+		}
+		table tbody .square8{
+			background-color: #a9843c;
+		}
+
+		table tbody tr td:first-child{
+			padding-left: 15px;
+		}
+		table tbody tr td:nth-child(2),table tbody tr td:nth-child(3){
+			padding-left: 9px;
+			color: #fb5c5f;
+			font-size: 16px;
+		}
+		/*table tbody tr td:nth-child(2) .sign,table tbody tr td:nth-child(3) .sign{
+			font-size: 12px;
+		}*/
+		table tbody p{
+			font-size: 12px;
+			padding-left: 23px;
+			padding-top: 8px;
+		}
+		tbody p span{
+			color: #999999;
+		}
+		.huixian{
+			width:100%;
+			height:0.625rem;
+			background: #f6f6f6;
+			line-height: 0.625rem;
+		}
+		.content4 h3{
+			color: #333333;
+			height: 35px;
+			line-height: 35px;
+			padding-left: 15px;
+			background-color: #f6f6f6;
+		}
+		.content4 h3 i{
+			display: inline-block;
+			width: 15px;
+			height: 15px;
+			background:url(../images/account/icon2.png) no-repeat;
+			-webkit-background-size: contain;
+			background-size: contain;
+			vertical-align: middle;
+			margin-left: 10px;
+		}
+		.content4 table tbody p{
+			padding-left: 0;
+		}
+		.content5{
+			margin: 10px 0 15px;
+		}
+		.content5 h3{
+			font-size: 15px;
+			color: #333333;
+			font-weight: bold;
+			line-height: 45px;
+			padding-left: 15px;
+			border-bottom: 1px solid #eeeeee;
+		}
+		.content5 h3 span{
+			font-size: 12px;
+			color: #999999;
+			font-weight: normal;
+		}
+		.content5 p{
+			font-size: 12px;
+			line-height: 1.5rem;
+			padding: 16px 15px;
+			text-align: justify;
+		}
+		.sign{
+			float:right;
+			margin-right:1rem;
+			color:#333333;
+		}
+		footer {
+			position: fixed;
+			width: 100%;
+			left: 0;
+			bottom: 0;
+			background-color: #fff;
+			font-size: .85rem;
+			/*z-index: 999;*/
+
+		}
+		footer ul {
+			border-top:0.025rem solid #ffcece; color: #fe5a5b;
+			display: flex;
+			display: -webkit-flex;
+		}
+		footer ul li { flex:1; -webkit-flex:1; background: #358aea; border-right:0.025rem solid #fff;}
+		footer ul li:last-child { flex: 1; -webkit-flex: 1; background:grey; border-right: none;}
+		footer ul li a  { height: 2.5rem; text-align: center; line-height: 2.5rem; color: #fff;font-size: .8rem;}
+		footer ul li a { display: block; }
+		.quan{
+			width:130px;
+			height:130px;
+			border:1px solid red;
+			border-radius:100%;
+		}
+
+		/*新增加页面样式*/
+		.icon-left{
+			width:36px;height:36px;position:absolute;/*top:45%;*/left:0.5rem;
+			background: url(../images/account/icon_left.png) no-repeat;
+		}
+		.icon-right{
+			width:36px;height:36px;position:absolute;/*top:45%;*/right:0.5rem;
+			background: url(../images/account/icon_right.png) no-repeat;
+		}
+		.asset{
+			width:100%;height:36px;position:absolute;top:45%;z-index:10;
+		}
+		.asset li{width: 24px;height:36px;}
+		.asset li:nth-of-type(1){float: left;background: url(../images/account/icon_left.png) no-repeat; background-size:100% 100%;}
+		.asset li:nth-of-type(2){float: right;background: url(../images/account/icon_right.png) no-repeat; background-size:100% 100%;}
+	</style>
+</head>
+<body>
+	<section class="content2">
+		<div>
+			<ul class="asset">
+				<li class="icon-left"></li>
+				<li class="icon-right"></li>
+			</ul>
+			<div>
+				<p style="font-size:0.7rem;color:#999999;text-align: center;">总资产(元)<br>
+					<span id="totalAssetAmt_RMB" style="/*font-size:1rem;*/margin-left:-0.5rem;color:#fb5c5f"></span>
+				</p>
+			</div>
+			<div style="display:none">
+				<p style="font-size:0.7rem;color:#999999;text-align: center;">总资产(美元)<br>
+					<span id="totalAssetAmt_USD" style="/*font-size:1rem;*/margin-left:-0.5rem;color:#fb5c5f"></span>
+				</p>
+			</div>
+		</div>
+		<!-- <div class="quan"></div> -->
+		<div id="circle" style="width:100%;height:300px;">
+
+		</div>
+	</section>
+	<section class="huixian">
+	</section>
+	<section class="content3">
+		<table>
+			<tbody id="assetAnalysis_RMB">
+				<!--<tr>
+					<td>
+						<i class="square1"></i>
+						<span>现金宝(元) (10%)</span>
+					</td>
+					<td><span class="sign">1,000.00</span></td>
+				</tr>
+				<tr>
+					<td>
+						<i class="square2"></i>
+						<span>基金(元) （20%)</span>
+					</td>
+					<td><span class="sign">2,000.00</span></td>
+				</tr>
+				<tr>
+					<td>
+						<i class="square3"></i>
+						<span>定期理财(元)  (10%)</span>
+					</td>
+					<td><span class="sign">65,000.00</span></td>
+				</tr>
+				<tr>
+					<td>
+						<i class="square4"></i>
+						<span>高端理财(元)  (65%)</span>
+					</td>
+					<td><span class="sign">1,000.00</span></td>
+				</tr>
+				<tr>
+					<td>
+						<i class="square5"></i>
+						<span>在途资产(元)  (20%)</span>
+					</td>
+					<td><span class="sign">2,000.00</span></td>
+				</tr>
+				<tr>
+					<td>
+						<i class="square6"></i>
+						<span>已质押资产(元) (5%)</span>
+					</td>
+					<td><span class="sign">65,000.00</span></td>
+				</tr>
+				<tr>
+					<td>
+						<i class="square7"></i>
+						<span>其他资产  (65%)</span>
+					</td>
+					<td><span class="sign">500.00</span></td>
+				</tr>-->
+			</tbody>
+		</table>
+	</section>
+	<section class="content4" style="display: none;">
+		<table>
+			<tbody id="assetAnalysis_USD">
+			<!--<tr>
+                <td>
+                    <i class="square1"></i>
+                    <span>现金宝(元) (10%)</span>
+                </td>
+                <td><span class="sign">1,000.00</span></td>
+            </tr>
+            <tr>
+                <td>
+                    <i class="square2"></i>
+                    <span>基金(元) （20%)</span>
+                </td>
+                <td><span class="sign">2,000.00</span></td>
+            </tr>
+            <tr>
+                <td>
+                    <i class="square3"></i>
+                    <span>定期理财(元)  (10%)</span>
+                </td>
+                <td><span class="sign">65,000.00</span></td>
+            </tr>
+            <tr>
+                <td>
+                    <i class="square4"></i>
+                    <span>高端理财(元)  (65%)</span>
+                </td>
+                <td><span class="sign">1,000.00</span></td>
+            </tr>
+            <tr>
+                <td>
+                    <i class="square5"></i>
+                    <span>在途资产(元)  (20%)</span>
+                </td>
+                <td><span class="sign">2,000.00</span></td>
+            </tr>
+            <tr>
+                <td>
+                    <i class="square6"></i>
+                    <span>已质押资产(元) (5%)</span>
+                </td>
+                <td><span class="sign">65,000.00</span></td>
+            </tr>
+            <tr>
+                <td>
+                    <i class="square7"></i>
+                    <span>其他资产  (65%)</span>
+                </td>
+                <td><span class="sign">500.00</span></td>
+            </tr>-->
+			</tbody>
+		</table>
+	</section>
+	<!--<section class="content4 dollar_amt_panel" style="padding-bottom:4rem; display: none;">
+		<section class="huixian">
+	    </section>
+		<table>
+			<tbody>
+				<tr>
+					<td>
+					    <i class="square8"></i>
+						<span>美元资产(美元)  (不计入总资)</span>
+					</td>
+					<td class="font-arial"><span class="sign" id="totalDollarAmt"></span></td>
+				</tr>
+			</tbody>
+		</table>
+		<section class="huixian">
+		</section>
+	</section>-->
+    <footer style="display: none;">
+        <ul>
+            <li>
+                <a href="" style="color:#ff7e00;background:#fff;">资产证明</a>
+			</li>
+            <li>
+                <a href="" style="color:#fff;background:#ff7e00">资产体检</a>
+			</li>
+        </ul>
+   </footer>
+	<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+	<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../js/lib/echarts.min.js"></script>
+	<script type="text/javascript" src="../js/lib/phone-size.js"></script>
+	<script type="text/javascript" src="../js/common.js?20210106"></script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script type="text/javascript" src="../js/account/asset.js?20201218"></script>
+</body>
+</html>

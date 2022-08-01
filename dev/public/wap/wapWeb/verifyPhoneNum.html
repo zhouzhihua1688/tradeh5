@@ -1,0 +1,105 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>验证手机号</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta name="format-detection" content="telephone=no">
+
+        <link rel="stylesheet" href="css/pure-min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <style type="text/css">
+            .pure-form .pure-group input.phone-viri {
+                background: url(img/viri_2.png) no-repeat 7% 50% #fff;
+                background-size: 20px 20px;
+                border: 0;
+                top: 2px;
+                padding-left: 20%;
+            }
+        </style>
+    </head>
+    <body>
+        <h3 class="title">30秒极速注册</h3>
+        <div class="nav">
+            <img src="img/nav2.png" alt="nav2" class="pure-img"/>
+        </div>
+        <div class="top-remind">
+            <p>我们已将验证码发送至<span id="mobileNo"></span>的手机上</p>
+        </div>
+        <form action="" class="pure-form">
+                <fieldset class="pure-group veri">
+                    <div class="veri-left" style="width: 68%;">
+                        <input type="text" class="phone-viri" style="width: 90%" maxlength="6" placeholder="填写验证码">
+                        <span class="error">X</span>
+                    </div>
+                    <div class="veri-right" style="max-width: none;">
+                        <button type="button" maxlength="6" class="btn-setcode">发送验证码</button>
+                    </div>
+                </fieldset>
+                <br/>
+                <br/>
+                <div class="section">
+                    <!--<button class="pure-button pure-input-1 btn-bind" id="" type="button">下一步</button>-->
+                    <a href="javascript:void(0)" id="register_next_btn" class="pure-button pure-input-1 btn-bind" id="">下一步</a>
+                </div>
+
+        </form>
+
+        <!-- <script src="js/zepto.js"></script> -->
+        <!-- <script type="text/javascript">
+      /*       $(function () {
+                var bind_name="input";//定义所要绑定的事件名称
+                if(navigator.userAgent.indexOf("MSIE")!=-1){
+                    bind_name="propertychange";//判断是否为IE内核 IE内核的事件名称要改为propertychange
+                }
+                $(".pure-form .pure-group input").on(bind_name,function(){
+                    $(this).siblings('.error').css("display","block");
+                    if($(this).val() == ""){
+                        $(this).next().css("display","none");
+                    }
+                });
+                $(".pure-form .pure-group .error").on("click",function(){
+                    $(this).css("display","none").siblings('input').val('').focus();
+                });
+ */
+                /* 发送验证码事件 */
+                /* $(".btn-setcode").on("click", function (){
+                	startFun();
+                	sendAuthCode();
+                });
+                function sendAuthCode(){
+                	alert("sendAuthCode()");
+                }
+                function startFun(){
+                    $(".btn-setcode").prop("disabled",true);
+                    $(".btn-setcode").html('<span id="num">'+60+'</span>'+'秒后重发');
+                    startpao();
+                };
+                startFun();
+                function startpao(){
+                    var start = $("#num").text();
+                    var t = setInterval(function(){
+                        start--;
+                        $("#num").text(start);
+                        if(start == 0)
+                        {
+                            clearInterval(t);
+                            $(".btn-setcode").prop("disabled",false);
+                            $(".btn-setcode").text("重新获取");
+                        }
+                    },1000);
+                } */
+           /*  }) */
+        </script> -->
+        <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+        <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+        <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+        <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+        <script type="text/javascript" src="../js/lib/weixin.js"></script>
+        <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+		<script src="/tradeh5/newWap/base/js/utils.js"></script>
+        <script type="text/javascript" src="../js/common.js?20210302"></script>
+        <script type="text/javascript" src="js/reg_2.js"></script>
+    </body>
+</html>

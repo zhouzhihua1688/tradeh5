@@ -1,0 +1,546 @@
+@charset "utf-8";
+
+/* 禁用iPhone中Safari的字号自动调整,如横屏时会重新计算 */
+html {  -webkit-text-size-adjust: 100%;  -ms-text-size-adjust: 100%;  }
+input{  border: none;  outline-style: none;  }
+/* 去除iPhone中默认的input样式 */
+input[type="submit"], input[type="reset"], input[type="button"], input {  -webkit-appearance: none;  resize: none;  }
+/* 取消链接高亮  */
+body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);  }
+/* 设置HTML5元素为块 */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  display: block;  }
+/* 图片自适应 */
+img {  width: 100%;  height: auto;  width: auto\9; /* ie8 */  -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/  border: none;  }
+/* 初始化 */
+body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  margin: 0;  padding: 0;  border: none;  }
+body {  font: 14px 'Microsoft YaHei', Tahoma, Arial, sans-serif;  color: #666666;  background-color: #f6f6f6;  max-width: 750px;  margin: 0 auto;  }
+em, i {  font-style: normal;  }
+.clearfix:after {  content: "";  display: block;  visibility: hidden;  height: 0;  clear: both;  }
+.clearfix {  zoom: 1;  }
+a {  text-decoration: none;  color: inherit;  }
+a:hover {  text-decoration: none;  }
+ul, ol {  list-style: none;  }
+h1, h2, h3, h4, h5, h6 {  font-size: 100%;  font-weight: normal;  }
+.fl{float: left;}
+.fr{float: right;}
+select:focus{outline: none;}
+/*公共样式*/
+/*字体颜色*/
+.color-blue{
+    color: #148ce6;
+}
+
+.grid-list{
+    width: 100%;
+    height: 3.25rem;
+    background-color: #fff;
+}
+
+/*右箭头*/
+.arrow-icon{
+    display: inline-block;
+    background: url(../../images/fund/arrow.png) no-repeat;
+    background-size: 100%;
+    width: 0.4rem;
+    height: 0.75rem;
+    margin-right: 0.75rem;
+    margin-top: 1.25rem;
+}
+/*段落提示样式*/
+.section-tips{
+    color: #666;
+    font-size: 0.6rem;
+    padding: 0.5rem 0.75rem 0.5rem 0.75rem;
+}
+
+/*input样式*/
+.input-list{
+    width: 100%;
+    height: 2.5rem;
+    background-color: #fff;
+}
+/*label样式*/
+.label-style{
+    width: 3.875rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    margin-left: 0.75rem;
+    font-size: 0.7rem;
+    color: #000;
+}
+/*包裹input的div样式*/
+.input-box{
+    position: relative;
+    height: 2.5rem;
+    width: 13.375rem;
+}
+/*清空input图标*/
+.icon-close{
+    position: absolute;
+    display: inline-block;
+    background: url(../../images/error.png) no-repeat;
+    background-size: 100%;
+    width: 0.75rem;
+    height: 0.75rem;
+    right: 0;
+    top:0.9rem;
+}
+.input-style{
+    height: 1rem;
+    width: 13.375rem;
+    line-height: 1rem;
+    font-size: 0.7rem;
+    margin-top: 0.75rem;
+}
+
+/*input下划线*/
+.bottom-border{
+    border-bottom: solid 1px #eeeeee;
+}
+
+/*橘黄色按钮*/
+.btn-orange{
+    width: 92%;
+    height: 2.25rem;
+    background-color: #fe7e01;
+    color: #fff;
+    font-size: 0.75rem;
+    text-align: center;
+    line-height: 2.25rem;
+    margin: 0 4% 0 4%;
+    border-radius: 3px;
+    margin-top: 1.25rem;
+}
+
+
+.grid-list .flex{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;
+    -webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;
+    -webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;
+    -webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;
+}
+.grid-list .flex p{position: relative;line-height: 2.5rem;font-size: .75rem;color:#000;margin-right: .75rem;}
+.grid-list .flex select{line-height: 2.5rem;font-size: .75rem;color:#000;margin-right:-3rem;
+    width:10rem;
+}
+.contentleft{line-height: 2.5rem;font-size: .75rem;color:#000;margin-right:-3rem;
+}
+/*.contentleft{*/
+    /*margin-right:-6rem!important;*/
+/*}*/
+.typeTip{
+    padding: 0.375rem .75rem;
+}
+.typeTip p{
+    line-height: 0.875rem;
+    color:#666666;
+    font-size: 0.6rem;
+}
+.typeTip p span{
+    vertical-align: middle;
+}
+.typeTip p i{
+    display: inline-block;
+    width: .75rem;
+    height: .75rem;
+    background: url("../../images/question.png") no-repeat;
+    background-size: 100% 100%;
+    vertical-align: middle;
+}
+.xjb-usable{
+    line-height: 1.75rem;
+    font-size: .6rem;padding-left: .75rem;
+    display: none;
+}
+.user-info{
+    line-height: 1.75rem;
+    font-size:0.7rem;padding-left: .75rem;
+}
+.other-bank{
+    width: 100%;
+    height: .5rem;
+}
+.list-group .deposit-amount{
+    /*margin-top: .5rem;*/
+}
+.list-group .deposit-amount h4{
+    font-size: .75rem;
+    font-weight: normal;
+    text-align: left;
+    line-height: .75rem;
+    padding-top: .75rem;
+    padding-bottom: 1.375rem;
+}
+.list-group .deposit-amount .deposit-start{
+    padding-bottom: .75rem;
+    line-height: 1.1rem;
+    font-size: 0;
+}
+.list-group .deposit-amount .deposit-start span{
+    display: inline-block;
+    padding: 0 1.15rem;
+    font-size: 1.5rem;
+    vertical-align: middle;
+}
+.list-group .deposit-amount .deposit-start input{
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 1.1rem;
+    width:12.5rem;
+    margin:0;
+    height: 1.1rem;
+}
+.list-group .deposit-amount .deposit-start input::-webkit-input-placeholder{
+    color: #999999;
+    font-size: .75rem;
+    padding:.175rem 0;
+    line-height: .75rem;
+}
+.rules{
+     font-size: 0.65rem;
+     padding: .7rem 0 0 .75rem;
+    position: relative;
+ }
+.rules span {
+    width: .6rem;
+    height: .6rem;
+    vertical-align: middle;
+    background: url(../../images/chose1.png) no-repeat left center;
+    display: inline-block;
+    background-size: contain;
+    margin-right:0.45rem;
+    position: relative;
+    top:-.05rem;
+}
+
+.rules a {
+    color: #3295e8;
+    cursor: pointer;
+}
+.current{
+    background: url(../../images/chose1_y.png) no-repeat !important;
+    background-size: 100% 100% !important;
+}
+.footer-p{
+    font-size: 0.65rem;
+    text-align: center;
+    line-height: .65rem;
+    margin: 1.25rem 0;
+}
+.footer{
+    position: fixed;
+    left:0;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;
+    border-top: 1px #eeeeee solid;
+}
+.footer .download{
+    width: 100%;
+    line-height: 2.5rem;
+}
+.footer .download li{
+    float: left;
+    width: 50%;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 0.85rem;
+}
+.footer .download .cancel{
+    background: #fff;
+    border-right: 1px #ffcece solid;
+    color:#ff7e00;
+}
+.footer .download .affirm{
+    background: #ff7e00;
+    color:#fff;
+}
+.margin-r75{margin-right: .75rem;}
+.grid-list .iconi{padding:0 0 0 .25rem !important;margin: -2px -6px 0 0 !important;
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    vertical-align: middle;
+    }
+.grid-list li{border-bottom: 1px #efefef solid;}
+/*.grid-list li:last-child{border:none;}*/
+.list-group input:focus{text-align: left;}
+.list-group  li:first-child{border-bottom:1px #efefef solid;font-size: .75rem;color:#000;}
+.list-group  li:last-child{font-size: .7rem;color:#000;}
+
+/* 半透明提示窗 */
+.sm_tip{position: absolute;width:74%;top:8.5rem;left:13%;background: rgba(0, 0, 0, .5);border-radius:8px; display: none;}
+
+.sm_tip p{padding:1rem 1.5rem;color:#fff;font-size: .75rem;}
+/*弹框1*/
+.Bomb-box{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+.Bomb-box .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+.Bomb-box .Bomb-box-tips{  text-align: center;  color: #333;  font-size: 0.75rem;  height: 2.5rem;  line-height: 2.5rem;  }
+.Bomb-box .Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+.Bomb-box .Bomb-box-content p{  line-height: 1rem;  }
+.Bomb-box .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+.Bomb-box .no-tips{font-size: 0.7rem;padding: 1.7rem 1.5rem 1.15rem 1.5rem;text-align: center;}
+.Bomb-box .text-center{text-align: center;}
+::-webkit-input-placeholder
+{
+    text-align: left;
+}
+/*tips小icon*/
+.tip-icon{
+    position: absolute;
+    top:.875rem;
+    display: inline-block;
+    width: .75rem;
+    height: .75rem;
+    background: url("../../images/question.png") no-repeat;
+    background-size: 100% 100% ;
+    margin-left: 0.3rem;
+}
+
+/*交易密码*/
+.pause p span{
+    color: #fb5c5f;
+    float: right;
+    display: block;
+}
+.pure-form .btn-orange{
+    width: 100%;
+    margin: 0;
+}
+.pure-form{
+    /*display: none;*/
+    background-color: #f6f6f6;
+    width: 100%;
+    top: 0;
+    height: 100%;
+    z-index: 999;
+}
+ul, li{margin: 0; padding: 0;}
+.pure-form .pwd-area ul { width: 100%;margin: 3em auto; text-align: center;}
+.pure-form .pwd-area li {list-style-type: none; display: inline-block; width: 2.5rem; height: 2.5rem; border: 1px solid #666; border-right: none; line-height: 2.5em; vertical-align: top;outline: none; background-color: #fff;}
+.pure-form .pwd-area li i {display: block; border-radius: 5px; width: 0px; height: 0px; border: 5px solid #000; margin: 1rem auto; visibility: visible;}
+.pure-form .pwd-area li i {display: none;}
+.pwd-area input {display: block; border: none; outline: none; opacity: 0; margin: -2.5em 0 2.5em -9999px;}
+.pure-form input::-webkit-outer-spin-button,
+.pure-form input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+.pure-form body{
+    background-color: #f6f6f6;
+}
+.pure-form .section {
+    padding: 5%;
+    overflow: hidden;
+    color: #555;
+}
+.pure-form .btn-next {
+    background-color:#fe7e01;
+    color: #fff;
+    border-radius: 4px;
+    padding: .7em 1em;
+}
+
+
+.pure-form  .set-title{
+    text-align: center;
+    width: 100%;
+    margin: 3em auto;
+    font-size: 1em;
+}
+.pure-form .pwd-area .first{
+    border-radius: 0.2rem 0 0 0.2rem ;
+}
+.pure-form .pwd-area .last{
+    border-radius:0 0.2rem 0.2rem 0 ;
+}
+.pure-form .set-title{
+    font-size: 0.7rem;
+    color: #666;
+    margin-top: 5.25rem;
+    margin-bottom: 1rem;
+}
+.pure-form .pwd-area li {
+    border: 1px solid #666;
+    border-right: none;
+}
+.pwd-area li.last {
+    border-right: 1px solid #666;
+}
+.pure-form .pwd-area-set ul{margin-top: 0;}
+.pure-form .pwd-area{position: relative;}
+.pure-form .pwd-area .forget{
+    position: absolute;
+    font-size: 0.55rem;
+    color: #148ce6;
+    right: 0.8rem;
+    top: 3rem;
+}
+
+
+/*银行图标*/
+
+/*银行图标*/
+.ico_007{
+    display: inline-block;
+    background: url(../../images/bank_icon.png) no-repeat;
+    background-size: 100%;
+    width: 2rem;
+    height: 2rem;
+    margin-left: 0.75rem;
+    margin-top: 0.65rem;
+    margin-right: 0.7rem;
+}
+/* S cardManage.html */
+ul.bankcards{
+    list-style: none;
+    overflow: hidden;
+    background-color: #fff;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+}
+.bankcards li{
+    width: 100%;
+    overflow: hidden;
+}
+.bankcards li .li-left{
+    width: 16%;
+    float: left;
+}
+
+.bankcards li .li-right{
+    width: 78%;
+    float: right;
+    position: relative;
+    border-bottom: 1px solid #e7e7e7;
+    text-decoration: none;
+}
+.bankcards li:last-child .li-right{
+    border-bottom: none;
+}
+.bankcards li .li-right .bankname{
+    color: #333;
+    font-weight: bold;
+    margin: 11px 0;
+}
+.bankcards li .li-right .banknum{
+    color: #666;
+    margin: 11px 0;
+}
+.bankcards li .li-right .person{
+    margin-left: 2rem;
+}
+.bankcards li .li-right .arrow {
+    background: transparent url(../../images/arrow.png) center center no-repeat;
+    width:15px;
+    height: 25px;
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    margin-top: -12px;
+    background-size: 10px 15px;
+}
+.card-add{
+    margin-top: 1rem;
+    background-color: #fff;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+    text-align: center;
+    padding: 8px;
+    margin-bottom: 1rem;
+    display: block;
+    color: #666;
+    text-decoration: none;
+}
+/*.card-add i.icon-add{
+    width: 30px;
+    height: 30px;
+    display: block;
+    margin: 0 auto .5rem;
+    background: transparent url("../img/add.png") no-repeat center center;
+    background-size: 30px 30px;
+}*/
+
+i.bank{ height:30px;background: url(../../images/bank_logos.png) no-repeat left center; width:30px; vertical-align:middle; margin-right: 17px;display: inline-block;}
+i.bank.ico_002{ background-position:-33px -3px;}
+i.bank.ico_2{ background-position:2px -4px;}
+i.bank.ico_102{ background-position:2px -4px;}
+i.bank.ico_202{ background-position:2px -4px;}
+i.bank.ico_802{ background-position:2px -4px;}
+
+i.bank.ico_104{ background-position:-31px -4px;}
+i.bank.ico_604{ background-position:-31px -4px;}
+
+
+i.bank.ico_005{ background-position:-68px -4px;}
+i.bank.ico_605{ background-position:-68px -4px;}
+
+i.bank.ico_705{ background-position:-68px -4px;}
+
+i.bank.ico_006{ background-position:-105px -4px;}
+i.bank.ico_106{ background-position:-105px -4px;}
+i.bank.ico_806{ background-position:-105px -4px;}
+
+i.bank.ico_007{ background-position:2px -41px;}
+i.bank.ico_607{ background-position:2px -41px;}
+i.bank.ico_008{ background-position:-31px -41px;}
+i.bank.ico_108{ background-position:-31px -41px;}
+i.bank.ico_608{ background-position:-31px -41px;}
+i.bank.ico_808{ background-position:-31px -41px;}
+i.bank.ico_009{ background-position:-68px -41px;}
+i.bank.ico_109{ background-position:-68px -41px;}
+i.bank.ico_609{ background-position:-68px -41px;}
+i.bank.ico8{ background-position:-105px -41px;}
+i.bank.ico_019{ background-position:4px -75px;}
+i.bank.ico_619{ background-position:4px -75px;}
+i.bank.ico_819{ background-position:4px -75px;}
+i.bank.ico10{ background-position:-31px -75px;}
+i.bank.ico_103{ background-position:-68px -75px;}
+i.bank.ico_613,
+i.bank.ico_813{ background-position:-68px -75px;}
+i.bank.ico_014{ background-position:-105px -75px;}
+i.bank.ico_614{ background-position:-105px -75px;}
+i.bank.ico_814{ background-position:-105px -75px;}
+i.bank.ico_011{ background-position:3px -108px;}
+i.bank.ico_112{ background-position:-31px -108px;}
+i.bank.ico_012{ background-position:-31px -108px;}
+i.bank.ico_812{ background-position:-31px -108px;}
+i.bank.ico_018{ background-position:-68px -108px;}
+i.bank.ico_618{ background-position:-68px -108px;}
+i.bank.ico16{ background-position:-105px -108px;}
+i.bank.ico_015{ background-position:2px -141px;}
+i.bank.ico_815{ background-position:2px -141px;}
+i.bank.ico18{ background-position:-31px -143px;}
+i.bank.ico19{ background-position:-68px -141px;}
+i.bank.ico20{ background-position:-105px -141px;}
+i.bank.ico21{ background-position:2px -177px;}
+i.bank.ico22{ background-position:-31px -177px;}
+i.bank.ico23{ background-position:-68px -177px;}
+i.bank.ico24{ background-position:-105px -177px;}
+i.bank.ico25{ background-position:2px -206px;}
+i.bank.ico26{ background-position:-31px -203px;}
+i.bank.ico27{ background-position:-68px -206px;}
+i.bank.ico28{ background-position:-105px -207px;}
+i.bank.ico29{ background-position:2px -238px;}
+i.bank.ico30{ background-position:-33px -235px;}
+i.bank.ico31{ background-position:-68px -235px;}
+i.bank.ico32{ background-position:-105px -236px;}
+i.bank.ico33{ background-position:3px -268px;}
+i.bank.ico34{ background-position:-34px -267px;}
+i.bank.ico35{ background-position:-68px -267px;}
+i.bank.ico36{ background-position:-105px -267px;}
+i.bank.ico37{ background-position:5px -299px;}
+i.bank.ico_003{ background-position:-33px -299px;}
+i.bank.ico_603{ background-position:-33px -299px;}
+i.bank.ico_803{ background-position:-33px -299px;}
+i.bank.ico_110{ background-position:-67px -299px;}
+i.bank.ico_101{ background-position:-106px -299px;}
+i.bank.ico_107{ background-position:5px -336px;}
+i.bank.ico_013{ background-position:-32px -336px;}
+i.bank.ico_621{ background-position:-104px -336px;}
+i.bank.ico_617{ background-position:-32px -142px;}
+i.bank.icons{ background-position:-66px -336px;}
+i.bank.ico_619{ background-position:-4px -140px;}
+i.bank.ico_620{ background-position:-33px -40px;}
+i.bank.ico_621{ background-position:-35px -299px;}
+
+/* E cardManage.html */

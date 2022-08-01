@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>添财梦工厂</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/swiper-4.2.2.min.css">
+    <link rel="stylesheet" href="css/mint.css">
+    <script src="js/base.js"></script>
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/needLogin.js"></script>
+<script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+</script>
+<style>
+    body,html{background: #1c2688;}
+    body {left: 0%; right: 0%;font:14px 'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+    button { outline: none;  }
+          /* 图片自适应 */
+    img {
+              width: 100%;
+              height: auto;
+              width: auto\9; /* ie8 */
+              -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/
+              border: none;
+              vertical-align: top;
+              outline: none;
+              display: block;
+    }
+    p { word-wrap: break-word; text-align: justify; }
+    table { width: 100%;border-collapse:collapse; }
+    .main{width:100%;background: #fff;}
+    .dream{width:100%;height:12.5rem;background:url(img/dream_02.png) no-repeat;background-size:100% 100%;}
+    .dream .text{padding-top:0.5rem;padding-left:2.5rem;padding-bottom: 0.2rem;}
+    .dream .text .right{font-size: 0.9rem;color:#fff;}
+    .dream .text .left{font-size:0.65rem;color:#fff;}
+    .swiper-pagination-bullet{
+            opacity: 1;
+            height:8px;
+            background: #a0b7f9;
+            /* margin-left: 0.5rem; */
+        }
+    .swiper-pagination-bullet-active {
+        opacity: 1;
+        width:0.75rem;
+        height:8px;
+        border-radius:50px;
+        background: #ffd559;
+    }
+    .dream .swiper-pagination {
+        position: absolute;
+        text-align: center;
+        -webkit-transition: .3s opacity;
+        -o-transition: .3s opacity;
+        transition: .3s opacity;
+        -webkit-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        z-index:99;
+        bottom: 0.05rem;
+       /*  left:50%;
+        margin-left:-2rem; */ 
+        /* bottom:1.45rem; */
+      }
+/*   .swiper-container {
+       position: relative;
+         width: 100%;
+         height:10rem;
+      } */
+ /*  .swiper-slide {
+       text-align: center;
+       font-size: 18px;
+       background: #eee;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       transition: 300ms;
+       transform: scale(0.8);
+     } */
+
+    /* .dream .swiper-slide{
+        width:16.75rem;
+        height:9.75rem;
+        box-sizing: border-box;
+        transform: scale(0.8);
+    }
+    .dream .swiper-slide img{
+      width:16.75rem;
+      height:9.75rem;
+      margin: 0 auto;
+      border-radius:10px;
+    }
+    .dream .swiper-slide-active,.dream .swiper-slide-duplicate-active{transform: scale(1);} */
+
+    .dream {
+     /*  height:9.75rem;
+      padding: .75rem 0; */
+      position: relative;
+    }
+
+    .dream .swiper-slide {
+        width:15.0rem;
+        /* height:9.75rem; */
+        box-sizing: border-box;
+        /* border: .2rem solid #ffe9e9; */
+        border-radius: .5rem;
+        /* background-color: #fff; */
+        /* border-image: -webkit-linear-gradient(#ffe9e9, #2ED) 20 20;
+        border-image: -moz-linear-gradient(#ffe9e9, #2ED) 20 20;
+        border-image: -o-linear-gradient(#ffe9e9, #2ED) 20 20;
+        border-image: linear-gradient(#ffe9e9, #2ED) 20 20; */
+    }
+
+   /*  .dream .swiper-slide .box {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        box-sizing: border-box;
+        padding: .5rem .75rem;
+        text-align: center;
+    }
+ */
+    .dream .swiper-slide  img {
+        width:15.25rem;
+        height:7.25rem;
+        border-radius:6px;
+        margin-top: 0.425rem;
+        margin-left: 0.5rem;
+        z-index:10;
+        /* border:0.05rem solid #406ef3; */
+    }
+
+    .dream .title{position:absolute;bottom:1.5rem;left:1rem;font-size: 0.6rem;color:#fff;}
+    .dreamUp{width:100%;height:2.4rem;background:url(img/dream_03.png) no-repeat;
+      background-size:100% 100%;display: flex;justify-content: space-between;align-items: center;margin-top:-0.1rem;}
+    .dreamUp div{height:2rem;width:50%;color:#fff;font-size:0.9rem;text-align:center;margin-left:1rem;margin-top:0.55rem;font-weight: bold;}
+    .dreamUp div:nth-of-type(2){width:5rem;height:2rem;}
+    .dreamList{width:100%;
+      /* height:2.675rem; */
+      background:url(img/dream_04.png) no-repeat;
+      padding-bottom:0.2rem;
+      background-size:100% 100%;overflow-x: auto;white-space: nowrap;margin-top:-0.1rem;}
+    .dreamIcon{width:5.0rem;height:2.25rem;background: url('img/tipBlue.png') no-repeat;background-size: 100% 100%;margin-left:0.55rem;display: inline-block;}
+    .dreamList div.active{width:5.0rem;height:2.25rem;background: url('img/tipYellow.png') no-repeat;background-size: 100% 100%;margin-left:0.75rem;display: inline-block;text-shadow: #be5e00 0px 1px 2px;}
+    .dreamList div{position: relative;}
+    .dreamList div .one{position: absolute;top:0.2rem;left:0.75rem;font-size:0.7rem;color:#fff;font-weight: bold;
+    overflow-x: auto;width:3.5rem;font-weight: bold;
+    }
+    .dreamList div .two{position: absolute;bottom:0.3rem;display:block;left:50%;font-size:0.6rem;color:#fff;text-align:center;margin-left:-1.5rem;}
+    .dreamTv{width:100%;height:9.5rem;background: url('img/tv.png') no-repeat;background-size: 100% 100%;z-index:99;margin-top:-0.05rem;position:relative;}
+
+    .dreamTv .swiper-slide{width:14.0rem;height:7.5rem;margin-top:0.75rem;z-index:10}
+    .dreamTv .swiper-slide img{width:14.0rem;height:6.25rem;
+      margin-left:0.25rem;
+      /* border:2px solid #000; */
+      border-radius:0.25rem;z-index:10;border:2px solid #0d0e55;}
+    .dreamTv .swiper-container {
+      width:14.75rem;}
+    .dreamTv  .swiper-container {
+          margin: 0 auto;
+          position: relative;
+          overflow: hidden;
+          list-style: none;
+          padding: 0;
+          z-index: 1;
+          right:0.95rem;
+      }
+    .dreamTv .swiper-pagination-bullet{opacity: 1; width:0.45rem; height:0.45rem; background: #fee562; border: 2px solid #0d0e55; z-index:10; margin-left:0.5rem;}
+    .dreamTv .swiper-pagination-bullet-active {opacity: 1; width:0.45rem; height:0.45rem; border-radius:50px; background: #f95350; }
+
+    .dreamTv .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {position: absolute; bottom:5px; left:6.25rem; width: 100%; }
+
+    .dreamTv .swiper-pagination {
+      position: absolute;
+         right:1.25rem;
+         bottom: 1.25rem;
+         /* bottom:0rem; */
+      }
+
+    .dreamTv .left{position:absolute;bottom:1.75rem;left:1rem;font-size: 0.6rem;color:#fff;opacity:0.8}
+    .dreamTv .right{position:absolute;bottom:1.75rem;right:1.25rem;font-size: 0.6rem;color:#fff;opacity:0.8}
+    .dreamFace{width:100%;
+      /* height:8.15rem; */
+      background: url('img/dream_05.png') no-repeat;background-size: 100% 100%;margin-top:-0.1rem;}
+    .dreamFace .text{padding-top:1.35rem;padding-left:2.5rem;}
+    .dreamFace .text .right{font-size: 0.9rem;color:#fff;font-weight: bold}
+    .dreamFace .text .left{font-size:0.65rem;color:#fff;margin-left:0.2rem;}
+    .faceList{width:100%;
+      /* height:4.625rem; */
+      overflow-x: auto;white-space: nowrap;
+      /* padding-bottom:1rem; */
+      padding-top:0.75rem;padding-bottom: 0.25rem;}
+    .faceList .listImg{width:8.25rem;height:4.625rem;
+      /* border:2px solid #111050; */
+      margin-left:0.15rem;border-radius: 0.25rem;display: inline-block;}
+    .faceList .listImg:nth-of-type(1){margin-left:0.75rem;}
+    .faceList .listImg img{width:8.25rem;height:4.625rem;border-radius: 0.25rem;border:1px solid #0d0e55;}
+
+    .dreamFamily{width:100%;height:8.15rem;background: url('img/dream_06.png') no-repeat;background-size: 100% 100%;margin-top:-0.1rem;}
+    .dreamFamily .text{padding-top:1.35rem;padding-left:2.5rem;}
+    .dreamFamily .text .right{font-size: 0.9rem;color:#fff;font-weight: bold}
+    .dreamFamily .text .left{font-size:0.65rem;color:#fff;margin-left:0.2rem;}
+    .familyList{width:100%;
+      /* height:4.625rem; */
+      overflow-x: auto;white-space: nowrap;padding-bottom:1rem;padding-top: 0.8rem;}
+    .familyList .listImg{width:8.25rem;height:4.625rem;margin-right: 0.5rem;
+      /* border:2px solid #111050; */
+      margin-left:0.15rem;border-radius: 0.25rem;display: inline-block;}
+    .familyList .listImg:nth-of-type(1){margin-left:0.75rem;}
+    .familyList .listImg img{width:8.25rem;height:4.625rem;border-radius: 0.25rem;border:1px solid #0d0e55;}
+    .dreamFotter{width:100%;height:5.0rem;background: url('img/dream_07.png') no-repeat;background-size: 100% 100%;margin-top:-0.1rem;}
+    .head{width:100%;height:2.5rem;background: url('img/head.png') no-repeat;background-size: 100% 100%;display: flex;justify-content: space-between;align-items: center;}
+    .head div{width:1.75rem;text-align: center;color:#bcc3ea;font-size:0.8rem;margin:0rem 1rem;}
+    .head div:nth-of-type(3){width:2.75rem}
+    .head div.active{color:#fff;border-bottom:2px solid #fff;font-weight: bold;}
+
+    .faceList .listImg{position: relative;margin-right: 0.5rem;}
+    .faceList .listImg .hot{border-bottom:0.75rem solid #fa5b5e; 
+      border-left:0.75rem solid transparent; 
+      border-right:0.75rem solid transparent; 
+      height: 0; width:1.5rem;position: absolute;left:-0.75rem;top:0.35rem;
+      transform:rotate(-45deg);
+      -ms-transform:rotate(-45deg); /* Internet Explorer */
+      -moz-transform:rotate(-45deg); /* Firefox */
+      -webkit-transform:rotate(-45deg); /* Safari 和 Chrome */
+      -o-transform:rotate(-45deg);
+      color:#fff;text-align:center;line-height:0.75rem;font-size:0.25rem}
+    .checkMore .textMore{font-size:0.65rem; }
+    .checkMore img{width:0.375rem;height:0.55rem;vertical-align:middle;display: inline-block}
+    .biankuang{width:15.0rem;height:7.0rem;position: absolute;left: 50%;margin-left: -8.25rem;border:0.8rem solid #406ef3;
+        border-radius:0.5rem;margin-top:0.5rem;
+        /* z-index:3; */
+      } 
+</style>
+</head>
+<body>
+<div class="main" id="app">
+  <mt-loadmore  :auto-fill="false" :top-method="loadTop"  ref="loadmore">
+    <div class="dreamFotter"></div>
+    <div ref="tar">{{content}}</div>
+    <template>
+        {{showLoading}}
+        <div-slot :todo="list">
+            <template #one></template>
+            <template #three></template>
+            <!--<template #listbox='value' slot-scope="scope">-->
+                <!--<p>{{scope.content.text}}</p>-->
+            <!--</template>-->
+            <template slot-scope="scope">
+                描述: {{scope.content.text}}
+            </template>
+        </div-slot>
+    </template>
+    </mt-loadmore>
+</div>
+
+<script src="js/jquery.3.4.1.min.js"></script>
+<script src="js/swiper-4.2.2.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script> 
+<script type="text/javascript" src="js/vue.min.js"></script>
+<script src="js/mint.js"></script>
+<script>
+
+    Vue.component('div-slot', {
+        template: `<div>
+                <slot name="one">这里面是slot的默认值</slot>
+                <slot name="three">具名插槽</slot>
+                <!--<ul name='listbox' v-for='value in list'></ul>-->
+
+                 <ul v-if="todo.length" v-for="(item,index) in todo" :key="item.id">
+                      <li>id: {{item.id}}</li>
+                      <li>text: {{item.text}}</li>
+                      <li v-if="index === 1">
+                        <slot :content="item"></slot>
+                      </li>
+                  </ul>
+            </div>`,
+        props: {
+            todo:[]
+        },
+    });
+var vm = new Vue({
+    el: '#app',
+    data() {
+        return {
+            msgAllData: [],
+            recommendData: [],
+            userInfo: '',
+            allLoaded: false,
+            loading : true,
+            showLoading : true,
+
+            infoList:[],  //大图广告位
+            infoList2:[],  //天天向上直播间
+            infoList3:[], // 大咖专区,大咖面对面 和 添财剧场
+            mySwiper1:'', 
+            mySwiper2:'',
+            list:[
+                {
+                    "id":10,
+                    "text":"苹果"
+                },{
+                    "id":20,
+                    "text":"香蕉"
+                },{
+                    "id":30,
+                    "text":"梨"
+                },{
+                    "id":40,
+                    "text":"芒果"
+                },
+            ],
+            content:'初始值',
+        }
+    },
+
+    created() {
+      var _this = this; 
+        // this.getMsgList(true, false, this.currrentOrder);
+
+        // this.getLayoutData();
+        // this.getUserInfo();
+        _this.getInfo();
+
+        // this.content = '改变了的值'
+        this.$nextTick(() => {
+            // dom元素更新后执行，因此这里能正确打印更改之后的值
+            console.log(_this.$refs.tar.innerText) // 改变了的值
+        })
+    },
+
+ 
+  methods: {
+    // 下拉刷新上拉加载
+        loadTop() {
+            this.getInfo();
+        },
+  //推荐系统-获取用户布局配置位置信息
+   getInfo(){  
+   var _this = this; 
+      utils.get('/res/v1/app-func-layout/location-info?layoutId=dreamWorksHome', null, function (result) {
+            if (result.returnCode == 0) {
+                _this.infoList=result.body.appLayoutFuncInfoList.filter(function(item) {//大图广告位
+                 return item.temId=='dreamWorksZoomVideoList';
+                });
+
+                _this.infoList2=result.body.appLayoutFuncInfoList.filter(function(item) {//天天向上直播间
+                 return item.temId=='dreamWorksTabVideoList';
+                });
+
+                _this.infoList3=result.body.appLayoutFuncInfoList.filter(function(item) {// 大咖专区,大咖面对面
+                 return item.temId=='scrollVideoCard_wxapp2.0';
+                });
+               
+                _this.infoList.forEach(function(item){   //大图广告位
+                    _this.getAdviceRelateId(item.temId,item.funcmodId)  //获取temId，funcmodId
+                })
+
+                _this.infoList2.forEach(function(item){   //天天向上直播间
+                    _this.getAdviceRelateId2(item.temId,item.funcmodId); 
+                })
+             
+              _this.getAdviceRelateId3(_this.infoList3[0].temId,_this.infoList3[0].funcmodId); // 大咖专区,大咖面对面
+
+              _this.getAdviceRelateId4(_this.infoList3[1].temId,_this.infoList3[1].funcmodId); //添财剧场
+                
+            }else if (result && result.returnCode != 9999) {
+                alert(result.returnMsg)
+            }else {
+                alert(result.returnMsg)
+            }
+      });
+  },
+  // getInfo(); 
+
+  // 获取用户布局主题内容--获取adviceRelateId--人气推荐
+  getAdviceRelateId(temId,funcmodId){
+     var _this = this; 
+      utils.get('/res/v1/app-func-layout/theme-infos-app?layoutId='+temId+'&funcModId='+funcmodId, null, function (result) {
+            if (result.returnCode == 0) {
+              var obj=[]
+              var adviceRelateId=[];
+                obj=result.body[0].object;
+                // $("#first").html('<img src="'+obj[0].imageUrl+'" alt="">');
+                obj.forEach(function(item){
+                  adviceRelateId.push(item.adviceRelateId);
+                })
+                var videoIdList= adviceRelateId.toString();
+                console.log(videoIdList)
+                _this.getVideo(videoIdList);
+                
+                
+            }else if (result && result.returnCode != 9999) {
+                alert(result.returnMsg)
+            }else {
+                alert(result.returnMsg)
+            }
+      });
+  },
+
+  // 获取天天向上直播间
+ 
+   getAdviceRelateId2(temId,funcmodId){
+    var _this = this;
+      utils.get('/res/v1/app-func-layout/theme-infos-app?layoutId='+temId+'&funcModId='+funcmodId, null, function (result) {
+            if (result.returnCode == 0) {
+              var objList2=[];
+              var objhtml2= "";
+              var name="";
+              var mySwiper ;
+              var numIndex;
+              if(result.body.length>0){
+                  objList2=result.body[0].object;
+                  objList2.forEach(function (item,index) {
+                    objhtml2 += '<div class="dreamIcon" data="'+index+'"><span class="one">'+item.adviceTitle+'</span><span class="two">'+item.adviceDesc.substr(0,5)+'</span></div>'
+                  })
+              }else{
+                var objhtml2= "";
+              }
+              if(result.body[0].viewmoreTitle){
+                $(".checkMore .textMore").text(result.body[0].viewmoreTitle);
+                $(".checkMore img").show();
+              }else{
+                $(".checkMore img").hide();
+              }
+              
+              var url=result.body[0].viewmoreUrl;
+
+              $(".dreamList").html(objhtml2);
+              
+              $(".dreamIcon").eq(0).addClass('active');
+             
+              if($(".dreamIcon").eq(0).attr("data")==0){
+                var str=$(".one").eq(0).text();
+              
+                 _this.getVideo2(str); 
+              }
+
+              $('.dreamList .dreamIcon').click(function () {
+
+                  // _this.mySwiper2.destroy();   //每次销毁在创建实列
+
+                  if ($(this).hasClass("active")) {
+                      return;
+                  }
+                  $(this).addClass("active").siblings().removeClass('active');
+                  // $(this).parent().next("qiehuan").hide().eq($(this).index()).show();
+                  // $(this).parent().siblings().hide().eq($(this).index()).show()
+                  name=$(this).find('.one').text();
+
+                   numIndex=$(this).attr("data");
+
+                  _this.getVideo2(name);  
+              });
+
+             
+              $(".checkMore").click(function(){   // 查看更多
+
+                 // var url = "htffundxjb://action?type=url&link=aHR0cDovL2FwcHVhdC45OWZ1bmQuY29tLmNuOjcwODEvYWN0aXZpdHktY2VudGVyL2FjdC1yZXNvdXJjZXMvcGFnZXMvZHJlYW1Xb3Jrcy9wcm9ncmVzc0xpdmUuaHRtbA==";
+
+                 if($(".dreamIcon").eq(0).hasClass("active")){    //htffundxjb://action?type=url&link="直播间url"
+
+                  // var codeUrl="progressLive.html?tags="+str;
+                  
+                  var codeUrl=encodeURI(str);
+
+            
+                    // http://appuat.99fund.com.cn:7081/activity-center/act-resources/pages/dreamWorks/picturerogressLive.html?tags=%E6%B7%BB%E5%AF%8C%E6%98%9F%E6%9C%9F%E4%BA%8C
+
+                  var arrTmp = url.split("link=");
+
+                  var enCode=decodeURIComponent(atob(arrTmp[1]));
+
+                  
+                  // var enCode=decodeURIComponent(atob(arrTmp[1]));
+
+                  console.log(enCode);
+                  console.log(codeUrl);
+
+                  // var toCode=btoa(encodeURIComponent(codeUrl));
+
+                  // var toUrl=url;
+                  
+                  // utils.setCookie('num',0);
+
+                  var toUrl = btoa(enCode+'?tags='+codeUrl);
+                  console.log(toUrl);
+
+                  // var toUrl = btoa('http://appuat.99fund.com.cn:7081/activity-center/act-resources/pages/dreamWorks/progressLive.html?tags=%E6%B7%BB%E5%AF%8C%E6%98%9F%E6%9C%9F%E4%BA%8C')
+
+            
+                  window.location.href='htffundxjb://action?type=url&link=' + toUrl;
+               
+                 
+                  // window.location.href=decodeURIComponent(atob(arrTmp[1]))+"?tags="+str;
+               
+                  // utils.setCookie('num',$(".dreamIcon").eq(0).attr("data"));
+
+                  // utils.setSession("tags",str);
+                  
+                  // window.location.href="htffundxjb://action?type=url&link="+toCode;
+
+                  return;
+
+                 }else{
+                  // window.location.href="progressLive.html?tags="+name;
+                  
+                  // var toCode=btoa(encodeURIComponent(codeUrl));
+
+                  // var toUrl=url;
+                  
+                   var codeName=encodeURI(name);
+
+                   var arrTmp = url.split("link=");
+
+                  var enCode=decodeURIComponent(atob(arrTmp[1]));
+
+                  console.log(enCode);
+                  console.log(codeName);
+
+                  var toUrl = btoa(enCode+'?tags='+codeName);
+
+
+                  // utils.setCookie('num',numIndex);
+
+                  window.location.href='htffundxjb://action?type=url&link=' + toUrl;
+
+                    // var arrTmp = url.split("link=");
+                    // window.location.href=decodeURIComponent(atob(arrTmp[1]))+"?tags="+name;
+
+                    // window.location.href=url+"&tags="+name;
+
+                  // utils.setCookie('num',numIndex);
+                  
+                  // window.location.href='htffundxjb://action?type=url&link=' + url+'&tags='+name;
+                  // utils.setCookie('tags',name);
+                 }
+              })
+
+            }else if (result && result.returnCode != 9999) {
+                alert(result.returnMsg)
+            }else {
+                alert(result.returnMsg)
+            }
+      });   
+  },
+
+
+
+
+  // 获取大咖专区
+   getAdviceRelateId3(temId,funcmodId){
+      utils.get('/res/v1/app-func-layout/theme-infos-app?layoutId='+temId+'&funcModId='+funcmodId, null, function (result) {
+            if (result.returnCode == 0) {
+                var objList3=[];
+                var objhtml3= "";
+
+                if(result.body.length>0){
+                  objList3=result.body[0].object;
+                  objList3.forEach(function (item) {
+                        if (isApp()) {
+                              if(item.url.slice(0, 13) == 'htffundxjb://'){
+                                  objhtml3 += '<div class="listImg"><a href="'+item.url+'"><img src="'+item.imageUrl+'" alt=""></a></div>'
+                              }else{
+                                  objhtml3 += '<div class="listImg"><a href="htffundxjb://action?type=url&link='+ btoa(item.url)+'"><img src="'+item.imageUrl+'" alt=""></a></div>'
+                              }
+                        }else{
+                            objhtml3 += '<div class="listImg"><a href="'+item.url+'"><img src="'+item.imageUrl+'" alt=""></a></div>'
+                        }
+                  })
+                }else{
+                  var objhtml3= "";
+                }
+                $("#faceList").html(objhtml3);
+
+            }else if (result && result.returnCode != 9999) {
+                alert(result.returnMsg)
+            }else {
+                alert(result.returnMsg)
+            }
+      });
+  },
+  getAdviceRelateId4(temId,funcmodId){
+      utils.get('/res/v1/app-func-layout/theme-infos-app?layoutId='+temId+'&funcModId='+funcmodId, null, function (result) {
+            if (result.returnCode == 0) {
+                var objList4=[];
+                var objhtml4= "";
+                if(result.body.length>0){
+                  objList4=result.body[0].object;
+                  objList4.forEach(function (item) {
+                    if(isApp()){
+                      if(item.url.slice(0, 13) == 'htffundxjb://'){
+                          objhtml4 += '<div class="listImg"><a href="'+item.url+'"><img src="'+item.imageUrl+'" alt=""></a></div>'
+                      }else{
+                          objhtml4 += '<div class="listImg"><a href="htffundxjb://action?type=url&link='+ btoa(item.url)+'"><img src="'+item.imageUrl+'" alt=""></a></div>'
+                      }
+ 
+                    }else{
+                        objhtml4 += '<div class="listImg"><a href="'+item.url+'"><img src="'+item.imageUrl+'" alt=""></a></div>'
+                    }
+                  
+                })
+                }else{
+                  var objhtml4= "";
+                }
+               
+                $("#familyList").html(objhtml4);
+
+            }else if (result && result.returnCode != 9999) {
+                alert(result.returnMsg)
+            }else {
+                alert(result.returnMsg)
+            }
+      });
+  },
+  
+  
+  // 得到梦工厂视频滑动缩放图片
+  getVideo(videoIdList) {
+    var _this=this;
+      utils.get('/cms-service/v1/vedio/vedios-simple?videoIdList='+videoIdList, null, function (result) {
+          if (result.returnCode == 0) {
+              var list=[];
+              var html = "";
+              list=result.body;
+              // for(var i=0;i<list.length;i++){
+              //   // console.log(list[i].picture)
+              //   var html='<div class="swiper-slide"><img src="+'list[i].picture+'" alt=""></div>'
+              // }
+              
+              list.forEach(function (item) {
+                // html += '<div class="swiper-slide" style="position:relative"><a href="'+item.detailUrl+'"><img src="'+item.picture+'" alt=""><span class="title">'+item.title+'</span></a></div>'
+               
+                if (isApp()) {
+                     if(item.detailUrl.slice(0, 13) == 'htffundxjb://'){   
+                           html += '<div class="swiper-slide" style="position:relative"><a href="'+item.detailUrl+'"><img src="'+item.picture+'" alt=""><span class="title">'+item.title+'</span></a></div>'
+                     }
+                     // else if(item.detailUrl.slice(0, 13)!= 'htffundxjb://'&&list2[i].isLive==2){   //isLive==2火山视频
+
+                     //       html += '<div class="swiper-slide" style="position:relative"><a href="htffundxjb://action?type=media&subType=liveXE&videoId='+ item.videoId+'" class="goUrl"><img src="'+item.picture+'" alt=""><span class="title">'+item.title+'</span></a></div>'
+                     // }
+                     else{
+                          html += '<div class="swiper-slide" style="position:relative"><a href="htffundxjb://action?type=url&link='+ btoa(item.detailUrl)+'" class="goUrl"><img src="'+item.picture+'" alt=""><span class="title">'+item.title+'</span></a></div>'
+                     }
+                     
+                }else{
+                     html += '<div class="swiper-slide" style="position:relative"><a href="'+item.shareLinkUrl+'"><img src="'+item.picture+'" alt=""><span class="title">'+item.title+'</span></a></div>'
+                }
+              })
+
+              // var html='<div class="swiper-slide"><img src="img/dream_01.png" alt=""></div>'
+              $("#listImg").html(html);
+              _this.mySwiper1&&_this.mySwiper1.destroy();
+              
+              _this.mySwiper1 = new Swiper ('.dream .swiper-container', {
+                  // direction: 'horizontal',
+                  effect: 'coverflow',
+                  loop: true,
+                  // slidesPerView:2,
+                  // spaceBetween:-70,
+                  // delay:5000,
+                  // autoplay:5000
+                  
+                  autoplay:{
+                    delay:5000,//5秒切换一次
+                    disableOnInteraction: false
+                  },
+                  loopAdditionalSlides: 2,
+                  // autoplay:{disableOnInteraction: false},
+
+                  slidesPerView:1.15,
+                  centeredSlides: true,
+                  spaceBetween:26,
+
+                  // loopedSlides: 5,
+                  // observer: true,
+                  // observeParents: true,
+                  // observeSlideChildren: true,
+                  // observeSlideChildren: true,
+                  coverflowEffect: {
+                      rotate: 0,
+                      stretch:0, // slide左右距离
+                      depth:100, // slide前后距离
+                      modifier: 1,
+                      slideShadows: false
+                  },
+                  // 如果需要分页器
+                  pagination: {
+                      el: '.swiper1'
+                  }
+                  // direction: 'horizontal',
+                  //       loop: true,
+                  //       autoplay:30000,
+                  //       autoplay:{disableOnInteraction: false},
+                  //       // 如果需要分页器
+                  //       pagination: {
+                  //           el: '.swiper-pagination'
+                  //       }
+                
+              });
+             
+   
+                  // $("#listImg .goUrl").click(function(){
+                  //   // if (isApp()) {
+                  //   //     window.location.href = 'htffundxjb://action?type=media&subType=liveXE&link=' + btoa(url);
+                  //   //   } else {
+                  //   //       window.location.href = url
+                  //   //   }
+                  //   list.forEach(function (item) {
+
+                  //   })
+
+                  // }) 
+
+          }else if (result && result.returnCode != 9999) {
+              alert(result.returnMsg)
+          }else {
+              alert(result.returnMsg)
+          }
+      });
+    },
+
+  //天天向上直播间
+  
+  getVideo2(tags) {
+    console.log(tags);
+    var _this=this;
+    $("#dreamTv").html("");
+      utils.get('/cms-service/v1/vedio/vedios-simple?tags='+tags, null, function (result) {
+          if (result.returnCode == 0) {
+              var list2=[];
+              var html2= "";
+              list2=result.body;
+
+              if(list2.length>3){
+                  for(var i=0;i<4;i++){
+                    if(isApp()){
+                       if(list2[i].detailUrl.slice(0, 13)!= 'htffundxjb://'&&list2[i].isLive==1){
+                                html2 += '<div class="swiper-slide" style="position:relative"><a href="'+list2[i].url+'"><img src="'+list2[i].picture+'" alt=""><span class="left"></span><span class="right"></a></div>'
+
+                        }
+
+                        else if(list2[i].detailUrl.slice(0, 13)!= 'htffundxjb://'&&list2[i].isLive==2){
+
+                              html2 += '<div class="swiper-slide" style="position:relative"><a href="htffundxjb://action?type=media&subType=liveXE&videoId='+list2[i].videoId+'"><img src="'+list2[i].picture+'" alt=""><span class="left"></span><span class="right"></span></a></div>'
+                        }else{
+
+                              html2 += '<div class="swiper-slide" style="position:relative"><a href="htffundxjb://action?type=url&link='+ btoa(list2[i].detailUrl)+'"><img src="'+list2[i].picture+'" alt=""><span class="left"></span><span class="right"></span></a></div>'
+                        }
+                      
+                    }else{
+                       html2 += '<div class="swiper-slide" style="position:relative"><a href="'+list2[i].shareLinkUrl+'"><img src="'+list2[i].picture+'" alt=""><span class="left"></span><span class="right"></a></div>'
+                    }
+                          
+                  }
+              }else{
+                  for(var i=0;i<list2.length;i++){
+                    if(isApp()){
+                        if(list2[i].detailUrl.slice(0, 13)!= 'htffundxjb://'&&list2[i].isLive==1){
+                                html2 += '<div class="swiper-slide" style="position:relative"><a href="'+list2[i].url+'"><img src="'+list2[i].picture+'" alt=""><span class="left"></span><span class="right"></a></div>'
+
+                        }
+                        else if(list2[i].detailUrl.slice(0, 13)!= 'htffundxjb://'&&list2[i].isLive==2){
+                              
+                              html2 += '<div class="swiper-slide" style="position:relative"><a href="htffundxjb://action?type=media&subType=liveXE&videoId='+ list2[i].videoId+'"><img src="'+list2[i].picture+'" alt=""><span class="left"></span><span class="right"></span></a></div>'
+                          }
+                        else{
+                              html2 += '<div class="swiper-slide" style="position:relative"><a href="htffundxjb://action?type=url&link='+ btoa(list2[i].detailUrl)+'"><img src="'+list2[i].picture+'" alt=""><span class="left"></span><span class="right"></span></a></div>'
+                          }
+                    }else{
+                        html2 += '<div class="swiper-slide" style="position:relative"><a href="'+list2[i].shareLinkUrl+'"><img src="'+list2[i].picture+'" alt=""><span class="left"></span><span class="right"></span></a></div>'
+                    } 
+                      
+                  }
+
+              }
+        
+              $("#dreamTv").html(html2);
+
+              // list.forEach(function (item) {
+              //   html += '<div class="swiper-slide" style="position:relative"><a href="'+item.detailUrl+'"><img src="'+item.picture+'" alt=""><span class="title">'+item.title+'</span></a></div>'
+              // })
+              
+               _this.mySwiper2&&_this.mySwiper2.destroy();
+                _this.mySwiper2 = new Swiper ('.dreamTv .swiper-container', {
+                      direction: 'horizontal',
+                      // pagination: '.swiper-pagination', 
+                      // autoplay:100000,
+                      loop: true,
+                      autoplay:{
+                          delay:5000,//5秒切换一次
+                          disableOnInteraction: false
+                        },
+
+                       // autoplay:{disableOnInteraction: false},  
+                      // autoplayDisableOnInteraction: false,
+                      // initialSlide :0,
+                      // slidesPerView:1,
+                      // centeredSlides: true,
+                      // spaceBetween:30,  
+                      // autoplay:{disableOnInteraction: false},
+                      // 如果需要分页器
+                      pagination: {
+                        el: '.swiper2'
+                      },
+                      // observer:true,
+                      // observeParents:true,
+                      // observeSlideChildren:true,
+                      // on:{
+                      //   slideChange: function(){
+                      //     alert('改变了，activeIndex为'+this.activeIndex);
+                      //   },
+                      // },
+                      // onSlideChangeEnd: function(swiper){
+                      //   　　　swiper.update(); 
+                      //   　　　mySwiper.startAutoplay();
+                      //   　　  mySwiper.reLoop(); 
+                      //   },
+
+                });
+
+            // mySwiper.update(); 
+            // getSlide();
+
+            // mySwiper.init();
+            _this.$refs.loadmore.onTopLoaded();
+          }else if (result && result.returnCode != 9999) {
+              alert(result.returnMsg)
+          }else {
+              alert(result.returnMsg)
+          }
+      });
+    }
+     
+
+       
+  },
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // // 查看更多
+  // $(".checkMore").click(function(){
+  //   console.log("name",name);
+  //   window.location.href="progressLive.html?tags="+name;
+  // })
+  
+  //   $('.head div').click(function () {
+  //     if ($(this).hasClass("active")) {
+  //         return;
+  //     }
+  //     $(this).addClass("active").siblings().removeClass('active');
+  // });
+
+
+
+
+    //     let disY, startY, endY,timer,t;
+       
+    //      // 触摸开始
+    //      $('#newlist').on('touchstart',function(e){
+    //        startY = e.originalEvent.changedTouches[0].pageY;//开始时的坐标
+           
+    //      });
+    //     //  移动中
+    //     $('#newlist').on('touchmove',function(e){
+    //         endY = e.originalEvent.changedTouches[0].pageY;
+    //         disY = endY- startY;//移动后的坐标减去开始坐标，滑动距离。
+    //          $(".pull-down-content").text("下拉更新");
+    //          $('#pull-down').show();
+    //         if(disY <60){
+    //           $('#pull-down').css({
+    //             height:disY+'px',
+    //             transition:"2s"
+    //           });
+    //         }else{
+    //           $('#pull-down').css({
+    //             height:60+'px',
+    //             transition:"2s"
+    //           });
+    //         }
+    //     });
+    //     // 结束时
+    // $('#newlist').on('touchend',function(e){
+    //       clearInterval(timer);
+    //       endY = e.originalEvent.changedTouches[0].pageY;
+    //       disY = endY-startY;
+    //       if(disY>30){
+    //          timer=setInterval(function(){
+    //           disY-=5;
+    //           if(disY<=30){
+    //             $('#pull-down').css({
+    //             height:30+'px',
+    //             transition:"1s"
+    //             });//松手后的返回。
+    //               clearInterval(timer);
+    //               refresh();//加载数据
+    //           }
+    //           $('#pull-down').css({
+    //              height:disY+'px'
+    //           });
+    //           $(".pull-down-content").text("释放更新");
+    //           $('#pull-down').hide();
+    //         },10)
+    //       }
+    //     })
+
+
+    // function refresh(){
+    //     clearTimeout(t);
+    //      t =setTimeout(function(){//延时器模拟的数据请求
+    //       getInfo();
+    //       // $('#newlist').append(list);
+    //       $('#pull-down').css({height:'0px'});
+    //        $('#pull-down').hide();
+    //       clearTimeout(t);//定时器技术时候要记得清除，每次调用事件之前，最好也清除下。
+    //     },20);       
+    // }
+
+</script>
+</body>
+</html>

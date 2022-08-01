@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	 <!-- <meta charset="GBK"> -->
+	<meta charset="utf8">
+	<title>现金宝支持绿色出行</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+    <style>
+    	/* 禁用iPhone中Safari的字号自动调整,如横屏时会重新计算 */
+		html {
+			-webkit-text-size-adjust: 100%;
+			-ms-text-size-adjust: 100%;
+		}
+		input{
+			border: none;
+			outline-style: none;
+		}
+		
+		/* 去除iPhone中默认的input样式 */
+		input[type="submit"], input[type="reset"], input[type="button"], input {
+			-webkit-appearance: none;
+			resize: none;
+		}
+		
+		/* 取消链接高亮  */
+		body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		
+		/* 设置HTML5元素为块 */
+		article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+			display: block;
+		}
+		
+		/* 图片自适应 */
+		img {
+			width: 100%;
+			height: auto;
+			width: auto\9; /* ie8 */
+			-ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/
+			border: none;
+		}
+		
+		/* 初始化 */
+		body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+			margin: 0;
+			padding: 0;
+			border: none;
+		}
+		body {
+			font: 14px 'Microsoft YaHei', Tahoma, Arial, sans-serif;
+			color: #666666;
+			background-color: #f6f6f6;
+			max-width: 750px;
+			margin: 0 auto;
+		}
+		em, i {
+			font-style: normal;
+		}
+		.clearfix:after {
+			content: "";
+			display: block;
+			visibility: hidden;
+			height: 0;
+			clear: both;
+		}
+		.clearfix {
+			zoom: 1;
+		}
+		a {
+			text-decoration: none;
+			color: inherit;
+		}
+		a:hover {
+			text-decoration: none;
+		}
+		ul, ol {
+			list-style: none;
+		}
+		h1, h2, h3, h4, h5, h6 {
+			font-size: 100%;
+			font-weight: normal;
+		}
+		
+        body{ font-size: 18px; background-color: #fb3e34; max-width: 640px; }
+        @media only screen and (max-width: 400px) {
+            body{
+                font-size: 14px;
+            }
+        }
+        @media only screen and (max-width: 320px) {
+            body{
+                font-size: 12px;
+            }
+        }
+
+        .font-arial{ font-family: Arial; }
+        button { outline: none; }
+        img { vertical-align: top; border: 0;outline: 0;width: 100%;height: auto;}
+        p { line-height: 1.5; word-wrap: break-word; text-align: justify; }
+        table { width: 100%;border-collapse:collapse; }
+        .hide { display: none !important; }
+        .blue { color: #1057a0;}
+        .left{ float: left; }
+        .right{ float: right; }
+        .hide { display: none; }
+        .text-center { text-align: center; }
+        .text-left { text-align: left;}
+        .black { color: #333333; }
+        .bold { font-weight: bold;}
+
+        .orange { color: #fe7e01; }
+        .red { color: #f35833;}
+        .gray { color: #979797;}
+        .bolder { font-weight: bolder;}
+
+        .content { background: linear-gradient(#fd7062,#fb3e34); background: -webkit-linear-gradient(#fd7062,#fb3e34);}
+        .section1 { min-height: 100px;}
+        .section2,
+        .section4{ position: relative;}
+        .section2>div,
+        .section4>div{ position: absolute; top: 0; left: 0; width: 100%; color: #fff;}
+
+        .section2>div h2 { font-size: 20px;}
+        .section2>div ul { width: 30%; margin: 0 auto; font-size: 16px; margin-top: 8px;}
+        .section2>div li:first-child { float: left; width: 50%;}
+        .section2>div li:last-child { float: right;  width: 50%;}
+        .section2>div li a { display: block;  height: 20px; line-height: 20px;  float: left; }
+        .section2>div li span { display: block; width: 18px; height: 18px; border: 1px solid #fff; border-radius: 5px; float: left; margin-left: 4px; }
+        .section2>div li.active span { background-color: #fff; }
+
+        .section4>div { width: 86%; margin: 0 auto; left: 7%; top: -0.38em; background-color: #fff;}
+        .section4 p { color: #fd7062; font-size: 1.1em; font-weight: bolder; text-align: center;}
+        .section4>div input,
+        .section4>div button{ border:1px solid #c6c6c6; width: 86%; margin: 0 auto; display: block; height: 2em; border-radius: 5px; text-align: center; font-size: 1em;}
+        .section4>div button { background-color: #c6c6c6; margin-top: 1em; color: #fff;height:  2.15em; }
+        .section4>div button.orange { background-color: #f04d42; border-color: #f04d42; }
+
+        .module { display: none; background-color: rgba(0,0,0,.4); position: fixed; left: 0; top: 0; width: 100%; height: 100%; }
+        .module-inner { width: 58%; border-radius: 5px; margin: 40% auto; background-color: #ffffff; padding: 0 18px; text-align: center; font-size: 16px;  }
+        .module-body { border-bottom: 1px solid #eee;min-height: 70px; }
+        .module-body { display: table;width: 100%;}
+        .module-body>div { display: table-cell; vertical-align: middle;}
+        .module-body>div>p { text-align: center;}
+        .module-footer { min-height: 38px; }
+        .module-footer  a { height: 38px; float: left; width: 50%; line-height: 38px; display: block;  box-sizing: border-box;}
+        .module-footer  a:first-child {  border-right: 1px solid #eee;}
+    </style>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+</head>
+<body>
+<div class="content">
+    <section class="section1">
+        <img src="img/bg_01_mbai.png" alt="">
+    </section>
+    <section class="section2">
+        <img src="img/bg_02_mbai.png" alt="">
+        <div>
+            <h2 class="text-center">汇添富现金宝<br>与您共同支持绿色出行</h2>
+        </div>
+    </section>
+   <section class="section3">
+       <img src="img/bg_03_mbai.png" alt="">
+   </section>
+    <section class="section4">
+        <img src="img/bg_04_mbai.png" alt="">
+        <div>
+            <p>恭喜你完成认证！</p>
+            <!--<input id="input" type="tel" placeholder="输入手机号" maxlength="11">-->
+            <button id="nextStep" class="orange" type="button">立即领取</button>
+        </div>
+    </section>
+    <div class="module">
+        <div class="module-inner">
+            <!--<div class="module-heading"></div>-->
+            <div class="module-body">
+                <div>
+                    <p>手机号码输入错误</p>
+                </div>
+            </div>
+            <div class="module-footer">
+                <a>确定</a>
+                <a>取消</a>
+            </div>
+        </div>
+    </div>
+    <script>
+		var nextStep = document.getElementById("nextStep");
+       	nextStep.addEventListener("click", function(){
+			if(this.className != "orange"){
+               return;
+            }
+			window.location.href='https://event.mobike.com/mc/?src=qsjh';
+        }, false);
+
+    </script>
+</div>
+</body>
+</html>

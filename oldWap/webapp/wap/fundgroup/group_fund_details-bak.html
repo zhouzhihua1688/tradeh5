@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>组合明细</title>
+	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../css/base.css">
+	<link rel="stylesheet" href="../css/fundgroup/base_adviser.css">
+	<link rel="stylesheet" href="../css/common.css">
+	<style type="text/css">
+		img { display: block; max-width: 100%; height: auto; border: 0; }
+		section { background-color: #fff; overflow: hidden; }
+		small { font-size: 12px; }
+		i.next { display: inline-block; width: 8px; height: 16px; background: url(../images/fundgroup/icon01.png) no-repeat left top; -webkit-background-size: contain; background-size: contain; vertical-align: middle; margin-left: 7px; }
+		.hide { display: none !important; }
+		.icon { display: inline-block; width: 0px; height: 10px; background-size: contain; vertical-align: middle; margin-right: 5px; margin-top: -4px; }
+		.icon-1 { background-image: url("../images/fundgroup/react_01.png") }
+		.icon-2 { background-image: url("../images/fundgroup/react_02.png") }
+		.icon-3 { background-image: url("../images/fundgroup/react_03.png") }
+		.icon-4 { background-image: url("../images/fundgroup/react_04.png") }
+		.font-arial { font-family: Arial; }
+		.font24 { font-size: 1.32rem; }
+		.font26 { font-size: .7rem; }
+		.font28 { font-size: 1.3733rem; }
+		.font30 { font-size: 1.4rem; }
+		.font40 { font-size: 1.1rem; }
+		.left { float: left; }
+		.right { float: right; }
+		.down,
+		.up,
+		.next { display: inline-block; width: 0.107rem; height: 0.213rem; background: url(../images/fundgroup/icon01.png) no-repeat left top; -webkit-background-size: contain; background-size: contain; vertical-align: middle; margin-left: 0.933rem; }
+		.up,
+		.down { width: 20px; height: 8px; background-image: url(../images/fundgroup/icon02.png); margin-left: 4px;margin-right: 4px; vertical-align: inherit; }
+		.up { -webkit-transform: rotate(180deg); transform: rotate(180deg); }
+		.red { color: #fe5a5b; }
+		.green{color: #009944; }
+		table { width: 100%; text-align: center; border-collapse: collapse; }
+		.content1 ul { height: 2rem;padding: 1.6rem 0.4rem; }
+		.content1 ul li { float: left; width: 50%; color: #666666; text-align: center; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+		.content1 ul li:last-child { border: 0; }
+		.content1 ul li p { padding-top: 0.107rem; text-align: center; }
+		.content1>p { line-height: 1.5; padding: 0.4rem; text-align: justify; }
+		.content1 ul li:first-child h4 i { display: inline-block; width: 0.8rem; height: 0.8rem; margin-left: 0.1rem; background: url(../images/fundgroup/icon6.png) no-repeat; background-size: 100%; vertical-align: middle; }
+		.content1 table { width: 100%; text-align: center; background-color: #fff7f7; color: #666666; position: relative;}
+		.content1 table td { padding: .3rem 0; }
+		.content1 table td span { color: #fe5a5b; }
+		.content1 table:before { content: ''; display: block; position: absolute; left: 72%; top: -20px; margin-left: -10px; border: 10px solid transparent; border-bottom-color: #fff7f7; }
+		.content1_1 { margin-top: .26667rem; }
+		.content1_1 ul li { font-size: .7rem; float: left; width: 33.33%; text-align: center; padding: 12px 0; border-bottom: 2px solid transparent; color: #000; }
+		.content1_1 ul li.active { border-bottom-color: #ffadae; color: #fb5c5f; }
+		.content1_1 ul li p { padding-top: 0.107rem; }
+		.content1_1 .explain { font-size: 0.6rem; color: #000; }
+		.content1_1 .explain p { line-height: 1.5;padding: 16px;  }
+		.content1_1 .explain p.ellipsis:after { content: '.....'; }
+		.content1_1 .explain p.ellipsis span { display: none; }
+		.content1_1 .upfold { width: 80px; margin: 0 auto; padding: .15rem 0 .45rem; color: #148ce6; text-align: center; line-height: 14px; }
+		.content1_1 .upfold:before { content: '展开'; }
+		.content1_1 .upfold.pack-up:before { content: '收起'; }
+		.content1_1 .upfold.pack-up .down { -webkit-transform: rotate(180deg); transform: rotate(180deg); }
+		.content2 { padding-bottom: 0.333rem; display: none; }
+		.content2 h3 { color: #666666; background-color: #f6f6f6; padding: 0.267rem 0.4rem; }
+		.content2 ul { padding: 0.48rem 0.267rem; }
+		.content2 ul li { float: left; margin-left: 0.293rem; background-color: #eeeeee; border-radius: 0.04rem; }
+		.content2 ul li:first-child { margin-left: 0.42rem; }
+		.content2 ul li a { display: block; width: 4rem; height: 1.6rem; line-height: 1.6rem; text-align: center; }
+		.content2 ul.tab2 { margin-left: 8%; padding: .8rem 0rem 0.5rem 0rem; border-radius: 0.04rem; }
+		.content2 ul.tab2 li { margin: 0; background-color: #fff; border-radius: 0; }
+		.content2 ul.tab2 li a { border: 1px solid #fb5c5f; margin-left: -1px; -webkit-box-sizing: border-box; box-sizing: border-box; }
+		.content2 ul li.active { background-color: #fb5c5f; color: #fff; }
+		.content2 ul.border { margin-left: 25%; }
+		.content2 ul.border li { border: 1px solid #fb5c5f; background-color: #fff; margin-left: 0%; border-radius: 0; }
+		.content2 ul.border li a { height: 1.6rem; line-height: 1.6rem;}
+		.content2 ul.border li.active { background-color: #fb5c5f; color: #fff; }
+		.content2 .diagram { position: relative; }
+		.content3 h3 { color: #666666; background-color: #f6f6f6; padding: 0.267rem 0.4rem; }
+		.content3 table { color: #666; font-size: 0.7rem; width: 100%; border-collapse: collapse; }
+		.content3 table tr { border-bottom: 1px solid #eeeeee; text-align: right; }
+		.content3 table th { color: #333333; background-color: #f6f6f6; font-weight: normal; padding: 0.267rem 0 0.267rem 0.4rem; }
+		.content3 table th:last-child { padding-left: 0; padding-right: 0.4rem; }
+		.content3 table tr td { padding: 0.453rem 0 0.453rem 0.4rem; }
+		.content3 table tr td:first-child { text-align: left; padding-left: 0.933rem; }
+		.content3 table tr td:last-child { padding-right: 0.8rem; font-size: .8rem; padding-left: 0; }
+		.content3 table tbody:last-child tr:last-child { border-bottom: 0; }
+		.content3 table tbody tr:first-child td:first-child { padding: 0.8rem; color: #000; }
+		.content3 table tbody tr:first-child td:last-child { font-size: .8rem; }
+		.content3 table tbody .sign { font-size: 0.6rem; }
+		.content3 table tbody i { display: inline-block; width: 0.267rem; height: 0.267rem; border-radius: 30%; vert-align: middle; margin-right: 0.24rem; }
+		.content3 table tbody .square1 { background-color: #ffb415; }
+		.content3 table tbody .square2 { background-color: #ffdc7f; }
+		.content3 table tbody .square3 { background-color: #ff8100; }
+		.content3 table tbody .square4 { background-color: #e93f1a; }
+		.content3 table tbody .deal { width: auto; height: auto; background-color: #fee7e7; color: #fb5c5f; padding: 0 0.35rem; border-radius: 0.4rem; font-size: 0.6rem; display: inline-block; }
+		.content4 { margin: .2667rem 0; }
+		.content4 ul { padding: 0 10px; height: 2rem; line-height: 2rem; border-bottom: 1px solid #eee; }
+		.content4 ul li:first-child { color: #000; }
+		.content4 ul li:first-child span { font-size: .32rem; color: #000; }
+		.content4 ul li:last-child span { color: #fb5c5f; }
+		.content4>p { color: #666; line-height: 1.5; padding: 16px 15px; text-align: justify; }
+		.content5 {background-color: #f6f6f6; padding: 0 16px 16px;}
+		.content5 .tab-con {padding: 0 16px 16px;background-color: #fff; }
+		.content5 table{  font-size: 0.373rem; width: 100%; border-collapse: collapse; text-align: left;}
+		.content5 table tr td {height: 1.333rem; border-bottom: 1px solid #eee; color: #000;}
+		.content5 table tr td:last-child{  text-align: right;}
+		.content5 .no-data { width: 1.84rem; margin: 1.92rem auto; }
+		.content5 .no-data p { text-align: center; font-size: .34rem; color: #999; margin-top: .5rem;}
+		.noData { position: absolute; top: 45%; right: 0; font-size: 0.8rem; width: 100%; text-align: center; }
+		body { padding-bottom: 1.25rem; }
+		footer { position: fixed; bottom: 0; left: 0; width: 100%; z-index: 199; }
+		footer ul { display: -webkit-flex; display: -ms-flex; display: -moz-flex; display: -o-flex; display: flex; border-top: 1px solid #fececf; width: 100%; background-color: #fff; }
+		footer li { -webkit-flex: 1; -ms-flex: 1; -moz-flex: 1; -o-flex: 1; flex: 1; }
+		footer li { display: block; height: 1.25rem; line-height: 1.25rem; text-align: center; font-size: .35rem; }
+		footer li:first-child { border-right: 1px solid  #fececf; }
+		footer li a { display: block; color: #fe5a5b; font-size: 0.4rem }
+		footer li:last-child { background-color: #fe5a5b; }
+		footer li:last-child a { color: #fff; }
+
+		/*弹框*/
+		.layer{z-index: 9999999; display: none;  position: fixed;  top: 0;  left: 0;  background-color: rgba(0,0,0,0.7);  height: 100%;  width: 100%;  overflow: auto;}
+		.layer-wrap{margin: 40% 15% 5% 15%;background-color: #fff;border-radius: 8px;}
+		.layer-body{padding: 7% 8% 7% 8%;text-align: center;}
+		.layer-wrap .layer-body p{font-size:14px;line-height: 21px; color: #666;display: inline-block;text-align: justify}
+		.layer-wrap .layer-body span{font-size: 16px;display: block;  padding-top: 10px;color: #333;font-weight: 600;}
+		.layer-wrap button{font-size: 16px;
+			color: #fb505f;
+			background-color: #fff;
+			border-top: solid 1px #eeeeee;
+			width: 90%;
+			height: 45px;
+			display: block;
+			margin: 0 auto;
+		}
+		.layer-wrap button:focus{outline: none;}
+		/* 底部按钮 */
+		.footer_fiexd{position:fixed;left: 0;bottom: 0;height:2.5rem;width:100%;background: #fff;}
+		.footer_fiexd ul{display: flex;}
+		.footer_fiexd ul li{flex: 1;height:2.5rem;background:#fe7e01 ;}
+		/* .footer_fiexd ul li:nth-of-type(1){	} */
+		.footer_fiexd ul li{border-left:1px #fff solid;}
+		.footer_fiexd ul li:nth-of-type(1){background: #fff;}
+		.footer_fiexd ul li a{display:block;width:100%;height: 100%;line-height: 2.5rem;text-align: center;color:#fff;font-size: .8rem;}
+		.footer_fiexd ul li:first-child a{color: #fe7e01; border-top: 1px #eee solid;}
+		.footer_fiexd ul li a:first-child img{width: 0.7rem;height: 0.7rem;padding-right: 0.2rem;padding-top: 0.2rem;}
+
+		/*弹框1*/
+		.Bomb-box{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+		.Bomb-box .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+		.Bomb-box .Bomb-box-tips{  text-align: center;  color: #333;  font-size: 0.75rem;  height: 2.5rem;  line-height: 2.5rem;  }
+		.Bomb-box .Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+		.Bomb-box .Bomb-box-content p{  line-height: 1rem;  }
+		.Bomb-box .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+		.Bomb-box .no-tips{font-size: 0.7rem;padding: 1.7rem 1.5rem 1.15rem 1.5rem;text-align: center;}
+		.Bomb-box .text-center{text-align: center;}
+		.content0{
+			display: none;
+			margin-top: .5rem;
+		}
+		.content0 .jingzhi {
+			font-size: .65rem;
+			/* font-weight: 900; */
+			height: 2rem;
+			box-sizing: border-box;
+			color: #000;
+			padding: 0 .75rem;
+			margin-top: 1.4rem;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.content0 .jingzhi img {
+			width: .7rem;
+			/* transform: rotateX(180deg) */
+			display: inline-block;
+		}
+
+		.content0 .jingzhi img.right_1 {
+			transform: rotateZ(270deg);
+		}
+
+		.content0 .wrap {
+			overflow: hidden;
+			position: relative;
+			width: 100%;
+			height: 2rem;
+		}
+		.risk_tips{
+			font-size: .6rem; margin: .8rem .65rem 0 .65rem;
+		}
+	</style>
+</head>
+<body>
+<section class="content1">
+	<ul class="clearfix">
+		<li>
+			<h4 class="font26"><span id="yearYield_title">最近一年收益率</span><i onclick="layerShow()"></i></h4>
+			<p class="font-arial font40 red" id="yearYield_p"><span id="yearYield">0.00</span></p>
+		</li>
+		<li>
+			<h4 class="font26 historical-detail">日涨跌幅(<span class="font-arial" id="dayYieldDt">2019-01-01</span>)<i class="up" style="display:none;"></i></h4>
+			<p class="font-arial font40 red" id="dayYield_p"><span id="dayYield">0.00</span></p>
+		</li>
+	</ul>
+	<table id="tabs" style="display:none;">
+		<tr>
+			<td>近1个月<br><span id="profit_one">0.00%</span></td>
+			<td>近3个月<br><span id="profit_three">0.00%</span></td>
+			<td>近1年<br><span id="profit_year">0.00%</span></td>
+			<td><i id="profit_since_title">上线以来</i><br><span id="profit_since">0.00%</span></td>
+		</tr>
+	</table>
+</section>
+<section class="content1_1">
+	<ul class="clearfix border tab3">
+		<li style="border-bottom: 1px solid #e6e6e6;"></li>
+		<li class="active"><a>配置详情</a></li>
+		<li style="border-bottom: 1px solid #e6e6e6;"></li>
+	</ul>
+	<div class="explain">
+		<div>
+			<p class="ellipsis" id="fundgroupAdvise">
+				<!--<span>-->
+				<!--该组合风险偏好定位于稳健型，适合于渴望有较高的投资收益但又不愿意承受较大的风险，可以承受一定的投资波动，但是希望自己的投资风险小于市场的整体风险的人群。-->
+				<!--</span>-->
+				<!--投资理念：积极实施“健康中国”国家战略信息技术与医疗服务深度融合，积极实施“健康中国”国家战略信息技术与医疗服务深度融合<span class="ellipsis-surplus">该组合风险偏好定位于稳健型，适合于渴望有较高的投资收益但又不愿意承受较大的</span>-->
+			</p>
+			<div class="upfold"><i class="down"></i></div>
+		</div>
+		<div style="display: none;">
+
+		</div>
+	</div>
+</section>
+<section class="content0">
+	<ul class="wrap">
+		<!--<li class="jingzhi div-jump list" style=" margin-top: 0.01rem;">
+			<p><img src="../images/fundgroup/sound.png" alt="" style="margin-right: .45rem;"><span
+					id="soundHoldNotice">“跟我投”调仓啦！</span></p>
+			<img class="right_1" src="../images/fundgroup/icon02.png">
+		</li>
+		<li class="jingzhi div-jump list" style=" margin-top: 0.01rem;">
+			<p><img src="../images/fundgroup/sound.png" alt="" style="margin-right: .45rem;"><span
+					id="soundHoldNotice">“跟我投”调仓啦11！</span></p>
+			<img class="right_1" src="../images/fundgroup/icon02.png">
+		</li>
+		<li class="jingzhi div-jump list" style=" margin-top: 0.01rem;">
+			<p><img src="../images/fundgroup/sound.png" alt="" style="margin-right: .45rem;"><span
+					id="soundHoldNotice">“跟我投”调仓啦222！</span></p>
+			<img class="right_1" src="../images/fundgroup/icon02.png">
+		</li>-->
+	</ul>
+</section>
+<section class="content2">
+	<h3 class="font26">收益走势图</h3>
+	<div>
+		<ul class="clearfix border tab1">
+			<li class="active"><a>业绩基准</a></li>
+			<li><a>沪深300</a></li>
+		</ul>
+		<div class="diagram">
+			<div>
+				<div id="pie1" style="width: 18.5rem; height: 12rem;"></div>
+			</div>
+			<div class="noData" style="display: none;">
+				<p style="text-align:center;">没有足够的数据可展示</p>
+			</div>
+		</div>
+	</div>
+	<ul class="clearfix tab2">
+		<li class="active"><a>1个月</a></li>
+		<li><a>6个月</a></li>
+		<li><a>1年</a></li>
+		<li><a>全部</a></li>
+	</ul>
+</section>
+<section class="content3">
+	<h3 class="font26" id="groupDetailTitle">组合明细</h3>
+	<table class="subGroupFundList">
+		<!--<tbody>
+               <tr>
+                   <td> <i class="square1"></i>股票类产品 </td>
+                   <td class="font-arial red">20<span class="sign">%</span></td>
+               </tr>
+               <tr>
+                   <td> 汇添富移动互联 <span class="font-arial">000697</span> </td>
+                   <td class="font-arial">10<span class="sign">%</span></td>
+               </tr>
+               <tr>
+                   <td> 汇添富环保行业 <span class="font-arial">000696</span> </td>
+                   <td  class="font-arial">10<span class="sign">%</span></td>
+               </tr>
+           </tbody>
+           <tbody>
+               <tr>
+                   <td> <i class="square2"></i>固收类产品 </td>
+                   <td class="font-arial red">50<span class="sign">%</span></td>
+               </tr>
+               <tr>
+                   <td> 汇添富增强收益A <span class="font-arial">519078</span> </td>
+                   <td class="font-arial">50<span class="sign">%</span></td>
+               </tr>
+           </tbody>
+           <tbody>
+               <tr>
+                   <td> <i class="square3"></i>现金类产品 </td>
+                   <td class="font-arial red">20<span class="sign">%</span></td>
+               </tr>
+               <tr>
+                   <td> 汇添富货币A <span class="font-arial">519518</span> </td>
+                   <td>20<span class="sign">%</span></td>
+               </tr>
+           </tbody>
+           <tbody>
+               <tr>
+                   <td> <i class="square4"></i>其他产品 </td>
+                   <td class="font-arial red">10<span class="sign">%</span></td>
+               </tr>
+               <tr>
+                   <td> 汇添富货币A <span class="font-arial">519518</span></td>
+                   <td>10<span class="sign">%</span></td>
+               </tr>
+           </tbody>-->
+	</table>
+</section>
+<section class="content4">
+	<ul id="content4_ul">
+		<li class="left">
+			<p>最近调仓</p>
+		</li>
+		<li class="right" style="display: none">
+			<p ><a id="transferCount_a" href="javascript:void(0);"><span id="transferCount" class="font-arial"></span>次历史调仓<i class="next"></i></a></p>
+		</li>
+	</ul>
+	<p><span id="changeAdvise"></span></p>
+</section>
+
+<section id="facheRiskTips" style="background-color: #f6f6f6;">
+	<p class="risk_tips"><b>风险提示：</b>组合申赎服务本质上是基金组合中各成分基金的交易指令的集合，并非任何形式的基金产品或资产管理计划。市场有风险，投资需谨慎。
+	</p>
+	<p class="risk_tips"><b>分红方式的特别提示：</b>为了保证投资者持有的基金组合中各基金的配置比例和基金组合申赎策略展示方案保持一致，组合中各基金的分红方式均将固定为“红利再投资”方式，且在持有基金组合期间不可变更为“现金分红”方式。投资者对此予以充分理解，并授权汇添富基金在投资者首次进行基金组合申购时，发起相应申请，设置基金分红方式为“红利再投资”。
+	</p>
+</section>
+
+<section style="height: 5rem; background-color: #f6f6f6;">
+</section>
+<!-- S footer 添加 -->
+<style type="text/css">
+	.bottom{background: rgba(0,0,0,.6);width:100%;position: fixed;bottom: 2.5rem;left:0;padding:.47em 0;z-index:99999}
+	.bottom .logo,.bottom .text{float:left;}
+	.bottom .logo{background: url(../images/logo.png) no-repeat;background-size:contain;width:2.475em;height: 2.507em;margin-right: .379em;margin-left: 1.035em;}
+
+	.bottom .text .p1{font-size: .966em;color:#fff;}
+	.bottom .text .p2{font-size: .689em;color:#fff;}
+	.bottom a{display: block;float:right;background: #ff7e00;color:#fff;font-size: .896em;margin-right: 1.035em;height: 2.071em;width: 5.516em;line-height: 2.071em;text-align: center;border-radius: 3px;margin-top: .220em;}
+	.bottom .logo {padding: 0;}
+	.bottom .text p{margin: 0;width:auto !important;background:none !important;border-radius:none !important;text-align:left !important;}
+	.bottom a {text-decoration: none;}
+</style>
+<div class="bottom">
+	<div class="logo"></div>
+	<div class="text">
+		<p class="p1">汇添富现金宝</p>
+		<p class="p2">添富现金宝，理财好账户！</p>
+	</div>
+	<a href="https://www.99fund.com/m.htm">下载App</a>
+</div>
+<!-- E footer 添加 -->
+<section class="footer">
+
+
+	<p id="view_feeRate"></p>
+	<div class="footer_fiexd buy-div">
+		<ul>
+			<li class="btn_mip" style="display:none;"><a href="javascript:;" class="fund_mip">定投</a></li>
+			<li class="buy_btn_li" style="display:none;"><a href="javascript:;" class="buy">一键购买</a></li>
+		</ul>
+	</div>
+</section>
+
+<!--弹框-->
+<div class="layer" style="display: none;">
+	<div class="layer-wrap">
+		<div class="layer-body">
+			<p id="display_yield_desc">“模拟历史年化业绩”是采用模拟历史数据的方法回测得出。本组合的过往业绩并不预示其未来表现，也不作为本组合业绩表现的保证。</p>
+		</div>
+		<button>我知道了</button>
+	</div>
+</div>
+<!-- 提示弹窗 -->
+<div class="Bomb-box">
+	<div class="Bomb-box-main">
+		<p class="Bomb-box-tips" style="padding-top: 0.75rem;"></p>
+		<div class="Bomb-box-content">
+			<p class="text-center"></p>
+		</div>
+		<a class="Bomb-box-ok" href="javascript:;">确定</a>
+	</div>
+</div>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/echarts.min.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script type="text/javascript" src="../js/lib/phone-size.js"></script>
+<script type="text/javascript" src="../js/common.js?20210106"></script>
+<script type="text/javascript" src="../js/fundgroup/group_fund_details.js"></script>
+</body>
+</html>

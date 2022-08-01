@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf8">
+    <title>小金库</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="./css/personalPlanList.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }        
+    </script>
+</head>
+<body>
+    <div class="main">
+        <div class="contentTop">
+            <div class="content">
+                <div class="contentTitle">
+                <div class="contentTitleLeft">
+                家庭资产(<span class="currencyTypeUnit">-</span>)
+                </div>
+                </div>
+                <div class="contentMoney assetTotalAmount">
+                --
+                </div>
+                <div class="contentBottom">
+                    <div class="infoLeft">
+                        <div class="infoTitle yieldDate">最新收益
+                        </div>
+                        <div class="infoContent lastYield">
+                        --
+                        </div>
+                    </div>
+                    <div class="infoMid">
+                        <div class="infoTitle">持有收益<!--<img src="./img/list_point.png" alt="">-->
+                        </div>
+                        <div class="infoContent holdYield">
+                        --
+                        </div>
+                    </div>
+                    <div class="infoRight">
+                        <div class="infoTitle">累计收益
+                        </div>
+                        <div class="infoContent totalYield">
+                        --
+                        </div>
+                    </div>
+                    <div class="banfoot"><div class="left"></div><img src="./img/list_arrow.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contentList">
+            <div class="listTitle">
+                <div class="titleRight">
+                    <div class="titleLeft">计划详情</div>
+                    <div class="selectInfo" id="order1">
+                        全部计划<img src="img/jiantou.png" alt="" style="width:0.45rem;height:0.275rem;margin-left:0.25rem;margin-top:-0.1rem">
+                    </div>
+                    <div class="selectInfo" id="order2">
+                        排序<img src="img/jiantou.png" alt="" style="width:0.45rem;height:0.275rem;margin-left:0.25rem;margin-top:-0.1rem">
+                    </div>
+                </div>
+            </div>
+            <style>
+                .titleRight{width:100%;display: flex;justify-content: space-between; align-items: center;}
+                .titleRight div{width:30%;text-align:center;line-height: 1.25rem}
+                .titleRight div:nth-of-type(1){width:20%;margin-left: 0.5rem}
+                .titleRight div:nth-of-type(3){margin-right: 0.75rem}
+            </style>
+            <div id="listItem">
+                
+            </div>
+            <!-- 没有数据的时候 -->
+            <div class="noContent" style="display: none;">
+                <div style="text-align: center;"><img src="img/noDetail.png" alt=""></div>
+                <div class="text">暂无计划</div>		
+            </div>
+        </div>
+    
+        <div class="footBtn">
+            <button class="btn-orange" id="btn-submit" style="width: 100%;margin:0;">+新建计划</button>
+        </div>
+    </div>
+    
+    <div class="mask" style="display:none"></div>
+    <div class="layer0 animated slideInUp" id="layer0" style="display: none;">
+        <div class="giftlist giftlist0">
+            <a href="javascript:;">
+                <div class="title" data="UPDATE_TIME">按修改时间</div>
+            </a>
+            <a href="javascript:;">
+                <div class="title" data="BALANCE_PROFIT">按持有收益</div>
+            </a>
+            <a href="javascript:;">
+                <div class="title" data="TOTAL_ASSET">按计划总资产</div>
+            </a> 
+            <a href="javascript:;">
+                <div class="title" data="CREATE_TIME">按创建时间</div>
+            </a>      
+        </div>
+        <div class="close">
+            <a href="javascript:;" style="color:#0070fa;font-size:0.75rem" >取消</a>
+        </div> 
+    </div>
+    
+    <div class="layer0 animated slideInUp" id="layer2" style="display: none;">
+        <div class="giftlist giftlist2">
+            <a href="javascript:;">
+                <div class="title" data="NOT_FILTER">全部计划</div>
+            </a>
+            <a href="javascript:;">
+                <div class="title" data="MY_CREATED">我创建的计划</div>
+            </a>
+            <a href="javascript:;">
+                <div class="title" data="MY_INVESTED">我投资的计划</div>
+            </a>      
+        </div>
+        <div class="close">
+            <a href="javascript:;" style="color:#0070fa;font-size:0.75rem" >取消</a>
+        </div> 
+    </div>
+    
+    <div class="layer0 animated slideInUp" id="layer1" style="display: none;">
+        <div class="giftlist giftlist1">
+            <!--
+            <a href="javascript:;">
+                <div class="title import">现有持仓导入</div>
+            </a>-->
+            <a href="javascript:;">
+                <div class="title addInvest">追加投资</div>
+            </a>
+            <a href="javascript:;">
+                <div class="title addOther">买入其他产品</div>
+            </a>         
+        </div>
+        <div class="close">
+            <a href="javascript:;" style="color:#0070fa;font-size:0.75rem" >取消</a>
+        </div> 
+    </div>
+<script type="text/javascript" src="/tradeh5/newWap/base/js/utils.js"></script>
+<script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+<script src="js/personalPlanList.js"></script>
+
+    
+</body>    
+</html>

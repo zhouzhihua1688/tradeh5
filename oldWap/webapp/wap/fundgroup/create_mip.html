@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>组合定投</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/fundgroup/public.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+        .section1 p {  padding: 0 .75rem; font-size: 0.6rem; color: #666; line-height: 1.75rem;height: 1.75rem;}
+        .section2 p {  padding: .2rem .75rem; font-size: 0.65rem; color: #666; line-height: 1rem;margin: 0;}
+        .section2 p:first-of-type {  padding-top: .5rem}
+        /*.section1 P:first-child~p { padding-top: 0;}*/
+       
+        .btn-orange {width: 92%; height: 2.25rem; background-color: #bbb; color: #fff; font-size: 0.75rem; text-align: center; line-height: 2.25rem; margin: 0 4% 0 4%; border-radius: 0.1rem; margin-top: 1.25rem;}
+        .btn-orange-disabled {width: 92%;height: 2.25rem; background-color: #dadada; color: #fff; font-size: 0.75rem; text-align: center;line-height: 2.25rem; margin: 0 4% 0 4%; border-radius: 0.1rem; margin-top: 1.25rem;}
+        .btn-orange-enabled {width: 92%;height: 2.25rem; background-color: #fe7e01; color: #fff; font-size: 0.75rem; text-align: center;line-height: 2.25rem; margin: 0 4% 0 4%; border-radius: 0.1rem; margin-top: 1.25rem;}
+        .grid-list .flex p input{
+            text-align: right
+        }
+        .wrapper {height:2.25rem;width: 100%;overflow: hidden;background: #fff;color:#000;margin-bottom: .5rem;}
+        .wrapper .scroller .clearfix{display: flex;justify-content:space-around;}
+        .wrapper .scroller li {width:4.2rem;height: 2.25rem;color:#333;line-height: 2.25rem;font-size: .75rem;text-align: center;flex-grow:1}
+        .wrapper .scroller li a{color:#333;display:block;padding:0 .1rem}
+        .wrapper .scroller li.cur a{color:#fb5c5f;height:2.175rem;border-bottom:.1rem solid #fdadaf}
+
+        .on_off{
+            display: flex;
+                    align-items: center; /*定义body的元素垂直居中*/
+        }
+        .on_off img{width: 2.5rem;}
+
+        /*弹框1*/
+        .Bomb-box{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+        .Bomb-box .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+        .Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+        .Bomb-box .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+        .Bomb-box .Bomb-box-content{ padding:.75rem 1.5rem; }
+
+        .aim{
+            display: flex;
+                    align-items: center; /*定义body的元素垂直居中*/
+        }
+        .aim span{
+            display: inline-block;
+            padding: 0 .5rem; background: #eeeeee;border-radius: 5rem;text-align: center;margin-right: .1rem;height: 1.3rem;line-height: 1.3rem
+        }
+        .aim .clr{
+            background-color: #fe7e01;color: white;
+        }
+        .rules span { width: .6rem; height: .6rem; vertical-align: middle; background: url("../images/chose1_y.png") no-repeat left center; display: inline-block;  background-size: contain; margin: -.2rem .25rem 0 -.75rem; }
+        .rules span.current { background-image: url("../images/chose1.png");}
+        .rules a { color: #3295e8; cursor: pointer;}
+        /* 半透明提示窗 */
+        .sm_tip{position: absolute;width:74%;top:8.5rem;left:13%;background: rgba(0, 0, 0, .5);border-radius:8px; display: none;}
+
+        .sm_tip p{padding:1rem 1.5rem;color:#fff;font-size: .75rem;}
+        /* 弹窗 */
+        .tip{position: fixed;
+            top: 0;
+            left: 0;
+            background-color: rgba(0,0,0,0.7);
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            font-size: 0.6rem;
+            z-index: 999;
+        }
+        .tip .tip_wrap{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+            margin: 0;
+            width:80%;
+            /*height:16rem;*/
+            background: #fff;
+            -webkit-border-radius: 5px;
+        }
+        .tip .tip_wrap .tip_content h3{font-size:.75rem;font-weight: bold;color:#000;text-align: center;margin-top: 1rem;}
+        .tip .tip_wrap .tip_content h4{margin-top: .5rem;text-align: center;font-size: .7rem;}
+        .tip .tip_wrap .tip_content h4:nth-of-type(2){color:#fb5c5f;margin-top: .4rem;}
+        .tip .tip_wrap .tip_content p{font-size: .7rem;margin-top: .7rem;line-height: 1rem;margin-bottom: 1rem;}
+        .tip .tip_wrap .tip_content{border-bottom: 1px #eee solid;}
+        .tip .tip_wrap .tip_btn ul li{text-align: center;font-size: .75rem;color:#006bfe;}
+        .tip .tip_wrap .tip_btn ul li a{display:block;text-align: center;font-size: .75rem;width:100%;padding:1rem 0;}
+
+        .tip2{position: fixed;
+            top: 0;
+            left: 0;
+            background-color: rgba(0,0,0,0.7);
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            font-size: 0.6rem;
+            z-index: 999;
+        }
+        .tip2 .tip_wrap{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+            margin: 0;
+            width:80%;
+            /*height:16rem;*/
+            background: #fff;
+            -webkit-border-radius: 5px;
+        }
+        .tip2 .tip_wrap .tip_content p{padding:0 1.5rem 0 1.5rem;font-size: .7rem;margin-top: .7rem;line-height: 1rem;margin-bottom: 1rem;text-align: center;line-height: 1rem;}
+        .tip2 .tip_wrap .tip_content{border-bottom: 1px #eee solid;}
+        .tip2 .tip_wrap .tip_btn ul li{text-align: center;font-size: .75rem;color:#006bfe;}
+        .tip2 .tip_wrap .tip_btn ul li a{display:block;text-align: center;font-size: .75rem;width:100%;padding:.7rem 0;}
+
+        .choose-time li.on .annulus ,
+        .choose-time2 li.on .annulus {  float: right; border-radius: 50%;  width: 0.8rem;  height: 0.79rem;  margin-top: 0.9rem; display: block; border: 1px solid #ff7e01; position: relative;}
+        .choose-time li.on  .annulus:after,
+        .choose-time2 li.on  .annulus:after { display: block; content: ""; width: .4rem; height: .4rem; background-color: #ff7e01; position: absolute;top: 50%;left: 50%;  border-radius: 50%; margin: -.2rem 0 0 -.2rem;}
+
+    </style>
+</head>
+
+<body>
+
+    <div class="content  ">
+        <div>
+            <ul class="grid-list" style="padding:0 0 0 .75rem ">
+                <li class="grid-list-item heigth-100 BankCard">
+                    <div class="row">
+                        <div class="flex">
+                            <p>组合名称</p>
+                            <p class="group-name"></p>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid-list-item heigth-100 BankCard">
+                    <div class="row">
+                        <div class="flex">
+                            <p>收费方式</p>
+                            <p>前端收费</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid-list-item heigth-100 BankCard">
+                    <div class="row">
+                        <div class="flex">
+                            <p>定投方式</p>
+                            <p>定期定额</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <p style="margin-top: .5rem;"></p>
+        <div>
+            <ul class="grid-list" style="padding:0 0 0 .75rem ">
+
+                <li class="grid-list-item heigth-100 selected-deduction-cycle">
+                    <div class="row">
+                        <div class="flex">
+                            <p>扣款周期</p>
+                            <p class="appDate" style="margin:0;">每月1号</p>
+                        </div>
+                        <div class="lh-100 payMethod">
+
+                        </div>
+                        <div class="lh-100 margin-r75">
+                            <a class=" iconi icon-arrow-right"></a>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid-list-item heigth-100">
+                    <div class="row">
+                        <div class=" flex">
+                            <p>调仓方式</p>
+                            <p class="select-transfer-type" style="margin:0;" data-flag="M">手动调仓</p>
+                        </div>
+                        <div class="lh-100 payMethod">
+
+                        </div>
+                        <div class="lh-100 margin-r75">
+                            <a class=" iconi icon-arrow-right"></a>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid-list-item heigth-100 BankCard">
+                    <div class="row">
+                        <div class="flex" id="setting_deduction_cycle" data-flag="0">
+                            <p>扣款期数</p>
+                            <p class="on_off setting_deduction_cycle_on_off"><img src="../images/fundgroup/off.png" alt=""></p>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid-list-item heigth-100 deduction_cycle_type" style="display: none;">
+                    <div class="row">
+                        <div class="flex">
+                            <p>固定期数</p>
+                            <p style="margin:0;" class="selected_deduction_cycle_type" data-flag="12">12期</p>
+                        </div>
+                        <div class="lh-100 payMethod">
+
+                        </div>
+                        <div class="lh-100 margin-r75">
+                            <a class=" iconi icon-arrow-right"></a>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid-list-item heigth-100 deduction_cycle_num" style="display: none;">
+                    <div class="row">
+                        <div class="flex">
+                            <p>自定义期数</p>
+                            <p>
+                                <input type="text" id="periodNumber" placeholder="请输入期数">
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid-list-item heigth-100 BankCard">
+                    <div class="row">
+                        <div class="flex">
+                            <p>每期投资金额(元) </p>
+                            <p><input type="number" id="mipAmt" placeholder="0.00元起"></p>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid-list-item heigth-100 BankCard">
+                    <div class="row">
+                        <div class="flex">
+                            <p style="font-size: .6rem;">费用：<span id="display_fee">0.00</span>元 省了<span id="discount_fee">0.00</span>元</p>
+                            <p><a href="group_fee_intrduction.html" style="color: #148ce6;">费率说明</a></p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <p style="margin-top: .5rem;"></p>
+        <div class="content">
+            <ul class="grid-list" style="padding:0 0 0 .75rem ">
+                <li class="grid-list-item heigth-100 selectBankCard">
+                    <div class="row">
+                        <div class=" flex">
+                            <p>支付方式</p>
+                            <p style="margin:0;" id="payWay">现金宝</p>
+                        </div>
+                        <div class="lh-100 payMethod">
+
+                        </div>
+                        <div class="lh-100 margin-r75">
+                            <a class=" iconi icon-arrow-right"></a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <section class="section2">
+            <p class="remark_tip">余额<span style="color: #f66">0.00</span>元</p>
+            <p class="rules" style="font-size:0.65rem;margin-left: .75rem"><span id="isAgree" class="chose-icon current"></span>同意<a
+                    href="http://static.99fund.com/mobile/agreement/funds_group_agreement.html">《汇添富组合产品服务协议》</a></p>
+            <p id="kkDate"></p>
+
+        </section>
+        <div>
+            <button class="btn-orange-disabled" id="btn_next_step" disabled="disabled">下一步</button>
+        </div>
+    </div>
+
+    <div class="layer animated slideInDown choose-time" style="display: none; z-index: 10;">
+        <ul class="list-group no-margin-top lh-100">
+            <li class="bottom-border font-28" data-choose-time="MM"><div>每月<span class="annulus"></span></div></li>
+            <li class="bottom-border font-28" data-choose-time="2W"><div>每双周<span class="annulus"></span></div></li>
+            <li class="bottom-border font-28" data-choose-time="WW"><div>每周<span class="annulus"></span></div></li>
+            <li class="bottom-border font-28" data-choose-time="ED"><div>每日<span class="annulus"></span></div></li>
+        </ul>
+    </div>
+    <div class="layer  choose-time2" style="display: none; z-index: 10;">
+        <ul class="list-group no-margin-top lh-100"></ul>
+    </div>
+
+    <div class="layer animated slideInDown deduction_cycle_type_list" style="display: none; z-index: 10;">
+        <ul class="list-group no-margin-top lh-100">
+            <li class="bottom-border font-28" data-cycle-type="12"><div>12期<span class="annulus"></span></div></li>
+            <li class="bottom-border font-28" data-cycle-type="24"><div>24期<span class="annulus"></span></div></li>
+            <li class="bottom-border font-28" data-cycle-type="36"><div>36期<span class="annulus"></span></div></li>
+            <li class="bottom-border font-28" data-cycle-type="0"><div>自定义<span class="annulus"></span></div></li>
+        </ul>
+    </div>
+
+    <div class="layer animated slideInDown transfer_type_list" style="display: none; z-index: 10;">
+        <ul class="list-group no-margin-top lh-100">
+            <li class="bottom-border font-28" data-flag="M"><div>手动调仓<span class="annulus"></span></div></li>
+            <li class="bottom-border font-28" data-flag="A"><div>自动调仓<span class="annulus"></span></div></li>
+        </ul>
+    </div>
+
+    <div class="layer animated slideInDown" id="bankCardList" style="display: none">
+        <ul class="grid-list">
+            <li class="grid-list-item heigth-130 bottom-border" onclick="selectedCard('','','','')">
+                <div class="row">
+                    <div class="lh-130">
+                        <img src="../images/fund/icon_05.png" alt="" style="width:1rem;height:1rem;margin-left: 0.3rem;margin-right: 17px;">
+                    </div>
+                    <div class="col-1">
+                        <div class="list-title" style="margin-top:0.3rem">
+                            <p class="bank-name">现金宝</p>
+                            <p class="bank-id" id="xjb_remark">限额0.00元</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <!--<li class="grid-list-item heigth-130 bottom-border">
+                <div class="row">
+                    <div class="lh-130">
+                        <i class="bank ico_621 no-margin-left"></i>
+                    </div>
+                    <div class="col-1">
+                        <div class="list-title">
+                            <p class="bank-name">农业银行[尾号6888]</p>
+                            <p class="bank-id">限额10.000.00元</p>
+                        </div>
+                    </div>
+                    <div class="lh-130 shorcut">
+                        <a class="icon icon-union">银联通</a>
+                        <a class="icon icon-E-bank">网银</a>
+                        <a class="icon icon-shorcut">快捷</a>
+                    </div>
+                </div>
+            </li>-->
+        </ul>
+    </div>
+    <!-- 提示弹窗 -->
+    <div class="Bomb-box" style="display: none;">
+        <div class="Bomb-box-main">
+            <div class="Bomb-box-content">
+                <p class="text-center"></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;">确定</a>
+        </div>
+    </div>
+
+    <div class="sm_tip" style="display: none;">
+        <p> 该产品风险等级（高）超过您的风险承受承受等级（保守型）。</p>
+    </div>
+
+    <div class="tip" style="display: none;">
+        <div class="tip_wrap">
+            <div class="tip_content">
+                <h3>风险警示及确认</h3>
+                <div id="risk_tip" style="padding: 0rem 1rem 0rem 1rem;">
+                    <p>该产品风险等级<span style="color:#fb7678;">（高）</span>超过您的风险承受等级<span style="color:#fb7678;">（保守型）</span>。购买该产品可能导致您承担超出您承受能力的损失及不利后果。</p>
+                    <p><span style="color:#fb7678;">以上为风险警示，点击“继续购买”视为您承诺以下内容：</span><br>本人已阅读上述风险警示内容，已知悉该产品风险等级高于本人风险承受能力，并已充分了解该产品风险特征及可能产生的不利后果。经审慎考虑，本人仍坚持申请购买，并自愿承担由此可能产生的一切不利后果。贵司及销售人员不存在主动向本人推介该产品的行为。</p>
+                </div>
+            </div>
+            <div class="tip_btn" >
+                <ul style="width: 100%;">
+                    <li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid"><a
+                            href="javascript:;" class="close_tip">放弃购买</a></li>
+                    <li style="float: left;width:50%;box-sizing: border-box;"><a href="javascript:void(0);" id="continue_pur">继续购买</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="tip2 evaluation_risk_tip" style="display: none;">
+        <div class="tip_wrap">
+            <div class="tip_content">
+                <p id="evaluation_tip">您还未做风险测评，请先做测评</p>
+            </div>
+            <div class="tip_btn" >
+                <ul style="width: 100%;">
+                    <li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid" class="close_tip"><a
+                            href="javascript:;">取消</a></li>
+                    <li style="float: left;width:50%;box-sizing: border-box;"><a href="../common/riskTest.html" id="go_to_risk_test">去测评</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="tip2 bind_card_tip" style="display: none;">
+        <div class="tip_wrap">
+            <div class="tip_content">
+                <p id="bind_card_tip">您还未绑定银行卡，请先绑定银行卡</p>
+            </div>
+            <div class="tip_btn" >
+                <ul style="width: 100%;">
+                    <li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid" class="close_tip"><a
+                            href="javascript:;">取消</a></li>
+                    <li style="float: left;width:50%;box-sizing: border-box;"><a href="../card/manage_card.html" id="go_to_bind_card">添加银行卡</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script type="text/javascript" src="../js/fundgroup/create_mip.js?20210106"></script>
+</body>
+
+</html>

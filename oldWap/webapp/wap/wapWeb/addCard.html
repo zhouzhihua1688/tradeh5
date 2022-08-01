@@ -1,0 +1,305 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>添加银行卡</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" href="css/pure-min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <style type="text/css">
+
+            .top{
+                padding-left: 1em;
+                color: #666;
+            }
+            .pure-group{
+                background-color: #fff;
+                border-top: 1px solid #e7e7e7;
+                border-bottom: 1px solid #e7e7e7;
+                margin-bottom: 1em;
+            }
+            .group-box{
+                position: relative;
+            }
+            .pure-group .group-box:first-child{
+                border-bottom: 1px solid #e7e7e7;
+            }
+            .group-box label{
+                text-align: right;
+                display: inline-block;
+                width: 4em;
+            }
+            .group-box input{
+                display: inline-block;
+                width: 62%;
+                outline: none;
+                border: none;
+                padding: 15px;
+            }
+            .group-box .error{
+                width: 20px;
+                height: 20px;
+                position: absolute;
+                right: 4%;
+                top: 50%;
+                margin-top: -10px;
+                background: url("img/error.png") no-repeat;
+                background-size: 20px 20px;
+                text-indent: -9999px;
+                display: none;
+                z-index: 100;
+            }
+            .btn-bind {
+                background-color:#fe7e01;
+                color: #fff;
+                border-radius: 4px;
+                padding: .7em 1em;
+            }
+
+            .group-box input.verifi-code{
+                width: 30%;
+            }
+            .btn-setcode{
+                position: absolute;
+                right: 0%;
+                top: 50%;
+                margin-top: -17px;
+                width: 7em;
+                border: none;
+                background-color: #fff;
+                outline: none;
+                border-left: 1px solid #e7e7e7;
+                font-family: inherit;
+                font-size: 100%;
+                padding: 0.5em 1em;
+                text-decoration: none;
+                line-height: normal;
+                white-space: nowrap;
+                vertical-align: baseline;
+                text-align: center;
+                cursor: pointer;
+                -webkit-user-drag: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            .submit {
+                padding: 0 5% 5%;
+                overflow: hidden;
+                color: #555;
+            }
+            .submit .checkbox{
+                width: 18px;
+                height: 18px;
+                display: inline-block;
+                background: url("img/checkbox.png") no-repeat;
+                background-size: 18px 18px;
+                vertical-align: top;
+            }
+            .submit .checked{
+                background: url("img/checked.png") no-repeat;
+                background-size: 18px 18px;
+            }
+            .submit p{
+                font-size: .9em;
+                margin: 0 0 1.5em;
+                height: 18px;
+                line-height: 18px;
+            }
+            .submit a{
+                color: #1c8bde;
+                text-decoration: none;
+            }
+
+            /* .bank-list {
+                position: absolute;
+                width:100%;
+                max-height:100%;
+                overflow-y:auto;
+                background:#f8f8f8;
+                transition: all 0.7s,transform 0.3s;
+                bottom:100%;
+                border-top: 2px solid #eaeaea;
+            }
+            .bank-list.view {
+                bottom:0;
+                z-index:10;
+            }
+            .bank-selection {
+                list-style-type: none;
+                margin:0 ;
+                padding:0 ;
+
+            }
+            .bank-selection li {
+                height: 2.857em;
+                line-height: 2.857em;
+                border-bottom: 1px solid #e5e5e5;
+                padding:0 5%;
+
+            }
+            .icon-arrow {
+                background: transparent url(img/arrow.png) center center no-repeat;
+                width:15px;
+                height: 100%;
+                line-height: 100%;
+                float:right;
+            } */
+            .arrow {
+                background: transparent url(img/arrow.png) center center no-repeat;
+                width:15px;
+                height: 25px;
+                position: absolute;
+                right: 4%;
+                top: 50%;
+                margin-top: -12px;
+                background-size: 10px 15px;
+            }
+            .pure-group .group-box .selectbank{
+                color: #00a0e9;
+                padding: 15px;
+                text-decoration: none;
+                display: inline-block;
+                width: 60%;
+                outline: none;
+                border: 0;
+            }
+            
+            .bank-list {
+                width:100%;
+                max-height:100%;
+                overflow-y:auto;
+                background:#f8f8f8;
+                border-top: 2px solid #eaeaea;
+            }
+            .bank-selection {
+                list-style-type: none;
+                margin:0 ;
+                padding:0 ;
+
+            }
+            .bank-selection li {
+                height: 2.857em;
+                line-height: 2.857em;
+                border-bottom: 1px solid #e5e5e5;
+                padding:0 5%;
+
+            }
+            .icon-arrow {
+                background: transparent url(img/arrow.png) center center no-repeat;
+                width:15px;
+                height: 100%;
+                line-height: 100%;
+                float:right;
+            }
+        </style>
+    </head>
+    <body>
+        <h3 class="title">添加银行卡</h3>
+        <!-- <form action="addCardSuccessN.html"> -->
+
+			<div id="bind-card-info">
+        	<p class="top">请绑定账户本人的银行卡</p>
+                <div class="pure-group">
+                    <div class="group-box">
+                         <label>卡<span style="visibility: hidden;">卡</span>号</label><!--中间字为占位-->
+                         <input type="text" class="" id="bankAcco" placeholder="请输入您的卡号" maxlength="23" onkeyup="this.value=this.value.replace(/\s/g,'').replace(/(\d{4})(?=\d)/g,'$1 ');">
+                         <span class="error">X</span>
+                    </div>
+                    <div class="group-box">
+                        <label>银<span style="visibility: hidden;">银</span>行</label>
+                        <a href="javascript:void(0)" id="selected_bank_btn" class="selectbank"><font id="bank_name_panel">请选择银行</font><i class="arrow"></i></a>
+                    </div>
+                </div>
+
+                <div class="pure-group" id="userInfo_panel">
+                    <div class="group-box">
+                        <label>姓<span style="visibility: hidden;">姓</span>名</label>
+                        <input type="text" id="invNm" placeholder="请输入您的真实姓名">
+                        <span class="error">X</span>
+                    </div>
+                    <div class="group-box">
+                        <label>身份证</label>
+                        <input type="text" id="idNo" placeholder="请输入18位身份证号码">
+                        <span class="error">X</span>
+                    </div>
+                </div>
+
+                <div class="pure-group">
+                    <div class="group-box">
+                        <label>手机号</label>
+                        <input type="number" id="mobileNo" maxlength="11" placeholder="请输入银行预留手机号">
+                        <span class="error">X</span>
+                    </div>
+                    <div class="group-box">
+                        <label>验证码</label>
+                        <input type="text" id="authCode" class="verifi-code" maxlength="6" placeholder="请输入动态码">
+                        <span class="error" style="right: 40%;">X</span>
+                        <button type="button" id="btn-setcode-addCard" class="btn-setcode">发送验证码</button>
+                    </div>
+                </div>
+                <div class="submit">
+                    <p>点击"提交"表示您同意《<a href="#" id="protocolUrl" target="_blank">快捷支付业务协议</a>》</p>
+                    <button class="pure-button pure-u-1-1 btn-bind" id="binding_submit_btn" type="button">提交</button>
+                </div>
+			</div>
+        <!-- </form> -->
+       <div class="pure-g bank-list">
+            <div class="pure-u-1">
+                <ul class="bank-selection">
+                   <!--  <li>工商银行<i class="icon-arrow"></i></li>
+                    <li>建设银行<i class="icon-arrow"></i></li>
+                    <li>农业银行<i class="icon-arrow"></i></li>
+                    <li>中国银行<i class="icon-arrow"></i></li>
+                    <li>招商银行<i class="icon-arrow"></i></li>
+                    <li>交通银行<i class="icon-arrow"></i></li>
+                    <li>花旗银行<i class="icon-arrow"></i></li> -->
+                </ul>
+            </div>
+        </div>
+        <!-- <script src="js/zepto.js"></script> -->
+        <script type="text/javascript">
+           /*  $(function () {
+                /* 银行列表选择事件 */
+/*                $('.selectbank').on('focus', function(ev) {
+                    $('.bank-list').addClass('view')
+                });
+                $('.bank-list li').on('click', function() {
+                    $('.selectbank').val($(this).text());
+                    $('.bank-list').removeClass('view');
+                });*/
+
+                /* 发送验证码事件 */
+                /* $(".btn-setcode").on("click",function(){
+                    $(this).prop("disabled",true);
+                    $(this).html('<span id="num">'+60+'</span>'+'秒后重发');
+                    startpao();
+                });
+                function startpao(){
+                    var start = $("#num").text();
+                    var t = setInterval(function(){
+                        start--;
+                        $("#num").text(start);
+                        if(start == 0)
+                        {
+                            clearInterval(t);
+                            $(".btn-setcode").prop("disabled",false);
+                            $(".btn-setcode").text("重新获取");
+                        }
+                    },1000);
+                } 
+            }) */
+        </script>
+        <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+        <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+        <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+        <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+        <script type="text/javascript" src="../js/lib/weixin.js"></script>
+        <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+        <script type="text/javascript" src="../js/common.js?20210106"></script>
+        <script type="text/javascript" src="js/addCard.js"></script>
+    </body>
+</html>

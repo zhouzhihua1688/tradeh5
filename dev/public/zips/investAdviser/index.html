@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>汇添富投顾</title>
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="./css/result_dialog.css">
+  <script src="./js/baseHead.js"></script>
+</head>
+
+<body>
+  <div id="app"  v-cloak>
+    <div class="wrapper">
+      <div class="tel" @click="footerFixShow=true">专属服务</div>
+      <!-- 9560 升级页活动包修改点 #5  -->
+      <div class="tel common" @click="jumpUrl('https://activity.99fund.com/activity-center/act-resources/pages/shengjiQA202112/index.html')"><a >常见问题</a><a class="quest-right"></a> </div>
+      <!-- 有钱花红包 -->
+      <div style='clear:both;'></div>
+      <div class="red-envelopes" @click="jumpUrl('https://activity.99fund.com/activity-center/act-resources/pages/tougutiyanguan20211124/index.html')"></div>
+      <div class="header">
+        <!-- <img src="./img/headers/header.png" alt=""> -->
+        <!-- <img src="./img/headers/new_02.png" alt=""> -->
+        <!-- <img src="./img/hearder1217.png" alt="" sizes="" srcset=""> -->
+        <!-- <img src="./img/headers/new1217_02.png" alt=""> -->
+        <img src="./img/headers/new_20220110.png" alt="">
+        <span class='iconTip1' @click="showTopTips" style="right: 3.5rem;"></span>
+      </div>
+      <div class="container">
+        <div class="content" v-for="(item,index)  in mockData" :style="index+1<mockData.length?'':'margin-bottom:0'"
+          :key='index'>
+          <img src="./img/headers/title1.png" alt="" class="content-title" v-if="index===0">
+          <div class="invest-title " :class="{isOne:index===0}">
+            <h4>
+              <img src="./img/headers/icons_01.png" alt="">
+              <span >{{item.productType}}</span>
+            </h4>
+            <!-- <a href="javascript:;">换一换</a> -->
+          </div>
+          <div class="hold-list">
+            <div class="list-th">
+              <div class="th-l">持有组合名称</div>
+              <div class="th-r">持有金额(元)</div>
+            </div>
+            <div class="list-tr" v-for="(listItem,listIndex) in item.convertOutAssets"
+              :class="{isshow:(listIndex>=listOverHide[index])}" :key='listIndex'>
+              <div class="tr-l" >{{listItem.groupName}}</div>
+              <div class="tr-r" >{{listItem.availableAmt}}</div>
+            </div>
+            <div class="more" v-if="item.convertOutAssets.length>3"><a href="javascript:;"
+                @click="showMore(index,item.convertOutAssets.length)" >{{showText}}</a></div>
+          </div>
+
+          <div v-for="(cardItem,cardIndex) in item.toProducts" :key='cardIndex'>
+            <div class="invest-card">
+              <img src="./img/headers/update.png" alt="" class="update-img" v-if="cardIndex===0">
+              <div class="radio" @click="toggleRadio(index,cardIndex)" v-if='item.toProducts.length>1'
+                style="position: absolute;top: -1.2rem;left: 0;margin-top: -0.2rem; font-size: .75rem;color: #5e3608;">
+                <input type="radio" :checked="cardItem.defaultOption" :id="'radios'+index+cardIndex" hidden>
+                <label :for="'radios'+index+cardIndex" style="margin-right: .25rem;margin-top: -2px;"></label>
+                <span>选这个策略</span>
+              </div>
+              <template v-if="cardItem.isCheckedAuto=='Y'">
+                <div>
+                  <div class="info-title">
+                    <h4 class="info-title-l" >{{allData[cardItem.defaultToProduct].groupname}}</h4>
+                    <a href="javascript:;" class="info-title-r"
+                      @click="gotoDetailsPage(cardItem.defaultToProduct)">详情<img
+                        src="./img/headers/icons_arrow.png"></a>
+                  </div>
+                  <div class="info-tip">
+                    <span v-for="(labItem,labIndex) in currentContext(cardItem.defaultToProduct).label">{{labItem}}</span>
+                    <!-- <span>低风险</span><span>稳健理财</span> -->
+                  </div>
+                  <div class="invest-section">
+                    <div class="section-l text-l">
+                    
+                      <!-- <p>{{currentContext(cardItem.defaultToProduct).targetYearYield.split('-')[0].split('%')[0]}}<span>%</span>-{{currentContext(cardItem.defaultToProduct).targetYearYield.split('-')[1].split('%')[0]}}<span>%</span></p> -->
+                      <p>{{currentContext(cardItem.defaultToProduct).investTarget}}</p>
+                    
+                      <p>您的投资目标</p>
+                    </div>
+                    <div class="section-c text-c">
+                      <!-- <p>{{currentContext(cardItem.defaultToProduct).targetRetreat}}以内</p> -->
+                      <p>{{currentContext(cardItem.defaultToProduct).assetPostion}}</p>
+                    <!-- 债券资产占比或权益资产占比 -->
+                      <p class='flex-row'>{{currentContext(cardItem.defaultToProduct).title2}} <i class='icon-i iconTip2' style='display: none;'></i></p>
+                    </div>
+                    <div class="section-r text-r">
+                      <p>{{currentContext(cardItem.defaultToProduct).RecommendedHoldingTime}}</p>
+                      <p>建议持有</p>
+                    </div>
+                  </div>
+                  <div class="info-desc">
+                    <img src="./img/headers/icons_02.png" alt="">
+                    <span>{{currentContext(cardItem.defaultToProduct).desc}}</span>
+                  </div>
+                </div>
+              </template>
+              <template v-if="cardItem.isCheckedAuto=='N'">
+                <div>
+                  <div class="info-title">
+                    <h4 class="info-title-l" >{{allData[cardItem.otherToProduct].groupname}}</h4>
+                    <a href="javascript:;" class="info-title-r" @click="gotoDetailsPage(cardItem.otherToProduct)">详情<img
+                        src="./img/headers/icons_arrow.png"></a>
+                  </div>
+                  <div class="info-tip">
+                    <span v-for="(labItem,labIndex) in currentContext(cardItem.otherToProduct).label">{{labItem}}</span>
+                    <!-- <span>低风险</span><span>稳健理财</span> -->
+                  </div>
+                  <!-- <div class="info-detail">
+                    <div class="info-detail-t " >
+                      <p>{{1}}<i>%</i>-{{2}}<i>%</i></p>
+                      <p><span>{{1}}</span><span>{{2}}</span></p>
+                    </div>
+                    <div class="info-detail-b clearfix">
+                      <p class="fl">您的投资目标</p>
+                      <p class="fr">投顾服务费</p>
+                    </div>
+                  </div> -->
+                  <div class="invest-section">
+                    <div class="section-l text-l">
+                      <!-- <p>{{currentContext(cardItem.otherToProduct).targetYearYield.split('-')[0].split('%')[0]}}<span>%</span>-{{currentContext(cardItem.otherToProduct).targetYearYield.split('-')[1].split('%')[0]}}<span>%</span></p> -->
+                      <p>{{currentContext(cardItem.otherToProduct).investTarget}}</p>
+                      <p>您的投资目标</p>
+                    </div>
+                    <div class="section-c text-c">
+                      <!-- <p>{{currentContext(cardItem.otherToProduct).targetRetreat}}以内</p> -->
+                      <p>{{currentContext(cardItem.otherToProduct).assetPostion}}</p>
+                    <!-- 债券资产占比或权益资产占比 -->
+
+                      <p class='flex-row'>{{currentContext(cardItem.otherToProduct).title2}} <i class='icon-i iconTip3' style='display: none;'></i></p>
+                    </div>
+                    <div class="section-r text-r">
+                      <p>{{currentContext(cardItem.otherToProduct).RecommendedHoldingTime}}</p>
+                      <p>建议持有</p>
+                    </div>
+                  </div>
+                  <div class="info-desc">
+                    <img src="./img/headers/icons_02.png" alt="">
+                    <span >{{currentContext(cardItem.otherToProduct).desc}}</span>
+                  </div>
+                </div>
+              </template>
+            </div>
+            <!-- 大于一个时 -->
+            <div class="service" v-if="cardItem.defaultOption">
+
+              <div class="radio">
+                <input type="radio" v-model="cardItem.isCheckedAuto" value="Y" :id="'radio'+index+cardIndex" hidden>
+                <!-- 9560 升级页活动包修改点 #5  -->
+                <label :for="'radio'+index+cardIndex" data-attr="自动调仓模式"  @click="iconTips('automatic')"></label>
+                <!--启用自动调仓服务改成自动调仓模式-->
+                <!--<span>自动调仓服务</span>-->
+                <span class='icon-i' style="margin-left:4.5rem" @click="iconTips('automatic')"></span>
+                <!--20211130新加icon-->
+              </div>
+              <div class="radio">
+                <input type="radio" v-model="cardItem.isCheckedAuto" value="N" :id="'radio1'+index+cardIndex" hidden>
+                <!-- 9560 升级页活动包修改点 #5  -->
+                <label :for="'radio1'+index+cardIndex" data-attr="手动调仓模式" class='radio-label'  style='font-weight: normal;'  @click="iconTips('Manual')"></label>
+                <!--保持手动调仓模式改成手动调仓模式-->
+                <!--<span>我要手动调仓</span>-->
+                <span class='icon-i' style="margin-left:4.5rem" @click="iconTips('Manual')"></span>
+                <!--20211130新加icon-->
+              </div>
+            </div>
+
+
+            <!-- 小于一个时 -->
+
+          </div>
+          <template v-if="(index+1)<mockData.length">
+            <img src="./img/headers/link.png" alt="" class="link-img1">
+            <img src="./img/headers/link.png" alt="" class="link-img2">
+          </template>
+        </div>
+      </div>
+      <!-- 无状态 补充渐变色差 -->
+      <div class='xianJie'  v-if='noState'></div>
+      <!-- 升级中展示 -->
+      <div class="container" v-if="showUpgrading&&!noState">
+        <div class="content" v-for="(item,index)  in upgradingData"
+          :style="index+1<upgradingData.length?'':'margin-bottom:0'" :key='index'>
+          <img src="./img/headers/title1.png" alt="" class="content-title" v-if="index===0">
+          <div class="invest-title " :class="{isOne:index===0}">
+            <h4>
+              <img src="./img/headers/icons_01.png" alt="">
+              <span>{{item.productType}} </span>
+
+            </h4>
+            <!-- <a href="javascript:;">换一换</a> -->
+          </div>
+          <div class="hold-list">
+            <div class="list-th">
+              <div class="th-l">持有组合名称</div>
+              <div class="th-r">持有金额(元)</div>
+            </div>
+            <div class="list-tr" v-for="(listItem,listIndex) in item.convertOutAssets"
+              :class="{isshow:(listIndex>=listOverHide[index])}" :key='listIndex'>
+              <div class="tr-l" >{{listItem.groupName}}</div>
+              <!-- <div class="tr-r" >{{listItem.availableAmt}}</div> -->
+              <div class="tr-r" style="color:black" >--</div>
+
+            </div>
+            <div class="more" v-if="item.convertOutAssets.length>3"><a href="javascript:;"
+                @click="showMore(index,item.convertOutAssets.length)" >{{showText}}</a></div>
+          </div>
+
+          <div class="invest-card" v-if="currentContext(item.cardGroupid)">
+            <img src="./img/headers/update.png" alt="" class="update-img">
+            <template>
+              <div>
+                <div class="info-title">
+                  <h4 class="info-title-l"> {{item.cardGroupname}}</h4>
+                  <a href="javascript:;" class="info-title-r" @click="gotoDetailsPage(item.cardGroupid)">详情<img
+                      src="./img/headers/icons_arrow.png"></a>
+                </div>
+                <!-- <p>{{currentContext(item.cardGroupid).label}}</p> -->
+                <div class="info-tip" >
+                  <span v-for="(labItems,labIndexs) in currentContext(item.cardGroupid).label">{{labItems}}</span>
+                  <!-- <span>低风险</span><span>稳健理财</span> -->
+                </div>
+
+                <div class="invest-section">
+                  <div class="section-l text-l">
+                    <!-- <p>3<span>%</span>-5<span>%</span></p> -->
+                    <!-- <p>{{currentContext(item.cardGroupid).targetYearYield.split('-')[0].split('%')[0]}}<span>%</span>-{{currentContext(item.cardGroupid).targetYearYield.split('-')[1].split('%')[0]}}<span>%</span></p> -->
+                    <p>{{currentContext(item.cardGroupid).investTarget}}</p>
+                    
+                    <p>您的投资目标</p>
+                  </div>
+                  <div class="section-c text-c">
+                    <!-- <p>{{currentContext(item.cardGroupid).targetRetreat}}以内</p> -->
+                    <p>{{currentContext(item.cardGroupid).assetPostion}}</p>
+                    <!-- 债券资产占比或权益资产占比 -->
+                    <p class='flex-row'>{{currentContext(item.cardGroupid).title2}} <i class='icon-i iconTip3' style='display: none;'></i></p>
+                  </div>
+                  <div class="section-r text-r">
+                    <p>{{currentContext(item.cardGroupid).RecommendedHoldingTime}}</p>
+                    <p>建议持有</p>
+                  </div>
+                </div>
+                <div class="info-desc">
+                  <img src="./img/headers/icons_02.png" alt="">
+                  <span >{{currentContext(item.cardGroupid).desc}}</span>
+                </div>
+              </div>
+            </template>
+          </div>
+          <div class="serviceUping" :class="{'handRadio':showAutomatic==false}"> </div>
+          <template v-if="(index+1)<upgradingData.length">
+            <img src="./img/headers/link.png" alt="" class="link-img1">
+            <img src="./img/headers/link.png" alt="" class="link-img2">
+          </template>
+        </div>
+      </div>
+      <!-- 添富投顾 -->
+      <div class='adviserDiv' :style="mockData.length>0?'':'padding-bottom:0'">
+        
+        <div class='advContent'>
+          <img src="./img/advTitle.png" alt="" class="advTitle">
+            <img src="./img/adv1220_03.png"  class="advIcon" alt="">
+
+            <div class='advTab1' >
+              <a class='tabBtn tab1 ' :class="{'tabBtn-active':tabDivBgd==1}" @click='changTab(1)'> 关于投顾服务</a>
+              <a class='tabBtn tab2 ':class="{'tabBtn-active':tabDivBgd==2}" @click='changTab(2)'> 我们的优势</a>
+            </div>
+            <div class='advContent-text' :class='{"advContent2":tabDivBgd==2}'>
+              <p style='display: inline-block;line-height: 1.5; letter-spacing: 0; color: #5f3601;' >{{infTab}}</p>
+            </div>
+        </div>
+
+        <div class='advTips'>
+          <p>温馨提示：</p>
+          <p>1、本次升级可享：升级过程中的调仓费用（申购、赎回、转换）0折（基金合同约定赎回费归属基金资产部分不打折）</p>
+          <p> 2、不同组合升级确认时间因成分基金不同略有差异，预计一周左右可完成</p>
+          <!-- <p> 3、升级时，原组合的定投计划也将同步升级为目标投顾组合的定投计划</p> -->
+          <p> 3、汇添富原组合服务已停止策略维护，建议您将持有组合升级为投顾服务</p>
+
+          <p>
+           <span style="font-size: 14px;"> 风险提示：市场有风险，投资需谨慎。</span>
+            汇添富基金承诺以诚实信用、勤勉尽责的原则提供基金投资顾问服务，但不保证投顾账户一定盈利，也不保证最低收益。组合历史业绩不代表末来收益。汇添富基金提醒投资者接受基金投资顾问服务遵循“买者自负”原则，投资者应结合自身的投资经历、风险承受能力、资产配置需要作出投资决策，投顾账户的投资风险由投资者自行承担。为其他客户创造的收益，并不构成业绩表现的保证。基金投资组合策略的风险特征与单只基金产品的风险特征存在差异。基金投顾业务尚处于试点阶段，存在因试点资格被取消不能继续提供服务的风险。投资者应自行阅读《基金投资顾问服务协议》、《风险揭示书》《组合策略说明书》等法律文件，自行做出投资选择。基金投资组合及基金投资遵循“买者自负〞原则，投资者应自行承担投资风险。
+          </p>
+        </div>
+        <div v-if="showUpgrading&&!noState" style="height:2.5rem"></div>
+      </div>
+    </div>
+    <!-- 等待升级 -->
+    <div class='agreementDiv' v-if="mockData.length>0">
+      <!-- <div class='agreementDiv_top'>
+        <span class='rightSpan'>
+          <input type="radio" id="ones" value="ones" v-model="inputMode">
+          <i @click="iptModeToggle"></i>
+
+        </span>
+        <span class='leftSpan'>
+          已阅读并同意 <span style='color: #218ee3' @click="gotoContractListPage()">
+            汇添富基金管理股份有限公司投资顾问服务协议、基金投资组合策略方案说明书、管理型投顾风险揭示书</span>
+        </span>
+      </div> -->
+      <div class='agreementDiv_bottom agreementDiv_bottom2'>
+        <a class='aBtn  customBtn' @click='customBtn(programme)'> 自定义升级</a>
+        <a class='aBtn  upgradeBtn' @click='upgradeBtn'>一键升级</a>
+      </div>
+    </div>
+    <!-- 升级中 -->
+    <div class='agreementDiv'
+      style='display: flex;justify-content: center;text-align: center;align-items: center;height: 2.5rem;line-height:2.5rem;font-size: .85rem;background: #999999;color:white;display: none;'
+      v-show="showUpgrading&&!noState">
+      您的组合正在升级中...
+    </div>
+    <!-- pdf协议弹窗 -->
+    <!-- <div class="mask-protocol" style="display: none;" v-show="protocolShow">
+      <div class="protocol-wraper">
+        <div class="protocol-pdf">
+          
+        </div>
+        <p class="fixed-top"><img src="./img/close.png" alt="" class="close-img" @click="protocolShow=false"> {{pdfInfo.agreementName}}</p>
+          <button class="fixed-btn" disabled @click="pdfConfirm">我知道了{{pdfInfo.countDown}}s</button>
+      </div>
+    </div> -->
+    <!-- footer浮动弹窗 -->
+    <div class="mask" :style="{display:footerFixShow ? 'block':'none'}"></div>
+    <div class="layer0" :style="{display:footerFixShow ? 'block':'none'}" :class="footerFixShow?'animated slideInUp':''"
+      id="layer0">
+      <div class="giftlist giftlist0" v-if="ManagerInfo.length>0">
+        <a :href="'tel:'+ManagerInfo[0].mobile" class="title" style="border-radius: 0 0 10px 10px;"><img
+            src="./img/tel_01.png" /><span>呼叫客户经理 {{ManagerInfo[0].name}}</span></a>
+        <!--20211130电话号换成名称 mobile to name-->
+      </div>
+      <div class="giftlist giftlist0" v-if="ManagerInfo.length==0">
+        <!-- 9560 升级页活动包修改点 #5  -->
+        <a href="./telephoneRese.html" @click='footerFixShow=false' class="title"><img src="./img/tel_02.png" /><span>预约投顾专属服务</span></a>
+        <a href="tel:4008889918" class="title" @click='footerFixShow=false' style="border-radius: 0 0 10px 10px;"><img
+            src="./img/tel_01.png" /><span>呼叫客服热线</span></a>
+      </div>
+      <div class="close" @click="footerFixShow=false">
+        <a href="javascript:;" style="color:#0070fa;font-size:0.75rem">取消</a>
+      </div>
+    </div>
+    <!--start 20211206新加入修改协议的地方 -->
+    <!-- <div class="mask" style="display: none"></div> -->
+    <div class="mask-protocol" style="display: none;" v-show="protocolShow">
+      <div class="agreement-new">
+        <div class="agreement-head">
+          <div class="agreement-title" style="margin-left: 1.75rem;text-align: center;">基金投顾风险揭示书</div>
+          <img src="./img/close_02.png" alt="" class="agreement-close" @click="agreementClose">
+        </div>
+        <div class="agreement-iframe">
+          <!-- <iframe :src="iframeUrl" style="width:100%;height:100%" scrolling="auto" frameborder="0"></iframe> -->
+          <iframe v-show='toggleGroupType=="M"' src="./invest_adviser_agreement_m.html" style="width:100%;height:100%" scrolling="auto" frameborder="0"></iframe>
+          <iframe v-show='toggleGroupType=="G"' src="./invest_adviser_agreement_g.html" style="width:100%;height:100%" scrolling="auto" frameborder="0"></iframe>
+          <iframe v-show='toggleGroupType=="ALL"' src="./invest_adviser_agreement_all.html" style="width:100%;height:100%" scrolling="auto" frameborder="0"></iframe>
+        </div>
+        <div class="take-care">注：您可通过截屏的方式留存相关信息</div>
+        <div class="agreement-btn" :class="{active:iKnow}" @click="pdfConfirm">{{countDownBlock}}</div>
+      </div>
+    </div>
+    <!--12.07签署相关协议 -->
+    <div class="mask-protocol" style="display: none;" v-show="signAgreementShow">
+      <div class="agreement-new" >
+        <div class="agreement-head">
+          <div class="agreement-title" style="width: 100%; font-size: .8rem; margin-left: 1.75rem;;text-align:center">
+            签署相关协议</div>
+          <img src="./img/close_02.png" alt="" class="agreement-close" @click="signAgreementShow=!signAgreementShow">
+        </div>
+        <div v-if="contractList.length>0" style="width: 100%;height: 10rem; overflow-y: scroll;">
+          <p style='padding: 0.8rem;'><strong>我已阅读并同意以下协议：</strong> </p>
+          <p v-for="(item,index) in contractList"
+          style='display: flex;justify-content: space-between;padding: 0.8rem;border-top: #eeeeee solid .5px;'>
+          <a href="javascript:;" @click="openContract(item)">{{item.agreementName}}</a>  
+          <a  href="javascript:;" @click="openContract(item)"> <img style="width:50%" src="./img/headers/huiRight2.png" ></a>
+        </p>
+        </div>
+        
+        <div class="agreement-btn" style='background:#0757b2' @click="upgrade">确认签署</div>
+      </div>
+    </div>
+    <!--  -->
+
+    <!--end 20211206新加入修改协议的地方 -->
+  </div>
+  <script src="./js/jquery-3.2.1.min.js"></script>
+  <script src="./js/utils.js"></script>
+  <!-- <script src="./js/pdf.js?123"></script> -->
+
+  <script src="./js/vue.min.js"></script>
+  <!-- <script src="./js/vue.js"></script> -->
+  <script src="./js/index.js?20220121"></script>
+</body>
+
+</html>

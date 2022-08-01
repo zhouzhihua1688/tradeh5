@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>基金搜索</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        .search-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: .5rem .75rem;
+            background-color: #fff;
+            border-bottom: 1px #eee solid;
+        }
+
+        .search-form {
+            display: flex;
+            align-items: center;
+            width: 90%;
+            height: 1.5rem;
+            border-radius: .75rem;
+            background-color: #f6f6f6;
+            line-height: 1.5rem;
+        }
+        .search-box a{
+            font-size: .65rem;
+            color: #148ce6;
+        }
+        .search-form .search {
+            width: 90%;
+            height: 1rem;
+            line-height:1rem;
+            font-size: .65rem;
+            background-color: rgba(255, 255, 255, 0);
+            margin-left: .5rem;
+        }
+
+        .list {
+            background-color: #fff;
+            margin-bottom: .5rem;
+        }
+
+        .list .list-title {
+            padding-left: .75rem;
+            line-height: 2.25rem;
+            border-bottom: 1px #eee solid;
+        }
+
+        .list .list-title span:nth-of-type(1) {
+            color: #000;
+            font-size: .75rem;
+            margin-right: .5rem;
+        }
+
+        .list .list-title span:nth-of-type(2) {
+            color: #666;
+            font-size: .65rem;
+        }
+
+        .list-content li {
+            margin-left: .75rem;
+            padding-right: .75rem;
+            line-height: 2.5rem;
+            border-bottom: 1px #eee solid;
+        }
+
+        .list-content li span:nth-of-type(1) {
+            color: #000;
+            font-size: .75rem;
+            margin-right: .5rem;
+        }
+
+        .list-content li span:nth-of-type(2) {
+            color: #666;
+            font-size: .65rem;
+        }
+
+        .list-content li:last-child {
+            border: none;
+            ;
+        }
+
+        .list-more {
+            display: block;
+            line-height: 2rem;
+            text-align: center;
+            font-size: .7rem;
+            color: #148ce6;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="search-box">
+        <form class="search-form">
+            <img src="../images/fund/Rectangle 4.png" alt="" style="width:0.65rem; height: 0.65rem;margin-left: .75rem;">
+            <input type="text" style="padding:0;outline-style: none;"  placeholder="基金代码/拼音/首字母" class="search" id="search"/>
+        </form>
+        <a href="javascript:;" class="cals">取消</a>
+    </div>
+    <div class="listbox">
+       
+    </div>
+
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+	<script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script>
+    var flag = true;
+    $(".listbox").hide();
+	$("#search").focus();
+    $('#search').on('compositionstart',function(){
+        flag = false;
+    })
+    $('#search').on('compositionend',function(){
+        flag = true;
+    })
+    
+ 	$(".search").on('keypress',function(e) {
+        var keycode = e.keyCode;
+        var searchName = $(this).val();
+        if(keycode=='13') {
+        	e.preventDefault();  
+			search(searchName);
+        }
+    });
+	var searchText = '';
+    $(".search").on('input', function (e) {
+        searchText = $(this)[0].value;
+        setTimeout(function(){
+            if(flag){
+                search(searchText);
+            }
+        },0)
+    });
+
+    function search(searchText){
+        //调用接口
+        var url = "/mobile-bff/v1/search/queryFundexInfo";
+        var data = {"searchKey":searchText};
+		App.post(url,JSON.stringify(data), null, function (result) {
+			$(".listbox").html("");
+			if(result.body != undefined && result.body != null){
+				var SearchList = result.body.SearchList;
+				if(SearchList != undefined && SearchList != ""){
+					searchText = encodeURI(encodeURI(searchText));
+					//主数据
+					for(var k in SearchList){
+						var item = SearchList[k];
+						var moreHtml = '';
+						//基金
+						if(item.searchType == "FUND"){
+							if(item.totalNum > 5 ){
+								moreHtml = '<a class="list-more" href="search_result.html?t='+item.searchType+'&s='+searchText+'">更多相关基金</a>';
+							}
+							$('.listbox').append('<div class="list"><div class="list-title"><span>基金' +
+							    '</span><span>(共有' + item.totalNum +
+							    '只)</span></div><ul class="list-content fund"></ul>'+moreHtml+'</div>');
+							$(".fund").html("");
+							for (var j in item.searchFundInfos) {
+								var item2 = item.searchFundInfos[j];
+							    $(".fund").append('<li onclick="javascript:window.location.href=\'steadyCombination.html?fundId='+ item2.id +'\'"><span>' + item2.fundName +
+							        '</span><span>' + item2.fundId + '</span></li>');
+							}
+						}
+						//组合
+						if(item.searchType == "GROUP"){
+							if(item.totalNum > 5 ){
+								moreHtml = '<a class="list-more" href="search_result.html?t='+item.searchType+'&s='+searchText+'">更多相关组合</a>';
+							}
+							$('.listbox').append('<div class="list"><div class="list-title"><span>组合'+
+							    '</span><span>(共有' + item.totalNum +
+							    '只)</span></div><ul class="list-content fundgroup"></ul>'+moreHtml+'</div>');
+							$(".fundgroup").html("");
+							for (var m in item.searchFundGroups) {
+								var item3 = item.searchFundGroups[m];
+								if(item3.fundGroupId == "A0081"){
+							    $(".fundgroup").append('<li onclick="javascript:window.location.href=\'../fundgroup/group_fund_details_xjj.html?groupId='+ item3.id +'\'"><span>' + item3.fundGroupName +
+							        '</span><span>' + item3.fundGroupId + '</span></li>');
+							    }else{
+							    $(".fundgroup").append('<li onclick="javascript:window.location.href=\'../fundgroup/group_fund_details.html?groupId='+ item3.id +'\'"><span>' + item3.fundGroupName +
+							        '</span><span>' + item3.fundGroupId + '</span></li>');
+							    }
+							}
+						}
+					}
+				}
+			}
+		});
+		
+		$(".listbox").show();
+	
+    }
+    $(".cals").click(function(){
+    	window.location.href = 'all_funds.html';
+    });
+    </script>
+</body>
+
+</html>

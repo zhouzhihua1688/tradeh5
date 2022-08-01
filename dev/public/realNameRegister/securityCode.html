@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>填写验证码</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/common.css">
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <style>
+        .content h2 { line-height: 1.75rem; padding:0 0.75rem; font-size: 0.55rem; color: #999;}
+        .btn-default { line-height: inherit;line-height: 1.6rem; height: 1.6rem; font-size: 0.7rem; width: 85%;}
+        .no-margin {margin: 0;}
+        .list-group {background-color: #fff;padding: 0 0.75rem;}
+        .btn-orange {width: 92%;height: 2.25rem; background-color: #fe7e01;color: #fff;font-size: 0.75rem;text-align: center;line-height: 2.25rem;margin: 0 4% 0 4%;border-radius: 0.2rem;margin-top: 1.1rem;    border: 1px solid #eeeeee;}
+        .btn {display: block;text-align: center;border-radius: 4px;margin-top: 0.7rem;background-color: #fff;}
+        .list-group .list-group-item {min-height: 1.725rem;}
+        .lh-100 {line-height: 2.5rem}
+        .heigth-100 {height: 2.5rem;}
+        .row{display: flex;}
+        .col-4 {flex: 4;}
+        .col-8 {flex: 8;}
+        .text-right {text-align: right;}
+        .btn-default {color: #666;border: 1px solid #eeeeee;}
+        .heigth-100 input {height: 1rem;line-height: 1rem;margin-top: 0.75rem;}
+    </style>
+</head>
+<body>
+<div class="content">
+    <section class="section1"><h2>验证码已发送至银行卡预留手机<span id="mobileNo"></span></h2></section>
+    <ul class="list-group no-margin">
+        <li class="list-group-item lh-100 heigth-100">
+            <div class="row">
+                <div class="col-8"><input class="font-28 authCode" type="text" maxlength="6" placeholder="请输入验证码"  data-rquire-msg="验证码不能为空"></div>
+                <div class="col-4 font-28 text-right"><button type="button" class="btn btn-default" id="btnSendCode">56秒后重发</button></div>
+            </div>
+        </li>
+    </ul>
+    <section>
+        <div>
+            <button class="btn-orange" id="btn-submit">确认</button>
+        </div>
+    </section>
+</div>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <p class="Bomb-box-tips" style="padding-top: 0.75rem;"></p>
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;">确定</a>
+    </div>
+</div>
+<script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+<script src="/tradeh5/newWap/base/js/lib/hammer.min.js"></script>
+<script src="/tradeh5/newWap/base/js/lib/jquery.hammer.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script src="/tradeh5/newWap/base/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script>
+    $(function(){
+        //小米开户和绑卡确认页面
+        var data = utils.getSession("__cardt_bindcard_create_card_info");
+
+        if(data != null && data != undefined){
+            $("#mobileNo").html(displayMobileNo(data.mobileNo));
+        }
+        checkHasCompleteInfo();
+        isSetTradePassword();
+        utils.bind("#btn-submit", "tap", confirm);
+    });
+        var hasCompleteInfo = false; // 是否已经完善个人信息
+        var isSetPwd = 'N'; // 是否设置交易密码
+
+    function checkHasCompleteInfo(){
+        utils.get('/icif/v1/custs/get-simple-by-cust-no' , null, function(result){
+            if(result.returnCode == 0){
+                hasCompleteInfo = result.body.infoIsComplete;
+            }
+        });
+    }
+
+    function isSetTradePassword() {
+        var url = "/mobile-bff/v1/account/has-set-trade-pwd";
+        utils.post(url, null, function (result) {
+            if (result.body != undefined && result.body != null) {
+                if(result.body.isSetPwd){
+                    isSetPwd = result.body.isSetPwd;
+                }
+            }
+        });
+    }
+
+    function displayMobileNo(mob){
+        if(mob != "" && mob.length == 11){
+            return mob.substring(0,3) + '****' + mob.substr(7);
+        }
+        return "";
+    }
+    function confirm(){
+        if(! valide()){
+            alertTips("请填写校验码");
+        return;
+    }
+
+    var bindCardInfo = utils.getSession("__cardt_bindcard_create_card_info");
+
+    var url = "/mobile-bff/v1/account/xiaomi-register-and-bind-card-confirm";
+    var data = JSON.stringify({
+        "serialNo": utils.getSession("___serialNo_bindcard"),
+        "authCode": $(".authCode").val(),
+        "bindCardType": bindCardInfo.bindCardType
+    });
+    utils.unbind("#btn-submit", "tap");
+    utils.post(url,data, function(){
+        utils.bind("#btn-submit", "tap", confirm);
+    }, function(result){
+        if(result.returnCode === 0){
+            var referUrl = decodeURIComponent(utils.getUrlParam("referUrl"));
+            var jumpUrl = (result.body.createCardResult? result.body.createCardResult.jumpUrl : "");
+
+            //var setTradePwdFlag = App.getSession("has_set_trade_pwd");
+            if(isSetPwd == '1'){   // 已设置过交易密码
+
+                if(hasCompleteInfo){ // 用户信息已经完善
+                    if(referUrl){
+                        window.location = referUrl;
+                    }else if(jumpUrl){
+                        window.location = './' + jumpUrl;
+                    }else{
+                        window.location = '/mobileEC/wap/card/bindCardSuccess.html'
+                    }
+                } else {    // 用户信息未完善，跳转信息完善页面
+                    if(referUrl){
+                        window.location.href = '/mobileEC/wap/userInfo/parfectInfo.html?bindCardToCompleteInfo=2&referUrl=' + encodeURIComponent(referUrl);
+                    }
+                    else{
+                        window.location.href = '/mobileEC/wap/userInfo/parfectInfo.html?bindCardToCompleteInfo=2';
+                    }
+                }
+            } else {    // 未设置过交易密码
+            
+                //fromBindCard=1 绑卡后设置交易密码
+                if(referUrl){
+                    window.location = '/mobileEC/wap/card/bindCardInputPassword_1.html?referUrl='+encodeURIComponent(referUrl)+'&fromBindCard=1';
+                }else{
+                    window.location = '/mobileEC/wap/card/bindCardInputPassword_1.html?fromBindCard=1'
+
+                }           
+            }
+        }
+
+    });
+
+    }
+
+    var timer = new createCosTimer("btnSendCode",60);
+    timer.start();
+
+    //  发送验证码
+    $("#btnSendCode").click(function(){
+        timer.start();
+        var url = "/mobile-bff/v1/account/xiaomi-register-and-bind-card";
+        var data = utils.getSession("__cardt_bindcard_create_card_info");
+        utils.post(url, JSON.stringify(data), null, function(result){
+            serialNo = result.body.createCardResult.serialNo;
+            utils.setSession("___serialNo_bindcard", serialNo);
+        });
+    });
+
+//计时器脚本
+//elemenId：button的id，maxtime：计时时间
+function createCosTimer(elemenId,maxtime){
+    var o = {
+        elemenId : elemenId,
+        maxtime:maxtime,
+        time : null,
+        timeElement : null,
+
+        t:null,
+        cosTimer : function(){
+            if(time>0){
+                time = time - 1;
+            }
+
+            if(timeElement.is('button')){
+                timeElement.html(time+"秒后重发");
+            }
+            if(timeElement.is('input')){
+                timeElement.attr("value",time+"秒后重发");
+            }
+
+            if(time==0){
+                timeElement.attr("disabled",null);
+
+                if(timeElement.is('button')){
+                    timeElement.html("重新发送");
+                }
+                if(timeElement.is('input')){
+                    timeElement.attr("value","重新发送");
+                }
+
+                clearInterval(t);
+            }
+
+        },
+        start : function(){
+            time = maxtime;
+            //获取保存dom对象
+            timeElement = $("#"+elemenId);
+            timeElement.attr("disabled","disabled");
+            if(timeElement.is('button')){
+                timeElement.html(time+"秒后重发");
+            }
+            if(timeElement.is('input')){
+                timeElement.attr("value",time+"秒后重发");
+            }
+            clearInterval(this.t);
+            t = setInterval(this.cosTimer,1000);
+            this.t = t;
+        }
+    };
+    return o;
+}
+
+
+</script>
+</body>
+</html>

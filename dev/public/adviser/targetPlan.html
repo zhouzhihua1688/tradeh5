@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--<meta charset="GBK">-->
+    <meta charset="utf8">
+    <title>目标止盈计划设置</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/public.css">
+    <link rel="stylesheet" href="../wap/css/base.css">
+    <link rel="stylesheet" href="../wap/css/common.css">
+    <script type="text/javascript" src="../wap/js/lib/jquery.3.4.1.min.js"></script>
+    <script src="js/phone-size.js"></script>
+    <script type="text/javascript" src="../wap/js/common.js?20210106"></script>
+    <script type="text/javascript" src = "https://static.99fund.com/mobile/wap-lib/js/basic.js"></script>
+
+<!--    //临时js-->
+<!--    <link rel="stylesheet" href="../css/base.css">-->
+<!--    <script type="text/javascript" src="js/jquery.3.4.1.min.js"></script>-->
+<!--    <script type="text/javascript" src="js/jquery.base64.js"></script>-->
+<!--    <script type="text/javascript" src="js/echarts.min.js"></script>-->
+<!--    <script type="text/javascript" src = "js/basic.js"></script>-->
+<!--    <script type="text/javascript" src = "js/zepto.min.js"></script>-->
+<!--    <script type="text/javascript" src="../js/common.js"></script>-->
+<!--&lt;!&ndash;/////&ndash;&gt;-->
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+
+        body{background:#f6f6f6;}
+        .main{margin:0px ;padding:0px;background-color:#fff;}
+        .shouyi{width:100%;background:#fff;height:2.5rem;} 
+        .shouyi .rate{width:35%;height:2.5rem;font-size:0.75rem;color:#000;line-height:2.5rem;float:left;margin-left:0.75rem;}
+        .shouyi .aim{width:60%;height:2.5rem;float:left;}
+        .shouyi .target-rate-1{width:2.0rem;height:1.25rem;border-radius:50px;background:#EEEEEE;float:left;display:block;text-align: center;line-height:1.25rem;}
+        .target-rate-1{margin-right:0.5rem;margin-top:0.625rem;color:#666666;font-size:0.75rem}
+        .target-rate-0{width:3.0rem!important;margin-top:0.625rem;width:2.0rem;height:1.25rem;border-radius:50px;float:left;display:block;text-align: center;line-height:1.25rem;font-size:0.75rem;background:#EEEEEE;}
+        .aim .clr{background:#FF7E00;color:#fff;}
+        .zidingyi{width:100%;height:2.5rem;}
+        .zidingyi .first{width:90%;height:2.5rem;margin:0 auto;}
+        .zidingyi .first p:nth-of-type(1){width:50%;height:2.5rem;font-size:0.75rem;
+            line-height:2.5rem;color:#000;float:left}
+        .zidingyi .first p:nth-of-type(2){width:25%;height:2.5rem;font-size:0.75rem;
+            line-height:2.5rem;color:#000;float:right}
+        #targetProfit{width:100%;height:1.75rem;text-align:left;font-size: 0.75rem;color:#999;background:#fff;}
+        .dadao{width:100%;height:2rem;background:#f6f6f6;}
+        .dadao .first{width:90%;height:2rem;margin:0 auto;line-height:2rem;color:#666666;font-size:0.7rem}
+        .next{width:100%;height:2.5rem;}
+        .next .first{width:90%;height:2.5rem;margin:0 auto;}
+        .next .first .text{height:2.5rem;line-height:2.5rem;width:45%;font-size:0.75rem;color:#000;float:left;}
+        .next .first .on_off{height:2.5rem;width:45%;float:right;}
+        .next .first .on_off img{width:2.5rem;height:1.25rem;float:right;margin-top:0.625rem;}
+        .jihua{width:100%;height:2.5rem;}
+        .jihua .first{width:90%;height:2.5rem;margin:0 auto;}
+        .jihua .first .text{height:2.5rem;line-height:2.5rem;width:45%;font-size:0.75rem;color:#000;float:left;}
+        .jihua .first .all{height:2.5rem;width:45%;float:right;line-height:2.5rem;text-align: right;font-size:0.75rem;color:#000;vertical-align:middle;}
+        .jihua .first .all img{width:0.4rem;height:0.75rem;vertical-align:middle;padding-left:0.35rem;}
+        
+        .next_text{width:100%;height:2.5rem;background:#f6f6f6;font-size:0.6rem}
+        .next_text .first{width:90%;height:2rem;margin:0 auto;color:#666666;
+            font-size:0.6rem;padding-top:0.5rem;text-align:justify;}
+
+        .back{width:100%;height:2.5rem;background:#fff;font-size:0.75rem}
+        .back .first{width:90%;height:2.5rem;margin:0 auto;color:#008AE9;
+            font-size:0.75rem;text-align:right;line-height:2.5rem}
+        .btn-orange {width: 92%;height: 2.25rem; background-color: #0757b2; color: #fff; font-size: 0.75rem; text-align: center;line-height: 2.25rem;margin: 0 4% 1rem 4%;border-radius: 0.1rem;margin-top:1.25rem;} 
+        .cost{width:100%;height:2.5rem;border-bottom:1px solid #eee;} 
+        .cost .tubiao{width:90%;height:2.5rem;margin:0 auto;} 
+        .cost .tubiao .left{width:0.75rem;height:0.75rem;float:left;margin-top:0.85rem;}
+
+        .active1{width:0.75rem;height:0.75rem;
+            margin-top:1.0rem;background: url('../wap/images/unselected.png') no-repeat;background-size: 100% 100%}
+
+        .active{width:0.75rem;height:0.75rem;
+            margin-top:1.0rem;background: url('../wap/images/selected.png') no-repeat;background-size: 100% 100%}
+
+        .cost .tubiao .right{width:15.5rem;height:2.5rem;float:right;}
+        .cost .tubiao .right .text{text-align:left;margin-top:0.75rem;display:block;font-size:0.75rem;color:#000;float:left;} 
+        .cost .tubiao .right .text2{font-size:0.75rem;color:#666;text-align:justify;display:inline-block;margin-top:0.65rem;float:right;margin-top:0.75rem;}
+        .shuoming{width:100%;background:#f6f6f6;text-align: justify;padding:0.35rem 0.0rem;}
+        .shuoming .text{width:90%;margin:0 auto;}
+        .agree .dim {font-size: 0.6rem; color: #666666; line-height: 1rem; padding: .25rem 1rem; background: #f6f6f6; }
+        .agree .dim img{width:0.6rem;height:0.6rem;}
+
+        /*弹框*/
+        /*弹框*/
+        .layer{z-index: 9999999; display: none;  position: fixed;  top: 0;  left: 0;  background-color: rgba(0,0,0,0.3);  height: 100%;  width: 100%;  overflow: auto;}
+        .layer-wrap{margin:60% 15% 5% 15%;background-color: #fff;border-radius: 8px;}
+        .layer-body{padding: 7% 8% 7% 8%;text-align: center;}
+        .layer-wrap .layer-body p{font-size:14px;line-height: 21px; color: #666;display: inline-block;text-align: justify}
+        .layer-wrap .layer-body span{font-size: 16px;display: block;  padding-top: 10px;color: #333;font-weight: 600;}
+        .layer-wrap button{font-size: 16px;
+            color: #148CE6;
+            background-color: #fff;
+            border-top: solid 1px #eeeeee;
+            width: 90%;
+            height: 45px;
+            display: block;
+            margin: 0 auto;
+        }
+        .layer-wrap button:focus{outline: none;}
+        /*#layout{display:none}*/
+        /*#over{display:none}*/
+    </style>
+</head>
+
+<body>
+<div class="main">
+    <div class="next" style="border-bottom:1px solid #eee">
+        <div class="first">
+            <div id="setting_target_rate" data-flag="0">
+                <p class="text">目标止盈计划</p>
+                <p class="on_off setting_target_rate_on_off" >
+<!--                    <img src="../wap/images/fund/off.png" alt="">-->
+                    <img src="../wap/images/fund/off.png" alt="">
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="shouyi" style="border-bottom:1px solid #eee;border-top: 0.35rem solid #eee;display: none;">
+       <div class="rate">目标收益率</div> 
+        <p class="aim">
+            <span class="target-rate-1 clr" data-flag="6">6%</span>
+            <span class="target-rate-1" data-flag="10">10%</span>
+            <span class="target-rate-1" data-flag="15">15%</span>
+            <span class="target-rate-0" data-flag="0">自定义</span>
+        </p>
+    </div>
+    <div class="zidingyi target-rate-view-customize" style="display:none;">
+        <div class="first">
+            <p>自定义收益率(%) </p>
+            <p><input type="text" id="targetProfit" onkeyup="this.value =this.value.replace(/\D/g,'')" onafterpaste = "this.value =this.value.replace(/\D/g,'')" placeholder="大于等于5%"></p>
+        </div>
+    </div>
+    <div class="dadao" style="display: none;">
+        <div class="first">达到目标收益后:</div>
+    </div>
+    <div class="cost" id = "xjb" style="display: none;">
+       <div class="tubiao"> 
+           <div class="left active active1" id="cost0" data-productid ="1"></div>
+           <div class="right">
+               <span class="text">全部赎回至现金宝</span>
+           </div>
+       </div>
+   </div>
+    <div class="shuoming" style="display: none;">
+        <div class="text">系统将在组合资产达到目标收益率后的当个交易日发起对应的止盈操作，由于基金交易“未知价”规则，实际收益率与目标收益率可能存在一定偏差。</div>
+    </div>
+    <div class="agree" style="display: none;">
+        <p class="dim"><img class="checkBox" src="../wap/images/checkBox.png" alt="" style="vertical-align: middle;margin-right:0.5rem;margin-top:-0.2rem">同意<a
+            href="http://static.99fund.com/mobile/agreement/funds_group_target_profit_agreement.html" style="color:#148CE6">《组合资产目标止盈计划业务规则》</a>
+        </p>
+    </div>
+    <div id="sub" style="background:#f6f6f6;display: none;">
+        <button class="btn-orange" onclick="insertTarget()">确定</button>
+    </div>
+</div>
+<!--弹框-->
+<div class="layer" id="layer1">
+    <div class="layer-wrap">
+        <div class="layer-body">
+            <p class="display_yield_desc" >目标赢已设置，不能重复设置</p>
+        </div>
+        <button>我知道了</button>
+    </div>
+</div>
+<div class="layer" id="layer2">
+    <div class="layer-wrap">
+        <div class="layer-body">
+            <p class="tips_text" >您的目标止盈计划设置成功</p>
+        </div>
+        <button>确定</button>
+    </div>
+</div>
+<script>
+
+    var balanceSerialNo = WAP.getUrlParam("balanceSerialNo");
+    var groupId = WAP.getUrlParam("groupId");
+    var holdYield = WAP.getUrlParam("holdYield");
+    if(holdYield.length<1) holdYield = "0";
+    //
+    var profitType = "";// 1 新建 2 赎回 3 转换
+    var toProductId = "";
+    var p_targetRate = "";
+    var contractNo = "";
+    var p_assetDisposalType = "";
+    $.get("/ats-ng/v1/manage/contract-query/contract-by-balance-serialno?balanceSerialNo="+balanceSerialNo , function (result) {
+        if(result.body != null && result.returnCode == 0 && result.body != undefined ){
+            var info = result.body;
+            var isTargetProfit = info.isTargetProfit;
+            contractNo  = info.contractNo ;//合约编号
+            p_targetRate = (info.targetProfit*100).toFixed();//目标收益
+            toProductId  = info.toProductId ;//转入产品id
+            p_assetDisposalType  = info.assetDisposalType ;//资产处理方式  00 赎回  01 转换
+            if(isTargetProfit == "" || isTargetProfit== null || isTargetProfit== "0"){
+                profitType = "1";
+            }else if(isTargetProfit == "1"){
+                profitType = "2";
+                setRate();
+            }
+            setShowbutton(profitType);
+            setUiList(profitType);
+        }
+    })
+    function setRate(){
+        $(".aim span").each(function () {
+            var df = $(this).attr("data-flag");
+            // console.log(df+"-----p_targetRate--"+p_targetRate);
+            if(App.isNotEmpty(p_targetRate)&& p_targetRate == df  ){
+                $(this).addClass('clr').siblings().removeClass('clr');
+                $("#targetProfit").val('');
+                return false;
+            }else if(App.isNotEmpty(p_targetRate) && p_targetRate != 6 && p_targetRate != 10 &&p_targetRate != 15){
+                $(".target-rate-0").addClass('clr').siblings().removeClass('clr');
+                $("#targetProfit").val(p_targetRate);
+                $(".target-rate-view-customize").show();
+            }
+        })
+    }
+    function setShowbutton(profitTypes){
+        if(profitTypes != "1" ){
+            $("#setting_target_rate").attr("data-flag", 1);
+            $('.setting_target_rate_on_off').children('img').attr('src','../wap/images/fund/on.png');
+            $(".shouyi").show();
+            $(".dadao").show();
+            $(".cost").show();
+            $(".shuoming").show();
+            $(".agree").show();
+            $("#sub").show();
+            if($(".clr").attr("data-flag") == 0 ){
+                $(".target-rate-view-customize").show();
+            }
+        }
+    }
+
+
+    $('#layer1  button').on("click",function () {
+        $('#layer1').hide();
+    });
+    $('#layer2  button').on("click",function () {
+        $('#layer2').hide();
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1 || u.indexOf("android") > -1; //android终端
+        if(isAndroid){
+            handler.goBack(true);
+        } else {
+            window.location.href = "http://www.99fund.com?pageforward=1";
+        }
+    });
+    //获取目标达成后的转换选项
+    // var url_layout = App.projectNm + "/app_func/query_cust_layout?layoutId=wap_group_buy&r=" + (Math.random()*10000).toFixed(0);
+    function setUiList(profitTypes){
+        var url_layout = "/productcenter/v1/new/compose/fundgroups/single/end-action/collections?groupId="+groupId+"&r=" + (Math.random()*10000).toFixed(0);
+        var gz1 = '../common/productTransferRule.html?tansferType=gf&transferOutPrdid='+groupId+"";//转换规则1 的跳转地址---------------基金-----------
+        var gz2 =  '../common/productTransferRule.html?tansferType=gg&transferOutPrdid='+groupId+"";//转换规则2 的跳转地址------------------组合
+        App.get(url_layout,null,function(result){
+            var str = "";//
+            if (result.body.endActionDOList != undefined && result.body.endActionDOList != null){
+                var list  = "";
+                var flag = "";
+                var sh_productid = "";
+                var layoutList = result.body.endActionDOList;
+                for (var index in layoutList) {
+                    var endAction = layoutList[index].endAction;//类型：01 赎回  02 转换
+                    if(endAction == "01"){
+                        sh_productid = layoutList[index].groupidTransed;
+                        continue;
+                    }
+                    var groupidTransed  = layoutList[index].groupidTransed;//止盈支持转换的组合ID
+                    list = list + flag +  groupidTransed;
+                    flag = ",";
+                }
+                if(sh_productid != "" && sh_productid != null){
+                    $("#cost0").attr("data-productid",sh_productid);
+                }
+
+                $.get("/productcenter/v1/product/query/info/base/abbr/collections?productIdList="+list, function(resultStr){
+                    var dateinfos = resultStr.body;
+                    var dateinfos_length = dateinfos.length;
+                    for(var i = 0 ; i < dateinfos_length ; i++){
+                        var pride = dateinfos[i].productId;
+                        str = str + '<div class="cost" style="display: none;"><div class="tubiao"><div class="left active1" id="cost' + ( i + 1 ) +'" data-productid ="'+pride+'"></div>'
+                            +'<div class="right"><span class="text">'+dateinfos[i].productName+'</span>';
+                        if(dateinfos[i].productCategoryId=="1"){//基金的转换规则
+                            str = str+'<span class="text2"><a href="'+gz1+'&transferInPrdid='+pride+'" style="color:#148CE6">查看转换规则</a></span>'
+                                +'</div></div></div>';
+                        }else{//非基金的转换规则
+                            str = str+'<span class="text2"><a href="'+gz2+'&transferInPrdid='+pride+'" style="color:#148CE6">查看转换规则</a></span>'
+                                +'</div></div></div>';
+                        }
+                    }
+                    $("#xjb").after(str);
+                    if(str.length>10 && profitTypes != "1"){
+                        $(".cost").show();
+                    }
+                    if(profitTypes != "1" ){
+                        if(p_assetDisposalType != '00'){
+                            $('.left').each(function () {
+                                if($(this).data("productid") == toProductId ){
+                                    $(this).addClass("active").parents().siblings().find(".left").removeClass('active');
+                                }
+                            })
+                        }
+                    }
+                    // 小圆点切换
+                    $('.left').on('click',function(){
+                        // alert($(this).data("productid"));
+                        if ($(this).hasClass("active")) {
+                            return;
+                        }
+                        $(this).addClass("active").parents().siblings().find(".left").removeClass('active');
+                    });
+                })
+            }
+        })
+    }
+
+
+  $(function(){
+    // 切换样式
+    $('.aim span').on('click', function () {
+        $(this).addClass('clr').siblings().removeClass('clr')
+    })
+    // 显示隐藏
+    $(".target-rate-1").click(function () {
+        $(".target-rate-view-customize").hide();
+     })
+    $(".target-rate-0").click(function () {
+        $(".target-rate-view-customize").show();
+    });
+    //开关  目标收益率
+        $('.setting_target_rate_on_off').on('click',function(){
+             var setting_target_rate = $("#setting_target_rate").attr("data-flag");
+            if (setting_target_rate == "0") {
+                $("#setting_target_rate").attr("data-flag", 1);
+                $(".shouyi").show();
+                $(".dadao").show();
+                $(".cost").show();
+                $(".shuoming").show();
+                $(".agree").show();
+                $("#sub").show();
+                $(this).children('img').attr('src','../wap/images/fund/on.png');
+                if(App.isNotEmpty($("#targetProfit").val())){
+                    $(".target-rate-view-customize").show();
+                }
+            } else {
+                $("#setting_target_rate").attr("data-flag", 0);
+                $(".shouyi").hide();
+                $(".dadao").hide();
+                $(".cost").hide();
+                $(".shuoming").hide();
+                $(".agree").hide();
+                $("#sub").hide();
+                $(".target-rate-view-customize").hide();
+                $(this).children('img').attr('src','../wap/images/fund/off.png')
+                if(profitType != '1'){
+                    delProfit();
+                }
+
+            }
+        });
+// 勾选同意
+        $('.checkBox').on('click', function () {
+            if ($(this).attr('src') === '../wap/images/checkBox.png') {
+                $(this).attr('src', '../wap/images/checked.png')
+            } else {
+                $(this).attr('src', '../wap/images/checkBox.png')
+            }
+        })                
+})
+    /////新建
+    function  insertTarget() {
+        var key_on_off = $("#setting_target_rate").attr("data-flag");// 0 手動  1 自動 下一期
+        var targetRate = $(".clr").attr("data-flag");
+        if(targetRate == 0){
+            targetRate = $("#targetProfit").val();
+            if(App.isEmpty(targetRate)){
+                $("#targetProfit").css("border","1px solid red");
+                $(".display_yield_desc").html("请填写自定义收益")
+                $('#layer1').show();
+                return;
+            }else{
+                if(Number(targetRate)<5){
+                    $(".display_yield_desc").html("自定义收益必须大于等于5%")
+                    $('#layer1').show();
+                    return;
+                }
+            }
+        }
+        if(Number(holdYield)>=Number(targetRate)){
+            $(".display_yield_desc").html("收益率设置必须大于当前持有收益率")
+            $('#layer1').show();
+            return;
+        }
+        var chekbox = $('.checkBox').attr("src");
+        if(chekbox === '../wap/images/checkBox.png'){
+            $(".display_yield_desc").html("请确认勾选同意")
+            $('#layer1').show();
+            return ;
+        }
+        var yx_productid = $(".active").data("productid");
+        var json_obj ={};
+        if(key_on_off == 0){
+            json_obj.adjustType = "0";//调仓方式:0:手动；1:自动
+        }else {
+            json_obj.adjustType = "1";//调仓方式:0:手动；1:自动
+        }
+        json_obj.referAssetNo = WAP.getUrlParam("balanceSerialNo");//资产流水号
+        json_obj.cfmOpenFlag  = "0";//确定开放日标志:0:不确定开放日；1:确定开放日 ,
+        console.log("yx_productid---"+yx_productid);
+        if(yx_productid == 1){
+            json_obj.assetDisposalType = "00";//资产处理方式  00 赎回  01 转换
+            json_obj.toProductId   = "";//转入产品ID
+        }else{
+            json_obj.assetDisposalType = "01";//资产处理方式  00 赎回  01 转换
+            json_obj.toProductId   = yx_productid;//转入产品ID
+        }
+        json_obj.isTargetProfit="1";//是否设置目标收益1：设置，0：未设置
+        json_obj.payDate = "20991231";//用户设置扣款日
+        json_obj.payType = "V";// 付款类型：B:银行帐户V:虚拟账户F:基金 A:自动扣款 ,
+        json_obj.cfmOpenFlag = "0";// 确定开放日标志: 0:不确定开放日；1:确定开放日 ,
+        json_obj.cycle = "SS";//  定投周期(QQ：每季，MM：每月，2W：每双周；WW：每周，DD：每天，SS：单笔) ,
+        json_obj.productId = groupId;//  产品Id ,
+        json_obj.targetProfit  = targetRate/100;//目标收益
+        json_obj.acceptMode   = "M";//受理方式
+        json_obj.agreementId    = "37";// 协议ID
+        if(profitType != "1" ){
+            // json_obj.custNo =  App.getCookie("sso_cookie_ext_dp");
+            json_obj.contractNo = contractNo;
+        }
+
+        // console.log(JSON.stringify(json_obj));
+        if(key_on_off == "1" ){
+            createOrUpdate(profitType,json_obj);
+        }
+    }
+
+    /**
+     * 修改或者新建
+     * @param type
+     * @param jsonStr
+     */
+  function  createOrUpdate(type,jsonStr) {
+      if(type == "1"){
+          // App.post("/mobile-bff/v1/ats/contract-operation-apply",JSON.stringify(jsonStr),null,function (result) {
+          // // $.post("/mobile-bff/v1/ats/contract-operation-apply",JSON.stringify(jsonStr), function (result) {
+          // //     console.log(result);
+          //     if (result.body != undefined && result.body != null && result.returnCode == 0) {
+          //         window.location.href = "htffundxjb://action?type=url&link="
+          //         + $.base64.encode(window.location.origin+"/mobileEC/adviser/holdGroupFundDetails.html?groupId="+groupId+"&balanceSerialNo="+WAP.getUrlParam("balanceSerialNo"));
+          //         // self.location = document.referrer;
+          //     }
+          // })
+          $.ajax({url:"/mobile-bff/v1/ats/contract-operation-apply", data:JSON.stringify(jsonStr),
+              type:"POST",
+              contentType: 'application/json',
+              beforeSend:function(req){
+                  req.setRequestHeader("version", "5.99");
+
+              },
+              success:function(result){
+                  if (result.body != undefined && result.body != null && result.returnCode == 0) {
+                      // window.location.href = "holdGroupFundDetails.html?groupId="+groupId+"&balanceSerialNo="+WAP.getUrlParam("balanceSerialNo");
+                      $(".tips_text").html("您的目标止盈计划设置成功");
+                      $('#layer2').show();
+                      // window.location.href = "htffundxjb://action?type=url&link="
+                      //     + $.base64.encode(window.location.origin+"/mobileEC/adviser/holdGroupFundDetails.html?groupId="+groupId+"&balanceSerialNo="+WAP.getUrlParam("balanceSerialNo"));
+                      // self.location = document.referrer;
+                  }else{
+                      $(".display_yield_desc").html(result.returnMsg)
+                      $('#layer1').show();
+                  }
+              }, dataType:"json", error: function(e){
+              },async:true});
+      }else if(type == "2" ){
+          // App.post("/mobile-bff/v1/ats/contract-operation-modify",JSON.stringify(jsonStr),null,function (result) {
+          // // $.post("/mobile-bff/v1/ats/contract-operation-modify",JSON.stringify(jsonStr), function (result) {
+          // //     console.log(result);
+          //     if ( result.returnCode == 0) {
+          //         window.location.href = "holdGroupFundDetails.html?groupId="+groupId+"&balanceSerialNo="+WAP.getUrlParam("balanceSerialNo");
+          //         // window.location.href = "htffundxjb://action?type=url&link="
+          //         //     + $.base64.encode(window.location.origin+"/mobileEC/adviser/holdGroupFundDetails.html?groupId="+groupId+"&balanceSerialNo="+WAP.getUrlParam("balanceSerialNo"));
+          //         //成功返回上一页
+          //     }
+          // })
+          $.ajax({url:"/mobile-bff/v1/ats/contract-operation-modify", data:JSON.stringify(jsonStr),
+              type:"POST",
+              contentType: 'application/json',
+              beforeSend:function(req){
+                  req.setRequestHeader("version", "5.99");
+
+              },
+              success:function(result){
+                  if (result.returnCode == 0 ) {
+                      $(".tips_text").html("您的目标止盈计划已修改");
+                      $('#layer2').show();
+                      // window.location.href = "holdGroupFundDetails.html?groupId="+groupId+"&balanceSerialNo="+WAP.getUrlParam("balanceSerialNo");
+                  }else{
+                      $(".display_yield_desc").html(result.returnMsg)
+                      $('#layer1').show();
+                  }
+              }, dataType:"json", error: function(e){
+
+              },async:true});
+      }
+  }
+
+    /**
+     * 终止目标赢接口
+     * @param contractNo
+     */
+  function  delProfit() {
+      var jsonStr = "{\"contractNo\":\""+contractNo+"\",\"operaType\":\"2\",\"acceptMode\":\"M\"}";
+      // App.post("/mobile-bff/v1/ats/puase-restart-camcel",jsonStr,null,function (result) {
+      //   // $.post("/mobile-bff/v1/ats/pause-restart-camcel",jsonStr, function (result) {
+      //     console.log(result);
+      //     if (result.returnCode == 0 ) {
+      //         handler.goBack(true);
+      //         // window.location.href = "htffundxjb://action?type=url&link="
+      //         //     + $.base64.encode(window.location.origin+"/mobileEC/adviser/holdGroupFundDetails.html?groupId="+groupId+"&balanceSerialNo="+WAP.getUrlParam("balanceSerialNo"));
+      //         // sessionStorage.setItem('refresh','true');
+      //         // history.go(-1);
+      //         // self.location = document.referrer;
+      //         // alert("returnCode--"+result.returnCode+"-----returnMsg---"+result.returnMsg);
+      //         // 成功返回上一页
+      //     }
+      // })
+        $.ajax({url:"/mobile-bff/v1/ats/puase-restart-camcel", data:jsonStr,
+            type:"POST",
+            contentType: 'application/json',
+            beforeSend:function(req){
+                req.setRequestHeader("version", "5.99");
+
+            },
+            success:function(result){
+                if (result.returnCode == 0 ) {
+                    $(".tips_text").html("您的目标止盈计划已终止");
+                    $('#layer2').show();
+                }else{
+                    $(".display_yield_desc").html(result.returnMsg)
+                    $('#layer1').show();
+                    $("#setting_target_rate").attr("data-flag", 1);
+                    $(".shouyi").show();
+                    $(".dadao").show();
+                    $(".cost").show();
+                    $(".shuoming").show();
+                    $(".agree").show();
+                    $("#sub").show();
+                    $(this).children('img').attr('src','../wap/images/fund/on.png');
+                    if(App.isNotEmpty($("#targetProfit").val())){
+                        $(".target-rate-view-customize").show();
+                    }
+                }
+            }, dataType:"json", error: function(e){
+
+            },async:true});
+  }
+    
+</script>
+</body>
+
+</html>

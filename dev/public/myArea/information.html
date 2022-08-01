@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>自选资讯</title>
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="css/information.css">
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <style>
+        .noticeList{height:3rem;display: flex;justify-content: center;align-items: center;padding: 0 .75rem;margin-top: 3px;}
+        .noticeList div{width:25%;height:1.5rem;border:1px solid #FB5C5F;border-right:none;color:#FB5C5F;
+        line-height: 1.5rem;text-align: center;font-size: 0.7rem}
+        .noticeList div.noticeActive{background:#FB5C5F;color:#fff}
+        .noticeList div:last-child{border-right: 1px solid #FB5C5F;}
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app" v-cloak>    
+    <div>
+        <div class="select-header">
+            <div :class="{'active':index == classifyIndex}" v-for="(item,index) in tabList" :key="index"  @click="changeClassify(item, index)">{{item}}</div>
+            <!-- <div>公告</div> -->
+        </div>
+        <div class="content">
+            <div v-show="classifyIndex==0">
+                    <div v-if="informationList.length>0">
+                        <div id="consult" style="width: 100%;padding: .75rem ;border-bottom: 1px solid #eee;box-sizing: border-box;" v-for="(item,index) in informationList" :key="index">
+                            <a :href="item.url" style="color:#000">
+                                <div class="flex">
+                                    <p class="hidden" style="font-size: .8rem;font-weight:500;" v-text="item.title?item.title:''"></p>
+                                    <img style="width: 1.3rem;height:0.6rem;margin-left: 0.25rem;" src="./img/HOT.png" alt="" v-show="item.isHot==1">
+                                </div>
+                                <div style="font-size: .7rem;color:#666;margin:.5rem 0 0.75rem .05rem;" class="hidden" v-text="item.brief?item.brief:''"></div>
+                                <div class="flex">
+                                    <div style="padding:0.11rem 0.275rem;font-size:0.6rem;background-color: #FFEFEF;color: #FB5C5F;font-weight: 500;border-radius: 0.1rem;" v-if="item.tags" v-text="item.tagArr?item.tagArr[0]:''"></div>
+                                    <div style="color: #666;font-size:.6rem;margin-left:.75rem;" v-text="item.publicshDate "></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div v-else v-text="'暂无相应的资讯信息'" style="text-align:center;margin-top:2rem"></div>
+            </div>
+            <div id="consult1" v-show="classifyIndex==1">
+                <div v-if="noticeList.length>0">    
+                    <div class="noticeList" >
+                        <div :class="{'noticeActive':index == noticeIndex}"  v-for="(item,index) in tabNoticeList" :key="index" @click="noticeClassify(item, index)">{{item.name}}</div>
+                        <!-- <div style="border-right: none;">定期公告</div>
+                        <div style="border-right: none;">临时公告</div>
+                        <div>风险评级</div> -->
+                    </div>
+                    <div style="height: .5rem;width:100%;background:#eee;"></div>
+                    <div v-for="(item,index) in noticeList" :key="index">
+                        <a :href="item.url" style="color:#000">
+                            <div class="consult-content" style="padding: 0.75rem ;border-bottom: 1px solid #eee;">
+                                <div class="hiddens" style="font-size: 0.7rem;font-weight:400;" v-text="item.title"></div>
+                                <div style="font-size: 0.65rem;color:#666666;margin-top:0.5rem"  v-text="item.publicshDate "></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>    
+                <div v-else v-text="'暂无相应的公告信息'" style="text-align:center;margin-top:2rem"></div>
+            </div>
+        </div>
+    </div>
+</div>    
+    <script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+    <script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script>
+    <script src="js/information.js"></script>
+    <!-- <script>
+        $('.select-header div').click(function(){
+            $(this).addClass('active').siblings('div').removeClass('active')
+            if ($(this).index()==0) {
+                $('#consult1').css({'display':'none'})
+                $('#consult').css({'display':'block'})
+            }else if($(this).index()==1){
+                $('#consult').css({'display':'none'})
+                $('#consult1').css({'display':'block'})
+            }
+        })
+        $('.consult-header div').click(function(){
+            $(this).addClass('consultHeader-active').siblings('div').removeClass('consultHeader-active')
+            // 内容模板
+            var html = `<div class="hiddens" style="font-size: 0.7rem;font-weight:400;">汇添富外延增长主题股票型证券投资基金2022年第1季度报告汇添富外延增长主题股票型证券投资基金2022年第1季度报告汇添富外延增长主题股票型证券投资基金2022年第1季度报告</div>
+                    <div style="font-size: 0.65rem;color:#666666;margin-top:0.5rem">2022-04-29</div>`
+            if ($(this).index()==0) {//发行文件
+                $('.consult-content').html()
+            }else if($(this).index()==1){//定期公告
+                $('.consult-content').html()
+            }else if($(this).index()==2){//临时公告
+                $('.consult-content').html()
+            }else if($(this).index()==3){//风险评级
+                $('.consult-content').html()
+            }
+        })
+    </script> -->
+</body>
+
+</html>

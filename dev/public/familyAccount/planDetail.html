@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../base/css/base.css">
+	<link rel="stylesheet" href="../base/css/common.css">
+	<script type="text/javascript" src="../base/js/baseHead.js"></script>
+	<script type="text/javascript" src="../base/js/needLogin.js"></script>
+	<script>
+		// 相对字体大小设置
+		var oHtml = document.documentElement;
+		getFont();
+		window.onresize = function () {
+			getFont();
+		}
+
+		function getFont() {
+			var screenWidth = oHtml.clientWidth;
+			if (screenWidth <= 320) {
+				oHtml.style.fontSize = '17.06px';
+			} else if (screenWidth >= 750) {
+				oHtml.style.fontSize = '40px';
+			} else {
+				oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+			}
+		}
+	</script>
+	<style>
+		body,
+		html {
+			background: #f6f6f6;
+		}
+
+		body {
+			left: 0%;
+			right: 0%;
+			font: 14px 'PingFang SC', 'Microsoft YaHei', Tahoma, Arial, sans-serif;
+		}
+
+		button {
+			outline: none;
+		}
+
+		/* 图片自适应 */
+		img {
+			width: 100%;
+			height: auto;
+			width: auto\9;
+			/* ie8 */
+			-ms-interpolation-mode: bicubic;
+			/*为了照顾ie图片缩放失真*/
+			border: none;
+			vertical-align: top;
+			outline: none;
+			display: block;
+		}
+
+		.main {
+			width: 100%;
+			height: 100%;
+		}
+
+		.head {
+			width: 18.75rem;
+			height: 10.5rem;
+			background: url('img/plan.png') no-repeat;
+			background-size: 100% 100%;
+		}
+		.headNo {
+			width: 18.75rem;
+			height: 10.5rem;
+			background: url('img/planNo.png') no-repeat;
+			background-size: 100% 100%;
+		}
+
+		.head .portrait {
+			width: 100%;
+			height: 1.75rem;
+			padding-top: 0.7rem
+		}
+
+		.head .portrait img {
+			width: 1.575rem;
+			height: 1.575rem;
+			margin-left: 0.75rem;
+			vertical-align: middle;
+			display: inline-block;
+			border-radius: 50%;
+		}
+
+		.head .portrait span {
+			font-size: 0.65rem;
+			color: #fff;
+			display: inline-block;
+			margin-left: 0.5rem;
+		}
+
+		.head .save {
+			font-size: 0.75rem;
+			color: #fff;
+			margin-top: 0.45rem;
+			text-align: center
+		}
+
+		.head .money {
+			font-size: 1.5rem;
+			color: #fff;
+			text-align: center;
+			margin-top: 0.45rem;
+		}
+
+		.head .listText {
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 0.75rem
+		}
+
+		.head .listText div {
+			width: 33.3%;
+			font-size: 0.65rem;
+			color: #ffd0d2;
+			text-align: center;
+		}
+
+		.head .listText div:nth-of-type(2) {
+			text-indent: 1.75rem
+		}
+
+		.head .listText div:nth-of-type(2) img {
+			width: 0.75rem;
+			height: 0.75rem;
+			display: inline-block;
+			vertical-align: middle;
+			margin-left: 0.35rem;
+		}
+
+		.head .listText div:nth-of-type(3) {
+			text-align: right;
+			margin-right: 0.75rem
+		}
+
+		.head .numberList {
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 0.25rem;
+		}
+
+		.head .numberList div {
+			width: 33.3%;
+			font-size: 0.8rem;
+			color: #fff;
+			text-align: center;
+		}
+
+		.head .numberList div:nth-of-type(1) {
+			text-align: left;
+			text-indent: 1.25rem
+		}
+
+		.head .numberList div:nth-of-type(2) {
+			text-indent: 1.5rem
+		}
+
+		.head .numberList div:nth-of-type(3) {
+			text-align: right;
+			margin-right: 0.75rem
+		}
+
+		.touzi {
+			display: none;
+			width: 100%;
+			height: 1.7rem;
+			background: #f6f6f6;
+			position: relative;
+			top: -0.5rem;
+			border-radius: 10px 10px 0 0;
+			font-size: 0.7rem;
+			color: #666;
+			line-height: 2.2rem
+		}
+
+		.touzi img {
+			width: 0.925rem;
+			height: 0.925rem;
+			display: inline-block;
+			vertical-align: middle;
+			margin-left: 0.75rem;
+			margin-right: 0.5rem;
+			margin-top: -0.1rem;
+		}
+
+		.noDetails {
+			width: 100%;
+		}
+
+		.noDetails img {
+			width: 5.475rem;
+			height: 6.625rem;
+			margin: 0 auto;
+			margin-top: 4.375rem;
+		}
+
+		.noDetails .text {
+			font-size: 0.65rem;
+			color: #666;
+			text-align: center;
+			margin-top: 0.5rem;
+		}
+
+		.nameList {
+			width: 17.25rem;
+			margin: 0 auto;
+			background: #fff;
+			margin-bottom: 0.5rem;
+			border-radius: 10px;
+		}
+
+		.nameList .account {
+			width: 100%;
+			height: 2.25rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			border-bottom: 1px solid #eee;
+		}
+
+		.nameList .account div {
+			width: 50%
+		}
+
+		.nameList .account div:nth-of-type(1) {
+			text-indent: 0.85rem;
+			font-size: 0.7rem;
+			color: #666
+		}
+
+		.nameList .account div:nth-of-type(2) {
+			text-align: right;
+			font-size: 0.6rem;
+			color: #fb5c5f;
+			margin-right: 0.75rem;
+		}
+
+		.nameList .account div:nth-of-type(2) span {
+			width: 5.75rem;
+			height: 1rem;
+			display: inline-block;
+			background: #ffefef;
+			border-radius: 1.25rem;
+			line-height: 1rem;
+			text-align: center
+		}
+
+		.nameList .fundName {
+			width: 100%;
+			height: 2.25rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nameList .fundName div:nth-of-type(1) {
+			width: 80%;
+			margin-left: 0.85rem;
+			font-size: 0.8rem;
+			color: #000;
+			display: inline-block;
+		}
+
+		.nameList .fundName div:nth-of-type(1) span {
+			width: 1.65rem;
+			height: 0.875rem;
+			display: inline-block;
+			font-size: 0.6rem;
+			color: #fb5c5f;
+			background: #ffefef;
+			text-align: center;
+			line-height: 0.875rem;
+			margin-left: 0.5rem;
+		}
+
+		.nameList .fundName div:nth-of-type(2) img {
+			width: 0.4rem;
+			height: 0.75rem;
+			margin-right: 0.75rem;
+		}
+
+		.nameList .nameText {
+			width: 100%;
+			height: 2.25rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: -0.5rem;
+		}
+
+		.nameList .nameText div {
+			width: 33.3%;
+			font-size: 0.65rem;
+			color: #666;
+			text-align: center;
+		}
+
+		.nameList .nameText div:nth-of-type(2) {
+			text-indent: 1rem
+		}
+
+		.nameList .nameText div:nth-of-type(3) {
+			text-align: right;
+			margin-right: 0.75rem;
+		}
+
+		.nameList .numberText {
+			width: 100%;
+			height: 2.25rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: -0.5rem;
+			border-bottom: 1px solid #eee;
+			margin-top: -0.85rem;
+		}
+
+		.nameList .numberText div {
+			width: 33.3%;
+			font-size: 0.8rem;
+			color: #000;
+			text-align: center;
+		}
+
+		.nameList .numberText div:nth-of-type(2) {
+			text-indent: 1rem;
+			color: #f4333c;
+		}
+
+		.nameList .numberText div:nth-of-type(3) {
+			text-align: right;
+			color: #f4333c;
+			margin-right: 0.75rem;
+		}
+
+		footer {
+			display: none;
+			position: fixed;
+			width: 100%;
+			height: 2.5rem;
+			left: 0;
+			bottom: 0;
+			background-color: #fff;
+			font-size: 0.85rem;
+			border-right: 1px solid #fff;
+		}
+
+		footer ul li {
+			float: left;
+			width: 50%;
+			background: #ff6169;
+		}
+
+		footer ul li a {
+			display: block;
+		}
+
+		footer ul li a {
+			width: 100%;
+			height: 2.5rem;
+			text-align: center;
+			line-height: 2.5rem;
+			color: #fff;
+			font-size: 0.85rem;
+			border-left: 1px solid #fff;
+		}
+
+		footer ul li:nth-of-type(1) {
+			background: #ff6169;
+		}
+
+		footer ul li:nth-of-type(1) a {
+			color: #fff;
+		}
+
+		.tip {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			background-color: rgba(0, 0, 0, 0.7);
+			height: 100%;
+			width: 100%;
+			overflow: auto;
+			font-size: 0.6rem;
+			z-index: 999;
+		}
+
+		.tip .tip_wrap {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			-webkit-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+			margin: 0;
+			width: 80%;
+			/*height:16rem;*/
+			background: #fff;
+			-webkit-border-radius: 5px;
+		}
+
+		.tip .tip_wrap .tip_content p {
+			margin-top: 1.2rem;
+			margin-bottom: 1.2rem;
+			font-size: .7rem;
+			line-height: 1rem;
+			text-align: center;
+		}
+
+		.tip .tip_wrap .tip_content {
+			border-bottom: 1px #eee solid;
+		}
+
+		.tip .tip_wrap .tip_content .input-block {
+			margin-bottom: 1.4rem;
+			padding: 0 2.25rem;
+		}
+
+		.tip .tip_wrap .tip_content .input-block>input {
+			width: 100%;
+		}
+
+		.tip .tip_wrap .tip_btn ul li {
+			text-align: center;
+			font-size: .75rem;
+			color: #006bfe;
+		}
+
+		.tip .tip_wrap .tip_btn ul li a {
+			display: block;
+			text-align: center;
+			font-size: .75rem;
+			width: 100%;
+			padding: .7rem 0;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="main" style="padding-bottom:3rem">
+		<div class="head" id="head">
+			<div class="portrait"><img src="" id="avatarImage" alt="" style="display: none;"><span class="dis"></span>
+			</div>
+			<div class="save">已攒入(<span class="currencyTypeUnit"></span>)</div>
+			<div class="money assetTotalAmount"> </div>
+			<div class="listText">
+				<div>最新收益(<span class="yieldDate"></span>)</div>
+				<div>持有收益</div>
+				<div>累计收益</div>
+			</div>
+			<div class="numberList">
+				<div class="lastYield"></div>
+				<div class="holdYield"></div>
+				<div class="totalYield"></div>
+			</div>
+		</div>
+		<div class="touzi"><img src="img/money.png" alt="">投资明细</div>
+		<!-- 没有数据的时候 -->
+		<div class="noDetails" style="display: none">
+			<div><img src="img/noDetail.png" alt=""></div>
+			<div class="text">暂无计划详情</div>
+		</div>
+		<!-- 有投资数据的时候 -->
+
+
+
+		<footer>
+			<ul>
+				<li>
+					<a href="javascript:;" class="addPlan">管理计划</a>
+				</li>
+				<li>
+					<a href="javascript:;" class="addInvests">+增加投资</a>
+				</li>
+			</ul>
+		</footer>
+	</div>
+
+	<div class="mask" style="display:none"></div>
+	<div class="layer0 animated slideInUp" id="layer0" style="display: none;">
+		<div class="giftlist giftlist0">
+			<a href="javascript:;">
+				<div class="title modifyPlan">修改计划</div>
+			</a>
+			<a href="javascript:;">
+				<div class="title mipList">查看定投</div>
+			</a>
+			<a href="javascript:;" class="setPermissions">
+				<div class="title">设置权限</div>
+			</a>
+			<a href="javascript:;">
+				<div class="title closePlan">关闭计划</div>
+			</a>
+		</div>
+		<div class="close">
+			<a href="javascript:;" style="color:#0070fa;font-size:0.75rem">取消</a>
+		</div>
+	</div>
+
+	<div class="layer0 animated slideInUp" id="layer1" style="display: none;">
+		<div class="giftlist giftlist1">
+			<!--
+			<a href="javascript:;">
+				<div class="title import">现有持仓导入</div>
+			</a>-->
+			<a href="javascript:;">
+				<div class="title addInvest">追加投资</div>
+			</a>
+			<a href="javascript:;">
+				<div class="title addOther">买入其他产品</div>
+			</a>
+		</div>
+		<div class="close">
+			<a href="javascript:;" style="color:#0070fa;font-size:0.75rem">取消</a>
+		</div>
+	</div>
+	<!-- 弹窗 -->
+	<div class="Bomb-box">
+		<div class="Bomb-box-main">
+			<!-- <p class="Bomb-box-tips" style="padding-top: 0.75rem;"></p> -->
+			<div class="Bomb-box-content">
+				<p class="text-center " v-html="tipInfo"></p>
+			</div>
+			<a class="Bomb-box-ok" href="javascript:;"
+				onclick="this.parentNode.parentNode.style.display='none'">确定</a>
+		</div>
+	</div>
+	<!-- 修改计划 -->
+	<div class="tip">
+		<div class="tip_wrap">
+			<div class="tip_content">
+				<p style="text-align:center;">修改计划</p>
+				<div class="input-block">
+					<input id="planNameInput" type="text" placeholder="写下计划名称">
+				</div>
+			</div>
+			<div class="tip_btn">
+				<ul style="width: 100%;">
+					<li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid"
+						class="close_tip">
+						<a href="javascript:;" id="go_to_cancel">取消</a>
+					</li>
+					<li style="float: left;width:50%;box-sizing: border-box;">
+						<a href="javascript:;" id="go_to_input">确定</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="../base/js/utils.js"></script>
+
+	<script>
+		//当前用户的custno
+		var userInfo =  utils.getSession(utils.userInfo);
+		var currentCustNo = userInfo.custNo;
+		var teamId = '';
+		var memberId = '';
+		var accountType = '';
+		var planName = '';
+		//是否开启亲情宝 获取teamId
+		function getAccount() {
+			utils.get('/sfs/v1/accounts/is-open?version=6.6', null, function (result) {
+				if (result.returnCode == 0) {
+					if (result.body.isOpen) {
+						teamId = result.body.teamId
+
+					}
+				}
+			});
+		}
+		// 关闭浮层
+		$(".close").click(function () {
+			$(".mask,.layer0").hide()
+		})
+		var accountId = utils.getUrlParam("accountId");
+		$(function () {
+			showPlanDetail();
+			getAccount();
+		});
+		$(".addPlan").click(function () {
+
+			$(".mask,#layer0").show()
+		})
+		$(".addInvests").click(function () {
+			$(".mask,#layer1").show()
+		})
+		$("#go_to_cancel").click(function () {
+			$(".tip").hide();
+		})
+		//计划详情
+		function showPlanDetail() {
+			utils.get('/sfs/v1/accounts/assets/plans/detail?accountId=' + accountId, null, function (result) {
+				var body = result.body;
+				if (result.returnCode == 0) {
+					if(body.permission == 3){
+						$("footer").show()
+					}
+					document.title = body.arAcctName;
+					accountType = body.accountType;
+					planName = body.arAcctName;
+					$(".assetTotalAmount").html(formatMoney(body.assetTotalAmount));
+					$(".currencyTypeUnit").html(body.currencyTypeUnit);
+					$(".holdYield").html(formatMoney(body.holdYield));
+					$(".lastYield").html(formatMoney(body.lastYield));
+					$(".totalYield").html(formatMoney(body.totalYield));
+					$(".yieldDate").html((body.yieldDate ? body.yieldDate.substring(4, 6) + '.' + body.yieldDate
+						.substring(6, 8) : '--'));
+					var investedMemberVo = body.investedMemberVo;
+					if (investedMemberVo) {
+						$("#avatarImage").attr("src", investedMemberVo.avatarImage).show();
+						$(".dis").html(investedMemberVo.memberNameDisplay + '(' + investedMemberVo.memberRoleName +
+							')');
+						memberId = investedMemberVo.memberId;
+					}else{
+
+					    $("#head").css("background","url(img/planNo.png) no-repeat");
+					    $("#head").css("backgroundSize","cover");
+					}
+					var custAssets = body.custAssets;
+					if (custAssets.length > 0) {
+						var htm = '';
+						custAssets.forEach(function (item, index) {
+							var cls= '';
+							if(currentCustNo != item.custNo){
+								cls='opacity:0.6';
+								$(".modifyPlan,.setPermissions,.closePlan").hide();
+							}
+							htm += '		<div class="nameList" style="'+cls+'">' +
+								'<div class="account">' +
+								'<div>' + item.assetName + '</div>' +
+								'<div><span>资产贡献' + item.assetPercent + '%</span></div>' +
+								'</div>';
+							var assetDetailList = item.assetDetailList;
+							assetDetailList.forEach(function (item2, index2) {
+								htm += '<div class="fundName" data-item="' + encodeURIComponent(JSON
+										.stringify(item2)) + '" data-fundId="' + item2.fundId +
+									'" data-productType="' + item2.productType + '" data-serialNo="' +
+									item2.serialNo + '" '+(currentCustNo != item.custNo ? '': 'onclick="gotoNext(this,\''+body.arAcct+'\')"')+'>' +
+									'<div>' + item2.fundName + (item2.hasMip ? '<span>定投</span>' :
+									'') + '</div>' +
+									'<div >'+(currentCustNo != item.custNo ? '': '<img src="img/arr.png" alt="">')+'</div>' +
+									'</div>' +
+									'<div class="nameText">' +
+									'<div>持有金额(元)</div>' +
+									'<div>持有收益</div>' +
+									'<div>最新收益(' + (item2.yieldDate ? item2.yieldDate.substring(4,
+										6) + '.' + item2.yieldDate.substring(6, 8) : '--') +
+									')</div>' +
+									'</div>' +
+									'<div class="numberText">' +
+									'<div>' + formatMoney(item2.totalAmt) + '</div>' +
+									'<div style="color:'+showColor(item2.totalProfit)+'">' + formatMoney(item2.totalProfit) + '</div>' +
+									'<div style="color:'+showColor(item2.lastProfit)+'">' + formatMoney(item2.lastProfit) + '</div>' +
+									'</div>';
+							});
+							htm += '</div>';
+						});
+						$(htm).insertBefore('footer');
+						$(".touzi").show()
+					} else {
+						$(".noDetails").show();
+					}
+					//买入其他产品
+					$(".addOther").click(function () {
+						window.location.href = "allFund.html?arAcct=" + body.arAcct;
+					})
+					//查看定投
+					$(".mipList").click(function () {
+						window.location.href = "mipList.html?arAcct=" + body.arAcct;
+					})
+					//追加投资
+					$(".addInvest").click(function () {
+						window.location.href = "addInvest.html?arAcct=" + body.arAcct + "&accountId=" + body
+							.accountId;
+					})
+				}
+			});
+		}
+
+		function gotoNext(obj,arAcct) {
+			if(arAcct){
+				utils.setSession("_selectArAcct",arAcct);
+			}
+			
+			if ($(obj).attr('data-productType') == "1") { //基金
+				var dataItem = decodeURIComponent($(obj).attr('data-item'));
+				utils.setSession("_selected_fund", dataItem);
+				window.location.href = '/mobileEC/wap/fund/fund_holding_detail_new.html?fundId=' + $(obj).attr('data-fundId');
+			} else if ($(obj).attr('data-productType') == "3") { //组合
+				window.location.href = '/mobileEC/wap/fundgroup/hold_group_fund_details.html?groupId=' + $(obj).attr(
+					'data-fundId') + '&balanceSerialNo=' + $(obj).attr('data-serialNo');
+			}
+		}
+
+		// 浮沉,设置权限跳转至setPermissions.html
+		$(".setPermissions").click(function () {
+			if (teamId != "") {
+				window.location.href = 'setPermissions.html?accountId=' + accountId;
+			}
+		})
+		// 关闭计划
+		$(document).on("click", ".closePlan", function () {
+			$(".close").click();
+
+			var accptMd ="WAP";
+            if(isApp()){
+                accptMd="MOBILE";
+            }
+
+			utils.ajax({
+				url: '/sfs/v1/accounts/plans?acceptMode='+accptMd+'&branchCode=247&accountId=' + accountId,
+				type: 'DELETE',
+				success: function (result) {
+					if (result.returnCode === 0) {
+						window.location.href = memberId && teamId ? '/tradeh5/newWap/familyAccount/personalPlanList.html?memberId='+ memberId +'&teamId='+ teamId : '/tradeh5/newWap/familyAccount/home.html';
+					} else {
+						$(".Bomb-box p").text(result.returnMsg);
+						$(".Bomb-box").show();
+					}
+				}
+			})
+		})
+		// 修改计划
+		$(document).on("click", ".modifyPlan", function () {
+			$(".close").click();
+			$('.tip').show();
+			$('#planNameInput').val(planName);
+
+		})
+		$('#go_to_input').click(function () {
+			var planNameInputVal = $("#planNameInput").val().trim();
+
+			var accptMd ="WAP";
+            if(isApp()){
+                accptMd="MOBILE";
+            }
+			var params = {
+				accountId,
+				accountType,
+				planName: planNameInputVal,
+				acceptMode: accptMd,
+				branchCode: '247'
+			};
+			if (planNameInputVal) {
+				utils.ajax({
+					url: '/sfs/v1/accounts/plans',
+					type: 'PUT',
+					data:JSON.stringify(params),
+					success: function (result) {
+						console.log(result);
+						if (result.returnCode === 0) {
+							$("#go_to_cancel").click();
+							window.location.href="/tradeh5/newWap/familyAccount/planDetail.html?accountId="+accountId;
+							// showPlanDetail();
+						} else {
+							$(".Bomb-box p").text(result.returnMsg);
+							$(".Bomb-box").show();
+						}
+					}
+				})
+			} else {
+				alert('请填写计划名称');
+			}
+		})
+	</script>
+</body>
+
+</html>

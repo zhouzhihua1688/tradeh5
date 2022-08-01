@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>申请记录</title>
+        <link rel="stylesheet" href="../base/css/base.css">
+        <script type="text/javascript" src="../base/js/baseHead.js"></script>
+        <style>
+            .nodata{
+                text-align:center;
+                font-size:0
+            }
+            .nodata>img{ 
+                width: 3.5rem;
+                margin-top: 6rem;
+            }
+            .nodata>p{
+                color: #666;
+                font-size: .65rem
+            }
+            ul{
+                background-color:#fff;
+                padding-left:.75rem;
+            }
+            ul li{
+                border:1px #eee solid;
+
+            }
+            ul li .title-l{
+                color:#999;
+                
+            }
+        </style>
+    </head>
+<body>
+    <div id="app">
+        <template v-if="dataList&&dataList.length>0">
+            <ul class="list">
+                <li>
+                    <p class="title"><span class="title-l">现下寄送 11561</span><span class="title-r">chili</span></p>
+                    <p class="desc">我在美国</p>
+                </li>
+            </ul>
+        </template>
+        <template v-else>
+            <div class="nodata"> 
+                <img src="./img/noData.png" alt="">
+                <p>暂无申请记录</p>
+            </div>
+        </template>
+    </div>
+    <script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+    <script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data(){
+                return {
+                    dataList:[],
+                }
+            },
+            created(){
+                this.getRecordList();
+            },
+            methods:{
+                getRecordList(){
+                    utils.ajax({
+                        url:'/mobile-bff/v1/asset/asset-certification-apply-record',
+                        success:function(res){
+                            if(res.returnCode === 0){
+                               if(res.body&&Array.isArray(res.body)&&res.body.length>0){
+                                this.dataList = res.body;
+                               }
+                            }
+                        }.bind(this)
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>成功</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="css/baseDivideBonus.css">
+    <script type="text/javascript" src="js/zepto.min.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        }
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+                oHtml.style.fontSize = '17.06px';
+            }else if(screenWidth >= 750){
+                oHtml.style.fontSize = '40px';
+            }else{
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #fff;}
+        .wrap {
+            padding: 4.5rem 0.75rem;
+        }
+        .wrap-top {
+            height: 1.25rem;
+            line-height: 1.25rem;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+        .wrap-top i {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+        .wrap-middle {
+            padding: 1.95rem 0 1.2rem;
+        }
+        .wrap-middle p {
+            font-size: 0.65rem;
+            text-align: center;
+        }
+
+        .icon { display: inline-block;  width: 0.75rem; height: 0.75rem; vertical-align: middle; margin: -2px 0px 0 0; padding: 0 5px;  }
+
+        .icon-ok-red {
+            background: url("img/ok_orange.png") no-repeat center center;
+            background-size: contain;
+        }
+        .btn { display: inline-block; outline: none; width: 100%; height: 2.25rem; background-color: #fff; font-size: 0.75rem; text-align: center; line-height: 2.25rem; border-radius: 0.2rem; margin: 0 auto; }
+        .btn-default { color: #666; border: 1px solid #eeeeee;}
+        .btn-orange-2 { background-color: #ff7e00; color: #fff;}
+        .border-orange { border-color: #ff7e00;}
+        table { width: 100%;text-align: center;}
+        .font-arial { font-family: Arial;}
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="wrap-top">
+        <i class="icon icon-ok-red"></i> 绑卡成功！
+    </div>
+    <div class="wrap-middle">
+       <p class="font-arial">您已成功完成绑卡！当所有被邀请者都完成绑卡后您可参与<br>瓜分红包，更多红包专享活动等您来！</p>
+    </div>
+    <div class="wrap-bottom">
+        <table>
+            <tr class="col-6 text-center">
+                <td><a class="btn  btn-default btn-orange-2 border-orange" href="http://www.99fund.com/m_weixin.htm">参与更多活动</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

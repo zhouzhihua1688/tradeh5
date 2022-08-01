@@ -1,0 +1,120 @@
+/*
+* @Author: mazhuo
+* @Date:   2021-11-17 14:37:06
+* @Last Modified by:   mazhuo
+* @Last Modified time: 2021-11-17 17:04:55
+*/
+
+body { background-color: #fff; }
+.icon { display: inline-block; width: 0.75rem; height: 0.75rem; vertical-align: middle; margin: -2px 0px 0 0; padding: 0 5px; }
+.icon-ok-red { background: url("./img/ok_red.png") no-repeat center center; background-size: contain; }
+.wrap { padding: 3rem 0.75rem; }
+.success { text-align: center; }
+.success .top { font-size: 0.85rem; /* font-size: 0.7rem; */ }
+.success .text { color: #666; margin-top: 0.5rem; font-size: 0.65rem; }
+.success_but { background: #0757b2; height: 2.25rem; font-size: 0.75rem; color: #fff; margin-top: 1rem; text-align: center; line-height: 2rem; border-radius: 0.125rem }
+.goPng { margin-top: 1rem; height: 4rem; background: url(../img/go.png) no-repeat; background-size: 100% 100%; }
+.fail { text-align: center; }
+.fail .top { font-size: .85rem!important; }
+.fail span { color: #fb5c5f }
+.fail .text { color: #666; margin-top: 0.5rem; font-size: 0.65rem; text-align: justify; }
+.fail_but { height: 2.25rem; font-size: 0.75rem; color: #fff; margin-top: 1rem; text-align: center; line-height: 2rem; border-radius: 0.125rem; display: flex; justify-content: space-between; }
+.fail_but div { width: 45%; border-radius: 0.125rem; background: #fe7e01; }
+.failSys { text-align: center; }
+.failSys .top { font-size: .85rem!important; }
+.failSys .text { color: #666; margin-top: 0.5rem; font-size: 0.65rem; }
+.failSys_but { height: 2.25rem; font-size: 0.75rem; color: #fff; margin-top: 1rem; text-align: center; line-height: 2rem; border-radius: 0.125rem; display: flex; justify-content: space-between; }
+.failSys_but div { width: 45%; border-radius: 0.125rem; background: #fe7e01; }
+.evaluate { text-align: center; }
+.evaluate .top { font-size: .85rem!important; }
+.evaluate .text { color: #666; margin-top: 0.5rem; font-size: 0.65rem; text-align: justify; }
+.evaluate_but { background: #fe7e01; height: 2.25rem; font-size: 0.75rem; color: #fff; margin-top: 1rem; text-align: center; line-height: 2rem; border-radius: 0.125rem }
+.noRise { text-align: center; }
+.noRise .top { font-size: .85rem !important;}
+.noRise .text { color: #666; margin-top: 0.5rem; font-size: 0.65rem; }
+.noRise_but { background: #fe7e01; height: 2.25rem; font-size: 0.75rem; color: #fff; margin-top: 1rem; text-align: center; line-height: 2rem; border-radius: 0.125rem }
+.appointment { text-align: center; }
+.appointment .top { font-size: .85rem !important; }
+
+.appointment .text { color: #666; margin-top: 0.5rem; font-size: 0.65rem; text-align: justify; } .appointment_but { height: 2.25rem; font-size: 0.75rem; color: #fff; margin-top: 1rem; text-align: center; line-height: 2rem; border-radius: 0.125rem; display: flex; justify-content: space-between; } .appointment_but div { width: 45%; border-radius: 0.125rem; background: #fe7e01; }
+
+.upgrade div { /* height:11rem;overflow-y: auto */ font-size: 0.7rem; text-align: justify; }
+.upgrade .top { text-align: center !important; padding-bottom: 0.75rem; font-size: .85rem !important; }
+.upgrade .first { color: #666; font-size: .7rem }
+.upgrade .second { margin-top: 0.5rem; color: #666; }
+.upgrade .second span { color: #fb5c5f; }
+/* .upgrade .third { margin-top: 0.5rem;} */
+/* ui要求调大间距 */
+.upgrade .third { margin-top: 1rem;}
+.upgrade .title { width: 100%; display: flex; justify-content: space-between; margin-top: 0.5rem; font-size: 0.6rem }
+.upgrade .title div { width: 33%; color: #666; font-size: .65rem;}
+.upgrade .title div:nth-of-type(2) { text-align: center; }
+.upgrade .title div:nth-of-type(3) { text-align: right; }
+.upgrade .list { width: 100%; display: flex; justify-content: space-between; margin-top: 0.5rem; align-items: center; font-size: 0.6rem }
+.upgrade .list div { width: 33%; color: #666; }
+.upgrade .list div span { display: inline-block }
+.upgrade .list .left span:nth-of-type(2) { color: #000; padding: 0.25rem 0rem; }
+.upgrade .list div:nth-of-type(1) { width: 35%; }
+.upgrade .list .left span:nth-child(1){
+  font-size: .6rem;
+}
+.upgrade .list div:nth-of-type(2) { text-align: center; line-height: 0.75rem; color: #000; }
+.upgrade .list div:nth-of-type(3) { width: 30%; text-align: right; }
+.upgrade .list .right .risk { color: #fb5c5f; padding: 0.25rem 0rem; }
+.upgrade .list .right span { color: #000; }
+.upgrade .list .right .limit { color: #fb5c5f; padding: 0.25rem 0rem; }
+.upgrade_but { height: 2.25rem; font-size: 0.75rem; color: #fff; margin-top: 1rem; text-align: center; line-height: 2rem; border-radius: 0.125rem; display: flex; justify-content: space-between; }
+.upgrade_but div { width: 45%; border-radius: 0.125rem; background: #fe7e01; text-align: center; font-size: 0.75rem; }
+.upgrade .succeed_but { background: #0757b2; height: 2.25rem; font-size: 0.75rem; color: #fff; margin-top: 1rem; text-align: center; line-height: 2.25rem; border-radius: 0.125rem }
+
+/* 20211119 */
+.upgrade .text-l{ text-align: left; }
+.upgrade .text-c{ text-align: center; }
+.upgrade .text-r{ text-align: right; }
+.upgrade .button-area { height: 2.25rem; font-size: 0.75rem; color: #fff; margin-top: 1rem; text-align: center; line-height: 2rem; border-radius: 0.125rem; display: flex; justify-content: space-between; }
+.upgrade .button-area div { width: 45%; border-radius: 0.125rem; text-align: center; font-size: 0.75rem; border: 1px solid #0757b2; color: #0757b2;}
+.upgrade .button-area div.solid { width: 45%; border-radius: 0.125rem; text-align: center; font-size: 0.75rem; background: #0757b2; color: #fff;}
+
+.upgrade.TF { text-align: center; }
+.upgrade.TF .top { font-size: .85rem !important; }
+/* .upgrade.TF span { color: #fb5c5f } */
+.upgrade.TF .text { color: #666; margin-top: 0.5rem; font-size: 0.65rem; }
+.fail_but { height: 2.25rem; font-size: 0.75rem; color: #fff; margin-top: 1rem; text-align: center; line-height: 2rem; border-radius: 0.125rem; display: flex; justify-content: space-between; }
+.fail_but div { width: 45%; border-radius: 0.125rem; background: #fe7e01; }
+/* ui反馈需要加粗 */
+.top{
+  font-weight: 600;
+}
+
+/* 礼物盒弹窗 */
+.gift-dialog {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;  
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: calc(100vw/20);
+}
+.gift-dialog div{
+  display: flex;  
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.letter-close-icon{
+  display: block;
+  position: relative;
+    top: 2rem;
+    /* left: 5.5rem; */
+    left: 6.5rem;
+    width: 2rem;
+    height: 2rem;
+  
+}

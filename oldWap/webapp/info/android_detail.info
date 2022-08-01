@@ -1,0 +1,210 @@
+{
+    "version": "1.0",
+    "apps": [
+        {
+            "id": "001",
+            "packageName": "com.tencent.mm",
+            "name": "微信"
+        },
+        {
+            "id": "002",
+            "packageName": "com.tencent.mobileqq",
+            "name": "QQ"
+        },
+        {
+            "id": "003",
+            "packageName": "com.weipai.weipaipro",
+            "name": "微拍"
+        },
+        {
+            "id": "004",
+            "packageName": "com.blackbean.cnmeach",
+            "name": "对面-帅哥美女扎堆一起玩"
+        },
+        {
+            "id": "005",
+            "packageName": "com.jianmian.app",
+            "name": "同城见面"
+        },
+        {
+            "id": "006",
+            "packageName": "com.immomo.momo",
+            "name": "陌陌"
+        },
+        {
+            "id": "007",
+            "packageName": "com.sina.weibo",
+            "name": "微博"
+        },
+        {
+            "id": "008",
+            "packageName": "com.bill99.kuaishua",
+            "name": "快刷"
+        },
+        {
+            "id": "009",
+            "packageName": "com.eg.android.AlipayGphone",
+            "name": "支付宝"
+        },
+        {
+            "id": "010",
+            "packageName": "com.taobao.taobao",
+            "name": "手机淘宝"
+        },
+        {
+            "id": "011",
+            "packageName": "com.jingdong.app.mall",
+            "name": "京东"
+        },
+        {
+            "id": "012",
+            "packageName": "com.dangdang.buy2",
+            "name": "当当-首单立减5元"
+        },
+        {
+            "id": "013",
+            "packageName": "com.sankuai.meituan",
+            "name": "美团"
+        },
+        {
+            "id": "014",
+            "packageName": "com.dianping.v1",
+            "name": "大众点评"
+        },
+        {
+            "id": "015",
+            "packageName": "ctrip.android.view",
+            "name": "携程旅行"
+        },
+        {
+            "id": "016",
+            "packageName": "com.koudai.weishop",
+            "name": "微店"
+        },
+        {
+            "id": "017",
+            "packageName": "com.moji.mjweather",
+            "name": "墨迹天气"
+        },
+        {
+            "id": "018",
+            "packageName": "com.meitu.meiyancamera",
+            "name": "美颜相机"
+        },
+        {
+            "id": "019",
+            "packageName": "com.sg.sledog",
+            "name": "搜狗号码通"
+        },
+        {
+            "id": "020",
+            "packageName": "com.UCMobile",
+            "name": "UC浏览器"
+        },
+        {
+            "id": "021",
+            "packageName": "com.baidu.browser.apps",
+            "name": "百度浏览器"
+        },
+        {
+            "id": "022",
+            "packageName": "com.qihoo.browser",
+            "name": "360浏览器"
+        },
+        {
+            "id": "023",
+            "packageName": "com.nuomi",
+            "name": "百度糯米-美食电影"
+        },
+        {
+            "id": "024",
+            "packageName": "com.netease.my.lenovo",
+            "name": "梦幻西游"
+        },
+        {
+            "id": "025",
+            "packageName": "com.skymoons.hqg.lenovo",
+            "name": "花千骨(赵丽颖力荐)"
+        },
+        {
+            "id": "026",
+            "packageName": "com.tencent.pao",
+            "name": "天天酷跑"
+        },
+        {
+            "id": "027",
+            "packageName": "com.baidu.BaiduMap",
+            "name": "百度地图"
+        },
+        {
+            "id": "028",
+            "packageName": "com.autonavi.minimap",
+            "name": "高德地图"
+        },
+        {
+            "id": "029",
+            "packageName": "com.wangyin.payment",
+            "name": "京东钱包"
+        },
+        {
+            "id": "030",
+            "packageName": "com.minxindai",
+            "name": "民信贷"
+        },
+        {
+            "id": "031",
+            "packageName": "com.daiyoubang",
+            "name": "贷友帮"
+        },
+        {
+            "id": "032",
+            "packageName": "com.hexin.plat.android",
+            "name": "同花顺"
+        },
+        {
+            "id": "033",
+            "packageName": "com.android.dazhihui",
+            "name": "大智慧"
+        },
+        {
+            "id": "034",
+            "packageName": "com.shcc.microcreditpwr",
+            "name": "手机贷"
+        },
+        {
+            "id": "035",
+            "packageName": "com.lufax.android",
+            "name": "陆金所"
+        },
+        {
+            "id": "036",
+            "packageName": "com.tencent.qqlive",
+            "name": "腾讯视频"
+        },
+        {
+            "id": "037",
+            "packageName": "com.youku.phone",
+            "name": "优酷视频播放器"
+        },
+        {
+            "id": "038",
+            "packageName": "com.qiyi.video",
+            "name": "爱奇艺视频"
+        },
+        {
+            "id": "039",
+            "packageName": "com.ting.mp3.qianqian.android",
+            "name": "千千静听（百度音乐版）"
+        },
+        {
+            "id": "040",
+            "packageName": "com.tencent.qqmusic",
+            "name": "QQ音乐"
+        },
+        {
+            "id": "041",
+            "packageName": "com.sohu.sohuvideo",
+            "name": "搜狐视频"
+        }
+    ]
+}

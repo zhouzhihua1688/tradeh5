@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>跳转中...</title>
+</head>
+<body>
+    <!-- 在线客服中转空白页面 -->
+    <pre style="display: none;">
+        需求号：9949 官微-在线客服更改为H5模式
+
+页面计划上线时间：3月31号  
+页面名称：微信在线客服中转页面
+页面开发注意点：在线客服测试环境和生产环境域名切换。（在线客服测试环境域名地址：http://10.50.115.169:8181， 生产环境地址：https://webchat.99fund.com）
+页面功能：
+1)       微信公众账号跳转到在线客服中转页url带code值和channelCode；（示例：redirectUrl?code=${code}&${channelCode}）
+2)       通过code和channelCode为入参调用uaa接口获取openId。（uaa接口地址：http://10.50.115.159:10111/swagger-ui.html#!/weixin45controller/checkCodeUsingGET）
+3)       将openId和TIME（时间戳）参数拼接到在线客服url参数中，跳转到在线客服。
+
+在线客服url: http://10.50.115.169:8181/webstat/htfmbwebcall/mbinterface.jsp"
+url参数：
+params.put("FWDM", "1001");//固定上传1001
+params.put("KHID", ${openId});//客户id，微信公众账号对应的用户的唯一id
+params.put("KHLY", "WX01");//固定上传WX01
+params.put("KEY", "key");//固定上传WX01
+params.put("TIME", "time");//时间戳:毫秒
+
+在线客服拼接示例：标红部分为动态参数
+http://10.50.115.169:8181/webstat/htfmbwebcall/mbinterface.jsp?FWDM=1001&KHID=${openId}&KHLY=WX01&key=WX01&TIME=${timestamp}
+    </pre>
+<script src="./js/jquery-3.5.1.min.js"></script>
+<!-- <script src="/tradeh5/newWap/base/js/lib/jquery-3.5.1.min.js"></script> -->
+<!-- <script src="/tradeh5/newWap/base/js/utils.js"></script> -->
+<script>
+function getUrlParam(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    var r = window.location.search.substr(1).match(reg); //匹配目标参数
+    // if (r != null) return unescape(r[2]);
+    if (r != null) return decodeURIComponent(r[2]);
+    return '';
+}
+function isProdEnv(){
+    var href = document.location.href;
+    if((/^https:\/\/[^\/]*?99fund\.com\//.test(href) && href.indexOf('https://wxappdev.99fund.com/') !==0) || href.indexOf('https://m.99fund.com:8099/') ==0){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+</script>
+<script>
+(function(){
+    var channelCode = getUrlParam('channelCode');
+    var code = getUrlParam('code');
+    console.log('code=', code);
+    console.log('channelCode=', channelCode);
+
+    !channelCode && (channelCode = 'htfwx');
+
+    if(!code){
+        var appId = '';
+        if(isProdEnv()){
+            channelCode == 'htfwx' && (appId = 'wx7461ecb8486abddf');
+            channelCode == 'tfhwx' && (appId = 'wx7489ca0639441abd');
+        } else {
+            // 当前测试环境，appId可以被替换
+            channelCode == 'htfwx' && (appId = 'wx2ec5e849c8928bc4');
+            channelCode == 'tfhwx' && (appId = 'wx7e98d96f6c96c017');
+        }
+        var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appId +
+        // '&redirect_uri=' + encodeURIComponent('https://wx.99fund.com/' + location.pathname + location.search) + 
+            '&redirect_uri=' + encodeURIComponent(location.href) + 
+            '&response_type=code&scope=' + (false ? 'snsapi_userinfo' : 'snsapi_base') + 
+            '&state=STATE#wechat_redirect';
+
+        console.log('getCode url=', url);
+        window.location.href = url;
+        return;
+    }
+
+    // var data = {code: code, channelCode: channelCode };
+
+    // 根据code和channelCode获取openId
+    $.ajax({
+        url: `/uaa/v1/pub/weixin/check?code=${code}&channelCode=${channelCode}`,
+        type: 'GET',
+        dataType:"json", 
+        success:function(result){
+            console.log('success result=', result);
+            if(result.returnCode == 0 && result.body && result.body.openId){
+                var openId = result.body.openId;
+                var timestamp = (new Date()).getTime();
+                var referUrl = '';
+                if(isProdEnv()){
+                    referUrl = `https://webchat.99fund.com/webstat/htfmbwebcall/mbinterface.jsp?FWDM=1001&KHID=${openId}&KHLY=WX01&key=WX01&TIME=${timestamp}`;
+                } else {
+                    referUrl = `http://10.50.115.169:8181/webstat/htfmbwebcall/mbinterface.jsp?FWDM=1001&KHID=${openId}&KHLY=WX01&key=WX01&TIME=${timestamp}`;
+                }
+                window.location.replace(referUrl);
+            } else {
+                console.log('error result=', result);
+            }
+        }, 
+        error: function (e) {
+            console.log('error e=', e);
+        }
+    })
+})()
+</script>
+</body>
+</html>

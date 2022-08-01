@@ -1,0 +1,118 @@
+html,body{
+    width: 100%;
+    height: 100%;
+}
+body {
+    background-color: #fff;
+}
+
+.container {
+    padding: 0 0.75rem /* 30/40 */;
+}
+
+.topInput {
+    display: none;
+}
+
+.input-title:first-child {
+    margin-top: 1rem /* 40/40 */;
+}
+
+.input-title {
+    margin-top: 1.25rem  /* 50/40 */;
+    font-size: 0.7rem /* 28/40 */;
+}
+
+.input-sub-title {
+    margin-top: 0.375rem /* 15/40 */;
+    font-size: 0.6rem /* 24/40 */;
+    color: #666;
+}
+
+.input-block {
+    margin-top: 0.5rem /* 20/40 */;
+    height: 2.2rem /* 88/40 */;
+    border: 0.025rem /* 1/40 */ solid #ddd;
+    border-radius: 0.1rem /* 4/40 */;
+}
+
+.input-block > input {
+    height: 2.2rem /* 88/40 */;
+    width: 15.6rem;
+    line-height: 2.2rem /* 88/40 */;
+    padding: 0 0.75rem /* 30/40 */;
+    font-size: 0.75rem /* 30/40 */;
+    border: none;
+}
+
+.btn1 {
+    margin-top: 1.5rem /* 60/40 */;
+    height: 2.25rem /* 90/40 */;
+    line-height: 2.25rem /* 90/40 */;
+    text-align: center;
+    font-size: 0.85rem /* 34/40 */;
+    color: #fff;
+    background-color: #0757b2;
+    border-radius: 0.1rem /* 4/40 */;
+}
+
+.btn2 {
+    margin-top: 0.75rem /* 30/40 */;
+    height: 2.15rem /* 86/40 */;
+    line-height: 2.15rem /* 86/40 */;
+    text-align: center;
+    font-size: 0.85rem /* 34/40 */;
+    color: #0757b2;
+    background-color: #fff;
+    border: 0.05rem /* 2/40 */ solid #0757b2;
+    border-radius: 0.1rem /* 4/40 */;
+}
+.wx-mask,.copy-mask{
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.7);
+    z-index:100000;
+}
+.wx-mask img{
+    position: absolute;
+    left: 50%;
+    width: 15.75rem;
+    margin-left: -7.875rem;
+}
+
+.copy-mask .copy-content{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 15rem;
+    border-radius: .15rem;
+    background-color: #fff;
+    padding: 1rem .75rem;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 0;
+}
+.copy-mask .copy-title{
+    font-size: .75rem;
+}
+.copy-mask .copy-text{
+    margin: 1rem .75rem;
+    padding: .75rem;
+    line-height: 1.5;
+    background-color: #f6f6f6;
+    font-size: .7rem;
+    color: #666;
+    border-radius: .15rem;
+}
+.copy-mask .copy-text p{
+    word-wrap : break-word ;
+}
+.copy-mask .copy-content img{
+    width: 10.5rem;
+   
+}

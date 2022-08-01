@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+.content1 .tab1{
+    display: flex;
+    background: #fff;
+}
+.content1 .tab1 li {
+    flex: 1;
+    font-size: .7rem;
+    text-align: center;
+    padding: 12px 0;
+    border-bottom: 2px solid transparent;
+    color: #000;
+}
+
+.content1 .tab1 li a {
+    font-size: .75rem;
+}
+
+.content1 .tab1 li.active {
+    border-bottom-color: #ffadae;
+    color: #fb5c5f;
+}
+.blue{
+    color: #148ce6;
+}
+
+
+
+
+

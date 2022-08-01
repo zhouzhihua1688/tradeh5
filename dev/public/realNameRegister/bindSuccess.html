@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>成功</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/realNameRegister/css/bindSuccess.css">
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+<body>
+    <div class="content">
+        <div class="title">
+            <img src="/tradeh5/newWap/realNameRegister/img/success.png">
+            <span>实名注册成功！</span>
+        </div>
+        <div class="desc">绑定银行卡后可顺利购买产品！</div>
+        <div class="btn-group">
+            <div class="back">返回</div>
+            <div class="bind-card">去绑卡</div>
+        </div>
+    </div>
+    <script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+    <script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script>
+    $(function(){
+        var referUrl = decodeURIComponent(utils.getUrlParam("referUrl"));
+        $('.back').on('click', function () {
+            if(referUrl){
+                window.location.href = referUrl;
+            }else{
+                window.location.href = '/mobileEC/wap/wezhan/service.html';
+            }
+        });
+        $('.bind-card').on('click', function () {
+            window.location.href = '/mobileEC/wap/card/bindCardInputCardInfo.html'+ (referUrl?'?referUrl='+encodeURIComponent(referUrl):'');
+        });
+    });
+
+    // 添加 回首页 圆形按钮 20210330
+    addGoHomeCircle();
+</script>
+</body>
+</html>

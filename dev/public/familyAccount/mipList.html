@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>查看定投</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/common.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+    <script type="text/javascript" src="../base/js/needLogin.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+	</script>
+   <style>
+	body,html{background: #f6f6f6;}
+	body {left: 0%; right: 0%;font:14px 'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+	button { outline: none;  }
+	  /* 图片自适应 */
+	img {width: 100%; height: auto; width: auto\9; /* ie8 */ -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/ border: none; vertical-align: top; outline: none; display: block; }
+	.main{width:100%;height:100%;}
+	.head{width: 18.75rem;height:10.5rem;background: url('img/plan.png') no-repeat;background-size: 100% 100%;}
+	.head .portrait{width:100%;height:1.75rem;padding-top: 0.7rem}
+	.head .portrait img{width:1.575rem;height:1.575rem;margin-left:0.75rem;vertical-align: middle;display: inline-block;}
+	.head .portrait span{font-size:0.65rem;color:#fff;display: inline-block;margin-left:0.5rem;}
+	.head .save{font-size:0.75rem;color:#fff;margin-top:0.45rem;text-align: center}
+	.head .money{font-size: 1.5rem;color:#fff;text-align: center;margin-top:0.45rem;}
+	.head .listText{width:100%;display:flex;justify-content:space-between;align-items: center;margin-top:0.75rem}
+	.head .listText div{width:33.3%;font-size: 0.65rem;color:#ffd0d2;text-align: center;}
+	.head .listText div:nth-of-type(2){text-indent:1.75rem}
+	.head .listText div:nth-of-type(2) img{width:0.75rem;height: 0.75rem;display: inline-block;vertical-align: middle;margin-left:0.35rem;}
+	.head .listText div:nth-of-type(3){text-align:right;margin-right:0.75rem}
+	.head .numberList{width:100%;display:flex;justify-content:space-between;align-items: center;margin-top:0.25rem;}
+	.head .numberList div{width:33.3%;font-size:0.8rem;color:#fff;text-align: center;}
+	.head .numberList div:nth-of-type(1){text-align:left;text-indent:1.25rem}
+	.head .numberList div:nth-of-type(2){text-indent:1.5rem}
+	.head .numberList div:nth-of-type(3){text-align:right;margin-right:0.75rem}
+	.touzi{display: none;width:100%;height:1.7rem;background: #f6f6f6;position: relative;top:-0.5rem;border-radius:10px 10px 0 0;font-size: 0.7rem;color:#666;line-height:2.2rem}
+	.touzi img{width:0.925rem;height:0.925rem;display: inline-block;vertical-align: middle;margin-left:0.75rem;margin-right:0.5rem;margin-top:-0.1rem;}
+	.noDetails{width:100%;}
+	.noDetails img{width:5.475rem;height:6.625rem;margin:0 auto;margin-top:4.375rem;}
+	.noDetails .text{font-size: 0.65rem;color:#666;text-align: center;margin-top:0.5rem;}
+	.nameList{width:17.25rem;margin:0 auto;background:#fff;margin-bottom: 0.5rem;border-radius:8px;}
+
+	.nameList .account{width:100%;height:2.25rem;display:flex;justify-content:space-between;align-items: center;border-bottom:1px solid #eee;}
+	.nameList .account div:nth-of-type(1){width:80%}
+	.nameList .account div:nth-of-type(1){text-indent:0.85rem;font-size: 0.7rem;color: #666}
+	.nameList .account div:nth-of-type(2){text-align: right;font-size: 0.6rem;color: #fb5c5f;margin-right:0.75rem;}
+	.nameList .account div:nth-of-type(2) span{width:5.75rem;height: 1rem;display: inline-block;background: #ffefef;border-radius:1.25rem;line-height: 1rem;text-align: center}
+
+	.nameList .fundName{width:100%;height:2.25rem;display:flex;justify-content:space-between;align-items: center;}
+	.nameList .fundName div:nth-of-type(1){width:80%;margin-left:0.85rem;font-size:0.8rem;color: #000;display: inline-block;}
+	.nameList .fundName div:nth-of-type(1) span{width:1.65rem;height:0.875rem;display: inline-block;font-size: 0.6rem;color: #fb5c5f; background: #ffefef;text-align: center;line-height: 0.875rem;margin-left: 0.5rem;}
+	.nameList .fundName div:nth-of-type(2) img{width:0.4rem;height:0.75rem;margin-right:0.75rem;}
+
+	.nameList .nameText{width:100%;height:2.25rem;display:flex;justify-content:space-between;align-items: center;margin-top:-0.5rem;}
+	.nameList .nameText div{width:33.3%;font-size:0.65rem;color:#666;text-align: center;}
+	.nameList .nameText div:nth-of-type(2){text-indent:1rem}
+	.nameList .nameText div:nth-of-type(3){text-align:right;margin-right:0.75rem;}
+
+	.nameList .numberText{width:100%;height:2.25rem;display:flex;justify-content:space-between;align-items: center;margin-top:-0.5rem;margin-top:-0.85rem;}
+	.nameList .numberText div{width:33.3%;font-size:0.8rem;color:#000;text-align: center;}
+	.nameList .numberText div:nth-of-type(2){text-indent:1rem;color:#f4333c;}
+	.nameList .numberText div:nth-of-type(3){text-align:right;color:#f4333c;margin-right:0.75rem;}
+	footer {position: fixed; width: 100%; height:2.5rem; left: 0; bottom: 0; background-color: #fff; font-size:0.85rem; border-right: 1px solid #fff;}
+	footer ul li{float:left; width:100%; background: #ff6169; } 
+	footer ul li a {display: block;}
+	footer ul li a {width: 100%; height:2.5rem; text-align: center; line-height:2.5rem; color: #fff; font-size:0.85rem;border-left: 1px solid #fff; }
+	footer ul li:nth-of-type(1){background: #ff6169;}
+	footer ul li:nth-of-type(1) a{color: #fff;}
+	.minpTips{font-size: .5rem;text-align: center;padding-bottom: .5rem;}
+	.minpTips .tips2{background: #eee;line-height: 1rem;border-radius: 3px;padding: .25rem .25rem;margin: 0 1rem;text-align: left;    text-indent: .35rem;}
+</style>
+</head>
+<body>
+	<div class="main" style="padding-bottom:3rem">
+
+		<!-- 没有数据的时候 -->
+		<div class="noDetails" style="display: none">
+			<div><img src="img/noDetail.png" alt=""></div>
+			<div class="text">暂无计划详情</div>
+		</div>
+		<!-- 有投资数据的时候 -->
+
+		 
+	 
+		<footer>
+			 <ul>
+				 <li>
+					 <a href="javascript:;" class="addInvest" style="color:#fff;background:#0757b2;width:100%">+新增定投</a>
+				 </li>
+			 </ul>
+		 </footer>
+	 </div>
+
+
+	 <div class="Bomb-box">
+		<div class="Bomb-box-main">
+			<div class="Bomb-box-content">
+				<p class="text-center"></p>
+			</div>
+			<a class="Bomb-box-ok" href="javascript:;"
+			   onclick="this.parentElement.parentElement.style='display:none'">确定</a>
+		</div>
+	</div>
+<script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../base/js/utils.js"></script>
+
+<script>
+ 
+
+    var teamId = '';
+    //是否开启亲情宝 获取teamId
+    function getAccount(){
+        utils.get('/sfs/v1/accounts/is-open?version=6.6',null,function(result){
+            if(result.returnCode == 0){
+                if(result.body.isOpen){
+                    teamId = result.body.teamId
+					showMipList();
+                }
+            }
+        });
+    }
+
+	var arAcct = utils.getUrlParam("arAcct");
+	$(function(){
+		
+		getAccount();
+		
+	});
+	$(".addInvest").click(function(){
+
+		window.location.href = 'allFund.html?from=mip&arAcct='+arAcct;
+	}) 
+
+	//计划详情
+	function showMipList(){
+		utils.get('/sfs/v1/accounts/assets/mips?teamId='+teamId+'&arAcct='+arAcct,null,function(result){
+			var body = result.body;
+			if(result.returnCode == 0){
+				
+				var custAssets = body;
+				if(custAssets.length > 0){
+					var htm = '';
+					custAssets.forEach(function(item,index){
+
+						var contractInfos = item.contractInfos;
+						contractInfos.forEach(function(item2,index2){
+							var stat = '';
+							if(item2.contractStatus  == 'N' ){
+								stat = '定投中';
+							}else if(item2.contractStatus  == 'C' ){
+								stat = '已撤销';
+							}else if(item2.contractStatus  == 'P' ){
+								stat = '已暂停';
+							}else if(item2.contractStatus  == 'A' ){
+								stat = '已失效';
+							}else if(item2.contractStatus  == 'F' ){
+								stat = '已冻结';
+							}else if(item2.contractStatus  == 'T' ){
+								stat = '预终止';
+							}
+							htm+='		<div class="nameList">'+
+							'<div class="account">'+
+								'<div>'+item2.contractDesc+'</div>'+
+								'<div>'+stat+'</div>'+
+							'</div>';
+							htm+='<div class="fundName" data-fundId="'+item2.fundId+'" data-productType="'+item2.productType+'" data-serialNo="'+item2.serialNo+'" >'+
+								'<div>'+item2.fundName+ '</div>'+
+								'<div ></div>'+
+							'</div>'+
+							'<div class="nameText">'+
+								'<div>累计定投(元)</div>'+
+								'<div>已投期数</div>'+
+								'<div>当前收益率</div>'+
+							'</div>'+
+							'<div class="numberText">'+
+								'<div>'+formatMoney(item2.totalSuccessAmt)+'</div>'+
+								'<div>'+item2.totalSuccessCount+'</div>'+
+								'<div style="color:'+showColor(item2.currentProfit*100)+'">'+(item2.currentProfit != null  ? Number(item2.currentProfit*100).toFixed(2)+'%':'--%' )+'</div>'+
+							'</div>';
+							var payStr = '';
+							if(item2.payType == 'V' ){
+								payStr = '现金宝';
+							}else if(item2.payType == 'B'){
+								payStr = item2.bankGrpName+'尾号('+item2.bankAccoDisplay+')';
+							}else{
+								payStr = '现金宝或银行卡'
+							}
+							htm+='<div class="minpTips"> <div class="tips2">'+item2.nextPayDate.substring(0,4)+'.'+item2.nextPayDate.substring(4,6)+'.'+item2.nextPayDate.substring(6,8) + getCycle(item2.cycle,item2.payDate,item2.nextPayDate) +'将从'+payStr+'扣款'+item2.payAmt +'元</div></div>';
+							
+							htm+='</div>';
+						});
+					
+					});
+					$(htm).insertBefore('footer');
+					$(".touzi").show()
+				}else{
+					$(".noDetails").show();
+				}
+				$(".addOther").click(function(){
+						window.location.href = "allFund.html?arAcct="+body.arAcct;
+				})
+			}
+		});
+	}
+
+    // 扣款周期
+    var chooseTime = {
+    "MM": ["01日", "02日", "03日", "04日", "05日", "06日", "07日", "08日", "09日", "10日", "11日", "12日", "13日", "14日", "15日", "16日", "17日", "18日", "19日", "20日", "21日", "22日", "23日", "24日", "25日", "26日", "27日", "28日"],
+    "2W": ["一", "二", "三", "四", "五"],
+    "WW": ["一", "二", "三", "四", "五"],
+	"ED": []
+	};
+	function getCycle(cycle,day,dates){
+		var str = '(';
+		if(cycle == "MM"){//每月
+			str += day+'号';
+		}else if(cycle == "WW" || cycle == "2W"){//每周
+			str += '星期'+chooseTime[cycle][parseInt(day-1)];
+		}else if(cycle == "DD"){//每天
+			str +=getWeek(dates);
+		}
+		return str+')';
+	}
+
+	function getWeek(dateString) {
+        date = new Date(dateString.substring(0,4), parseInt(dateString.substring(4,6) - 1), dateString.substring(6,8));
+        return "星期" + "日一二三四五六".charAt(date.getDay());
+    };
+</script>
+</body>
+</html>

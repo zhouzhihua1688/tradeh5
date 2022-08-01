@@ -1,0 +1,249 @@
+.content1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 .75rem;
+    background: #fff;
+    font-size: .65rem;
+    color: #000;
+}
+
+.card-pros,
+.card-cons {
+    overflow: hidden;
+    position: relative;
+    left: 50%;
+    width: 10rem;
+    height: 6.5rem;
+    background: #eee;
+    border-radius: .25rem;
+    margin-left: -5rem;
+}
+
+.card-pros {
+    margin-top: 1.5rem;
+    /*background: url(../../images/userInfo/card_01.png);*/
+    /*background-size: 100% 100%;*/
+}
+.card-pros img,
+.card-cons img{
+    width: 100%;
+    height: 100%;
+}
+.file{
+    position: absolute;
+    display: inline-block;
+    width: 10rem;
+    height: 6.5rem;
+    border-radius: 50%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 999;
+    outline: none;
+    /*background: rgba(0,0,0,0);*/
+    opacity: 0;
+}
+
+.dim {
+    color: #666666;
+    padding: .35rem .35rem 3rem .35rem;
+    margin-top: 5px;
+}
+.checkBox {
+    vertical-align: middle;
+    margin-top: -.1rem;
+    height: .6rem;
+    width: .6rem;
+    margin-right: .2rem;
+}
+/*.card-cons {*/
+    /*background: url(../../images/userInfo/card_02.png);*/
+    /*background-size: 100% 100%;*/
+/*}*/
+
+.content1 p {
+    text-align: center;
+    line-height: .65rem;
+}
+
+.content1 p:nth-of-type(1) {
+    padding: .5rem 0 1.25rem 0;
+}
+
+.content1 p:nth-of-type(2) {
+    padding: .5rem 0 .75rem 0;
+}
+
+.content2 {
+    background: #fff;
+    padding: 0 .75rem;
+}
+
+.styleTip {
+    position: relative;
+    width: 100%;
+    padding: .75rem 0 1rem 0;
+    border-top: 1px #eee solid;
+    height: 5rem;
+    z-index: 9;
+}
+.styleTip .tap-tap{
+    position: absolute;
+    top: .75rem;
+    right: 0;
+    display: block;
+    width: 3.8rem;
+    height: .8rem;
+}
+.footer a {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    background: #ff7e00;
+    color: #fff;
+    font-size: .85rem;
+    text-align: center;
+    z-index: 999;
+}
+
+/*弹框1*/
+.Bomb-box {
+    z-index: 10000000000000000000000;
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    top: 0;
+    left: 0;
+}
+
+.Bomb-box .Bomb-box-main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    width: 15rem;
+    background-color: #fff;
+    border-radius: 0.3rem;
+}
+
+.Bomb-box .Bomb-box-tips {
+    text-align: center;
+    color: #666;
+    font-size: 0.7rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+}
+
+.Bomb-box .Bomb-box-content{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+.Bomb-box .Bomb-box-content p{
+    line-height: 1rem;
+}
+
+.Bomb-box .Bomb-box-ok {
+    display: block;
+    width: 13.5rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    text-align: center;
+    color: #0070fa;
+    font-size: 0.75rem;
+    border-top: solid 1px #eeeeee;
+    margin: 0 auto;
+}
+
+.Bomb-box .no-tips {
+    font-size: 0.7rem;
+    padding: 1.7rem 1.5rem 1.15rem 1.5rem;
+    text-align: center;
+}
+
+.Bomb-box .text-center {
+    text-align: center;
+}
+
+::-webkit-input-placeholder {
+    text-align: left;
+}
+.tip-dailog {
+    z-index: 10000000000000000000000;
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    top: 0;
+    left: 0;
+}
+.tip-dailog .tip-main{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    width: 15.5rem;
+    background-color: #fff;
+    border-radius: 0.3rem;
+    color:#000;
+}
+.tip-dailog .tip-main .tip-h{
+    position: relative;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    font-size: .9rem;
+    text-align: center;
+    background: url(../../images/userInfo/icon.png) no-repeat;
+    background-size:1.25rem 1.5rem ;
+    background-position:.75rem 0;
+}
+.tip-dailog .tip-main .tip-h a{
+    position: absolute;
+    top: 0;
+    left: .75rem;
+    width: 1.25rem;
+    height: 1.5rem;
+    z-index: 10;
+}
+.tip-dailog .tip-main .tip-c{
+    padding: 1rem 1.25rem;
+}
+.tip-dailog .tip-main .tip-m{
+    padding: 0 1rem;
+    font-size: .7rem;
+    line-height: 1rem;
+}
+.tip-dailog .tip-main .tip-f{
+    padding: 1rem 0 1.375rem 0;
+    text-align: center;
+    font-size: .75rem;
+}
+.tip-dailog .tip-main .tip-f .tip-ok{
+    display: inline-block;
+    width: 12rem;
+    height: 2.25rem;
+    line-height: 2.25rem;
+    text-align: center;
+    color:#fff;
+    background: #fb5c5f;
+    border-radius: .075rem;
+}
+

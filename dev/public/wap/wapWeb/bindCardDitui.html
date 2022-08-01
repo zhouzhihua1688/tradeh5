@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	 <!--<meta charset="GBK">-->
+	<meta charset="utf8">
+	<title>活动</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="css/base.css">
+	<script type="text/javascript" src="js/zepto.min.js"></script>
+	<script>
+		setFont();
+		window.onresize = function(){
+            setFont();
+		}
+		function setFont(){
+            var windowWidth =  $(window).width();
+            windowWidth = windowWidth> 750 ? 750 : windowWidth;
+            $("html").css({"fontSize": windowWidth/(750/40) });
+		}
+
+	</script>
+	<style type="text/css">
+		.font-arial{ font-family: Arial; }
+		html{ height: 100%;}
+		body {left: 0%; right: 0%;  height: 100%;}
+		button { outline: none;  }
+		section{ background-color: #fff; color: #666;}
+		img { vertical-align: top;border: none;outline: none;width: 100%; display: block;}
+		p { line-height: 1.5; word-wrap: break-word; text-align: justify; }
+		table { width: 100%;border-collapse:collapse; }
+		
+		.content1 { position: relative; min-height: 100%;background: #feedbe; }
+		.title-gif { position: absolute;top:  24rem; width: 42%; left: 29%;}
+		footer {
+			width: 100%;
+			display: block;
+			position: absolute;
+			bottom: .6rem;
+			left: 0;
+			color: #1a4464;}
+		footer p {  width: 84%;  font-size: .5rem; margin: 0 auto;  opacity: .6; text-align: center;}
+
+
+	</style>
+</head>
+<body>
+	<section class="content1">
+		<img src="img/ditui/bg2_02.jpg" alt="" onclick="return false">
+		<div class="title-gif">
+			<a href="http://www.99fund.com/m_weixin.htm"><img src="img/ditui/arrow.gif" alt=""></a>
+		</div>
+		<footer>
+			<p>基金有风险，投资需谨慎。</p>
+		</footer>
+	</section>
+	
+
+</body>
+</html>

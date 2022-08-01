@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--<meta charset="GBK">-->
+    <meta charset="utf8">
+    <title>产品详情</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/product_details.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+      body{background:#f6f6f6;}
+      .main{margin:0px ;padding:0px;}
+       .tips {display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; background-color: rgba(0, 0, 0, 0.507); font-size: .7rem; }
+
+        .tips>div {background: #fff; position: absolute; left: 10%; right: 10%; top: 50%; transform: translateY(-50%); padding: .5rem .75rem 0; border-radius: .2rem; }
+
+        .tips .tips_text {padding: .75rem; border-bottom: 1px solid #eee; }
+
+        .tips .button {display: block;text-align: center;padding-top:.5rem;padding-bottom:.5rem; }
+
+        .tips .button span {margin-top: .25rem; padding: .625rem 0; margin-bottom: .25rem; color: #1370fa; }
+
+     .player{width:1.5rem;height:1.5rem;position:absolute;left:50%;top:50%;margin-top:-0.75rem;margin-left:-0.75rem;background:url("img/play.png") no-repeat;background-size: 100% 100%}
+    </style>
+</head>
+
+<body>
+<div class="main">
+   <div class="head background">
+      <div class="fund">
+          <div class="first color" id="productName"> <span style="margin-left:0.5rem"></span> 
+          </div>
+          <div class="icon" id="tradeStatusDisplay">募集中</div>
+      </div>
+      <div class="second color">业绩基准(年化)<span class="down">封闭期</span></div>
+      <div class="number color" id="yieldDisplay"><span class="month" ></span></div>
+      <div class="third">
+           <div class="left border">
+              <div class="icon3"></div>
+              <div class="risk color" id="riskLvl"></div>
+           </div>
+           <div class="right border">
+              <div class="money color" id="investMinLimit"></div>
+           </div>
+      </div>
+      <div class="solid"></div>
+      <div class="text fontColor" id="tips"></div>
+   </div>
+   <div class="part">
+      <div class="picture" ><img id="investHighlightUrl" src="" alt=""></div>
+   </div>
+   <div class="fundManager">
+     <div class="fundBox">
+          <img src="" id="fundMangerInfoUrl" alt="">
+     </div>
+   </div>
+   <div class="model">
+     <div class="first">
+        <div class="video" id="videoIntroduceUrl">
+          <img src="" alt="" height="14rem" id="picture" onclick="return false;">
+          <div class="player"></div>
+          <div class="play"></div>
+          <div class="time"></div>
+        </div>
+     </div>
+   </div>
+   <div class="achievement">
+      <div class="text">业绩走势</div>
+   </div>
+  <div class="chart">
+    <div class="first">
+      <div id="pie1" style="width:17.25rem; height:11rem;"></div>
+    </div>
+    <div class="noData" style="display: none;">
+        <p>没有足够的数据可展示</p>
+    </div>
+  </div>
+  <div class="history">
+    <div>历史净值</div>
+  </div>
+  <div class="datas">
+      <div class="text" id="list">
+      </div>
+  </div>
+  <div class="much" id="viewMore">
+    <div><a href="javascript:;">查看更多</a></div>
+  </div>
+  <div class="trade">
+    <div><img src="" id="tradeRule" alt=""></div>
+  </div>
+  <section class="content1_1">
+        <ul class="clearfix tab3">
+            <li class="active first"><a>交易说明</a></li>
+            <li class="first"><a>产品信息</a></li>
+        </ul>
+        <!-- 未使用 -->
+        <div class="qiehuan">
+            <div class="out">
+              <div class="left">参与退出</div>
+              <div class="right" id="fundOpenRuleDesc">每12个月开放一次，具体开放时间由管理人决定。本资产管理计划不允许违约退出。</div>
+            </div>
+            <div class="textList">
+              <div class="left">买入规则</div>
+              <div class="right" id="quotaDesc">100万起</div>
+            </div>
+            <div class="textList">
+              <div class="left">认购费率</div>
+              <div class="right" id="subRate">0%</div>
+            </div>
+            <div class="textList">
+              <div class="left">申购费率</div>
+              <div class="right" id="currentRate">0%</div>
+            </div>
+            <div class="textList">
+              <div class="left">年固定管理费</div>
+              <div class="right" id="managerRatioStr">0.2%</div>
+            </div>
+            <div class="textList">
+              <div class="left">年托管费率</div>
+              <div class="right" id="trusteeRatioStr">0.02%</div>
+            </div>
+            <div class="textList">
+              <div class="left">客户服务费</div>
+              <div class="right" id="custServiceRatioStr">0%</div>
+            </div>
+            <div class="textList">
+              <div class="left">赎回费率</div>
+              <div class="right" id="quitRate">0.5%</div>
+            </div>
+            <div class="textList">
+              <div class="left">业绩报酬</div>
+              <div class="right" id="achievementDate">文案文案文案</div>
+            </div>
+            <div class="last">
+              <div class="left">收益分配</div>
+              <div class="text">文案文案文案，具体开放时间由管理人决定。</div>
+            </div>
+        </div>
+        <!-- 第二个的切换 已经使用-->
+        <div class="" style="display:none">
+          <div class="qiehuan">
+              <div class="second" style="padding-top:0.75rem">
+                <div class="left">投资经理</div>
+                <div class="right" id="investBroker">徐博</div>
+              </div>
+              <div class="out">
+                <div class="left">投资目标</div>
+                <div class="right" id="investTarget">开放时间由管理人决定。本资开放时间由管理人决定。本资每12个月开放一次，具体开放时间由管理人决定。</div>
+              </div>
+              <div class="range">
+                <div class="left">投资范围</div>
+                <div class="right" id="investScope">开放时间由管理人决定。本资开放时间由管理人决定。本资每12个月开放一次，具体开放时间由管理人决定。本资产管理计划不允许违约退出。开放时间由管理人决定。本资开放时间由管理人决定。本资每12个月开放一次，具体开放时间由管理人决定。本资产管理计划不允许违约退出。开放时间由管理人决定。本资开放时间由管理人决定。本资每12个月开放一次，具体开放时间由管理人决定。本资产管理计划不允许违约退出。</div>
+              </div>
+              <div class="textList">
+                <div class="left">托管人</div>
+                <div class="right" id="trusteeName">中国工商银行股份有限公司上海市分行</div>
+              </div>
+          </div>
+        </div>
+    </section>
+    <div class="product">
+      <div>产品档案</div>
+    </div>
+    <div class="notice">
+      <a href="javascript:;" id="an">
+        <div class="first">
+           <div class="text">产品公告</div>
+           <div class="jiantou"></div>
+        </div>
+      </a>
+    </div>
+    <div class="notice">
+      <a href="javascript:;" id="files">
+        <div class="first">
+           <div class="text">产品合同</div>
+           <div class="jiantou"></div>
+        </div>
+      </a>
+    </div>
+    <div class="notice" style="margin-top:0.65rem;font-weight:bold;padding-bottom:4.5rem">
+      <a href="javascript:;" id="questionUrl">
+        <div class="first">
+           <div class="text">常见问题</div>
+           <div class="jiantou"></div>
+        </div>
+      </a>
+    </div>
+    
+    <!-- 弹窗 -->
+    <div class="tips">
+        <div>
+            <p class="tips_text" id="yieldTitleDesc">若您同时持有现金宝A/B/C多类份额，优先赎回到收益率较高的份额。</p>
+            <a href="javascript:;"><p class="button"><span>知道了</span></p></a>
+        </div>
+    </div>
+    
+</div><!--
+<footer>
+    <a href="javascript:;"><div class="buy">立即购买</div></a>
+</footer>-->
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/common.js?20210106" type="text/javascript"></script>
+<script src="js/echarts.min.js"></script>
+<script>
+var incomes1 = []
+var fundId = App.getUrlParam("productId");
+$("#files").click(function(){
+	window.location="relatedFile.html?productId="+fundId;
+});
+$("#an").click(function(){
+	window.location="htffundxjb://action?type=top&subType=notice&productId="+fundId;
+});
+$("#viewMore").click(function(){
+	window.location = 'net_value.html?productId='+fundId;
+	return ;
+});
+var custNo = App.getCookie("sso_cookie_ext_dp");
+	queryTips()
+	function queryTips(){
+	    var url = "/mobile-bff/v1/vip/product/detail?custNo="+custNo+"&fundId="+fundId+"&r=" + (new Date()).getTime();
+	    App.get(url, null, function(result) {
+	        var body = result.body;
+	        if (body != null && body != undefined) {
+	        	for(var k in body){
+	        		if(k.indexOf("Url") > -1){
+	        			if(k == "fundMangerInfoUrl"){//基金经理图标
+	        				if(App.isNotEmpty(body.fundMangerInfoUrl)){
+	        					$("#"+k).attr("src",body[k]);
+	        				}else{
+	        					$(".fundManager").hide();
+	        				}
+	        			}else if(k == "videoIntroduceUrl"){//视频地址
+	        				if(App.isNotEmpty(body[k])){
+								$("#picture,.player").on("click touchstart",function(){
+					        		window.location = body[k];
+					        	});
+	        				}else{
+	        					$(".model").hide()
+	        				}
+	        			}else if(k == "investHighlightUrl"){//投资亮点图
+	        				$("#"+k).attr("src",body[k]);
+	        			}else{
+	        				$("#"+k).attr("href",body[k]);
+	        			}
+	        		}else if(k == "videoCover"){//视频图片
+        				if(App.isNotEmpty(body[k])){
+        					$("#picture").attr('src',body[k]);
+							$("#picture,.player").on("click touchstart",function(){
+        						window.location = body.videoIntroduceUrl;
+        					});
+        				}else{
+        					$(".model").hide()
+        				}
+	        		}else if(k == "productName" || k == "productId"){
+	        			$("#"+k).html(body.productName+'<span style="margin-left:0.5rem">'+body.productId+'</span>');
+	        		}else if(k == "yieldDisplay" || k == "closePeriodDisplay"){
+	        			$("#"+k).html(body.yieldDisplay+'<span class="month" >'+body.closePeriodDisplay+'</span>');
+	        		}else if(k == "riskLvl"){
+	        			var risk = "";
+	        			if(body[k] == "1"){
+	        				risk = '低风险';
+	        			}else if(body[k] == "2"){
+	        				risk = '中风险';
+	        			}else if(body[k] == "3"){
+	        				risk = '较高风险';
+	        			}else if(body[k] == "4"){
+	        				risk = '高风险';
+	        			}else if(body[k] == "5"){
+	        				risk = '较低风险';
+	        			}
+	        			$("#riskLvl").html(risk)
+	        		}else if(k.indexOf("Rate") > -1 || k.indexOf("Rate") > -1 || k.indexOf("Ratio") > -1){
+	        			$("#"+k).html(App.formatMoney(body[k],2)+"%");
+	        		}else if(k == "yieldPerfmcShow"){
+	        			if(body.yieldPerfmcShow == "Y"){
+	        				queryNavs();
+	        				$(".chart").show()
+	        				$(".achievement").show();
+	        				$(".history").show();
+	        				$(".datas").show();
+	        				$(".much").show();
+	        			}else{
+	        				$(".chart").hide()
+	        				$(".achievement").hide();
+	        				$(".history").hide();
+	        				$(".datas").hide();
+	        				$(".much").hide();
+	        			}
+	        		}else if(k == "tradeRule"){
+	        			$("#"+k).attr("src",body[k]);
+	        		}else{
+	        			$("#"+k).html(body[k]);
+	        		}
+	        	}
+	        }
+	    });
+	}
+	
+	function queryNavs(){
+	    var url = "/productcenter/v1/new/compose/funds/single/vip/curve/yield/navday/all/collections?fundId="+fundId+"&r=" + (new Date()).getTime();
+	    App.get(url, null, function(result) {
+	        var body = result.body;
+	        if (body != null && body != undefined) {
+	        var htm='          <div class="list">'
+		              +'<div>日期</div>'
+		              +'<div>单位净值</div>'
+		              +'<div>累积净值</div>'
+		              +'<div>累计增长率</div>'
+		          +'</div>';
+	        	for(var k in body){
+		        	if(k < 5){
+			        	var item = body[k];
+			        	var rate = '';
+			        	if(String(item.sumOfYield).indexOf('-') > -1){
+			        		rate = '<div class="green">'+item.sumOfYield+'%</div>';
+			        	}else{
+			        		rate = '<div class="red">+'+item.sumOfYield+'%</div>';
+			        	}
+			        	htm+='	<div class="title_tip">'
+				              +'<div>'+dateFmt(item.navDate)+'</div>'
+				              +'<div>'+item.navDisplay+'</div>'
+				              +'<div>'+item.sumOfNav+'</div>'
+				              +rate
+				          +'</div>';
+				          var dataMap = {};
+				          dataMap["chartDt"] = dateFmt(item.navDate);
+				          dataMap["chartNum"] = (item.sumOfYield)/10;
+				          incomes1.push(dataMap);
+			        }
+	        	}
+                myChart_1 = echarts.init(document.getElementById('pie1'));
+                setOption(option_1, incomes1);
+                draw(myChart_1,option_1);
+                var seriesIndex = 0;
+                var num = 1;
+                if(incomes1.length > 0){
+                    seriesIndex = 0;
+                    num = incomes1.length - 1;
+                }
+
+                myChart_1.dispatchAction({ type: 'showTip', seriesIndex: seriesIndex, dataIndex:num });
+                myChart_1.dispatchAction({ type: 'showTip', seriesIndex: 1, dataIndex:-1 });
+	        	
+	        	$("#list").html(htm);
+	        }
+	    });
+	}
+
+	$(".icon2").click(function(){
+		$(".tips").show();
+	});
+    $('.tips span').eq(0).on('click', function () {//关闭弹窗
+        $('.tips').hide()
+
+    })
+	//格式化输入日期
+	function dateFmt(toFormat) {
+		toFormat = String(toFormat);
+		return toFormat.substr(0,4)+'.'+toFormat.substr(4,2)+'.'+toFormat.substr(6,2);
+	};
+  var myChart_1;
+  var option_1 = {
+      color: ['#fb5c5f','#89acd8', '#f11', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+        tooltip : { show: true, trigger: 'axis',
+          axisPointer: {
+             type: 'line', label: {  backgroundColor: 'rgba(0,0,0,0)',textStyle: {color: "red"} }, lineStyle: { color: "#1aa2e6"}
+          },
+         position:["50%", "2%"],alwaysShowContent: true , backgroundColor: "rgba(0,0,0,0)", textStyle:{ color: "#333"},
+      //    formatter: ' <div style="width: 100%;margin-left: -50%;font-size: 14px;">{a0}: <span style="color:#f4333c">{c0}%</span></div>'
+        formatter: function(itme){
+          var itmeday=itme[0].name;
+          var itmedata=itme[0].data+'%';
+           return ' <div style="width: 100%;position:relative;left:-160px;font-size: 14px;"><span style="display:inline-block;width:14px;height:14px;border-radius:2px;background:#fb5c5f;position:relative;top:2px;"></span> 本基金：'+'<span style="color:#f4333c">'+"+"+itmedata+'<span>'+'</div>'
+         }
+          // return ' <div style="width: 100%;font-size: 14px;position:relative;right: 160px;"><span style="display:inline-block;width:14px;height:14px;border-radius:2px;background:#fb5c5f;position:absolute;top:0.15rem"></span>本基金：'+'<span style="color:#f4333c;">'+itmedata+'<span>'+'</div>'
+         // }
+
+      },
+        grid: {left: '5%', right: '9%', bottom: '10%', top: "22%", containLabel: true, }, 
+        xAxis : [
+            {
+                type : 'category', boundaryGap : false, axisTick: {show: false},
+                splitLine:{ show: true, lineStyle: { color: "#f1f1f1"} },
+                axisLine:{show: true, lineStyle:{color:"f1f1f1"}},
+                axisLabel: {
+                  interval: 30,
+                },
+                data : [],
+                
+            }
+        ],
+      
+        yAxis : [
+            {
+                type : 'value',
+                axisLine:{show: true, lineStyle:{color:"f1f1f1"}},
+                axisTick: {show: false},
+                splitLine:{ show: true, lineStyle: { color: "#f1f1f1"} },
+            axisLabel: {  show: true,    formatter: "{value}%" ,textStyle: {color: "#999999",fontWeight:"bolder",fontFamily:"Arial"}},
+                    axisPointer: { label: {show:false},lineStyle: {type: "solid",color: "#1aa2e6"} }
+            }
+        ],
+        series : [
+            {
+              symbol: "emptyCircle", name:'本基金', type:'line', smooth: true,
+              symbolSize: 6,
+              showSymbol: false,
+              hoverAnimation: false,
+                areaStyle: {
+                  normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                offset: 0, color: '#fee6e3' // 0% 处的颜色
+              }, {
+                offset: 1, color: '#fff' // 100% 处的颜色
+              }], false)
+                  }
+                },
+                lineStyle: {
+                  normal: {
+                    color: "#fb5c5f",
+              width:1
+                  }
+                },
+                data:[]
+            }
+        ]
+    };
+     myChart_1 = echarts.init(document.getElementById('pie1'));
+ //   setOption(option_1, incomes1);
+//    draw(myChart_1,option_1);
+
+    function setOption(option,incomes1){
+      var result1 =  formattingIncomes(incomes1);
+
+      option.xAxis[0].data = result1.xArr;
+      option.xAxis[0].axisLabel.interval = result1.xArr.length-2;
+      option.series[0].data = result1.yArr;
+
+    }
+    function draw(myChart, option){
+        if( !((option.series[0].data && option.series[0].data.length>0) ||  (option.series[1].data && option.series[1].data.length>0))){
+            option.xAxis[0].data = ["",""];
+      option.xAxis[0].axisLabel.interval = ["",""].length-2;
+            $(".noData").show();
+        }else{
+            $(".noData").hide();
+        }
+        myChart.setOption(option);
+        setTimeout(function(){
+            myChart.dispatchAction({ type: 'showTip', seriesIndex: 1, dataIndex:10 });
+        },0);
+    }
+
+  function formattingIncomes(incomes){
+    var xArr = [], yArr = [];
+    var len = incomes.length;
+    for (var i = 0; i < len; i++) {
+      var chartDt = incomes[i].chartDt;
+        // xArr.push(chartDt.substr(-4,2) + "-" + chartDt.substr(-2,2));
+          xArr.push(chartDt);
+            yArr.push((incomes[i].chartNum*10).toFixed(2));
+    }
+    return {xArr: xArr, yArr: yArr};
+  }
+
+  // 交易说明切换
+  $('.tab3 li').click(function () {
+      if ($(this).hasClass("active")) {
+          return;
+      }
+      $(this).addClass("active").siblings().removeClass('active');
+      // $(this).parent().next("qiehuan").hide().eq($(this).index()).show();
+      $(this).parent().siblings().hide().eq($(this).index()).show()
+
+  });
+
+  // 主题
+   function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg); //匹配目标参数
+        if (r != null) return unescape(r[2]);
+        return ''; //返回参数值
+    }
+    var themeStyle = getUrlParam('themeStyle');
+
+</script>
+</body>
+</html>

@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>汇添富货币增强组合</title>
+    <link rel="stylesheet" type="text/css" href="css/base_xjj.css">
+    <style>
+        .diagram { position: relative; }
+        .icon { display: inline-block; width: 10px; height: 10px; background-size: contain; vertical-align: middle; margin-right: 5px; margin-top: -4px; }
+        .icon-1 { background-image: url("img/react_01.png") }
+        .icon-2 { background-image: url("img/react_02.png") }
+        .icon-3 { background-image: url("img/react_03.png") }
+        .icon-4 { background-image: url("img/react_04.png") }
+		.content0{
+			display: none;
+			margin-top: .2rem;
+			background-color: white;
+		}
+		.content0 .jingzhi {
+			font-size: .26rem;
+			/* font-weight: 900; */
+			height: .8rem;
+			box-sizing: border-box;
+			color: #000;
+			padding: .2rem;
+			margin-top: 1.4rem;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.content0 .jingzhi img {
+			width: .3rem;
+			/* transform: rotateX(180deg) */
+			display: inline-block;
+		}
+
+		.content0 .jingzhi img.right_1 {
+			transform: rotateZ(270deg);
+			margin:0px;
+		}
+
+		.content0 .wrap {
+			overflow: hidden;
+			position: relative;
+			width: 100%;
+			height: .8rem;
+		}
+        .green{color: #009944 }
+    </style>
+    <script>
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            screenWidth = screenWidth > 640 ? 640 : screenWidth;
+            oHtml.style.fontSize = screenWidth / 7.5 + 'px';
+        }
+    </script>
+
+</head>
+<body>
+<div class="active_content">
+    <div class="layer_item">
+        <div class="title">
+            <span>组合配置理念</span>
+        </div>
+        <div class="layer_box">
+            <div class="text_word">
+                <h6 class="all fund_group_advise"></h6>
+                <p class="btn">展开更多</p>
+            </div>
+            <div class="text_line">
+                <p class="left">产品成立日期： <span class="establish_date_str"></span></p>
+                <p class="right">已运行： <span class="diff_days"></span>天</p>
+            </div>
+        </div>
+    </div>
+	
+	<div class="content0">
+		<ul class="wrap">
+			<!--<li class="jingzhi div-jump list" style=" margin-top: 0.01rem;">
+				<p><img src="./img/sound.png" alt="" style="margin-right: .45rem;"><span
+						id="soundHoldNotice">“跟我投”调仓啦！</span></p>
+				<img class="right_1" src="./img/icon02.png">
+			</li>
+			<li class="jingzhi div-jump list" style=" margin-top: 0.01rem;">
+				<p><img src="./img/sound.png" alt="" style="margin-right: .45rem;"><span
+						id="soundHoldNotice">“跟我投”调仓啦11！</span></p>
+				<img class="right_1" src="./img/icon02.png">
+			</li>
+			<li class="jingzhi div-jump list" style=" margin-top: 0.01rem;">
+				<p><img src="./img/sound.png" alt="" style="margin-right: .45rem;"><span
+						id="soundHoldNotice">“跟我投”调仓啦222！</span></p>
+				<img class="right_1" src="./img/icon02.png">
+			</li>-->
+		</ul>
+	</div>
+	
+    <div class="layer_item">
+        <div class="title">
+            <span>基本指标</span>
+        </div>
+        <div class="layer_box">
+            <div class="target clearfix">
+                <div class="part" style="border-right: 0.01rem solid #eee;">
+                    <p>近一年收益率 <!--<img src="img/icon3_xjj.png" class="t-tips">--></p>
+                    <h2 class="red group_daily_growth_rate">0.00%</h2>
+                </div>
+                <div class="part" style="border-right: 0.01rem solid #eee;">
+                    <p>日万元收益 <img src="img/icon3_xjj.png" class="t-tips2"></p>
+                    <h2 class="red day_yield">0.00</h2>
+                </div>
+                <div class="part">
+                    <p>历史最大回撤 <img src="img/icon3_xjj.png" class="t-tips1"></p>
+                    <h2 class="draw_down">0.00%</h2>
+                </div>
+            </div>
+            <ul class="tips clearfix">
+                <li>较低风险</li>
+                <li>1000元起投</li>
+                <li>流动性 货基T+0 债基T+1</li>
+            </ul>
+        </div>
+    </div>
+    <div class="layer_item">
+        <div class="title">
+            <span>组合收益分析</span>
+        </div>
+        <div class="benefits">
+            <!--<p>别再让你的钱趴在银行，“损失”收益。</p>
+            <ul class="clearfix">
+                <li>
+                    <span>14.67元</span>
+                    <p>银行活期</p>
+                </li>
+                <li>
+                    <span>62.88元</span>
+                    <p>按一年定期折算</p>
+                </li>
+                <li>
+                    <span>108.57元</span>
+                    <p>现金宝</p>
+                </li>
+                <li class="red">
+                    <span>135.39元</span>
+                    <p>本组合</p>
+                </li>
+            </ul>
+            <h6>以上测算为假定投资金额1万元，自组合成立日2019.2.22日至2019.7.25日区间的收益对比</h6>-->
+            <div class="detail">
+                <h5>经测算本组合运行期内（自成立以来）： </h5>
+                <p>任意持有<span>1日</span>获得正收益的概率为<span id="oneDay">96%</span>；</p>
+                <p>任意持有<span>7日</span>获得正收益的概率为<span id="sevenDay">100%</span>；</p>
+                <p>任意持有<span>30日</span>获得正收益的概率为<span id="oneMonth">100%</span>。</p>
+                <p>建议持有30日以上，无赎回费，获取稳健收益。</p>
+            </div>
+        </div>
+    </div>
+    <div class="layer_item">
+        <div class="title">
+            <span>累计收益走势图</span>
+        </div>
+        <div class="charts">
+            <!--<div class="switch_b">
+                <ul class="clearfix">
+                    <li class="active">近90日年化</li>
+                    <li>累计收益率</li>
+                </ul>
+            </div>-->
+            <div class="diagram">
+                <div>
+                    <div id="pie1" style="width: 100%; height: 230px;"></div>
+                </div>
+                <div class="noData" style="display: none;">
+                    <p>没有足够的数据可展示</p>
+                </div>
+            </div>
+            <ul class="switchtab clearfix">
+                <li>近1月</li>
+                <li>近3月</li>
+                <li class="active">近6月</li>
+                <li>近1年</li>
+                <li>成立以来</li>
+            </ul>
+        </div>
+        <div class="t-info">
+            <div class="t-title">
+                <span>交易规则</span>
+            </div>
+            <div class="form-group">
+                <div class="input-text clearfix">
+                    <p class="left">买入</p>
+                    <p class="right">1000元起购，1000元追加</p>
+                </div>
+                <div class="input-text clearfix">
+                    <p class="left">卖出</p>
+                    <p class="right">货币<span>实时</span>到账，债券<span>T+1日</span>到账</p>
+                </div>
+                <div class="input-text clearfix">
+                    <p class="left">申赎费用</p>
+                    <p class="right">申购费低至<span>0.1折</span>，持有满30日无赎回费</p>
+                </div>
+            </div>
+        </div>
+        <div class="t-info">
+            <div class="t-title">
+                <span>常见问题</span>
+            </div>
+            <div class="ques" style="display: block;">
+                <div class="que-title">
+                    <p><span>问</span>这款产品购买后多久可以产生收益，是否可以作为活钱理财的选择？</p>
+                </div>
+                <div class="answer">
+                    <div class="a-content">
+                        <p>购买后T+1日即可起息；卖出货币实时到账现金宝，债券T+1到账现金宝，在当日快取额度内可实时提现至银行卡，流动性可以满足活钱理财需求。</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="ques">
+                <div class="que-title">
+                    <p><span>问</span>我只购买过货币基金，是理财小白用户，适合购买这款产品吗？</p>
+                </div>
+                <div class="answer">
+                    <div class="a-content">
+                        <p>该货币增强组合具有稳健波动小的特征，比单纯投资货币基金有机会获得更多收益，是一款非常适合稳健理财偏好用户的产品。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="togglebtn">展开更多</div>
+        </div>
+        <div class="other_detail clearfix fund_group_detail_list">
+            <p class="left">组合明细</p>
+            <a href="" class="right">
+            </a>
+        </div>
+        <div class="other_detail clearfix transferCount_a">
+            <p class="left">调仓记录</p>
+            <a href="javascript:void(0);" class="right">
+                <span class="transferTimes">12</span>次历史调仓
+            </a>
+        </div>
+    </div>
+    <!--<div class="footer">
+        <ul class="clearfix">
+            <li>
+                <a href="">定投</a>
+            </li>
+            <li>
+                <a href="">一键购买 <br><span>（100.00元起购）</span></a>
+            </li>
+        </ul>
+    </div>-->
+
+    <!-- 弹窗 -->
+    <div class="more-pop more-pop1">
+        <div class="k-content">
+            <p>根据组合中成分基金每日统计90日收益率折算成年化收益率，历史业绩仅作参考，不作为对未来收益承诺。</p>
+            <div class="iKnow">我知道了</div>
+        </div>
+    </div>
+
+    <!-- 弹窗 -->
+    <div class="more-pop more-pop2">
+        <div class="k-content">
+            <p>在一定区间内，组合净值从最高点到最低点的回撤程度。</p>
+            <div class="iKnow">我知道了</div>
+        </div>
+    </div>
+    <!-- 弹窗 -->
+    <div class="more-pop more-pop3">
+        <div class="k-content">
+            <p>根据标准组合昨日收益率对应到1万元的测算收益，仅体现标准组合历史单日业绩表现，不作为对未来收益的承诺。仅供参考，与投资者实际收益可能存在一定偏差。</p>
+            <div class="iKnow">我知道了</div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/echarts.min.js"></script>
+<script type="text/javascript" src = "https://static.99fund.com/mobile/wap-lib/js/basic.js"></script>
+<!-- <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script> -->
+
+</body>
+</html>
+<script type="text/javascript">
+
+    var queryTp = 0;
+    var queryDt = "03";//01:一月、02：三月、03：六月、04：今年以来、05：一年、08：成产以来
+    var queryDt_old = "2";
+    var groupId = "";
+    var establishDateStr = "";
+    $(function () {
+        groupId = WAP.getUrlParam("groupId");
+        $(".fund_group_detail_list").click(function () {
+            window.location.href = "./groupFundDetailsList.html?groupId=" + groupId;
+        });
+        $(".fund_group_detail_list a").attr("href", "./groupFundDetailsList.html?groupId=" + groupId);
+        requestGroupFundDetail(groupId);
+        // queryYieldLatest(groupId);
+        getTransferTimes(groupId);
+        getFundGroupInfo(groupId);
+        // query90Charts(groupId, queryDt);
+        queryRecommendInfo();
+    });
+
+    // $('.switch_b li').click(function(){
+    //     $(this).addClass('active').siblings('li').removeClass('active');
+    //     queryTp = $(this).index();
+    //     if(queryTp == 0){
+    //         query90Charts(groupId, queryDt);
+    //     } else {
+    //         getChartData(groupId, queryDt_old, establishDateStr);
+    //     }
+    // });
+    $('.switchtab li').click(function(){
+        $(this).addClass('active').siblings('li').removeClass('active');
+        if($(this).index() == 0){//01:一月
+            queryDt = "01";
+            queryDt_old = "1";
+        } else if ($(this).index() == 1){//02：三月
+            queryDt = "02";
+            queryDt_old = "9";
+        } else if ($(this).index() == 2){//03：六月
+            queryDt = "03";
+            queryDt_old = "2";
+        } else if ($(this).index() == 3){//05：一年
+            queryDt = "05";
+            queryDt_old = "3";
+        } else if ($(this).index() == 4){//08：成产以来
+            queryDt = "08";
+            queryDt_old = "4";
+        }
+        // if(queryTp == 0){
+        //     query90Charts(groupId, queryDt);
+        // } else {
+        getChartData(groupId, queryDt_old, establishDateStr);
+        // }
+    });
+    $('.text_word .btn').click(function(){
+        if ($(this).text()=='展开更多'){
+            $(this).text('收起');
+        }else{
+            $(this).text('展开更多');
+        }
+        $(this).siblings('h6').toggleClass('all');
+    })
+    $('.togglebtn').click(function(){
+        if ($(this).text()=="展开更多") {
+            $(this).text('收起');
+            $('.ques').show();
+        }else{
+            $(this).text('展开更多');
+            $('.ques').hide();
+            $('.ques').eq(0).show();
+        }
+    })
+    $('.target .t-tips').click(function(){
+        $('.more-pop1').show();
+    })
+    $('.target .t-tips1').click(function(){
+        $('.more-pop2').show();
+    })
+    $('.target .t-tips2').click(function(){
+        $('.more-pop3').show();
+    })
+    $('.iKnow').click(function(){
+        $('.more-pop').hide();
+    })
+
+    var option_1 = {
+        color: ['#fb5c5f','#89acd8', '#f11', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+        tooltip : { show: true, trigger: 'axis',
+            axisPointer: {
+                type: 'cross', label: {  backgroundColor: 'rgba(0,0,0,0)',textStyle: {color: "red"} }, lineStyle: {type:"dashed", color: "#1aa2e6" }
+            },
+            position:["20%", "2%"],alwaysShowContent: true , backgroundColor: "rgba(0,0,0,0)", textStyle:{ color: "#333"},
+            formatter: function(params){
+                var arr = [];
+                arr.push('<div style="width: 100%;font-size: 14px;">')
+                for(var i=0; i< params.length; i++){
+                    //console.log(params[i].seriesName);
+                    switch (params[i].seriesName){
+                        case "本组合":
+                            arr.push('<span class="icon icon-1"></span>'); break;
+                        case "现金宝":
+                            arr.push('&nbsp; <span class="icon icon-4"></span>'); break;
+                    }
+                    arr.push(params[i].seriesName + ": " +params[i].data + "%");
+                }
+                arr.push("</div>");
+                return arr.join("");
+            }
+            //' <div style="width: 100%;margin-left: -50%;font-size: 14px;"><span class="icon icon-1"></span> {a0}: {c0}% &nbsp;&nbsp; <span class="icon icon-3"> </span>{a1}: {c1}%</div>'
+        },
+        grid: {left: '5%', right: '5%', bottom: '0%', top: "20%", containLabel: true },
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                axisTick: {show: false},
+                splitLine:{ show: true, lineStyle: { color: "#f1f1f1"} },
+                axisLine:{show: true, lineStyle:{color:"#a5a5a5"}},
+                axisLabel: {interval: 30, formatter: function(value, index){
+                        if(index ==0){ return "   " + value; }
+                        return value + "          ";
+                    }
+                },
+                data : []
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                axisLine:{show: true, lineStyle:{color:"f1f1f1"}},
+                axisTick: {show: false},
+                splitLine:{ show: true, lineStyle: { color: "#f1f1f1"} },
+                axisLabel: {  show: true,    formatter: function(value){return toDecimal(value);} ,textStyle: {color: "#999999",fontWeight:"bolder",fontFamily:"Arial"}},
+                axisPointer: {show:false/*  , label: {show:false},lineStyle: {type: "solid",color: "#1aa2e6"} */ },
+            }
+        ],
+        series : [
+            {
+                symbol: "none", name:'本组合', type:'line', smooth: true,
+                areaStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0, color: '#fee6e3' // 0% 处的颜色
+                        }, {
+                            offset: 1, color: '#fff' // 100% 处的颜色
+                        }], false)
+                    }
+                },
+                lineStyle: {normal: {color: "#fb5c5f", width: 1}},
+                data: []
+            },
+            {
+                symbol: "none",
+                name:'现金宝',
+                type:'line',
+                smooth: true,
+                /*  areaStyle: {
+                     normal: {
+                         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                           offset: 0, color: '#d0deef' // 0% 处的颜色
+                         }, {
+                           offset: 1, color: '#fff' // 100% 处的颜色
+                         }], false)
+                     }
+                 }, */
+                lineStyle: { normal: { color: "#fecb01", width: 1} },
+                data: []
+            }
+        ]
+    };
+
+    var option_2 = {
+        color: ['#fb5c5f','#89acd8', '#f11', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+        tooltip : { show: true, trigger: 'axis',
+            axisPointer: {
+                type: 'cross', label: {  backgroundColor: 'rgba(0,0,0,0)',textStyle: {color: "red"} }, lineStyle: {type:"dashed", color: "#1aa2e6" }
+            },
+            position:["10%", "2%"],alwaysShowContent: true , backgroundColor: "rgba(0,0,0,0)", textStyle:{ color: "#333"},
+            formatter: function(params){
+                var arr = [];
+                arr.push('<div style="width: 100%;font-size: 14px;">')
+                for(var i=0; i< params.length; i++){
+                    //console.log(params[i].seriesName);
+                    switch (params[i].seriesName){
+                        case "本组合":
+                            arr.push('<span class="icon icon-1"></span>'); break;
+                        case "中证货币指数":
+                            arr.push('&nbsp; <span class="icon icon-4"></span>'); break;
+                    }
+                    arr.push(params[i].seriesName + ": " +params[i].data + "%");
+                }
+                arr.push("</div>");
+                return arr.join("");
+            }
+            //' <div style="width: 100%;margin-left: -50%;font-size: 14px;"><span class="icon icon-1"></span> {a0}: {c0}% &nbsp;&nbsp; <span class="icon icon-3"> </span>{a1}: {c1}%</div>'
+        },
+        grid: {left: '5%', right: '5%', bottom: '0%', top: "20%", containLabel: true },
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                axisTick: {show: false},
+                splitLine:{ show: true, lineStyle: { color: "#f1f1f1"} },
+                axisLine:{show: true, lineStyle:{color:"#a5a5a5"}},
+                axisLabel: {interval: 30, formatter: function(value, index){
+                        if(index ==0){ return "  " + value; }
+                        return value + "          ";
+                    }
+                },
+                data : []
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                axisLine:{show: true, lineStyle:{color:"f1f1f1"}},
+                axisTick: {show: false},
+                splitLine:{ show: true, lineStyle: { color: "#f1f1f1"} },
+                axisLabel: {  show: true,    formatter: function(value){return toDecimal(value);} ,textStyle: {color: "#999999",fontWeight:"bolder",fontFamily:"Arial"}},
+                axisPointer: {show:false/*  , label: {show:false},lineStyle: {type: "solid",color: "#1aa2e6"} */ },
+            }
+        ],
+        series : [
+            {
+                symbol: "none", name:'本组合', type:'line', smooth: true,
+                areaStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0, color: '#fee6e3' // 0% 处的颜色
+                        }, {
+                            offset: 1, color: '#fff' // 100% 处的颜色
+                        }], false)
+                    }
+                },
+                lineStyle: {normal: {color: "#fb5c5f", width: 1}},
+                data: []
+            },
+            {
+                symbol: "none",
+                name:'中证货币指数',
+                type:'line',
+                smooth: true,
+                /*  areaStyle: {
+                     normal: {
+                         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                           offset: 0, color: '#d0deef' // 0% 处的颜色
+                         }, {
+                           offset: 1, color: '#fff' // 100% 处的颜色
+                         }], false)
+                     }
+                 }, */
+                lineStyle: { normal: { color: "#fecb01", width: 1} },
+                data: []
+            }
+        ]
+    };
+
+    function setOption(option, incomes1, incomes2){
+        var result1 =  formattingIncomes(incomes1);
+        var result2 =  formattingIncomes(incomes2);
+        option.xAxis[0].data = result1.xArr;
+        option.xAxis[0].axisLabel.interval = result1.xArr.length-2;
+        option.series[0].data = result1.yArr;
+        option.series[1].data = result2.yArr;
+
+    }
+    function setOption_new(option, incomes1){
+        var result1 =  formattingIncomes(incomes1, "fundGroup");
+        var result2 =  formattingIncomes(incomes1, "fund");
+        option.xAxis[0].data = result1.xArr;
+        option.xAxis[0].axisLabel.interval = result1.xArr.length-2;
+        option.series[0].data = result1.yArr;
+        option.series[1].data = result2.yArr;
+
+    }
+    function draw(myChart, option){
+        if( !((option.series[0].data && option.series[0].data.length>0) ||  (option.series[1].data && option.series[1].data.length>0))){
+            option.xAxis[0].data = ["",""];
+            option.xAxis[0].axisLabel.interval = ["",""].length-2;
+            $(".noData").show();
+        }else{
+            $(".noData").hide();
+        }
+        myChart.setOption(option);
+        /* setTimeout(function(){
+            myChart.dispatchAction({ type: 'showTip', seriesIndex: 0, dataIndex: 10 });
+        },0); */
+    }
+
+    function formattingIncomes(incomes, type){
+        var xArr = [], yArr = [];
+        var len = incomes.length;
+        for (var i = 0; i < len; i++) {
+            if(type == undefined || type == null || type == ''){
+                var chartDt = incomes[i].chartDt;
+                xArr.push(chartDt.substr(0,4) + "-" + chartDt.substr(-4,2) + "-" + chartDt.substr(-2,2));
+            } else {
+                xArr.push(incomes[i].navDate);
+            }
+            if(type == "fundGroup"){
+                yArr.push(incomes[i].groupDailyGrowthRate);
+            } else if (type == "fund"){
+                yArr.push(incomes[i].fundDailyGrowthRate);
+            } else if (type == "yield"){
+                yArr.push(incomes[i].sumOfYield);
+            } else {
+                yArr.push(incomes[i].chartNum);
+            }
+        }
+        return {xArr: xArr, yArr: yArr};
+    }
+
+    //制保留2位小数，如：2，会在2后面补上00.即2.00
+    function toDecimal(x) {
+        var f = parseFloat(x);
+        if (isNaN(f)) {
+            return false;
+        }
+        var f = Math.round(x*100)/100;
+        var s = f.toString();
+        var rs = s.indexOf('.');
+        if (rs < 0) {
+            rs = s.length;
+            s += '.';
+        }
+        while (s.length <= rs + 2) {
+            s += '0';
+        }
+        return s;
+    }
+
+
+    function requestGroupFundDetail(groupId){
+        $.get(WAP.requestAddr + "/adviser/query_fundgroup_detail_info?groupId=" + groupId, function(resultStr){
+            //alert(resultStr);
+            var result = JSON.parse(resultStr);
+            if(result.returnCode == 0){
+                var detailInfo = result.body.detailInfo;
+                if(detailInfo != undefined && detailInfo != ""){
+                    var dayYield = 0;
+                    if(detailInfo.dayYield != undefined && detailInfo.dayYield != null){
+                        dayYield = (Number(detailInfo.dayYieldWap) * 100).toFixed(4);
+                    }
+                    $(".group_daily_growth_rate").html(WAP.formatMoney(detailInfo.nearYearProfit, 3) + "%");
+                    $(".day_yield").html(dayYield);
+                    if(dayYield < 0){
+                        $(".day_yield").removeClass("red");
+                        $(".day_yield").addClass("green");
+                    }
+                    $(".draw_down").html(Number(detailInfo.drawdown).toFixed(4) + "%");
+                    $(".fund_group_advise").html(detailInfo.fundgroupDesc);
+                    $("title").html(detailInfo.groupname);
+                    establishDateStr = detailInfo.establishDateStr;
+                    var diffDays = dateDiff(establishDateStr);
+                    var showEstablishDateStr = establishDateStr.substr(0,4)+'年'+establishDateStr.substr(5,2)+'月'+establishDateStr.substr(-2,2)+'日';
+                    $(".establish_date_str").html(showEstablishDateStr);
+                    $(".diff_days").html(diffDays);
+                    createtimeStr = detailInfo.createtimeStr;
+
+                    getChartData(groupId, queryDt_old, establishDateStr);
+                }
+            }else{
+                alert(result.returnMsg);
+            }
+        });
+    }
+
+    function dateDiff(sDate) {
+        var firstDate = new Date(sDate);
+        var secondDate = new Date();
+        var diff = Math.abs(firstDate.getTime() - secondDate.getTime());
+        var result = parseInt(diff / (1000 * 60 * 60 * 24));
+        if(result != undefined && result != null && result != '' && !isNaN(result)){
+            return result;
+        } else {
+            return 0;
+        }
+    }
+
+    // function queryYieldLatest(groupId){
+    //     $.get("/productcenter/v1/new/compose/fundgroups/single/yield/latest?groupId=" + groupId, function(result){
+    //         //alert(resultStr);
+    //         if(result.returnCode == 0){
+    //             var body = result.body;
+    //             if(body != undefined && body != null && body != ""){
+    //                 $(".group_daily_growth_rate").html(body.groupDailyGrowthRate + "%");
+    //             }
+    //         }
+    //     });
+    // }
+
+    function getTransferTimes(groupId){
+        $.get(WAP.requestAddr + "/adviser/query_fund_group_change_date?groupId=" + groupId, function(resultStr){
+            //console.log(resultStr);
+            var result = JSON.parse(resultStr);
+            if(result.returnCode == 0){
+                var dateList = result.body.dateList;
+                if(dateList != undefined && dateList != null){
+                    lastChangeDateStr = dateList[0];
+                    var dataSize = dateList.length;
+                    $(".transferTimes").html(dataSize);
+                    if(dataSize <= 0){
+                        $(".content4").hide();
+                        $(".transferCount_a").attr("href", "javascript:void();");
+                    }else{
+                        transferNum = dataSize;
+                        // $(".transferCount_a").click(function () {
+                        //     window.location.href = "htffundxjb://action?type=fg&subType=fgtd&groupId="+ WAP.getUrlParam("groupId") + "&date=" + lastChangeDateStr;
+                        // });
+                        $(".transferCount_a a").attr("href", "htffundxjb://action?type=fg&subType=fgtd&groupId="+ WAP.getUrlParam("groupId") + "&date=" + lastChangeDateStr);
+                    }
+
+                }
+            } else {
+                alert(result.returnMsg);
+            }
+        });
+    }
+
+    function getChartData(groupId, queryTp, createDt){
+        //console.log(chartTp);
+        $.get(WAP.requestAddr + "/adviser/query_fund_group_yields?groupId=" + groupId + "&chartTp=0,4&queryTp=" + queryTp + "&createDt=" + createDt + "&t=" + new Date().getTime(), function(resultStr){
+            //console.log(resultStr);
+            var result = JSON.parse(resultStr);
+            if(result.returnCode == 0){
+                var chartDatas = result.body;
+                var syList = chartDatas.syList;
+                var mixList = chartDatas.mixList;
+                myChart_1 = echarts.init(document.getElementById('pie1'));
+                setOption(option_2, syList, mixList);
+                draw(myChart_1,option_2);
+                var seriesIndex = 0;
+                var num = 1;
+                if(syList.length > 0){
+                    seriesIndex = 0;
+                    num = syList.length - 1;
+                }
+                myChart_1.dispatchAction({ type: 'showTip', seriesIndex: seriesIndex, dataIndex:num });
+                myChart_1.dispatchAction({ type: 'showTip', seriesIndex: 1, dataIndex:-1 });
+            }
+        });
+    }
+
+    function query90Charts(groupId, queryDt){
+        var url = "/productcenter/v1/new/compose/fundgroups/single/curve/annual/yield/90/collections?groupId="+ groupId +"&annualType="+ queryDt;
+        $.get(url, function(result){
+            //console.log("result:", data);
+            if(result.returnCode == 0){
+                var body = result.body;
+                if(body != undefined && body != null && body.length > 0){
+                    // var incomes1 = [{"navDate":"2019-07-01","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.12"},{"navDate":"2019-07-02","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.15"},{"navDate":"2019-07-03","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.18"},{"navDate":"2019-07-04","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.22"},{"navDate":"2019-07-05","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.26"},{"navDate":"2019-07-06","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.24"},{"navDate":"2019-07-07","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.22"},{"navDate":"2019-07-08","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.25"},{"navDate":"2019-07-09","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.27"},{"navDate":"2019-07-10","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.30"},{"navDate":"2019-07-11","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.33"},{"navDate":"2019-07-12","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.41"},{"navDate":"2019-07-13","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.41"},{"navDate":"2019-07-14","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.39"},{"navDate":"2019-07-15","groupId":"A0453","groupDailyGrowthRate":"1.76","fundId":"000330","fundDailyGrowthRate":"4.48"},{"navDate":"2019-07-16","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.57"},{"navDate":"2019-07-17","groupId":"A0453","groupDailyGrowthRate":"1.76","fundId":"000330","fundDailyGrowthRate":"4.67"},{"navDate":"2019-07-18","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.77"},{"navDate":"2019-07-19","groupId":"A0453","groupDailyGrowthRate":"1.76","fundId":"000330","fundDailyGrowthRate":"4.89"},{"navDate":"2019-07-20","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.89"},{"navDate":"2019-07-21","groupId":"A0453","groupDailyGrowthRate":"1.76","fundId":"000330","fundDailyGrowthRate":"4.86"},{"navDate":"2019-07-22","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.97"},{"navDate":"2019-07-23","groupId":"A0453","groupDailyGrowthRate":"1.76","fundId":"000330","fundDailyGrowthRate":"5.08"},{"navDate":"2019-07-24","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"5.18"},{"navDate":"2019-07-25","groupId":"A0453","groupDailyGrowthRate":"1.76","fundId":"000330","fundDailyGrowthRate":"5.27"},{"navDate":"2019-07-26","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"5.38"},{"navDate":"2019-07-27","groupId":"A0453","groupDailyGrowthRate":"1.76","fundId":"000330","fundDailyGrowthRate":"5.37"},{"navDate":"2019-07-28","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"5.35"},{"navDate":"2019-07-29","groupId":"A0453","groupDailyGrowthRate":"1.76","fundId":"000330","fundDailyGrowthRate":"5.44"},{"navDate":"2019-07-30","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"5.54"}];
+
+                    myChart_1 = echarts.init(document.getElementById('pie1'));
+                    setOption_new(option_1, body);
+                    draw(myChart_1,option_1);
+                    var seriesIndex = 0;
+                    var num = 1;
+                    if(body.length > 0){
+                        seriesIndex = 0;
+                        num = body.length - 1;
+                    }
+                    myChart_1.dispatchAction({ type: 'showTip', seriesIndex: seriesIndex, dataIndex:num });
+                    myChart_1.dispatchAction({ type: 'showTip', seriesIndex: 1, dataIndex:-1 });
+                }
+            }
+        });
+    };
+
+    function queryCumulativeCharts(groupId, syList){
+        if(syList != undefined && syList != null && syList.length > 0){
+            var startDate  = syList[0].chartDt;
+            var endDate = syList[syList.length - 1].chartDt;
+            var url = "/productcenter/v1/new/compose/funds/single/curve/yield/navday/start-to-end/collections?fundId=000330&startDate="+ startDate +"&endDate="+ endDate;
+            $.get(url, function(result){
+                if(result.returnCode == 0){
+                    // var incomes1 = [{"navDate":"2019-07-01","groupId":"A0453","groupDailyGrowthRate":"0.80","fundId":"000330","fundDailyGrowthRate":"0.12"},{"navDate":"2019-07-02","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.15"},{"navDate":"2019-07-03","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.18"},{"navDate":"2019-07-04","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.22"},{"navDate":"2019-07-05","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.26"},{"navDate":"2019-07-06","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.24"},{"navDate":"2019-07-07","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.22"},{"navDate":"2019-07-08","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.25"},{"navDate":"2019-07-09","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.27"},{"navDate":"2019-07-10","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.30"},{"navDate":"2019-07-11","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.33"},{"navDate":"2019-07-12","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.41"},{"navDate":"2019-07-13","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.41"},{"navDate":"2019-07-14","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.39"},{"navDate":"2019-07-15","groupId":"A0453","groupDailyGrowthRate":"1.76","fundId":"000330","fundDailyGrowthRate":"4.48"},{"navDate":"2019-07-16","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.57"},{"navDate":"2019-07-17","groupId":"A0453","groupDailyGrowthRate":"1.76","fundId":"000330","fundDailyGrowthRate":"4.67"},{"navDate":"2019-07-18","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.77"},{"navDate":"2019-07-19","groupId":"A0453","groupDailyGrowthRate":"1.76","fundId":"000330","fundDailyGrowthRate":"4.89"},{"navDate":"2019-07-20","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.89"},{"navDate":"2019-07-21","groupId":"A0453","groupDailyGrowthRate":"1.76","fundId":"000330","fundDailyGrowthRate":"4.86"},{"navDate":"2019-07-22","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"4.97"},{"navDate":"2019-07-23","groupId":"A0453","groupDailyGrowthRate":"1.76","fundId":"000330","fundDailyGrowthRate":"5.08"},{"navDate":"2019-07-24","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"5.18"},{"navDate":"2019-07-25","groupId":"A0453","groupDailyGrowthRate":"1.76","fundId":"000330","fundDailyGrowthRate":"5.27"},{"navDate":"2019-07-26","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"5.38"},{"navDate":"2019-07-27","groupId":"A0453","groupDailyGrowthRate":"1.76","fundId":"000330","fundDailyGrowthRate":"5.37"},{"navDate":"2019-07-28","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"5.35"},{"navDate":"2019-07-29","groupId":"A0453","groupDailyGrowthRate":"1.76","fundId":"000330","fundDailyGrowthRate":"5.44"},{"navDate":"2019-07-30","groupId":"A0453","groupDailyGrowthRate":"1.80","fundId":"000330","fundDailyGrowthRate":"5.54"}];
+                    var incomes = result.body;
+                    if(incomes != undefined && incomes != null && incomes.length > 0){
+                        myChart_1 = echarts.init(document.getElementById('pie1'));
+                        setOption(option_2, syList, incomes);
+                        draw(myChart_1,option_2);
+                        var seriesIndex = 0;
+                        var num = 1;
+                        if(syList.length > 0){
+                            seriesIndex = 0;
+                            num = syList.length - 1;
+                        }
+                        myChart_1.dispatchAction({ type: 'showTip', seriesIndex: seriesIndex, dataIndex:num });
+                        myChart_1.dispatchAction({ type: 'showTip', seriesIndex: 1, dataIndex:-1 });
+                    }
+                }
+            });
+        }
+    };
+
+    function getFundGroupInfo(groupId){
+        var url = "/productcenter/v1/old/info/fundgroup/probatility/growth/collections?groupId=" + groupId + "&t=" + new Date().getTime();
+        $.get(url, function(result){
+            if(result.body != undefined && result.body != null){
+                var list = result.body;
+                if(list != undefined && list != null){
+                    list.forEach(function (item) {
+                        if(item.probabilityType == "1D"){
+                            $("#oneDay").html(item.probabilityValuePercentage + "%");
+                        } else if(item.probabilityType == "7D"){
+                            $("#sevenDay").html(item.probabilityValuePercentage + "%");
+                        } else if(item.probabilityType == "1M"){
+                            $("#oneMonth").html(item.probabilityValuePercentage + "%");
+                        }
+                    });
+                }
+            }
+        });
+    }
+    
+    function queryRecommendInfo(){
+        var url = "/mobile-bff/v1/fund/getFundRecommendInfo?productType=1&fundIds="+WAP.getUrlParam("groupId");
+        
+        $.get(url, function(result){
+                if(result.returnCode == 0 && result.body != undefined && result.body != null){
+					var html = '';
+					result.body[WAP.getUrlParam("groupId")].forEach(function(item){
+                        var infoTitle = item.infoTitle.length > 20 ? item.infoTitle.substr(0,20) + '...' : item.infoTitle;
+						html += '<li class="jingzhi div-jump list" style=" margin-top: 0.01rem;" onclick="visit(\''+item.infoJumpUrl+'\')">'
+								+'	<p><img src="./img/sound.png" alt="" style="margin-right: .45rem;"><span >'+infoTitle+'</span></p>'
+								+'	<img class="right_1" src="./img/icon02.png">'
+								+'</li>';
+					});
+					$(".content0 .wrap").html(html);
+					if(html.length > 0){
+						$(".content0").show();
+						if($('.content0 .wrap .list').length>1){
+							scroll();
+						}
+					}
+                }
+            }
+        );
+
+    }
+	
+	function visit(url){
+		window.location.href = url;
+	}
+
+	function scroll() {
+		$(".content0 .wrap .list:eq(0)").animate({ "margin-top": "-2.5rem" },1000, function () {
+			$(".content0 .wrap .list:eq(0)").appendTo($(".content0 .wrap"));
+			$(".content0 .wrap .list:last").css({ "margin-top": '0' });
+		})
+		setTimeout(scroll, 4000)
+	}
+</script>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>短信登陆</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="../css/base.css">
+    <!-- <link rel="stylesheet" href="../css/login/login.css"> -->
+    <!-- <link rel="stylesheet" href="css/login_main.css"> -->
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <style>
+        html, body {
+            background-color: #fff;
+        }
+
+        .main {
+            padding-left: .75rem;
+        }
+
+        .main ul li {
+            border-bottom: #eee 1px solid;
+        }
+
+        .input-group {
+            position: relative;
+            display: table;
+            border-collapse: separate;
+            width: 100%;
+        }
+
+        .input-group .input-group-btn,
+        .input-group .input-group-addon {
+            display: table-cell;
+            white-space: nowrap;
+            vertical-align: middle;
+            padding: .4rem .7rem;
+            font-weight: 400;
+            line-height: 1;
+            color: #555;
+            text-align: center;
+            width: 1rem;
+            padding: 0;
+            font-size: .7rem;
+        }
+
+        .input-group .input-group-btn {
+            padding: 0;
+        }
+
+        .input-group-btn button {
+            outline: none;
+            background: none;
+            padding: .1rem 0 .1rem .45rem;
+            width: 4rem;
+            border-left: 1px solid #eeeeee;
+            margin-left: .45rem;
+            text-align: right;
+            font-size: .7rem;
+        }
+
+        .input-group .form-control {
+            display: table-cell;
+            position: relative;
+            z-index: 2;
+            float: left;
+            margin-bottom: 0;
+            padding: .7rem 0 .7rem .5rem;
+            width: 92%;
+            height: 1rem;
+            line-height: 1rem;
+            color: #000;
+            font-size: .7rem;
+        }
+
+        .input-group .input-group-addon img {
+            width: .75rem;
+        }
+
+        .input-group .daojishi {
+            display: table-cell;
+            padding: 0 0.4rem;
+            line-height: 1.5rem;
+            vertical-align: middle;
+            font-size: .6rem;
+            color: #000;
+            text-align: center;
+            /* border-left: 1px #eee solid; */
+            /* margin: .5rem 0; */
+        }
+
+        .input-group .linee {
+            display: inline-block;
+            width: 1px;
+            height: 1.5rem;
+            font-size: 0;
+            background-color: #eee;
+            margin-bottom: .5rem;
+        }
+
+        .question {
+            text-align: right;
+            margin: .75rem .75rem 1.25rem 0;
+            color: #218ee3;
+            font-size: 0.65rem;
+        }
+
+        .next {
+            width: 92%;
+            line-height: 2.25rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #fff;
+            background: #fe7e01;
+            margin-left: 4%;
+            border-radius: 3px;
+        }
+
+        .bg_active {
+            background: rgb(255, 217, 177) !important;
+            pointer-events: none;
+        }
+
+        .mask {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .7);
+            z-index: 10;
+        }
+
+        .answer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 13.75rem;
+            background: #fff;
+            border-radius: 0.15rem;
+            padding: 0 0.625rem;
+            z-index: 20;
+        }
+
+        .answer .answer_text {
+            border-bottom: 1px #eee solid;
+            padding: .75rem .625rem;
+            line-height: 1.5;
+            color: #666666;
+        }
+
+        .answer .close {
+            display: block;
+            line-height: 2.5rem;
+            color: #0070fa;
+            text-align: center;
+
+        }
+
+        .mask_btn1, .mask_btn2 {
+            float: left;
+            width: 50%;
+            box-sizing: border-box;
+            margin: .25rem 0;
+        }
+
+        .mask_btn1 {
+            border-right: 1px #eee solid;
+        }
+
+        #stip {
+            max-width: 15rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, .7);
+            font-size: 0.7rem;
+            color: #fff;
+            white-space: nowrap;
+            padding: .75rem 1rem;
+            line-height: 1.5;
+            border-radius: 0.2rem;
+            -webkit-animation-name: fadeInOut;
+            -webkit-animation-timing-function: ease-in-out;
+            -webkit-animation-iteration-count: 1;
+            -webkit-animation-duration: 5s;
+            -webkit-animation-direction: alternate;
+        }
+
+        @-webkit-keyframes fadeInOut {
+            0% {
+                opacity: 0;
+            }
+            25% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+        input {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+<section class="main">
+    <ul>
+        <li>
+            <div class="input-group">
+                <span class="input-group-addon"><img style="width: .62rem;" src="../images/phone.png" alt=""></span>
+                <input type="text" maxlength="11" class="form-control phone" placeholder="请输入手机号"
+                       data-rquire="data-rquire" data-rquire-msg="手机号码不能为空">
+                <!-- <span class="input-group-addon clearInputTxt" style="padding-right:.75rem"><img src="../images/del.png" alt=""></span> -->
+            </div>
+        </li>
+        <li>
+            <div class="input-group">
+                <span class="input-group-addon"><img style="width: .75rem;" src="../images/yzm.png" alt=""></span>
+                <input type="text" maxlength="6" class="form-control pwd" placeholder="请输入验证码" data-rquire="data-rquire"
+                       data-rquire-msg="验证码不能为空" style="width: 50%;">
+                <span class="input-group-addon clearInputTxt" style="padding-right:.75rem;visibility: hidden;"><img
+                        src="../images/del.png" alt=""></span>
+                <i class="linee"></i>
+                <span class="daojishi">发送验证码</span>
+            </div>
+        </li>
+    </ul>
+</section>
+<section class="question clearfix"><span id = "question_clearfix">收不到验证码?</span></section>
+<section class="next bg_active">下一步</section>
+<div class="mask mask1">
+    <div class="answer">
+        <div class="answer_text">1、请确认手机号填写无误，若手机号正确，请查看短信是否被手机安全软件拦截；<br>
+            2、请确认您的手机处于正常通讯状态并且信号良好，否则建议您稍后重试；<br>
+        </div>
+        <a href="javascript:;" class="close answer1">我知道了</a>
+    </div>
+</div>
+<div class="mask mask2">
+    <div class="answer">
+        <div class="answer_text" id="answer2_text">1、请确认手机号填写无误，若手机号正确，请查看短信是否被手机安全软件拦截；<br>
+            2、请确认您的手机处于正常通讯状态并且信号良好，否则建议您稍后重试；<br>
+        </div>
+        <a href="javascript:;" class="close mask_btn1">账密登录</a>
+        <a href="javascript:;" class="close mask_btn2">取消</a>
+    </div>
+</div>
+<div class="mask mask3">
+    <div class="answer">
+        <div class="answer_text"  id="answer3_text">您输入的验证码错误
+        </div>
+        <a href="javascript:;" class="close mask_btn1">账密登录</a>
+        <a href="javascript:;" class="close mask_btn3">取消</a>
+    </div>
+</div>
+<div id="stip" style="display: none;" >您输入的验证码错误</div>
+<script src="../js/zepto.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script src="../js/common.js?20210302"></script>
+<script>
+    var timeFlag = false;
+    var serialNo = "";
+    var phone = '';
+    var pwd = '';
+    var slideAuthCode = "";
+    $('.daojishi').click(function () {
+        if (timeFlag == true) {
+            return false;
+        } else {
+            var phone = $(".phone").val();
+            if(!(/^1[3456789]\d{9}/.test(phone))){
+                $("#stip").html("手机号错误，请重新输入");
+                $('#stip').show().css('opacity','0');
+                setTimeout(function(){
+                    $('#stip').hide();
+                },5000)
+                return ;
+            }
+            //获取滑动验证码开始
+            $.ajax({
+                type: 'GET',
+                url: '/cos/v1/identity/captcha/token?validateType=1',
+                data: {},
+                dataType: 'json',
+                t: new Date(),
+                success: function (result) {
+                    if(result.returnCode == 0){
+                        //渲染验证码
+                        _fmOpt.triggerCaptcha(result.body);
+                    }else {
+                        alert('系统异常，请稍后再试!');
+                    }
+                },
+                error: function () {
+                    alert('系统异常，请稍后再试!');
+                }
+            });
+            //获取滑动验证码结束
+            // 验证成功回调，有效token由此传入
+            _fmOpt.onSuccess = function (validateToken) {
+                slideAuthCode =   validateToken;
+                getVerificationCode(phone);
+            }
+        }
+
+    })
+    function timeOut(timFlag){
+        if (timFlag) {
+            return false;
+        } else {
+            timeFlag = true;
+            var count = 60;
+            var intervals = setInterval(function () {
+                count--;
+                if (count <= 0) {
+                    clearInterval(intervals);
+                    timeFlag = false;
+                    $(".daojishi").html('重新发送');
+                    return;
+                }
+                $(".daojishi").html(count + '秒重新发送')
+            }.bind(".daojishi"), 1000)
+        }
+
+    }
+    // 短信验证接口
+    function getVerificationCode(phone){
+        var url = App.projectNm + "/account/login_sms_check" ;
+        var data = {"mobileNo": phone };
+        App.post(url, JSON.stringify(data), function (result) {
+            console.log("login_sms_check3----" + result);
+            var obj = result;
+            if (obj.returnCode != "0") {
+                $("#answer2_text").html(obj.returnMsg);
+                $(".mask2").show();
+                return;
+            }else{
+                serialNo = obj.body.serialNo;
+                timeOut(timeFlag);
+            }
+        })
+    }
+
+
+
+    $(".phone").on('input', function () {
+        phone = $(this).val().trim();
+        if ($(this).val().trim() && pwd) {
+            $('.next').removeClass('bg_active')
+        } else {
+            $('.next').addClass('bg_active')
+        }
+    })
+    $(".pwd").on('input', function () {
+        pwd = $(this).val().trim();
+        if ($(this).val().trim() && phone) {
+            $('.next').removeClass('bg_active')
+        } else {
+            $('.next').addClass('bg_active')
+        }
+        if ($(this).val().trim()) {
+            $('.clearInputTxt').css('visibility', 'visible')
+        } else {
+            $('.clearInputTxt').css('visibility', 'hidden')
+        }
+    })
+    $('.clearInputTxt').click(function () {
+        pwd = '';
+        $(".pwd").val('');
+        $('.clearInputTxt').css('visibility', 'hidden');
+        $('.next').addClass('bg_active')
+    })
+    $("#question_clearfix").click(function () {
+        $('.mask1').show();
+    })
+    $(".answer1").click(function () {
+        $(".mask1").hide();
+    });
+    $(".mask_btn1").click(function () {
+
+        var referUrl = App.getUrlParam("referUrl");
+        if(App.isNotEmpty(referUrl)){
+            window.location = "/tradeh5/newWap/auth/login_wap.html?referUrl="+encodeURIComponent(referUrl);
+        }else {
+            window.location = "/tradeh5/newWap/auth/login_wap.html";
+        }
+    });
+    $(".mask_btn2").click(function () {
+        $(".mask2").hide();
+    });
+    $(".mask_btn3").click(function () {
+        $(".mask3").hide();
+    });
+
+
+    function subm(){
+        $(".next").unbind('click',subm);
+        var phone = $(".phone").val();
+        var pwd = $(".pwd").val();
+        if(!(/^\d{6}$/.test(pwd))){
+            $("#stip").html("验证格式错误，请重新输入");
+            $('#stip').show().css('opacity','0');
+            setTimeout(function(){
+                $('#stip').hide();
+            },5000)
+            return ;
+        }
+        var data = "{\"proccessNo\":\"" + serialNo + "\",\"authCode\":\"" + pwd + "\",\"certNum\":\"" + phone + "\",\"slideAuthCode\":\""+slideAuthCode+"\"}";
+        // console.log("data----" + data);
+        var url = App.projectNm + "/account/login_sms_confirm";
+        $.ajax({url:url, data:data,
+            type:"POST",
+            contentType: 'application/json',
+            beforeSend:function(req){
+                req.setRequestHeader("version", "5.99");
+            },
+            success:function(result){
+                var rescode = result.returnCode;
+                var resmsg = result.returnMsg;
+                if (rescode != "0") {
+                    $("#answer3_text").html(resmsg);
+                    $(".mask3").show();
+                } else if (rescode == "0") {
+                    var referUrl = App.getUrlParam("referUrl");
+                    if(App.isNotEmpty(referUrl)){
+                        window.location = referUrl;
+                    }else{
+                        window.location = "../wezhan/service.html";
+                    }
+                }
+                $(".next").bind('click',function () {
+                    subm();
+                });
+
+            }, dataType:"json", error: function(e){
+                // alert("失败");
+                $(".next").bind('click',function () {
+                    subm();
+                });
+            },async:true});
+
+
+    }
+
+    $(".next").bind('click',function () {
+        subm();
+    });
+    $(function () {
+        //滑动验证码初始化
+        _fmOpt = {
+            display: 'popup',
+            partner: "huitianfu",
+            appName: "huitianfu_h5",
+            fmb: true,
+            initialTime: new Date().getTime(),
+            token: "huitianfu" + "-" + new Date().getTime() + "-" + Math.random().toString(16).substr(2),
+            getinfo: function () {
+                return "e3Y6ICIyLjUuMCIsIG9zOiAid2ViIiwgczogMTk5LCBlOiAianMgbm90IGRvd25sb2FkIn0=";
+            },
+            env:1
+        };
+        var fm = document.createElement('script');
+        fm.type = 'text/javascript';
+
+        fm.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'static.tongdun.net/captcha/main/tdc.js?ver=1.0&t=' + (new Date().getTime() / 600000).toFixed(0);
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(fm, s);
+        //滑动验证码初始化
+    })
+</script>
+</body>
+</html>

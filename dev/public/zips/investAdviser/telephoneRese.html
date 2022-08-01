@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+
+
+  <title>服务预约</title>
+  <link rel="stylesheet" href="./css/mobileSelect.css">
+  <link rel="stylesheet" href="./css/base.css">
+  <script src="./js/baseHead.js"></script>
+
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      flex-shrink: 0;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+        'Droid Sans', 'Helvetica Neue', 'Microsoft Yahei', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+
+    #app {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      /* background: url(./img/telephoneRese/bg01.png) no-repeat;
+      background-size: 100% ; */
+
+      /* */
+      background: url(./img/telephoneRese/bg01.png) no-repeat, linear-gradient(to right, #0c2770, #0b1f5e);
+      background-size: 100%;
+
+    }
+
+    .text {
+      position: absolute;
+      left: 1.5rem;
+      top: 2.5rem;
+      color: rgb(255, 255, 255);
+      font-size: 13px;
+      line-height: 20px;
+      opacity: 0.7;
+      width: 171px;
+
+    }
+
+    .text1 {
+      width: 290px;
+      height: 34px;
+      font-family: PingFang-SC-Bold;
+      font-size: 16px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #ffffff;
+      z-index: 99;
+    }
+
+    .ico1 {
+      position: absolute;
+      left: 11.3rem;
+      /* top: 8.5rem; */
+      top: 8rem;
+      width: 6rem;
+      z-index: 100;
+    }
+
+    .formBox {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      flex: 1 1 1;
+      width: 94vw;
+      height: 18.5rem;
+      position: absolute;
+      left: 0;
+      top: 9.5rem;
+      right: 0;
+      /* bottom: 0; */
+      margin: auto;
+      background-color: rgb(255, 255, 255);
+      border-radius: 4px;
+    }
+
+    .text2 {
+      margin-top: 20px;
+      color: rgb(102, 102, 102);
+      font-size: 13px;
+      line-height: 12px;
+      white-space: nowrap;
+    }
+
+    .Btn {
+      margin-top: 25px;
+      padding: 14px 0 15px;
+      color: rgb(179, 98, 3);
+      font-size: 17px;
+      line-height: 16.5px;
+      white-space: nowrap;
+      background-image: linear-gradient(0deg, #FAB855, #FFE9BE);
+      border-radius: 22.5px;
+    }
+
+    .rowBox {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .icon_1 {
+      width: 8px;
+      height: 13.5px;
+    }
+
+
+
+
+    .select-date {
+      display: inline-block;
+      width: 5.5rem;
+      height: 20px;
+      font-size: .7rem;
+      border: 0;
+      outline: 0;
+      background: rgb(246, 246, 246)
+    }
+
+
+    .flex-row {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .flex-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .icon_1 {
+      width: 8px;
+      height: 13.5px;
+    }
+
+    .section_1 {
+      padding: 0 15px 25px;
+      background-color: rgb(255, 255, 255);
+      border-radius: 4px;
+      /* height: 259px; */
+      min-height: 265px;
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      /* top: 9.8rem; */
+      top: 9.1rem;
+    }
+
+    .group_3 {
+      margin-top: -20.5px;
+      position: relative;
+    }
+
+    .button {
+      margin-top: 40px;
+      margin-bottom: 10px;
+      padding: 14px 0 15px;
+      color: rgb(179, 98, 3);
+      font-size: 17px;
+      line-height: 16.5px;
+      text-align: center;
+      white-space: nowrap;
+      background-image: linear-gradient(0deg, #FAB855, #FFE9BE);
+      border-radius: 22.5px;
+    }
+
+    .text-wrapper_1 {
+      margin-right: 5px;
+      padding: 8.5px 0;
+      align-self: flex-end;
+      color: rgb(146, 75, 6);
+      font-size: 15px;
+      line-height: 14px;
+      white-space: nowrap;
+      background-image: url('https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/614d81c0a3164600111b1849/619482470163bf0011e67e06/16371309104688678880.png');
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      width: 120.5px;
+    }
+
+    .text_3 {
+      margin-top: 40px;
+      color: rgb(102, 102, 102);
+      font-size: 13px;
+      line-height: 12px;
+      white-space: nowrap;
+    }
+
+    .equal-division {
+      margin-top: 10px;
+    }
+
+    .text_6 {
+      margin-top: 20px;
+      color: rgb(102, 102, 102);
+      font-size: 13px;
+      line-height: 12px;
+      white-space: nowrap;
+    }
+
+    .text-wrapper_2 {
+      margin-top: 10px;
+      padding: 13px 0;
+      color: rgb(153, 153, 153);
+      font-size: 15px;
+      line-height: 14px;
+      white-space: nowrap;
+      background-color: rgb(246, 246, 246);
+      border-radius: 2px;
+
+
+    }
+
+    .inputTelephone {
+      position: relative;
+      left: 0.8rem;
+      width: 12rem;
+      border: 0px;
+      outline: none;
+      background-color: rgb(246, 246, 246);
+
+    }
+
+    .equal-division-item {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12.5px 10px 13px 11px;
+      flex: 1 1 157.5px;
+      color: rgb(0, 0, 0);
+      font-size: 15px;
+      line-height: 14.5px;
+      white-space: nowrap;
+      background-color: rgb(246, 246, 246);
+      border-radius: 2px;
+      height: 40px;
+    }
+
+    .equal-division-item_1 {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-left: 10px;
+      padding: 12.5px 10px 13px 11px;
+      flex: 1 1 157.5px;
+      color: rgb(0, 0, 0);
+      font-size: 15px;
+      line-height: 14.5px;
+      white-space: nowrap;
+      background-color: rgb(246, 246, 246);
+      border-radius: 2px;
+      height: 40px;
+    }
+
+    .text_7 {
+      margin-left: 10.5px;
+    }
+
+    .image_1 {
+      /* display:block; */
+      margin-left: 7.5px;
+      background: url(./img/telephoneRese/rightIcon.png) no-repeat;
+      background-size: 100% 100%;
+    }
+
+    .blackInput {
+      color: black !important;
+    }
+
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" v-cloak>
+
+    <div class="text">
+      <div class='text1'>
+        <strong v-if='userName&&userSex' v-cloak> {{userName}} {{userSex==1?'先生':'女士'}}，您好</strong>
+        <strong v-else>您好</strong>
+      </div>
+      预约后会有专业的理财师为您致电提供咨询服务。请注意接听来自400-888-9918的回呼电话。
+    </div>
+    <img class='ico1' src="./img/telephoneRese/tglcs.png" alt="" srcset="">
+    <div class="flex-col section_1">
+      <div class="flex-col group_3">
+        <span class="text_3">您期望回电的时间</span>
+        <div class="flex-row equal-division">
+          <div class="flex-row equal-division-item">
+            <input class="select-date" v-model='date' autocomplete="off" readonly id='select-date'></input>
+            <i class="icon_1 image_1"> </i>
+          </div>
+          <div class="justify-between equal-division-item_1">
+            <input class="select-date text_5" v-model="time" readonly id="select-time"></input>
+            <img style="margin-left: 7.5px;" class="icon_1 " src="./img/telephoneRese/rightIcon.png"> </img>
+          </div>
+        </div>
+        <span class="flex-col" style="color:red" v-if="dateShow" v-cloak>{{dateErr}}</span>
+        <span class="text_6" style='margin-top: 20px;'>接听手机</span>
+        <div class="flex-col text-wrapper_2">
+          <input class="inputTelephone" :class="{'err-input' : phone.err,'blackInput':phone.val}" v-model="phone.val"
+            type="text" placeholder="填写您的手机号" oninput="value=value.replace(/[^\d]/g,'')" maxlength="11" @blur="test()">
+          </input>
+        </div>
+        <span class="flex-col" style="color:red" v-if="hintShow" v-cloak>{{hint}}</span>
+
+      </div>
+      <div class="flex-col items-center button" @click="orderBtn">
+        <span> <strong>确定预约</strong> </span>
+      </div>
+      <!--  -->
+      <div v-if="showTips" id="_showTips_"
+      v-cloak
+        style="position: fixed;top: 0;left: 0;right: 0;bottom: 0;z-index: 1000;background: rgba(0, 0, 0, 0.7);display: flex;justify-content: center;align-items: center;font-size:calc(100vw/20);">
+        <div style="width: 15em;background-color: #fff;border-radius: 0.3em;">
+          <header style="text-align: center;color: #333;font-size: 0.8em;padding: 1em 0;">
+            <strong>确认预约信息</strong>
+          </header>
+          <p class="_showTips_content" style="text-align: left;color: #666;font-size: 0.65em;padding: 0 2.5em 0.5em;">
+            回电时间 : {{ this.date }}{{ this.time}} </p>
+          <p class="_showTips_content" style="text-align: left;color: #666;font-size: 0.65em;padding: 0 2.5em 1.5em;">
+            接听手机 : {{  this.phone.val}}</p>
+          <div
+            style="display: flex;justify-content: space-around;padding:.5em 0; align-items: center; margin: 0 0.75em;border-top: solid 1px #eeeeee;">
+
+            <button @click='showTips=!showTips' class="_showTips_confirm"
+              style="width: 50%;padding: .3em 0;font-size: 0.75em;color:#0070fa;border: none;background-color: transparent;outline: none;border-radius: 0;line-height: inherit;">
+              取消
+            </button>
+            <div style="float:left;width: 1px;height: 25px; background: #eeeeee;"></div>
+            <button @click='sureSend' class="_showTips_confirm"
+              style="width: 50%;padding: .3em 0;font-size: 0.75em;color:#0070fa;border: none;background-color: transparent;outline: none;border-radius: 0;line-height: inherit;">
+              确认
+            </button>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+    </div>
+  </div>
+  </div>
+  <script src="./js/jquery-3.2.1.min.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/mobileSelect.min.js"></script>
+  <script src="./js/selectDate.js"></script>
+  <script src="./js/vue.min.js"></script>
+  <script src="./js/telephoneRese.js"></script>
+</body>
+
+</html>

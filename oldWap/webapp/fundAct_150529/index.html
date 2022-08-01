@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<!-- Basic Page Needs
+	================================================== -->
+	<meta charset="utf-8">
+	<title>汇添富基金旗下所有权益类基金</title>
+	<meta name="description" content="">
+	<meta name="author" content="marc">
+	<meta content="telephone=no" name="format-detection" />
+	<!-- 让IE浏览器用最高级内核渲染页面 还有用 Chrome 框架的页面用webkit 内核
+	================================================== -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<!-- IOS6全屏 Chrome高版本全屏
+	================================================== -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes"> 
+	<!-- 让360双核浏览器用webkit内核渲染页面
+	================================================== -->
+	<meta name="renderer" content="webkit">
+	<!-- Mobile Specific Metas
+	================================================== -->
+	<!-- !!!注意 minimal-ui 是IOS7.1的新属性，最小化浏览器UI，但是在iOS8.1突然被取消 -->
+	<meta name="viewport" content="width=device-width,maximum-scale=1, maximum-scale=1">
+	<meta content="telephone=no" name="format-detection" />
+	<!-- CSS
+	================================================== -->
+	<link href="css/reset.css" rel="stylesheet" type="text/css">
+    <link href="css/swiper.css" rel="stylesheet" type="text/css">
+	<link href="css/style.css" rel="stylesheet" type="text/css">
+	<!-- Favicons
+	================================================== -->
+<!--	<link rel="shortcut icon" href="favicon.ico" >-->
+	<!-- Android 主屏图标
+	================================================== -->	
+<!--	<link rel="icon" sizes="196x196" href="images/apple-touch-icon-114x114.png">-->
+	<!-- IOS 主屏图标
+	================================================== -->
+<!--	<link rel="apple-touch-icon" sizes="57x57" href="images/apple-touch-icon-57x57.png">-->
+<!--	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">-->
+<!--	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">-->
+</head>
+<body>
+<div class="wrap">
+	<div class="banner">
+    	<div class="banner-cont">
+         </div>
+    </div><!--/ banner-->
+    
+    <div class="activities">
+    	<div class="activities-cont">
+            <div class="activities-info">
+            	<h1>每日限量发送</h1>
+            	<h2>活动时间：6月5日-6月15日</h2>
+                <p>1、每日上午10点发放特权名额，先领先得，领完为止；</p>
+                <p>2、本活动领取特权有效期为6个月；具体以收到的特权短信为准；</p>
+                <p>3、在“0元购”有效期内，通过汇添富现金宝购买基金可享费率0折优惠；非有效期范围内，通过汇添富现金宝购基低至4折；</p>
+                <p>4、活动最终解释权归汇添富官方所有。</p>
+            </div>
+            <a href="javascript:void(0)" class="receive"></a>
+        </div>
+    </div><!--/ activities-->
+   
+    
+    <div class="introduction">
+    	<div class="introduction-cont">
+        	<div class="introduction-head"></div>
+            <div class="introduction-main">
+                <div class="intr-img"><img src="images/introduction-01.jpg" alt="" /></div>
+                <p>汇添富基金管理股份有限公司 汇添富基金是一家高起点、国际化、充满活力的基金公司，奉行“正直、激情、团队、客户第一、感恩”的公司文化，致力成为高质量的“快乐基金”。</p>
+          <p>汇添富基金旗下管理基金产品涵盖股票基金、指数基金、混合基金、保本基金、债券基金、货币市场基金及QDII基金，现总计管理有46只公募基金，不同风险收益特征的多层次产品线基本完善。汇添富的资产管理规模自成立以来保持了较好的稳健快速增长，稳定位于业内排名前列。汇添富始终坚持客户利益至上的原则，不断努力提升客户服务能力和改善客户服务体验，力求为广大投资者提供高效贴心的专业理财服务。</p>
+            </div>
+        </div>
+    </div> <!-- / introduction-->
+    
+<!--pop window 增加hide样式 可以隐藏-->
+<div class="pop-window-bg hide"></div>
+<div class="pop-window-wrap window-01 hide">
+	<div class="pop-main">
+    	<a href="javascript:;" class="close"></a>
+        <p id="window01_txt">您已经拥有0元购特权，无需再领</p>
+        <a href="javascript:void(0)" class="pop-btn-01"></a>
+	</div>
+</div><!--/ pop-window-wrap-->
+<div class="pop-window-wrap window-02 hide">
+	<div class="pop-main">
+    	<a href="javascript:;" class="close"></a>
+        <p id="window02_txt">今天的名额已经被抢光，明天再来试吧~</p>
+        <a href="javascript:void(0)" class="pop-btn-02"></a>
+	</div>
+</div><!--/ pop-window-wrap-->
+
+    
+</div>
+<script src="js/zepto.min.js"></script>
+<script src="js/swiper.jquery.min.js"></script>
+<script>
+$(document).ready(function () {
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+		autoplay : 3000,
+		loop : true
+    });
+	//点击打开弹窗
+	$(".receive").click(function(){
+		$.ajax({
+			type : 'post',
+			url : '/mobileEC/fundAct_150529/handle.jsp',
+			data : JSON.stringify({}),
+			dataType : 'json',
+			success : function(data){
+				if (0 == data.returnCode) {
+					$("#window01_txt").html(data.msg);
+					$(".pop-window-bg").show();
+					$(".window-01").show();
+				} else {
+					$("#window02_txt").html(data.returnMsg);
+					$(".pop-window-bg").show();
+					$(".window-02").show();
+				}
+			},
+			error : function(e){
+				//console.log(e);
+				$("#window02_txt").html("活动已下线或网络异常.");
+				$(".pop-window-bg").show();
+				$(".window-02").show();
+			}
+		});
+	});
+	
+	
+	//点击关闭弹窗
+	$(".pop-main .close").click(function(){
+		$(".pop-window-bg").hide();
+		$(".pop-window-wrap").hide();
+	});
+	$(".pop-main .pop-btn-01").click(function(){
+		$(".pop-window-bg").hide();
+		$(".pop-window-wrap").hide();
+	});
+	$(".pop-main .pop-btn-02").click(function(){
+		$(".pop-window-bg").hide();
+		$(".pop-window-wrap").hide();
+	});
+	
+});
+</script>
+</body>
+</html>

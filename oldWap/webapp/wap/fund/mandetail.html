@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <title>基金经理详情</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/fund/mandetail.css"/>
+
+    <script src="../js/lib/jscharts.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/weixin.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script type="text/javascript" src="../js/fund/mandetail.js"></script>
+</head>
+<body>
+<div class="top-bar">
+    <div class="f12 f-white left"></div>
+    <div class="f-white f18 mid">基金经理详情</div>
+    <div class="f-white f12 right"></div>
+</div>
+
+<div class="content">
+
+    <div class="con-sec">
+        <div class="in-left" style="width: 32%">
+            <div class="con-f-1" id="pic"></div>
+        </div>
+        <div class="in-right f16" style="width: 60%">
+            <div class="con-f-2">基金经理：<span id="m_name"></span></div>
+            <div class="con-f-4">任职时间:<span id="entranceDate"></span> 至今</div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="con-f-3 f16" id="resume"></div>
+    <!--
+    <div class="con-f-4 f-orange f12" style="padding-top: 5px;line-height: 25px;font-weight: bold">★推荐理由：</div>
+    <div class="con-f-4 f12" id="f_ache"></div>
+    <div style="height: 10px;"></div>
+    <div class="con-f-7 f-orange f12" style="line-height: 25px;font-weight: bold">●产品详情：</div>
+    <div class="con-f-8 f12" id="f_detail"></div>-->
+</div>
+</body>
+</html>

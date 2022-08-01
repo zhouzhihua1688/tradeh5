@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>使用范围</title>
+    <link rel="stylesheet" href="../css/wezhan/base_wezhan.css">
+    <link rel="stylesheet" type="text/css" href="../css/base.css">
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <style>
+        .red{
+            color: #fb5c5f !important;
+        }
+        .green{
+            color: #009944 !important;
+        }
+        .margin-t20{
+            margin-top: .5rem;
+        }
+        .group{
+            padding-left: .75rem;
+            background: #fff;
+        }
+        .group_title{
+            height: 2.25rem;
+            line-height: 2.25rem;
+            border-bottom: 1px #eee solid;
+        }
+        .group_title span {
+            vertical-align: middle;
+        }
+        .group_title span:nth-of-type(1){
+            font-size: .75rem;
+            /* font-weight: bold; */
+            color: #000;
+        }
+        .group_title span:nth-of-type(2){
+            font-size: .6rem;
+            margin-left: .25rem;
+        }
+        .content{
+            padding: .75rem 0;
+            overflow: hidden;
+        }
+        .content_l,.content_c,.content_r{
+            float: left;
+        }
+        .content_l p:nth-of-type(1),.content_c p:nth-of-type(1),.content_r  p:nth-of-type(1){
+            font-size: .6rem;
+        }
+        .content_l p:nth-of-type(2),.content_c p:nth-of-type(2),.content_r  p:nth-of-type(2){
+            font-size: .75rem;
+            margin-top: .5rem;
+            color: #000;
+        }
+        .content_l{
+            width: 34%;
+            text-align:left;
+        }
+        .content_c{
+            width: 28%;
+            text-align:center ;
+        }
+        .content_r{
+            width: 34%;
+            text-align:right ;
+            padding-right: 4%;
+        }
+        .content_r h4{
+            font-size: .75rem;
+            margin-top: .6rem;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="container" id="info"><!--
+    <div class="group">
+        <h2 class="group_title"><span>汇添富价值精选混合</span><span>519069</span></h2>
+        <div class="content">
+            <div class="content_l">
+                <p>单位净值(2018.09.28)</p>
+                <p><span>2.321</span><span class="red">(0.87%)</span></p>
+            </div>
+            <div class="content_c">
+                <p>近三个月收益率</p>
+                <p class="green">0.87%</p>
+            </div>
+            <div class="content_r">
+                <h4 class="red">即将开放</h4>
+            </div>
+        </div>
+    </div>
+    <div class="group margin-t20">
+        <h2 class="group_title"><span>汇添富价值精选混合</span><span>519069</span></h2>
+        <div class="content">
+            <div class="content_l">
+                <p>单位净值(2018.09.28)</p>
+                <p><span>2.321</span><span class="red">(0.87%)</span></p>
+            </div>
+            <div class="content_c">
+                <p>近三个月收益率</p>
+                <p class="green">0.87%</p>
+            </div>
+            <div class="content_r">
+                <p>申购费率</p>
+                <p><s>1.5%</s> <span class="red">0.015%</span></p>
+            </div>
+        </div>
+    </div>-->
+</div>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+	<script src="../js/common.js?20210302" type="text/javascript"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script>
+	var custNo = App.getCookie("sso_cookie_ext_dp");
+	var id = App.getUrlParam("id");
+	if(custNo == null || id == ""){
+		window.location = App.loginPage + "?referUrl=" + encodeURIComponent(window.location.href);
+	}
+	var item = App.getSession(custNo+id);
+	console.log(item);
+	var suffix = '';
+
+	var htm = '';
+	var idstr = item.fullInfo.applyProductIds.split(",");
+	for(var i=0;i<idstr.length; i++){
+		var id = idstr[i];
+		if(id != ""){
+			if(i > 0){
+				suffix = ' margin-t20';
+			}
+			
+			var url = App.projectNm+"/fund/fund_detail_info?fundId=";
+			if(id.indexOf("A")>-1){
+				url ="/mobile-bff/v1/fund-group/detailInfo?groupId=";
+			}
+			App.get(url+id+"&r=" + (Math.random()*10000).toFixed(0), null, function(resultStr){
+                var result = typeof resultStr === 'string' ? JSON.parse(resultStr) : resultStr;
+				var body = result.body;
+				if(body != undefined && body != null){
+					if(id.indexOf("A")>-1){
+							var detailInfo = body;
+							var year = detailInfo.nearYearProfit;
+							if(Number(detailInfo.nearYearProfit) == 0){
+								year = '0.00';
+							}
+
+							htm+='    <div class="group "'+suffix+' onclick="buy(\''+detailInfo.groupid+'\')">'
+					        +'<h2 class="group_title"><span>'+detailInfo.groupname+'</span><span>'+detailInfo.groupid+'</span></h2>'
+					        +'<div class="content">'
+					            +'<div class="content_l">'
+					                +'<p>日涨跌幅('+detailInfo.dayYieldDt.replace(/-/g,".")+')</p>'
+					                +'<p><span></span><span class="'+txtShow(detailInfo.dayYieldWap)+'">('+Number(detailInfo.dayYieldWap).toFixed(2) + "%"+')</span></p>'
+					            +'</div>'
+					            +'<div class="content_c">'
+					                +'<p>近一年收益率</p>'
+					                +'<p class="'+txtShow(detailInfo.nearYearProfit)+'">'+year + "%"+'</p>'
+					            +'</div>'
+					        +'</div>'
+				    +'</div>';
+					}else{//基金
+						 var fundInfo = body;
+						 var thrMonthProfitStr = (App.isEmpty(fundInfo.thrMonthProfitStr) || fundInfo.thrMonthProfitStr == '--') ? '--' : (fundInfo.thrMonthProfitStr + "%");
+						if(fundInfo.fundTp == '1'){
+							htm+='    <div class="group "'+suffix+' onclick="buy(\''+fundInfo.fundId+'\')">'
+					        +'<h2 class="group_title"><span>'+fundInfo.fundNm+'</span><span>'+fundInfo.fundId+'</span></h2>'
+					        +'<div class="content">'
+					            +'<div class="content_l">'
+					                +'<p>万份收益('+fundInfo.navDtFat.replace(/-/g,".")+')</p>'
+					                +'<p><span>'+Number(fundInfo.incomeUnit).toFixed(3)+'</span><span class="'+txtShow(fundInfo.yield)+'">('+Number(fundInfo.yield * 100).toFixed(3) + "%"+')</span></p>'
+					            +'</div>'
+					            +'<div class="content_c">'
+					                +'<p>近三个月收益率</p>'
+					                +'<p class="'+txtShow(fundInfo.thrMonthProfitStr)+'">'+thrMonthProfitStr+'</p>'
+					            +'</div>'
+					            +'<div class="content_r">'
+					                +'<p>申购费率</p>'
+					                +'<p><s>'+fundInfo.stdRate +'%</s> <span class="'+txtShow(fundInfo.curRate)+'">'+fundInfo.curRate +'%</span></p>'
+					            +'</div>'
+					        +'</div>'
+				    +'</div>';
+						}else{
+							htm+='    <div class="group "'+suffix+' onclick="buy(\''+fundInfo.fundId+'\')">'
+					        +'<h2 class="group_title"><span>'+fundInfo.fundNm+'</span><span>'+fundInfo.fundId+'</span></h2>'
+					        +'<div class="content">'
+					            +'<div class="content_l">'
+					                +'<p>单位净值('+fundInfo.navDtFat.replace(/-/g,".")+')</p>'
+					                +'<p><span>'+Number(fundInfo.nav).toFixed(3)+'</span><span class="red">('+Number(fundInfo.yield).toFixed(2) + "%"+')</span></p>'
+					            +'</div>'
+					            +'<div class="content_c">'
+					                +'<p>近三个月收益率</p>'
+					                +'<p class="'+txtShow(fundInfo.thrMonthProfitStr)+'">'+thrMonthProfitStr+'</p>'
+					            +'</div>'
+					            +'<div class="content_r">'
+					                +'<p>申购费率</p>'
+					                +'<p><s>'+fundInfo.stdRate +'%</s> <span class="'+txtShow(fundInfo.curRate)+'">'+fundInfo.curRate +'%</span></p>'
+					            +'</div>'
+					        +'</div>'
+				    +'</div>';
+			    		}
+			    	}
+				}
+				$("#info").html(htm);
+			  });
+			  
+		  }
+	
+	}
+	
+		  
+		  function buy(id){
+				if(id.indexOf("A")>-1){
+					window.location='../fundgroup/group_fund_details.html?groupId='+id;
+				}else{
+					window.location='../fund/steadyCombination.html?fundId='+id;
+				}
+		  }
+function txtShow(val) {
+	var cls = '';
+    if(Number(val) < -100){
+        cls = "red";
+    }else if(Number(val) < 0){
+        cls = "green";
+    }else {
+        cls = "red";
+    }
+    return cls;
+}
+	</script>
+</body>
+</html>

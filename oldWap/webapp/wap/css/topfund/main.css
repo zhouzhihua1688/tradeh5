@@ -1,0 +1,68 @@
+.font-arial{ font-family: Arial; }
+
+button { outline: none;  }
+section{ background-color: #fff; color: #666;}
+img { vertical-align: middle;border: none;outline: none;width: 100%; display: block;}
+p { line-height: 1.5; word-wrap: break-word; text-align: justify; }
+table { width: 100%;border-collapse:collapse; }
+
+.bolder { font-weight: bolder;}
+
+body {padding-bottom: 4rem; }
+header  { padding: .9rem 0 .8rem;background-color: #fff;font-size: .62rem;color: #666666;text-align: center;}
+.line-y{ border-right: 1px solid #eee;height: 2rem; margin-top: .75rem;}
+.font-60 { font-size: 1.5rem;}
+.font-32 { font-size: .8rem;}
+.font-75 { font-size: .75rem;}
+.rate,
+.deadline { color:#f13642; font-family: Arial; }
+.row { display: flex; display: -webkit-flex;}
+.col { flex: 1; -webkit-flex: 1; height: 3.5rem;}
+.padding-8 { padding: .2rem;}
+.col>div { padding: .2rem; }
+header small { font-size: .8rem;}
+.margin-left-30 { margin-left: .75rem;}
+main { margin-top: .5rem;background-color: #fff;}
+main dl { display: flex; display: -webkit-flex; padding: .4rem .75rem .4rem 0;}
+.border-bottom { border-bottom: 1px solid #eee; }
+main dl dt {width: 4.25rem;  font-size: .7rem; color: #000; margin-right: .4rem;}
+main dl dd { flex: 1; -webkit-flex: 1; font-size: .7rem; color: #666666;}
+main h2 {font-size: .75rem; color: #000000; line-height: 2.25rem; padding: 0 .75rem;}
+.padding-20 { padding: .5rem 0;}
+
+.section-main {margin-top: .5rem;}
+.section-main ul{
+    padding: 0 0 0 0.75rem;
+    background-color: #fff;
+}
+.section-main ul li{
+    height: 2.25rem;
+    line-height: 2.25rem;
+    border-top: solid 1px #eeeeee;
+    position: relative;
+    padding-right: .75rem;
+}
+.section-main ul .firstLi{
+    border-top:0;
+}
+.section-main ul li span{margin-right: 0.65rem; color: #010000; font-size: .75rem;}
+.section-main ul li a{ display: block; width: 100%; height: 100%;}
+.section-main ul li .arrow{
+    position: absolute;
+    display: inline-block;
+    height: 2.25rem;
+    width: 1.75rem;
+    top: 0;
+    right: 0;
+    text-align: center;
+    line-height: 2.25rem;
+ 
+}
+.section-main ul li .arrow img{
+    display: inline-block;
+    height: 0.75rem;
+    width: 0.4rem;
+}
+
+footer { background: #fe7e01; position: fixed; bottom: 0 ; width: 100%; left: 0; }
+footer a { display: block; height: 2.4rem; line-height: 2.3rem; text-align: center; color: #fff; font-size: .82rem;}

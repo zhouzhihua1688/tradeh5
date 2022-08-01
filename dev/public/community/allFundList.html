@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>全部讨论区</title>
+    <link rel="stylesheet" href="../base/css/base.css">
+    <link rel="stylesheet" href="./css/mint.css">
+    <link rel="stylesheet" href="./css/topicCircle.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+</head>
+
+<body>
+    <div id="app">
+
+        <div class="content">
+
+        </div>
+ 
+    </div>
+    <script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+    <script src="./js/moment.min.js"></script>
+    <script src="./js/mint.js"></script>
+    <script>
+        showList()
+        function showList(){
+            utils.get('/sfs/api/v1/bbs/product?pageNum=1&pageSize=1000',null,function(res){
+                var body = res.body;
+                if(body){
+
+                    var htm1 = '';
+                    var productList = body.rows;
+                    if(productList){
+                        productList.forEach(function(item,index){
+                            // isplus取值及对应关系  0:green   1:red   2:grey
+                            var numLable = String(item.yieldNumDisplay!=null?item.yieldNumDisplay:'--');
+                            var isplus = (/^\+\d+/.test(numLable)?1:(/^\-\d+/.test(numLable)?0:2));
+                            // var isplus = (~String(item.yieldNumDisplay).indexOf('-')&&item.yieldNumDisplay!='--') ? 0 : (~String(item.yieldNumDisplay).indexOf('+')? 1 : 2);
+                            htm1+='<div class="item ">'
+                            +'<div class="itemLeft '+(isplus==1 ? 'red' : (isplus==0 ? 'green' : 'grey'))+'"><span class="leftRate">' + 
+                                (isplus==1 ? '+' : (isplus==0 ? '-': '')) + (numLable=='--'?numLable:numLable.replace(/^(\+|\-)/,''))+'</span><span class="leftDate">'+
+                                (item.yieldCopyWrite?item.yieldCopyWrite:'更新中')+'</span>'
+                            +'</div>'
+                            +'<div class="itemRight" data="'+item.productId+'"><span class="rightTitle">'+item.title+'</span><span  class="rightContent">'+(item.lastPostContent?item.lastPostContent:'')+'</span></div>'
+                            +'</div>';
+                        });
+                    
+                    }else{
+                        htm1 = '<div style="text-align:center;top: 50%;position: absolute;width: 100%;margin-top: -1rem;">暂无内容</div>';  
+                    }
+                    $(".content").html(htm1);
+                    $(".itemRight").click(function(){
+                        if(isApp()){
+                            window.location.href = 'htffundxjb://action?type=url&link=' + btoa(location.origin + '/tradeh5/newWap/community/topicDetailList.html?productId=' + $(this).attr('data'));
+                        }else{
+                            window.location.href = location.origin + '/tradeh5/newWap/community/topicDetailList.html?productId=' +  $(this).attr('data');
+                        }
+                    });
+                }
+            });
+        }
+
+        
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>完成</title>
+    <!-- <link rel="stylesheet" href="css/base.css"> -->
+    <link rel="stylesheet" href="../base/css/base.css">
+    <link rel="stylesheet" href="css/pocketPushSuccess.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+</head>
+
+<body>
+<div id="app" v-cloak>
+    <div class="main">
+        <div class="success-radio">
+            <div class="check-radio"><img src="img/active.png" alt=""></div>
+            <div class="check-text">
+                <p>成功充值<span style="color:#FB5C5F" v-text="numFormat(successMoney)"></span>元，实时可用</p>
+                <p class="check-time" style="height:0.75rem"></p>
+            </div>
+        </div>
+        <div class="straight-line"></div>
+        <div class="start-calculation">
+            <div class="start-radio"><img src="img/plan_waiting.png" alt=""></div>
+            <div class="start-text">
+                <p>开始计算收益</p>
+                <p class="start-time"><span v-text="revenueDate"></span><span style="margin-left:0.25rem"
+                                                                              v-text="startWeek"></span></p>
+            </div>
+        </div>
+        <div class="straight-gray"></div>
+        <div class="start-calculation">
+            <div class="start-radio"><img src="img/plan_waiting.png" alt=""></div>
+            <div class="start-text">
+                <p>查看收益</p>
+                <p class="start-time"><span v-text="arrivalDate"></span><span style="margin-left:0.25rem"
+                                                                              v-text="checkWeek"></span></p>
+            </div>
+        </div>
+        <div class="buy-btn" @click="jumpUrl()">确认</div>
+        <!-- <div class="record">
+            <div class="record-left">
+                <p>如果今天值得纪念，记录一笔吧!</p>
+                <p>写下您此刻想说的…</p>
+            </div>
+            <div class="record-right"><img src="img/toRecord.png" alt=""><span class="goRecord">去记录</span></div>
+        </div> -->
+    </div>
+</div>
+<script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../base/js/utils.js"></script>
+<script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+<!-- <script src="js/jquery-3.2.1.min.js"></script>
+<script src="./js/utils.js"></script>
+<script src="./js/vue.js"></script> -->
+<!-- <script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script> -->
+<!-- <script src="./js/pdf.js"></script> -->
+<script src="./js/pocketPushSuccess.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta charset="gbk">-->
+    <title></title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        }
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+                oHtml.style.fontSize = '17.06px';
+            }else if(screenWidth >= 750){
+                oHtml.style.fontSize = '40px';
+            }else{
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+            }
+        }
+        document.title="\u200E";
+    </script>
+    <style>
+    body{background:#fff}
+    .main{width:100%;}
+    .icon{width:80%;margin:0 auto;margin-top:1rem}
+    .icon div{width:2.75rem;height:3.0rem;background: url('img/icon.png') no-repeat;background-size: 100% 100%;}
+    .question{width:80%;color:#000;font-size:0.7rem;margin:0 auto;margin-top:1rem;text-align: justify;font-weight:bold}
+    .biaoti{width:80%;color:#000;font-size:0.7rem;margin:0 auto;margin-top:1rem;text-align: justify;}
+    .next{width:80%;height:1.6rem;margin:0 auto;color:#fb5c5f;overflow: hidden;}
+    .next a{padding:0 1rem;line-height:1.5rem;float:right;border:1px solid #fb5c5f;border-radius:1.25rem;text-align:center;font-size: 0.7rem}
+    .color_box{
+        width: 80%;
+        margin: 0 auto;
+        margin-top: .75rem;
+        color: #000;
+        background-color: #f7fcff;
+        border-radius: 0.25rem;
+        font-size: 0.7rem;
+    }
+    .color_box h4{
+        line-height: 2rem;
+        margin-left: .75rem;
+        font-weight: bold;
+    }
+    .color_box p{
+        padding: 0 .75rem;
+        text-align: justify;
+        line-height: 1.5;
+        margin-top: -.2rem;
+        padding-bottom: .72rem;
+    }
+    </style>
+
+</head>
+<body>
+    <div class="main">
+        <div class="icon">
+            <div></div>
+        </div>
+        <div class="biaoti">小汇建议您把自己的资金分成：零钱管理、稳健理财、长期投资这三笔钱</div>
+        <div class="color_box">
+            <h4 class="title">子女教育规划</h4>
+            <p class="content">子女教育规划是为新时代家庭提供以孩子为核心的投资理财账户，帮助家长合理规划孩子成长过程中储蓄教育等各项资金安排，投资期限通常在2-10年。<br>目标是在控制组合波动回撤的情 况下追求较高的复合收益增长。</p>
+        </div>
+        <!-- <div class="next" ><a href="javascript:;">明白了</a></div>
+        <div class="next" style="margin-top: 1.5rem;"><a href="./calculation_five.html" >我要投的就是这笔钱</a></div> -->
+        <div class="next" style="margin-top: 1.5rem;"><a href="./calculation_change_mgmt5.html" >好的，继续了解养老规划</a></div>
+        <div class="next" style="margin-top: .75rem;"><a href="./calculation_plan4.html" >我要规划这笔钱</a></div>
+    </div>
+    <!-- <div class="footer">
+        <a href="#"></a>
+    </div> -->
+</body>
+</html>

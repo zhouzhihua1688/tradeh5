@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--<meta charset="GBK">-->
+    <meta charset="utf8">
+    <title>成功</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/baseInvestMGM.css">
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        }
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+                oHtml.style.fontSize = '17.06px';
+            }else if(screenWidth >= 750){
+                oHtml.style.fontSize = '40px';
+            }else{
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+            }
+        }
+    </script>
+    <style type="text/css">
+        body {left: 0%; right: 0%;}
+        body,html{background: #fff;}
+        button { outline: none;  }
+        section{ background-color: #fff; color: #666;}
+        img { vertical-align: top;border: none;outline: none;width: 100%; display: block;}
+        p { line-height: 1.5; word-wrap: break-word; text-align: justify; }
+        table { width: 100%;border-collapse:collapse; }
+        .text-center { text-align: center; }
+        .black { color: #333333; }
+        .margin-bottom-20 { margin-bottom: 20px;}
+        .font-24 { font-size: 0.65rem;}
+        .font-28 { font-size: 0.7rem;}
+        .blank-20 { height: 1rem;}
+
+        .success{padding:6.5rem .75rem 0 .75rem;}
+        .success a{display: block;height: 2rem;line-height:2rem;border: 1px #fb5c5f solid;-webkit-border-radius:3px;background: #ff7e00;font-size:.75rem;color:#fff;text-align: center;}
+        .content1{height:1.25rem;width:100%;line-height: 1.25rem;text-align: center;margin-bottom: 2rem;font-size: .75rem;}
+        .content1 img{width:1.25rem;height:1.25rem;display: inline-block;}
+        .content2{text-align: center;color:#999;margin-bottom: 1.25rem;}
+        ::-webkit-scrollbar{
+            display:none;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="success">
+    <div class="content1">
+        <img src="img/investmgm/success.png" alt="">
+        <span>绑卡成功！</span>
+    </div>
+    <p class="content2 font-24">恭喜您获得拜师奖！请至现金宝app<br/><span style="color:#fe5a5b;">“我的”-“礼券福利”-“我的礼券”</span>中领取</p>
+    <a href="http://www.99fund.com/m_weixin.htm">下载app体验更流畅</a>
+</div>
+<script>
+
+    function layerShow(selector){
+        $(document.body).css({ "position": "fixed"});
+        $(selector).show();
+    }
+
+    function layerClose(){
+        $(document.body).css({  "overflow":"auto"});
+        $(".layer").hide();
+    }
+    $(".close").click(function(e){
+        $(document.body).css({  "position": "static"});
+        $(this).parents(".layer").hide();
+    });
+
+
+</script>
+</body>
+</html>

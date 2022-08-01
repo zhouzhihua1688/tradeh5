@@ -1,0 +1,208 @@
+@charset "utf-8";
+
+table { width: 100%;border-collapse: collapse; }
+         section{background: #f6f6f6;}
+        .content1_1 { margin-bottom: 2.5rem;}
+        .content1_1 ul{width:100%;height:2.25rem;background-color: #fff}
+        .content1_1 ul li { font-size: .7rem; float: left; width: 50%; text-align: center; padding: 12px 0; border-bottom: 2px solid transparent; color: #000; }
+        .content1_1 ul li a{font-size: .75rem;}
+        .content1_1 ul li.active { border-bottom-color: #ffadae; color: #fb5c5f; }
+        .content1_1 ul li p { padding-top: 0.107rem; }
+        .content1_1 .explain { font-size: 0.346rem; color: #000; }
+        .content1_1 .explain p { line-height: 1.5;padding: 16px;  }
+        .content1_1 .explain p.ellipsis:after { content: '.....'; }
+        .content1_1 .explain p.ellipsis span { display: none; }
+        .content1_1 .upfold { width: 80px; margin: 0 auto; padding: .15rem 0 .45rem; color: #148ce6; text-align: center; line-height: 14px; font-size: .3467rem; }
+        .content1_1 .upfold:before { content: '展开'; }
+        .content1_1 .upfold.pack-up:before { content: '收起'; }
+        .content1_1 .upfold.pack-up .down { -webkit-transform: rotate(180deg); transform: rotate(180deg); }
+     
+      
+        .money{
+          width:100%;
+          /* height:4rem; */
+          /*background:red;*/
+          margin:0 auto;
+          /*border:1px solid red;*/
+        }
+        .money p{
+            text-align: center;
+            padding:1.5rem 0 .2rem 0;;
+            font-size: 0.7rem;
+            color:#666666;
+        }
+        .money span{
+           text-align: center;
+           display: block;
+           font-size: 1.75rem; 
+           color:#f4333c;
+        }
+          
+
+
+        .fundname{
+
+
+            font-size: .75rem;
+        }
+        .color-red{
+            color:#fb5c5f!important;
+        }
+        .color-green{
+            color:#009944!important;
+        }
+       
+          .btn-bottom{
+            width: 100%;
+            display: table;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+        .font26{font-size: .65rem;}
+    
+        .btn-bottom .btn{padding:0;}
+
+        .qiehuan{
+           height:100%;
+        }
+        .qiehuan .qiehuan_content{
+            height:5.45rem;
+            width:17.25rem;
+            border-radius: .5rem;
+            margin:0 auto;
+            margin-top: .5rem;
+            background-color: #fff;
+        }
+        .qiehuan .qiehuan_content .icon{
+            width: .425rem;
+            height: 5.35rem;
+            background:url(../../img/wezhan/gary_icon.png) no-repeat;
+            background-size: 100% 100%;
+            float: left;
+        }
+        .qiehuan .qiehuan_content .text{
+           width: 3.45rem;
+           height: 5.35rem;
+           float: left;
+           margin-left: .65rem;
+           color:#999;
+        }
+        .qiehuan .qiehuan_content .text .text_icon{
+            width:4rem;
+            height:1.45rem;
+            margin:2rem auto;
+            line-height: 1.45rem;
+        }
+        .text_icon .first{
+            /* width:0.75rem; */
+            height: 0.75rem;
+            font-size:0.75rem;
+            display: inline-block;
+            font-weight:500;
+        }
+        .text_icon .second{
+            width:2.5rem;
+            height: 1.15rem;
+            font-size:1rem;
+            display: inline-block;
+            font-weight:bold;
+        }
+        .qiehuan_content .dashed{
+           width:0.025rem;
+           height:4.625rem;
+           float:left;
+           margin-top:0.5rem;
+           border-right:1px dashed #D4D4D4; 
+        }
+        .qiehuan_content .hongbao{
+            width:11rem;
+            height:100%;
+            float:left;
+            color:#999;
+        }
+        .qiehuan_content .hongbao .first{
+           width: 100%;
+           font-size:0.6rem;
+           margin-top:1.75rem;
+           line-height: 0.65rem;
+
+        }
+        .qiehuan_content .hongbao .first span{
+            width:0.15rem;
+            height:0.15rem;
+            display:inline-block;
+            line-height: 0.2rem;
+            background:#666;
+            margin-right:0.35rem;
+            margin-bottom:0.1rem;
+            border-radius:50px;
+            margin-left:0.75rem;
+            color:#666;
+
+        }
+        .qiehuan_content .hongbao .second{
+           width: 100%;
+           font-size:0.6rem;
+           margin:0 auto;
+           line-height: 0.65rem;
+           margin-top: 0.75rem
+        }
+        .qiehuan_content .hongbao .second span{
+            width:0.15rem;
+            height:0.15rem;
+            display:inline-block;
+            line-height: 0.2rem;
+            background:#666;
+            margin-right:0.35rem;
+            margin-bottom:0.1rem;
+            border-radius:50px;
+            margin-left:0.75rem;
+             color:#666;
+        }
+        .qiehuan_content .promptly{
+            height:5.45rem;
+            width:1.45rem;
+            float:left;
+            color: #999;
+        }
+        .qiehuan_content .promptly a{
+            width:0.65rem;
+            /* height:100%; */
+            display: block;
+            margin:0 auto;
+            margin-top:1.5rem;
+            font-size: 0.65rem;
+            line-height: 1.5;
+        }
+        .qiehuan .check{
+            width:100%;
+            height:2rem;
+            /* border:1px solid red; */
+            color:#000;
+            text-align: center; 
+        }
+        .qiehuan .check span{
+            font-size: 0.6rem;
+            line-height: 2rem;
+        }
+        .content1_1 .text_number{
+            width: 100%;
+            height:2rem;
+            text-align: center;
+            line-height: 2rem;
+            font-size: 0.6rm;
+            color: #666666;
+        }
+        .text_time{
+            margin-left:1.25rem;
+            margin-top:0.2rem;
+        }
+        .null{
+            width:100%;
+            height:2.5rem;
+            font:0.6rem;
+            color:#666;
+            text-align: center;
+            line-height: 2.5rem
+        }

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>风险能力评估问卷</title>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,address=no">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul,dl,ol{
+            list-style: none;
+        }
+        .risk_assets{
+            padding: 5%;
+            color: #666;
+        }
+        .risk_summarize{
+            margin-bottom: 1em;
+        }
+        .risk_summarize h2{
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: .5em;
+            color: #fb5c5f;
+        }
+        .risk_summarize p{
+            text-indent: 2em;
+            font-size: 1em;
+            line-height: 1.5em;
+            color: #666666;
+        }
+        .risk_question{
+
+        }
+        .risk_question dt{
+            color: #333;
+            font-weight: bold;
+            margin-top: 1em;
+            margin-bottom: .5em;
+            line-height: 1.25em;
+            border-top: 1px dashed #eeeeee;
+            padding-top: 1em;
+        }
+        .risk_question dd{
+			color:#666666;
+        }
+        .risk_question dd label{
+            display: block;
+            margin-bottom: .5em;
+            padding-left: 1em;
+        }
+        .risk_question dd label span{
+            margin-left: .5em;
+        }
+        .risk_submit{
+            text-align: center;
+            margin: 2em 0 0.5em 0;
+            left: 0px;
+		    width: 100%;
+		    z-index: 10000;
+		    position: fixed;
+		    bottom: 0px;
+        }
+        .risk_submit .btn-submit{
+            display: inline-block;
+            zoom: 1;
+            white-space: nowrap;
+            vertical-align: middle;
+            text-align: center;
+            cursor: pointer;
+            -webkit-user-drag: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            font-family: inherit;
+            border-radius: 4px;
+            color: #fff;
+            border: none rgba(0, 0, 0, 0);
+            text-decoration: none;
+            height: 2em;
+            line-height: 2em;
+            outline: none;
+            
+            background-color: #fd525f;
+		    width: 90%;
+		    font-size: 1.5em;
+        }
+        .return_home{
+            color: #005FCC;
+        }
+		.modal-fade {
+		    width:80%;
+		    position: fixed;
+		    top: 50%;
+		    left:50%;
+		    -webkit-transform: translate(-50%,-50%);
+		    -ms-transform: translate(-50%,-50%);
+		    -o-transform: translate(-50%,-50%);
+		    transform: translate(-50%,-50%);
+		    z-index: 1060;
+		}
+		.modal-fade .modal-body .setnotice{
+		    padding: 1% 5%;
+		}
+		.modal-body{
+		    text-align:center;
+		    background-color: #f5f5f5;
+		    padding-bottom: .5em;
+		    border-radius: 5px;
+		}
+		.modal-body .notice{
+		    text-align: left;
+		    margin-top: 0;
+		    line-height: 1.3em;
+		    font-size: 1em;
+		}
+		
+		.modal-fade .settitle{
+		    padding-top: 1em;
+		}
+		.modal-title{
+		    height: 1em;
+		    line-height: 1em;
+		    padding-bottom: 1em;
+		    border-bottom: 1px solid #dddddd;
+		}
+		.modal-bottom{
+		    width: 100%;
+		    /* margin-top: 1.5em; */
+		    border-top: 1px solid #e5e5e5;
+		    overflow: hidden;
+		}
+		div.mask {
+		    display: none;
+		    width: 100%;
+		    height: 100%;
+		    position: fixed;
+		    top: 0;
+		    left: 0;
+		    z-index: 50;
+		    overflow: hidden;
+		    background-color:rgba(0,0,0,0.5);
+		}
+		.divp{
+		    margin-top: 20px;
+		    margin-bottom: 20px;
+		}
+		.btnright{
+			line-height: 30px;
+		}
+		
+        input[type="radio"] {
+		  margin: 3px 3px 0px 5px;
+		  display: none;
+		}
+		label {
+		  padding-left: 20px;
+		  cursor: pointer;
+		  background: url(images/radio_n.png) no-repeat left top;
+		  background-size: 1.1em;
+		}
+		label.checked {
+		  background-position: left bottom;
+		  background: url(images/radio_y.png) no-repeat left top;
+		  background-size: 1.1em;
+		}
+    </style>
+<script type="text/javascript" src="../basic/jquery.3.4.1.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('label').click(function(){
+		   $(this).siblings().removeAttr('class') && $(this).attr('class', 'checked');
+		});
+		$("#submit").click(function(){
+			var question1 = $("input[name='question1']:checked").val();
+			var question2 = $("input[name='question2']:checked").val();
+			var question3 = $("input[name='question3']:checked").val();
+			var question4 = $("input[name='question4']:checked").val();
+			var question5 = $("input[name='question5']:checked").val();
+			var question6 = $("input[name='question6']:checked").val();
+			var question7 = $("input[name='question7']:checked").val();
+			var question8 = $("input[name='question8']:checked").val();
+			var question9 = $("input[name='question9']:checked").val();
+			var question10 = $("input[name='question10']:checked").val();
+
+		if (question1 == undefined || question2 == undefined
+			|| question3 == undefined || question4 == undefined
+			|| question5 == undefined || question6 == undefined
+			|| question7 == undefined || question8 == undefined
+			|| question9 == undefined || question10 == undefined) {
+				alert("请完成所有测评后再提交答案！");
+				return;
+			} 
+			 
+		var data = JSON.stringify({
+				"answer1" : question1,
+				"answer2" : question2,
+				"answer3" : question3,
+				"answer4" : question4,
+				"answer5" : question5,
+				"answer6" : question6,
+				"answer7" : question7,
+				"answer8" : question8,
+				"answer9" : question9,
+				"answer10" : question10
+			});
+		$.post("/mobileEC/services/evaluate_cust_risk_level", data, function(result){
+				var jsonRe = JSON.parse(result);
+				if(jsonRe.returnCode == 0){
+					var val = jsonRe.body.riskLevelName;
+					if(val != undefined && val != ""){
+			            /* 点击ID为confirm_main的按钮弹出输入密码框 */
+		                $("#modal").css("display","block");
+		                $("body").css("overflow", "hidden");
+		                $("div.mask").show();
+		                $("#levelTxt").html(val)
+				 	} 
+				 }else{
+					alert(jsonRe.returnMsg);
+				}
+			});
+		});
+
+        /* 输入密码弹出框js */
+        $("#confirm_modal").on("click",function(){
+            $("#modal").css("display","none");
+            $("body").css("overflow", "auto");
+            $("div.mask").hide();
+
+			var u = navigator.userAgent;
+			var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+			if(isAndroid){
+				handler.goBack(true);
+			} else { 
+				window.location.href = "http://www.99fund.com?pageforward=1";
+			} 
+        });
+        
+	});
+	
+</script>
+</head>
+<body>
+
+<div class="risk_assets">
+
+    <div class="risk_summarize">
+        <h2>风险能力评估问卷</h2>
+        <p>为贯彻落实中国证监会颁发的《证券投资基金销售适用性指导意见》，规范公司直销和网上基金销售行为，确保基金和相关产品销售的适用性，切实保障基金投资人的权益，本公司网上交易系统在您认购、申购、转换、新增定投计划时会将产品的风险等级与您的风险承受能力进行匹配并加以提示。为保障投资人的权益，请及时评估您的风险承受能力。</p>
+    </div>
+
+    <div class="risk_question">
+<!--         <form action="" id="risk_form" method="post"> -->
+		<hr style="height: 1px; border: none; background-color: #fd525f;"/>
+        <dl>
+            <dt style="border-top:0px">1.您进行基金投资的主要目的是什么？</dt>
+            <dd>
+                <label><input type="radio"  value="2"   name="question1"/><span>A、日常生活保障</span></label>
+                <label><input type="radio"  value="4"   name="question1"/><span>B、养老</span></label>
+                <label><input type="radio"  value="6"   name="question1"/><span>C、子女教育</span></label>
+                <label><input type="radio"  value="8"   name="question1"/><span>D、资产增值</span></label>
+                <label><input type="radio"  value="10" name="question1"/><span>E、购房置业</span></label>
+            </dd>
+            <dt>2.您对基金投资的收益有何预期？</dt>
+            <dd>
+                <label><input type="radio"  value="2" name="question2"><span>A、获取微利，但收益有保证</span></label>
+                <label><input type="radio"  value="4" name="question2"><span>B、获取一般盈利，但收益保持稳定</span></label>
+                <label><input type="radio"  value="6" name="question2"><span>C、获取适度盈利，低于同期股市表现，但波动性小</span></label>
+                <label><input type="radio"  value="8" name="question2"><span>D、获取与同期股市相当的收益，但需承受与股市相当的波动性</span></label>
+                <label><input type="radio"  value="10" name="question2"><span>E、获取超高收益，但需承受比股市更大的波动</span></label>
+            </dd>
+            <dt>3.假如股市在今后五年表现极差，您能承受的极限是什么？</dt>
+            <dd>
+                <label><input type="radio"  value="2" name="question3" ><span>A、获取高额收益</span></label>
+                <label><input type="radio"  value="4" name="question3" ><span>B、获取适当收益</span></label>
+                <label><input type="radio"  value="6" name="question3" ><span>C、获取少量收益</span></label>
+                <label><input type="radio"  value="8" name="question3" ><span>D、盈亏持平</span></label>
+                <label><input type="radio"  value="10" name="question3" ><span>E、亏损</span></label>
+            </dd>
+            <dt>4.您对债券、基金、股票、股指期货四类投资品种，有多少了解？</dt>
+            <dd>
+                <label><input type="radio"  value="2" name="question4"><span>A、全都不了解</span></label>
+                <label><input type="radio"  value="4" name="question4" ><span>B、了解一种</span></label>
+                <label><input type="radio"  value="6" name="question4"><span>C、了解两种</span></label>
+                <label><input type="radio"  value="8" name="question4"><span>D、了解三种</span></label>
+                <label><input type="radio"  value="10" name="question4"><span>E、全部都很了解</span></label>
+            </dd>
+            <dt>5.您进行证券投资的时间有多长？</dt>
+            <dd>
+                <label><input type="radio"  value="2" name="question5"><span>A、1年以内</span></label>
+                <label><input type="radio"  value="4" name="question5" ><span>B、在1到3年之间</span></label>
+                <label><input type="radio"  value="6" name="question5"><span>C、在3到5年之间</span></label>
+                <label><input type="radio"  value="8" name="question5"><span>D、在5到10年之间</span></label>
+                <label><input type="radio"  value="10" name="question5"><span>E、10年以上</span></label>
+            </dd>
+            <dt>6.您的年收入是多少？</dt>
+            <dd>
+                <label><input type="radio"  value="2" name="question6"><span>A、2万元以下</span></label>
+                <label><input type="radio"  value="4" name="question6" ><span>B、2万元至5万元</span></label>
+                <label><input type="radio"  value="6" name="question6"><span>C、5万元至15万元</span></label>
+                <label><input type="radio"  value="8" name="question6"><span>D、15万元至50万元</span></label>
+                <label><input type="radio"  value="10" name="question6"><span>E、50万元以上</span></label>
+            </dd>
+            <dt>7.您投资基金(非货币)和股票的资金占家庭总流动资产的比例为：</dt>
+            <dd>
+                <label><input type="radio"  value="2" name="question7"><span>A、不到一成</span></label>
+                <label><input type="radio"  value="4" name="question7"><span>B、三成左右</span></label>
+                <label><input type="radio"  value="6" name="question7"><span>C、一半左右</span></label>
+                <label><input type="radio"  value="8" name="question7"><span>D、七成左右</span></label>
+                <label><input type="radio"  value="10" name="question7"><span>E、八成以上</span></label>
+            </dd>
+            <dt>8.您目前所处的年龄段是？</dt>
+            <dd>
+                <label><input type="radio"  value="2" name="question8"><span>A、55岁以上</span></label>
+                <label><input type="radio"  value="4" name="question8"><span>B、45岁到55岁</span></label>
+                <label><input type="radio"  value="6" name="question8"><span>C、35岁到45岁</span></label>
+                <label><input type="radio"  value="8" name="question8"><span>D、25岁到35岁</span></label>
+                <label><input type="radio"  value="10" name="question8"><span>E、25岁以下</span></label>
+            </dd>
+            <dt>9.您一般的投资期限是多久？</dt>
+            <dd>
+                <label><input type="radio"  value="2" name="question9" ><span>A、1年以内</span></label>
+                <label><input type="radio"  value="4" name="question9" ><span>B、在1到3年之间</span></label>
+                <label><input type="radio"  value="6" name="question9" ><span>C、在3到5年之间</span></label>
+                <label><input type="radio"  value="8" name="question9" ><span>D、在5到10年之间</span></label>
+                <label><input type="radio"  value="10" name="question9" ><span>E、10年以上</span></label>
+            </dd>
+            <dt>10.如果您的基金投资暂时亏损了25％，你怎么办？</dt>
+            <dd>
+                <label><input type="radio"  value="2" name="question10"><span>A、无法承受风险，准备亏损出局</span></label>
+                <label><input type="radio"  value="4" name="question10"><span>B、3个月到6个月内如果还是亏损25％，就准备赎回</span></label>
+                <label><input type="radio"  value="6" name="question10"><span>C、1年之内还是亏损25％，就准备赎回</span></label>
+                <label><input type="radio"  value="8" name="question10"><span>D、2到3年之内都可以持有</span></label>
+                <label><input type="radio"  value="10" name="question10"><span>E、没关系，可以长期持有</span></label>
+            </dd>
+        </dl>
+        <div style="height: 4em;" />
+        <div class="risk_submit">
+            <!-- <input type="button" class="btn-submit" id="submit" value="提　交"/> -->
+            <a class="btn-submit"  id="submit">提　交</a>
+        </div>
+        <!-- </form> -->
+        <!--<p><a href="#" class="return_home">返回首页</a></p>-->
+    </div>
+
+</div>
+
+    <div class="modal-fade" id="modal" style="display:none;">
+          <div class="modal-body setpwd">
+              <h4 class="modal-title settitle">风险等级</h4>
+              <div class="divp">
+              	<p class="notice setnotice">您的风险承受能力为：<span id="levelTxt"></span></p>
+              </div>
+              <div class="modal-bottom">
+              	  <a class="btnright" id="confirm_modal" >确定</a>
+                  <!-- <button class="btnright" id="confirm_modal" type="button">确定</button> -->
+              </div>
+          </div>
+    </div>
+    <div class="mask"></div><!--透明背景层-->
+</body>
+</html>

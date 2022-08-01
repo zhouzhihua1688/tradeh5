@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/context  
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+	http://www.springframework.org/schema/task     
+    http://www.springframework.org/schema/task/spring-task-3.0.xsd
+      http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+      http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd ">
+
+	<context:annotation-config />
+
+	<import resource="classpath*:spring-framework.xml" />	
+	
+	<bean id="SpringUtils" class="com.fund.etrading.mclient.common.SpringUtils">
+    </bean>
+    
+    <bean id="memoryCache" class="com.fund.etrading.mclient.cache.MemoryCache" />
+
+
+	<task:scheduled-tasks>
+		<task:scheduled ref="memoryCache" method="loadFastCache"
+			cron="0 */10 * * * ?" />
+	 	<task:scheduled ref="memoryCache" method="loadAll"
+			cron="0 0 */1 * * ?" />
+		<task:scheduled ref="memoryCache" method="loadWorkDate"
+			cron="30 0 */1 * * ?" />
+
+		<task:scheduled ref="memoryCache" method="loadFundYield"
+			cron="0 0 2 * * ?" />
+
+		<!-- <task:scheduled ref="messageService" method="pushIosMessage"
+			cron="0 */30 * * * ?" /> 
+		<task:scheduled ref="mobilePushDAO" method="pushInfoToHis"
+			cron="0 0 23 * * ?" />-->
+		<task:scheduled ref="taskService" method="callBackYoumi"
+			cron="0 */3 * * * ?" />
+		<task:scheduled ref="taskService" method="dzhReCallback"
+			cron="0 0 22 * * ?" />
+
+	</task:scheduled-tasks>
+
+	<bean id="wsdl" class="java.lang.String">
+    	<constructor-arg index="0" value="${mobile-ng.app.esb.wsdl}"/>
+	</bean>  
+	
+	<bean id="develop" class="java.lang.String">  
+    	<constructor-arg index="0" value="${mobile-ng.app.develop}"/>
+	</bean>
+	
+    <bean id="clientFactory" class="com.fund.etrading.mclient.common.memcahe.MemcacheClientFactory">
+    </bean>
+    <bean id="memcacheManager" class="com.fund.etrading.mclient.service.impl.MemcacheManagerImpl">
+    	 <property name="nameSpace" value="${mobile-ng.app.ctx.memcahed.namespace}"/>
+    	<property name="clientFactory" ref="clientFactory" />
+    </bean>
+    
+	<bean id="handleMessageProcessor" class="com.fund.etrading.mclient.mq.consumer.handle.HandleMessageProcessor">
+	</bean>
+
+    <bean id="processorFactory" class="com.fund.etrading.mclient.mq.consumer.ProcessorFactory">
+		<property name="processorMap">
+			<map>
+				<entry key="fundinfoconfig_cache,navCache,groupCache,008,envconfig_cache,infoconfig_cache,bankconfig_cache,unionpayconfig_cache,updateversionconfig_cache,homefunctionbtnconfig_cache,functionassociatedconfig_cache,pendingconfig_cache,workdate_cache,fund_rates_cache,bankcard_bininfo_cache,fundstar_infos_cache,bank_prop_cache,credit_prop_cache,allbank_belong_cache,zero_purchaseinfo_cache,general_zone_cache,brand_zone_cache,topinfos_cache,yield_cache,funddetail_info_cache,newold_topfinancial_infos_cache,topfinancial_canpurchase_infos_cache,topfinancial_infos_cache,financials_canpurchase_cache,funds_canpurchase_cache,fund_yields_cache,funds_cache,credit_channel_cache,load_authtip_map,refresh_all,load_my_activity_conf,load_wap_forward_url_conf,load_fixed_fund_conf">
+					<ref bean="handleMessageProcessor" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+    <bean id="userIdPicPath" class="java.lang.String">
+        <constructor-arg index="0" value="${mobile-ng.uploadimage.userIdPicPath}"/>
+    </bean>
+ 
+ 	<!-- mobile域名-金融日历图标url地址前缀 -->
+ 	<bean id="calendarIconUrlPrefix" class="java.lang.String">
+ 		<constructor-arg index="0" value="${mobile-ng.calendar.iconurlprefix}"/>
+ 	</bean>
+ 	
+ 	<bean id="htfwebUrlPrefix" class="java.lang.String">
+ 		<constructor-arg index="0" value="${mobile-ng.htfweb.urlprefix}"/>
+ 	</bean>
+ 	
+ 	<bean id="mobile_obs_keyStoneUrl" class="java.lang.String">
+ 		<constructor-arg index="0" value="${mobile-ng.obs.keyStoneUrl}"/>
+ 	</bean>
+ 	<bean id="mobile_obs_keyStoneName" class="java.lang.String">
+ 		<constructor-arg index="0" value="${mobile-ng.obs.keyStoneName}"/>
+ 	</bean>
+ 	<bean id="mobile_obs_keyStonePassword" class="java.lang.String">
+ 		<constructor-arg index="0" value="${mobile-ng.obs.keyStonePassword}"/>
+ 	</bean>
+ 	<bean id="mobile_obs_domain" class="java.lang.String">
+ 		<constructor-arg index="0" value="${mobile-ng.obs.domain}"/>
+ 	</bean>
+ 	<bean id="mobile_obs_projectId" class="java.lang.String">
+ 		<constructor-arg index="0" value="${mobile-ng.obs.cust.projectId}"/>
+ 	</bean>
+ 	<bean id="mobile_obs_swiftUrl" class="java.lang.String">
+ 		<constructor-arg index="0" value="${mobile-ng.obs.swiftUrl}"/>
+ 	</bean>
+ 	<bean id="mobile_obs_assetscert_container" class="java.lang.String">
+ 		<constructor-arg index="0" value="${mobile-ng.obs.cust.assetscert.container}"/>
+ 	</bean>
+ 	<bean id="mobile_obs_uploadIdPic_container" class="java.lang.String">
+ 		<constructor-arg index="0" value="${mobile-ng.obs.uploadIdPic.container}"/>
+ 	</bean>
+
+	<bean id="mobile_obs_uploadCustCertPic_container" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.obs.uploadCustCertPic.container}"/>
+	</bean>
+	<bean id="mobile_obs_uploadCustAvatar_container" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.obs.uploadCustAvatar.container}"/>
+	</bean>
+ 	<bean id="mobile_obs_adviser_report_container" class="java.lang.String">
+ 		<constructor-arg index="0" value="${mobile-ng.obs.adviserReport.container}"/>
+ 	</bean>
+	<bean id="mobile_obs_uploadFacePic_container" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.obs.uploadFacePic.container}"/>
+	</bean>
+	
+	<bean id="mobile_ssoWebCookieKey" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.app.ssoWebCookieKey}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_productcenter_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.productcenter.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_ags_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.ags.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_atsng_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.ats-ng.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_icif_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.icif.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_ias_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.ias.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_ess_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.ess.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_fts_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.fts.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_pss_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.pss.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_commonservices_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.commonservices.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_assetcenter_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.assetcenter.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_sfs_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.sfs.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_smac_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.smac.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_fundgroup_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.fundgroup.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_reward_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.reward.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_cos_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.cos.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_credit_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.credit.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_msg-api-ng_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.msg-api-ng.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_vip_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.vip.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_msg-center-ng_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.msg-center-ng.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_activity-center_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.activity-center.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_res_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.res.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_bankengine-ng_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.bankengine-ng.url}"/>
+	</bean>
+
+	<bean id="mobile_restfulapi_user-group_url" class="java.lang.String">
+		<constructor-arg index="0" value="${mobile-ng.restfulapi.user-group.url}"/>
+	</bean>
+
+</beans>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>投顾转入</title>
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/investEnter.css">
+	<script>
+		// 相对字体大小设置
+		var oHtml = document.documentElement;
+		getFont();
+		window.onresize = function () {
+			getFont();
+		}
+
+		function getFont() {
+			var screenWidth = oHtml.clientWidth;
+			if (screenWidth <= 320) {
+				oHtml.style.fontSize = '17.06px';
+			} else if (screenWidth >= 750) {
+				oHtml.style.fontSize = '40px';
+			} else {
+				oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+			}
+		}
+	</script>
+</head>
+
+<body>
+	<div id="app" v-cloak style="padding-bottom: 2.8rem;">
+		<div class="main">
+			<div class="fund-title">
+				<div class="fund-name"><span class="fund-left">{{groupInfo.groupname}}</span><span
+						class="fund-number">{{groupInfo.groupid}}</span></div>
+				<a :href="'/mobileEC/adviser/investGroupDetails.html?groupId='+groupInfo.groupid" class="arrow"><img
+						src="images/arr.png" alt=""></a>
+			</div>
+			<div class="fgx"></div>
+			<div class="invest">
+				<div class="invest-account">投顾账户</div>
+				<template v-if="acctMode==1">
+					<p>{{currentAcctName}}</p>
+				</template>
+				<template v-else>
+					<div class="invest-input"><input v-if="currentAcctType==='string'" type="text" name="acctName"
+							autofocus="autofocus" v-model.trim="currentAcctName" />
+						<p v-else>{{currentAcctName}}</p>
+					</div>
+					<div class="invest-choose" @click="chooseAccount" v-if="arAcctList.length>0">选择已有账户</div>
+				</template>
+			</div>
+			<div class="warehouse">
+				<div class="warehouse-mode">策略调仓模式<i class="icon icon-point" @click="showInvestTypeTips"></i></div>
+				<div class="warehouse-result">{{groupInfo.investType|investTypeTransfer}}</div>
+			</div>
+			<div class="becomedue" v-if="isShowBecomeDue">
+				<div class="becomedue-mode">止盈或到期处理方式</div>
+				<div class="becomedue-select" @click="showDue=true"><span>{{dueName}}</span><img src="images/arr.png" alt=""></div>
+			</div>
+
+			<!-- 选择到期处理方式浮层-->
+			<div class="layer animated slideInDown" style="z-index:100;" v-if="showDue" @click="showDue=false">
+				<div class="padding" style="background: #fff;" @click="dueType=item.operation" v-for="(item,index) in dueList">
+					<div class="flex flexB">
+						<div>{{item.title}}</div>
+						<div :class="dueType==item.operation?'cirClick':'cir'"></div>
+					</div>
+					<br>
+					<div class="font-color" style="width: 85%;">{{item.content}}</div>
+				</div>
+			</div>
+			<!-- 选择已有账户浮层 -->
+			<div class="layer animated slideInDown" style="z-index:100;" v-if="showAccount" @click="closeAccount()">
+				<div class="account">
+					<div class="account-title">已有账户</div>
+					<div class="account-List" v-if="arAcctList.length>0" v-for="(item,index) in arAcctList"
+						@click.stop="selectArAcct(index)">
+						<div class="account-name" v-text="item.arAcctName"></div>
+						<div><img src="images/arr.png" alt=""></div>
+					</div>
+					<div class="newAccount" @click.stop="selectArAcct('create')">
+						<div class="addAccount">+使用新账户</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="roll-enter" @click="ruleBtn()">
+				<div class="roll-money">转入金额(元)</div>
+				<div class="roll-rule">交易规则</div>
+			</div>
+			<div class="enter-amount">
+				<div class="mark">￥</div>
+				<div class="enter-money">
+					<div class="turn-chinese"><img src="images/triangle.png"><span v-text="chinese"></span></div>
+					<div class="input-number"><input type="number" v-model="inputValue"
+							:placeholder="groupInfo.initLimitAmount+'元起'"></div>
+				</div>
+				<div class="close" @click="close" v-show="inputValue"><img src="images/close.png"></div>
+			</div>
+			<div class="choose-money">
+				<div class="two-thousand" v-for="(item,index) in amount" @click="changeMoney(index,item)"
+					:class="{active:(index===number&&inputValue)}"><span v-text="item.value"></span><span>元</span></div>
+			</div>
+			<!-- <div class="rate">年投顾服务费率：<s>{{groupInfo.investmentServicePerc}}%</s>
+            <span class="rate-red">{{groupInfo.discountRate?groupInfo.discountRate:groupInfo.investmentServicePerc*0.01}}%</span>
+        </div>  -->
+			<div class="rate">年投顾服务费率：{{groupInfo.investmentServicePerc}}%
+				<!-- <span class="rate-red">{{groupInfo.discountRate?groupInfo.discountRate:groupInfo.investmentServicePerc*0.01}}%</span> -->
+			</div>
+
+			<div class="payment" @click="showCard=true">
+				<div class="payment-title">支付方式</div>
+				<div class="payment-mode">
+					<div>{{currentPayInfo.bankGrpName}}</div>
+					<div class="balance">{{currentPayInfo.limitRemark}}</div>
+				</div>
+				<div class="payment-img"><img src="images/arr.png" alt=""></div>
+			</div>
+
+			<div class="gift" id="invitationCode" style="display: none;">
+				<p class="left font-28">邀请码
+					<i class="icon icon-point" @click="showRecommenderTip"></i>
+				</p>
+				<p class="right font-28">
+					<input type="text" style="text-align: left; font-size:.7rem; width: 100%;" v-model='recommendNo'
+						placeholder="选填">
+				</p>
+			</div>
+
+			<!-- 选择支付方式浮层 -->
+			<div class="choose-pay animated slideInDown" style="z-index:100;" v-if="showCard" @click="showCard=false">
+				<div class="bank-card">
+					<div v-for="(item,index) in bankList" @click.stop="choosePay(index)">
+						<template v-if="item.cashFrom=='V'">
+							<div class="xjb">
+								<div class="xjb-img"><img src="images/xjb.png" alt=""></div>
+								<div class="xjb-title">
+									<div class="xjb-name">{{item.bankGrpName}}</div>
+									<div class="xjb-balance">{{item.limitRemark}}</div>
+								</div>
+							</div>
+						</template>
+						<template v-else>
+							<div class="card">
+								<div class="card-img"><img :src="'/mobileEC/images/bank/'+item.bankNo+'.png'" alt="">
+								</div>
+								<div class="card-title">
+									<div class="card-name">{{item.bankGrpName}} [{{item.bankAccoDisplay}}]</div>
+									<div class="card-balance">{{item.limitRemark}}</div>
+								</div>
+								<div class="card-btn">
+									<div class="card-text" :class="signWayTransfer(item.signWay).class">
+										{{signWayTransfer(item.signWay).text}}</div>
+								</div>
+							</div>
+						</template>
+					</div>
+				</div>
+			</div>
+
+			<div class="notes">注：您可通过截屏的方式留存相关信息</div>
+			<div class="agreement" v-if="adviserContractList.length>0">
+				<div class="unicheck">
+					<div class="choose-img" @click="checkBox()" :class="bgIndex ==0 ? 'nobgActive':'bgActive'"></div>
+				</div>
+				<div class="agree">我已同意<a class="agree-color" v-for="(contItem,contIndex) in adviserContractList"
+						href="javascript:;"
+						@click="openAgreementLink(contItem)">《{{contItem.agreementName}}》{{(contIndex+1)==(adviserContractList.length)?'':'、'}}</a>
+				</div>
+			</div>
+
+		</div>
+		<footer class="footer_tips">
+			<div class="title">
+				<p class="line"></p>
+				<p class="text">交易须知</p>
+				<p class="line"></p>
+			</div>
+			<p v-html="tipsInfo.adviserTradeRuleTips?tipsInfo.adviserTradeRuleTips.unificationValue:''"></p>
+		</footer>
+		<footer class="footer_fiexd" :class="{active:footerActvie}" @click="buy">
+			<div>确认转入</div>
+		</footer>
+		<!-- <div class="mask-protocol" style="display: none;" v-show="protocolShow">
+        <div class="protocol-wraper">
+          <div class="protocol-pdf">
+            
+          </div>
+          <p class="fixed-top">{{pdfInfo.agreementName}}</p>
+            <button class="fixed-btn" disabled @click="pdfConfirm">我知道了{{pdfInfo.countDown}}s</button>
+        </div>
+    </div> -->
+		<div class="mask-protocol" style="display: none;" v-show="protocolShow">
+		<!-- <div class="mask-protocol" style="display: none;" v-show="false"> -->
+			<div class="agreement-new">
+				<div class="agreement-head">
+					<div class="agreement-title" style="margin-left: 1.75rem;text-align: center;">基金投顾风险揭示书</div>
+					<!-- <img src="./images/close_02.png" alt="" class="agreement-close" @click="agreementClose"> -->
+				</div>
+				<div class="agreement-iframe">
+					<!-- <iframe :src="iframeUrl" style="width:100%;height:100%" scrolling="auto" frameborder="0"></iframe> -->
+					<iframe v-show='toggleGroupType=="M"' src="./invest_adviser_agreement_m.html"
+						style="width:100%;height:100%" scrolling="auto" frameborder="0"></iframe>
+					<iframe v-show='toggleGroupType=="G"' src="./invest_adviser_agreement_g.html"
+						style="width:100%;height:100%" scrolling="auto" frameborder="0"></iframe>
+				</div>
+				<div class="take-care">注：您可通过截屏的方式留存相关信息</div>
+				<div class="agreement-btn" :class="{active:iKnow}" @click="pdfConfirm">{{countDownBlock}}</div>
+			</div>
+		</div>
+
+		<div class="Bomb-box" style="display: none;">
+			<div class="Bomb-box-main">
+				<div class="Bomb-box-content">
+					<p class="text-center" style="text-align: center; color:#666666"></p>
+				</div>
+				<a class="Bomb-box-ok" @click="hideBomb">确定</a>
+			</div>
+		</div>
+
+	</div>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="./js/utils.js"></script>
+	<script src="./js/vue.js"></script>
+	<!-- <script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script> -->
+	<!-- <script src="./js/pdf.js"></script> -->
+	<script src="./js/investEnter.js"></script>
+
+</body>
+
+</html>

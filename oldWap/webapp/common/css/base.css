@@ -1,0 +1,153 @@
+@charset "utf-8";
+
+/* 禁用iPhone中Safari的字号自动调整,如横屏时会重新计算 */
+html {
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+input{
+	border: none;
+	outline-style: none;
+}
+
+/* 去除iPhone中默认的input样式 */
+input[type="submit"], input[type="reset"], input[type="button"], input {
+	-webkit-appearance: none;
+	resize: none;
+}
+
+/* 取消链接高亮  */
+body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* 设置HTML5元素为块 */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+/* 图片自适应 */
+img {
+	width: 100%;
+	height: auto;
+	width: auto\9; /* ie8 */
+	-ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/
+	border: none;
+}
+
+/* 初始化 */
+body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+body {
+	font: 14px 'Microsoft YaHei', Tahoma, Arial, sans-serif;
+	color: #666666;
+	background-color: #f6f6f6;
+	max-width: 750px;
+	min-width: 320px;
+	margin: 0 auto;
+}
+em, i {
+	font-style: normal;
+}
+.clearfix:after {
+	content: "";
+	display: block;
+	visibility: hidden;
+	height: 0;
+	clear: both;
+}
+.clearfix {
+	zoom: 1;
+}
+a {
+	text-decoration: none;
+	color: inherit;
+}
+a:hover {
+	text-decoration: none;
+}
+ul, ol {
+	list-style: none;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+	font-weight: normal;
+}
+
+table th{
+	font-weight: normal;
+}
+table{
+	border-collapse:collapse; 
+	border-spacing:0px;  	     
+}
+/*字体颜色*/
+
+.grid-list{
+	width: 100%;
+	height: 3.25rem;
+	background-color: #fff;
+}
+
+/*右箭头*/
+.arrow-icon{
+	display: inline-block;
+	background: url(../img/arrow.png) no-repeat;
+	background-size: 100%;
+	width: 0.4rem;
+	height: 0.75rem;
+	margin-right: 0.75rem;
+	margin-top: 1.25rem;
+}
+/*段落提示样式*/
+.section-tips{
+	color: #666;
+	font-size: 0.6rem;
+	padding: 0.5rem 0.75rem 0.5rem 0.75rem;
+}
+
+/*input样式*/
+.input-list{
+	width: 100%;
+	height: 2.5rem;
+	background-color: #fff;
+}
+/*label样式*/
+.label-style{
+	width: 3.875rem;
+	height: 2.5rem;
+	line-height: 2.5rem;
+	margin-left: 0.75rem;
+	font-size: 0.7rem;
+	color: #000;
+}
+/*包裹input的div样式*/
+.input-box{
+	position: relative;
+	height: 2.5rem;
+	width: 13.375rem;
+}
+/*清空input图标*/
+.error-icon{
+	position: absolute;
+	display: inline-block;
+	background: url(../img/error.png) no-repeat;
+	background-size: 100%;
+	width: 0.75rem;
+	height: 0.75rem;
+	right: 0;
+	top:0.9rem;
+}
+.input-style{
+	height: 1rem;
+	width: 13.375rem;
+	line-height: 1rem;
+	font-size: 0.7rem;
+	margin-top: 0.75rem;
+}
+
+
+ul, li{margin: 0; padding: 0;}

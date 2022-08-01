@@ -1,0 +1,152 @@
+html,body{
+    background-color: #f6f6f6;
+    height: 100vh;
+}
+[v-cloak] {
+  display: none;
+}
+#app{
+  height: 100vh;
+}
+header img{
+    display: block;
+    width: 100%;
+}
+.main{width:100%;height:-moz-calc(100vh - 2.5rem);height:-webkit-calc(100vh - 2.5rem);height:calc(100vh - 2.5rem);overflow-y: auto;-webkit-overflow-scrolling: touch;box-sizing: border-box;}
+.investment{
+    padding:0.75rem 0.75rem;background: #fff;
+}
+.investment .item-title{color:#000;font-weight: bold;font-size: 0.8rem}
+.enter-amount{width:100%;display: flex; justify-content:space-between; align-items: center;margin-top:1rem;}
+.enter-amount .mark{font-size: 1.7rem;color:#000;}
+.enter-amount .input-number input{width:100%;font-size:1.8rem;height:1.8rem;line-height:1.8rem;color:#000;}
+.plan-head{width:100%;display: flex; justify-content:space-between; align-items: center;margin-top:1.5rem;color:#000;font-size:0.75rem;}
+.plan-head .plan-title{width:30%;}
+.plan-head input{color:#000;font-size:0.75rem;height:1.75rem; outline:none; border:none;text-align: right;margin-right: 0.5rem;}
+.plan-head img{width:0.75rem;height:0.75rem;vertical-align: middle;}
+
+
+.operate-cycle {display: flex; justify-content: space-between; align-items: center; height: 2.5rem; padding-right: .75rem; background: #fff;border-top:1px solid #eee;}
+
+.select {
+  font-size: 0;
+}
+.font-30{font-size:0.75rem;}
+
+.select span {
+  vertical-align: middle;
+  margin-right: .375rem;
+}
+
+.select img {
+  width: .4rem;
+  height: .75rem;
+  vertical-align: middle;
+  /* margin-top: -2px; */
+}
+.fund-paymode {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 2.5rem;
+  padding: 0 .75rem;
+  background-color: #fff;
+}
+
+.time-tips{padding:0.5rem 0.75rem;font-size: 0.6rem;color:#666;}
+.time-tips span{color:#FB5C5F;}
+.new-add{color:#000;font-size: 0.75rem;padding:0.75rem 0.75rem;background: #fff;border:1px solid #eee;}
+.new-add span{color:#FB5C5F;}
+.plan-list{width:100%;background: #fff;padding-bottom:0.75rem;}
+.plan-list .plan-box{width:17.25rem;margin:0 auto;border: 1px solid #FFD7D7;border-radius: 8px;background: linear-gradient(0deg, #FFFFFF 80%, #FFF7F7 100%);}
+.plan-list .plan-box .fund-title{padding:0.75rem 0.75rem;}
+.plan-list .plan-box .fundName{color:#000;font-weight: bold;font-size: 0.8rem}
+.plan-list .plan-box .fundId{color:#999;font-size:0.65rem;margin-left:0.25rem;}
+.plan-list .plan-box .fund-money{display: flex; justify-content:space-between; align-items: center;padding:0rem 0.75rem;}
+.plan-list .plan-box .fund-money .fund-text{color:#999;font-size: 0.7rem}
+.plan-list .plan-box .fund-money .fund-number{color:#F4333C;font-size:0.75rem}
+
+.plan-list .plan-box .fixed-invest{display: flex; justify-content:space-between; align-items: center;padding:0.75rem 0.75rem;border-bottom:1px solid #eee;padding-bottom: 0.85rem}
+.plan-list .plan-box .fund-invest .fixed-text{color:#666;font-size: 0.7rem}
+.plan-list .plan-box .fund-invest .fixed-name{color:#000;font-size: 0.7rem}
+
+.agreement {
+  padding: 0 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  margin-top: .375rem;
+}
+
+.agreement .unicheck {
+  width: 5%;
+}
+.bgActive {
+  width: 0.7rem;
+  height: 0.7rem;
+  text-align: right;
+  background: url('../img/checked.png') no-repeat;
+  background-size: cover;
+  margin-top: 2px;
+}
+.nobgActive {width: 0.7rem; height: 0.7rem; text-align: right; background: url('../img/unicheck.png') no-repeat; background-size:100% 100%; margin-top: 0.1rem; margin-top: 2px; }
+.agreement .agree {flex: 1; font-size: 0.65rem; color: #666; margin-left: 0.35rem; }
+.agreement .agree .agree-color {color: #148ce6;}
+.next-step{position: absolute; left: 0; bottom: 0; right: 0; height: 2.5rem; line-height: 2.5rem; text-align: center; background-color: #0757B2; color: #fff; font-size: .85rem;transform: translateZ(0);-webkit-transform: translateZ(0);z-index:0}
+/* .next-step.active{
+  background-color: #fe7e01;
+  color: #fff;
+} */
+
+/* 定投周期 */
+/* 选择日期 */
+.layer,.choose-pay,.choose-time{ background-color: #ffffff; height: 100%; width: 100%; position: fixed; top: 0;left:0; overflow: auto;z-index:99;}
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+@keyframes slideInDown{
+    0%{opacity:0;-webkit-transform:translateY(-2000px);-ms-transform:translateY(-2000px);transform:translateY(-2000px)}
+    100%{-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}}
+@keyframes slideInUp{
+    0%{opacity:0;-webkit-transform:translateY(100%);-ms-transform:translateY(100%);transform:translateY(100%)}
+    100%{-webkit-transform:translateY(30%);-ms-transform:translateY(30%);transform:translateY(30%)}}
+.slideInDown{-webkit-animation-name:slideInDown;animation-name:slideInDown}
+.slideInUp{-webkit-animation-name:slideInUp;animation-name:slideInUp;}
+
+.account{width:100%;height:100%;}
+.account .account-title{color:#000;font-size:0.8rem;padding:0.75rem;font-weight:bold}
+.account .account-List{display: flex; justify-content: space-between; align-items: center;padding:0.875rem 0.75rem;border-bottom:1px solid #eee;}
+.account .account-List .account-name{font-size:0.75rem;color:#000;}
+.account .account-List img{width:0.4rem;height: 0.75rem}
+.account .newAccount{width:100%;padding:0.625rem 0rem;}
+.account .addAccount{height:1.75rem;width:9.0rem;border:1px solid #fe5a5b;border-radius:1.25rem;margin:0 auto;font-size:0.75rem;color:#fe5a5b;text-align: center;line-height:1.75rem}
+.choose-time li.on .annulus ,
+.choose-time2 li.on .annulus ,
+.strategy li.on .annulus ,
+.deduction_cycle_type_list li.on .annulus{  float: right; border-radius: 50%;  width: 0.8rem;  height: 0.79rem;  margin-top: 0.9rem; display: block; border: 1px solid #ff7e01; position: relative;}
+.choose-time li.on  .annulus:after,
+.choose-time2 li.on  .annulus:after,
+.strategy li.on  .annulus:after ,
+.deduction_cycle_type_list li.on  .annulus:after { display: block; content: ""; width: .4rem; height: .4rem; background-color: #ff7e01; position: absolute;top: 50%;left: 50%;  border-radius: 50%; margin: -.2rem 0 0 -.2rem;}
+.list-group { margin: 0.5rem 0; background-color: #fff;padding: 0 0.75rem; }
+.list-group .list-group-item { min-height: 1.725rem; line-height: 1.725rem; }
+
+.list-group2 { margin: 0.5rem 0; background-color: #f6f6f6;padding: 0 0.75rem; }
+.list-group2 .list-group-item2 { min-height: .5rem; line-height: .5rem; }
+.no-margin-top { margin-top: 0 !important; }
+.lh-100 { line-height: 2.5rem !important; }
+.bottom-border {border-bottom: solid 1px #eeeeee;}
+.input-number>input::placeholder{
+     font-size: .75rem;
+     color: #999;
+}
+
+input{
+  outline: none;
+}
+
+/* .input-number{
+  line-height: 2rem;
+} */

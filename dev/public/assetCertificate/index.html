@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>申请资产证明</title>
+    <link rel="stylesheet" href="../base/css/base.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="container">
+            <h4>请确认以下信息</h4>
+            <ul class="form-list">
+                <li>
+                    <p>真实姓名</p>
+                    <p>{{commitInfo.invNm}}</p>
+                </li>
+                <li>
+                    <p>姓名拼音</p>
+                    <p>
+                        <input type="text" v-model="commitInfo.invPy" @focus="delShow=true" @blur="delShow=false">
+                        <img src="./img/del.png" alt="" v-show="delShow" @click="commitInfo.invPy=''">
+                    </p>
+                </li>
+                <li>
+                    <p>资产截至日期</p> 
+                    <p>
+                        <calendar v-model="commitInfo.assetDate" :config="config" readonly="true"></calendar><img src="./img/arrow-r.png" alt=""></p>
+                </li>
+            </ul>
+            <p class="desc">{{desc}}</p>
+            <div class="next">
+                <a href="javascript:;" @click="submitInfo">下一步</a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+    <script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+    <script type="text/javascript" src="../base/js/lib/vueCalender.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    delShow: false,
+                    config: {
+                        type: 'date',
+                        minDate: '',
+                        maxDate: '',
+                        formatTp: '.', //默认‘-’
+                    },
+                    commitInfo:{
+                        assetDate: '',
+                        invNm:'',
+                        invPy:''
+                    },
+                    desc:''
+                }
+            },
+            created() {
+                this.getUserInfo();
+                this.getConfiguredText();
+            },
+            methods: {
+                // 获取必要信息
+                getUserInfo(){
+                    utils.ajax({
+                        url:'/assetcenter/v2/certification/apply-info',
+                        success:function(res){
+                            console.log(res);
+                            if(res.returnCode === 0&&res.body){
+                                const result = res.body;
+                                const reg = /(\d{4})(\d{2})(\d{2})/;
+                                // this.$set(object, key, value)
+                                this.config.minDate = result.earlyDate.replace(reg,'$1-$2-$3');
+                                this.config.maxDate = result.lateDate.replace(reg,'$1-$2-$3');
+                                this.commitInfo.assetDate = result.lateDate.replace(reg,'$1.$2.$3');
+                                this.commitInfo.invNm = result.invNm;
+                                this.commitInfo.invPy = result.invPy;
+                            }
+                        }.bind(this)
+                    })
+                },
+                // 获取配置文本接口
+                getConfiguredText(){
+                    utils.ajax({
+                        url:'/mobile-bff/v1/unification/query?keys=assetCertApplyTips',
+                        success:function(res){
+                            if(res.returnCode === 0){
+                                res.body&&res.body.assetCertApplyTips&&(this.desc = res.body.assetCertApplyTips.unificationValue);
+                            }
+                        }.bind(this)
+                    })
+                },
+                // 提交申请
+                submitInfo(){
+                    if(!this.commitInfo.invPy){
+                        return utils.showTips('姓名拼音不能为空');
+                    }
+                    if(!this.commitInfo.assetDate){
+                        return utils.showTips('请选择截至日期');
+                    }
+                    $.ajax({
+                        url:'/mobile-bff/v1/asset/apply-asset-certification-online',
+                        type:'POST',
+                        data:{...this.commitInfo,...{'source':'APP'}},
+                        success:function(result){
+                            if (result.returnCode === 0) {
+                                utils.setSession(utils.serialNo_forword_url, '/tradeh5/newWap/assetCertificate/preview.html')
+                                utils.removeSession(utils.getCookie('sso_cookie_ext_dp')); // 去掉已存的session,防止污染
+                                utils.verifyTradeChain(result.body);
+                            } else {
+                                utils.showTips('请求超时，请稍后重试');
+                            }
+                        }.bind(this)
+                    })
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

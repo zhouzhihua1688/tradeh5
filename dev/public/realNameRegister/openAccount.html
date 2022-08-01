@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实名开户</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/common.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/realNameRegister/css/mobileSelect.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/realNameRegister/css/openAccount.css">
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+<body>
+<div class="wap" style="display: none;">
+    <div class="input-group no-border mb20">
+        <div class="text">登录手机号</div>
+        <div class="input-area">
+            <input id="mobileNo" type="text" placeholder="请填写登录手机号">
+        </div>
+    </div>
+    <div class="input-group">
+        <div class="text">姓名</div>
+        <div class="input-area">
+            <input id="name" type="text" placeholder="请填写姓名">
+        </div>
+    </div>
+    <div class="input-group">
+        <div class="text">证件类型</div>
+        <div class="input-area " id="selectType">身份证</div>
+        <!--    <div class="arrow">-->
+        <!--        <img src="/tradeh5/newWap/realNameRegister/img/arrow.png">-->
+        <!--    </div>-->
+    </div>
+    <div class="input-group">
+        <div class="text">证件号</div>
+        <div class="input-area">
+            <input id="idNo" type="text" placeholder="请填写证件号">
+        </div>
+    </div>
+    <!-- <div class="input-group no-border">
+        <div class="text">证件有效期</div>
+        <div class="input-area gray" id="effectiveTime">请填写证件有效期</div>
+        <div class="input-long-date"><input id="long-date" type="checkbox" style="margin: 0 .5rem;">长期</div>
+    </div> -->
+</div>
+
+<div class="airstar" style="display: none;">
+    <div class="input-group">
+        <div class="text">姓名</div>
+        <div class="input-area">
+            <input id="name_airstar" type="text" placeholder="请输入您的真实姓名">
+        </div>
+    </div>
+    <div class="input-group">
+        <div class="text">身份证</div>
+        <div class="input-area">
+            <input id="idNo_airstar" type="text" placeholder="请输入身份证号码">
+        </div>
+    </div>
+    <!-- <div class="input-group no-border">
+        <div class="text">证件有效期</div>
+        <div class="input-area gray" id="effectiveTime_airstar">请选择证件有效期</div>
+        <div class="input-long-date-airstar"><input id="long-date_airstar" type="checkbox" style="margin: 0 .5rem;">长期</div>
+    </div> -->
+    <section class="section1"><h1>请绑定账户本人的银行卡</h1></section>
+    <div class="input-group">
+        <div class="text">卡号</div>
+        <div class="input-area">
+            <input class="font-28 bankCardNo" type="text"  maxlength="23" onkeyup="this.value=this.value.replace(/\s/g,'').replace(/(\d{4})(?=\d)/g,'$1 ');" placeholder="请输入15~19位储蓄卡卡号" data-rquire-msg="储蓄卡卡号不能为空">
+        </div>
+    </div>
+    <div class="input-group">
+        <div class="text">银行</div>
+        <div class="col-1 font-28 blue selectBankCard-bind"><font id="bank_name_panel">请选择</font> 储蓄卡</div>
+        <div>
+            <i class="icon icon-arrow-right"></i>
+        </div>
+    </div>
+    <section class="section1" id="zsywt-panel" style="display:none; line-height: 1rem;"><h1>使用招商银行一网通通道绑卡，点击"下一步"将跳转至银行页面完成签约。</h1></section>
+    <div class="input-group no-border mb20" style="margin-top:10px">
+        <div class="text">手机号</div>
+        <div class="input-area">
+            <input id="mobileNo_airstar" type="text" placeholder="请填写登录手机号">
+        </div>
+    </div>
+</div>
+
+<div class="layer animated slideInDown" id="bankCardList" style="display: none;">
+    <ul class="list-group no-margin-top">
+    </ul>
+</div>
+<div class="select-agreement">
+    <div class="img no-check"></div>
+    <div class="agreement">同意<a
+            href="http://static.99fund.com/mobile/agreement/online_agreement.html">《汇添富手机开户协议》、</a><a
+            href="http://static.99fund.com/mobile/agreement/investor_equities_agreement.html">《证券投资基金投资人权益须知》、</a><a
+            href="http://static.99fund.com/mobile/agreement/privacy_policy_agreement.html">《汇添富现金宝隐私政策》</a><a id="quick_agreement_airstar" style="display: none;"
+            href="http://static.99fund.com/mobile/agreement/quick_agreement.html">《快捷支付业务协议》</a></div>
+</div>
+<div class="btn">下一步</div>
+<div id="btn-submit">下一步</div>
+<div class="bottom-text">为了完成账户的创建、关联或登录，我们将收集您在创建账户时向汇添富提供的各类信息，如姓名、手机号、身份证件或者其他身份证明文件的影印件(或复印件)、种类、号码和有效期限等信息。</div>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;"
+           onclick="this.parentElement.parentElement.style='display:none'">我知道啦</a>
+    </div>
+</div>
+<input type="text" style="display: none;" id="hideIdTp">
+<input type="text" style="display: none;" id="hideIdValiDate">
+<input type="text" style="display: none;" id="hideIdValiDate_airstar">
+<script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+<script src="/tradeh5/newWap/base/js/lib/hammer.min.js"></script>
+<script src="/tradeh5/newWap/base/js/lib/jquery.hammer.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script src="/tradeh5/newWap/realNameRegister/js/mobileSelect.min.js"></script>
+<script src="/tradeh5/newWap/realNameRegister/js/selectDate.js"></script>
+<script>
+    $(function () {
+        var nowDate = new Date();
+        var startDate = nowDate.getFullYear();
+        var endDate = 2099;
+        var referUrl = decodeURIComponent(utils.getUrlParam("referUrl"));
+        var channelCode = utils.getCookie('channelCode');
+        if(channelCode == 'airstar' || channelCode == 'zhengtong'){
+            $('.airstar').show();
+            $('#btn-submit').show();
+            $('#quick_agreement_airstar').show();   // 20220616，小米金融，快捷支付协议链接，展示
+        } else {
+            $('.wap').show();
+            $('.btn').show();
+        }
+
+        if(utils.getUrlParam('fromSource') == 'bcm'){
+            formBCM();
+        }
+
+        utils.removeSession("_bind_selected_card");
+
+        queryBankList('');
+
+        $(".bankCardNo").on("input", loadBank);
+        if($('.bankCardNo').val()){
+            loadBank();
+        }
+        utils.bind("#btn-submit", "tap", createCard);
+
+        $(".selectBankCard-bind").click(function(){
+
+            var acco = $(".bankCardNo").val().replace(/\s+/g, "");
+            if(!acco){
+                $("#bankCardList").show();
+            }else{
+                var url = "/mobile-bff/v1/bankengine/bank-list?bankAcco=" + (acco?acco:"\"\"");
+                utils.get(url, null, function (result) {
+                    var clist = result.body.channel;
+                    // S 当前只支持快捷，signWay=="1"
+                    clist = clist.filter(function(item){
+                        return item.signWay === '1';
+                    })
+                    // E 当前只支持快捷，signWay=="1"
+                    if(clist.length == 1){
+                        var bankChannel = clist[0];
+                        var card = {"bankNo":bankChannel.bankNo,"bankNm":bankChannel.accoName,"protocolUrl":bankChannel.protocolUrl,"fakeBank":bankChannel.fakeBank,"signWay":bankChannel.signWay};
+
+                        if(bankChannel.bankNo == '707'){//招行一网通
+                            $("#zsywt-panel").show();
+                        }else{
+                            $("#zsywt-panel").hide();
+                        }
+                        utils.setSession("_bind_selected_card", card);
+                        changeCardInfo(card);
+                        alertTips("卡号匹配成功！")
+                    }else{
+                        $("#bank_name_panel").html("请选择");
+                        $("#bankCardList").show();
+                    }
+                });
+            }
+
+    });
+
+        // var fixZero = num => num < 10 ? '0' + num : num;
+        // var mySelectDate = $.selectDate('#effectiveTime', {
+        //     start: startDate,
+        //     end: endDate,
+        //     select: [nowDate.getFullYear(), nowDate.getMonth() + 1, nowDate.getDay()],
+        //     title: ' '
+        // }, function (data) {
+        //     $('#effectiveTime').removeClass('gray');
+        //     $('#effectiveTime').text(`${data.year}-${fixZero(data.month)}-${fixZero(data.day)}`);
+        //     $('#hideIdValiDate').val(`${data.year}-${fixZero(data.month)}-${fixZero(data.day)}`);
+        //     $('#long-date')[0].checked = false;
+        // });
+        
+        // var mySelectDate_airstar = $.selectDate('#effectiveTime_airstar', {
+        //     start: startDate,
+        //     end: endDate,
+        //     select: [nowDate.getFullYear(), nowDate.getMonth() + 1, nowDate.getDay()],
+        //     title: ' '
+        // }, function (data) {
+        //     $('#effectiveTime_airstar').removeClass('gray');
+        //     $('#effectiveTime_airstar').text(`${data.year}-${fixZero(data.month)}-${fixZero(data.day)}`);
+        //     $('#hideIdValiDate_airstar').val(`${data.year}-${fixZero(data.month)}-${fixZero(data.day)}`);
+        //     $('#long-date_airstar')[0].checked = false;
+        // });
+        // if ($('#hideIdTp').val()) { // 如果之前选择了身份证类型则自动补全
+        //     $('#selectType').removeClass('gray');
+        //     $('#selectType').text($('#hideIdTp').val());
+        //     mySelect.locatePosition(0, idTypeList.indexOf($('#hideIdTp').val()));
+        // }
+        // if ($('#hideIdValiDate').val()) { // 如果之前选择了身份证有效期则自动补全
+        //     var validateDate = $('#hideIdValiDate').val();
+        //     $('#effectiveTime').removeClass('gray');
+        //     $('#effectiveTime').text(validateDate);
+        //     if (/\d{4}-\d{2}-\d{2}/.test($('#hideIdValiDate').val())) {
+        //         var validateDateYear = Number(validateDate.slice(0, 4));
+        //         var validateDateMonth = Number(validateDate.slice(5, 7));
+        //         var validateDateDay = Number(validateDate.slice(8, 10));
+        //         mySelectDate.locatePosition(0, validateDateYear - startDate);
+        //         mySelectDate.locatePosition(1, validateDateMonth - 1);
+        //         mySelectDate.locatePosition(2, validateDateDay - 1);
+        //         $('#long-date')[0].checked = false;
+        //     }
+        // }
+
+        // if ($('#hideIdValiDate_airstar').val()) { // 如果之前选择了身份证有效期则自动补全
+        //     var validateDate = $('#hideIdValiDate_airstar').val();
+        //     $('#effectiveTime_airstar').removeClass('gray');
+        //     $('#effectiveTime_airstar').text(validateDate);
+        //     if (/\d{4}-\d{2}-\d{2}/.test($('#hideIdValiDate_airstar').val())) {
+        //         var validateDateYear = Number(validateDate.slice(0, 4));
+        //         var validateDateMonth = Number(validateDate.slice(5, 7));
+        //         var validateDateDay = Number(validateDate.slice(8, 10));
+        //         mySelectDate_airstar.locatePosition(0, validateDateYear - startDate);
+        //         mySelectDate_airstar.locatePosition(1, validateDateMonth - 1);
+        //         mySelectDate_airstar.locatePosition(2, validateDateDay - 1);
+        //         $('#long-date_airstar')[0].checked = false;
+        //     }
+        // }
+        var userSalt = utils.getSession(utils.userSalt);
+        var openUid = utils.getSession(utils.openUid);
+        var channelCode = utils.getCookie('channelCode');
+        if (userSalt && openUid) { // get userInfo by UAA
+            $.ajax({
+                // url: '/uaa/v1/airstar/user-info',
+                url: `/uaa/v1/${channelCode.toLowerCase()}/user-info`,
+                contentType: 'application/json',
+                data: {
+                    userSalt: userSalt,
+                    partyNo: openUid
+                },
+                dataType: 'json',
+                beforeSend:function(req){
+					if(utils.getCookie('traceCode')){
+						req.setRequestHeader("X-TraceCode", utils.getCookie('traceCode'));
+					}
+				},
+                success: function (result) {
+                    if (result.returnCode === 0 && result.body) {
+                        $('#mobileNo').val(result.body.mobileNo);
+                        $('#mobileNo_airstar').val(result.body.mobileNo);
+                        $('#name').val(result.body.username);
+                        $('#name_airstar').val(result.body.username);
+                        // $('#selectType').removeClass('gray');
+                        // $('#selectType').text(filterIDType(result.body.idType, 1));
+                        // mySelect.locatePosition(0, idTypeList.indexOf(filterIDType(result.body.idType, 1)));
+                        $('#idNo').val(result.body.idNo);
+                        $('#idNo_airstar').val(result.body.idNo);
+                        $('.bankCardNo').val(result.body.bankCard);
+                        // var validateDate = result.body.validateDate;
+                        // if (validateDate) {
+                        //     $('#effectiveTime').removeClass('gray');
+                        //     if (/(\d{4})(\d{2})(\d{2})/.test(validateDate) && validateDate !== '20991231') { // 非长期用户
+                        //         $('#effectiveTime').text(validateDate.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3'));
+                        //         var validateDateYear = Number(validateDate.slice(0, 4));
+                        //         var validateDateMonth = Number(validateDate.slice(4, 6));
+                        //         var validateDateDay = Number(validateDate.slice(6, 8));
+                        //         mySelectDate.locatePosition(0, validateDateYear - startDate);
+                        //         mySelectDate.locatePosition(1, validateDateMonth - 1);
+                        //         mySelectDate.locatePosition(2, validateDateDay - 1);
+                        //         $('#long-date')[0].checked = false;
+                        //     } else if (validateDate === '20991231' || validateDate.includes('长期')) {
+                        //         $('#effectiveTime').text('长期有效');
+                        //         $('#long-date')[0].checked = true;
+                        //     }
+
+                        //     $('#effectiveTime_airstar').removeClass('gray');
+                        //     if (/(\d{4})(\d{2})(\d{2})/.test(validateDate) && validateDate !== '20991231') { // 非长期用户
+                        //         $('#effectiveTime_airstar').text(validateDate.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3'));
+                        //         var validateDateYear = Number(validateDate.slice(0, 4));
+                        //         var validateDateMonth = Number(validateDate.slice(4, 6));
+                        //         var validateDateDay = Number(validateDate.slice(6, 8));
+                        //         mySelectDate_airstar.locatePosition(0, validateDateYear - startDate);
+                        //         mySelectDate_airstar.locatePosition(1, validateDateMonth - 1);
+                        //         mySelectDate_airstar.locatePosition(2, validateDateDay - 1);
+                        //         $('#long-date_airstar')[0].checked = false;
+                        //     } else if (validateDate === '20991231' || validateDate.includes('长期')) {
+                        //         $('#effectiveTime_airstar').text('长期有效');
+                        //         $('#long-date_airstar')[0].checked = true;
+                        //     }
+                        // }
+                    }
+                },
+                error: function (error) {
+                    console.log('get userInfo by UAA error:', error);
+                }
+            });
+        }
+        //滑动验证码初始化,_fmOpt必须为全局变量
+        window._fmOpt = {
+            display: 'popup',
+            partner: 'huitianfu',
+            appName: 'huitianfu_h5',
+            fmb: true,
+            initialTime: new Date().getTime(),
+            token: 'huitianfu' + '-' + new Date().getTime() + '-' + Math.random().toString(16).substr(2),
+            getinfo: function () {
+                return 'e3Y6ICIyLjUuMCIsIG9zOiAid2ViIiwgczogMTk5LCBlOiAianMgbm90IGRvd25sb2FkIn0=';
+            },
+            env: 1
+        };
+        var fm = document.createElement('script');
+        fm.type = 'text/javascript';
+        fm.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'static.tongdun.net/captcha/main/tdc.js?ver=1.0&t=' + (new Date().getTime() / 600000).toFixed(0);
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(fm, s);
+        $('.btn').on('click', function () {
+            if(utils.getCookie('channelCode') != 'airstar' || utils.getCookie('channelCode') != 'zhengtong'){
+                if (!/^1(3[0-9]|4[01456879]|5[0-35-9]|6[2567]|7[0-8]|8[0-9]|9[0-35-9])\d{8}$/.test($('#mobileNo').val())) {
+                    $('.text-center').text('手机号格式有误');
+                    $('.Bomb-box').show();
+                    return false;
+                }
+                if (!$('#name').val()) {
+                    $('.text-center').text('未填写姓名');
+                    $('.Bomb-box').show();
+                    return false;
+                }
+                // if (!idTypeList.includes($('#selectType').text())) {
+                //     $('.text-center').text('未填写证件类型');
+                //     $('.Bomb-box').show();
+                //     return false;
+                // }
+                if (!$('#idNo').val()) {
+                    $('.text-center').text('未填写证件号');
+                    $('.Bomb-box').show();
+                    return false;
+                }
+                if ($('#selectType').text() === '身份证' && !/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test($('#idNo').val())) {
+                    $('.text-center').text('身份证号格式错误');
+                    $('.Bomb-box').show();
+                    return false;
+                }
+                // if (!/\d{4}-\d{2}-\d{2}/.test($('#effectiveTime').text()) && $('#effectiveTime').text() !== '长期有效') {
+                //     $('.text-center').text('未填写证件有效期');
+                //     $('.Bomb-box').show();
+                //     return false;
+                // }
+                if (!$('.select-agreement .img').hasClass('check')) {
+                    $('.text-center').text('未同意开户协议');
+                    $('.Bomb-box').show();
+                    return false;
+                }
+                _fmOpt.onSuccess = function (slideAuthCode) {     // 验证成功回调，有效token由此传入
+                    var data = {
+                        // "bsExternalCode": "string",
+                        channelCode: utils.getCookie('channelCode'),
+                        // "deviceId": "string",
+                        // "fingerPrint": "string",
+                        idNo: $('#idNo').val(),
+                        // idTp: filterIDType($('#selectType').val(), 2),
+                        idTp: 0,
+                        // idValiDate: $('#effectiveTime').text() === '长期有效' ? '20991231' : $('#effectiveTime').text().replace(/-/g, ''),
+                        // "imei": "string",
+                        // "imsi": "string",
+                        invNm: $('#name').val(),
+                        // loginFrom: 'W',
+                        mobileNo: $('#mobileNo').val(),
+                        // "nationality": "string",
+                        openId: utils.getSession(utils.openId),
+                        openUid: utils.getSession(utils.openUid),
+                        // "platformId": "string",
+                        slideAuthCode: slideAuthCode,
+                        registerFrom: "",
+                        // registerFromEx: "AIRSTAR",
+                        // "uuid": "string"
+                    }
+                    if(utils.getUrlParam("custMgrId")){
+                        data.custMgrId=utils.getUrlParam("custMgrId")  //2021112获取添加custMgrId;
+                    }
+                    utils.getCookie('channelCode') == 'airstar' && (data.registerFromEx = "AIRSTAR");
+                    utils.getCookie('channelCode') == 'zhengtong' && (data.registerFromEx = "ZHENGTONG");
+                    utils.ajax({
+                        url: '/mobile-bff/v1/account/register',
+                        data: data,
+                        type: 'POST',
+                        success: function (result) {
+                            if (result.returnCode == 0) {
+                                utils.setSession('__registerInfo', JSON.stringify(data));
+                                window.location.href = '/tradeh5/newWap/realNameRegister/inputCode.html?serialNo=' + encodeURIComponent(result.body.serialNo)+ (referUrl? '&referUrl='+encodeURIComponent(referUrl):'');;
+                            } else if (result.returnCode != 0 && result.returnCode != 9999) {
+                                $('.text-center').text(result.returnMsg);
+                                $('.Bomb-box').show();
+                            } else {
+                                $('.text-center').text('系统异常，请稍后再试!');
+                                $('.Bomb-box').show();
+                            }
+                        },
+                        error: function () {
+                            $('.text-center').text('系统异常，请稍后再试!');
+                            $('.Bomb-box').show();
+                        }
+                    });
+                }
+
+                //获取滑动验证码开始
+                $.ajax({
+                    url: '/cos/v1/identity/captcha/token?validateType=1',
+                    data: {},
+                    dataType: 'json',
+                    t: new Date(),
+                    success: function (result) {
+                        if (result.returnCode == 0) {
+                            _fmOpt.triggerCaptcha(result.body);     //渲染验证码
+                        } else {
+                            $('.text-center').text('系统异常，请稍后再试!');
+                            $('.Bomb-box').show();
+                        }
+                    },
+                    error: function () {
+                        $('.text-center').text('系统异常，请稍后再试!');
+                        $('.Bomb-box').show();
+                    }
+                });
+            } 
+        });
+
+        $('.select-agreement .img').on('click', function () {
+            if ($(this).hasClass('no-check')) {
+                $(this).removeClass('no-check');
+                $(this).addClass('check');
+            } else {
+                $(this).removeClass('check');
+                $(this).addClass('no-check');
+            }
+        });
+        // $('.arrow').on('click',function(){
+        //     $(this).prev().click();
+        // });
+        // $('.input-long-date').on('click', function () {
+        //     if ($('#long-date').is(':checked')) {
+        //         $('#effectiveTime').removeClass('gray');
+        //         $('#effectiveTime').text('长期有效');
+        //         $('#hideIdValiDate').val('长期有效');
+        //     } else {
+        //         $('#effectiveTime').addClass('gray');
+        //         $('#effectiveTime').text('请填写证件有效期');
+        //         $('#hideIdValiDate').val('');
+        //     }
+
+        // });
+
+        // $('.input-long-date-airstar').on('click', function () {
+        //     if ($('#long-date_airstar').is(':checked')) {
+        //         $('#effectiveTime_airstar').removeClass('gray');
+        //         $('#effectiveTime_airstar').text('长期有效');
+        //         $('#hideIdValiDate_airstar').val('长期有效');
+        //     } else {
+        //         $('#effectiveTime_airstar').addClass('gray');
+        //         $('#effectiveTime_airstar').text('请填写证件有效期');
+        //         $('#hideIdValiDate_airstar').val('');
+        //     }
+
+        // });
+
+        function filterIDType(type, method) { // method:1-数字到文案   2-文案到数字
+            if (method === 1) {
+                if (type == 0 || type == 'ID_CARD' || type === null) {
+                    return '身份证';
+                }
+                if (type == 1) {
+                    return '中国护照';
+                }
+                if (type == 4) {
+                    return '港澳通行证';
+                }
+                if (type == 5) {
+                    return '户口本';
+                }
+                if (type == 'A') {
+                    return '台胞证';
+                }
+                return '身份证';
+            } else if (method === 2) {
+                if (type == '身份证' || type === null) {
+                    return 0;
+                }
+                if (type == '中国护照') {
+                    return 1;
+                }
+                if (type == '港澳通行证') {
+                    return 4;
+                }
+                if (type == '户口本') {
+                    return 5;
+                }
+                if (type == '台胞证') {
+                    return 'A';
+                }
+                return 0;
+            }
+        }
+    });
+
+function alertTips(){
+    if(arguments.length == 1){
+        showTips("信息", arguments[0], "确定");
+    }else if(arguments.length == 2){
+        showTips("信息", arguments[0], arguments[1]);
+    }else if(arguments.length == 3){
+        showTips("信息", arguments[0], arguments[1]);
+        var fun = arguments[2];
+        $(".Bomb-box-ok").click(function () {
+            eval(fun).call(this);
+        });
+    }
+}
+
+function showTips(tips, content, btnTxt){
+//	console.log($(".Bomb-box").length);
+	if($(".Bomb-box").length > 0){
+	    $(".Bomb-box-tips").html(tips);
+	    $(".Bomb-box-content p").html(content);
+	    $(".Bomb-box-content p").removeClass();
+	    $(".Bomb-box-content p").addClass("text-center");
+	    $(".Bomb-box-ok").html(btnTxt);
+	    $(".Bomb-box").show();
+	}else{
+		alert(content);
+	}
+}
+
+/**
+ * 根据卡bin选择银行通道
+ */
+ var hisBankBin = '';
+function loadBank(){
+    var bankAcco = $(".bankCardNo").val().replace(/\s+/g, "");
+    //20220324 和App保持一致，输入10位数字开始识别卡bin
+    if(bankAcco.length >= 10){
+        var newBankBin = bankAcco.substring(0,10);
+        if(hisBankBin != newBankBin){
+            hisBankBin = newBankBin;
+            queryBankList(bankAcco);
+        }
+    }
+}
+
+/**
+ * 设置银行通道
+ * @param cards
+ */
+ function showBankList(cards){
+    var arr = [];
+    for(var index in cards){
+        var card = cards[index];
+        var signStyle;
+        var signWay;
+		if(card.signWay == "1"){
+			signStyle = "icon-shorcut";
+			signWay = "快捷";
+		}else if(card.signWay == "2"){
+			signStyle = "icon-union";
+			signWay = "银联通";
+		}else if(card.signWay == "3"){
+			signStyle = "icon-E-bank";
+			signWay = "网银";
+		}else if(card.signWay == "4"){
+			signStyle = "icon-E-bank";
+			signWay = "通联";
+		}else if(card.signWay == "6"){
+			signStyle = "icon-E-bank";
+			signWay = "云闪付";
+		}else if(card.signWay == "7"){
+			signStyle = "icon-E-bank";
+			signWay = "一网通";
+        }
+
+        if(card.bankGrpName.indexOf('招行') > -1 && card.signWay != '7') continue;
+
+        if(true || card.signWay == "7" || card.signWay == "1"){//wap只需支持快捷和招行一网通 20210705全放开
+            arr.push('<li class="list-group-item bottom-border lh-100 bank_card_option" data="'+ card.bankNo +',' + card.accoName + ','+ card.protocolUrl+ ','+ card.fakeBank+ ','+ card.signWay +'">');
+            arr.push('    <div class="row">');
+            arr.push('        <div class="">');
+            arr.push('            <img src="/mobileEC/images/bank/'+card.bankNo+'.png" class="bank-logo-new" style="margin-top:10px; margin-bottom:10px !important" />');
+            arr.push('        </div>');
+            arr.push('        <div class="col-1">');
+            arr.push('            <p class="bank-name font-28" style="margin-top:1rem;">' + card.accoName +  '</p>');
+            arr.push('        </div>');
+            arr.push('        <div class="">');
+            arr.push('            <a class="icon ' + signStyle + '" style="margin-top:.8rem;">'+signWay+'</a>');
+            arr.push('        </div>');
+            arr.push('    </div>');
+            arr.push('</li>');
+            
+        }
+    }
+    $("#bankCardList ul").html(arr.join(""));
+    utils.bind(".bank_card_option", "tap", selectedCard);
+}
+
+/**
+ * 获取可用银行渠道
+ */
+ function queryBankList(acco){
+
+    var url = "/mobile-bff/v1/bankengine/bank-list?bankAcco=" + (acco?acco:"\"\"");
+    utils.get(url, null, function (result) {
+        if(!acco){
+            utils.setSession("__bind_card_list", result.body.channel);
+            showBankList(result.body.channel);
+        }else{
+            var clist = result.body.channel;
+            var bankChannel;
+            if(result.body.channel[0].bankNo == '707'){//招行一网通
+                bankChannel = result.body.channel[0];
+            }else{
+                // S 当前只支持快捷，signWay=="1" 
+                clist = clist.filter((item)=>{
+                    return item.signWay === '1';
+                })
+                // E 当前只支持快捷，signWay=="1"
+                // 20220324 和App保持一致 接口返回多条时，取第一条可用
+                if(clist.length >= 1 && acco){
+                    bankChannel = clist[0];
+                }
+            }
+            
+            if(bankChannel){   
+                var card = {"bankNo":bankChannel.bankNo,"bankNm":bankChannel.accoName,"protocolUrl":bankChannel.protocolUrl,"fakeBank":bankChannel.fakeBank, "signWay":bankChannel.signWay};
+                if(bankChannel.bankNo == '707'){//招行一网通
+                    $("#zsywt-panel").show();
+                }else{
+                    $("#zsywt-panel").hide();
+                }
+                utils.setSession("_bind_selected_card", card);
+                changeCardInfo(card);
+            }else{
+                $("#bank_name_panel").html("请选择");
+            }
+        }
+    });
+}
+/**
+* 选择银行
+*/
+function selectedCard(){
+    // var data = $(event.target).attr("data");
+    var data = $(this).attr("data");
+    if(data == undefined) {
+        var target = $(event.target);
+        for (var i = 0; i < 4; i++) {
+            target = target.parent();
+            data = target.attr("data");
+            if (data != undefined) break;
+        }
+    }
+    var array = String(data).split(",");
+    var card = {"bankNo":array[0],"bankNm":array[1],"protocolUrl":array[2],"fakeBank":array[3],"signWay":array[4]};
+
+    if(array[3] == '1'){
+        $("#phone-panel").hide();
+    } else {
+        $("#phone-panel").show();
+    }
+    if(array[0] == '707'){//招行一网通
+        $("#zsywt-panel").show();
+        $("#phone-panel").hide();
+    }else{
+        $("#zsywt-panel").hide();
+    }
+    changeCardInfo(card);
+    $("#bankCardList").hide();
+    $("#bind-card-info").show();
+    utils.setSession("_bind_selected_card", card);
+}
+
+function changeCardInfo(card){
+    if(card == null || card.length == 0){
+        $("#bank_name_panel").html("请选择");
+    }else{
+        if(card.bankNo == '707' ){
+            card.bankNm = '招行一网通';
+        }
+        $("#bank_name_panel").html(card.bankNm);
+    }
+}
+
+function createCard(){
+
+    var bankAcco = $(".bankCardNo").val().replace(/\s+/g, "");
+    var mobileNo = $('#mobileNo_airstar').val();
+    var invNm = $('#name_airstar').val();
+    var idNo = $('#idNo_airstar').val();
+    // var idNoValidDate = $('#effectiveTime_airstar').text() === '长期有效' ? '20991231' : $('#effectiveTime_airstar').text().replace(/-/g, '');
+    var card = utils.getSession("_bind_selected_card");
+    var bindCardType = '';
+
+    if (!/^1(3[0-9]|4[01456879]|5[0-35-9]|6[2567]|7[0-8]|8[0-9]|9[0-35-9])\d{8}$/.test($('#mobileNo_airstar').val())) {
+        $('.text-center').text('手机号格式有误');
+        $('.Bomb-box').show();
+        return false;
+    }
+    if (!$('#name_airstar').val()) {
+        $('.text-center').text('未填写姓名');
+        $('.Bomb-box').show();
+        return false;
+    }
+    if (!$('#idNo_airstar').val()) {
+        $('.text-center').text('未填写证件号');
+        $('.Bomb-box').show();
+        return false;
+    }
+    if ($('#selectType').text() === '身份证' && !/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test($('#idNo_airstar').val())) {
+        $('.text-center').text('身份证号格式错误');
+        $('.Bomb-box').show();
+        return false;
+    }
+    // if (!/\d{4}-\d{2}-\d{2}/.test($('#effectiveTime_airstar').text()) && $('#effectiveTime_airstar').text() !== '长期有效') {
+    //     $('.text-center').text('未填写证件有效期');
+    //     $('.Bomb-box').show();
+    //     return false;
+    // }
+    if (!$('.select-agreement .img').hasClass('check')) {
+        $('.text-center').text('未同意开户协议');
+        $('.Bomb-box').show();
+        return false;
+    }
+
+    if(!/^\w{15,19}$/.test(bankAcco) || isNaN(bankAcco)){
+        alertTips("请填写正确的银行卡卡号");
+        return;
+    }
+    if(card == null || !card.bankNo){
+        alertTips("请选择银行");
+        return;
+    }
+
+    if(card.bankNo == '707'){
+        bindCardType = "bcm";
+    }else if(card.signWay == "1"){
+        bindCardType = "rapid";
+    }else if(card.signWay == "2"){
+        bindCardType = "ylt";
+    }
+
+    utils.setSession("only_set_trade_pwd",0);
+
+    _fmOpt.onSuccess = function (slideAuthCode) { 
+        if(card.bankNo == '707'){//跳去招行一网通
+            var returnUrl = location.href + (location.search?'&':'?') + 'fromSource=bcm';
+            var url = "/mobile-bff/v1/account/xiaomi-register-and-bind-card";
+            var data = JSON.stringify({
+                "bankAcco": bankAcco,
+                "bankNo"  : card.bankNo,
+                "bindCardType": bindCardType,
+                "channelCode": utils.getCookie('channelCode'),
+                "invNm"   : invNm,
+                "idNo"    : idNo,
+                "idTp"    : 0, // 0:身份证
+                "mobileNo": mobileNo,
+                // "idValiDate": idNoValidDate,
+                "openId": utils.getSession(utils.openId),
+                "openUid": utils.getSession(utils.openUid),
+                "slideAuthCode": slideAuthCode,
+            });
+            if(utils.getUrlParam("custMgrId")){
+                data.custMgrId=utils.getUrlParam("custMgrId")  //2021112获取添加custMgrId;
+            }
+            utils.setSession("__cardt_bindcard_create_card_info", data);
+            utils.unbind("#btn-submit", "tap");
+            utils.post(url,data, function(result){
+                if(result.returnCode=="20124"){      //20210820添加的--证件已注册过汇添富现金宝账户，建议您找回密码后重新登录--start
+                    var htm='<i class="close" style="margin-left:2rem;border-left:2px solid #eee;padding-left:1rem;display:none">我知道了</i>'
+                    $(".Bomb-box").show();
+                    $(".Bomb-box .Bomb-box-ok").html("<i class='findPw'>找回密码</i>"+htm);
+                    $(".Bomb-box .close").show();
+                    $(".Bomb-box .Bomb-box-ok .findPw").click(function(){
+                        window.location.href="/tradeh5/newWap/findPwd/IDcheck.html";
+                    })
+                } 
+                //20210820添加的end  
+
+                utils.bind("#btn-submit", "tap", createCard);
+                }, function(result){
+                    utils.setSession("___serialNo_bindcard", result.body.createCardResult.serialNo);
+                    //20210825，避免招行报错（NP1122.无效订单：签名验证失败）
+                    // App.setSession("formData", result.body.formData);
+                    utils.setSession("formData", String(result.body.formData).replace(/\"returnUrl\":\"(.*?)\"/g, '\"returnUrl\":\"'+encodeURIComponent(returnUrl)+'\"'));
+
+                    window.location.href = "/mobileEC/wap/card/bcmCard.html"
+                });
+        }else{
+                var url = "/mobile-bff/v1/account/xiaomi-register-and-bind-card";
+                var data = JSON.stringify({
+                    "bankAcco": bankAcco,
+                    "bankNo"  : card.bankNo,
+                    "bindCardType": bindCardType,
+                    "channelCode": utils.getCookie('channelCode'),
+                    "invNm"   : invNm,
+                    "idNo"    : idNo,
+                    "idTp"    : 0, // 0:身份证
+                    "mobileNo": mobileNo,
+                    // "idValiDate": idNoValidDate,
+                    "openId": utils.getSession(utils.openId),
+                    "openUid": utils.getSession(utils.openUid),
+                    "slideAuthCode": slideAuthCode,
+
+                });
+                if(utils.getUrlParam("custMgrId")){
+                    data.custMgrId=utils.getUrlParam("custMgrId")  //2021112获取添加custMgrId;
+                }
+                utils.setSession("__cardt_bindcard_create_card_info", data);
+                utils.unbind("#btn-submit", "tap");
+                utils.post(url,data, function(result){
+
+                    if(result.returnCode=="20124"){      //20210820添加的--证件已注册过汇添富现金宝账户，建议您找回密码后重新登录--start
+                        var htm='<i class="close" style="margin-left:2rem;border-left:2px solid #eee;padding-left:1rem;display:none">我知道了</i>'
+                        $(".Bomb-box").show();
+                        $(".Bomb-box .Bomb-box-ok").html("<i class='findPw'>找回密码</i>"+htm);
+                        $(".Bomb-box .close").show();
+                        $(".Bomb-box .Bomb-box-ok .findPw").click(function(){
+                            window.location.href="/tradeh5/newWap/findPwd/IDcheck.html";
+                        })
+                    } 
+                    //20210820添加的end  
+
+                    utils.bind("#btn-submit", "tap", createCard);
+                }, function(result){
+                    utils.setSession("___serialNo_bindcard", result.body.createCardResult.serialNo);
+                    var referUrl = utils.getUrlParam("referUrl");
+                    window.location.href = "./securityCode.html" + (!referUrl  ? "" : "?referUrl=" + encodeURIComponent(referUrl));
+                });
+        }
+    }
+
+    //获取滑动验证码开始
+    $.ajax({
+        url: '/cos/v1/identity/captcha/token?validateType=1',
+        data: {},
+        dataType: 'json',
+        t: new Date(),
+        success: function (result) {
+            if (result.returnCode == 0) {
+                _fmOpt.triggerCaptcha(result.body);     //渲染验证码
+            } else {
+                $('.text-center').text('系统异常，请稍后再试!');
+                $('.Bomb-box').show();
+            }
+        },
+        error: function () {
+            $('.text-center').text('系统异常，请稍后再试!');
+            $('.Bomb-box').show();
+        }
+    });
+
+}
+
+// 20210720 招行一网通返回处理
+function formBCM() {
+    utils.loadingShow();
+    bcmResultCircleQuery(utils.getSession(utils.tradeAsyncQueryTimesSession) || utils.tradeAsyncQueryTimes, 
+                         utils.getSession(utils.tradeAsyncQueryIntervalSession) || utils.tradeAsyncQueryInterval);
+}
+function bcmResultCircleQuery(countLimit, queryInterval) {
+    var count = 1;
+    var ajaxHasDone = 0;
+    var errorMsg = '';
+    var setIntervalID = setInterval(function () {
+        if (count >= countLimit) { // 轮询结束
+            clearInterval(setIntervalID);
+        }
+        count++;
+        var url = "/mobile-bff/v1/account/xiaomi-register-and-bind-card-confirm";
+        var data = JSON.stringify({
+            "serialNo": utils.getSession("___serialNo_bindcard"),
+            "bindCardType": "bcm",
+            "loginFrom": "W",
+        });
+
+        $.ajax({
+            url: url,
+            data: data,
+            contentType: 'application/json',
+            dataType: 'json',
+            method: 'POST',
+            beforeSend: function(req) {
+                if(utils.getCookie('traceCode')){
+                    req.setRequestHeader("X-TraceCode", utils.getCookie('traceCode'));
+                }
+            },
+            success: function (queryResult) {
+                console.log('bcm success!')
+                // if (queryResult.returnCode == 0 && queryResult.body.status == '0000') { // 轮询结束
+                if (queryResult.returnCode == 0 && queryResult.body.createCardResult && queryResult.body.createCardResult.result) { // 轮询结束
+                    queryResult.body.userLoginResult && utils.setSession(utils.userInfo, queryResult.body.userLoginResult);
+                    utils.loadingHide();
+                    clearInterval(setIntervalID);
+                    var referUrl = utils.getUrlParam(referUrl);
+                    if (!referUrl) {
+                        referUrl = '/mobileEC/wap/card/manage_card.html'
+                    }
+                    console.log('referUrl=', referUrl);
+                    window.location.href = referUrl;
+                }
+                else {
+                    ajaxHasDone++;
+                    errorMsg = queryResult.body.remark;
+                }
+            },
+            error: function(){
+                ajaxHasDone++;
+            },
+            complete: function () {
+                if (ajaxHasDone >= countLimit) { // 轮询失败
+                    utils.loadingHide();
+                    clearInterval(setIntervalID);
+                    // utils.showTips(errorMsg ? errorMsg :'交易处理中，请稍后查询交易结果');
+                    utils.showTips({
+                        // title: '信息', //标题
+                        content: errorMsg ? errorMsg :'交易处理中，请稍后查询交易结果', //内容
+                        showCancel: true, //是否显示取消按钮，默认false
+                        confirmText: '确定', //确认按钮文字，默认确定
+                        complete: function() { //需使用bind()
+                            var referUrl = utils.getUrlParam(referUrl);
+                            if (!referUrl) {
+                                referUrl = '/mobileEC/wap/card/manage_card.html'
+                            }
+                            console.log('referUrl=', referUrl);
+                            window.location.href = referUrl;
+                        }.bind(this)
+                    })
+                }
+            }
+        });
+        
+        
+    }, queryInterval);
+    
+    
+}
+</script>
+</body>
+</html>

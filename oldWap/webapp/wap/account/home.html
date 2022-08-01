@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>总资产</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/base_wx.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+    body { padding-bottom: 3rem;}
+    .header-huge { padding: 0 0.75rem; height: 7.25rem; background-color: #fe7e01; text-align: center; color: #fff;}
+    .header-huge h1 { line-height: 2.25rem; font-size: 0.7rem; padding-top: 1.1rem;}
+    .header-huge p { font-size: 1.75rem; line-height: 1.5; }
+
+    .image-box { width: 1.7rem; margin: 0.85rem 0.9rem 0.775rem  0.75rem;}
+    .grid-list-item h3 { font-size: 0.75rem; color: #000; margin-top: 0.65rem; line-height: 1.5; height: 1.2rem;}
+    .grid-list-item p { font-size: 0.65rem; color: #666666; line-height: 1.5;}
+
+    </style>
+</head>
+<body>
+<div class="content">
+    <header class="header-huge">
+        <div>
+            <h1>总资产（元）</h1>
+            <p id="panel_totalVal">0.00</p>
+        </div>
+    </header>
+    <div class="section2">
+        <ul class="grid-list no-padding">
+            <li class="grid-list-item bottom-border heigth-130 xjb_item_btn">
+                <a href="javascript: void(0);">
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="image-box fl"><img src="../images/myAssets/assert_01.png" alt=""></div>
+                            <h3>现金宝资产</h3>
+                            <p id="panel_balance">0.00</p>
+                        </div>
+                        <div class="col-1 lh-130">
+                            <!--<i class="icon icon-arrow-right"></i>-->
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="grid-list-item bottom-border heigth-130  ">
+                <a  href="javascript: void(0);">
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="image-box fl "><img src="../images/myAssets/assert_02.png" alt=""></div>
+                            <h3>我的定期</h3>
+                            <p id="panel_regularVal">0.00</p>
+                        </div>
+                        <div class="col-1 lh-130">
+                            <!--<i class="icon icon-arrow-right"></i>-->
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="grid-list-item bottom-border heigth-130">
+                <a  href="javascript: void(0);">
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="image-box fl"><img src="../images/myAssets/assert_03.png" alt=""></div>
+                            <h3>我的基金</h3>
+                            <p id="panel_fundVal">0.00</p>
+                        </div>
+                        <div class="col-1 lh-130">
+                            <!--<i class="icon icon-arrow-right"></i>-->
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="grid-list-item bottom-border heigth-130">
+                <a href="javascript: void(0);">
+                    <div class="row">
+                        <div class="col-10 ">
+                            <div class="image-box fl"><img src="../images/myAssets/assert_04.png" alt=""></div>
+                            <h3>我的资管</h3>
+                            <p id="panel_vipVal">0.00</p>
+                        </div>
+                        <div class="col-1 lh-130">
+                            <!--<i class="icon icon-arrow-right"></i>-->
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    <footer class="fixed-bottom border-top-red" style="border-color: #fececf;">
+        <ul class="grid-list row">
+            <li class="grid-list-item heigth-100 lh-100 text-center font-34 col-6" style="border-right: 1px solid #fececf;">
+                <a href="javascript:void(0);" class="red gongzibao_btn">工资宝</a>
+            </li>
+            <li class="grid-list-item heigth-100 lh-100 text-center font-34 col-6">
+                <a href="javascript:void(0);" class="red topup_btn">现金宝充值</a>
+            </li>
+        </ul>
+    </footer>
+</div>
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/lib/weixin.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script type="text/javascript" src="../js/common.js?20210106"></script>
+<script type="text/javascript" src="../js/account/home.js"></script>
+<script type="text/javascript" src="../js/lib/phone-size.js"></script>
+</body>
+</html>

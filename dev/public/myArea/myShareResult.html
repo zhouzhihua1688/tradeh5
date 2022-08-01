@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>自选分享结果</title>
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="css/myShareResult.css">
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <style>
+        .footer{border-top:1px solid #eee}
+        .footerList{width:100%;height:3.25rem;display: flex;justify-content: center;align-items: center;}
+        .footerList div{width:50%;font-size:0.85rem;height:3.25rem;color:#0757B2;line-height: 3.25rem;text-align: center;background:#fff}
+        .footerList div:nth-of-type(2){width:50%;background:#0757B2;color:#fff}
+        .width30 {width:40%;}
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app" v-cloak style="background:#fff">   
+    <div style="padding: 0 0.75rem;padding-bottom:3.75rem" ref='scroll'>
+        <div class="head" v-for="(item,index) in userInfoList" :key="index">  
+            <img :src="item.avatarImage" alt="">
+            <div style="margin-left:0.35rem"><span v-text="item.nickname"></span>的自选列表</div>
+        </div>
+        <div v-if="fundList.length>0">
+            <div class="flex fund-name">
+                <div class=" text-left width60">基金名称</div>
+                <div class="flex width30 flexB">
+                    <div class="flex-c header" style="margin-left: 0.5rem;">
+                        <div style="text-align:center;">
+                            <div>估值</div>
+                            <div class="color666" v-text="fundNavText?fundNavText:'--'"></div>
+                        </div>
+                    </div>
+                    <div class="flex-c header" >
+                        <div class="flex flex-c" style="text-align:center;">
+                            <div>净值</div>
+                            <div v-if="fundValuationAndNavEnum">
+                                <div class="color666" v-if="fundValuationAndNavEnum!='rzf'">{{fundValuationAndNavEnum|fundValuationAndNavEnum}}</div>
+                                <div class="color666" v-else v-text="navDateString?navDateString:'--'"></div>
+                            </div>
+                            <div v-else>--</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 基金类型 -->
+            <div class="tabContent">
+                <div class="flex kinds" style="border-top:1px solid #eee" v-for="(item,index) in fundList" :key="index">
+                    <a style="width:60%;color:#000" :href="'https://app.99fund.com/mobileEC/wap/fund/steadyCombination.html?fundId=' + item.fundId">      
+                        <div class=" text-left width60" style="line-height: 1rem;width:65%">
+                            <!-- <div class="hidden" v-text="item.fundName?item.fundName.substr(0,8)+'...':''"> </div> -->
+                            <div class="hidden" v-text="item.fundName?item.fundName:''"> </div>
+                            <div class="text-left font-size26 color666" style="margin-top: .15rem;" v-text="item.fundId"> <span
+                                    class="color-have" style="display: none;" v-show="item.isHold"></span></div>
+                        </div>
+                    </a>
+                    <div class="flex width30 flexB">
+                        <div class="  flex-c">
+                            <!-- <div>2.5501</div>
+                            <div class="color-green font-size26">-2.55%</div> -->
+                            <div v-if="!item.valuation&&!item.valuationChange" v-text="'--'"></div>
+                            <div v-else>
+                                <div v-text="item.valuation?item.valuation:'--'"></div>
+                                <div v-if="item.valuationChange">
+                                    <div class="color-green font-size26" style="color:#159848" v-if="item.valuationChange<0">{{item.valuationChange}}%</div>
+                                    <div class="color-green font-size26" style="color:#000" v-if="item.valuationChange==0">{{item.valuationChange}}%</div>
+                                    <div class="color-green font-size26" style="color:#FB5C5F" v-if="item.valuationChange>0">+{{item.valuationChange}}%</div>
+                                </div>
+                                <div v-else v-text="'--'"></div>
+                           </div>
+                        </div>
+                        <div class=" flex-c">
+                            <!-- <div>2.2950 </div>
+                            <div class="color-red font-size26">+1.27% </div> -->
+                            <div v-if="fundValuationAndNavEnum!='rzf'">  
+                                <div v-if="!item.nav&&!item.yield" v-text="'--'"></div>
+                                <div v-else>
+                                    <div v-text="item.nav?item.nav:'--'"></div>
+                                    <div v-if="item.yield">
+                                        <div class="color-red font-size26" style="color:#159848" v-if="item.yield<0">{{item.yield}}%</div>
+                                        <div class="color-red font-size26" style="color:#000" v-if="item.yield==0">{{item.yield}}%</div>
+                                        <div class="color-red font-size26" style="color:#FB5C5F"  v-if="item.yield>0">+{{item.yield}}%</div>
+                                    </div>    
+                                    <div v-else v-text="'--'"></div>
+                                </div>
+                            </div>
+                           <!-- 如果是日涨幅-rzf 另外取值dailyGrowthRate-->
+                            <div v-else>
+                                <div v-if="!item.nav&&!item.dailyGrowthRate" v-text="'--'"></div>
+                                <div v-else>
+                                    <div v-text="item.nav?item.nav:'--'"></div>
+                                    <div v-if="item.dailyGrowthRate">
+                                        <div class="color-red font-size26" style="color:#159848" v-if="item.dailyGrowthRate<0">{{item.dailyGrowthRate}}%</div>
+                                        <div class="color-red font-size26" style="color:#000" v-if="item.dailyGrowthRate==0">{{item.dailyGrowthRate}}%</div>
+                                        <div class="color-red font-size26" style="color:#FB5C5F"  v-if="item.dailyGrowthRate>0">+{{item.dailyGrowthRate}}%</div>
+                                    </div>    
+                                    <div v-else v-text="'--'"></div>
+                                </div>
+                                <div v-if="item.navDate && item.navDateString!=navDateString" class="font-size26">({{item.navDateString}})</div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cover" style="color: #666;text-align: center;display: none">
+                <div style="display:inline-block">数据加载中</div>
+                <img src="img/loading.gif" alt="加载数据中" style="display:inline-block;width: 0.75rem;height:0.75rem">
+            </div>
+            <div class="noCover" style="color:#666;text-align: center;display: none">--已经到底了--</div>
+        </div>
+        <div v-else style="text-align: center;margin-top: 2rem;">暂无自选列表数据</div> 
+    </div>
+    <div class="footer" style="margin-top:3rem">
+        <div class="footerList">
+           <div @click="jumpUrl()">查看我的自选</div>
+           <div @click="exportFund()">一键导入我的自选</div>
+        </div>
+        <!-- <div style="width:40%;color:#0757B2;font-size: 0.8rem;height:2.5rem;line-height: 2.5rem" @click="jumpUrl()">查看我的自选</div> -->
+        <!-- <div style="width:60%;background-color:#0757B2 ;color:#fff;font-size: 0.8rem;height:2.5rem;line-height: 2.5rem">一键导入我的自选</div> -->
+    </div>
+</div>     
+    <script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+    <script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script>
+    <script src="js/myShareResult.js">
+
+    </script>
+</body>
+
+</html>

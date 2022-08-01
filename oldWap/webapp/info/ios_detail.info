@@ -1,0 +1,175 @@
+{
+    "version": "1.0",
+    "apps": [
+        {
+            "id": "001",
+            "packageName": "mqq",
+            "name": "qq"
+        },
+        {
+            "id": "002",
+            "packageName": "weixin",
+            "name": "微信"
+        },
+        {
+            "id": "003",
+            "packageName": "taobao",
+            "name": "淘宝"
+        },
+        {
+            "id": "004",
+            "packageName": "dianping",
+            "name": "大众点评"
+        },
+        {
+            "id": "005",
+            "packageName": "sinaweibo",
+            "name": "新浪微博"
+        },
+        {
+            "id": "006",
+            "packageName": "alipay",
+            "name": "支付宝"
+        },
+        {
+            "id": "007",
+            "packageName": "imeituan",
+            "name": "美团"
+        },
+        {
+            "id": "008",
+            "packageName": "youku",
+            "name": "优酷"
+        },
+        {
+            "id": "009",
+            "packageName": "wpweipai",
+            "name": "微拍"
+        },
+        {
+            "id": "010",
+            "packageName": "momochat",
+            "name": "陌陌"
+        },
+        {
+            "id": "011",
+            "packageName": "CtripWireless",
+            "name": "携程"
+        },
+        {
+            "id": "012",
+            "packageName": "rm434209233MojiWeather",
+            "name": "墨迹"
+        },
+        {
+            "id": "013",
+            "packageName": "ucbrowser",
+            "name": "UC浏览器"
+        },
+        {
+            "id": "014",
+            "packageName": "bdbrowser",
+            "name": "百度浏览器"
+        },
+        {
+            "id": "015",
+            "packageName": "bainuo",
+            "name": "百度糯米"
+        },
+        {
+            "id": "016",
+            "packageName": "tencent100692648",
+            "name": "天天酷跑"
+        },
+        {
+            "id": "017",
+            "packageName": "baidumap",
+            "name": "百度地图"
+        },
+        {
+            "id": "018",
+            "packageName": "iosamap",
+            "name": "高德地图"
+        },
+        {
+            "id": "019",
+            "packageName": "amihexin",
+            "name": "同花顺"
+        },
+        {
+            "id": "020",
+            "packageName": "dzhiphone",
+            "name": "大智慧"
+        },
+        {
+            "id": "021",
+            "packageName": "qiyi-iphone",
+            "name": "爱奇艺"
+        },
+        {
+            "id": "022",
+            "packageName": "QQmusic",
+            "name": "QQ音乐"
+        },
+        {
+            "id": "023",
+            "packageName": "sohuvideo",
+            "name": "搜狐视频"
+        },
+        {
+            "id": "024",
+            "packageName": "openapp.jdmobile",
+            "name": "京东"
+        },
+        {
+            "id": "025",
+            "packageName": "wallet",
+            "name": "京东钱包"
+        },
+        {
+            "id": "026",
+            "packageName": "QuickSwipe",
+            "name": "快钱"
+        },
+        {
+            "id": "027",
+            "packageName": "alimly",
+            "name": "美丽约"
+        },
+        {
+            "id": "028",
+            "packageName": "myxj.open",
+            "name": "美颜相机"
+        },
+        {
+            "id": "029",
+            "packageName": "haomatongliteInHouseWidget",
+            "name": "搜狗号码通"
+        },
+        {
+            "id": "030",
+            "packageName": "kdweidian",
+            "name": "微店商户"
+        },
+        {
+            "id": "031",
+            "packageName": "kdapp",
+            "name": "微店客户端"
+        },
+        {
+            "id": "032",
+            "packageName": "qihoobrowser",
+            "name": "360浏览器"
+        },
+        {
+            "id": "033",
+            "packageName": "daiyb",
+            "name": "贷友帮"
+        },
+        {
+            "id": "034",
+            "packageName": "tenvideo",
+            "name": "腾讯视频"
+        }
+    ]
+}

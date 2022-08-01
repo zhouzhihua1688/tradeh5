@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: 20px;">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>账户实际控制人</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/userInfo/base.css">
+    <link rel="stylesheet" href="../css/mobiscroll.custom-3.0.0-beta6.min.css">
+    <link rel="stylesheet" href="../css/common.css">
+
+    <style>
+        .mask{width:100%;height:100%;position: absolute;top:0;left: 0;bottom:0;background: rgba(0, 0, 0, .7);display: none;z-index: 5;}
+        .animated {-webkit-animation-duration: 500ms; animation-duration: 500ms; -webkit-animation-fill-mode: both; animation-fill-mode: both; }
+        .layer { display: none;background-color: #ffffff;width: 100%; position: fixed; top: 0; left:0; overflow: auto;z-index: 10; }
+        .slideInUp .complete{border-bottom: 1px #efefef solid;height:2.6rem; line-height:2.6rem; font-size: 0.7rem; padding:0 0.75rem; color:#148ce6; position:relative; top:0px; }
+        .slideInUp .complete a:nth-of-type(1){float:left;}
+        .slideInUp .complete a:nth-of-type(2){float:right;}
+        @keyframes slideInDown{
+            0%{opacity:0;-webkit-transform:translateY(-000px);-ms-transform:translateY(-2000px);transform:translateY(-2000px)}
+            100%{-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}}
+
+        @keyframes slideInUp{
+            0%{opacity:0;-webkit-transform:translateY(100%);-ms-transform:translateY(100%);transform:translateY(100%)}
+            100%{-webkit-transform:translateY(75%);-ms-transform:translateY(75%);transform:translateY(75%)}}
+        .slideInDown{-webkit-animation-name:slideInDown;animation-name:slideInDown}
+        .slideInUp{-webkit-animation-name:slideInUp;animation-name:slideInUp;}
+        .slideInUp .giftlist .title{height:2.5rem;width:100%;text-align:center;line-height: 2.5rem;font-size: .7rem;color:#000;}
+        .slideInUp .giftlist a .title{height:2.5rem;width:100%;text-align:center;line-height: 2.5rem;font-size: .7rem;color:#000;border:1px solid #eee;}
+        .slideInUp .giftlist ul {overflow-y: auto;padding-bottom: 2.5rem;}
+        .slideInUp .giftlist ul li{height:2rem;line-height: 2rem;text-align: center;padding: 0 .75rem;font-size: .6rem;overflow: hidden; border-bottom: 1px #efefef solid;}
+        .slideInUp .giftlist ul li span{display: inline-block;color:#666;}
+        .slideInUp .giftlist ul li .circle{width: .8rem; height: .8rem; vertical-align: middle; border-radius: 50%; margin-top: .8rem; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -o-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; }
+
+        /*弹框1*/
+        .Bomb-box,.Bomb-box1,.Bomb-box2{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+        .Bomb-box .Bomb-box-main,.Bomb-box1 .Bomb-box-main,.Bomb-box2 .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+        .Bomb-box .Bomb-box-tips,.Bomb-box1 .Bomb-box-tips{  text-align: center;  color: #333;  font-size: 0.75rem;  height: 2.5rem;  line-height: 2.5rem;  }
+        .Bomb-box .Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+        .Bomb-box .Bomb-box-content p,.Bomb-box1 .Bomb-box-content p,.Bomb-box2 .Bomb-box-content p{  line-height: 1rem;  }
+        .Bomb-box .Bomb-box-ok,.Bomb-box1 .Bomb-box-ok,.Bomb-box2 .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+        .Bomb-box .no-tips,.Bomb-box1 .no-tips,.Bomb-box2 .no-tips{font-size: 0.7rem;padding: 1.7rem 1.5rem 1.15rem 1.5rem;text-align: center;}
+        .Bomb-box .text-center,.Bomb-box1 .text-center,.Bomb-box2 .text-center{text-align: center;}
+        .Bomb-box .Bomb-box-content,
+        .Bomb-box1 .Bomb-box-content,
+        .Bomb-box2 .Bomb-box-content{ padding:.75rem 1.5rem; }
+
+        /*选择颜色变化*/
+        input[type="text"],
+        input[type="password"],
+        input[type="number"],
+        input[type="email"],
+        input[type="tel"],
+        textarea {color: #000000;}
+        input{width:65%; text-align: right;}
+        .gap{height: 1rem;}
+        .panel-title{height: 2rem; line-height: 2rem; padding-left: .75rem;}
+
+        .content_1 li i {
+            width: 1rem;
+            height: 1rem;
+            background: url(../images/unselected.png) no-repeat;
+            -webkit-background-size: contain;
+            background-size: contain;
+            margin-right: .6rem;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .content_1 li .span_txt {
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .content_1 li.current i {
+            background-image: url(../images/selected.png);
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="content_1">
+        <div class="panel-title">
+            当前账户实际控制人是否为本人？
+        </div>
+        <ul class="grid-list isHolding" style="padding:0 0 0 .75rem ">
+            <li class="grid-list-item heigth-100 current">
+                <div class="row">
+                    <div class="flex">
+                        <p><i></i><span class="span_txt">是</span></p>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100">
+                <div class="row">
+                    <div class="flex">
+                        <p><i></i><span class="span_txt">否</span></p>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <section class="content_2" style="display: none;">
+        <div class="panel-title">
+            请补充实际控制人的详细信息
+        </div>
+        <ul class="grid-list" style="padding:0 0 0 .75rem ">
+            <li class="grid-list-item heigth-100">
+                <div class="row">
+                    <div class="flex">
+                        <p>姓名</p>
+                        <input type="text" class="controller-name" placeholder="请填写账户控制人的姓名"/>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100">
+                <div class="row">
+                    <div class="flex">
+                        <p>身份证</p>
+                        <input type="text" class="controller-idCard" placeholder="请填写账户控制人的证件号码"/>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100">
+                <div class="row">
+                    <div class="flex">
+                        <p>有效期</p>
+                        <input type="text" class="controller-idCard-valid-date" placeholder="请选择证件有效期"/>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                        <a class=" iconi icon-arrow-right"></a>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100">
+                <div class="row">
+                    <div class="flex">
+                        <p>手机号</p>
+                        <input type="text" class="controller-phone-num" placeholder="请填写账户控制人的手机号码"/>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100">
+                <div class="row">
+                    <div class="flex">
+                        <p>关系</p>
+                        <input type="text" class="controller-relation" placeholder="请填写账户控制人与您的关系"/>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <div>
+            <button class="btn-orange" id="btn-submit">确认</button>
+        </div>
+    </section>
+
+    <div class="mask"></div>
+    <!-- 提示弹窗 -->
+    <div class="Bomb-box" style="display: none;">
+        <div class="Bomb-box-main">
+            <div class="Bomb-box-content">
+                <p class="text-center"></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;">确定</a>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/lib/mobiscroll.custom-3.0.0-beta6.min.js"></script>
+    <script type="text/javascript" src='../js/lib/nations.js'> </script>
+    <script type="text/javascript" src='../js/lib/city.js'> </script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script type="text/javascript" src="../js/userInfo/actualAccountController.js"></script>
+</body>
+
+</html>

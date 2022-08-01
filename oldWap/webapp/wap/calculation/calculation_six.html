@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta charset="gbk">-->
+    <title>投顾测算</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/localStorage.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: #fff
+        }
+
+        .main {
+            width: 100%;
+        }
+
+        .icon {
+            width: 80%;
+            margin: 0 auto;
+            margin-top: 1rem
+        }
+
+        .icon div {
+            width: 2.75rem;
+            height: 3.0rem;
+            background: url('img/icon.png') no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .question {
+            width: 80%;
+            color: #000;
+            font-size: 0.7rem;
+            margin: 0 auto;
+            margin-top: 1rem;
+            text-align: justify;
+            font-weight: bold
+        }
+
+        .biaoti {
+            width: 80%;
+            color: #000;
+            font-size: 0.7rem;
+            margin: 0 auto;
+            margin-top: 0.75rem;
+            text-align: justify;
+        }
+
+        .first_text {
+            height: 1rem;
+            position: absolute;
+            left: 0;
+            bottom: -0.05rem;
+            z-index: 20
+        }
+
+        .red_text {
+            width: 2.75rem;
+            height: 0.15rem;
+            background: #b8dcf7;
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            bottom: 0.25rem;
+            z-index: 10
+        }
+
+        .next {
+            width: 80%;
+            height: 1.5rem;
+            margin: 0 auto;
+            color: #fb5c5f;
+            margin-top: 2rem;
+        }
+
+        .next a {
+            padding: 0 1rem;
+            line-height: 1.5rem;
+            float: right;
+            border: 1px solid #fb5c5f;
+            border-radius: 1.25rem;
+            text-align: center;
+            font-size: 0.7rem
+        }
+
+        .red {
+            color: #fb5c5f;
+        }
+    </style>
+
+</head>
+<body>
+<div class="main">
+    <div class="icon">
+        <div></div>
+    </div>
+    <div class="biaoti" style="font-weight: bold;position: relative;margin-top:1.5rem"><span
+            class="first_text">长期投资</span><span class="red_text"></span></div>
+    <div class="biaoti" style="margin-top:2rem">好的，还有个问题。您更希望怎样进行长期投资呢？</div>
+    <div class="biaoti">A.根据市场估值情况分批买入卖出，并长期持仓以<span class="red">在低位累计筹码</span>，等待牛市到来；</div>
+    <div class="biaoti">B.可将手上的长期闲钱随时投入，并期望在绝大多数情况下，<span class="red">最大回撤不超过25%</span>，实现资产长期稳健增值。</div>
+
+    <div class="next"  id="plan1" style="margin-top: 1.5rem;"><a href="javascript:void(0);">在低位累计筹码</a></div>
+    <div class="next" id="plan2" style="margin-top: .75rem;"><a href="javascript:void(0);">最大回撤不超过25%</a></div>
+</div>
+<div class="footer">
+    <a href="#"></a>
+</div>
+</body>
+<script>
+    var data = '3';
+    $('#plan1').click(function () {
+        window.location.href = './calculation_input.html?model=' + 3 + '&data=' + data ;
+    })
+
+    $('#plan2').click(function () {
+        window.location.href = './calculation_select3.html?model=' + 4;
+    })
+</script>
+</html>

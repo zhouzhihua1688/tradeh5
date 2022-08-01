@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>体验收益明细</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,address=no">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        body{
+            background-color: #f5f5f5;
+            padding-bottom: 4em;
+            -webkit-touch-callout:none;
+        }
+        .modal-fade {
+		    width:80%;
+		    position: fixed;
+		    top: 50%;
+		    left:50%;
+		    -webkit-transform: translate(-50%,-50%);
+		    -ms-transform: translate(-50%,-50%);
+		    -o-transform: translate(-50%,-50%);
+		    transform: translate(-50%,-50%);
+		    z-index: 1060;
+		}
+		.modal-fade .modal-body .setnotice{
+		    padding: 1% 5%;
+		    color: #333;
+		}
+		.modal-body{
+		    text-align:center;
+		    background-color: #f5f5f5;
+		    padding-bottom: .5em;
+		    border-radius: 5px;
+		}
+		.modal-body .notice{
+		    text-align: left;
+		    margin-top: 0;
+		    line-height: 1.3em;
+		    font-size: 1em;
+		}
+		
+		.modal-fade .settitle{
+		    padding-top: 1em;
+		}
+		.modal-title{
+		    height: 1em;
+		    line-height: 1em;
+		    padding-bottom: 1em;
+		    color: #333;
+		}
+		.modal-bottom{
+		    width: 100%;
+		    /* margin-top: 1.5em; */
+		    border-top: 1px solid #e5e5e5;
+		    overflow: hidden;
+		}
+		div.mask {
+		    display: none;
+		    width: 100%;
+		    height: 100%;
+		    position: fixed;
+		    top: 0;
+		    left: 0;
+		    z-index: 50;
+		    overflow: hidden;
+		    background-color:rgba(0,0,0,0.5);
+		}
+		.divp{
+		    margin-top: 20px;
+		    margin-bottom: 20px;
+		}
+		.btnright{
+			line-height: 40px;
+		    color: #333;
+		}
+
+    </style>
+</head>
+
+<body>
+   <div class="wrapper">
+       <div class="earning rel">
+           <!--<a href="#" class="rule">活动规则</a>-->
+           <!--<h3>体验收益明细</h3>-->
+           <p class="yuan">累计收益红包(元)</p>
+           <p class="sum"></p>
+           <p class="yuan">我的体验金资产(元)</p>
+           <p class="asset"></p>
+       </div>
+       <ul class="detail">
+           <!-- 
+           <li>
+               <div class="detail-left">
+                   <p class="day">第<span>1</span>天收益</p>
+                   <p class="date">2016-04-05</p>
+               </div>
+               <div class="detail-right">
+                   <p class="add-money">+<em>2.00</em>元</p>
+                   <p class="per">万份收益: <span>0.7860</span></p>
+               </div>
+           </li> 
+           -->
+       </ul>
+       <div class="earning-bottom">
+           <a href="javascript:;" id="btn_0" class="btn btn-light"><p>领取收益红包</p><p class="validity"></p></a>
+           <a href="javascript:;" id="btn_9" class="btn btn-gray"><p>已过期</p><p class="validity"></p></a>
+           <a href="javascript:;" id="btn_1" class="btn btn-gray"><p>已领取</p><p class="validity"></p></a>
+           <a href="javascript:;" id="btn_99" class="btn btn-gray" style="line-height: 2em;"><p>收益红包敬请期待</p></a>
+       </div>
+   </div>
+   
+    <div class="modal-fade" id="modal" style="display:none;">
+          <div class="modal-body setpwd">
+              <h4 class="modal-title settitle">提示信息</h4>
+              <div class="divp">
+              	<p class="notice setnotice"><span id="levelTxt"></span></p>
+              </div>
+              <div class="modal-bottom" id="confirm_modal">
+              	  <a class="btnright" >确定</a>
+                  <!-- <button class="btnright" id="confirm_modal" type="button">确定</button> -->
+              </div>
+          </div>
+    </div>
+    <div class="mask"></div><!--透明背景层-->
+   <script type="text/javascript" src="../basic/jquery.3.4.1.min.js"></script>
+   <script type="text/javascript" src="../basic/basic.js"> </script>
+   <script type="text/javascript">
+	   $(function(){
+		   function showDialog(val){
+               $("#modal").css("display","block");
+               $("body").css("overflow", "hidden");
+               $("div.mask").show();
+               $("#levelTxt").html(val)
+		   };
+		   $("#confirm_modal").on("click", function(){
+               $("#modal").css("display","none");
+               $("body").css("overflow", "auto");
+               $("div.mask").hide();
+               $("#levelTxt").html("");
+		   });
+		   
+		   $(".btn").hide();
+		   var sumIncome = 0;
+		   $.get(WAP.requestAddr + "/activity/query_experience_detail_info",function(result){
+			   if(result.returnCode == 0){
+				   var experience = result.body;
+				   $(".sum").html(experience.totalIncome);
+				   sumIncome = experience.totalIncome;
+				   $(".asset").html(experience.experienceAmt);
+				   $(".validity").html("(有效期至"+ experience.endDate +")");
+				   var st = experience.status;
+				   $(".btn").hide();
+				   if(sumIncome == 0){
+					   $("#btn_99").show();
+				   } else {
+					   $("#btn_" + st).show();
+				   }
+				   
+				   var incomeList = experience.incomeList;
+				   for(var index in incomeList){
+					   var income = incomeList[index];
+					   $(".detail").append("<li>"
+			               +"<div class='detail-left'>"
+			               +"<p class='day'>"+ income.title +"</p>"
+			               +"<p class='date'>"+ income.incomeDate +"</p>"
+			               +"</div>"
+			               +"<div class='detail-right'>"
+			               +"<p class='add-money'>"+ income.amt +"</p>"
+			               +"<p class='per'>万份收益: <span>"+ income.incomDay +"</span></p>"
+			               +"</div>"
+			               +"</li>");
+				   }
+			   }
+		   }, "json");
+		   
+		   $("#btn_0").on("click", function(){
+			    if(sumIncome > 0){
+				   $.post(WAP.requestAddr + "/activity/receive_experience_bonus", null, function(result){
+					   if(result.returnCode == 0){
+						   var map = result.body;
+						   if(map != undefined || map != null){
+							   showDialog(map.msg);
+							   if("0000" == map.code){ 
+								   $(".btn").hide();
+								   $("#btn_1").show();
+								   $("#confirm_modal").on("click", function(){
+						                window.location = "htffundxjb://action?type=ib"; 
+								   });
+							   }
+						   }
+					   }
+				   }, "json");
+			   } 
+		   });
+		   
+	   });
+   </script>
+</body>
+</html>

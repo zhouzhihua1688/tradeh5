@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <title>定投</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/fund/invest.css"/>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/weixin.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script type="text/javascript" src="../js/fund/invest.js"></script>
+</head>
+<body>
+<div id="alert-password-div" style="display: none;">
+    <div class="alert-password-background">
+        <div class="alert-dialog">
+            <div class="alert-title f-black f16">请输入交易密码</div>
+            <div class="alert-subtitle f12" id="alert_info"></div>
+            <div><input class="alert-input" id="pwd" type="password" maxlength="6"></div>
+            <div class="alert-button"><div class="button-left"><input type="button" class="button-style" id="cancel" value="取消"></div><div class="button-right"><input type="button" class="button-style" id="confirm" value="确定"></div></div>
+        </div>
+    </div>
+</div>
+
+<div id="purchase_panel">
+<div class="top-bar">
+    <div class="left"><a id="logout_btn" href="javascript:void(0)" style="touch-action: pan-y; -webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></a></div>
+    <div class="f-white f18 mid">定投</div>
+    <div class=" right"></div>
+</div>
+<div class="invest-box">
+    <div class="invest-type">
+        <div class="background-orange f-white button f-left" id="invest_left" style="touch-action: pan-y; -webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">定期定额</div>
+        <div class="background-white f-orange button f-right" id="invest_right" style="touch-action: pan-y; -webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">定期不定额</div>
+    </div>
+</div>
+<div class="fund_list" id="invest_1">
+    <div class="items">
+    <div class="item">
+        <div class="leftbox">
+            <div class="title f-black">基金名称</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content" id="f_title"></div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <div class="leftbox">
+            <div class="title f-black">收费方式</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content">前端收费</div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item card_div_btn" >
+        <div class="leftbox">
+            <div class="title f-black" style="padding-top: 3px;">支付方式</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content zftype" style="display: -webkit-box;-webkit-box-align: center;">
+                <div  class="leftnm bef"><span class="card_list_bankNm"></span> <span class="card_list_displayAcco"></span></div>
+                <div class="leftimg"><img src="../images/common/tips.png"></div>
+            </div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <div class="leftbox">
+            <div class="title f-black">定投方式</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content">定期定额</div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item  circl">
+        <div class="leftbox">
+            <div class="title f-black" style="padding-top: 3px;">扣款周期</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content">
+                <span class="cirlist"></span>
+                <img src="../images/common/tips.png">
+            </div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <div class="leftbox">
+            <div class="title f-black" style="padding-top: 3px;">每期投资金额</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content" id="amount"><input type="number" size="10" id="nums" style="width:80%;background-color: transparent;text-align: right;"></div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class="fund_list" id="invest_2" style="display: none;">
+    <div class="items">
+    <div class="item">
+        <div class="leftbox">
+            <div class="title f-black">基金名称</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content" id="f_title1"></div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <div class="leftbox">
+            <div class="title f-black">收费方式</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content">前端收费</div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item card_div_btn" >
+        <div class="leftbox">
+            <div class="title f-black" style="padding-top: 3px;">支付方式</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content zftype"  style="display: -webkit-box;-webkit-box-align: center;">
+                <div class="leftnm bef"><span class="card_list_bankNm"></span> <span class="card_list_displayAcco"></span></div>
+                <div class="leftimg"><img src="../images/common/tips.png"></div>
+            </div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <div class="leftbox">
+            <div class="title f-black">定投方式</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content">定期不定额</div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item circl">
+        <div class="leftbox">
+            <div class="title f-black" style="padding-top: 3px;">扣款周期</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content"><span class="cirlist"></span><img src="../images/common/tips.png"></div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <div class="leftbox">
+            <div class="title f-black" style="padding-top: 3px;">每期投资金额</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content"><input type="number" size="10" id="nums1" style="width:80%;background-color: transparent;text-align: right;"></div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item" id="invests">
+        <div class="leftbox">
+            <div class="title f-black">定期不定额设置</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content"><span  id="invest_str"></span><img src="../images/common/tips.png"></div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <div class="leftbox">
+            <div class="title f-black">低于单位成本</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content">0.5%</div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <div class="leftbox">
+            <div class="title f-black">扣款金额</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content">0.00</div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <div class="leftbox">
+            <div class="title f-black">高于单位成本</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content">4.0%</div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <div class="leftbox">
+            <div class="title f-black">扣款金额</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content">0.00</div>
+        </div>
+    </div>
+    <div class="line"></div>
+
+    </div>
+
+</div>
+
+    <div class="button-area">
+        <div class="button-orange button-width-big" id="purchase1">确定</div>
+    </div>
+</div>
+
+<div id="selected_card_panel" style="display: none;">
+    <div class="top-bar">
+        <div class="f-white f18">选择付款方式</div>
+    </div>
+    <div id="cards_panel"></div>
+</div>
+
+<div id="select_cir_panel" style="display: none">
+    <div class="top-bar">
+        <div class="f-white f18">选择日期</div>
+    </div>
+    <div id="cir_panel">
+        <div class="card-list2" data="0,每周" ><div class="left1"><div class="f16 f-black">每周</div><div class="f11" style="margin-top: 4px"></div></div><div class="right1"><input type="radio" name="card" ></div></div>
+        <div class="card-list2" data="1,双周" ><div class="left1"><div class="f16 f-black">双周</div><div class="f11" style="margin-top: 4px"></div></div><div class="right1"><input type="radio" name="card" ></div></div>
+        <div class="card-list2" data="2,每月" ><div class="left1"><div class="f16 f-black">每月</div><div class="f11" style="margin-top: 4px"></div></div><div class="right1"><input type="radio" name="card" ></div></div>
+    </div>
+</div>
+
+<div id="select_sub_cir_panel" style="display: none">
+    <div class="top-bar">
+        <div class="f-white f18">选择日期</div>
+    </div>
+    <div id="sub_cir_panel">
+        <div class="card-list33" data="0,周一" ><div class="left1"><div class="f16 f-black">周一</div><div class="f11" style="margin-top: 4px"></div></div><div class="right1"><input type="radio" name="card" ></div></div>
+        <div class="card-list33" data="1,周二" ><div class="left1"><div class="f16 f-black">周二</div><div class="f11" style="margin-top: 4px"></div></div><div class="right1"><input type="radio" name="card"></div></div>
+        <div class="card-list33" data="2,周三" ><div class="left1"><div class="f16 f-black">周三</div><div class="f11" style="margin-top: 4px"></div></div><div class="right1"><input type="radio" name="card" ></div></div>
+        <div class="card-list33" data="3,周四" ><div class="left1"><div class="f16 f-black">周四</div><div class="f11" style="margin-top: 4px"></div></div><div class="right1"><input type="radio" name="card" ></div></div>
+        <div class="card-list33" data="4,周五" ><div class="left1"><div class="f16 f-black">周五</div><div class="f11" style="margin-top: 4px"></div></div><div class="right1"><input type="radio" name="card" ></div></div>
+    </div>
+</div>
+
+<div id="select_ssub_cir_panel" style="display: none">
+    <div class="top-bar">
+        <div class="f-white f18">选择日期</div>
+    </div>
+    <div id="ssub_cir_panel">
+    </div>
+</div>
+
+<div id="select_invests_panel" style="display: none">
+    <div class="top-bar">
+        <div class="f-white f18">定投策略</div>
+    </div>
+    <div id="invests_panel">
+        <div class="card-list22" data="0,进取策略" ><div class="left1"><div class="f16 f-black">进取策略</div><div class="f11" style="margin-top: 4px"></div></div><div class="right1"><input type="radio" name="card" ></div></div>
+        <div class="card-list22" data="1,稳健策略" ><div class="left1"><div class="f16 f-black">稳健策略</div><div class="f11" style="margin-top: 4px"></div></div><div class="right1"><input type="radio" name="card" ></div></div>
+        <div class="card-list22" data="2,自定义" ><div class="left1"><div class="f16 f-black">自定义</div><div class="f11" style="margin-top: 4px"></div></div><div class="right1"><input type="radio" name="card" ></div></div>
+    </div>
+</div>
+</body>
+</html>

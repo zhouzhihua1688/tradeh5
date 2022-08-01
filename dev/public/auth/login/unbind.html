@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>绑定中</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/login/login.css">
+    <!-- <link rel="stylesheet" href="css/login_main.css"> -->
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <style>
+        body { background-color: #fff;}
+        .wrap {
+            padding: 3rem 0.75rem;
+        }
+        .wrap-top {
+            height: 1.25rem;
+            line-height: 1.25rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color:#333333;
+        }
+        .wrap-top i {
+            width: 1.25rem;
+            height: 1.25rem;
+            font-size: 0.8rem;
+        }
+        .wrap-middle {
+            padding: 1.95rem 0 0 1rem;
+        }
+        .wrap-middle p {
+            color:#333333;
+            font-size: 0.65rem;
+            text-align: center;
+            padding-bottom: 1rem;
+        }
+/*橘黄色按钮*/
+.btn-orange{
+	width: 92%;
+	height: 2.25rem;
+	background-color: #fe7e01;
+	color: #fff;
+	font-size: 0.75rem;
+	text-align: center;
+	line-height: 2.25rem;
+	margin: 0 4% 0 4%;
+	border-radius: 0.1rem;
+	margin-top: 1.25rem;
+}
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="wrap-top">
+        绑定中!
+    </div>
+    <div class="wrap-middle">
+       <p id="result_txt">您已绑定过啦！如需绑定其他现金宝账户，请解绑后重新绑定。</p>
+    </div>
+    <div>
+        <button class="btn-orange" id="btn-submit">取消</button>
+		<button class="btn-orange" id="btn-submit2">解绑</button>
+    </div>
+</div>
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/weixin.js"></script>
+<script type="text/javascript" src="../js/common.js?v=20201216"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script>
+	var sys = "1";
+	if(App.getCookie("channelCode") == "tfhwx"){
+		sys = "2";
+	}
+	var channelCode = App.getCookie("channelCode");
+	if(App.isEmpty(channelCode)){
+		channelCode = App.getUrlParam("channelCode");
+	}
+	if(HTF.isWeixin()){
+		var ssoCookie = HTF.getCookie("sso_cookie");
+
+        if (HTF.isNotBlank(ssoCookie)) {//有登录态
+
+			var url = "/mobile-bff/v1/weixin/queryBindStatus?system="+sys;
+			App.get(url, null, function(result){
+				if (result.body != undefined && result.body != null){
+					if(result.body.bindStatus == "1"){//已绑定
+						
+					}else{
+						window.location.href = '/mobileEC/wap/login/wx_login.html?channelCode='+channelCode+"&unbind=1";
+					}
+				}
+			});
+		}else{
+			//window.location.href = '/mobileEC/wap/login/wx_login.html?channelCode='+channelCode;
+		}
+	}
+        $(function () {
+            var message = getUrlParam("msgCode");
+            var txt = '';
+            if("0" == message){
+                txt = "已成功向您发送了一个现金红包。";
+            }else if("1" == message){
+                txt =  "您已经领过一次啦，下次再来玩吧~~";
+            }else if("2" == message || "3" == message){
+                txt = "亲现金红包已领完，下次活动见哦~~";
+            }else {
+                txt = '亲，恭喜您绑定成功啦，绑定同时您已开通微信提醒服务！如需修改提醒方式，可通过官网“服务设置”或现金宝APP“我的-设置”进行修改。';
+            }
+            $("#result_txt").html(txt);
+        });
+
+        function getUrlParam (key) {
+            var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return "";
+        }
+
+        $("#btn-submit").click(function () {//重定向url
+            var referUrl = getUrlParam("referUrl");
+            if(isNotEmpty(referUrl)){
+                window.location = referUrl;
+            } else if (typeof WeixinJSBridge != "undefined"){
+                WeixinJSBridge.invoke('closeWindow',{},function(res){
+                    //alert(res.err_msg);
+                });
+            }
+        });
+
+	var custNo = App.getCookie("sso_cookie_ext_dp");
+	$("#btn-submit2").click(function () {
+
+		var url2 = "/mobile-bff/v1/weixin/weixinUnbind?system="+sys;
+		App.get(url2, null, function(result){
+			if (result.body != undefined && result.body != null){
+				var res = result.body;
+				if(res){
+                    var url = "/mobile-bff/v1/login/login-out";
+                    var accessToken = App.getCookie("sso_cookie") ? App.getCookie("sso_cookie").replace(/"/g,'') : "";
+                    var data = JSON.stringify({
+                        "accessToken": accessToken
+                    });
+					App.post(url, data, null, function (result) {
+						var openId = App.getCookie("__openId");
+						var openUid = App.getCookie("__openUid");
+						App.clearSession();
+						window.location = "./wx_login.html?channelCode="+channelCode+"&unbind=1&openId="+openId+"&openUid="+openUid;
+					});
+				}
+			}
+		});
+		
+		
+	});
+        function isNotEmpty (str){
+            if(str == null || str == undefined || str == "" || str.trim() == "" ){
+                return false;
+            }
+            return true;
+        }
+    </script>
+	
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta charset="gbk">-->
+    <title></title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        }
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+                oHtml.style.fontSize = '17.06px';
+            }else if(screenWidth >= 750){
+                oHtml.style.fontSize = '40px';
+            }else{
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+            }
+        }
+        document.title="\u200E";
+    </script>
+    <style>
+    body{background:#fff}
+    .main{
+        padding: 1.5rem;
+    }
+    .main img{
+        display: block;
+        width: 100%;
+        margin-bottom: .75rem;
+    }
+    .mask {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0%;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .7);
+            z-index: 10;
+
+        }
+        .answer {
+            position: absolute;
+            top: 50%;
+            margin-top: -3.125rem;
+            left: 50%;
+            margin-left: -7.5rem;
+            width: 15rem;
+            /* height: 6.5rem; */
+            background-color: #fff;
+            border-radius: 0.15rem;
+            z-index: 20;
+        }
+
+        .answer .answer_text {
+            /* margin: 0.75rem; */
+            /* height: 3.75rem; */
+            border-bottom: 1px #eee solid;
+            line-height: 1.5;
+            text-align: center;
+            color: #666666;
+            padding: 2rem .75rem;
+        }
+        .answer .close{
+            border-right:1px #eee solid
+        }
+        .answer .close,.answer .close1{
+            display: block;
+            flex: 1;
+            height: 2rem;
+            line-height: 2rem;
+            color: #0070fa;
+            text-align: center;
+        }
+        .answer .closebtn{
+            display: flex;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="main">
+        <a href="htffundxjb://action?type=adviserService&subType=recommendProducts&queryTypes=13,14,15,16,17&fundGroupType=14">
+            <img src="./img/start_01.png" alt="">
+        </a>
+        <a href="./index.html">
+            <img src="./img/start_02.png" alt="">
+        </a>
+    </div>
+    <!-- <div class="footer">
+        <a href="#"></a>
+    </div> -->
+    <div class="mask" style="display: none;">
+        <div class="answer">
+            <div class="answer_text">您未完成风险测评，请先完成风险测评</div>
+            <div class="closebtn">
+                <a class="close">去做风险测评</a>
+                <a class="close1" style="display: none;">已完成风险测评</a>
+            </div>
+        </div>
+    </div>
+    <script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script>
+        $(function(){
+            userRiskLevel();
+            // 获取用户等级
+            function userRiskLevel(flag){
+                utils.ajax({
+                    // url: "/mobileEC/services/common/check_union_risk_level",
+                    url: "/mobile-bff/v1/common/check-union-risk-level",
+                    type: 'GET',
+                    success: function (result) {
+                        if(result.body&&result.body.code=='0000'){
+                            var riskLevel = result.body.riskLevel;
+                                utils.setSession('riskLevelNameForPage',riskLevel);
+                                // $(".skip").show();
+                            if(flag){
+                                $('.mask').hide();
+                            }
+                        }else{
+                            if(flag){
+                                $(".close1").hide();
+                            }
+                            $('.mask').show();
+                        }
+                    }.bind(this)
+                });
+            }
+            // $(".skip").click(function(){
+            //     window.location.href="htffundxjb://action?type=adviserService&subType=recommendProducts&queryTypes=13,14,15,16,17&fundGroupType=14";
+            // })
+            $('.close').click(function(){
+                $(".close1").show();
+                window.location.href="htffundxjb://action?type=riskTest&subType=home";
+            })
+            $(".close1").click(function(){
+                userRiskLevel(true);
+            })
+        })
+       
+    </script>
+</body>
+</html>

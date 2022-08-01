@@ -1,0 +1,100 @@
+[v-cloak] {
+    display: none;
+}
+.topBanner {
+    /* background: url('../img/bannerHY.png'); */
+    /* height: 10rem; */
+    background: url('../img/banner_topicInsight.png');
+    height: 7.375rem;
+    width: 100%;
+    background-size: 100% 100%;
+}
+.shareDiv{
+    position: absolute;
+    top: 2rem;
+    right: 1rem;
+    height: 1.25rem;
+    width: 3rem;
+    font-size: 0.6rem;
+    border-radius: 1rem;
+    background-color: #fff;
+}
+.share{
+    display: flex;
+    justify-content: center;
+    line-height: 1.25rem;
+    color: rgb(254,126,1);
+}
+#menu{
+    padding-top: 5rem;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    width: 100%;
+    white-space:nowrap;
+}
+#menu::-webkit-scrollbar {
+    display: none;
+}
+.topItem{
+    color: #fff;
+    display: inline-block;
+    font-size: .75rem;
+    margin: 0 .5rem;
+}
+.current{
+    color: #fff;
+    display: inline-block;
+    position: relative;
+    font-size: .75rem;
+    margin: 0 .5rem;
+    padding-bottom: 0.2rem;
+}
+.current:after{
+    position: absolute;
+    background: #fff;
+    left: 0;
+    top: 1rem;
+    height: 0.1rem;
+    border-radius: 0.1rem;
+    width: 100%;
+    margin-top: 0.1rem;
+    content: '';
+}
+.info{
+    padding: 0 .75rem;
+    background: #fff;
+    font-size: .75rem;    
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    margin-top: -10px;
+    padding-top: 15px;
+}
+.info .content{
+    font-size: .7rem;
+}
+.info .viewMore{
+    color: #148ce6;
+    float: right;
+}
+
+.infoFoot{
+    width:17.25rem;display: flex;justify-content: space-between;align-items: center;margin:0 auto;    padding-bottom: .5rem; color:#666;
+    padding: 0.925rem 0 .675rem 0;
+}
+.infoFoot div{width:50%;text-align:center;}
+.infoFoot .footRight{
+    height: 1.25rem;
+    width: 3rem;
+    border-radius: 2rem;
+    background: #fb5c5f;
+    text-align: center;
+    line-height: 1.25rem;
+    color: #fff;
+    font-size: .65rem;
+}
+.infoFoot .footLeft{
+    height: 1.25rem;
+    line-height: 1.25rem;
+    text-align: left;
+    font-size: .6rem;
+}

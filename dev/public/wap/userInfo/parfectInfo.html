@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>完善信息</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/userInfo/base.css">
+    <link rel="stylesheet" href="../css/mobiscroll.custom-3.0.0-beta6.min.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <style>
+        .mask{width:100%;height:100%;position: absolute;top:0;left: 0;bottom:0;background: rgba(0, 0, 0, .7);display: none;z-index: 5;}
+        .animated {-webkit-animation-duration: 500ms; animation-duration: 500ms; -webkit-animation-fill-mode: both; animation-fill-mode: both; }
+        .layer { display: none;background-color: #ffffff;width: 100%; position: fixed; top: 0; left:0; overflow: auto;z-index: 10; }
+        .slideInUp .complete{border-bottom: 1px #efefef solid;height:2.6rem; line-height:2.6rem; font-size: 0.7rem; padding:0 0.75rem; color:#148ce6; position:relative; top:0px; }
+        .slideInUp .complete a:nth-of-type(1){float:left;}
+        .slideInUp .complete a:nth-of-type(2){float:right;}
+        @keyframes slideInDown{
+            0%{opacity:0;-webkit-transform:translateY(-000px);-ms-transform:translateY(-2000px);transform:translateY(-2000px)}
+            100%{-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}}
+
+        @keyframes slideInUp{
+            0%{opacity:0;-webkit-transform:translateY(100%);-ms-transform:translateY(100%);transform:translateY(100%)}
+            100%{-webkit-transform:translateY(75%);-ms-transform:translateY(75%);transform:translateY(75%)}}
+        .slideInDown{-webkit-animation-name:slideInDown;animation-name:slideInDown}
+        .slideInUp{-webkit-animation-name:slideInUp;animation-name:slideInUp;}
+        .slideInUp .giftlist .title{height:2.5rem;width:100%;text-align:center;line-height: 2.5rem;font-size: .7rem;color:#000;}
+        .slideInUp .giftlist a .title{height:2.5rem;width:100%;text-align:center;line-height: 2.5rem;font-size: .7rem;color:#000;border:1px solid #eee;}
+        .slideInUp .giftlist ul {overflow-y: auto;padding-bottom: 2.5rem;}
+        .slideInUp .giftlist ul li{height:2rem;line-height: 2rem;text-align: center;padding: 0 .75rem;font-size: .6rem;overflow: hidden; border-bottom: 1px #efefef solid;}
+        .slideInUp .giftlist ul li span{display: inline-block;color:#666;}
+        .slideInUp .giftlist ul li .circle{width: .8rem; height: .8rem; vertical-align: middle; border-radius: 50%; margin-top: .8rem; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -o-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; }
+
+        /*弹框1*/
+        .Bomb-box,.Bomb-box1,.Bomb-box2{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+        .Bomb-box .Bomb-box-main,.Bomb-box1 .Bomb-box-main,.Bomb-box2 .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+        .Bomb-box .Bomb-box-tips,.Bomb-box1 .Bomb-box-tips{  text-align: center;  color: #333;  font-size: 0.75rem;  height: 2.5rem;  line-height: 2.5rem;  }
+        .Bomb-box .Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+        .Bomb-box .Bomb-box-content p,.Bomb-box1 .Bomb-box-content p,.Bomb-box2 .Bomb-box-content p{  line-height: 1rem;  }
+        .Bomb-box .Bomb-box-ok,.Bomb-box1 .Bomb-box-ok,.Bomb-box2 .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+        .Bomb-box .no-tips,.Bomb-box1 .no-tips,.Bomb-box2 .no-tips{font-size: 0.7rem;padding: 1.7rem 1.5rem 1.15rem 1.5rem;text-align: center;}
+        .Bomb-box .text-center,.Bomb-box1 .text-center,.Bomb-box2 .text-center{text-align: center;}
+        .Bomb-box .Bomb-box-content,
+        .Bomb-box1 .Bomb-box-content,
+        .Bomb-box2 .Bomb-box-content{ padding:.75rem 1.5rem; }
+
+        /*选择颜色变化*/
+        input[type="text"],
+        input[type="password"],
+        input[type="number"],
+        input[type="email"],
+        input[type="tel"],
+        textarea {color: #000000;}
+        input{width:50%; text-align: right;}
+        .gap{height: 0.5rem;line-height: 1.6rem; font-size: .6rem; padding: 0 .75rem; color: #fe5a5b;}
+        .li-address{margin:0;white-space: nowrap;overflow: scroll; width: 100%; text-align: right;}
+        .xinghao{width:0.325rem;height:0.325rem;vertical-align: middle;margin-right:0.5rem;}
+        .icon-arrow-right {
+            background: url(../images/userInfo/jiantou.png) no-repeat center center;
+            background-size: contain;
+        }
+        .tip2{position: fixed;top: 0;left: 0;background-color: rgba(0,0,0,0.7);height: 100%;width: 100%;overflow: auto;font-size: 0.6rem;z-index: 999;}
+        .tip2 .tip_wrap{position: absolute;left: 50%;top: 50%;-webkit-transform: translate(-50%,-50%);transform: translate(-50%,-50%);margin: 0;width:80%; /*height:16rem;*/background: #fff;-webkit-border-radius: 5px;}
+        .tip2 .tip_wrap .tip_content p{padding:0 1.5rem 0 1.5rem;font-size: .7rem;margin-top: .7rem;line-height: 1rem;margin-bottom: 1rem;text-align: center;line-height: 1rem;}
+        .tip2 .tip_wrap .tip_content{border-bottom: 1px #eee solid;}
+        .tip2 .tip_wrap .tip_btn ul li{text-align: center;font-size: .75rem;color:#006bfe;}
+        .tip2 .tip_wrap .tip_btn ul li a{display:block;text-align: center;font-size: .75rem;width:100%;padding:.7rem 0;}
+    </style>
+</head>
+
+<body>
+    <section class="content">
+        <ul class="grid-list" style="padding:0 0 0 .75rem ">
+            <li class="grid-list-item heigth-100 li-nationality-region">
+                <div class="row">
+                    <div class="flex">
+                        <p><img src="../images/userInfo/xinghao.png" alt="" class="xinghao"><span style="vertical-align: middle">国籍</span></p>
+                        <input type="text" class="survey_nations" placeholder="请选择国籍"/>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                        <a class=" iconi icon-arrow-right nation_arrow"></a>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 li-sex">
+                <div class="row">
+                    <div class="flex">
+                        <p><img src="../images/userInfo/xinghao.png" alt="" class="xinghao"><span style="vertical-align: middle">性别</span></p>
+                        <input type="text" class="sex" placeholder="请选择性别"/>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                        <a class=" iconi icon-arrow-right sex_arrow"></a>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 ">
+                <div class="row">
+                    <div class="flex">
+                        <p><img src="../images/userInfo/xinghao.png" alt="" class="xinghao"><span style="vertical-align: middle">证件号</span></p>
+                        <p class="idCard" style="margin:0;"></p>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                        <!--<a class=" iconi icon-arrow-right"></a>-->
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 li-career upload-idno-pic">
+                <div class="row">
+                    <div class="flex">
+                        <p><img src="../images/userInfo/xinghao.png" alt="" class="xinghao"><span style="vertical-align: middle">证件照片</span></p>
+                        <p class="idno-pic-st"></p>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                        <a class=" iconi icon-arrow-right upload-idno-arrow"></a>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 ">
+                <div class="row">
+                    <div class="flex">
+                        <p><img src="../images/userInfo/xinghao.png" alt="" class="xinghao"><span style="vertical-align: middle">证件有效期</span></p>
+                        <input type="text" class="idCardValidDate" placeholder="请选择证件有效期"/>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                        <a class=" iconi icon-arrow-right"></a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <div class="gap"></div>
+    <section class="content">
+        <ul class="grid-list" style="padding:0 0 0 .75rem ">
+            <li class="grid-list-item heigth-100 li-phone-number">
+                <div class="row">
+                    <div class="flex">
+                        <p><img src="../images/userInfo/xinghao.png" alt="" class="xinghao"><span style="vertical-align: middle">绑定手机</span></p>
+                        <p class="group-name phone-number" style="margin:0;"></p>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                        <a class=" iconi icon-arrow-right phone-arrow" style="display:none"></a>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 li-career">
+                <div class="row">
+                    <div class="flex">
+                        <p><img src="../images/userInfo/xinghao.png" alt="" class="xinghao"><span style="vertical-align: middle">职业</span></p>
+                        <input type="text" class="career" placeholder="请选择职业"/>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                        <a class=" iconi icon-arrow-right"></a>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 li-address">
+                <div class="row">
+                    <div class="flex">
+                        <p><img src="../images/userInfo/xinghao.png" alt="" class="xinghao"><span style="vertical-align: middle">联系地址</span></p>
+                        <p class="group-name li-address address" style="margin-right: 0rem;" >待补充</p>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                        <a class=" iconi icon-arrow-right"></a>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 li-due-diligence">
+                <div class="row">
+                    <div class="flex">
+                        <p><img src="../images/userInfo/xinghao.png" alt="" class="xinghao"><span style="vertical-align: middle">税收居民身份</span></p>
+                        <p class="group-name due-diligence" style="margin:0;">仅中国税收居民</p>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                        <a class=" iconi icon-arrow-right"></a>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 li-actual-Controller">
+                <div class="row">
+                    <div class="flex">
+                        <p><img src="../images/userInfo/xinghao.png" alt="" class="xinghao"><span style="vertical-align: middle">账户控制人</span></p>
+                        <p class="group-name actual-Controller" style="margin:0;">本人</p>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                        <a class=" iconi icon-arrow-right"></a>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 li-actual-beneficiary">
+                <div class="row">
+                    <div class="flex">
+                        <p><img src="../images/userInfo/xinghao.png" alt="" class="xinghao"><span style="vertical-align: middle">账户受益人</span></p>
+                        <p class="group-name actual-beneficiary" style="margin:0;">本人</p>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                        <a class=" iconi icon-arrow-right"></a>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 li-integrity-problem">
+                <div class="row">
+                    <div class="flex">
+                        <p><img src="../images/userInfo/xinghao.png" alt="" class="xinghao"><span style="vertical-align: middle">诚信记录</span></p>
+                        <p class="group-name integrity-problem" style="margin:0;">无诚信问题</p>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                        <a class=" iconi icon-arrow-right"></a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <div>
+            <button class="btn-orange" id="btn-submit" style="background:#fe7e01">确认无误，提交</button>
+        </div>
+    </section>
+
+    <div class="mask"></div>
+    <!-- 提示弹窗 -->
+    <div class="Bomb-box" style="display: none;">
+        <div class="Bomb-box-main">
+            <div class="Bomb-box-content">
+                <p class="text-center"></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;">确定</a>
+        </div>
+    </div>
+    <!-- 去绑卡弹窗 -->
+    <div class="tip2 bind_card_tip" style="display: none;">
+        <div class="tip_wrap">
+            <div class="tip_content">
+                <p id="bind_card_tip">您暂未实名，请先完成实名绑卡</p>
+            </div>
+            <div class="tip_btn" >
+                <ul style="width: 100%;">
+                    <li style="float: left;width:100%;box-sizing: border-box;"><a href="javascript:;" id="go_to_bind_card">去实名</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="layer animated slideInUp" id="sexOptions">
+        <div class="complete">
+            <a href="javascript:;" class="close">取消</a>
+            <a href="javascript:;" class="finish">完成</a>
+        </div>
+        <div class="giftlist" style="overflow-y:auto;" >
+            <ul>
+                <li><div data-value="1">男</div></li>
+                <li><div data-value="0">女</div></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layer animated slideInUp" id="careerOptions">
+        <!--<div class="complete">
+            <a href="javascript:;" class="close">取消</a>
+            <a href="javascript:;" class="finish">完成</a>
+        </div>-->
+        <div class="giftlist" style="overflow-y:auto;height: 13rem;" >
+            <ul>
+                <li><div data-value="00">党政机关/事业单位</div></li>
+                <li><div data-value="21">企业单位</div></li>
+                <li><div data-value="04">金融</div></li>
+                <li><div data-value="19">个体户/自由职业</div></li>
+                <li><div data-value="18">学生</div></li>
+                <li><div data-value="22">军人</div></li>
+                <li><div data-value="23">退休人员</div></li>
+            </ul>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/lib/mobiscroll.custom-3.0.0-beta6.min.js"></script>
+    <script type="text/javascript" src='../js/lib/nations.js'> </script>
+    <script type="text/javascript" src='../js/lib/city.js'> </script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210302"></script>
+    <script type="text/javascript" src="../js/userInfo/parfectInfo.js?20220215"></script>
+</body>
+
+</html>

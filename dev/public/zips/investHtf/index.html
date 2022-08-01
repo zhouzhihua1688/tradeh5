@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>汇添富投顾</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" type="text/css" href="./css/swiper-4.2.2.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <!-- <script src="../../base/js/baseHead.js"></script> -->
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        .blue .video {width: 100%; height: 100%; background: #c2dffe; padding-bottom: 0.5rem; display: none; } 
+        .video .video_box {width: 17.75rem; border-radius: 0.2rem; height: 10rem; overflow: hidden; margin: 0 auto; } 
+        [v-cloak] {display: none;}
+    </style>
+</head>
+<body>
+<div id="app" v-cloak>
+    <div class="main">
+        <!-- 中间基金理财部分 -->
+        <div class="tel" @click="footerFixShow=true">专属服务</div>
+        <div class="head-01">
+            <!-- <div class="invest-text">
+                <p>汇我智慧，添您财富</p> 
+            </div> -->
+        </div>
+        <!-- 有资产 -->
+        <div class="head-asset" v-if="showHead">
+            <div>
+                <div class="total-asset" @click="investUrl()"><span class="total-text">投顾总资产(元)</span><span class="money" v-text="numFormat(totalBalance)"></span></div>
+                <div class="profit">
+                    <span>持有收益</span>
+                    <span v-if="balanceProfit>0" class="hold-money"><i>+</i><i v-text="numFormat(balanceProfit)">142,235,698.23</i></span>
+                    <span v-else-if="balanceProfit<0" class="hold-green"><i v-text="numFormat(balanceProfit)"></i></span>
+                    <span v-else="balanceProfit=0" class="hold-money"><i>+</i><i v-text="numFormat(balanceProfit)"></i></span>
+                    <span>最新收益({{yieldDate.slice(4,6)+'.'+yieldDate.slice(6,8)}})</span>
+                    <span v-if="lastProfit>0" class="new-money"><i>+</i><i v-text="lastProfit"></i></span>  <!--资产大于0-->
+                    <span v-else-if="lastProfit<0" class="new-green"><i v-text="lastProfit"></i></span>  <!--资产小于0-->
+                    <span v-else="lastProfit=0" class="new-money"><i>+</i><i v-text="lastProfit"></i></span> <!--资产等于0-->
+                </div>
+                <div class="kaiqi" @click="investTest()">开启一笔新投资</div>
+            </div>
+        </div>
+        <!-- 无资产 -->
+        <div class="head-noAsset" v-else >
+            <template v-show="!showHead&&videoInfo&&Object.keys(videoInfo).length>0">
+                <div>
+                    <div class="hello">{{videoInfo.imageName}}</div>
+                    <div class="video"  data-html2canvas-ignore="" style="padding:.5rem 1rem .75rem 1rem;font-size: 0;">
+                        <video height="100%" width="100%" id="video_self" controls="" :src="videoInfo.url" :poster="videoInfo.imgTips" style="border-radius: .25rem;display: block;">
+                        </video>
+                    </div>
+                    <div class="plan" @click="investTest()">立即为我规划</div>
+                    <p class="more-video" v-if="videoInfo.btnName&&videoInfo.btnUrl" @click="moreVideo(videoInfo.btnUrl)">{{videoInfo.btnName}}</p>
+                </div>
+            </template>
+           
+        </div>
+        <div class="invest-service">
+			<div class="subbox">
+				<p class="title"><span>投顾服务</span><a href="javascript:;" @click="moreService">查看更多<img src="./img/arrowRight.png" alt=""></a></p>
+				<img v-if="recommondInfoImageAndUrl.imageUrl" :src="recommondInfoImageAndUrl.imageUrl" alt="" @click="jumpRecommend(recommondInfoImageAndUrl.url)">
+			</div>
+		</div>
+        <div v-if="productListInfo&&productListInfo.length>0"><img src="img/head_03.png" alt="" style="display: block;width:100%;"></div>
+        <div class="product-card" v-if="productListInfo&&productListInfo.length>0">
+            <div class="card-list">
+				<div class="lists" :class="'list'+index" v-for="(item,index) in productListInfo">
+					<p class="title"><span>{{item.themeTitle}}</span>{{item.themesubTitle}}</p>
+					<div class="swiper-container" :id="'swiper'+index">
+						<div class="swiper-wrapper">
+							<div class="cards swiper-slide" v-for="childitem in item.object" :style="'background:url('+item.imageUrl+') no-repeat;background-size: 100% 100%; '">
+								<p class="card-name">{{childitem.prdTitle}}</p>
+								<p class="card-label" v-if="childitem.prdTagList&&childitem.prdTagList.length>0">
+									<span v-for="sonitem in childitem.prdTagList">{{sonitem}}</span>
+								</p>
+								<div class="card-desc">
+									<div>
+										<p>{{childitem.recomElementNmTips}}</p>
+										<p>{{childitem.recomElementNm}}</p>
+									</div>
+									<div>
+										<p>{{childitem.recomElementNm2Tips}}</p>
+										<p>{{childitem.recomElementNm2}}</p>
+									</div>
+								</div>
+								<a href="javascript:;" class="now-buy" @click="buyNow(childitem.url)">立即购买</a>
+							</div>
+						</div>
+						<div class='swiper-pagination'></div>
+					</div>
+				</div>
+				<a href="javascript:;" class="more-product" @click="moreProduct">更多方案<img src="./img/arrowRight.png" alt=""></a>
+			</div>
+        </div>
+
+        <div class='bottom-container'>
+            <!-- <div class="video-box" style="display: none;">
+                <div class="video-title" @click="moreVideo()">
+                    <span>投顾视频</span>
+                    <span style="font-size:0.65rem;">查看更多<img src="img/arrowRight.png" alt=""></span>
+                </div>
+                <div class="video" data-html2canvas-ignore="" style="margin-top: -1px; padding: 0 0.5rem;">
+                    <video height="100%" width="100%" id="video_self" controls="" :src="video" :poster="poster">
+  
+                    </video>
+                </div>
+            </div> -->
+			<div style="background-color: #2d231b;">
+				<div class="quest-box">
+					<div class='quest-title' @click="moreQuestion()">
+						<span>常见问题</span>
+						<span style="font-size:0.65rem;font-weight: normal;">查看更多<img src="img/arrowRight.png" alt=""></span>
+					</div>
+					<div class='quest-1'>
+						<div class='quest-1-left'><img src="img/question.png" alt=""></div>
+						<div class='quest-1-right'>
+							<div style="font-weight: bold;font-size:0.75reml;display: flex;align-items: center;justify-content: space-between;">投顾组合和普通组合有什么区别？<img src="./img/arrow_b.png" alt="" @click="toogle0=!toogle0" :class="toogle0?'active':''"></div>
+							<div v-show="toogle0" style="margin-top:0.5rem;color:#a87e3d">相对于历史组合服务（历史组合服务正在进行业务升级）来说，投顾组合服务以客户为中心，是由专业的投资管理团队在充分了解客户风险偏好与投资需求的基础上，提供一站式资产配置解决方案及全流程账户管理和客户陪伴服务。</div>
+						</div>
+					</div>
+					<div class='quest-2'>
+						<div class='quest-1-left'><img src="img/question.png" alt=""></div>
+						<div class='quest-1-right'>
+							<div style="font-weight: bold;font-size:0.75reml;display: flex;align-items: center;justify-content: space-between;"><span>调仓时需要做什么？</span><img src="./img/arrow_b.png" alt="" @click="toogle1=!toogle1" :class="toogle1?'active':''"></div>
+							<div v-show="toogle1" style="margin-top:0.5rem;color:#a87e3d">对于管理型基金投顾（调仓模式为自动调仓），基金公司专业投顾团队会根据业务协议及规则要求，代客户执行调仓，无需客户主动操作。</div>
+						</div>
+					</div>
+				</div>
+				<div class="wx-jump">
+					<img src="./img/wx-jump.png" alt="" style="display: block; width:100%" @click="openWx">
+				</div>
+			</div>
+           
+            <!-- 关于固投 -->
+			
+            <div><img src="img/about.png" alt="" style="display: block;width: 100%;"></div>
+			<div style="background-color:#2f241c;">
+				<div class="nav">
+                <div v-for="(item,index) in title" :key="index" > 
+                    <p v-text="item" :class="number==index ? 'active' : '  ' " @click="changeTitle(index)"></p>
+                    <span :class="number==index ? 'borderActive' : '  ' "></span>
+                </div>
+           		</div>
+				<div class="nav-text" v-if="number==0">
+					<p> 汇添富投顾服务将以客户为中心，在充分了解客户风险偏好与投资需求的基础上，提供一站式资产配置解决方案及全流程账户管理和客户陪伴服务。汇添富将依托专业的投资研究能力和对底层资产的深度识别能力，以对客户需求的深刻理解、全方位的数据监测与业绩检视体系、全生命周期的客户陪伴服务能力为依托，以行业领先的IT自研能力为助力，力争为客户提供优质的投资顾问陪伴体验。</p>
+				</div>
+				<div class="nav-text" v-if="number==1">
+					<p> 投顾投资团队：核心团队成员背景多元化，有丰富的FOF产品及线上组合投资管理经验；依托于汇添富整体投研团队深入成熟的基金研究体系，精选基金产品，并通过科学合理的配置理念，为您的资产保驾护航</p>
+					<p style="padding-top:0">顾问服务团队：以客户为中心，想您之所想，为您提供投前-投中-投后全程投资顾问服务。让我们一起了解您的需求，一起了解资本市场，一起学习投资理财；我们为您答疑解惑，力争让你获得良好的投资体验</p>
+				</div>
+				<div class="nav-text" v-if="number==2">
+					<p>1、投资顾问服务费：按照提供投顾服务的指定账户资产总额的一定比例，收取投资顾问服务费，投资顾问服务费具体计费规则、收费方式、时间等以投资顾问服务协议的约定或者相关公告为准。</p>
+					<p style="padding-top:0">2、组合内子基金申赎费用优惠。投顾组合中，本公司管理且销售的基金不收取认购费、申购费、赎回费（按照相关法规、基金招募说明书约定应当收取，并计入基金财产的赎回费用除外）等费用；对投顾组合中非本公司管理且销售的基金，代销机构有权根据其公布的费用标准收取各成分基金的认购费、申购费、赎回费等费用。</p>
+				</div>
+			</div>
+        </div>
+        <div class="footer-img"><img src="img/last.png" alt=""></div>
+        <div style="background:#30251c;height:1rem;padding:1rem 0rem;margin-top:-0.2rem"></div>
+    </div>
+    <div class="mask" :style="{display:footerFixShow ? 'block':'none'}"></div>
+    <div class="layer0" :style="{display:footerFixShow ? 'block':'none'}" :class="footerFixShow?'animated slideInUp':''"
+      id="layer0">
+      <div class="giftlist giftlist0" v-if="ManagerInfo.length>0">
+        <a :href="'tel:'+ManagerInfo[0].mobile" class="title" style="border-radius: 0 0 10px 10px;"><img
+            src="./img/tel_01.png" /><span>呼叫客户经理 {{ManagerInfo[0].name}}</span></a>
+        <!--20211130电话号换成名称 mobile to name-->
+      </div>
+      <div class="giftlist giftlist0" v-if="ManagerInfo.length==0">
+        <!-- 9560 升级页活动包修改点 #5  -->
+        <a href="javascript:;" @click='jumpOther' class="title"><img src="./img/tel_02.png" /><span>预约投顾专属服务</span></a>
+        <a href="tel:4008889918" class="title" @click='footerFixShow=false' style="border-radius: 0 0 10px 10px;"><img
+            src="./img/tel_01.png" /><span>呼叫客服热线</span></a>
+      </div>
+      <div class="close" @click="footerFixShow=false">
+        <a href="javascript:;" style="color:#008ae9;font-size:0.85rem">取消</a>
+      </div>
+    </div>
+</div>
+<script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script src="./js/swiper-4.2.2.min.js"></script>
+<script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script>
+<script src="./js/index.js?d=20220704"></script>
+</body>
+</html>

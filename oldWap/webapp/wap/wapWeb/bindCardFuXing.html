@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--<meta charset="GBK">-->
+    <meta charset="utf8">
+    <title>赢88元奖励金</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+    <link rel="stylesheet" href="css/baseFuxing.css">
+    <script type="text/javascript" src="js/zepto.min.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        };
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            screenWidth = screenWidth > 750 ? 750 : screenWidth;
+            oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+        }
+    </script>
+    <link rel="stylesheet" href="css/mainFuxing.css">
+    <style type="text/css">
+        .btn-share{
+
+            position: absolute; width:4.2rem;height:1.4rem; line-height:1.4rem;text-align:center;z-index: 2;right:0;color: #fff;-webkit-border-radius: .7rem 0 0 .7rem;font-size: .75rem;
+            top: .55rem;
+            border: 1px #fff solid;
+            border-right: none;
+            background: #f3705b;
+        }
+        .huofdong{
+            background: url(img/fuxing/jiangji.png) no-repeat top;
+            width:300px;
+        }
+        img{
+            display: block;
+             vertical-align: middle;
+        }
+
+    </style>
+</head>
+<body>
+<div class="content">
+    <div>
+        <a href="javascript: void(0);" class="btn-share" id="guize">活动规则</a>
+    </div>
+ 
+    <!--加速包-->
+    <div class="light-box congratulation congratulation_03" >
+        <div class="light-box-inner">
+            <img src="img/fuxing/a6_5.png" alt="">
+            <h2 style="margin-top: .5rem;">您可在现金宝app中查看使用</h2>
+           	<img src="img/fuxing/png2.png" alt="" style="margin-top: .2rem;">
+            <img src="img/fuxing/png_03.png" alt="" style="margin-top: .2rem;">
+            <p style="color: #ff575a;text-align: center;margin-bottom: 1rem;font-size: .5rem;">扫码下载现金宝app</p>
+        </div>
+    </div>
+
+
+    <!--风险提示-->
+    <div class="risk-tips">
+        <h4  id = "faqs">常见问题</h4>
+        <p>基金有风险，投资需谨慎。</p>
+    </div>
+</div>
+<!--常见问题-->
+<div class="layer" id="faq"  style="display: none;">
+    <div class="layer-wrap">
+        <div class="light-box faq">
+            <div class="light-box-inner">
+                <h2>常见问题</h2>
+                <section>
+                    <h4>1、奖励是什么？</h4>
+                    <div>奖励是现金宝货币基金份额，可提现至银行卡。</div>
+                    <h4>2、如何领取奖励？</h4>
+                    <div>您可以在现金宝app中查看并领取。具体路径为：
+                        <img src="img/fuxing/f_05.png" style="width: 80%; margin: .2rem auto;" alt="">
+                        <!--<p style="width:90%;margin: .2rem auto;text-align: center;font-size: .5rem"><span style="float: left">现金宝app</span><span style="display:inline-block">我的帐户</span><span style="float: right">我的礼券</span></p>-->
+                    </div>
+                </section>
+                <a href="javascript:;" class="btn btn-back">返回</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--活动规则-->
+<div class="layer" id="rules" style="display: none;">
+    <div class="layer-wrap">
+        <div class="light-box rules">
+            <div class="light-box-inner">
+                <h2>活动规则</h2>
+                <section>
+                   <ol>
+                       <li>1.活动时间：即日起至2018年12月31日。</li>
+                       <li>2.参与活动即可获得随机奖励，上限88元，可提现到银行卡。</li>
+                       <li>3.一个用户（身份证号）只能领取一次。</li>
+                       <li>4.本活动仅针对来自复兴号列车的现金宝用户有效。</li>
+                       <li>5.活动最终解释权归汇添富基金所有。</li>
+                   </ol>
+                </section>
+                <a href="javascript:;" class="btn btn-back">返回</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(function () {
+		$("#faqs").click(function () {
+            $("#faq").show();
+        });
+        $("#close").click(function() {
+            var data1=$("#study").attr("opt")
+            if (data1=1) {
+                $("#study").hide()
+                $("#study2").show();
+            } else {
+
+            }
+        });
+
+    $("#rules").hide()
+
+     $("#guize").click(function() {
+        $("#rules").show()
+     });
+
+      $(".btn btn-back").click(function() {
+        $(".btn btn-back").hide()
+     });
+
+        //活动规则和常见问题的返回按钮
+        $(".btn-back").click(function () {
+            $(".layer").hide();
+        });
+        //弹窗的关闭按钮
+        $(".btn").click(function () {
+
+        });
+
+        $("#study ul li").click(function () {
+            $(this).addClass("active").find("img").attr("src", "img/fuxing/icon_24.png");
+            $(this).siblings("li").removeClass("active").find("img").attr("src", "img/fuxing/icon_26.png");
+        });
+
+        // 参与后的一种情况，有多种  congratulation_01  congratulation_02 congratulation_03 congratulation_04 congratulation_05
+        $("#study .btn").click(function () {
+            if ($("#study ul li.active").index() == 0) {
+                $("#study").hide();
+                $(".congratulation_02").show();
+            } else {
+                //
+            }
+        });
+
+        // 各种情况的框的关闭。。未确定是否关闭
+        $(".congratulation .btn").click(function () {
+
+        });
+
+        $(".btn-group a").click(function () {
+            $("#rules").show();
+        });
+
+
+    })
+
+
+</script>
+</body>
+</html>

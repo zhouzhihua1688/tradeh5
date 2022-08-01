@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>定期报告</title>
+    <script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/echarts.min.js"></script>
+    <script type="text/javascript" src = "https://static.99fund.com/mobile/wap-lib/js/basic.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.base64.js"></script>
+    <style type="text/css">
+        .content5 {background-color: #f6f6f6; padding: 0 16px 16px;}
+        .content5 .tab-con {padding: 0 16px 16px;background-color: #fff; }
+        .content5 table{  font-size: 0.373rem; width: 100%; border-collapse: collapse; text-align: left;}
+        .content5 table tr td {height: 1.333rem;border-bottom: 1px solid #eee;color: #000;border-right: none;border-left: none;border-top: none;}
+        .content5 table tr td:last-child{  text-align: right;}
+        .content5 .no-data { width: 1.84rem; margin: 1.92rem auto; }
+        .content5 .no-data p { text-align: center; font-size: .34rem; color: #999; margin-top: .5rem;}
+        .noData { position: absolute; top: 45%; right: 0; font-size: 0.24rem; width: 100%; text-align: center; }
+        i.next { display: inline-block; width: 8px; height: 16px; background: url(img/icon01.png) no-repeat left top; -webkit-background-size: contain; background-size: contain; vertical-align: middle; margin-left: 7px; }
+
+    </style>
+    <link rel="stylesheet" href="./css/base_2.0.css">
+    <link rel="stylesheet" href="./css/public.css">
+</head>
+
+<body>
+
+<section class="content5">
+    <div class="no-data" >
+        <img src="img/img_53.png" alt="">
+        <p>暂无报告</p>
+    </div>
+
+    <table id="reportTable_panel">
+
+    </table>
+</section>
+
+<script>
+    // rem 布局
+    var windowWidth = $(window).width() > 750 ? 750 : $(window).width();
+    $("html").css({"fontSize":  windowWidth/10});
+
+    var groupId = "";
+    $(function () {
+        groupId = WAP.getUrlParam("groupId");
+        queryReportData(groupId);
+    });
+
+
+    function queryReportData(groupId){
+        //console.log(chartTp);
+        $.get(WAP.requestAddr + "/adviser/query_fund_group_report?groupId=" + groupId + "&t=" + new Date().getTime(), function(resultStr){
+            //console.log(resultStr);
+            var result = JSON.parse(resultStr);
+            if(result.returnCode == 0){
+                var reports = result.body.reports;
+                var html = "";
+                if(reports.length > 0){
+                    $(".no-data").hide();
+                } else {
+                    $(".content5").css({"background":  "none"});
+                }
+
+                for(var i in reports){
+                    var reportInfo = reports[i];
+                    if (!WAP.isEmpty(reportInfo.reportUrl)){
+                        html += "<tr onclick=\"showUrl('"+ reportInfo.reportUrl +"')\">" +
+                            "<td style=\"width: 70%;\">"+ reportInfo.reportName +"</td>" +
+                            "<td class=\"font-arial\" style=\"width: 30%;\"><a href=\"javascript:void(0)\"><span>"+ reportInfo.reportDate +"</span></a><i class=\"next\"></i></td>" +
+                            "</tr>";
+
+                    }else {
+                        html += "<tr onclick=\"showReport('"+ reportInfo.reportName +"')\">" +
+                            "<td style=\"width: 70%;\">"+ reportInfo.reportName +"</td>" +
+                            "<td class=\"font-arial\" style=\"width: 30%;\"><a href=\"javascript:void(0)\"><span>"+ reportInfo.reportDate +"</span></a><i class=\"next\"></i></td>" +
+                            "</tr>";
+                    }
+                }
+                $("#reportTable_panel").append(html);
+            }
+        });
+    }
+
+    function showReport(reportNm) {
+        window.location.href = encodeURI(WAP.requestAddr + "/adviser/show_fund_group_report?reportNm=" + reportNm);
+    }
+
+    function showUrl(url) {
+        window.location.href = "htffundxjb://action?type=url&link=" + encodeURI(url);
+    }
+</script>
+</body>
+
+</html>

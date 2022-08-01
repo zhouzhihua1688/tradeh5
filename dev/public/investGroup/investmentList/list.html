@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>定期报告</title>
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="./css/list.css">
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="header">
+            <select class="select_year" name="年份" id="year" v-model="reportYear">
+                <option value="">全部</option>
+                <option value="2022">2022年</option>
+                <option value="2021">2021年</option>
+            </select>
+            <select class="select_month" name="季报" id="month" v-model="reportType">
+                <option value="1">全部</option>
+                <option value="2">月报</option>
+                <option value="3">季报</option>
+            </select>
+        </div>
+        <div class="content">
+            <div class="report_content" v-for="item in resultList" @click="jumpUrl(item)">
+                <div class="report_name">
+                    <div>{{item.reportName}}<span
+                            class="report_type">{{item.reportType=='1'?'投顾月报':item.reportType=='2'?'投顾季报':''}}</span>
+                    </div>
+                    <i></i>
+                </div>
+                <div class="report_time">{{item.displayDate | displayDateFormat}}</div>
+            </div>
+        </div>
+    </div>
+    <script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+    <script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    balanceSerialNo: utils.getUrlParam("balanceSerialNo"),
+                    reportYear: '',
+                    reportType: '1',
+                    resultList: [],
+                    groupId: '',
+                    tradeAcct: '',
+                    branchCode: '',
+                    //苏宁页面入参
+                    channelNo: utils.getUrlParam("channelNo"),
+                    ssc: utils.getUrlParam("ssc"),
+                    key: utils.getUrlParam("key"),
+                }
+            },
+            watch: {
+                reportYear() {
+                    this.getReportList()
+                },
+                reportType() {
+                    this.getReportList();
+                }
+            },
+            created() {
+                this.thirdPartLogin();
+            },
+            methods: {
+                getReportList() {
+                    utils.ajax({
+                        url: `/ias/v1/reports/cust?balanceSerialNo=${this.balanceSerialNo}&reportYear=${this.reportYear}&reportType=${this.reportType}&groupId=${this.groupId}&branchCode=${this.branchCode}&tradeAcct=${this.tradeAcct}`,
+                        success: function (result) {
+                            if (result.returnCode === 0) {
+                                this.resultList = result.body.reports
+                            }
+                        }.bind(this)
+                    })
+                },
+
+                thirdPartLogin(){
+                    var _this = this;
+                    //苏宁三方登录
+                    if(this.channelNo == '318'){   
+                        var data = {htfChannelCode:'suning', distributorCode:this.channelNo, secretReq: this.ssc, secretKey: this.key};
+                        data = JSON.stringify(data);
+                        $.ajax({
+                            url: '/uaa/v1/third-part/login',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            data: data,
+                            dataType:"json", 
+                            beforeSend:function(req){
+                                if(utils.getCookie('traceCode')){
+                                    req.setRequestHeader("X-TraceCode", utils.getCookie('traceCode'));
+                                }
+                            },
+                            success: function (result) {
+                                utils.codeLoginLoading = false;
+                                if (result.returnCode === 0) {
+                                    // 用户已绑定，正常获取到sso_cookie
+                                    // 静默登录，不做跳转或刷新页面处理
+                                    utils.removeSession(utils.userInfo);
+                                    // 保存openId，openUid等参数，绑卡页面获取小米端银行卡号时使用
+                                    if(result.body && result.body.openId){
+                                        utils.setSession("__openId", result.body.openId);
+                                        utils.setCookie("__openId", result.body.openId);
+                                    }
+                                    if(result.body && result.body.openUid){
+                                        utils.setSession("__openUid", result.body.openUid);
+                                        utils.setCookie("__openUid", result.body.openUid);
+                                    }
+                                    if(result.body && result.body.userSalt){ // 小米金融使用，userSalt
+                                        utils.setSession("__userSalt", result.body.userSalt);
+                                    }
+                                    if(result.body && result.body.custInfo){ // 小米金融使用，custInfo
+                                        utils.setSession("__custInfo", result.body.custInfo);
+                                    }
+
+                                    var custInfo = result.body.custInfo;
+                                    _this.groupId = custInfo.groupId;
+                                    _this.branchCode = custInfo.branchCode;
+                                    _this.tradeAcct = custInfo.tradeAcco;
+                                    _this.getReportList();
+                                }
+                                else{
+                                    // 静默登录不成功，不做跳转，保存可能使用到的返回参数
+                                    if(result.body && result.body.openId){
+                                        utils.setSession("__openId", result.body.openId);
+                                        utils.setCookie("__openId", result.body.openId);
+                                    }
+                                    if(result.body && result.body.openUid){
+                                        utils.setSession("__openUid", result.body.openUid);
+                                        utils.setCookie("__openUid", result.body.openUid);
+                                    }
+                                    if(result.body && result.body.userSalt){ // 小米金融使用，userSalt
+                                        utils.setSession("__userSalt", result.body.userSalt);
+                                    }
+                                    if(result.body && result.body.custInfo){ // 小米金融使用，custInfo
+                                        utils.setSession("__custInfo", result.body.custInfo);
+                                    }                                    
+                                }
+                            },
+                            error: function (e) {
+                                utils.codeLoginLoading = false;
+                            }
+                        })
+                    } else{
+                        _this.getReportList();
+                    }
+                },
+
+                jumpUrl(item) {
+                    let url = item.reportUrl;
+                    if(item.reportType == '1'){
+                        // 投顾月报，url不做处理
+                    } else if (item.reportType == '2'){
+                        // 投顾季报，url需要拼接参数
+                        url = url + (url.indexOf('?') == -1 ? '?':'&') + 'balanceSerialNo=' + item.balanceSerialNo + '&serialNo=' + item.reportSerialNo;
+                    }
+                    if (isApp()) {
+                        window.location.href = 'htffundxjb://action?type=url&link=' + btoa(url);
+                    } else {
+                        window.location.href = url;
+                    }
+                }
+            },
+            filters: {
+                displayDateFormat(val) {
+                    if (val) {
+                        return val.slice(0, 4) + '.' + val.slice(4, 6) + '.' + val.slice(6, 8)
+                    } else {
+                        return val
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

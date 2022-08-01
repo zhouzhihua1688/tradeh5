@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf8">
+    <title>本期累计收益</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../css/base.css">
+	<link rel="stylesheet" href="../css/base_v1.css">
+    <script src="../js/lib/phone-size.js"></script>
+	<style type="text/css">
+		.font-arial{ font-family: Arial; }
+		section{
+			background-color: #fff;
+			overflow: hidden;
+		}
+
+		.left{
+			float: left;
+		}
+		.right{
+			float: right;
+		} 
+
+		.money{
+          width:100%;
+          /* height:4rem; */
+          /*background:red;*/
+          margin:0 auto;
+          /*border:1px solid red;*/
+        }
+        .money p{
+            text-align: center;
+            padding:1.5rem 0 .2rem 0;
+            font-size: 0.7rem;
+            color:#666666;
+        }
+        .money span{
+           text-align: center;
+           display: block;
+           font-size: 1.75rem; 
+           color:#f4333c;
+        }
+
+		.content3{margin-top: .5rem;display: none;}
+		.content3 table{
+			font-size: 12px;
+			width: 100%;
+			border-collapse: collapse;
+			
+		}
+		.content3 table thead{border:#eeeeee 1px solid;}
+		.content3 table thead tr th{height:1.75rem;width:25%;font-weight: 100;color:#000;font-size:.7rem;}
+		.content3 table thead th:first-child{text-align: left;padding-left: .75rem;}
+		.content3 table thead th:last-child{text-align: right;padding-right: .75rem;}
+		.content3 table tbody tr td{height:2.5rem;font-size:.7rem;color:#666666;text-align: center}
+		.content3 table tbody tr:nth-of-type(odd){background: #fff;}
+		.content3 table tbody tr:nth-of-type(even){background: #f6f6f6;}
+		.content3 table tbody:nth-of-type(2) tr:nth-of-type(odd){background: #f6f6f6;}
+		.content3 table tbody:nth-of-type(2) tr:nth-of-type(even){background: #fff;}
+		.content3 table tbody tr td:first-child{text-align: left;padding-left: .75rem;}
+		.content3 table tbody tr td:last-child{text-align: right;padding-right: .75rem;}
+		.content3 .data_more{width:100%;height:1.75rem;border-top:1px#eee solid;text-align: center;line-height: 1.75rem;}
+		.content3 .data_more a{color:#148ce6;font-size: .65rem;}
+		.content3 .data_more img{width:20px;height:20px;vertical-align: middle;margin-top: -3px;display: none;}
+
+    </style>
+</head>
+<body>
+	<section class="content1">
+        <div class="money">
+             <p>本期累计收益(<i class="currency-type">元</i>)</p>
+             <span class="font-arial" id="carryTotalProfit">0.00</span>
+        </div>
+    </section>
+
+	<section class="content3 income_list">
+		<table>
+			<tbody id="view_income_list">
+			</tbody>
+		</table>
+		<div class="data_more">
+			<a href="javascript:;">加载更多</a><img src="../images/Rolling.gif" alt="">
+		</div>
+	</section>
+
+	<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+	<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+	<script type="text/javascript" src="../js/common.js?20210302"></script>
+<script>
+var pageNo = 1;
+var pageSize = 15;
+
+$(function () {
+	queryFundNav();
+});
+
+function queryFundNav() {	
+	var item = App.getSession(App.selectedFund);
+	if(item != undefined && item != null) {
+		App.get(item.api,null,function(result){
+			var item2 = result.body;
+			setVal("#carryTotalProfit", item2.carryTotalProfit  == 0 ? "0.00" : item2.carryTotalProfit );
+
+			function setVal(field, val, unit) {
+				$(field).html(App.formatMoney(val) + (unit == undefined || unit == null ? "" : unit));
+			}
+
+			var fundId = item2.fundId;
+			var custNo = item2.custNo;
+			var serialNo = item2.serialNo;
+			var branchCode = item2.branchCode;
+
+			var url = '/fts/v1/app/myfinancial-funds/current-profit?fundId=' + fundId;
+			url += "&pageNo=" + pageNo;
+			url += "&pageSize=" + pageSize;
+			url += "&custNo=" + custNo;
+			url += "&serialNo=" + serialNo;
+			url += "&branchCode=" + branchCode;
+			App.get(url,function () {
+				$(".data_more img").hide();
+			},function(result){
+				if (result.body != undefined && result.body != null){
+				if(result.body.list.length == 0)
+				{
+					$('.data_more').hide();
+				}
+				// console.log(result);
+				var html = '';
+				//if(fundTp == "1"){
+				result.body.list.forEach(function (item) {
+					var yesterdayProfit = item.yesterdayProfit;
+					if(yesterdayProfit == '0') yesterdayProfit = '0.00';
+					if(Number(yesterdayProfit)>0){
+						html += "<tr>" +
+						"<td>" + item.date + "</td>" +
+						"<td style='color:#f4333c'>" + yesterdayProfit + "元</td>" +
+						"</tr>";
+					}else if(Number(yesterdayProfit)<0){
+						html += "<tr>" +
+						"<td>" + item.date + "</td>" +
+						"<td style='color:#159848'>" + yesterdayProfit + "元</td>" +
+						"</tr>";
+					}
+					else{
+						html += "<tr>" +
+						"<td>" + item.date + "</td>" +
+						"<td>" + yesterdayProfit + "元</td>" +
+						"</tr>";
+					}
+
+				});
+				$("#view_income_list").append(html);
+				$(".income_list").show();
+		}
+	});
+	
+	});
+}
+}
+
+//更多加载
+$(".data_more").click(function () {
+	$(this).find("img").show();
+	pageNo += 1;
+	queryFundNav();
+});
+    
+</script>    
+</body>
+</html>

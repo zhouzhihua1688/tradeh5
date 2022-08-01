@@ -1,0 +1,270 @@
+@charset "utf-8";
+
+.margin-t20{
+    margin-top: .5rem;
+}
+.content1 .tab1{
+    background: #fff;
+}
+.content1 .tab1 li {
+    font-size: .7rem;
+    float: left;
+    width: 25%;
+    text-align: center;
+    padding: 12px 0;
+    border-bottom: 2px solid transparent;
+    color: #000;
+}
+
+.content1 .tab1 li a {
+    font-size: .75rem;
+    text-decoration: none;
+    color: inherit;
+}
+
+.content1 .tab1 li.active {
+    border-bottom-color: #ffadae;
+    color: #fb5c5f;
+}
+
+
+.content1 .tab3{
+    background: #fff;
+}
+.content1 .tab3 li {
+    font-size: .7rem;
+    float: left;
+    width: 33%;
+    text-align: center;
+    padding: 12px 0;
+    border-bottom: 2px solid transparent;
+    color: #000;
+}
+
+.content1 .tab3 li a {
+    font-size: .75rem;
+    text-decoration: none;
+    color: inherit;
+}
+
+.content1 .tab3 li.active {
+    border-bottom-color: #ffadae;
+    color: #fb5c5f;
+}
+/* 策略组合 */
+.for_combination{
+
+}
+.select_type{
+    height: 1.75rem;
+    line-height: 1.75rem;
+    font-size: .65rem;
+    text-align: right;
+    vertical-align: middle;
+    color: #666;
+}
+.select_type select{
+    background: #f6f6f6;
+    color: #666;
+}
+
+.group1{
+    height: 5.35rem;
+    background: #fff;
+    border-radius: .15rem;
+}
+.group1_title{
+    overflow: hidden;
+    display: block;
+    padding: 0 .75rem;
+    height: 2.25rem;
+    line-height: 2.25rem;
+    border-bottom: #eee 1px solid;
+}
+.group1_title p{
+    float: left;
+    font-size: .8rem;
+    font-weight: bold;
+    color: #000;
+}
+.group1_title p span{
+    vertical-align: middle;
+}
+.group1_title p span:nth-of-type(2){
+    display: inline-block;
+    width: 2.5rem;
+    height: .75rem;
+    line-height: .75rem;
+    text-align: center;
+    font-size: .6rem;
+    background: #FFEFEF;
+    border-radius: 3px;
+    color: #FB5C5F;
+    margin-left: .5rem;
+}
+.group1_title i{
+    float: right;
+    width: .4rem;
+    height: .75rem;
+    background: url(../../images/wezhan/arrow_r_black.png) no-repeat;
+    background-size: 100% 100%;
+    margin-top: .7rem;
+}
+.group1_content{
+    overflow: hidden;
+}
+.group1_content .content_l,.group1_content .content_r{
+    width: 50% ;
+    float: left;
+}
+.group1_content .content_l p,.group1_content .content_r p{
+    padding-left: .75rem;
+}
+.group1_content .content_l p:nth-of-type(1),.group1_content .content_r p:nth-of-type(1){
+    height: .75rem;
+    line-height: .75rem;
+    margin-top: .65rem;
+    font-size: .6rem;
+}
+.group1_content .content_l p i,.group1_content .content_l p span{
+    vertical-align: middle;
+}
+.group1_content .content_l p i{
+    display: inline-block;
+    width: .75rem;
+    height: .75rem;
+    background: url(../../images/wezhan/tanhao2.png) no-repeat;
+    background-size: 100% 100%;
+    margin-left: .25rem;
+}
+.group1_content .content_l p:nth-of-type(2),.group1_content .content_r p:nth-of-type(2){
+    height: .8rem;
+    line-height: .8rem;
+    margin-top: .35rem;
+    font-size: .8rem;
+}
+.boxtitle{
+    margin-top: .5rem;
+    height: 2.25rem;
+    line-height: 2.25rem;
+    background: #fff;
+    padding: 0 .75rem;
+    font-size: .75rem;
+    font-weight: bold;
+    color: #000;
+}
+.boxtitle span{
+    vertical-align: middle;
+}
+.boxtitle span:nth-of-type(2){
+    margin-left: .5rem;
+    font-size: .65rem;  
+    font-weight: normal;
+    color: #666;
+}
+.group2,.group3{
+    background: #fff;
+    padding: 1rem 0;
+    text-align: center;
+    border-bottom: 1px #eee solid;
+}
+.group2_content1{
+    height: .85rem;
+    line-height: .85rem;
+    font-weight: bold;
+    font-size: .85rem;
+    color: #000;
+}
+.group2_content2{
+    height: .6rem;
+    line-height: .6rem;
+    font-size: .6rem;
+    margin-top: .7rem;
+}
+.group2_content3{
+    margin-top: .7rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.group2_content4{
+    margin-top: .5rem;
+    height: .6rem;
+    line-height: .6rem;
+    font-size: .6rem;
+}
+.group2_content5,.group3_content5{
+    display: inline-block;
+    width: 9rem;
+    height: 1.75rem;
+    line-height: 1.75rem;
+    margin-top: .75rem;
+    background: #FF7E00;
+    font-size: .75rem;
+    color: #fff;
+    border-radius: 3px;
+}
+.group3_content1{
+    height: 1.05rem;
+    line-height: 1.05rem;
+    font-weight: bold;
+    font-size: 1.05rem;
+    color: #010101;
+}
+.group3_content2{
+    height: .6rem;
+    line-height: .6rem;
+    font-size: .6rem;
+    margin-top: .48rem;
+    color: #000;
+}
+.group3_content2 span{
+    margin-right: .5rem;
+}
+.group3_content3{
+    height: .9rem;
+    line-height: .9rem;
+    font-size: .9rem;
+    margin-top: .7rem;
+}
+.group3_content4{
+    margin-top: .68rem;
+    margin-left: 4%;
+    width: 84%;
+    height: 1.5rem;
+    padding: .5rem .75rem;
+    border-radius: 1.25rem;
+    background: #ffeeef;
+    text-align: left;
+    overflow: hidden;
+}
+.group3_content4 .text1{
+    float: left;
+    font-size: .7rem;
+    color: #fb5c5f;
+    line-height: 1.1;
+    margin-right:.5rem;
+}
+.green{
+	color:#009944;
+}
+.answer{
+	height: 8.25rem;
+}
+.group3_content4 .text2{
+    float: left;
+    width: 80%;
+    height: 1.5rem;
+    border-left: #fda5a7 1px solid;padding-left: .5rem;
+    font-size: .6rem;
+    color: #000;
+}
+.wordwrapping{
+    line-height: 1.5rem;
+}
+.answer .answer_text {
+    margin: 1rem;
+    line-height: 1rem;
+    text-align:left;
+}

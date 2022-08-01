@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>调仓记录</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+		#layout{display:none;}
+        body,html{background: #f6f6f6;}
+        body {left: 0%; right: 0%;font:14px 'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+        button { outline: none;  }
+          /* 图片自适应 */
+        img {
+              width: 100%;
+              height: auto;
+              width: auto\9; /* ie8 */
+              -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/
+              border: none;
+              vertical-align: top;
+              outline: none;
+              display: block;
+            }
+        p { word-wrap: break-word; text-align: justify; }
+        table { width: 100%;border-collapse:collapse; }
+        .main{height:100%;width:100%;margin-bottom: 3.5rem;}
+        .hoseTime{width:100%;height:1.75rem;background:#fff;border-bottom:1px solid #eee;}
+        .hoseTime .left{width:60%;font-size:0.75rem;color:#000;margin-left:0.75rem;text-align:left;line-height:1.75rem;float:left;}
+        .hoseTime .right{width:28%;font-size:0.75rem;margin-right:0.75rem;color:#000;float:right;text-align:right;line-height:1.75rem}
+        .hoseTime .right div:nth-of-type(1){text-align:left;float:left;}
+        .hoseTime .right div:nth-of-type(2){text-align:right;float:right;}
+        .biaoti{width:100%;height:1.75rem;border-top:1px solid #eee;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items: center;background: #fff;}
+        .biaoti div{width:22%;height:1.75rem;line-height:1.75rem;color:#666;font-size:0.7rem;text-align:right;}
+        .biaoti div:nth-of-type(1){width:53%;text-align: left;text-indent:0.75rem;}
+        .biaoti div:nth-of-type(3){margin-right:0.75rem;}
+        .fundList{width:100%;height:3.5rem;display:flex;justify-content:space-between;align-items: center;border-bottom:1px solid #eee;background: #fff;}
+        .fundList div{width:22%;height:3.5rem;color:#000;font-size:0.85rem;text-align:right;}
+        .fundList div:nth-of-type(1){width:50%;text-align: left;margin-left:0.75rem;}
+        .fundList div:nth-of-type(2){line-height:3.5rem;color:#f4333c;}
+        .fundList div:nth-of-type(3){margin-right:0.75rem;line-height:3.5rem;color:#f4333c;}
+        .fundList div .block{width:0.5rem;height:0.5rem;background: #ffdd78;display: inline-block;border-radius:3px;margin-top:1rem;}
+        .fundList div .text{margin-left:0.35rem;font-size:0.65rem}
+        .fundList div .fundId{margin-left:1rem;font-size:0.65rem;color:#666;margin-top:0.2rem;}
+        .fundList div .type{height:0.75rem;background: #fee7e7;border-radius:50px;display: inline-block;text-align:center;line-height: 0.75rem;width:2.5rem;font-size:0.6rem;color:#fe5a5b;margin-top:0.3rem;}
+/* 时间选择*/
+        .tiaochu{width:100%;height:1.75rem;border-top:1px solid #eee;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items: center;background: #fff;}
+        .tiaochu div{width:22%;height:1.75rem;line-height:1.75rem;color:#666;font-size:0.7rem;text-align:right;}
+        .tiaochu div:nth-of-type(1){width:50%;text-align: left;text-indent:0.75rem;}
+        .tiaochu div:nth-of-type(3){margin-right:0.75rem;}
+        .tiaochu img{width:0.75rem;height:0.75rem;display: inline-block;vertical-align: middle;margin-left:0.2rem;}
+/* 基金列表         */
+        .fundList2{width:100%;height:3.5rem;display:flex;justify-content:space-between;align-items: center;border-bottom:1px solid #eee;background: #fff;}
+        .fundList2 div{width:22%;height:3.5rem;color:#000;font-size:0.85rem;text-align:right;}
+        .fundList2 div:nth-of-type(1){width:50%;text-align: left;margin-left:0.75rem;}
+        .fundList2 div:nth-of-type(2){line-height:3.5rem;color:#f4333c;}
+        .fundList2 div:nth-of-type(3){margin-right:0.75rem;line-height:3.5rem;color:#f4333c;}
+        .fundList2 div .text{font-size:0.65rem;margin-top:0.75rem;display:block;}
+        .fundList2 div .fundId{font-size:0.65rem;color:#666;margin-top:0.2rem;}
+        .fundList2 div .type{height:0.75rem;background: #fee7e7;border-radius:50px;display: inline-block;text-align:center;line-height: 0.75rem;width:2.5rem;font-size:0.6rem;color:#fe5a5b;margin-top:0.3rem;}
+        .tiaocang{width:100%;height:2.25rem;display:flex;justify-content:space-between;align-items: center;border-bottom:1px solid #eee;background: #fff;margin-top:0.5rem;}
+        .tiaocang div{width:10%;height:2.25rem;line-height:2.25rem;text-align:center;font-size:0.7rem;}
+        .tiaocang div:nth-of-type(1){width:85%;text-align: left;text-indent:0.75rem;color:#000;}
+        .layer { background-color: #ffffff; height: 100%; width: 100%; position: fixed; top: 0; left:0; overflow: auto; z-index: 10; }
+        .layer{z-index: 99; display: none;  position: fixed;  top: 0;  left: 0;  background-color: rgba(0,0,0,0.7);  height: 100%;width: 100%;  overflow: auto; position: fixed; top: 0; left: 0; right: 0; bottom: 0; }
+        .slideInUp .giftlist .title{height:2rem;width:100%;text-align:left;
+        line-height: 2rem;font-size: .7rem;color:#000;
+        border-bottom: 1px solid #eee;}
+        .giftlist{position: absolute; bottom: 0; left: 0; background-color: #fff; width: 100%;}
+        .giftlist .time{width: 100%; height: 12rem; overflow-y: auto; text-indent: 0.75rem; }
+        .giftlist .time span{float:left;}
+        .giftlist .current i{background: url(../images/fundgroup/chose_time.png) no-repeat; background-size: 100%; width: 0.75rem; height: 0.75rem; display: inline-block; float: right; margin-top: 0.65rem; }
+
+        .content2 {
+          position: relative;
+        }
+
+        section {
+            background-color: #fff;
+        }
+        .content2 p {
+        color: #333333;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        -o-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+        margin: 0 auto;
+        }
+        /*弹框1*/
+        .Bomb-box,.Bomb-box1,.Bomb-box2{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+        .Bomb-box .Bomb-box-main,.Bomb-box1 .Bomb-box-main,.Bomb-box2 .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+        .Bomb-box .Bomb-box-tips,.Bomb-box1 .Bomb-box-tips{  text-align: center;  color: #333;  font-size: 0.75rem;  height: 2.5rem;  line-height: 2.5rem;  }
+        .Bomb-box .Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+        .Bomb-box .Bomb-box-content p,.Bomb-box1 .Bomb-box-content p,.Bomb-box2 .Bomb-box-content p{  line-height: 1rem;  }
+        .Bomb-box .Bomb-box-ok,.Bomb-box1 .Bomb-box-ok,.Bomb-box2 .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+        .Bomb-box .no-tips,.Bomb-box1 .no-tips,.Bomb-box2 .no-tips{font-size: 0.7rem;padding: 1.7rem 1.5rem 1.15rem 1.5rem;text-align: center;}
+        .Bomb-box .text-center,.Bomb-box1 .text-center,.Bomb-box2 .text-center{text-align: center;}
+        .Bomb-box .Bomb-box-content,
+        .Bomb-box1 .Bomb-box-content,
+        .Bomb-box2 .Bomb-box-content{ padding:.75rem 1.5rem; }
+        .btn,.btn1 {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+        background-color: #fe7e01;
+        height: 2.5rem;
+        line-height: 2.5rem;
+        font-size: .85rem;
+        border: none;
+        }
+        .gray{
+            background-color: gray;
+        }
+        a{text-decoration:none}
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="hoseTime">
+        <div class="left" id="date"></div>
+        <div class="right" id="select">
+            <div>全部调仓时间</div>
+            <div><img src="../images/fundgroup/arrow.png" alt="" style="width:0.4rem;height:0.75rem;margin-top:0.5rem;"></div>
+        </div>
+    </div>
+    <section class="content2">
+        <p style="font-size:0.7rem;color:#000">持仓分布<br>
+        </p>
+        <div id="circle" style="width:100%;height:12rem;">    
+        </div>
+    </section>
+    <div class="biaoti" style="display:none">
+        <div style="color:#000">当前持仓基金</div>
+        <div>调整前占比</div>
+        <div>调整后占比</div>
+    </div>
+    <div class="context"></div>
+    
+
+    <div class="tiaochu" style="display:none">
+        <div style="color:#000">调出基金<img src="../images/fundgroup/question.png" onclick="renderMethods.showAlert()" alt=""></div>
+        <div>调整前占比</div>
+        <div>调整后占比</div>
+    </div>
+    <div class="context2"></div>
+
+    <div class="tiaocang">
+        <div><span>调仓建议</span><span style="color:#9A9A9A;font-size:0.6rem" id="date2"></span></div>
+    </div>
+    <div style="font-size:0.65rem;color:#666;background:#fff;padding:0.75rem 0.75rem;text-align: justify" id="changeAdvice"></div>
+    <div class="mask"></div>
+    <div class="layer animated slideInUp" id="myDate" style="display:none;">
+        <div class="giftlist">
+            <div class="title" style="text-align:center;">调仓日期</div>
+            <div class="time">
+
+            </div> 
+        </div>
+    </div>
+</div>
+<button class="btn" onclick="renderMethods.goto(renderData)">一键调仓</button>
+<button class="btn1 gray" style="display: none;" onclick="renderMethods.getDoNotAdjust()">一键调仓</button>
+    <!-- 提示弹窗 -->
+    <div class="Bomb-box" style="display: none;">
+        <div class="Bomb-box-main">
+            <div class="Bomb-box-content">
+                <p class="text-center"></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;">我知道了</a>
+        </div>
+    </div>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/echarts.min.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script type="text/javascript" src = "https://static.99fund.com/mobile/wap-lib/js/basic.js"></script>
+<script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+<script type="text/javascript" src="/tradeh5/newWap/base/js/utils.js"></script>
+<script type="text/javascript" src="../js/common.js?20210302"> </script>
+<script>
+
+var renderData={
+    groupId : App.getUrlParam("groupId"),
+    date : App.getUrlParam("date"),
+    // balanceSerialNo : App.getUrlParam("balanceSerialNo")
+    goTOUrl:''
+}
+
+var renderMethods={
+    init(){
+        this.watchData(renderData);
+        this.getTransferTimes(renderData)
+    },
+    watchData(obj){
+        for (var keys in obj){
+            if(keys!='goTOUrl'){
+                this.defined(obj,keys,obj[keys])
+            }
+        }
+    },
+    defined(obj,key,value){
+        var _this=this;
+        Object.defineProperty(obj,key,{
+            get(){
+                return value;
+            },
+            set(newval){
+                if(value===newval)return;
+                $("#date").html(newval);
+                $("#date2").html("("+newval+")");
+                value=newval;
+                _this.getHis(renderData)
+                return newval;
+            },
+            enumerable:true,
+            configurable:true
+        })
+    },
+    goto(target){
+		window.location = target.goTOUrl;
+    },
+    showAlert(){
+	    alertTips("调仓前存在，调仓后基金组合占比为0的基金");
+    },
+    fmtDate(s){
+	    return s.substr(0,4)+"-"+s.substr(4,2)+"-"+s.substr(6,2);
+    },
+    getTransferableList(target){
+		utils.get(`/fundgroup/v1/asset/position-transferable-list?groupId=${target.groupId}`, function(result){
+			if(result.returnCode == 0){
+                switch(result.body.length){
+                    case 0:
+                    $('.btn').hide()
+                    $('.btn1').show()
+                    break;
+                    case 1:
+                    target.goTOUrl=`/mobileEC/wap/fundgroup/adjustment.html?groupId=${target.groupId}&balanceSerialNo=${result.body[0]}`;
+                    break;
+                    default:
+                    target.goTOUrl=`/mobileEC/wap/fundgroup/batch_adjustment.html?groupId=${target.groupId}&groupName=${escape(target.groupName)}`;
+                }
+			}
+			
+		});
+	},
+    getDoNotAdjust(targetData){
+	     utils.ajax({
+             type: 'POST',
+             url: `/mobile-bff/v1/unification/unification-key-productId`,
+             data: {
+                 key:'transferDisabledTip'
+             },
+             dataType: 'json',
+             t: new Date(),
+             success: function (result) {
+                 if (result.returnCode == 0) {
+	                alertTips(result.body.value);
+                 } else {
+	                alertTips(result.returnMsg);
+                 }
+             }.bind(this),
+             error: function () {
+	            alertTips("系统异常，请稍后再试");
+             }.bind(this)
+         });
+		
+	},
+    getTransferTimes(targetData){
+		utils.get(WAP.requestAddr + "/adviser/query_fund_group_change_date?groupId=" + targetData.groupId, function(result){
+			if(result.returnCode == 0){
+				var dateList = result.body.dateList;
+				if(dateList != undefined && dateList != null){
+					// lastChangeDateStr = dateList[0];
+					var dataSize = dateList.length;
+					if(dataSize <= 0){
+						
+					}else{
+                        if(!targetData.date){
+                            targetData.date=dateList[0];
+                        }else{
+                            targetData.date=this.fmtDate(targetData.date);
+                        }
+                        var html = '';
+						for(var k in dateList){
+							html+='<div class="title '+(dateList[k] == targetData.date ? 'current':'')+'">'+
+									'<span>'+dateList[k]+'</span>'+
+									'<i></i>'+
+								'</div> ';
+						}
+                        $(".time").html(html);
+					}
+					$("#myDate .title").click(function () {
+						$(this).addClass('current').siblings().removeClass('current');
+						$("#myDate").hide();
+						targetData.date=$(this).find('span').text();
+                        var index=$(this).index();
+                        if(index===0){
+                            $('.btn').show()
+                        }else{
+                            $('.btn').hide()
+                        }
+					});
+				}
+			} else {
+				alert(result.returnMsg);
+			}
+		}.bind(this));
+	},
+    // 饼图图标配置
+    myChart:echarts.init(document.getElementById('circle')),
+    option : {
+            // color: ['#f99','#ff6', '#fcc', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+            color:[],
+            series: [
+                {
+                    // legendHoverLink: false,
+                    // hoverAnimation: false,
+                    silent: true,
+
+                    name:'访问来源',
+                    type:'pie',
+                    radius: ['50%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'inner'
+                        },
+                        emphasis: {
+                            show: false,
+                            textStyle: {
+                                fontSize: '30',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false
+                        }
+                    },
+                    data:[                     
+                    ]
+                }
+
+            ]
+    },
+    getHis(targetData){
+		utils.get('/mobile-bff/v1/fund-group/fundgroup-change-history?groupId=' + targetData.groupId+ '&date=' + targetData.date.replace(/-/g,''), function(result){
+
+			if(result.returnCode == 0){
+				var his = result.body.history;
+				if(App.isNotEmpty(his.changeAdvise)){
+					$("#changeAdvice").html(his.changeAdvise);
+				}
+				var holdList = his.fundHoldingList;
+                targetData.groupName=his.groupname;
+	            this.getTransferableList(renderData)
+
+				var htm = '';
+				var data = [];
+				var colors = [];
+				for(var k in holdList){
+				
+					var item = holdList[k];
+					htm+= '<div class="fundList">'+
+							'<div>'+
+								'<span class="block" style="background-color:'+item.color+'"></span>'+
+								'<span class="text">'+item.fundNm+'</span><br/>'+
+								'<span class="fundId">'+item.fundId+'&nbsp;|&nbsp;'+item.fundTpNm+'</span>'+
+							'</div>'+
+							'<div>'+item.prePercent+'%</div>'+
+							'<div>'+item.percent+'%</div>'+
+						'</div>';
+					var map = {};
+					map["value"] = item.percent;
+					map["name"] = item.fundNm;	
+					colors.push(item.color);
+					data.push(map);
+				}
+				this.option.series[0].data = data;
+				this.option.color = colors;
+				this.myChart.setOption(this.option);
+				$(".context").html(htm);
+				$(".fundList .text").each(function(){
+					var maxwidth = 9;//设置最多显示的字数
+					var text=$(this).text();
+					if($(this).text().length>maxwidth){
+						$(this).text($(this).text().substring(0,maxwidth));
+						$(this).html($(this).html()+"...");//如果字数超过最大字数，超出部分用...代替，并且在后面加上点击展开的链接；
+					};
+				})
+				var outList = his.fundTransferOutList ;
+				var htm2 = '';
+
+				for(var k in outList){
+				
+					var item = outList[k];
+					htm2+= '<div class="fundList2">'+
+							'<div>'+
+								'<span class="text">'+item.fundNm+'</span>'+
+								'<span class="fundId">'+item.fundId+'&nbsp;|&nbsp;'+item.fundTpNm+'</span>'+
+							'</div>'+
+							'<div>'+item.prePercent+'%</div>'+
+							'<div>'+item.percent+'%</div>'+
+						'</div>';
+
+				}
+				$(".context2").html(htm2);
+
+				$(".fundList2 .text").each(function(){
+					var maxwidth = 9;//设置最多显示的字数
+					var text=$(this).text();
+					if($(this).text().length>maxwidth){
+						$(this).text($(this).text().substring(0,maxwidth));
+						$(this).html($(this).html()+"...");//如果字数超过最大字数，超出部分用...代替，并且在后面加上点击展开的链接；
+					};
+				})
+				if(holdList.length > 0){
+					$(".biaoti").show()
+				}else{
+					$(".biaoti").hide()
+                }
+				if(outList.length > 0){
+					$(".tiaochu").show()
+				}else{
+					$(".tiaochu").hide()
+                }
+			}
+			
+		}.bind(this));
+	}
+}
+renderMethods.init()
+
+$(function(){
+    
+	 
+        $(".fundList .text,.fundList2 .text").each(function(){
+            var maxwidth=9;//设置最多显示的字数
+            var text=$(this).text();
+            if($(this).text().length>maxwidth){
+                $(this).text($(this).text().substring(0,maxwidth));
+                $(this).html($(this).html()+"...");//如果字数超过最大字数，超出部分用...代替，并且在后面加上点击展开的链接；
+            };
+        })
+        $("#select").click(function(){
+            $("#myDate").show();
+            $(".mask").show();
+        })
+        // 时间选择
+        $("#myDate .title").click(function () {
+            $(this).addClass('current').siblings().removeClass('current');
+            $("#myDate").hide();
+            var choesData1=$(this).find('span').text();
+            $(".hoseTime .left").html(choesData1);
+        });
+
+
+
+        
+})
+</script>
+</body>
+</html>

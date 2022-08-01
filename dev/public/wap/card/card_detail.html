@@ -1,0 +1,74 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>银行卡详情</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/base_wx.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/weixin.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210302"></script>
+    <script type="text/javascript" src="../js/card/card_detail.js"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>    
+    <style>
+        .mainFlg {
+            border-radius: 0.65rem;
+            border: 1px solid red;
+            padding: .05rem .35rem;
+            height: 1rem;
+            width: 2rem;
+            font-size: .35rem;
+            margin-left: .25rem;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <ul class="grid-list">
+            <li class="grid-list-item">
+                <div class="row">
+                    <div class="lh-130 bank-icon">
+                    </div>
+                    <div class="col-1">
+                        <div class="list-title">
+                            <p class="bank-name"></p>
+                            <p class="bank-id"></p>
+                        </div>
+                    </div>
+                    <div class="lh-130 signWay">
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item font-28">
+            <div class="row">
+                <div class="col-5">签约方式</div>
+                <div class="col-5 text-right signWay-txt"></div>
+            </div>
+            <div class="row" id="singleThreashHold_panel">
+                <div class="col-5">单笔充值限额</div>
+                <div class="col-5 text-right" id="singleThreashHold">0.00</div>
+            </div>
+            <div class="row" id="dayThreashHold_panel">
+                <div class="col-5">日累计充值限额</div>
+                <div class="col-5 text-right" id="dayThreashHold">0.00</div>
+            </div>
+            <div class="row" id="limit_panel">
+                <div class="col-5">本卡今日可取限额</div>
+                <div class="col-5 text-right" id="limit">0.00</div>
+            </div>
+        </li>
+    </ul>
+</body>
+</html>

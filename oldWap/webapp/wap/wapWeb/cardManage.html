@@ -1,0 +1,128 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>银行卡管理</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" href="css/pure-min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <style type="text/css">
+
+        </style>
+    </head>
+    <body>
+        <h3 class="title">银行卡管理</h3>
+        <ul class="bankcards">
+            <!-- <li>
+                <div class="li-left">
+                    <i class="ico_007"></i>
+                </div>
+                <a class="li-right" href="#">
+                    <p class="bankname">招商银行</p>
+                    <p class="banknum">尾号<span>8970</span><span class="person">韩美丽</span></p>
+                    <i class="arrow"></i>
+                </a>
+            </li>
+            <li>
+                <div class="li-left">
+                    <i class="ico_101"></i>
+                </div>
+                <a class="li-right" href="#">
+                    <p class="bankname">招商银行</p>
+                    <p class="banknum">尾号<span>8970</span><span class="person">韩美丽</span></p>
+                    <i class="arrow"></i>
+                </a>
+            </li>
+            <li>
+                <div class="li-left">
+                    <i class="ico_619"></i>
+                </div>
+                <a class="li-right" href="#">
+                    <p class="bankname">招商银行</p>
+                    <p class="banknum">尾号<span>8970</span><span class="person">韩美丽</span></p>
+                    <i class="arrow"></i>
+                </a>
+            </li>
+            <li>
+                <div class="li-left">
+                    <i class="ico_806"></i>
+                </div>
+                <a class="li-right" href="#">
+                    <p class="bankname">招商银行</p>
+                    <p class="banknum">尾号<span>8970</span><span class="person">韩美丽</span></p>
+                    <i class="arrow"></i>
+                </a>
+            </li> -->
+        </ul>
+
+        <a href="javascript:void(0)" class="card-add"><i class="icon-add"></i>添加银行卡</a>
+
+
+	    <!--输入密码弹出框-->
+	    <div class="modal-fade" id="modal" style="display:none;">
+	        <!-- <form class="" action="addCard.html"> -->
+	            <div class="modal-body setpwd">
+	                <h4 class="modal-title">设置交易密码</h4>
+	                <p class="notice setnotice">为了您的资金安全，请设置您的交易密码</p>
+	
+	                <div class="modal-input cls-trade-pwd">
+	                    <input type="password" maxlength="6" class="trade-pwd" placeholder="设置交易密码"/>
+	                    <span class="error">X</span>
+	                </div>
+	                <div class="modal-input cls-trade-pwd-again">
+	                    <input type="password" maxlength="6" class="trade-pwd-again" placeholder="再次确认交易密码"/>
+	                    <span class="error">X</span>
+	                </div>
+	
+	                <div class="modal-bottom">
+	                    <button class="btnleft" id="cancel_modal" type="button">取消</button>
+	                    <button class="btnright" id="confirm_modal" type="button">确定</button>
+	                </div>
+	            </div>
+	       <!--  </form> -->
+	    </div>
+	    
+	    <div class="mask"></div><!--透明背景层-->
+	    <!-- <script src="js/zepto.js"></script>
+	    <script type="text/javascript">
+	        $(function () {
+	            /* 输入密码弹出框js */
+	            $("#cancel_modal").on("click",function(){
+	                $("#modal").css("display","none");
+	                $("body").css("overflow", "auto");
+	                $("div.mask").hide();
+	            });
+	            /* 点击ID为confirm_main的按钮弹出输入密码框 */
+	            $(".card-add").on("click",function(){
+	                $("#modal").css("display","block");
+	                $("body").css("overflow", "hidden");
+	                $("div.mask").show();
+	            });
+	            /* 点击输入框出X号 */
+	            var bind_name="input";//定义所要绑定的事件名称
+	            if(navigator.userAgent.indexOf("MSIE")!=-1){
+	                bind_name="propertychange";//判断是否为IE内核 IE内核的事件名称要改为propertychange
+	            }
+	            $(".modal-input input").on(bind_name,function(){
+	                $(this).siblings('.error').css("display","block");
+	                if($(this).val() == ""){
+	                    $(this).next().css("display","none");
+	                }
+	            });
+	            $(".modal-input .error").on("click",function(){
+	                $(this).css("display","none").siblings('input').val('').focus();
+	            });
+	        })
+	    </script> -->
+		<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+		<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+		<script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+		<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../js/lib/weixin.js"></script>
+		<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+		<script type="text/javascript" src="../js/common.js?20210106"></script>
+		<script type="text/javascript" src="js/card_manage.js"></script>
+    </body>
+</html>

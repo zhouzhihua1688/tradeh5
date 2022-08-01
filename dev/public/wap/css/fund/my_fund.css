@@ -1,0 +1,151 @@
+@charset "utf-8";
+
+table { width: 100%;border-collapse: collapse; }
+section{background: #fff;}
+.content1 ul { height: 1.5rem; padding: 0.8rem 0.4rem; font-size:0.7rem; padding-bottom:2rem;}
+.content1 ul li { /*float: left; width:33%; */color: #666666; text-align: center; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;border-right: 1px #eeeeee solid; }
+.content1 ul li:last-child { border: 0; }
+.prompt{
+    background:rgba(253,173,175,0.5);
+    font-size:0.6rem;
+    opacity: 0.8;
+    line-height:1.5rem;
+    height:1.5rem;
+    /*margin-top:-0.5rem;*/
+    /*margin-bottom:0.2rem;*/
+}
+.content1 ul li p { padding-top: 0.1rem; text-align: center; font-size: 1rem;}
+.content1>p { line-height: 1.5; padding: 0.4rem; text-align: justify; }
+.content1 ul li h4 i { display: inline-block; width: 0.7rem; height: 0.7rem; margin-left: 0.1rem; background: url(../../images/question.png) no-repeat; background-size: 100%; vertical-align: middle; margin-bottom: .1rem;}
+.content1 table { width: 100%; text-align: center; background-color: #fff7f7; color: #666666; position: relative; font-size: 12px; }
+.content1 table td { padding: .3rem 0; font-size: .32rem; }
+.content1 table td span { color: #fe5a5b; }
+.content1 table:before { content: ''; display: block; position: absolute; left: 72%; top: -20px; margin-left: -10px; border: 10px solid transparent; border-bottom-color: #fff7f7; }
+.content1_1 { margin-top: .26667rem; }
+.content1_1 ul li { font-size: .7rem; float: left; width: 50%; text-align: center; padding: 12px 0; border-bottom: 2px solid transparent; color: #000; }
+.content1_1 ul li a{font-size: .75rem;}
+.content1_1 ul li.active { border-bottom-color: #ffadae; color: #fb5c5f; }
+.content1_1 ul li p { padding-top: 0.107rem; }
+.content1_1 .explain { font-size: 0.346rem; color: #000; }
+.content1_1 .explain p { line-height: 1.5;padding: 16px;  }
+.content1_1 .explain p.ellipsis:after { content: '.....'; }
+.content1_1 .explain p.ellipsis span { display: none; }
+.content1_1 .upfold { width: 80px; margin: 0 auto; padding: .15rem 0 .45rem; color: #148ce6; text-align: center; line-height: 14px; font-size: .3467rem; }
+.content1_1 .upfold:before { content: '展开'; }
+.content1_1 .upfold.pack-up:before { content: '收起'; }
+.content1_1 .upfold.pack-up .down { -webkit-transform: rotate(180deg); transform: rotate(180deg); }
+.content2_2 { margin-top: .26667rem; display: none; }
+/*.content2 { padding-bottom: 0.333rem; }
+.content2 h3 { color: #666666; background-color: #f6f6f6; padding: 0.267rem 0.4rem; }
+.content2 ul { padding: 0.48rem 0.267rem; }
+.content2 ul li { float: left; margin-left: 0.293rem; background-color: #eeeeee; border-radius: 0.04rem; }
+.content2 ul li:first-child { margin-left: 0.42rem; }
+.content2 ul li a { display: block; width: 1.92rem; height: 0.8rem; line-height: 0.8rem; text-align: center; font-size: .36rem; }
+.content2 ul.tab2 { margin: 0.48rem auto; padding: 0; width: 7.68rem; border-radius: 0.04rem; }
+.content2 ul.tab2 li { margin: 0; background-color: #fff; border-radius: 0; }
+.content2 ul.tab2 li a { border: 1px solid #fb5c5f; margin-left: -1px; -webkit-box-sizing: border-box; box-sizing: border-box; }
+.content2 ul li.active { background-color: #fb5c5f; color: #fff; }
+.content2 ul.border { margin-left: 28%; }
+.content2 ul.border li { border: 1px solid #fb5c5f; background-color: #fff; margin-left: 0%; border-radius: 0; }
+.content2 ul.border li a { height: 0.8rem; line-height: 0.8rem; font-size: .36rem; }
+.content2 ul.border li.active { background-color: #fb5c5f; color: #fff; }*/
+/*弹框*/
+.layer { z-index: 99999999; display: none; position: fixed; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.7); height: 100%; width: 100%; overflow: auto; font-size: 0.32rem; }
+.layer-wrap { margin: 40% 8% 5% 8%; background-color: #fff; border-radius: 3px; text-align: center; padding-bottom: 2px; }
+.layer-wrap .layer-body p { padding: 8% 5% 8% 5%; font-size: 14px; line-height: 25px; color: #666; text-align: left; }
+.layer-wrap .layer-body span { font-size: 16px; display: block; padding-top: 10px; color: #333; font-weight: 600; }
+.layer-wrap button { font-size: 14px; color: #333; background-color: #fff; border-top: solid 1px #ccc; width: 90%; height: 45px; color: #148ce6; }
+.layer-wrap button:focus { outline: none; }
+.text-left{float: left;}
+.text-right{float: right;}
+.money{
+    width:100%;
+    /* height:4rem; */
+    /*background:red;*/
+    margin:0 auto;
+    /*border:1px solid red;*/
+}
+.money p{
+    text-align: center;
+    padding:1.5rem 0 .2rem 0;;
+    font-size: 0.7rem;
+    color:#666666;
+}
+.money span{
+    text-align: center;
+    display: block;
+    font-size: 1.75rem;
+    color:#f4333c;
+}
+.qiehuan{
+
+
+}
+.qiehuan .title_tip{height:1.75rem;overflow: hidden;padding:0 .75rem;background: #f6f6f6;}
+.qiehuan .title_tip >p{line-height: 1.75rem;font-size: .7rem}
+.qiehuan .qiehuan_content{
+    padding-left:.75rem;
+}
+.qiehuan .qiehuan_content table tr td:last-child{padding-right:.75rem;text-align: right}
+.qiehuan .qiehuan_content table:first-child{border-bottom:#eeeeee 1px solid;}
+.qiehuan .qiehuan_content table:first-child tr:last-child td{text-align: left;}
+.qiehuan .qiehuan_content table:last-child tr td:nth-child(2){text-align: center;}
+.qiehuan .qiehuan_content table:first-child tr:first-child td{height: 1.75rem;}
+.qiehuan .qiehuan_content table:first-child tr:first-child td:nth-of-type(2){font-size: .6rem;}
+.qiehuan .qiehuan_content table:first-child tr:first-child td:first-child{font-size:.75rem; color:#000;}
+.qiehuan .qiehuan_content table:first-child tr:last-child td{font-size:.6rem;padding-bottom: .45rem; }
+.qiehuan .qiehuan_content table:last-child tr:first-child td{color:#666666;font-size: .6rem;height:1.75rem;}
+.qiehuan .qiehuan_content table:last-child tr:last-child td{font-size: .75rem;padding-bottom: .75rem}
+.qiehuan .gary_bg{height:.45rem;background:#f6f6f6; }
+.fundname{
+    font-size: .75rem;
+}
+.color-red{
+    color:#fb5c5f;
+}
+.color-green{
+    color:#009944;
+}
+.red{
+    color:#f4333c;
+}
+.btn-bottom{
+    width: 100%;
+    display: table;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+.font26{font-size: .65rem;}
+.btn {
+    display: inline-block;
+    *display: inline; /*IE 6/7*/
+    zoom: 1;
+    line-height: normal;
+    white-space: nowrap;
+    vertical-align: baseline;
+    text-align: center;
+    cursor: pointer;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 100%;
+    font-family: inherit;
+    font-size: 100%;
+    *font-size: 90%; /*IE 6/7 - To reduce IE's oversized button text*/
+    *overflow: visible; /*IE 6/7 - Because of IE's overly large left/right padding on buttons */
+    padding: 0.8em 0;
+    color: #fff; /* rgba not supported (IE 8) */
+    border: 1px solid #999;  /*IE 6/7/8*/
+    border: none rgba(0, 0, 0, 0);  /*IE9 + everything else*/
+    text-decoration: none;
+}
+.btn-light{
+    background-color: #fe7e01;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    font-size:.85rem;
+}
+.btn-bottom .btn{padding:0;}

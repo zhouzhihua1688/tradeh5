@@ -1,0 +1,69 @@
+* {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+html,body{
+	background-color: #ffff;
+}
+
+.select-header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: .75rem;
+    height: 2.25rem;
+    width: 100%;
+}
+
+.select-header div {
+    width: 100%;
+    text-align: center;
+    padding: .85rem 0 0.7rem;
+}
+.flex{
+    display: flex;
+    align-items: center;
+}
+/* 单行文本溢出隐藏 */
+.hidden {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+/* 多行文本溢出隐藏 */
+.hiddens{
+    display: -webkit-box !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+.select-header .active {
+    color: #fb5c5f;
+    border-bottom: .5px solid #fb5c5f;
+}
+.content{
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    /* padding: .75rem; */
+}
+.consult-header{
+    padding: 0.5rem 0 ;
+    justify-content: space-around;
+}
+.consult-header div{
+    width: 25%;
+    box-sizing: border-box;
+    font-size: .7rem;
+    padding: .4rem .75rem;
+    color: #FB5C5F;
+    text-align: center;
+    border: 1px solid #FE5A5B;
+}
+.consultHeader-active{
+    background: #FE5A5B;
+    color: #fff !important;
+}

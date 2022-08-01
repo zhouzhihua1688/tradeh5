@@ -1,0 +1,392 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>银行卡限额详情</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="format-detection" content="telephone=no">
+        <style type="text/css">
+            @charset "utf-8";
+            /* CSS Document */
+
+            /**
+             * 帐户绑定
+             */
+
+            *{ margin: 0; padding: 0;}
+            main{ background-color: #f1f1f1; padding-bottom: 40px;}
+            @media (min-width:760px) { main{ width: 750px; margin: 0 auto;}}
+            main img{ display:block; width: 100%; height: auto; max-width: 100%;}
+
+
+            /* S FAQ.html style */
+            html {
+                height:100%
+                min-height: 100%;
+            }
+            img {
+                max-width: 100%;
+            }
+            p {
+                margin-top:0.5em;
+                margin-bottom:0.5em;
+            }
+            .clear{
+                clear: both;
+            }
+            .fl{
+                float: left;
+            }
+            .fr{
+                float: right;
+            }
+            .inline-block{
+                display: inline-block;
+            }
+
+
+            .faq {
+                margin: 0;
+                padding: 0;
+                height:100%;
+                min-height: 100%;
+            }
+            .faq section {
+                width:100%;
+                margin: 0 auto;
+                overflow: hidden;
+            }
+            .faq .question1 {
+                background-color: #f5f5f5;
+            }
+            .faq div.frame {
+                width:90%;
+                margin: 0 auto;
+            }
+            .faq h4 {
+                font-size: 1em;
+                margin: 1em 0;
+            }
+            .faq  h4 b{
+                vertical-align: top;
+                margin-right: 0.2em;
+                width:1.6em;
+                height:1.6em;
+                line-height:1.6em;
+            }
+            .faq  h4 span{
+                width: 88%;
+                line-height: 1.7em;
+                display:inline-block;
+            }
+            .faq table{
+                border-collapse: collapse;
+                border-spacing:  0;
+                border: solid 1px #bebebe;
+                background-color: #ffffff;
+                text-align: left;
+                min-width: 98%;
+                max-width: 100%;
+            }
+            .faq table tr td{
+                padding: 0.5em;
+                border: solid 1px #bebebe;
+            }
+            .faq p{
+                color: #666;
+                margin: .2em auto;
+            }
+            .faq p.notice{
+                font-size: 0.5em;
+                color: #666;
+                margin: 1em auto;
+            }
+            .faq .question2-5 p i{
+                width:1.6em;height:1.6em;line-height:1.6em;border-radius: 0.8em;display:inline-block;background-color: #fcaf60;color: #ffffff;margin-right: 0.4em;
+                font-style:normal;font-family: 'arial';font-weight: normal;font-size: 1em;text-align: center;vertical-align: top;
+            }
+            .faq .question2-5 p span{
+                width: 88%;
+                line-height: 1.7em;display:inline-block;
+            }
+            .faq .question2-5 .a-img{
+                max-width: 23%;
+                margin: 5%;
+                outline: none;
+            }
+
+            .faq .question2-5 .a-img.col-1{
+                margin: 5% 9% 5% 18%;
+            }
+            .faq .question2-5 .a-img.col-2{
+                margin: 5% 18% 5% 9%;
+            }
+            .faq .question2-5 .look-more{
+                font-weight:bold;color: #ff8d19;cursor: pointer;text-decoration: none;
+            }
+            .faq .question2-5 .mgb-2em{
+                margin-bottom: 2em;
+            }
+            .faq .question2-5 .mgl-1em{
+                margin-left: 1.2em;
+            }
+
+            /* E FAQ.html style */
+
+            .center{
+                  text-align:center;
+              }
+              p#pgscroll{ display:none; width: 50px; height: 50px; position: fixed; bottom: 20px; right: 20px; opacity: 0.6;}
+              @-webkit-keyframes "slideUP"{
+                  from{
+                      height: 0;
+                  }
+                  to{
+                      height: 50px;
+                  }
+              }
+              .slideUp{
+                  -webkit-animation-name: "slideUP";
+                  -webkit-animation-duration: 0.8s;
+                  -webkit-animation-iteration-count: 1;
+              }
+        </style>
+    </head>
+    <body class="faq" onload='loadXMLDoc("//app.99fund.com/mobileEC/services/common/query_bank_sign_diff");'>
+        <section>
+            <div class="frame">
+                <table id="table-info" style="font-size: .8em;">
+                    <tr style="text-align: center;">
+                        <td width="10%">银行</td>
+                        <td width="20%">签约方式</td>
+                        <td width="30%">充值额度</td>
+                        <td width="40%">开通方式</td>
+                    </tr>
+
+                </table>
+            </div>
+        </section>
+        <script type="text/javascript">
+            function pageScroll(){
+                window.scrollBy(0,-60);
+                var sTop=document.documentElement.scrollTop+document.body.scrollTop;
+                scrolldelay = setTimeout('pageScroll()',10);
+                if(sTop==0) clearTimeout(scrolldelay);
+            }
+            window.onscroll = function(){
+                var pageTop = document.getElementById("pgscroll");
+                var sTop=document.documentElement.scrollTop+document.body.scrollTop;
+                //console.log(sTop);
+                if(sTop <= screen.height){
+                    pageTop.style.display = "none";
+                }
+                if(sTop > screen.height){
+                    pageTop.style.display = "block";
+                    pageTop.className = "slideUp"
+                }
+            };
+            
+            var xmlhttp;
+            function loadXMLDoc(url)
+            {
+                url = url + "?t=" + (new Date()).getTime();
+                xmlhttp=null;
+                if (window.XMLHttpRequest)
+                {// code for Firefox, Opera, IE7, etc.
+                    xmlhttp=new XMLHttpRequest();
+                }
+                else if (window.ActiveXObject)
+                {// code for IE6, IE5
+                    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                if (xmlhttp!=null)
+                {
+                    xmlhttp.onreadystatechange=state_Change;
+                    xmlhttp.open("GET",url,true);
+                    xmlhttp.send(null);
+                }
+                else
+                {
+                    alert("Your browser does not support XMLHTTP.");
+                }
+            }
+            function state_Change()
+            {
+                if (xmlhttp.readyState==4)
+                {// 4 = "loaded"
+                    if (xmlhttp.status==200)
+                    {// 200 = "OK"
+                       // console.log("xmlhttp.responseText="+xmlhttp.responseText);
+                        writeTable(xmlhttp.responseText,"table-info");
+                    }
+                    else
+                    {
+                        alert("Problem retrieving data:" + xmlhttp.statusText);
+                    }
+                }
+            }
+
+            var bankSortArray = ["工商银行", "农业银行", "建设银行", "中国银行", "交通银行", "招商银行", 
+            "民生银行", "中信银行", "浦发银行", "光大银行", "广发银行", "平安银行", "上海银行", "兴业银行", "邮储银行"];
+            var signWaySortArray = ["快捷","网银","银联","云闪付"];
+
+            function getData2Array(responsetext){
+                var dataObject =JSON.parse(responsetext);
+                var bankArray = dataObject.body.bankSignInfos;
+                var result = [];
+
+                // for IE8
+                if (!Array.prototype.indexOf) {
+                    Array.prototype.indexOf = function(elt) {
+                        var len = this.length >>> 0;
+                        var from = Number(arguments[1]) || 0;
+                        from = (from < 0) ? Math.ceil(from) : Math.floor(from);
+                        if (from < 0) from += len;
+                        for (; from < len; from++) {
+                            if (from in this && this[from] === elt) return from;
+                        }
+                        return - 1;
+                    };
+                }
+
+                // var count = 1000;
+                // // sorted by bankSortArray & signWaySortArray.
+                // bankArray = bankArray.sort(function (a, b) {
+                //     // return a.bankGroup.slice(-2)-b.bankGroup.slice(-2)});
+                //     var m = bankSortArray.indexOf(a.bankName);
+                //     var n = bankSortArray.indexOf(b.bankName);
+                //     m  == -1 && (m = count++);
+                //     n  == -1 && (n = count++);
+                //     if(m === n) {
+                //         m = signWaySortArray.indexOf(a.signWay);
+                //         n = signWaySortArray.indexOf(b.signWay);
+                //     }
+                //     return m - n;
+                // });
+                //
+                // loop_1:
+                // for (var i = 0; i < bankArray.length; i++) {
+                //     var item = bankArray[i];
+                //     // remove signWay == "通联"；
+                //     if(signWaySortArray.indexOf(item["signWay"]) === -1 || item["openWay"] === "" || item["rechargeAmt"] === ""){
+                //         if(!(item["bankName"] === "招商银行" && item["signWay"] === "招商一网通")){
+                //             continue loop_1;
+                //         }
+                //     }
+                //     for (var j = 0; j < result.length; j++) {
+                //         var item2 = result[j];
+                //         if(item2["bankGroup"] == item["bankGroup"]){
+                //             item2["signDiffInfos"].push({
+                //                 "openWay" : item["openWay"],
+                //                 "rechargeAmt" : item["rechargeAmt"],
+                //                 "signWay" : item["signWay"]
+                //             })
+                //             continue loop_1;
+                //         }
+                //     };
+                //     var obj = {};
+                //     obj["bankGroup"] = item["bankGroup"];
+                //     obj["bankName"] = item["bankName"];
+                //
+                //     var signDiffInfos = [];
+                //     signDiffInfos.push({
+                //         "openWay" : item["openWay"],
+                //         "rechargeAmt" : item["rechargeAmt"],
+                //         "signWay" : item["signWay"]
+                //     })
+                //     obj["signDiffInfos"] = signDiffInfos;
+                //     result.push(obj);
+                // }
+                bankArray.forEach(function(item){
+                    bankSortArray.indexOf(item.bankName) === -1 && bankSortArray.push(item.bankName);
+                    signWaySortArray.indexOf(item.signWay) === -1 && signWaySortArray.push(item.signWay);
+                    item.bankSortIndex = bankSortArray.indexOf(item.bankName);
+                    item.signWaySortIndex = signWaySortArray.indexOf(item.signWay);
+                    var obj = result.filter(function(resultItem){
+                        return resultItem.bankGroup === item.bankGroup;
+                    })[0];
+                    if(item.openWay && item.rechargeAmt && item.signWay){
+                        if(!obj){ // reuslt 数据不包含该数据
+                            result.push({
+                                bankSortIndex: item.bankSortIndex,
+                                bankGroup: item.bankGroup,
+                                bankName: item.bankName,
+                                signDiffInfos: [{
+                                    signWaySortIndex: item.signWaySortIndex,
+                                    signWay: item.signWay,
+                                    rechargeAmt: item.rechargeAmt,
+                                    openWay: item.openWay
+                                }]
+                            });
+                        }
+                        else {
+                            obj.signDiffInfos.push({
+                                signWaySortIndex: item.signWaySortIndex,
+                                signWay: item.signWay,
+                                rechargeAmt: item.rechargeAmt,
+                                openWay: item.openWay
+                            });
+                        }
+                    }
+                });
+                result.sort(function(a,b){
+                    return a.bankSortIndex - b.bankSortIndex;
+                }).forEach(function(item){
+                    item.signDiffInfos.sort(function(a,b){
+                        return a.signWaySortIndex - b.signWaySortIndex;
+                    })
+                });
+                return result;
+            }
+            function writeTable(responsetext,tableid){
+                // console.log(tableid);
+                // console.log(responsetext);
+                var bankArray =getData2Array(responsetext);
+                var banksLength = bankArray.length;
+                // console.log(bankArray);
+                for(var i=0;i<banksLength;i++){
+                    var bankOne = bankArray[i];
+                    var bankName = bankOne.bankName;
+                    var signsLength = bankOne.signDiffInfos.length;
+
+                    for(var j=0;j<signsLength;j++){
+                        var signOne = bankOne.signDiffInfos[j];
+                        var signDiffInfos = signOne.openWay;
+                        var rechargeAmt = signOne.rechargeAmt;
+                        var signWay = signOne.signWay;
+                        var tab = document.getElementById(tableid);
+
+                        if(j==0){
+                            var tr = tab.insertRow(- 1);//-1指最后一行
+                            var td1 = tr.insertCell(-1);//-1指最后一单元格
+                            td1.innerHTML = bankName;
+                            td1.className = "center";
+                            td1.setAttribute("rowspan",signsLength);
+                            var td2 = tr.insertCell(-1);
+                            td2.innerHTML = signWay;
+                            td2.className = "center";
+                            var td3 = tr.insertCell(-1);
+                            td3.innerHTML = rechargeAmt;
+                            var td4 = tr.insertCell(-1);
+                            td4.innerHTML = signDiffInfos;
+                        }
+                        else{
+                            var tr = tab.insertRow(- 1);
+                            var td2 = tr.insertCell(-1);
+                            td2.innerHTML = signWay;
+                            td2.className = "center";
+                            var td3 = tr.insertCell(-1);
+                            td3.innerHTML = rechargeAmt;
+                            var td4 = tr.insertCell(-1);
+                            td4.innerHTML = signDiffInfos;
+                        }
+                    }
+                }
+            }
+
+        </script>
+        <p id="pgscroll" onclick="pageScroll()"><img src="images/return.png" width="50" height="50"></p>
+    </body>
+</html>

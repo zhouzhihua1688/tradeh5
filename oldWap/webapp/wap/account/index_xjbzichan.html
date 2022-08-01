@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>现金宝</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/account/base_xjbzichan.css">
+    <style>
+        .right {
+            width: 70%;
+            text-align: right;
+        }
+        .footer {
+            position: fixed;
+            width: 100%;
+            bottom: 0rem;
+        }
+        .left_xjbzichan {
+            text-align: left;
+            float: left;
+        }
+        .gap-line{
+            position: absolute;
+            width: 2.4rem;
+            height: .6rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.7);
+            border-right: 1px solid rgba(255, 255, 255, 0.7);
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            margin: auto;
+        }
+        .ul-position{position: relative;}
+        /*.font-number{font-family: Helvetica Regular;}
+        .font-chinese{font-family: PingFang-SC-Regular;}*/
+    </style>
+    <script>
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            screenWidth = screenWidth > 640 ? 640 : screenWidth;
+            oHtml.style.fontSize = screenWidth / 7.5 + 'px';
+        }
+    </script>
+</head>
+<body>
+<div class="active_content">
+    <!-- <div class="side-right">
+        <a href="shareAct?shareNo={{$shareNo}}">马上分享</a>
+    </div> -->
+    
+    <div class="layer_content">
+        <div class="headerBar">
+            <div class="maindata">
+                <p class="theme_font font-chinese" style="opacity: 0.7;">现金宝总市值(元)</p>
+                <h2 class="theme_font font-number" id="panel_totalVal"></h2>
+            </div>
+            <ul class="clearfix infolist ul-position">
+                <li>
+                    <p class="theme_font font-chinese" style="opacity: 0.7;">七日年化(%)</p>
+                    <h3 class="theme_font font-number" id="panel_yield"></h3>
+                </li>
+                <li>
+                    <p class="theme_font font-chinese" style="opacity: 0.7;">昨日收益(元)</p>
+                    <h3 class="theme_font font-number" id="panel_income"></h3>
+                </li>
+                <li>
+                    <p class="theme_font font-chinese" style="opacity: 0.7;">累计收益(元)</p>
+                    <h3 class="theme_font font-number" id="panel_total_profit"></h3>
+                </li>
+                <div class="gap-line"></div>
+            </ul>
+        </div>
+
+        <!-- 产品卡 -->
+        <div id="panel">
+            <div class="pro_box">
+                <div class="title font-chinese">现金管理好产品 活期理财好去处</div>
+                <div class="pro_info">
+                    <div class="group_panel">
+                        <h4 class="group_title font-chinese">现金+</h4>
+                        <p class="font-chinese">优选货基与债基组合增强收益</p>
+                        <h3><span class="font-number group_daily_growth_rate">0.00</span>%</h3>
+                        <h6 class="font-chinese">近一年收益率</h6>
+                    </div>
+                    <a href="javascript:void(0);" class="font-chinese group_btn">试试现金+</a>
+                </div>
+            </div>
+        </div>
+        <!-- 用活钱管家，过省心生活 -->
+        <div class="pro_box" style="padding-right: 0;">
+            <div class="title title1 font-chinese">用活期管家，过省心生活</div>
+            <!-- 未设置 -->
+           <!-- <div class="form_group unset" style="display: none;">
+                <div class="input_text ">
+                    <a href="" class="clearfix">
+                        <div class="left">
+                            <h4>工资宝</h4>
+                            <p>告别月光，储蓄比你想象中更重要</p>
+                        </div>
+                    </a>
+                        
+                </div>
+                <div class="input_text ">
+                    <a href="" class="clearfix">
+                        <div class="left">
+                            <h4>还款专区(还贷款/还信用卡)</h4>
+                            <p>立即还款，实时到账；预约还款，月月安心</p>
+                        </div>
+                    </a>
+                        
+                </div>
+                <div class="input_text ">
+                    <a href="" class="clearfix">
+                        <div class="left">
+                            <h4>预约取现</h4>
+                            <p>定期取现，无额度限制，资金灵活安排</p>
+                        </div>
+                    </a>
+                        
+                </div>
+                &lt;!&ndash;<div class="input_text ">
+                    <a href="" class="clearfix">
+                        <div class="left">
+                            <h4>汇闪付</h4>
+                            <p>微信支付绑定现金宝，理财消费两不误</p>
+                        </div>
+                    </a>
+                        
+                </div>&ndash;&gt;
+            </div>-->
+            <!-- 已设置/多行显示line2标记 -->
+            <div class="form_group set func_list">
+                <div class="func_list_1"></div>
+                <div class="func_list_2"></div>
+                <!--<div class="input_text ">
+                    <a href="" class="clearfix">
+                        <div class="left">
+                            <h4>工资宝</h4>
+                        </div>
+                        <div class="right line2">
+                            <p>07-25  2,000.00元  已转</p>
+                            <p>08-15  600.00元  将转</p>
+                        </div>
+                    </a>
+                        
+                </div>
+                <div class="input_text ">
+                    <a href="" class="clearfix">
+                        <div class="left">
+                            <h4>还款专区</h4>
+                        </div>
+                        <div class="right">
+                            <p>07-27  2,000.00元  已转</p>
+                        </div>
+                    </a>
+                        
+                </div>
+                <div class="input_text ">
+                    <a href="" class="clearfix">
+                        <div class="left">
+                            <h4>预约取现</h4>
+                        </div>
+                        <div class="right">
+                            <p>07-28  800.00元  已取</p>
+                        </div>
+                    </a>
+                        
+                </div>
+                <div class="input_text ">
+                    <a href="" class="clearfix">
+                        <div class="">
+                            <h4>还款专区(还贷款/还信用卡)</h4>
+                            <p>立即还款，实时到账；预约还款，月月安心</p>
+                        </div>
+                    </a>
+
+                </div>-->
+                <!--<div class="input_text ">
+                    <a href="" class="clearfix">
+                        <div class="left">
+                            <h4>汇闪付</h4>
+                        </div>
+                        <div class="right">
+                            <p>07-28  500.00元  已取</p>
+                        </div>
+                    </a>
+                        
+                </div>-->
+            </div>
+        </div>
+        <div style="height: 1rem;"></div>
+        <div class="footer">
+            <ul>
+                <li id="takeback">
+                    <span class="font-chinese theme_font_1">取现</span>
+                </li>
+                <li id="recharge" class="theme_background">
+                    <span class="font-chinese theme_font">充值</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    
+</div>
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/lib/swiper-4.2.2.min.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script type="text/javascript" src="../js/common.js?20210106"></script>
+<script type="text/javascript" src="../js/layout.js?t=1"></script>
+<script type="text/javascript" src="../js/account/index_xjbzichan.js"></script>
+
+</body>
+</html>

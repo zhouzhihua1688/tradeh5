@@ -1,0 +1,46 @@
+.red{
+    color:#fb5c5f;
+}
+.blue{
+    color: #148ce6;
+}
+.color333{
+    color: #333;
+}
+.color666{
+    color: #666;
+}
+.padding-rl30{
+    padding: 0 .75rem;
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+.clear-both{
+    clear: both;
+}
+.width12{
+    width: 12%;
+}
+.width26{
+    width: 26%;
+}
+.width28{
+    width: 28%;
+}
+.width34{
+    width: 34%;
+}
+.text-align-r{
+    text-align: right;
+}
+.text-align-l{
+    text-align: left;
+}
+.text-align-c{
+    text-align: center;
+}
+

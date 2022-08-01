@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>汇添富投顾</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/subIndex.css">
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        [v-cloak] {display: none;}
+		html,body{
+			background-color: #f6f6f6;
+		}
+    </style>
+</head>
+<body>
+<div id="app" v-cloak>
+	<img src="./img/subIndex/header.png" alt="" class="header">
+	<div class="container">
+		<div class="product-card" v-if="productList.length>0">
+			<div class="card-type ">
+				<p  v-for="item in cardType" :key="item" :class="item==currentValue?'active':''" @click="changeLab(item)">{{item}}</p>
+			</div>
+			<div class="card-title"><span>&nbsp;{{recomElementRemark}}</span><em></em></div>
+			<div class="card-list" v-for="item in currentList">
+				<div class="card-info">
+					<div class="info-top clearfix">
+						<div class="info-top-l fl">
+							<!-- <template v-if="item.recomElementNm2Tips&&item.recomElementNm2Tips.includes('%')&&item.recomElementNm2Tips&&!item.recomElementNm2Tips.includes('-')">
+								<p><em>{{item.recomElementNm2Tips.split('%')[0]}}</em>{{'%'+item.recomElementNm2Tips.split('%')[1]}}</p>
+							</template>
+							<template v-else>
+							</template> -->
+							<p v-html="numberStringFormat(item.recomElementNm2Tips)"></p>
+							<p>{{item.recomElementNm2}}</p>
+						</div>
+						<div class="info-top-c ">
+							<p>{{item.prdTitle}}</p>
+							<div class="label">
+								<span v-for="citem in item.prdTagList">{{citem}}</span>
+							</div>
+						</div>
+						<div class="info-top-r fr"><a href="javascript:;" @click="jumpUrl(item.url)">购买</a></div>
+					</div>
+					<div class="info-bottom">
+						<img src="./img/subIndex/yh.png" >
+						<p>{{item.prdRecommendContent}}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script>
+<script src="./js/subIndex.js"></script>
+</body>
+</html>

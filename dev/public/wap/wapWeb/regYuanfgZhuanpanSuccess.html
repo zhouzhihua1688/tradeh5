@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>成功</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta name="format-detection" content="telephone=no">
+	<style>
+		/* 禁用iPhone中Safari的字号自动调整,如横屏时会重新计算 */
+		html {  -webkit-text-size-adjust: 100%;  -ms-text-size-adjust: 100%;  }
+		input{  border: none;  outline-style: none;  }
+		/* 去除iPhone中默认的input样式 */
+		input[type="submit"], input[type="reset"], input[type="button"], input {  -webkit-appearance: none;  resize: none;  }
+		/* 取消链接高亮  */
+		body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);  }
+		/* 设置HTML5元素为块 */
+		article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  display: block;  }
+		/* 图片自适应 */
+		img {  width: 100%;  height: auto;  width: auto\9; /* ie8 */  -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/  border: none;  }
+		/* 初始化 */
+		body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  margin: 0;  padding: 0;  border: none;  }
+		body {  font: 14px 'Microsoft YaHei', Tahoma, Arial, sans-serif;  color: #666666;  background-color: #f6f6f6;  max-width: 640px;  margin: 0 auto;  }
+		em, i {  font-style: normal;  }
+		.clearfix:after {  content: "";  display: block;  visibility: hidden;  height: 0;  clear: both;  }
+		.clearfix {  zoom: 1;  }
+		a {  text-decoration: none;  color: inherit;  }
+		a:hover {  text-decoration: none;  }
+		ul, ol {  list-style: none;  }
+		h1, h2, h3, h4, h5, h6 {  font-size: 100%;  font-weight: normal;  }
+		.fl{float: left;}
+		.fr{float: right;}
+		body { background-color: #fff;}
+		.wrap {
+			padding: 4.5rem 0.75rem;
+		}
+		.wrap-top {
+			height: 1.25rem;
+			line-height: 1.25rem;
+			text-align: center;
+			font-size: 0.8rem;
+			color: #000;
+		}
+		.wrap-top i {
+			width: 1.25rem;
+			height: 1.25rem;
+		}
+		.wrap-middle p {
+			font-size: 0.8rem;
+			text-align: left;
+		}
+		.icon { display: inline-block;  width: 1.25rem; height:1.25rem; vertical-align: middle; margin: -2px 0px 0 0; padding: 0 5px;  }
+		.icon-ok-red { background: url(img/succes.png) no-repeat center center; background-size: contain; }
+		.yaoqing{
+			margin-top: 1.75rem;
+		}
+		.yaoqing a{
+			display: inline-block;
+			text-align: center;
+			color: #fff;
+			font-size: 0.75rem;
+			border-radius: 3px;
+			background-color: #ff7e00;
+			width: 100%;
+			height: 2.25rem;
+			line-height: 2.25rem;
+		}
+		.wrap-tips{
+			text-align: justify;
+			color: #999;
+			font-size: 0.65rem;
+			line-height: 0.95rem;
+			margin-top: 1.9rem;
+			margin-bottom: 1.125rem;
+		}
+	</style>
+	<script>
+
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        }
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+                oHtml.style.fontSize = '20px';
+            }else if(screenWidth >= 750){
+                oHtml.style.fontSize = '40px';
+            }else{
+                oHtml.style.fontSize = screenWidth/(640/40)+'px';
+            }
+        }
+	</script>
+	<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+	<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../js/lib/weixin.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+	<script type="text/javascript" src="../js/common.js?20210302"></script>
+	<script type="text/javascript" src="js/reg_sucess.js"></script>
+</head>
+<body>
+<div class="wrap">
+	<div class="wrap-top">
+		<i class="icon icon-ok-red"></i> 注册成功!
+	</div>
+	<p class="wrap-tips">您抽中的<span id="yfBonusAmt">0</span>元红包已放在您的现金宝账户啦，可立即提现哦！</p>
+	<div class="yaoqing">
+		<a class="color-orange" href="http://www.99fund.com/m_weixin.htm">马上领取</a>
+	</div>
+</div>
+</body>
+</html>

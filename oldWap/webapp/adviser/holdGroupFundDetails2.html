@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>持有明细</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="css/base_hold2.css">
+	<link rel="stylesheet" href="css/style_hold2.css">
+	<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/zepto.min.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/echarts.min.js"></script>
+
+	<script>
+
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        }
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            screenWidth = screenWidth > 640 ? 640 : screenWidth;
+            oHtml.style.fontSize = screenWidth/(750/40)+'px';
+
+        }
+	</script>
+	<style>
+		.content0{
+			display: none;
+			margin-top: .5rem;
+		}
+		.content0 .jingzhi {
+			font-size: .65rem;
+			/* font-weight: 900; */
+			height: 2rem;
+			box-sizing: border-box;
+			color: #000;
+			padding: 0 .75rem;
+			margin-top: 1.4rem;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.content0 .jingzhi img {
+			width: .7rem;
+			/* transform: rotateX(180deg) */
+			display: inline-block;
+		}
+
+		.content0 .jingzhi img.right_1 {
+			transform: rotateZ(270deg);
+		}
+
+		.content0 .wrap {
+			overflow: hidden;
+			position: relative;
+			width: 100%;
+			height: 2rem;
+		}
+	</style>
+</head>
+<body>
+<section class="content1">
+	<div class="header">
+		<h4>参考市值(元)</h4>
+		<p class="figure1 red font-arial" id="marketValue"></p>
+	</div>
+	<div class="nav">
+		<div class="navlite" style="width: 32%;border-right: 1px #eee solid;">
+			<p><span id="income_title">最新收益</span>(<span id="income_dt"></span>)</p>
+			<span class="red font-arial figure" id="income"></span>
+		</div>
+		<div class="navlite" style="width: 36%;border-right: 1px #eee solid;">
+			<p><span>持有盈亏(元)</span></p>
+			<span class="red font-arial figure" id="holdingProfit"></span>
+		</div>
+		<div class="navlite" style="width: 32%">
+			<p><span>持仓收益率</span></p>
+			<span class="red font-arial figure" id="holdingYield"></span>
+		</div>
+	</div>
+	<div class="nav1">
+		<div class="navlite" style="width: 32%;">
+			<p>持仓成本(元)</p>
+			<span class="font-arial figure" id="holdingCost"></span>
+		</div>
+		<div class="navlite" style="width: 36%;">
+			<p><span>日涨跌幅</span></p>
+			<span class="red font-arial figure" id="groupYieldRate"></span>
+		</div>
+		<div class="navlite" style="width: 32%">
+			<p><span>累计盈亏(元)</span></p>
+			<span class="red font-arial figure" id="totalProfit"></span>
+		</div>
+	</div>
+</section>
+<section class="content0">
+	<ul class="wrap">
+		<!--<li class="jingzhi div-jump list" style=" margin-top: 0.01rem;">
+            <p><img src="./img/sound.png" alt="" style="margin-right: .45rem;"><span
+                    id="soundHoldNotice">“跟我投”调仓啦！</span></p>
+            <img class="right_1" src="./img/icon02.png">
+        </li>
+        <li class="jingzhi div-jump list" style=" margin-top: 0.01rem;">
+            <p><img src="./img/sound.png" alt="" style="margin-right: .45rem;"><span
+                    id="soundHoldNotice">“跟我投”调仓啦11！</span></p>
+            <img class="right_1" src="./img/icon02.png">
+        </li>
+        <li class="jingzhi div-jump list" style=" margin-top: 0.01rem;">
+            <p><img src="./img/sound.png" alt="" style="margin-right: .45rem;"><span
+                    id="soundHoldNotice">“跟我投”调仓啦222！</span></p>
+            <img class="right_1" src="./img/icon02.png">
+        </li>-->
+	</ul>
+</section>
+<section class="content2" id="profitChart">
+	<div>
+		<div class="title1">收益走势图</div>
+		<div class="diagram">
+			<div>
+				<div id="pie1" style="width: 100%; height: 260px;"></div>
+			</div>
+			<div class="noData" style="display: none;">
+				<p style="color: #999;font-size: .8rem;">暂无足够的数据展示</p>
+			</div>
+		</div>
+	</div>
+	<ul class="clearfix tab2">
+		<li class="active" value="1"><a>近1月</a></li>
+		<li value="2"><a>近3月</a></li>
+		<li value="3"><a>近6月</a></li>
+		<li value="4"><a>近1年</a></li>
+		<li value="6"><a>首购以来</a></li>
+	</ul>
+</section>
+<section class="content4">
+	<table>
+		<tbody>
+		<tr id="history_query">
+			<td style="margin-left: .75rem">收益记录</td>
+			<td><img src="img/arrow.png"></td>
+		</tr>
+		<tr id="trade_sestion">
+			<td>交易记录</td>
+			<td><a href="javascript:;"><span id="trade_count_a"><span class="font-arial red" id="trade_count"></span>笔交易确认中</span><img src="img/arrow.png"></a></td>
+		</tr>
+		<tr id="transfer_sestion"  style="display: none;">
+			<td><span style="display: inline-block;vertical-align: middle;margin-right: 0.45rem">调仓方式</span><i class="question-icon" id="tips"></i></td>
+			<td id="transfer_sestion_a"><a href="javascript:;" id="transfer_count_a"></a><img src="img/arrow.png"></td>
+		</tr>
+		<tr id="investment_plan">
+			<td>定投计划</td>
+			<td><a href="javascript:;" id="investment_plan_a" class="investment-plan"></a><img src="img/arrow.png"></td>
+		</tr>
+		</tbody>
+	</table>
+</section>
+<section class="content5">
+	<div class="title1">
+		<p class="left">组合配置比例</p>
+		<p class="right"><span>偏离度<em class="red" style="font-style: normal" id="custIrrelevance" > </em></span>&nbsp;<span id="isIrrelevance"></span><i class="question-icon"  onclick="javascript:layerShow();"></i></p>
+	</div>
+	<div class="content5_title">
+		<p class="left percent50">基金名称</p>
+		<p class="left text-r percent30" >占比&nbsp;&nbsp;</p>
+		<p class="left text-r percent20" style="height: 1.4rem;line-height: 0;padding: 0.3rem 0; ">
+			<span style="line-height: .7rem">参考市值</span><br/>
+			<span style="font-size:0.55rem ;line-height: .6rem;">(份额)</span>
+		</p>
+	</div>
+	<div class="content5_list" id="fundGroupList">
+
+	</div>
+
+</section>
+
+<!--弹框-->
+<div class="layer">
+	<div class="layer-wrap">
+		<div class="layer-body">
+			<p id="display_yield_desc" >偏离度是反映您的组合与标准组合差异的指数，基金净值波动、投资经理调整组合都会产生偏离度。当偏离度大于一定阈值允许一键调整。</p>
+		</div>
+		<button>我知道了</button>
+	</div>
+</div>
+
+<div class="tip2 tip3" style="display: none;">
+	<div class="tip_wrap">
+		<div class="tip_content">
+			<div>
+					<span>
+					由于净值波动或标准组合调仓导致您的持仓与标准组合持仓发生一定偏离时可跟随标准组合进行调仓
+					</span>
+				<span>
+							手动调仓：当客户持仓与标准组合偏离度大于等于5%时可登录App手动发起一键调仓;
+					</span>
+				<span>
+							自动调仓：在标准组合调仓的当个交易日，如客户持仓的偏离度大于等于5%，系统将对客户持仓发起自动调仓
+					</span>
+			</div>
+		</div>
+		<div class="tip_btn" >
+			<ul style="width: 100%;">
+				<li class="close_tip"><a
+						href="javascript:;">我知道了</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.base64.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/basic.js"></script>
+
+
+<script>
+    /*弹框*/
+    $("#history_query").on("click",function () {
+        var groupId = WAP.getUrlParam("groupId");
+        var balanceSerialNo = WAP.getUrlParam("balanceSerialNo");
+        window.location.href = "htffundxjb://action?type=url&link="
+            + $.base64.encode(window.location.origin+"/mobileEC/wap/fundgroup/fund_group_history_query.html?groupId=" + groupId + "&balanceSerialNo=" + balanceSerialNo);
+    });
+    /*关闭弹框*/
+    $('.layer .layer-wrap button').on("click",function () {
+        $('.layer').hide();
+        $(document.body).css({  "overflow":"auto"});
+    });
+    function layerShow(){
+        $("#display_yield_desc").html("偏离度是反映您的组合与标准组合差异的指数，基金净值波动、投资经理调整组合都会产生偏离度。当偏离度大于一定阈值允许一键调整。");
+        $(document.body).css({ "overflow-x":"hidden","overflow-y":"hidden"});
+        $('.layer').show();
+    }
+    $("#tips").click(function(){
+        $(".tip3").show();
+    });
+    $(".close_tip").click(function(){
+        $(this).parents(".tip3").hide();
+    })
+
+    function layerShowTransfer(){
+        var url = WAP.requestAddr + "/adviser/query_transfer_tips?dt=" + Math.random();
+        $.get(url, function(result){
+            var data = JSON.parse(result);
+            //console.log("result:", data);
+            if(data.returnCode == 0){
+                $("#display_yield_desc").html(data.body.transferTips);
+                $(document.body).css({ "overflow-x":"hidden","overflow-y":"hidden"});
+                $('.layer').show();
+            }
+        });
+    }
+
+
+
+    //var myChart_1, myChart_2;
+    var fundGroupCreateDate = "";
+    $(function(){
+        // 累计盈亏
+        var incomes1 = [];
+        myChart_1 = echarts.init(document.getElementById('pie1'));
+        setOption(option_1, incomes1);
+        draw(myChart_1,option_1);
+
+        $(".tab2 li").click(function (){
+            if($(this).hasClass("active")) { return;}
+            $(this).parents("ul").find("li").eq($(this).index()).addClass("active").siblings().removeClass('active');
+            queryCharts($(this).val());
+        });
+
+        var version = WAP.getUrlParam("version");
+        if(WAP.isNotEmpty(version) && Number(version) >= 5.5){
+            $("#investment_plan").show();
+        } else {
+            $("#investment_plan").hide();
+        }
+        var groupId = WAP.getUrlParam("groupId");
+        if(groupId == 'A0081'){
+            window.location.href = 'holdGroupFundDetailsXJJ.html?groupId=' + groupId + "&balanceSerialNo=" + WAP.getUrlParam("balanceSerialNo") + "&version=" + version;
+        } else {
+            //  vrayInvestmentPlan();
+            queryYields();
+            queryCharts("1");
+            queryRecommendInfo();
+        }
+    });
+    var sDate = '';
+    var eDate = '';
+    var intervalValue = 0;
+    var option_1 = {
+        tooltip : { show: true, trigger: 'axis',
+            axisPointer: {
+                type: 'cross', label: {  backgroundColor: 'rgba(0,0,0,0)',textStyle: {color: "#148ce6"} }, lineStyle: { type:"dashed",color: "#1aa2e6"}
+            },
+
+            position:["50%", "2%"],alwaysShowContent: true , backgroundColor: "rgba(0,0,0,0)", textStyle:{ color: "#333"},
+            formatter: function(params){
+                var temp = params[0].name.trim();
+                var date = "("+sDate + '-' + eDate+")";
+                if(sDate == undefined ||sDate == null ||sDate == ''){
+                    date = '';
+                }
+                var name = params[0].seriesName.trim();
+                var val = params[0].data;
+                var tempInterVal = val - intervalValue;
+                var cor = "#f4333c";
+                if(Number(tempInterVal) < 0){
+                    cor = "#009944";
+                }
+                return '<div style="width: 100%;margin-left: -50%;font-size: 14px;">' + date + name +'：<span style="color:'+cor+'">'+ formatMoney(tempInterVal, 2) +'<span></div>';
+            }
+        },
+        grid: {left: '3%', right: '4%', bottom: '5%', top: "20%", containLabel: true },
+
+        xAxis : [
+            {
+                type: 'category',
+                boundaryGap: false,
+                axisTick: { show: false },
+                // splitLine: { show: true, lineStyle: { color: "#999999" } },
+                axisLine: { show: false, lineStyle: { color: "#999999" } },
+                axisLabel: { interval: 30 },
+                data :[]
+            }
+        ],
+        yAxis :
+            {
+                type: 'value',
+                axisLine: { show: true, lineStyle: { color: "#f1f1f1" } },
+                axisTick: { show: false },
+                splitLine: { show: true, lineStyle: { color: "#f1f1f1" } },
+                axisLabel: {  show: true,    formatter: function(value){return toDecimal(value);} , textStyle: { color: "#999999", fontFamily: "Arial" }},
+                axisPointer: { show:false/* , label: {show:false},lineStyle: {type: "solid",color: "#1aa2e6"} */ },
+
+
+            } ,
+        series : [
+            {
+                symbol: "none", name:'区间盈亏',  type:'line', smooth: true,
+                showSymbol: false,
+                hoverAnimation: false,
+                areaStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0, color: '#d4eafb' // 0% 处的颜色
+                        }, {
+                            offset: 1, color: '#fff' // 100% 处的颜色
+                        }], false)
+                    }
+                },
+                lineStyle: {
+                    normal: {
+                        color: "#1aa2e6",
+                        width:1
+                    }
+                },
+                data:[]
+            }
+        ]
+
+    };
+
+    function formatMoney (num, scaleNum) {
+        if(num == undefined || num == null || num == ''){
+            return "0.00";
+        } else if (num == "--" || num == "-"){
+            return "--";
+        }
+        if(scaleNum == undefined || scaleNum == null){
+            scaleNum = 2;
+        }
+        var numberStr = String(num).replace(/,/g, "");
+        //金额转换 分->元 保留2位小数 并每隔3位用逗号分开 1,234.56
+        var str = Number(numberStr).toFixed(scaleNum) + '';
+        var intSum = str.substring(0,str.indexOf(".")).replace( /\B(?=(?:\d{3})+$)/g, ',' );//取到整数部分
+        var dot = str.substring(str.length,str.indexOf("."))//取到小数部分搜索
+        var ret = intSum + dot;
+        return ret;
+    }
+
+    function setOption(option, incomes1){
+        var result1 =  formattingIncomes(incomes1);
+        if(result1.xArr.length > 0){
+            option.xAxis[0].data = result1.xArr;
+        }
+        option.xAxis[0].axisLabel.interval = option.xAxis[0].data.length-2;
+        option.series[0].data = result1.yArr;
+
+    }
+
+    function draw(myChart, option){
+        if( !((option.series[0].data && option.series[0].data.length>0))){
+            option.series[0].data = ["0","0"];
+            option.series[0].z = 4;
+            option.xAxis[0].data = ["",""];
+            option.yAxis.axisLabel.formatter = function(value, index){
+                if(index ==0){  return value + ".00"; }
+                return "";
+            }
+            $(".noData").show();
+            option.xAxis[0].data = ["",""];
+            option.xAxis[0].axisLabel.interval = ["",""].length-2;
+            $(".noData").show();
+            return;
+        }else{
+            $(".noData").hide();
+            option.series[0].z = 1;
+            option.yAxis.axisLabel.formatter = function(value){return toDecimal(value);} ;
+        }
+        myChart.setOption(option);
+        /*
+        setTimeout(function(){
+            myChart.dispatchAction({ type: 'showTip', seriesIndex: 1, dataIndex:10 });
+        },0);*/
+
+    }
+
+    function formattingIncomes(incomes){
+        var xArr = [], yArr = [];
+        var len = incomes.length;
+        for (var i = 0; i < len; i++) {
+            var chartDt = incomes[i].chartDt;
+            //console.log(chartDt);
+            xArr.push("      "+chartDt.substr(0,4) + "-" + chartDt.substr(-4,2) + "-" + chartDt.substr(-2,2) + "                ");
+            yArr.push(incomes[i].chartNum);
+        }
+        return {xArr: xArr, yArr: yArr};
+    }
+
+    //制保留2位小数，如：2，会在2后面补上00.即2.00
+    function toDecimal(x) {
+        var f = parseFloat(x);
+        if (isNaN(f)) {
+            return false;
+        }
+        var f = Math.round(x*100)/100;
+        var s = f.toString();
+        var rs = s.indexOf('.');
+        if (rs < 0) {
+            rs = s.length;
+            s += '.';
+        }
+        while (s.length <= rs + 2) {
+            s += '0';
+        }
+        return s;
+    }
+    // 更多
+    var onoff=true;
+
+    var version = WAP.getUrlParam("version");
+
+    function queryYields(){
+        var groupId = WAP.getUrlParam("groupId");
+        var balanceSerialNo = WAP.getUrlParam("balanceSerialNo");
+        $.get(WAP.requestAddr + "/adviser/hold_group_fund_info?groupId=" + groupId + "&balanceSerialNo=" + balanceSerialNo, function(result){
+            var data = JSON.parse(result);
+            //console.log(data);
+            //alert("测试组合持有页面显示有时为空白问题，请不要提BUG： returnCode>>" + data.returnCode);
+            if(data.returnCode == 0){
+
+                $("#transfer_count_a").html(data.body.transFerType);
+                var fundGroupType = data.body.fundGroupType;
+                if ("05" != fundGroupType){
+                    $("#transfer_sestion").show();
+                    $("#investment_plan").show();
+                }else {
+                    $("#investment_plan").hide();
+                }
+
+                /*if (WAP.isNotEmpty(version) && Number(version) >= 4.3){
+                    if(Number(data.body.isHasMip) > 0){
+                        $("#mip_sestion").show();
+                        if(Number(data.body.isHasMip) > 1){
+                            //跳到定投列表
+                            $("#mip_sestion").on("click", function(){
+                                window.location.href = "htffundxjb://action?type=fg&subType=transferMode&groupId=" + holdGroupInfo.groupid});
+                        }else {
+                            //跳到定投详情
+                            $("#mip_sestion").on("click", function(){
+                                window.location.href = "htffundxjb://action?type=fg&subType=transferMode&contractNo=" + data.body.mipContractNo; });
+                        }
+                    }
+				}*/
+
+
+                var holdGroupInfo = data.body.holdGroupInfo;
+                $("#marketValue").html(holdGroupInfo.holdingAsset);
+                $("#holdingYield").html(holdGroupInfo.holdingYield);
+                var totalProfit = holdGroupInfo.totalProfit;
+                if(totalProfit.indexOf('-') > -1){//负值
+                    $("#totalProfit").removeClass("red").addClass("green").html(totalProfit);
+                }else{
+                    $("#totalProfit").html(totalProfit);
+                }
+                $("#holdingCost").html(holdGroupInfo.holdingCost);
+                $("#income").html(holdGroupInfo.income);
+                $("#income_dt").html( holdGroupInfo.incomeDate.substr(-4,2) + '.' +  holdGroupInfo.incomeDate.substr(-2,2));
+                if(WAP.isNotEmpty(holdGroupInfo.profitUpdating)){
+                    $("#income_title").html(holdGroupInfo.profitUpdating);
+                }
+                $("#holdingProfit").html(holdGroupInfo.holdingProfit);
+
+                var groupYieldRate = holdGroupInfo.groupYieldRate;
+                if(groupYieldRate.indexOf('-') > -1){//负值
+                    $("#groupYieldRate").removeClass("red").addClass("green").html(holdGroupInfo.groupYieldRate+"%");
+                }else{
+                    $("#groupYieldRate").html(holdGroupInfo.groupYieldRate+"%");
+                }
+                var holdingAsset = holdGroupInfo.holdingAsset.replace(/,/g, '');
+                if(Number(holdingAsset) < 0) {
+                    $("#marketValue").removeClass("red");
+                    $("#marketValue").addClass("green");
+                }
+                var hYield = holdGroupInfo.holdingYield.replace('%', '');
+                if(Number(hYield) < 0) {
+                    $("#holdingYield").removeClass("red");
+                    $("#holdingYield").addClass("green");
+                }
+                var tProfit = holdGroupInfo.totalProfit.replace(/,/g, '');
+                if(Number(tProfit) < 0) {
+                    $("#totalProfit").removeClass("red");
+                    $("#totalProfit").addClass("green");
+                }
+                var income = holdGroupInfo.income.replace(/,/g, '');
+                if(Number(income) < 0) {
+                    $("#income").removeClass("red");
+                    $("#income").addClass("green");
+                }
+                var holdingCost = holdGroupInfo.holdingCost.replace(',', '');
+                if(Number(holdingCost) < 0) {
+                    $("#holdingCost").removeClass("red");
+                    $("#holdingCost").addClass("green");
+                }
+                var holdingProfit = holdGroupInfo.holdingProfit.replace(/,/g, '');
+                if(Number(holdingProfit) < 0) {
+                    $("#holdingProfit").removeClass("red");
+                    $("#holdingProfit").addClass("green");
+                }
+
+                var bool = false;
+                var fundGDetails = holdGroupInfo.fundGroupDetails;
+                if(fundGDetails != null && fundGDetails != undefined){
+                    var listHtml = "";
+                    for(var i=0; i<fundGDetails.length; i++){
+                        var fundGInfo = fundGDetails[i];
+
+                        listHtml+= "<div onclick='forwardFundDetailPage(\"" + fundGInfo.fundId + "\")' class='list" + ((i >= 3) ? " open' style='display: none'  " : "'") + "  >"
+                            +"<div class='text text1 text-l percent50 flexBox'><p><span class='fund_title'>"+ fundGInfo.fundName + "</span><span class='font-arial'>"+ fundGInfo.fundId
+                            +"</span></p><p>" + fundGInfo.fundGroupTpNm
+                            + (fundGInfo.fundStatus == "0" ? "" : "&nbsp;<i class='deal'>"+ fundGInfo.fundStatusName +"</i>")
+                            + (fundGInfo.fundTradeStName == "" ? "" : "&nbsp;<i class='deal'>" + fundGInfo.fundTradeStName + "</i>")
+                            +"</p></div>"
+                            +"<div class='text text2 text-r percent30 font-arial'>"+ fundGInfo.percent +"%</div>"
+                            +"<div class='text text3 text-r percent20 '><span class='font-arial'>"+ fundGInfo.marketvalue +"</span><br><span class='font-arial'>(" + fundGInfo.holdBalance + ")</span></div>"
+                            +"</div>";
+
+                        if(fundGInfo.fundTradeStName == "处理中" || Number(fundGInfo.dividendCount) > 0) bool = true;
+                    }
+                    $("#fundGroupList").html(listHtml);
+                    if(fundGDetails.length > 3){
+                        var moreHtml = "<div class='content5_footer'>" +
+                            "<a href='javascript:void(0)' class='more'>更多↓</a>" +
+                            "</div>";
+                        $("#fundGroupList").after(moreHtml);
+                        $(".more").click(function(){
+                            if (onoff) {
+                                $(".open").show()
+                                $(".more").html("收起↑")
+                                onoff=false;
+                            } else {
+                                $(".open").hide()
+                                $(".more").html("更多↓")
+                                onoff=true;
+
+                            }
+                        })
+                    }
+                    if(fundGDetails.length == 0) bool = true;
+                }
+                var irrelevance = holdGroupInfo.irrelevance;
+                var irrelevanceThreshold = holdGroupInfo.irrelevanceThreshold;
+                if(Number(irrelevance) - Number(irrelevanceThreshold) < 0){
+                    $("#isIrrelevance").html("");
+                }else{
+                    $("#isIrrelevance").html("组合已偏离");
+                }
+                if(bool){
+                    $("#custIrrelevance").html("--");
+                }else{
+                    $("#custIrrelevance").html(irrelevance + "%");
+                }
+                fundGroupCreateDate = data.body.creataDate;
+                //console.log("createDate:", data.body.creataDate);
+                $("#transfer_sestion_a").on("click", function(){window.location.href = "htffundxjb://action?type=fg&subType=transferMode&groupId=" + holdGroupInfo.groupid});
+                $("#trade_sestion").on("click", function(){
+                    window.location.href = "htffundxjb://action?type=fg&subType=fgth&groupId=" + holdGroupInfo.groupid
+                        +"&branchCode=" + data.body.branchCode
+                        +"&tradeAcco=" + data.body.tradeAcco;
+                });
+                $("#investment_plan").on("click", function () {
+                    window.location.href = "htffundxjb://action?type=fg&subType=mipList&groupId=" + holdGroupInfo.groupid
+                        +"&branchCode=" + data.body.branchCode
+                        +"&tradeAcco=" + data.body.tradeAcco
+                        +"&fundGroupType=" + fundGroupType;
+
+                });
+                if(data.body.unConfirmedCount > 0){
+                    $("#trade_count").html(data.body.unConfirmedCount);
+                }else{
+                    $("#trade_count_a").hide();
+                }
+
+                var custBar = data.body.custBar;
+                var normalBar = data.body.normalBar;
+                if(custBar != null && custBar != undefined && normalBar != null && normalBar != undefined){
+                    if(bool){
+                        $("#isIrrelevance").html("");
+                        $("#custIrrelevance").html("--");
+
+                    }else{/*
+                        var title = ['权益类','固收类','现金类','其他类'];
+                        var newTitle = new Array();
+                        var newCustB = new Array();
+                        var newNormalB = new Array();
+                        var index = 0;
+                        for(var i=0; i<custBar.length; i++){
+                            if(custBar[i] == 0 && normalBar[i] == 0) continue;
+                            newTitle[index] = title[i];
+                            newCustB[index] = custBar[i];
+                            newNormalB[index] = normalBar[i];
+                            index++;
+                        }*/
+
+                    }
+                }
+            }
+            vrayInvestmentPlan(data)
+        });
+    }
+
+    function vrayInvestmentPlan(dataF){
+        var url = "/ats-ng/v1/manage/contract-query/common-page-by-type";
+        var dataMap  = {};
+        dataMap["agreementType"] = "2";
+        dataMap["isAllFlag"] = "3";
+        dataMap["pageNo"] = "1";
+        dataMap["pageSize"] = "1000";
+        dataMap["productId"] = WAP.getUrlParam("groupId");
+        if(dataF.returnCode != null
+            && dataF.returnCode != undefined
+            && dataF.returnCode == 0){
+            dataMap["branchNo"] = dataF.body.branchCode;
+            dataMap["tradeAcco"] = dataF.body.tradeAcco;
+        }
+        console.log(dataMap);
+
+        $.ajax({
+            url: url,
+            data: JSON.stringify(dataMap),
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function(result){
+                var data2 = result;
+                console.log(data2);
+                if(data2.returnCode == 0){
+                    var data3 = data2.body;
+                    var lia =  $("#investment_plan_a");
+                    if(data3 != undefined && data3 != null){
+                        var data3Len = data3.length;
+                        if(data3Len == 0) {
+                            lia.html("立即设置");
+                        }else {
+                            if(data3Len == 1){
+                                var data4 = data3[0];
+                                var isTarget = data4.isTargetProfit;
+                                if(isTarget != null && isTarget == "1" ){
+                                    var targetProfit = data4.targetProfit;
+                                    lia.html("目标盈定投("+parseFloat((targetProfit*100).toPrecision(4))+"%)");
+                                }else {
+                                    lia.html( data3Len + "个定投计划");
+                                }
+                            }else {
+                                lia.html( data3Len + "个定投计划");
+                            }
+                        }
+                    }else {
+                        lia.html("立即设置");
+                    }
+
+                }
+            }
+        });
+
+    }
+
+
+    function queryRecommendInfo(){
+    var balanceSerialNo = WAP.getUrlParam("balanceSerialNo");
+        var url = "/mobile-bff/v1/fundgroup/fundgroupHoldInfo?productType=1&balanceSerialNo="+balanceSerialNo+"&productId="+WAP.getUrlParam("groupId");
+        
+        $.get(url, function(result){
+                if(result.returnCode == 0 && result.body != undefined && result.body != null){
+                    var html = '';
+                    result.body[WAP.getUrlParam("groupId")].forEach(function(item){
+                        var infoTitle = item.infoTitle.length > 20 ? item.infoTitle.substr(0,20) + '...' : item.infoTitle;
+                        html += '<li class="jingzhi div-jump list" style=" margin-top: 0.01rem;" onclick="visit(\''+item.infoJumpUrl+'\')">'
+                            +'	<p><img src="./img/sound.png" alt="" style="margin-right: .45rem;"><span >'+infoTitle+'</span></p>'
+                            +'	<img class="right_1" src="./img/icon02.png">'
+                            +'</li>';
+                    });
+                    $(".content0 .wrap").html(html);
+                    if(html.length > 0){
+                        $(".content0").show();
+                        if($('.content0 .wrap .list').length>1){
+                            scroll();
+                        }
+                    }
+                }
+            }
+        );
+
+    }
+
+    function visit(url){
+        window.location.href = url;
+    }
+
+    function scroll() {
+        $(".content0 .wrap .list:eq(0)").animate({ "margin-top": "-2.5rem" },1000, function () {
+            $(".content0 .wrap .list:eq(0)").appendTo($(".content0 .wrap"));
+            $(".content0 .wrap .list:last").css({ "margin-top": '0' });
+        })
+        setTimeout(scroll, 4000)
+    }
+
+    function queryCharts(queryTp){
+        var balanceSerialNo = WAP.getUrlParam("balanceSerialNo");
+        var url = WAP.requestAddr + "/adviser/query_fund_group_total_incomes?groupId=" + WAP.getUrlParam("groupId")
+            +"&queryTp="+ queryTp
+            +"&balanceSerialNo="+balanceSerialNo;
+        $.get(url, function(result){
+            var data = JSON.parse(result);
+
+            //console.log("result:", data);
+            if(data.returnCode == 0){
+
+                //	累计盈亏
+                var totalIncomes = data.body.totalIncomeList;
+
+
+                if(totalIncomes.length > 0){
+                    var chartDate = totalIncomes[0].chartDt;
+                    var chartDate2 = totalIncomes[totalIncomes.length-1].chartDt;
+                    intervalValue = totalIncomes[0].chartNum;
+                    sDate = chartDate.substr(2,2) + "." + chartDate.substr(4,2) + "." + chartDate.substr(-2,2);
+                    eDate = chartDate2.substr(2,2) + "." + chartDate2.substr(4,2) + "." + chartDate2.substr(-2,2);
+                    $("#profitChart").show();
+                    myChart_1 = echarts.init(document.getElementById('pie1'));
+                    setOption(option_1, totalIncomes);
+                    draw(myChart_1,option_1);
+                    var seriesIndex = 0;
+                    var num = 1;
+                    if(totalIncomes.length > 0){
+                        seriesIndex = 0;
+                        num = totalIncomes.length - 1;
+                    }
+
+                    myChart_1.dispatchAction({ type: 'showTip', seriesIndex: seriesIndex, dataIndex:num });
+                    myChart_1.dispatchAction({ type: 'showTip', seriesIndex: 1, dataIndex:-1 });
+
+
+                } else {
+                    $("#profitChart").hide();
+                }
+            }
+        });
+    };
+
+    function forwardFundDetailPage(fundId) {
+        // if(fundId == "000330"){
+        //     window.location.href = "htffundxjb://action?type=as&subType=xjb";
+        // }else{
+        //     window.location.href = "htffundxjb://action?type=fd&fundId=" + fundId;
+        // }
+        window.location.href = "htffundxjb://action?type=fd&fundId=" + fundId;
+    }
+</script>
+</body>
+</html>

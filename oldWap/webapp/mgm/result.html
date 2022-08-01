@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>领取结果</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,address=no">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+
+    </style>
+    <script type="text/javascript" src="../basic/jquery.3.4.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/base.css">
+    <script type="text/javascript">
+	    $(function(){
+		    function getUrlParam (key) {
+		        var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)", "i");
+		        var r = window.location.search.substr(1).match(reg);
+		        if (r != null) {
+		            return unescape(r[2]);
+		        }
+		        return "";
+		    };
+		    var val = getUrlParam("debit");
+		    var ai = getUrlParam("ai");
+		    if(val == null || val == undefined || val == ""){
+			    $(".p1").hide();
+		    }
+		    
+		    $("#debit").html(val);
+	    });
+    </script>
+</head>
+
+<body>
+    <!--wrapper-->
+    <div class="wrapper">
+        <div class="packet">
+            <p class="p1"><strong id="debit"></strong>元</p>
+            <p class="p2">恭喜你！</p>
+            <p class="p3">红包领取成功</p>
+        </div>
+        <p class="lookover">请在现金宝账户查看</p>
+        <div class="money">
+            <img src="img/money.png" alt="money"/>
+        </div>
+        <a href="http://app.99fund.com?action=back" class="done"><img src="img/done.png" alt="done"/></a>
+    </div>
+
+</body>
+</html>

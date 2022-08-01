@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>找回登录密码</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/findPwd/css/askPhone.css">
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+<body>
+<div class="question">
+    您的手机号<span class="phone_number"></span>现在能否接收短信？
+</div>
+<div class="bottom">
+    <div class="btn1">不能</div>
+    <div class="btn2">能</div>
+</div>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;"
+           onclick="this.parentElement.parentElement.style='display:none'">我知道啦</a>
+    </div>
+</div>
+<div class="Bomb-box-download">
+    <div class="Bomb-box-main">
+        <div class="Bomb-box-content">
+            <p class="text-center">当前不支持该功能，请下载现金宝继续操作</p>
+        </div>
+        <a class="Bomb-box-ok" href="http://99fund.com/m.htm">下载现金宝</a>
+    </div>
+</div>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+<script>
+    $(function () {
+        var serialNo = utils.getUrlParam('serialNo');
+        var mobileNo = utils.getSession('__findPwdInfo').mobile;
+        $('.phone_number').text(mobileNo.slice(0, 3) + '****' + mobileNo.slice(-4));
+        $('.btn1').on('click', function () {
+            if(!serialNo){
+                return false;
+            }
+            $('.Bomb-box-download').show();
+            // utils.ajax({
+            //     url: '/mobile-bff/v1/account/getback-login-pwd-chain',
+            //     type: 'POST',
+            //     data: {
+            //         sceneMode: 'CANNOT_RECEIVE_SMS',  // 场景码(NO_MOBILE：无手机号，CANNOT_RECEIVE_SMS：无法接收短信，RECEIVE_SMS：可以接收短信
+            //         serialNo: serialNo
+            //     },
+            //     success: function (result) {
+            //         if (result.returnCode == 0) {
+            //             window.location.href = '/tradeh5/newWap/findPwd/setPwd.html?serialNo=' + encodeURIComponent(result.body.serialNo);
+            //         } else if (result.returnCode != 0 && result.returnCode != 9999) {
+            //             $('.text-center').text(result.returnMsg);
+            //             $('.Bomb-box').show();
+            //         } else {
+            //             $('.text-center').text('系统异常，请稍后再试!');
+            //             $('.Bomb-box').show();
+            //         }
+            //     },
+            //     error: function () {
+            //         $('.text-center').text('系统异常，请稍后再试!');
+            //         $('.Bomb-box').show();
+            //     }
+            // });
+        });
+        $('.btn2').on('click', function () {
+            if(!serialNo || !mobileNo){
+                return false;
+            }
+            utils.ajax({
+                url: '/mobile-bff/v1/account/getback-login-pwd-chain',
+                type: 'POST',
+                data: {
+                    sceneMode: 'RECEIVE_SMS',  // 场景码(NO_MOBILE：无手机号，CANNOT_RECEIVE_SMS：无法接收短信，RECEIVE_SMS：可以接收短信
+                    serialNo: serialNo
+                },
+                success: function (result) {
+                    if (result.returnCode == 0) {
+                        window.location.href = '/tradeh5/newWap/findPwd/inputNum.html?serialNo=' + encodeURIComponent(result.body.serialNo);
+                    } else if (result.returnCode != 0 && result.returnCode != 9999) {
+                        $('.text-center').text(result.returnMsg);
+                        $('.Bomb-box').show();
+                    } else {
+                        $('.text-center').text('系统异常，请稍后再试!');
+                        $('.Bomb-box').show();
+                    }
+                },
+                error: function () {
+                    $('.text-center').text('系统异常，请稍后再试!');
+                    $('.Bomb-box').show();
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

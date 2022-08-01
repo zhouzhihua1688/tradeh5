@@ -1,0 +1,290 @@
+@charset "utf-8";
+
+/* 禁用iPhone中Safari的字号自动调整,如横屏时会重新计算 */
+html {  -webkit-text-size-adjust: 100%;  -ms-text-size-adjust: 100%;  }
+input{  border: none;  outline-style: none;  }
+/* 去除iPhone中默认的input样式 */
+input[type="submit"], input[type="reset"], input[type="button"], input {  -webkit-appearance: none;  resize: none;  }
+/* 取消链接高亮  */
+body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);  }
+/* 设置HTML5元素为块 */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  display: block;  }
+/* 图片自适应 */
+img {  width: 100%;  height: auto;  width: auto\9; /* ie8 */  -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/  border: none;  }
+/* 初始化 */
+body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  margin: 0;  padding: 0;  border: none;  }
+body {  font: 14px 'Microsoft YaHei', Tahoma, Arial, sans-serif;  color: #666666;  background-color: #f6f6f6;   margin: 0 auto;  }
+em, i {  font-style: normal;  }
+.clearfix:after {  content: "";  display: block;  visibility: hidden;  height: 0;  clear: both;  }
+.clearfix {  zoom: 1;  }
+a {  text-decoration: none;  color: inherit;  }
+a:hover {  text-decoration: none;  }
+ul, ol {  list-style: none;  }
+h1, h2, h3, h4, h5, h6 {  font-size: 100%;  font-weight: normal;  }
+.fl{float: left;}
+.fr{float: right;}
+select:focus{outline: none;}
+/*公共样式*/
+
+
+/*银行图标*/
+.ico_007{
+    display: inline-block;
+    background: url(/tradeh5/newWap/base/img/bank_icon.png) no-repeat;
+    background-size: 100%;
+    width: 2rem;
+    height: 2rem;
+    margin-left: 0.75rem;
+    margin-top: 0.65rem;
+    margin-right: 0.7rem;
+}
+
+
+.list-group { margin: 0.5rem 0; background-color: #fff;padding: 0 0.75rem; }
+.list-group .list-group-item { min-height: 1.725rem; line-height: 1.725rem; }
+.row { display: -webkit-flex; display: flex;}
+.col-1 { -webkit-flex: 1; flex: 1; }
+.col-2 { -webkit-flex: 2; flex: 2; }
+.col-3 { -webkit-flex: 3; flex: 3; }
+.col-4 { -webkit-flex: 4; flex: 4; }
+.col-5 { -webkit-flex: 5; flex: 5; }
+.col-6 { -webkit-flex: 6; flex: 6; }
+.col-7 { -webkit-flex: 7; flex: 7; }
+.col-8 { -webkit-flex: 8; flex: 8; }
+.col-9 { -webkit-flex: 9; flex: 9; }
+.col-10 { -webkit-flex: 10;flex: 10; }
+.col-11 { -webkit-flex: 11;flex: 11; }
+.col-12 { -webkit-flex: 12;flex: 12; }
+.bottom-border{ border-bottom: solid 1px #eeeeee; }
+.lh-100 {
+    line-height: 2.5rem !important;
+}
+
+.icon { display: inline-block;  width: 0.75rem; height: 0.75rem; vertical-align: middle; margin: -2px 0px 0 0; padding: 0 5px;  }
+.icon-camera {   background: url("/tradeh5/newWap/base/img/camera.png") no-repeat center center; background-size: contain; idth: 1rem; height: 1rem;}
+.icon-arrow-right { background: url("/tradeh5/newWap/base/img/arrow.png") no-repeat center center; background-size: contain; }
+.icon-question { background: url("/tradeh5/newWap/base/img/question.png") no-repeat center center; background-size: contain; }
+.icon-ok-red { background: url("/tradeh5/newWap/base/img/ok_red.png") no-repeat center center; background-size: contain; }
+.icon-close { background: url("/tradeh5/newWap/base/img/error.png") no-repeat center center; background-size: contain; }
+
+/*  快捷 */
+.icon-shorcut {  border: 1px solid #488bc7; color: #488bc7;}
+/* 网银*/
+.icon-E-bank {   border: 1px solid #ee8837; color: #ee8837;}
+/*  银联通 */
+.icon-union {    border: 1px solid #eb6561; color: #eb6561;}
+.icon-shorcut,
+.icon-E-bank,
+.icon-union {  width: 3.1rem; text-align: center;height: 1rem;line-height: 1rem;border-radius: 0.5rem; font-size: 0.6rem;-webkit-box-sizing: border-box; box-sizing: border-box; }
+
+.union .icon-union ,
+.shorcut .icon-shorcut,
+.E-bank .icon-E-bank { display: inline-block;}
+
+.union .icon-shorcut , .union .icon-E-bank,
+.shorcut .icon-union , .shorcut .icon-E-bank,
+.E-bank .icon-shorcut , .E-bank .icon-union { display: none;}
+
+
+.layer { background-color: #ffffff; height: 100%; width: 100%; position: fixed; top: 0;
+    left:0; overflow: auto; z-index: 999;}
+
+
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@keyframes slideInDown{
+    0%{opacity:0;-webkit-transform:translateY(-2000px);-ms-transform:translateY(-2000px);transform:translateY(-2000px)}
+    100%{-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}}
+.slideInDown{-webkit-animation-name:slideInDown;animation-name:slideInDown}
+
+
+/* S cardManage.html */
+ul.bankcards{
+    list-style: none;
+    overflow: hidden;
+    background-color: #fff;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+}
+.bankcards li{
+    width: 100%;
+    overflow: hidden;
+}
+.bankcards li .li-left{
+    width: 16%;
+    float: left;
+}
+
+.bankcards li .li-right{
+    width: 78%;
+    float: right;
+    position: relative;
+    border-bottom: 1px solid #e7e7e7;
+    text-decoration: none;
+}
+.bankcards li:last-child .li-right{
+    border-bottom: none;
+}
+.bankcards li .li-right .bankname{
+    color: #333;
+    font-weight: bold;
+    margin: 11px 0;
+}
+.bankcards li .li-right .banknum{
+    color: #666;
+    margin: 11px 0;
+}
+.bankcards li .li-right .person{
+    margin-left: 2rem;
+}
+.bankcards li .li-right .arrow {
+    background: transparent url(/tradeh5/newWap/base/img/arrow.png) center center no-repeat;
+    width:15px;
+    height: 25px;
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    margin-top: -12px;
+    background-size: 10px 15px;
+}
+.card-add{
+    margin-top: 1rem;
+    background-color: #fff;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+    text-align: center;
+    padding: 8px;
+    margin-bottom: 1rem;
+    display: block;
+    color: #666;
+    text-decoration: none;
+}
+
+i.bank{ height:30px;background: url(/tradeh5/newWap/base/img/bank_logos.png) no-repeat left center; width:30px; vertical-align:middle; margin-right: 17px;display: inline-block;}
+i.bank.ico_002{ background-position:2px -4px;}
+i.bank.ico_2{ background-position:2px -4px;}
+i.bank.ico_102{ background-position:2px -4px;}
+i.bank.ico_202{ background-position:2px -4px;}
+i.bank.ico_802{ background-position:2px -4px;}
+i.bank.ico_104{ background-position:-31px -4px;}
+i.bank.ico_604{ background-position:-31px -4px;}
+i.bank.ico_005{ background-position:-68px -4px;}
+i.bank.ico_605{ background-position:-68px -4px;}
+i.bank.ico_705{ background-position:-68px -4px;}
+i.bank.ico_006{ background-position:-105px -4px;}
+i.bank.ico_106{ background-position:-105px -4px;}
+i.bank.ico_806{ background-position:-105px -4px;}
+i.bank.ico_007{ background-position:2px -41px;}
+i.bank.ico_607{ background-position:2px -41px;}
+i.bank.ico_008{ background-position:-31px -41px;}
+i.bank.ico_108{ background-position:-31px -41px;}
+i.bank.ico_608{ background-position:-31px -41px;}
+i.bank.ico_808{ background-position:-31px -41px;}
+i.bank.ico_009{ background-position:-68px -41px;}
+i.bank.ico_109{ background-position:-68px -41px;}
+i.bank.ico_609{ background-position:-68px -41px;}
+i.bank.ico8{ background-position:-105px -41px;}
+i.bank.ico_019{ background-position:4px -75px;}
+i.bank.ico_619{ background-position:4px -75px;}
+i.bank.ico_819{ background-position:4px -75px;}
+i.bank.ico10{ background-position:-31px -75px;}
+i.bank.ico_103{ background-position:-68px -75px;}
+i.bank.ico_613,
+i.bank.ico_813{ background-position:-68px -75px;}
+i.bank.ico_014{ background-position:-105px -75px;}
+i.bank.ico_614{ background-position:-105px -75px;}
+i.bank.ico_814{ background-position:-105px -75px;}
+i.bank.ico_011{ background-position:3px -108px;}
+i.bank.ico_112{ background-position:-31px -108px;}
+i.bank.ico_012{ background-position:-31px -108px;}
+i.bank.ico_812{ background-position:-31px -108px;}
+i.bank.ico_018{ background-position:-68px -108px;}
+i.bank.ico_618{ background-position:-68px -108px;}
+i.bank.ico16{ background-position:-105px -108px;}
+i.bank.ico_015{ background-position:2px -141px;}
+i.bank.ico_815{ background-position:2px -141px;}
+i.bank.ico18{ background-position:-31px -143px;}
+i.bank.ico19{ background-position:-68px -141px;}
+i.bank.ico20{ background-position:-105px -141px;}
+i.bank.ico21{ background-position:2px -177px;}
+i.bank.ico22{ background-position:-31px -177px;}
+i.bank.ico23{ background-position:-68px -177px;}
+i.bank.ico24{ background-position:-105px -177px;}
+i.bank.ico25{ background-position:2px -206px;}
+i.bank.ico26{ background-position:-31px -203px;}
+i.bank.ico27{ background-position:-68px -206px;}
+i.bank.ico28{ background-position:-105px -207px;}
+i.bank.ico29{ background-position:2px -238px;}
+i.bank.ico30{ background-position:-33px -235px;}
+i.bank.ico31{ background-position:-68px -235px;}
+i.bank.ico32{ background-position:-105px -236px;}
+i.bank.ico33{ background-position:3px -268px;}
+i.bank.ico34{ background-position:-34px -267px;}
+i.bank.ico35{ background-position:-68px -267px;}
+i.bank.ico36{ background-position:-105px -267px;}
+i.bank.ico37{ background-position:5px -299px;}
+i.bank.ico_003{ background-position:-33px -299px;}
+i.bank.ico_603{ background-position:-33px -299px;}
+i.bank.ico_803{ background-position:-33px -299px;}
+i.bank.ico_110{ background-position:-67px -299px;}
+i.bank.ico_101{ background-position:-106px -299px;}
+i.bank.ico_107{ background-position:5px -336px;}
+i.bank.ico_013{ background-position:-32px -336px;}
+i.bank.ico_621{ background-position:-104px -336px;}
+i.bank.ico_617{ background-position:-32px -142px;}
+i.bank.icons{ background-position:-66px -336px;}
+/* E cardManage.html */
+
+/*弹框1*/
+.Bomb-box{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+.Bomb-box .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+.Bomb-box .Bomb-box-tips{  text-align: center;  color: #333;  font-size: 0.75rem;  min-height: 2.5rem;  line-height: 2.5rem;  }
+.Bomb-box .Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+.Bomb-box .Bomb-box-content p{  line-height: 1rem;  }
+.Bomb-box .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+.Bomb-box .no-tips{font-size: 0.7rem;padding: 1.7rem 1.5rem 1.15rem 1.5rem;text-align: center;}
+.Bomb-box .text-center{text-align: center;}
+
+.footer-tips { padding-bottom:3rem; width: 100%; line-height:3rem; text-align: center; color: #cccccc; opacity: 0;background:red;}
+.footer-tips a{ color: #3295e8; cursor: pointer; font-size: .6rem;}
+.register{
+   width:100%;
+   width:3rem;
+   height:1.25rem;
+   margin:0 auto;
+   text-align: center;
+}
+.register a{
+    width: 3rem;
+    display: block;
+    border: 1px solid red;
+    width: 3rem;
+    height: 1.25rem;
+    line-height: 1.25rem;
+    color: #fc777a;
+    border-radius: 2px;
+    padding: 0 0.3rem;
+    margin: 0 auto;
+    font-size: 0.55rem;
+}
+
+.btn { display: block; width: 100%; height: 2.25rem; font-size: .7rem; line-height: 2.25rem; white-sapce: nowrap; text-align: center; border-radius: 4px; margin-top: 1.1rem; }
+.btn-default { background-color: #cccccc; color: #fff;}
+.btn-pass { background-color: #fb5c5f; color: #fff;}
+
+
+.input-group  {  position: relative; display: table; border-collapse: separate; width: 100%; }
+.input-group .input-group-btn,
+.input-group .input-group-addon { display: table-cell; white-space: nowrap; vertical-align: middle;  padding: .4rem .7rem;  font-weight: 400;  line-height: 1;  color: #555;  text-align: center; width: 1rem; padding: 0; font-size: .7rem; }
+.input-group .input-group-btn {   padding: 0; }
+.input-group-btn button{ outline: none; background: none;  padding: .1rem 0 .1rem .45rem; width: 4rem; border-left: 1px solid #eeeeee; margin-left: .45rem; text-align: right; font-size: .7rem; }
+.input-group .form-control {  display: table-cell;  position: relative;  z-index: 2;  float: left;  margin-bottom: 0;   padding: .7rem 0 .7rem .5rem ;  width: 92%; height: 1.4rem;  line-height: 1.4rem;color: #555; font-size: .7rem;  }
+.input-group .input-group-addon img { width: .75rem;}
+
+.red {color: #fb5c5f !important;}
+.gray { color: #a9a9a9 !important;}

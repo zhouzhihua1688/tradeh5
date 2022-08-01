@@ -1,0 +1,120 @@
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+pre,
+form,
+fieldset,
+legend,
+button,
+input,
+textarea,
+th,
+td {
+    margin: 0;
+    padding: 0
+}
+
+body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, dialog, figure, footer, header, hgroup, nav, section {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+}
+
+body {
+    font: 14px 'Microsoft YaHei', Tahoma, Arial, sans-serif;
+    margin: 0 auto;
+    background-color: #f6f6f6;
+}
+
+html {
+    overflow-y: scroll;
+    -webkit-text-size-adjust: none;
+    -webkit-user-select: none
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%
+}
+
+h3,
+h4,
+h5,
+h6 {
+    font-weight: normal
+}
+
+ul,
+ol {
+    list-style: none
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="email"],
+input[type="tel"],
+textarea {
+    border: none;
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    box-flex: 1;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: rgba(255,0,0,0);
+    line-height: 20px;
+    font-size: 14px;
+    height: 20px;
+    /* padding-top: 5px; */
+    padding-bottom: 5px;
+    padding-left: 5px;
+    color: #999999
+}
+
+input[type="checkbox"]{
+
+}
+
+textarea {
+    padding-bottom: 5px
+}
+
+a{
+    color: #148ce6;
+    text-decoration: none;
+}
+/*2021-03-30添加或首页样式*/
+.go_home {
+    position: fixed;
+    right: .75rem;
+    bottom: 1.25rem;
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    line-height: 3rem;
+    text-align: center;
+    color: #000;
+    font-size: .75rem;
+    background: #fff;
+    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.08);
+    border-radius: 50%;
+    z-index: 200;
+}

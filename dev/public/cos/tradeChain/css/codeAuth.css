@@ -1,0 +1,27 @@
+body {
+    background-color: #fff;
+    text-align: center;
+    font-size: 0.7rem  /* 28/40 */;
+}
+.text1 {
+    margin-top: 5rem;
+}
+.middle-img {
+    margin-top: 1rem;
+}
+.middle-img>img {
+    width: 6.6rem  /* 264/40 */;
+    height: 6.6rem  /* 264/40 */;
+}
+.text2 {
+    margin-top: 2rem;
+}
+.text3 {
+    margin-top: 1rem;
+}
+#change {
+    display: none;
+    position: fixed;
+    width: 100%;
+    bottom: 2rem;
+}

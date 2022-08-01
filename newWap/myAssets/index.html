@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>资产分类</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <script>
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            screenWidth = screenWidth > 640 ? 640 : screenWidth;
+            oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+        }
+    </script>
+</head>
+<body>
+<div class="shadow" style="display: none;"></div>
+<div class="top-select">
+    <div class="title-top">
+        <div class="title-btn">
+            <span>全部</span>
+            <img class="jiantou" src="./img/jiantou.png"></div>
+    </div>
+    <div class="title-select" style="display: none;">
+        <div class="select-btn active">全部</div>
+        <div class="select-btn">现金宝直销</div>
+        <div class="select-btn">第三方平台</div>
+    </div>
+</div>
+<div class="head-title">
+    <div class="title-middle">
+        <div class="text-top">
+            <div class="text1">总资产</div>
+            <div class="change"></div>
+        </div>
+        <div class="text-middle balance">0.00</div>
+        <div class="text-bottom">
+            <div>
+                <span class="bottom-text1 fields0-title">最新收益(--)</span>
+                <span class="bottom-text2 fields0-value">0.00</span>
+            </div>
+            <div>
+                <span class="bottom-text1 fields1-title">累计收益</span>
+                <span class="bottom-text2 fields1-value">0.00</span>
+            </div>
+        </div>
+    </div>
+    <div class="title-bottom">
+        <div></div>
+        <div>
+            <img src="./img/jiantou2.png" class="img" style="margin-top: 0.7rem">
+        </div>
+    </div>
+</div>
+<div class="middle rmb">
+    <div class="middle-title">
+        <div class="on">资产分类</div>
+        <div>资产配置</div>
+    </div>
+    <div class="middle-content classify">
+        <div id="charts_rmb_classify" class="charts"></div>
+        <div>
+            <div class="charts-list"></div>
+        </div>
+    </div>
+    <div class="middle-content setting" style="display: none;">
+        <div id="charts_rmb_setting" class="charts"></div>
+        <div>
+            <div class="charts-list"></div>
+        </div>
+    </div>
+</div>
+<div class="middle dollar" style="display: none;">
+    <div class="middle-title">
+        <div class="on">资产分类</div>
+        <div>资产配置</div>
+    </div>
+    <div class="middle-content classify" style="display: none;">
+        <div id="charts_dollar_classify" class="charts"></div>
+        <div>
+            <div class="charts-list"></div>
+        </div>
+    </div>
+    <div class="middle-content setting" style="display: none;">
+        <div id="charts_dollar_setting" class="charts"></div>
+        <div>
+            <div class="charts-list"></div>
+        </div>
+    </div>
+</div>
+<div class="list rmb classify"></div>
+<div class="list rmb setting" style="display: none;"></div>
+<div class="list dollar classify" style="display: none;"></div>
+<div class="list dollar setting" style="display: none;"></div>
+<div class="page-bottom">
+    <div class="bottom">资产说明<img class="img" src="./img/jiantou3.png"></div>
+</div>
+<script src="./js/jquery-3.2.1.min.js"></script>
+<script src="./js/echart.min.js"></script>
+<script>
+    $(function () {
+        function watcher(obj) {
+            this.$data = obj.data;
+            this.$watch = obj.watch;
+            for (let prop in obj.data) {
+                Object.defineProperty(this, prop, {
+                    get: function () {
+                        return this.$data[prop];
+                    },
+                    set: function (val) {
+                        var oldVal = this.$data[prop];
+                        if (oldVal === val) return val;
+                        this.$data[prop] = val;
+                        this.$watch[prop].call(this, val, oldVal);
+                        return val;
+                    }
+                });
+            }
+        }
+
+        var myWatch = new watcher({
+            data: {
+                assetMode: '',                // 0-现金宝直销 3-第三方平台 空-全部
+                currencyType: 156,            // 156-人民币，840-美元
+                viewType: 0                   // 0-资产分类，1-资产配置
+            },
+            watch: {
+                assetMode: function (newVal, oldVal) {
+                    pageData.init();
+                    myWatch.currencyType = 156;
+                    myWatch.viewType = 0;
+                },
+                currencyType: function (newVal, oldVal) {
+                    var type1 = newVal == 156 ? 'rmb' : 'dollar';
+                    var type2 = myWatch.viewType == 0 ? 'classify' : 'setting';
+                    var tabIndex = myWatch.viewType == 0 ? 0 : 1;
+                    newVal == 156 ? $('.change').removeClass('active') : $('.change').addClass('active');
+                    pageData.printTopData(newVal);
+                    $(`.middle.${type1} .middle-title>div`).removeClass('on');
+                    $(`.middle.${type1} .middle-title>div`).eq(tabIndex).addClass('on');
+                    if (newVal == 156) {
+                        $('.middle.rmb').show();
+                        $('.middle.dollar').hide();
+                    } else {
+                        $('.middle.rmb').hide();
+                        if(myWatch.viewType === 0 &&
+                            pageData.middleData.dollar_classify &&
+                            pageData.middleData.dollar_classify.length === 0){
+                            $('.middle.dollar').hide();
+                        }
+                        else {
+                            $('.middle.dollar').show();
+                        }
+                    }
+                    $('.middle-content').hide();
+                    $(`.middle.${type1} .middle-content.${type2}`).show()
+                    $('.list').hide();
+                    $(`.list.${type1}.${type2}`).show();
+                },
+                viewType: function (newVal, oldVal) {
+                    var type1 = this.currencyType == 156 ? 'rmb' : 'dollar';
+                    var type2 = newVal == 0 ? 'classify' : 'setting';
+                    var index = newVal == 0 ? 0 : 1;
+                    $(`.middle.${type1} .middle-title>div`).removeClass('on');
+                    $(`.middle.${type1} .middle-title>div`).eq(index).addClass('on');
+                    if(newVal === 0 && this.currencyType == 840 &&
+                        pageData.middleData.dollar_classify &&
+                        pageData.middleData.dollar_classify.length === 0){
+                        $('.list').hide();
+                        $(`.list.${type1}.${type2}`).show();
+                        return $('.middle.dollar').hide();
+                    }
+                    $('.list').hide();
+                    $(`.list.${type1}.${type2}`).show();
+                    $('.middle-content').hide();
+                    $(`.middle.${type1} .middle-content.${type2}`).show()
+                }
+            }
+        });
+
+        var pageData = {
+            topData: {},
+            middleData: {},
+            listData: {},
+            init: function () {
+                // 头部总资产请求
+                $.ajax({
+                    url: '/assetcenter/v1/view/total',
+                    data: {
+                        assetMode: myWatch.assetMode
+                    },
+                    success: function (result) {
+                        if (result.returnCode === 0) {
+                            this.topData = result.body;
+                            this.printTopData(myWatch.currencyType);
+                        } else if (result.returnCode === 1000) { // 登录失效
+                            jumpLogin();
+                            console.log('登录过期');
+                        }
+                    }.bind(this)
+                });
+                // 中部选项卡和列表数据请求 ----- 人民币-资产分类
+                $.ajax({
+                    url: '/assetcenter/v1/view/list/summary',
+                    data: {
+                        assetMode: myWatch.assetMode,
+                        currencyType: 156,
+                        viewType: 0
+                    },
+                    success: function (result) {
+                        if (result.returnCode === 0 && result.body instanceof Array) {
+                            this.middleData.rmb_classify = result.body.sort(function (prev, after) {
+                                return prev.classifyCode - after.classifyCode;
+                            });
+                            pageData.printMiddleData('charts_rmb_classify', this.middleData.rmb_classify);
+                            pageData.printListData('.list.rmb.classify', this.middleData.rmb_classify);
+                        } else if (result.returnCode === 1000) {
+                            jumpLogin()
+                            console.log('登录过期');
+                        }
+                    }.bind(this)
+                });
+                // 中部选项卡和列表数据请求 ----- 人民币-资产配置
+                $.ajax({
+                    url: '/assetcenter/v1/view/list/summary',
+                    data: {
+                        assetMode: myWatch.assetMode,
+                        currencyType: 156,
+                        viewType: 1
+                    },
+                    success: function (result) {
+                        if (result.returnCode === 0 && result.body instanceof Array) {
+                            this.middleData.rmb_setting = result.body.sort(function (prev, after) {
+                                return prev.classifyCode - after.classifyCode;
+                            });
+                            pageData.printMiddleData('charts_rmb_setting', this.middleData.rmb_setting);
+                            pageData.printListData('.list.rmb.setting', this.middleData.rmb_setting);
+                        } else if (result.returnCode === 1000) {
+                            jumpLogin();
+                            console.log('登录过期');
+                        }
+                    }.bind(this)
+                });
+                // 中部选项卡和列表数据请求 ----- 美元-资产分类
+                $.ajax({
+                    url: '/assetcenter/v1/view/list/summary',
+                    data: {
+                        assetMode: myWatch.assetMode,
+                        currencyType: 840,
+                        viewType: 0
+                    },
+                    success: function (result) {
+                        if (result.returnCode === 0 && result.body instanceof Array) {
+                            this.middleData.dollar_classify = result.body.sort(function (prev, after) {
+                                return prev.classifyCode - after.classifyCode;
+                            });
+                            pageData.printListData('.list.dollar.classify', this.middleData.dollar_classify);
+                            if(result.body.length === 0){
+                                return $('#charts_dollar_classify').parent().parent().hide();
+                            }
+                            pageData.printMiddleData('charts_dollar_classify', this.middleData.dollar_classify);
+                        } else if (result.returnCode === 1000) {
+                            jumpLogin();
+                            console.log('登录过期');
+                        }
+                    }.bind(this)
+                });
+                // 中部选项卡和列表数据请求 ----- 美元-资产配置
+                $.ajax({
+                    url: '/assetcenter/v1/view/list/summary',
+                    data: {
+                        assetMode: myWatch.assetMode,
+                        currencyType: 840,
+                        viewType: 1
+                    },
+                    success: function (result) {
+                        if (result.returnCode === 0 && result.body instanceof Array) {
+                            this.middleData.dollar_setting = result.body.sort(function (prev, after) {
+                                return prev.classifyCode - after.classifyCode;
+                            });
+                            pageData.printMiddleData('charts_dollar_setting', this.middleData.dollar_setting);
+                            pageData.printListData('.list.dollar.setting', this.middleData.dollar_setting);
+                        } else if (result.returnCode === 1000) {
+                            jumpLogin();
+                            console.log('登录过期');
+                        }
+                    }.bind(this)
+                });
+            },
+            printTopData: function (currencyType) {
+                if (currencyType == 156) {
+                    $('.balance').text(this.topData.rmbBalance);
+                    $('.fields0-title').text(this.topData.rmbFields[0].title);
+                    $('.fields0-value').text(this.topData.rmbFields[0].value);
+                    $('.fields1-title').text(this.topData.rmbFields[1].title);
+                    $('.fields1-value').text(this.topData.rmbFields[1].value);
+                    if (this.topData.rmbOnwayCnt != '0') { // 人民币在途交易数
+                        $('.title-bottom>div:first-child').html('<i class="dot"></i><span class="text-red">' + this.topData.rmbOnwayCnt + '</span><span>笔交易确认中</span>');
+                    } else {
+                        $('.title-bottom>div:first-child').html('<i class="dot"></i><span>交易查询</span>');
+                    }
+                } else {
+                    $('.balance').text(this.topData.dollarBalance);
+                    $('.fields0-title').text(this.topData.dollarFields[0].title);
+                    $('.fields0-value').text(this.topData.dollarFields[0].value);
+                    $('.fields1-title').text(this.topData.dollarFields[1].title);
+                    $('.fields1-value').text(this.topData.dollarFields[1].value);
+                    if (this.topData.dollarOnwayCnt != '0') { // 美元在途交易数
+                        $('.title-bottom>div:first-child').html('<i class="dot"></i><span class="text-red">' + this.topData.dollarOnwayCnt + '</span><span>笔交易确认中</span>');
+                    } else {
+                        $('.title-bottom>div:first-child').html('<i class="dot"></i><span>交易查询</span>');
+                    }
+                }
+            },
+            printMiddleData(chartsId, body) {
+                if(body.length === 0){
+                    return;
+                }
+                var blankBody = body;
+                if (body.filter(function (item) {
+                    return item.percent === '0.00%'
+                }).length === body.length) { // 所有的资产均为0
+                    blankBody = [{
+                        name: '',
+                        value: 100,
+                        percent: '100%',
+                        color: '#EEEEEE'
+                    }];
+                }
+                this.printEcharts(chartsId, blankBody);
+                this.printEchartsLegend(chartsId, body);
+            },
+            printListData: function (className, body) {
+                var str = '';
+                if (body.length === 0) {
+                    str += '<div class="no-fund">' +
+                               '<img src="./img/no_asset.png">' +
+                               '<div>暂无美元资产</div>' +
+                           '</div>';
+                } else {
+                    body.forEach(function (item) {
+                        console.log(item);
+                        if(!(item.classifyCode=='05')){
+                            str += '<div class="list-item">' +
+                            '        <div class="list-title" data-codetp="'+item.classifyCode+'">' +
+                            '            <div class="title-left">' +
+                            '                <img src="' + item.classifyIcon + '">' + item.classifyName +
+                            '            </div>' ;
+                            if(item.viewType=='0'){
+                                str+='            <div class="title-right">' +
+                            '                <img src="./img/jiantou2.png" class="img">' +
+                            '            </div>' ;
+                            }
+                            str+='        </div>' +
+                            '        <div class="content">' +
+                            '            <div class="content-item">' +
+                            '                <div class="item-left">' +
+                            '                    <div class="text1">' + item.fields[0].title + '</div>' +
+                            '                    <div class="text2" style="color: ' + item.fields[0].color + '">' + item.fields[0].value + '</div>' +
+                            '                </div>' +
+                            '                <div class="item-right">' +
+                            '                    <div class="text1">' + item.fields[1].title + '</div>' +
+                            '                    <div class="text2" style="color: ' + item.fields[1].color + '">' + item.fields[1].value + '</div>' +
+                            '                </div>' +
+                            '            </div>' +
+                            '            <div class="content-item">' +
+                            '                <div class="item-left">' +
+                            '                    <div class="text1">' + item.fields[2].title + '</div>' +
+                            '                    <div class="text2" style="color: ' + item.fields[2].color + '">' + item.fields[2].value + '</div>' +
+                            '                </div>' +
+                            '                <div class="item-right">' +
+                            '                    <div class="text1">' + item.fields[3].title + '</div>' +
+                            '                    <div class="text2" style="color: ' + item.fields[3].color + '">' + item.fields[3].value + '</div>' +
+                            '                </div>' +
+                            '            </div>' +
+                            '        </div>' +
+                            '    </div>';
+                        }
+                        
+                    });
+                }
+                $(className).html(str);
+            },
+            printEcharts: function (echartsId, echartsData) {
+                var myChart = echarts.init(document.getElementById(echartsId));
+                var option = {
+                    color: echartsData.map(function (item) {
+                        return item.color
+                    }),
+                    animationDuration: 0,
+                    series: [{
+                        name: 'charts',
+                        type: 'pie',
+                        silent: true,
+                        hoverOffset: 2,
+                        radius: ['40%', '70%'],
+                        label: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        data: echartsData.map(function (item) {
+                            return {
+                                name: item.classifyName,
+                                value: item.percent.replace(/%/g, '')
+                            };
+                        })
+                    }]
+                };
+                myChart.setOption(option);
+            },
+            printEchartsLegend: function (domId, legendData) {
+                var str = '';
+                legendData.forEach(function (item) {
+                    str += '<div class="list-item">' +
+                               '<i style="background-color:' + item.color + ';"></i>' +
+                               '<span class="type">' + item.classifyName + '</span>占比' +
+                               '<span>' + item.percent + '</span>' +
+                           '</div>';
+                });
+                $('#' + domId).next().find('.charts-list').html(str);
+                $('#' + domId).next().find('.charts-list .list-item:first-child').css('marginTop', ((140 - 20 * legendData.length) / 40) + 'rem');
+            }
+        };
+
+
+        // 头部现金宝，第三方直销的展示事件
+        $('.title-btn').on('click', function () {
+            if ($('.title-select').is(":hidden")) {
+                $('.title-select').show();
+                $('.shadow').show();
+            } else {
+                $('.title-select').hide();
+                $('.shadow').hide();
+            }
+        });
+        // 现金宝,第三方直销,全部的切换事件
+        $('.select-btn').on('click', function () {
+            var currentText = $(this).text();
+            if (currentText === '全部') {
+                myWatch.assetMode = '';
+            }
+            if (currentText === '现金宝直销') {
+                myWatch.assetMode = '0';
+            }
+            if (currentText === '第三方平台') {
+                myWatch.assetMode = '3';
+            }
+            $('.select-btn').removeClass('active');
+            $(this).addClass('active');
+            $('.title-btn>span').text(currentText);
+            $('.title-select').hide();
+            $('.shadow').hide();
+        });
+        // 资产人民币和美元切换事件
+        $('.change').on('click', function () {
+            myWatch.currencyType = myWatch.currencyType === 156 ? 840 : 156;
+        });
+        // 中间卡片切换
+        $('.middle-title>div').on('click', function () {
+            myWatch.viewType = myWatch.viewType === 0 ? 1 : 0;
+        });
+        // 跳转资产详情
+        $(document).on('click','.list-title',function(){
+            var codeTp=$(this).attr('data-codetp');
+            switch(codeTp){
+                case '01':
+                    window.location.href='asset.html?index=0';
+                    break;
+                case '02':
+                    window.location.href='asset.html?index=1';
+                    break; 
+                case '03':
+                    window.location.href='asset.html?index=2';
+                    break; 
+                case '04':
+                    window.location.href='asset.html?index=3';
+                    break;          
+            }
+        })
+        // 交易查询跳转
+        $(document).on('click','.title-bottom',function(){
+            // var type=$(this).attr('data-type');
+            window.location.href='/mobileEC/wap/trade/tradeList.html';
+        })
+        // 资产证明
+        $('.page-bottom').click(function(){
+            window.location.href='https://static.99fund.com/mobile/app_inner/rules/assetPorfitIllustration.html'
+        })
+        // 跳转登陆
+        function jumpLogin(){
+            window.location.href="/mobileEC/wap/login/login.html?referUrl=/tradeh5/newWap/myAssets/index.html"
+        }
+        pageData.init();
+    });
+</script>
+</body>
+</html>

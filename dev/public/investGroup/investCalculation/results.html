@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!--<meta charset="gbk">-->
+    <title></title>
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <!-- <script type="text/javascript" src="js/common.js?20210302"></script> -->
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+        document.title = "\u200E";
+    </script>
+    <style>
+        html,
+        body {
+            background: #f6f6f6;
+            overflow-x: hidden;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .header {
+            width: 100%;
+            height: 7rem;
+            background: url('./img/results/bg.png') no-repeat no-repeat;
+            background-size: 100% 100%;
+            color: #e7b665;
+            padding-left: .75rem;
+            line-height: 1;
+        }
+
+        .header h2 {
+            font-weight: normal;
+            font-size: 1rem;
+            padding-top: 1.5rem;
+        }
+
+        .header p {
+            font-size: .75rem;
+            margin-top: .75rem;
+        }
+        .container{
+            margin: -2rem .75rem 1rem .75rem;
+            background-color: #fff;
+            border-radius: .15rem;
+        }
+        .container  .invest-card img{
+            display: inline-block;
+        }
+        .container  .invest-card {
+            position: relative;
+            padding: .65rem .75rem;
+            background: url('./img/results/card.png') no-repeat;
+            background-size: 100% 100%;
+            border-radius: .15rem;
+        }
+        .container  .invest-card .info-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #5f3601;
+            font-size: 0;
+        }
+
+        .container  .invest-card .info-title-l {
+            font-size: .8rem;
+            font-weight: bold;
+        }
+
+        .container  .invest-card .info-title-r {
+            font-size: .7rem;
+            color: #5f3601;
+        }
+
+        .container  .invest-card .info-title-r img {
+            width: .4rem;
+            vertical-align: middle;
+            margin-left: .25rem;
+            margin-top: -3px;
+        }
+
+        .container  .invest-card .info-tip {
+            padding-top: .25rem;
+            color: #fb5c5f;
+            font-size: .6rem;
+        }
+
+        .container  .invest-card .info-tip span {
+            padding: 0 .25rem;
+            border: 1px #fb5c5f solid;
+            border-radius: 3px;
+            margin-right: .25rem;
+        }
+
+        .container  .invest-card .info-detail {
+            margin-top: .75rem;
+        }
+
+        .container  .invest-card .info-detail .info-detail-t {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            line-height: 1.2rem;
+        }
+
+        .invest-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: .75rem 0;
+        }
+
+        .text-l {
+            text-align: left;
+        }
+
+        .text-c {
+            text-align: center;
+        }
+
+        .text-r {
+            text-align: right;
+        }
+
+        .invest-section>div p:nth-of-type(1) {
+            font-size: .8rem;
+            line-height: 1;
+            color: #5f3601;
+        }
+
+        .invest-section>div p:nth-of-type(2) {
+            font-size: .6rem;
+            line-height: 1;
+            color: #ac926d;
+            margin-top: .5rem;
+        }
+
+        /* .invest-section .section-l p:nth-of-type(1) {
+            color: #f4333c;
+            font-size: 1rem;
+        } */
+
+        .invest-section .section-l p:nth-of-type(1) span {
+            font-size: .7rem;
+        }
+
+        .container  .invest-card .info-desc {
+            display: flex;
+            align-items: center;
+            /* margin-top: .7rem; */
+            padding: .45rem .5rem;
+            background-image: linear-gradient(to right, rgba(245, 211, 161, 1) 0%, rgba(245, 211, 161, .8) 25%, rgba(245, 211, 161, .6) 50%, rgba(245, 211, 161, .4) 75%, rgba(255, 255, 255, 0) 100%);
+            background-image: -webkit-linear-gradient(to right, rgba(245, 211, 161, 1) 0%, rgba(245, 211, 161, .8) 25%, rgba(245, 211, 161, .6) 50%, rgba(245, 211, 161, .4) 75%, rgba(255, 255, 255, 0) 100%);
+            border-radius: .15rem;
+            font-size: 0;
+        }
+
+        .container  .invest-card .info-desc img {
+            width: .9rem;
+            height: .9rem;
+            margin-right: .25rem;
+            vertical-align: middle;
+        }
+        .container  .invest-card .info-desc span {
+            color: #5f3601;
+            font-size: .65rem;
+            vertical-align: middle;
+        }
+        .container .opreat-list{
+
+        }
+        .container .opreat-list .title{
+            padding: 1rem .75rem .5rem .75rem;
+            line-height: 1;
+
+        }
+        .container .opreat-list .title h4{
+            font-size: .8rem;
+            /* font-weight: normal; */
+            color: #000;
+        }
+        .container .opreat-list .title p{
+            font-size: .6rem;
+            color: #666;
+            margin-top: .5rem;
+        }
+        .container .opreat-list .title img{
+            width: .7rem;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 .125rem;
+            margin-top: -3px;
+        }
+        .info-list{
+            padding-left: .75rem;
+        }
+        .info-list .create{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: .75rem 0;
+            padding-left: 1.35rem;
+            border-bottom: 1px #eee solid;
+        }
+        .info-list .create .content,.info-list .created .content{
+            line-height: 1;
+        }
+        .info-list .create .content p:nth-child(1),.info-list .created .content p:nth-child(1){
+            font-size: .75rem;
+            color: #000;
+        }
+        .info-list .create .content p:nth-child(2),.info-list .created .content p:nth-child(2){
+            font-size: .6rem;
+            color: #666;
+            margin-top: .5rem;
+        }
+        .info-list .create img{
+            width: .4rem;
+            margin-right: .75rem;
+        }
+        .info-list .created{
+            display: flex;
+            padding: .75rem 0;
+            /* padding-left: 1.25rem; */
+            border-bottom: 1px #eee solid;
+        }
+        .info-list .created img{
+            width: .95rem;
+            height: .95rem;
+            margin-right: .35rem;
+        }
+        .plan-list{
+            display: flex;
+            padding: .75rem 0;
+            padding-right: .75rem;
+            border-bottom: 1px #eee solid;
+        }
+        .plan-list .plan-icon{
+            width: .95rem;
+            height: .95rem;
+            margin-right: .5rem;
+        }
+        .plan-list .content{
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .plan-list .content .contents{
+            flex: 1;
+            padding-right: .75rem;
+        }
+        .plan-list .content .contents p:nth-of-type(1){
+            font-size: .75rem;
+            color: #000;
+            line-height: 1;
+        }
+        .plan-list .content .contents p:nth-of-type(2){
+            font-size: .6rem;
+            color: #666;
+            line-height: 1.5;
+            margin-top: .35rem;
+        }
+        .plan-list .content img{
+            width: .4rem;
+        }
+        .tips{
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            margin: auto;
+            padding: .75rem 1rem;
+            line-height: 1;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            font-size: .7rem;
+            border-radius: .25rem;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="header">
+            <h2>你的投顾方案已生成</h2>
+            <p>为达成生活中的目标,推荐以下策略</p>
+        </div>
+        <div class="container">
+            <div class="invest-card">
+                <div class="info-title">
+                    <h4 class="info-title-l">{{productName}}</h4>
+                    <a href="javascript:;" class="info-title-r" @click="gotoDetailsPage(productId)">详情<img src="./img/results/icons_arrow.png"></a>
+                </div>
+                <div class="info-tip">
+                    <span v-for="(labItem,labIndex) in cardContext.label">{{labItem}}</span>
+                </div>
+                <div class="invest-section">
+                    <div class="section-l text-l">
+                        <p>{{cardContext.investTarget}}</p>
+                        <p>投资目标</p>
+                    </div>
+                    <div class="section-c text-c">
+                        <p>{{cardContext.assetPostion}}</p>
+                        <p class="flex-row">{{cardContext.title2}}</p>
+                    </div>
+                    <div class="section-r text-r">
+                        <p>{{cardContext.RecommendedHoldingTime}}</p>
+                        <p>建议持有</p>
+                    </div>
+                </div>
+                <div class="info-desc">
+                    <img src="./img/results/icons_02.png" alt="">
+                    <span>{{cardContext.desc}}</span>
+                </div>
+            </div>
+            <div class="opreat-list">
+                <div class="title">
+                    <h4>操作指引</h4>
+                    <!-- <p>可点击<img src="./img/results/icon01.png" alt="">标记为已完成，点击<img src="./img/results/icon02.png" alt="">可标记为未完成</p> -->
+                </div>
+                <div class="info-list">
+                    <!-- 未创建 -->
+                    <div class="create" v-if="!hasAcct" @click="createAcct">
+                        <div class="content">
+                            <p>创建管理这笔钱的投顾专用账户</p>
+                            <p>专用账户，资金管理更清晰</p>
+                        </div>
+                        <img src="./img/icon_02.png" alt="">
+                    </div>
+                    <!-- 已创建 -->
+                    <div class="created" v-if="hasAcct">
+                        <img src="./img/results/icon2.png" alt="" @click="createdAcct">
+                        <div class="content">
+                            <p>现金管理专用账户</p>
+                            <p>已完成账户创建</p>
+                        </div>
+                    </div>
+                    <!-- 计划列表 -->
+                    <div class="plan-list" v-if="planInfos.planDetails.length>0" v-for="(item,index) in planInfos.planDetails">
+                        <!-- <img :src="item.flag?'./img/results/icon2.png':'./img/results/icon1.png'" alt="" class="plan-icon" @click="revertFlag(index)"> -->
+                        <img src="./img/results/icon1.png" alt="" class="plan-icon" >
+                        <div class="content" @click="jumpPage(item)">
+                            <template v-if="item.investType==1">
+                                <div class="contents" >
+                                    <p>一次性投入{{item.initPurchaseAmt|formatMoney}}元【{{item.productName}}】</p>
+                                    <!-- <p>现金宝平台买入{{item.productName}}可享投顾费率0.1折优惠</p> -->
+                                    <p>现金宝平台买入{{item.productName}}可享交易费率优惠（本公司基金申购费0折）</p>
+                                </div>
+                            </template>
+                            <template v-else>
+                                <div class="contents" >
+                                    <p>设置每月定投{{item.mipBaseAmt|formatMoney}}元【{{item.productName}}】</p>
+                                    <p>设置好定投金额和时间，系统将会自动执行，省心省力</p>
+                                </div>
+                            </template>
+                            
+                            <!-- <img src="./img/icon_02.png" alt="" v-show ="!item.flag"> -->
+                            <img src="./img/icon_02.png" alt="" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tips" v-show="isShowTips">{{tipsInfo}}</div>
+    </div>
+</body>
+<script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script>
+<!-- <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.0/vue.js"></script> -->
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                // 计划详情信息
+                planInfos: {},
+                productId: '',
+                productName: '',
+                // 是否已创建账户
+                hasAcct:false,
+                planSerialNo:'',
+                isShowTips:false,
+                tipsInfo:'',
+                // 产品信息列表
+                contentList: [
+                    // groups的第一个都是管理型M第二个都是G一般型
+                    {
+                        groups: ['A6101', 'A6109'],
+                        investTarget: '现金管理',
+                        title2: '债券资产占比',
+                        assetPostion: '0-60%',
+                        targetYearYield: '2.5%-3.5%',
+                        targetRetreat: '0.5%',
+                        RecommendedHoldingTime: '1个月以上',
+                        desc: '优质货币基金结合债券基金的配置策略，力争获得相比货币基金同期回报较高的超额收益水平。',
+                        label: ['低风险(R1)', '闲钱管理', '短期理财']
+                    },
+                    {
+                        groups: ['A6102', 'A6110'],
+                        investTarget: '理财升级',
+                        title2: '权益资产占比',
+                        assetPostion: '13%-23%',
+                        targetYearYield: '7%-9%',
+                        targetRetreat: '5%',
+                        RecommendedHoldingTime: '6个月以上',
+                        desc: '以债券基金主，适度配置混合类及权益类基金，力争获得稳健收益。',
+                        label: ['中低风险(R2)', '精选债基', '追求稳健']
+                    },
+                    {
+                        groups: ['A6103', 'A6111'],
+                        investTarget: '追求高收益',
+                        title2: '权益资产占比',
+                        assetPostion: '90%-98%',
+                        targetYearYield: '18%-25%',
+                        targetRetreat: '25%',
+                        RecommendedHoldingTime: '2年以上',
+                        desc: '精选优秀基金经理和基金产品，运用均衡配置理念，力争获得长期稳健的权益投资回报。',
+                        label: ['中风险(R3)', '精选权益', '长期投资']
+                    },
+                    {
+                        groups: ['A6104', 'A6112'],
+                        investTarget: '低波稳健',
+                        title2: '权益资产占比',
+                        assetPostion: '13%-23%',
+                        targetYearYield: '7%-9%',
+                        targetRetreat: '5%',
+                        RecommendedHoldingTime: '长期持有',
+                        desc: '以债券基金主，适度配置混合类及权益类基金，力争获得稳健收益。',
+                        label: ['中风险(R3)', '教育主题', '长期投资']
+                    },
+                    {
+                        groups: ['A6105', 'A6113'],
+                        investTarget: '稳健增长',
+                        title2: '权益资产占比',
+                        assetPostion: '28%-38%',
+                        targetYearYield: '10%-14%',
+                        targetRetreat: '10%',
+                        RecommendedHoldingTime: '长期持有',
+                        desc: '精选优质基金达到风险收益的优化平衡，实现基金资产的长期增值。',
+                        label: ['中低风险(R2)', '养老主题', '45岁以上']
+                    },
+                    {
+                        groups: ['A6106', 'A6114'],
+                        investTarget: '稳健增长',
+                        title2: '权益资产占比',
+                        assetPostion: '53%-63%',
+                        targetYearYield: '12%-18%',
+                        targetRetreat: '12%',
+                        RecommendedHoldingTime: '长期持有',
+                        desc: '精选优质基金达到风险收益的优化平衡，实现基金资产的长期增值。',
+                        label: ['中风险(R3)', '养老主题', '35-45岁']
+                    },
+                    {
+                        groups: ['A6107', 'A6115'],
+                        investTarget: '稳健增长',
+                        title2: '权益资产占比',
+                        assetPostion: '68%-78%',
+                        targetYearYield: '15%-20%',
+                        targetRetreat: '18%',
+                        RecommendedHoldingTime: '长期持有',
+                        desc: '精选优质基金达到风险收益的优化平衡，实现基金资产的长期增值。',
+                        label: ['中风险(R3)', '养老主题', '35岁以下']
+                    },
+                    {
+                        groups: ['A6108', 'A6116'],
+                        investTarget: '理财升级',
+                        title2: '权益资产占比',
+                        assetPostion: '13%-23%',
+                        targetYearYield: '7%-9%',
+                        targetRetreat: '5%',
+                        RecommendedHoldingTime: '6个月以上',
+                        desc: '以债券基金为主，适度配置混合类及权益类基金，力争获得稳健收益。',
+                        label: ['中低风险(R2)', '精选债基', '追求稳健']
+
+                    },
+                ],
+            }
+        },
+        created() {
+            this.planSerialNo = utils.getUrlParam('planSerialNo');
+            this.getPlanInfo(this.planSerialNo);
+        },
+        computed: {
+            cardContext() {
+                if (this.productId) {
+                    let contentObj = this.contentList.find((item) => {
+                        return item.groups.includes(this.productId);
+                    })
+                    return contentObj ? contentObj : {
+                        targetYearYield: 'x%-xx%',
+                        targetRetreat: 'xxx%',
+                        RecommendedHoldingTime: '',
+                        desc: '',
+                        label: []
+                    };
+                } else {
+                    return {}
+                }
+
+            },
+        },
+        methods: {
+            getPlanInfo(planSerialNo) {
+                utils.ajax({
+                    url: '/ias/v1/plans/plan?planSerialNo=' + planSerialNo,
+                    success: function (result) {
+                        this.planInfos = result.body;
+                        this.planInfos.planDetails.forEach((item)=>{
+                            item.flag = false;
+                        });
+                        this.planInfos.rcmdProducts && (this.productId = Object.keys(this.planInfos
+                            .rcmdProducts)[0]);
+                        this.planInfos.rcmdProducts && this.productId && (this.productName = this
+                            .planInfos.rcmdProducts[this.productId]);
+                        if(this.planInfos.arAcct){
+                            this.hasAcct = true;
+                        }
+                    }.bind(this)
+                })
+            },
+            gotoDetailsPage(groupId) {
+                if (isApp()) {
+                    window.location.href = "htffundxjb://action?type=adviserService&subType=detail&groupId=" +
+                        groupId;
+                } else {
+                    window.location.href = "/mobileEC/adviser/investGroupDetails.html?groupId=" + groupId;
+                }
+            },
+            // 创建账户
+            createAcct(){
+                window.location.href = "htffundxjb://action?type=adviserService&subType=createAccount&planSerialNo=" + this.planSerialNo;
+            },
+            // 已创建账户
+            createdAcct(){
+                this.tipsBox('该项不支持修改');
+            },
+            // 提示窗
+            tipsBox(tipsInfo){
+                console.log(tipsInfo);
+                if(this.isShowTips){
+                    return;
+                }
+                this.tipsInfo = tipsInfo;
+                this.isShowTips = true;
+                setTimeout(()=>{
+                    this.isShowTips = false;
+                },1000)
+            },
+            // 标注
+            revertFlag(index){
+                this.$set(this.planInfos.planDetails[index], 'flag', !this.planInfos.planDetails[index].flag);
+                this.$forceUpdate();
+                if(this.planInfos.planDetails[index].flag === false){
+                    this.tipsBox('已标记为“待完成”');
+                }else{
+                    this.tipsBox('已标记为“完成”');
+                }
+                
+            },
+            jumpPage(item){
+                let type = item.investType;
+                // if(item.flag){
+                //     return;
+                // }
+                if(!this.hasAcct){
+                    this.tipsBox('请创建账户');
+                    return ;
+                }
+                // 一次性买入1，定投2
+                if(type==1){
+                    window.location.href=`htffundxjb://action?type=adviserService&subType=purchase&groupId=${item.productId}&arAcct=${this.planInfos.arAcct}&arAcctName=${encodeURI(encodeURI(this.planInfos.arAcctName))} `;
+                }else{
+                    window.location.href=`htffundxjb://action?type=adviserService&subType=mip&groupId=${item.productId}&arAcct=${this.planInfos.arAcct}&arAcctName=${encodeURI(encodeURI(this.planInfos.arAcctName))} `;
+                }
+            }
+        },
+        filters:{
+            formatMoney(val){
+                if(val){
+                    val = Number(val).toFixed(2);
+                    val = val.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                }
+                return val;
+            }
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>投资频道</title>
+    <style>
+        html {
+            font-size: calc(100vw/3.75);
+            background-color: #f6f6f6;
+        }
+    </style>
+    <link rel="stylesheet" href="css/base_touzi.css">
+    <link rel="stylesheet" href="css/index_touzi.css">
+    <script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/zepto.min.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/basic.js"></script>
+</head>
+
+<body>
+<header>
+    <div class="left">
+        <img src="img/icon_touzi.png" alt="">
+        <div>
+            <h2>添富智投</h2>
+            <p>定制专属投顾方案</p>
+        </div>
+    </div>
+    <span class="btn" id="details">了解详情</span>
+</header>
+<section>
+    指数宝
+</section>
+<ul id="list">
+
+</ul>
+
+<script>
+
+
+    var groupList = WAP.getUrlParam("groupList");
+    if(groupList != undefined && groupList != null && groupList != ""){
+        if(groupList.indexOf(",")){
+            groupList = groupList.split(",");
+            for(var i = 0;i<groupList.length;i++ ){
+                if(groupList[i] != ""){
+                    fundGroupDetails(groupList[i]);
+                }
+            }
+        }else{
+            fundGroupDetails(groupList);
+        }
+    }
+
+
+    $(function () {
+        $("#details").click(function () {
+            window.location.href = "htffundxjb://action?type=fundGroup&subType=asr";
+        });
+    });
+    function jump(obj) {
+        window.location.href = "htffundxjb://action?type=fundGroup&subType=fgd&groupId="+$(obj).attr("data");
+    }
+    numberFormat: function numberFormat(s){
+        s = String(s);
+        var h='';
+        if(s.charAt(0)=='-'){
+            h='-';
+            s=s.slice(1);
+        }
+        if(/[^0-9\.]/.test(s)) return "invalid value";
+        s=s.replace(/^(\d*)$/,"$1.");
+        s=(s+"00").replace(/(\d*\.\d\d)\d*/,"$1");
+        s=s.replace(".",",");
+        var re=/(\d)(\d{3},)/;
+        while(re.test(s))
+            s=s.replace(re,"$1,$2");
+        s=s.replace(/,(\d\d)$/,".$1");
+        return h + s.replace(/^\./,"0.");
+    }
+    var str = ""
+    function fundGroupDetails (groupId) {
+        $.get("/mobile-bff/v1/fund-group/detailInfo?groupId=" + groupId, null, function(resultStr) {
+			var result = typeof resultStr === 'string' ? JSON.parse(resultStr) : resultStr;
+            if(result.body != undefined && result.body != null) {
+                var detailInfo = result.body;
+                if (detailInfo != undefined && detailInfo != null) {
+                    groupId = detailInfo.groupid;
+                    groupname= detailInfo.groupname;
+                    advise = detailInfo.fundgroupAdvise;
+                    oneMonthProfit = detailInfo.oneMonthProfit+"%";
+                    dayYield = numberFormat(detailInfo.dayYield)+"%";
+                    dayYieldDt = detailInfo.dayYieldDt.substr(5);
+                    var cls1 = ""; var cls2 = "";
+                    if(numberFormat(detailInfo.dayYield) >= 0){
+                        cls1 = "red";
+                    }else{
+                        cls1 = "green";
+                    }
+                    if(detailInfo.oneMonthProfit >= 0){
+                        cls2 = "red";
+                    }else {
+                        cls2 = "green";
+                    }
+                    str = '<li>';
+                    if(groupname){
+                        str += '<h2 class="title">'+groupname+'</h2>';
+                    }
+                    if(advise){
+                        str += '<h3 class="subtitle">'+advise+'</h3>';
+                    }
+                    if(oneMonthProfit){
+                        str += '<div class="content"><div><p class="'+cls2+'">'+oneMonthProfit+'</p>';
+                    }
+                    if(dayYield){
+                        str += '<p>近一月收益率</p></div>' +
+                        '<div><p class="'+cls1+'">'+dayYield+'</p>';
+                    }
+                    if(dayYieldDt){
+                        str += '<p>日涨跌幅(<span class="font-arial">'+dayYieldDt+'</span>)</p>' +
+                        '</div>'
+                    }
+                    if(groupId){
+                        str +='<span class="btn" onclick="jump(this)" data = "'+groupId+'">立即购买</span>' +
+                        '</div>' +
+                        '</li>';
+                    }
+                    $("#list").append(str);
+                }
+            }
+        });
+
+    }
+
+
+</script>
+</body>
+
+</html>

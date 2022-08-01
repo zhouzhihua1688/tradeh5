@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--<meta charset="GBK">-->
+    <meta charset="utf8">
+    <title>组合调整</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/base.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+      body,html{background: #f6f6f6;}
+      body {left: 0%; right: 0%;font:14px 'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+      button { outline: none;  }
+      /* 图片自适应 */
+      img {
+          width: 100%;
+          height: auto;
+          width: auto\9; /* ie8 */
+          -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/
+          border: none;
+          vertical-align: top;
+          outline: none;
+          display: block;
+        }
+      p { word-wrap: break-word; text-align: justify; }
+      table { width: 100%;border-collapse:collapse; }
+      .main{width:100%;height:100%;background:#fff;overflow-x:hidden}
+      .pianli{width:100%;height:2.5rem; font-size:0.7rem;text-indent:0.75rem;line-height:2.5rem;vertical-align: middle;
+        border: 1px solid #eee;
+      }
+      .pianli img{width:0.7rem;height:0.7rem;display: inline-block;vertical-align: middle;text-align:center;margin-left:0.5rem;margin-top:-0.1rem}
+      .peizhi{color:#000;font-size:0.7rem;margin-left:0.75rem;font-weight: 400;padding:0.7rem 0 0 0;}
+      .jiaoyi{color:#666;font-size: 0.6rem;padding:0.7rem 0.75rem;line-height:1rem;text-align: justify}
+      .biaoti{width:100%;height:1.75rem;border-top:1px solid #eee;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items: center;}
+      .biaoti div{width:22%;height:1.75rem;line-height:1.75rem;color:#666;font-size:0.6rem;text-align:right;}
+      .biaoti div:nth-of-type(1){width:50%;text-align: left;text-indent:0.75rem}
+      .biaoti div:nth-of-type(3){margin-right:0.75rem;}
+      .fundList{width:100%;height:2.5rem;display:flex;justify-content:space-between;align-items: center;border-bottom:1px solid #eee;}
+      .fundList div{width:22%;height:2.5rem;line-height:2.5rem;color:#000;font-size:0.7rem;text-align:right;}
+      .fundList div:nth-of-type(1){width:50%;text-align: left;text-indent:0.75rem}
+      .fundList div:nth-of-type(3){margin-right:0.75rem;}
+      .tiaocang{width:100%;height:2.25rem;display:flex;justify-content:space-between;align-items: center;border-bottom:1px solid #eee;}
+      .tiaocang div{width:10%;height:2.25rem;line-height:2.25rem;text-align:center;font-size:0.75rem;}
+      .tiaocang div:nth-of-type(1){width:85%;text-align: left;text-indent:0.75rem;color:#343434;}
+      .tiaocang img{width:0.4rem;height:0.75rem;margin-right:0.75rem;}
+      .lastText{width:100%;padding:1rem 0rem;}
+      .lastText p{color:#666666;font-size:0.6rem;text-align: justify;
+        margin-right:0.75rem;line-height: 0.9rem;padding:0rem 0rem 0rem 0.75rem;}
+      .fund-chart {background: #fff; border-bottom: 1px solid #eee; 
+        padding:0rem 0rem 1.5rem 0; 
+      }
+      .btn-bottom {
+          width: 100%;
+          display: table;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          font-size: .85rem;
+      }
+      .btn-bottom .btn {
+        padding: 0;
+       }
+    .btn {
+        display: inline-block;
+        *display: inline;
+        zoom: 1;
+        line-height: normal;
+        white-space: nowrap;
+        vertical-align: baseline;
+        text-align: center;
+        cursor: pointer;
+        -webkit-user-drag: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        width: 100%;
+        font-family: inherit;
+        font-size: 100%;
+        *font-size: 90%;
+        *overflow: visible;
+        padding: 0.8em 0;
+        color: #fff;
+        border: 1px solid #999;
+        border: none rgba(0, 0, 0, 0);
+        text-decoration: none;
+    }
+      .btn-light {
+        background-color: #fe7e01;
+        height: 2.5rem;
+        line-height: 2.5rem;
+        font-size: .85rem;
+    }
+    .zhuti{width:50%;margin:0 auto;margin-top:0.5rem;}
+    .zhuti div{display: inline-block;font-size:0.6rem}
+    .zhuti div span{width:0.5rem;height:0.5rem;display: inline-block;border-radius:2px;}
+    .zhuti div .one{background:#fee5e5;}
+    .zhuti div .two{background:#fb5c5f;}
+	.layer-wrap {
+		position: relative;
+		overflow: hidden;
+	}
+	.layer-wrap .btn {
+		display: flex;
+
+	}
+	.layer-wrap .btn :first-of-type{
+		border-right: 1px solid #eee;
+
+	}
+	.layer-wrap .closeBtn{
+		position: absolute;
+		top: .5rem;
+		left: .5rem;
+		width: 0.75rem;
+		height: .75rem;
+	}
+
+.layer {
+	z-index: 9999999;
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.7);
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+}
+.layer-wrap {
+	margin: 40% 15% 5% 15%;
+	background-color: #fff;
+	border-radius: 8px;
+}
+.layer-body {
+	padding: 7% 8% 7% 8%;
+	text-align: center;
+}
+.layer-wrap .layer-body p {
+	font-size: 14px;
+	line-height: 21px;
+	color: #666;
+	display: inline-block;
+	text-align: justify;
+}
+.layer-wrap .layer-body span {
+	font-size: 16px;
+	display: block;
+	padding-top: 10px;
+	color: #333;
+	font-weight: 600;
+}
+.layer-wrap button {
+	font-size: 16px;
+	color: #148ce6;
+	background-color: #fff;
+	border-top: solid 1px #eeeeee;
+	width: 90%;
+	height: 45px;
+	display: block;
+	margin: 0 auto;
+	border-bottom:none;
+	border-left:none;
+	border-right:none
+}
+.layer-wrap button:focus {
+	outline: none;
+}
+  </style>
+</head>
+<body>
+<div class="main">
+  <div class="pianli">偏离度：<span style="color:#FB5C5F" id="irrelevance"></span><img src="../images/fundgroup/question.png" onclick="javascript:layerShow();" alt=""></div>
+  <!--
+  <div class="fund-chart" >
+      <div id="pie1" style="width: 100%; height:13rem;top:-1rem"></div>
+      <div class="zhuti">
+          <div><span class="one"></span>&nbsp&nbsp现有组合</div>
+          <div style="margin-left:2rem"><span class="two"></span>&nbsp&nbsp标准组合</div>
+      </div>
+  </div>-->
+  <div style="width:100%;height:0.5rem;background:#f6f6f6"></div>
+  <div class="peizhi">根据标准组合的配置比例，您的组合调整如下:</div>
+  <div class="jiaoyi" style="display:none;">本次交易估算手续费<span style="color:#FB5C5F">0.56</span>元(估算费用仅作参考，实际以交易确认为准)，预计<span style="color:#FB5C5F">2020.03.03</span>可完成交易确认。</div>
+  <div class="biaoti">
+    <div>基金名称</div>
+    <div>调整前占比</div>
+    <div>调整后占比</div>
+  </div>
+
+  
+  <div style="width:100%;height:0.5rem;background:#f6f6f6"></div>
+  <div class="tiaocang">
+    <div><span>调仓建议</span><span style="color:#9A9A9A;font-size:0.6rem" id="changeTimeStr"></span></div>
+
+  </div>
+  <div class="lastText">
+    <p id="changeAdvise">
+    </p>
+  </div>
+  <div style="width:100%;height:0.5rem;background:#f6f6f6;padding-bottom:2.5rem"></div>
+  <div class="btn-bottom">
+    <a href="javascript:;" class="btn btn-light">一键调整</a>
+  </div>
+</div>
+
+<div class="layer" id="layer1" style="display:none">
+	<div class="layer-wrap">
+		<div class="layer-body">
+			<p class="display_yield_desc" >偏离度是反映您的组合与标准组合差异的指数，基金净值波动、投资经理调整组合都会产生偏离度。当偏离度大于一定阈值允许一键调整。</p>
+		</div>
+		<button>我知道了</button>
+	</div>
+</div>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/echarts.min.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script type="text/javascript" src="../js/common.js?20210302"> </script>
+<script>
+var groupId = App.getUrlParam("groupId");
+var balanceSerialNo = App.getUrlParam("balanceSerialNo");
+	/*关闭弹框*/
+	$('.layer .layer-wrap button').on("click",function () {
+		$('.layer').hide();
+		$(document.body).css({  "overflow":"auto"});
+	});
+	function layerShow(){
+		$(".display_yield_desc").html("偏离度是反映您的组合与标准组合差异的指数，基金净值波动、投资经理调整组合都会产生偏离度。当偏离度大于一定阈值允许一键调整。");
+		$(document.body).css({ "overflow-x":"hidden","overflow-y":"hidden"});
+		$('#layer1').show();
+		
+	}
+
+   var incomes1=[
+            ]
+   var incomes2=[
+                
+            ]
+	var chartData = [];
+
+  var option_1 = {
+        // color: ['#fb5c5f', '#fe7e01', '#f11', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'],
+        color: ['#fee5e5', '#fb5c5f'],/*
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                crossStyle: {
+                    color: '#999'
+                }
+            }
+        },  */   
+        grid: { left: '3%', right: '6%', bottom: '5%', top: "20%", 
+        containLabel: true 
+      },
+       dataZoom:[
+                {   
+
+                    // type:"slider",
+                    start:0,
+                    end:30,
+                    show:true,
+                    width:'80%',
+                    height:20,//组件高度 
+                    bottom:0,//右边的距离 
+                    left:55,
+                    // backgroundColor:"rgba(255,255,255,0)",
+                    // fillerColor:"rgba(255,255,255,0)", //选中范围的填充颜色。
+                    textStyle:{color:'rgba(255,255,255,0)'},
+                    // borderColor:'rgba(255,255,255,0)',
+                    // handleColor:'rgba(255,255,255,0)',//滑动图标的颜色
+                   
+                }
+            ],
+      xAxis: [
+            {
+                type: 'category',
+                data: chartData,
+                axisPointer: {
+                    type: 'shadow'
+                },
+                axisLine: { show: false, lineStyle: { color: "#999999" } },
+                axisLabel: {  
+                  interval:0,  
+                  formatter:function(value)  {  
+                          
+                     var ret = "";//拼接加\n返回的类目项  
+                     var maxLength =4;//每项显示文字个数  
+                     var valLength = value.length;//X轴类目项的文字个数  
+                     var rowN = Math.ceil(valLength / maxLength); //类目项需要换行的行数  
+                     if (rowN > 1)//如果类目项的文字大于3,  
+                     {  
+                         for (var i = 0; i < rowN; i++) {  
+                             var temp = "";//每次截取的字符串  
+                             var start = i * maxLength;//开始截取的位置  
+                             var end = start + maxLength;//结束截取的位置  
+                             //这里也可以加一个是否是最后一行的判断，但是不加也没有影响，那就不加吧  
+                             temp = value.substring(start, end) + "\n";  
+                             ret += temp; //凭借最终的字符串  
+                         }  
+                         return ret;  
+                     }  
+                     else {  
+                         return value;  
+                     }  
+                  }  
+                } 
+            }
+      ],
+      yAxis: [
+            {
+                type: 'value',
+                axisLine: { show: true, lineStyle: { color: "#f1f1f1" } },
+                axisTick: { show: false },
+                splitLine: { show: true, lineStyle: { color: "#f1f1f1" } },
+                max:100,
+                axisLabel: { show: true, formatter: "{value}.00", textStyle: { color: "#999999", fontFamily: "Arial" } },
+                axisPointer: { label: { show: false }, lineStyle: { type: "solid", color: "#1aa2e6" } }
+            }
+      ],
+
+      series: [
+            {
+                symbol: "none", name: '现有组合', type: 'bar', smooth: true,barWidth:18,
+                areaStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0, color: '#e8f4fd' // 0% 处的颜色
+                        }, {
+                            offset: 1, color: '#fff' // 100% 处的颜色
+                        }], false)
+                    }
+                },
+                lineStyle: {
+                    normal: {
+                        color: "#148ce6",
+                        width: 1
+                    }
+                },
+                data:[],
+                itemStyle: {
+                   normal: {
+                       label: {
+                           show: false,    //开启显示
+                           position: 'top', //在上方显示
+                           formatter: '{c}%',//显示百分号
+                           textStyle: {     //数值样式
+                               color: '#999',
+                               fontSize: 12
+                           }
+                       }
+                   }
+                }
+            },
+
+            {
+                symbol: "none", name: '标准组合', type: 'bar', smooth: true,barWidth:18,
+              
+                lineStyle: {
+                    normal: {
+                        color: "#fb5c5f",
+                        width: 1
+                    }
+                },
+                data:[],
+                itemStyle: {
+                   normal: {
+                       label: {
+                           show: false,    //开启显示
+                           position: 'top', //在上方显示
+                           formatter: '{c}%',//显示百分号
+                           textStyle: {     //数值样式
+                               color: '#999',
+                               fontSize: 12
+                           }
+                       }
+                   }
+               }
+            },
+        ]
+      };
+
+
+        function setOption(option, incomes1, incomes2) {
+            var result1 = formattingIncomes(incomes1);
+            var result2 = formattingIncomes(incomes2);
+            //X轴显示几个
+            // option.xAxis[0].data = result1.xArr;
+            // option.xAxis[0].axisLabel.interval = result1.xArr.length - 2; 
+
+            option.series[0].data = result1.yArr;
+            option.series[1].data = result2.yArr;
+        }
+        function draw(myChart, option) {
+            if (!((option.series[0].data && option.series[0].data.length > 0) || (option.series[1].data && option.series[1].data.length > 0))) {
+                option.xAxis[0].data = ["", ""];
+                option.xAxis[0].axisLabel.interval = ["", ""].length - 2;
+                // $(".noData").show();
+            } else {
+                // $(".noData").hide();
+            }
+            myChart.setOption(option);
+            setTimeout(function () {
+                myChart.dispatchAction({ type: 'showTip', seriesIndex: 1, dataIndex: 10 });
+            }, 0);
+        }
+
+        function formattingIncomes(incomes) {
+            var xArr = [], yArr = [];
+            var len = incomes.length;
+            for (var i = 0; i < len; i++) {
+                var chartDt = incomes[i].chartDt;
+                // xArr.push(chartDt.substr(-4, 2) + "-" + chartDt.substr(-2, 2));  
+                // xArr.push(chartDt.substr(2,2) + "." + chartDt.substr(-4,2) + "." + chartDt.substr(-2,2));
+                xArr.push(chartDt)
+                yArr.push(incomes[i].chartNum);
+            }
+            return { xArr: xArr, yArr: yArr };
+        } 
+    
+
+//调用接口
+$(function(){
+	queryHoldDetail();
+})
+	function queryDetail(incomes1){
+
+		$.get("/mobile-bff/v1/fund-group/detailInfo?groupId=" + groupId + "&balanceSerialNo=" + balanceSerialNo, function(data){
+			if(data.returnCode == 0){
+				var groupDetails = data.body.groupDetails;
+				
+				for(var k in groupDetails){
+					var subList = groupDetails[k].subList;
+					for(var m in subList){
+						var item2 = subList[m];
+						var map = {};
+						if(Number(item2.percent) > 0){
+							map["chartDt"] = item2.fundNm;
+							map["chartNum"] = item2.percent;
+							if(chartData.indexOf(item2.fundNm) == -1){
+								chartData.push(item2.fundNm);
+							}
+							incomes2.push(map);
+						}
+					}
+				}
+				
+				var newIncome1 = [];
+				var newIncome2 = [];
+				for(var k in chartData){
+				
+					var map = {};
+					var ishas = false;
+					for(var m in incomes1){
+						if(incomes1[m].chartDt == chartData[k]){
+							map["chartDt"] = chartData[k];
+							map["chartNum"] = incomes1[m].chartNum;
+							ishas = true;
+						}
+					}
+					if(!ishas){
+						map["chartDt"] = chartData[k];
+						map["chartNum"] = 0 ;
+					}
+					newIncome1.push(map)
+					
+					var map2 = {};
+					var ishas2 = false;
+					for(var n in incomes2){
+						if(incomes2[n].chartDt == chartData[k]){
+							map2["chartDt"] = chartData[k];
+							map2["chartNum"] = incomes2[n].chartNum;
+							ishas2 = true;
+						}
+					}
+					if(!ishas2){
+						map2["chartDt"] = chartData[k];
+						map2["chartNum"] = 0 ;
+					}
+					newIncome2.push(map2)
+				}
+				incomes2 = newIncome2;
+				
+				incomes1 = newIncome1;
+				
+				$("#changeAdvise").html(data.body.changeAdvise);
+				$("#changeTimeStr").html( "（"+data.body.changeTimeStr+"）");
+
+				//var myChart_1 = echarts.init(document.getElementById('pie1'));
+				option_1.xAxis[0].data = chartData;
+				if(chartData.length < 3){
+					option_1.dataZoom[0].show = false;
+				}
+				//setOption(option_1, incomes1, incomes2);
+				//draw(myChart_1, option_1);
+				showChange(incomes1,incomes2);
+			}
+		});
+	}
+	function queryHoldDetail(){
+		var groupId = App.getUrlParam("groupId");
+		var balanceSerialNo = App.getUrlParam("balanceSerialNo");
+		$.get("/mobile-bff/v1/fund-group/hold/detailInfo?groupId=" + groupId + "&balanceSerialNo=" + balanceSerialNo, function(data){
+			if(data.returnCode == 0){
+				getestimate(data.body.branchCode)
+				var holdGroupInfo = data.body.holdGroupInfo;
+				var irrelevance = holdGroupInfo.irrelevance;
+				$("#irrelevance").html(irrelevance+"%");
+				var holdFundGroupDetail = holdGroupInfo.fundGroupDetails;
+				for(var k in holdFundGroupDetail){
+					var item = holdFundGroupDetail[k];
+					var map = {};
+					map["chartDt"] = item.fundName;
+					map["chartNum"] = item.percent;	
+					chartData.push(item.fundName);
+					incomes1.push(map);
+				}
+				queryDetail(incomes1);
+
+			}
+		});
+	}
+	
+	function getTrans(){
+	
+		var url = "/mobile-bff/v1/fund-group/transfer-fund-group";
+		var data = JSON.stringify({
+			"groupId": groupId,
+			"balanceSerialNo": balanceSerialNo,
+			"transferTips": "MOB"  //20220627 此参数MOB不是受理方式，不需要修改
+		});
+		utils.post(url, data, function(result) {
+	        App.setSession(App.serialNo_info, result.body.info);
+			App.setSession(App.serialNo, result.body.serialNo);
+			App.setSession(App.serialNo_success_show_data, data);
+		    var forwardUrl = App.getUrlParam("forwardUrl");
+		    var newForwardUrl = '';
+		    if(App.isNotEmpty(forwardUrl)){
+		    	newForwardUrl = "?forwardUrl="+forwardUrl;
+		    }
+            App.setSession(App.serialNo_forword_url, "/mobileEC/wap/fundgroup/fund_group_adjustment_successfully.html"+newForwardUrl);
+            utils.verifyTradeChain(result.body);
+			// window.location.href = "../common/setBffPassword.html";
+		});
+	}
+	$(".btn-light").click(function(){
+		getTrans()
+	});
+	
+	function getestimate(branchCode){
+	
+		var url = "/mobile-bff/v1/fund-group/transfer-fee-tips/estimate";
+		var data = JSON.stringify({
+			"groupId": groupId,
+			"balanceSerialno": balanceSerialNo,
+			"accptmd": "M",
+			"branchCode":branchCode
+		});
+		App.post(url, data, function(res) {
+			if(res.returnCode == "0"){
+				if(res.body != null ){
+					$(".jiaoyi").html(res.body.estimateRedeemFeeTip).show();
+				}
+			}
+		});
+	}
+	function showChange(a,b){
+		var htm = '';
+
+		for(var k in a){
+			 htm+=' <div class="fundList">'+
+					'<div class="text">'+a[k].chartDt+'</div>'+
+					'<div>'+a[k].chartNum+'%</div>'+
+					'<div>'+b[k].chartNum+'%</div>';
+
+			htm+='</div>';
+		}
+
+		$(".biaoti").after(htm);
+		$(".fundList .text").each(function(){
+			var maxwidth = 12;//设置最多显示的字数
+			var text=$(this).text();
+			if($(this).text().length>maxwidth){
+				$(this).text($(this).text().substring(0,maxwidth-1));
+				$(this).html($(this).html()+"...");//如果字数超过最大字数，超出部分用...代替，并且在后面加上点击展开的链接；
+			};
+		})
+		
+	}
+</script>
+</body>
+
+</html>

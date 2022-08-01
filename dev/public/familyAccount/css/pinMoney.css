@@ -1,0 +1,230 @@
+[v-cloak] {
+    display: none;
+}
+
+html,
+body {
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.header {
+    padding: .63rem .59rem 3.09rem;
+    font-size: .94rem;
+    line-height: .91rem;
+    white-space: nowrap;
+    background-color: #fb5c5f;
+    color: #fff;
+}
+
+.header-button {
+    font-size: .5rem;
+    white-space: nowrap;
+    width: 2.75rem;
+    height: 1rem;
+    line-height: 1rem;
+    background-color: rgba(251, 92, 95, 0);
+    border-radius: .78rem;
+    border: 1px solid #fff;
+    text-align: center;
+}
+
+.header-active-btn {
+    background-color: #fff;
+    color: #fb5c5f;
+}
+
+.flex-between {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cards-content {
+    display: flex;
+    flex-direction: column;
+    margin-top: -2.47rem;
+    padding: 0 .63rem 1rem;
+    position: relative;
+}
+
+.card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    background-color: #fff;
+    border-radius: .25rem;
+    margin-bottom: .8rem;
+}
+
+.header-item {
+    text-align: center;
+}
+
+.item-top {
+
+    white-space: nowrap;
+    position: relative;
+    color: #666;
+}
+
+.item-bottom {
+    position: relative;
+    margin-top: .3rem;
+    padding-bottom: .063rem;
+    font-weight:600;
+
+}
+
+.card-middle {
+    padding: .5rem .5rem 1.25rem .5rem;
+    background-color: #fff;
+    border-radius: 0.25rem;
+    margin-bottom: .8rem;
+}
+
+.middle-title {
+    padding: 0rem 0 .65rem;
+    font-weight: 600;
+    font-size: .75rem;
+    line-height: .75rem;
+    white-space: nowrap;
+
+    background-color: #fff;
+    color: #000;
+}
+
+.change-Tab {
+    padding: .25rem 0;
+}
+
+.middle-button {
+    padding: 0.25rem 0.65rem;
+    text-align: center;
+    height: 3.25rem;
+    border-radius: 1.65rem;
+    color: #666;
+    background-color: #f6f6f6;
+}
+
+.middle-button-active {
+    font-weight:600;
+    color: #fb5c5f;
+    background-color: #ffefef;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+.text-red {
+    color: #f4333c;
+}
+
+.tab-pane-item {
+    display: flex;
+    flex-direction: row;
+    margin-top: .8rem;
+    align-items: center;
+
+}
+
+.money-type-icon {
+    flex: 1;
+    display: flex;
+    text-align: center;
+}
+
+.money-type-info {
+    flex: 6;
+    padding: 0 .5rem 0 0;
+}
+
+.g-container {
+    margin-top: .25rem;
+    width: 100%;
+    height: .225rem;
+    border-radius: .112rem;
+    background-color: rgb(238, 238, 238);
+
+}
+
+.g-progress {
+    /* width: 50%; */
+    height: inherit;
+    border-radius: 25px 0 0 25px;
+    /* transition: width  .5s linear; */
+    background: rgb(251, 92, 95);
+}
+
+.card-bottom {
+    padding: 0.75rem;
+    background-color: #fff;
+    border-radius: 0.25rem;
+}
+
+.tip-text {
+    padding: .1rem .61rem;
+    line-height: normal;
+    border-radius: .13rem;
+    word-wrap: break-word;
+    background-color: #f6f6f6;
+    color: #666;
+}
+
+.family-member {
+    margin-top: .75rem;
+    border-bottom: #eee solid 1px;
+}
+
+.assets-contribution {
+    padding: .2rem .45rem;
+    border-radius: 1rem;
+    color: rgb(251, 92, 95);
+    background-color: rgb(255, 239, 239);
+}
+
+.member-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.text-padding {
+    padding: .35rem .75rem;
+    font-weight: 600;
+}
+
+.member-info-png {
+    display: flex;
+    text-align: center;
+}
+
+.member-assets {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: .75rem 0 .5rem;
+    background-color: #fff;
+
+
+}
+
+.invitation-family {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.75rem 0 0;
+    font-weight: 600;
+    color: #fb5c5f;
+    font-size: .65rem;
+    line-height: .65rem;
+    white-space: nowrap;
+}

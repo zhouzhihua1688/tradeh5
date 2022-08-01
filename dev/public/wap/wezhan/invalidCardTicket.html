@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--<meta charset="GBK">-->
+    <meta charset="utf8">
+    <title>过期礼券</title>
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/wezhan/base_wezhan.css">
+    <link rel="stylesheet" type="text/css" href="../css/wezhan/invalid_card_ticket.css">
+    <link rel="stylesheet" type="text/css" href="../css/base.css">
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+
+<body>
+    <section class="content1_1">
+        <!-- 未使用 -->
+        <div class="qiehuan">
+
+        </div>
+    </section>
+	<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+	<script src="../js/common.js?20210302" type="text/javascript"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script>
+        $(function () {
+
+			//初始化变量
+			var stat = 9;
+			var pageNo = 1;
+			var pageSize = 10;
+			var more = false;
+			getCoupons(stat,pageNo,pageSize);
+			//礼券列表数据			
+			function getCoupons(stat,pageNo,pageSize){
+					console.log(stat,pageNo)
+				App.get(App.projectNm+"/coupon/query_coupon_list?status=" + stat+"&pageNo="+pageNo+"&pageSize="+pageSize, null, function(result){
+
+					if(result.body != undefined && result.body != null){
+						var lists = result.body.list;
+						if(lists != undefined && lists != ""){
+							var htm = '';
+							var id = 'qiehuan';
+							
+							for(var i in lists){ 
+								var item = lists[i] ;
+								var suffix = '';
+								if(item.fullInfo.funcValueSuffix != ""){
+									suffix = '<i >'+item.fullInfo.funcValueSuffix+'</i>';
+								}
+								htm+='<div class="qiehuan_content" >'
+										+'<div class="icon"></div>'
+										+'<div class="text">'
+											+'<div class="text_icon">'
+												+'<span class="first">'+item.fullInfo.funcValuePrefix+'</span>'
+												+'<span class="second">'+item.couponAmt+suffix+'</span>'
+												+'<p class="third">'+item.fullInfo.couponTypeName+'</p>'
+											+'</div>'
+										+'</div>'
+										+'<div class="dashed"></div>'
+										+'<div class="hongbao">'
+											+'<div class="hongbao_text">'
+												+'<div class="first_repeat"><span></span>'+item.simpleRemarks[0]+'</i></div>'
+												+'<div class="second"><span></span>'+item.simpleRemarks[1]+'</div>';
+												if(item.simpleRemarks[2] != "" && item.simpleRemarks[2] != undefined){
+													htm+='<div class="third"><span></span>'+item.simpleRemarks[2]+'</div>';
+												}
+											htm+='</div>'
+										+'</div>'
+
+									+'</div>';
+								
+							}
+
+							if(lists.length ==0 || lists.length <= pageSize){
+								more = true;
+							}else{
+								more = false;
+							}
+							
+							$("."+id).append(htm);
+						}else{
+							more = true;
+						}
+					 }
+				});
+			}
+
+			
+			//下拉加载分页
+			var totalHeight = $(document).height();//整个文档高度
+			var seeHeight = $(window).height();//浏览器可视窗口高度
+			var thisBodyHeight = $(document.body).height();//浏览器当前窗口文档body的高度
+			var totalBodyHeight = $(document.body).outerHeight(true);//浏览器当前窗口文档body的总高度 包括border padding margin
+			var thisWidth = $(window).width(); //浏览器当前窗口可视区域宽度
+			var thisDocumentWidth = $(document).width();//浏览器当前窗口文档对象宽度
+			var thisBodyWidth = $(document.body).width();//浏览器当前窗口文档body的宽度
+			var totalBodyWidth = $(document.body).outerWidth(true);//浏览器当前窗口文档body的总宽度 包括border padding margin
+			var scrollTop = $(window).scrollTop();//浏览器可视窗口顶端距离网页顶端的高度（垂直偏移）
+			// console.log(totalHeight,seeHeight,thisBodyHeight,totalBodyHeight,thisWidth,thisDocumentWidth,thisBodyWidth,totalBodyWidth,scrollTop);
+			//添加滚动事件
+			$(window).scroll(function(){
+			 scrollTop = $(window).scrollTop();
+			 totalHeight = $(document).height();
+			 if(scrollTop+seeHeight+50>totalHeight){
+				if(!more){console.log(more,pageNo);
+					pageNo++;
+					
+					getCoupons(stat,pageNo,pageSize);
+					
+				} 
+			 }
+			})
+        })
+    </script>
+</body>
+
+</html>

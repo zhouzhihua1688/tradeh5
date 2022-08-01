@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>选择为谁投资</title>
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/common.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+    <script type="text/javascript" src="../base/js/needLogin.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        body,
+        html {
+            background: #f6f6f6;
+        }
+
+        body {
+            left: 0%;
+            right: 0%;
+            font: 14px 'PingFang SC', 'Microsoft YaHei', Tahoma, Arial, sans-serif;
+        }
+
+        button {
+            outline: none;
+        }
+
+        /* 图片自适应 */
+        img {
+            width: 100%;
+            height: auto;
+            width: auto\9;
+            /* ie8 */
+            -ms-interpolation-mode: bicubic;
+            /*为了照顾ie图片缩放失真*/
+            border: none;
+            vertical-align: top;
+            outline: none;
+            display: block;
+            border-radius: 50%;
+        }
+
+        .main {
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .tipText {
+            font-size: 0.6rem;
+            color: #666;
+            padding: 0.75rem 0 0 0.75rem;
+            display: inline-block;
+        }
+
+        .tipText img {
+            width: 0.75rem;
+            height: 0.75rem;
+            display: inline-block;
+            vertical-align: top;
+            margin-left: 0.25rem;
+        }
+
+        .list {
+            width: 17.25rem;
+            height: 4.0rem;
+            background: #fff;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 0.2rem;
+            margin-top: 0.5rem;
+        }
+
+        .list div {
+            width: 22%;
+        }
+
+        .list div:nth-of-type(1) {
+            margin-left: 0.75rem;
+
+        }
+
+        .list div:nth-of-type(2) {
+            width: 80%;
+            text-align: left;
+            margin-left: 0.75rem;
+        }
+
+        .list div:nth-of-type(3) {
+            width:10%;
+        }
+
+        .list div .img img {
+            width: 3.0rem;
+            height: 3.0rem;
+            border-radius: 1.25rem;
+        }
+
+        .list div .one {
+            font-size: 0.85rem;
+            color: #000;
+            display: inline-block;
+        }
+
+        .list div .one img {
+            width: 0.8rem;
+            height: 0.8rem;
+            display: inline-block;
+            vertical-align: middle;
+            margin-top: -0.25rem;
+            margin-left: 0.5rem;
+        }
+
+        .list div .two {
+            font-size: 0.65rem;
+            color: #666;
+            margin-top: 0.35rem;
+        }
+
+        .list div .three {
+            width: 3.0rem;
+            height: 1.25rem;
+            border-radius: 50px 50px;
+            text-align: center;
+            line-height: 1.25rem;
+            font-size: 0.65rem;
+            color: #fff;
+            background: #fb5c5f;
+            margin-left: 1.5rem;
+            float: right;
+            margin-right: .75rem;
+        }
+
+        .list div .four {
+            font-size: 0.6rem;
+            color: #666;
+            margin-top: 0.25rem;
+            margin-right: .75rem;
+            float: right;
+        }
+
+        .list div .five {
+            font-size: 0.6rem;
+            color: #666;
+            margin-top: 0.25rem;
+            border: 1px #fb5c5f solid;
+            border-radius: .5rem;
+            margin-right: .75rem;
+            padding-left: .45rem;
+        }
+
+        .tips {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.507);
+            font-size: .7rem;
+        }
+
+        .tips>div {
+            background: #fff;
+            position: absolute;
+            left: 10%;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: .5rem .75rem 0;
+            border-radius: .2rem;
+        }
+
+        .tips .tips_text {
+            padding: .75rem;
+            text-align: center;
+            color: #000;
+        }
+
+        .tips .button {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            border-top: 1px solid #eee;
+            margin-top: .75rem;
+        }
+
+        .tips .button span {
+            margin-top: .25rem;
+            padding: .625rem 0;
+            margin-bottom: .25rem;
+            width: 100%;
+            color: #1370fa;
+        }
+
+        .tips .button span:nth-of-type(1) {
+            border-right: 1px solid #eee;
+        }
+
+        .tips .name {
+            width: 13.25rem;
+            height: 1.5rem;
+            border: 1px solid #eee;
+            margin: 0 auto;
+            border-radius: 0.125rem;
+        }
+
+        .tips .name input {
+            width: 13.25rem;
+            height: 1.5rem;
+        }
+
+        input::-webkit-input-placeholder {
+            color: #999;
+        }
+
+        input::-moz-input-placeholder {
+            color: #999;
+        }
+
+        input::-ms-input-placeholder {
+            color: #999;
+        }
+
+        footer {
+            position: fixed;
+            width: 100%;
+            left: 0;
+            bottom: 0;
+            background-color: #fff;
+            font-size: .85rem;
+        }
+
+        footer ul {
+            color: #fe5a5b;
+            display: flex;
+            display: -webkit-flex;
+        }
+
+        footer ul li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-right: 0.025rem solid #fff;
+        }
+
+        footer ul li:nth-of-type(1) {
+            width: 100%;
+        }
+
+        footer ul li:last-child {
+            width: 100%;
+            background: #0757b2;
+            border-right: none;
+        }
+
+        footer ul li a {
+            height: 2.5rem;
+            text-align: center;
+            line-height: 2.5rem;
+            color: #fff;
+            font-size: 0.85rem;
+        }
+
+        footer ul li a {
+            display: block;
+        }
+
+        .mobileSelect .content {
+            width: 95%;
+            display: block;
+            position: fixed;
+            z-index: 889;
+            color: black;
+            -webkit-transition: all 0.4s;
+            transition: all 0.4s;
+            bottom: 1rem;
+            left: 0.5rem;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .mobileSelect-show .content {
+            bottom: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+
+        <div class="all">
+
+        </div>
+        <div class="manage">
+            <div class="list">
+                <span style="font-size:0.85rem;color:#fb5c5f;text-align: center;margin-left:5rem;">
+                    <img src="img/selectMember.png" alt="" style="width:1.725rem;height:1.725rem;display: inline-block;vertical-align: middle;margin-right:0.75rem">添加家庭成员</span>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="Bomb-box">
+        <div class="Bomb-box-main">
+            <div class="Bomb-box-content">
+                <p class="text-center"></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;"
+               onclick="this.parentElement.parentElement.style='display:none'">确定</a>
+        </div>
+    </div>
+    <script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+    <script>
+        // 关闭弹窗
+        $(".close").click(function () {
+            $(".tips").hide();
+        })
+        $(".manage").click(function () {
+
+            window.location.href = 'inviteMemList.html';
+        })
+        $(function () {
+
+            getAccount();
+
+        })
+        $(document).on('click', '.list', function () {
+            var member = $(this).attr('data-member');
+            var memberId = $(this).attr('data-memberid');
+            var teamId=$(this).attr('data-teamId');
+            var params = utils.getSession('_createInit');
+            if(params){
+                if (member && memberId) {
+                    params.member = member;
+                    params.memberId = memberId;
+                    utils.setSession('_createInit', JSON.stringify(params));
+                    utils.setSession('__memberid',memberId);
+                    window.location.href = "/tradeh5/newWap/familyAccount/createPlan.html";
+                }
+            }else{
+                    // utils.setSession('_member',member);
+                    // utils.setSession('_memberid',memberId);
+                    if(utils.getUrlParam('type')=='push'){
+                       window.location.href = "/tradeh5/newWap/familyAccount/pocketMoneyPush.html?memberId="+memberId+'&teamId='+teamId+'&type='+utils.getUrlParam('type');
+                    }else{
+                       window.location.href = "/tradeh5/newWap/familyAccount/pocketMoneyOut.html?memberId="+memberId+'&teamId='+teamId;
+                    }
+                }
+        })
+
+        function getAccount() {
+            utils.get('/sfs/v1/accounts/is-open?version=6.6', null, function (result) {
+                if (result.returnCode == 0) {
+                    if (result.body.isOpen) {
+                        teamId = result.body.teamId
+                        getTeam(teamId);
+                    }
+                }
+            });
+        }
+
+        function getTeam(teamId) {
+            utils.get('/sfs/v1/accounts/member/list?teamId=' + teamId, null, function (result) {
+                if (result.returnCode == 0) {
+                    var list = result.body;
+                    var htm = '';
+                    list.forEach(function (item, index) {
+                        htm += '<div class="list" data-member="' + item.memberNameDisplay + '(' + item
+                            .memberRoleName + ')" data-memberid="' + item.memberId +
+                            '" data-teamId="' + item.teamId +
+                            '"><div class="img"><img src="' + item.avatarImage +
+                            '" alt=""></div><div><p class="one"><span class="name">' +
+                            item.memberRoleName + '</span></p><p class="two">' +
+                            item.memberNameDisplay + '</p></div><div><img src="img/selectQuan.png" alt="" style="width:0.75rem;height:0.75rem"></div></div></div>';
+                    });
+                    $(".all").append(htm);
+                    $(".main").show();
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta charset="gbk">-->
+    <title>买组合</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/wezhan/buy_combination_base.css">
+    <link rel="stylesheet" type="text/css" href="../css/base.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        }
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+                oHtml.style.fontSize = '17.06px';
+            }else if(screenWidth >= 750){
+                oHtml.style.fontSize = '40px';
+            }else{
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+            }
+        }
+    </script>
+    <style>
+    body{background:#fff}
+    .main{width:100%;height:100%;padding:0;margin:0;}
+    .head{width:100%;}
+    .head .content{width:100%;height:10.0rem;background: url('../images/img/zuhe.png') no-repeat;background-size:100% 100%}
+    .head .content .text{width:90%;font-size:0.7rem;margin:0 auto;margin-top:2.25rem;text-align: justify}
+/* 第一部分     */
+    .cash{width:100%;padding:4rem 0rem;position:relative;}
+    .cash .content{width:17.25rem;height:11.0rem;
+        background: url('../images/img/bg_01.png') no-repeat;background-size:100% 100%;
+        position: absolute;top:-3.5rem;left:50%;margin-left:-8.625rem;padding-bottom: 0.5rem;
+    }
+    .cash .content .cash_text{width:90%;font-size:0.8rem;color:#000;margin:0 auto;margin-top:0.5rem;font-weight: bold}
+    .cash .content .cash_text2{width:90%;font-size:0.65rem;color:#666;margin:0 auto;margin-top:0.5rem;}
+    .cash .content .middle{width:90%;height:7.0rem;margin:0 auto;background:#fff;border-radius:3px;margin-top:0.75rem;border-radius:5px;}
+    .cash .content .middle .text{margin:0 auto;font-size:0.8rem;color:#000;margin-top:0.5rem;float:left;margin-left:0.75rem}
+    .cash .content .middle .hot{height:0.925rem;width:4.0rem;background: url('../images/img/hot.png') no-repeat;background-size: 100% 100%;margin-top:0.6rem;float:left;color:#fb5c5f;font-size:0.6rem;text-align:center;line-height:0.925rem;text-indent:0.75rem;margin-left:0.5rem;}
+    .cash .content .middle .shouyi{width:90%;height:3.375rem;clear:both;margin:0 auto;}
+
+    .cash .content .middle .shouyi .left{width:85%;height:3.375rem;float:left;}
+    .cash .content .middle .shouyi .left .number{font-size: 1.0rem;color:#f4333c;display: inline-block;float:left}
+    .cash .content .middle .shouyi .left .money{font-size:0.75rem;color:#000;display: inline-block;float:right}
+
+    .cash .content .middle .shouyi .left .year{font-size:0.65rem;color:#666;display: inline-block;float:left}
+    .cash .content .middle .shouyi .left .buy{font-size:0.65rem;color:#666;display: inline-block;float:right;}
+
+    .cash .content .middle .shouyi .right{width:10%;height:3.375rem;float:right;display: flex;justify-content: center;align-items: center;}
+    .cash .content .middle .shouyi .right img{width:0.4rem;height:0.75rem;margin-left:0.75rem;}
+    .cash .content .middle .text2{width:90%;font-size:0.6rem;color:#ddb240;margin:0 auto }
+/* 第二部分 */
+    .touzi .content{
+        width:17.25rem;height:11.0rem;
+        background: url('../images/img/bg_02.png') no-repeat;background-size:100% 100%;margin:0 auto;margin-top:0.75rem;padding-bottom: 0.5rem;
+    }
+    .touzi .content .cash_text{width:90%;font-size:0.8rem;color:#000;margin:0 auto;margin-top:0.5rem;font-weight: bold}
+    .touzi .content .cash_text2{width:90%;font-size:0.65rem;color:#666;margin:0 auto;margin-top:0.5rem;}
+    .touzi .content .middle{width:90%;height:7.0rem;margin:0 auto;background:#fff;border-radius:3px;margin-top:0.75rem;border-radius:5px;}
+    .touzi .content .middle .text{margin:0 auto;font-size:0.8rem;color:#000;margin-top:0.5rem;float:left;margin-left:0.75rem;}
+    .touzi .content .middle .hot{height:0.925rem;width:4.0rem;background: url('../images/img/hot.png') no-repeat;background-size: 100% 100%;margin-top:0.6rem;float:left;color:#fb5c5f;font-size:0.6rem;text-align:center;line-height:0.925rem;text-indent:0.75rem;margin-left:0.5rem;}
+    .touzi .content .middle .shouyi{width:90%;height:3.375rem;clear:both;margin:0 auto;}
+
+    .touzi .content .middle .shouyi .left{width:85%;height:3.375rem;float:left;}
+    .touzi .content .middle .shouyi .left .number{font-size: 1.0rem;color:#f4333c;display: inline-block;float:left}
+    .touzi .content .middle .shouyi .left .money{font-size:0.75rem;color:#000;display: inline-block;float:right}
+
+    .touzi .content .middle .shouyi .left .year{font-size:0.65rem;color:#666;display: inline-block;float:left}
+    .touzi .content .middle .shouyi .left .buy{font-size:0.65rem;color:#666;display: inline-block;float:right;}
+
+    .touzi .content .middle .shouyi .right{width:10%;height:3.375rem;float:right;display: flex;justify-content: center;align-items: center;}
+    .touzi .content .middle .shouyi .right img{width:0.4rem;height:0.75rem;margin-left:0.75rem;}
+    .touzi .content .middle .text2{width:90%;font-size:0.6rem;color:#ddb240;margin:0 auto }
+/* 第三部分 */
+    .zichan .content{
+        width:17.25rem;height:11.0rem;
+        background: url('../images/img/bg_03.png') no-repeat;background-size:100% 100%;margin:0 auto;margin-top:0.75rem;padding-bottom: 0.5rem;
+    }
+    .zichan .content .cash_text{width:90%;font-size:0.8rem;color:#000;margin:0 auto;margin-top:0.5rem;font-weight: bold}
+    .zichan .content .cash_text2{width:90%;font-size:0.65rem;color:#666;margin:0 auto;margin-top:0.5rem;}
+    .zichan .content .middle{width:90%;height:7.0rem;margin:0 auto;background:#fff;border-radius:3px;margin-top:0.75rem;border-radius:5px;}
+    .zichan .content .middle .text{margin:0 auto;font-size:0.8rem;color:#000;margin-top:0.5rem;float:left;margin-left:0.75rem;}
+    .zichan .content .middle .hot{height:0.925rem;width:4.0rem;background: url('../images/img/hot.png') no-repeat;background-size: 100% 100%;margin-top:0.6rem;float:left;color:#fb5c5f;font-size:0.6rem;text-align:center;line-height:0.925rem;text-indent:0.75rem;margin-left:0.5rem;}
+    .zichan .content .middle .shouyi{width:90%;height:3.375rem;clear:both;margin:0 auto;}
+
+    .zichan .content .middle .shouyi .left{width:85%;height:3.375rem;float:left;}
+    .zichan .content .middle .shouyi .left .number{font-size: 1.0rem;color:#f4333c;display: inline-block;float:left}
+    .zichan .content .middle .shouyi .left .money{font-size:0.75rem;color:#000;display: inline-block;float:right}
+
+    .zichan .content .middle .shouyi .left .year{font-size:0.65rem;color:#666;display: inline-block;float:left}
+    .zichan .content .middle .shouyi .left .buy{font-size:0.65rem;color:#666;display: inline-block;float:right;}
+
+    .zichan .content .middle .shouyi .right{width:10%;height:3.375rem;float:right;display: flex;justify-content: center;align-items: center;}
+    .zichan .content .middle .shouyi .right img{width:0.4rem;height:0.75rem;margin-left:0.75rem;}
+    .zichan .content .middle .text2{width:90%;font-size:0.6rem;color:#ddb240;margin:0 auto }
+/* 底部 */
+    .much_choose{width:100%;height:1rem;font-size:0.8rem;line-height:1rem;text-indent:0.65rem;color:#000;font-weight:bold;margin-top:1rem;}
+    .last{width:100%;margin:0;padding:0;padding-bottom:2.5rem;margin-top:0.75rem;}
+      .last .icon{width:90%;margin:0 auto;justify-content: space-around;
+    display: flex;} 
+      .last .icon .list{width:25%;float:left;text-align:center;}
+      .last .icon .list .icon1{width:1.625rem;height:1.25rem;margin-left:1.25rem;}
+      .last .icon .list .icon2{width:1.15rem;height:1.25rem;margin-left:1.5rem;}
+      .last .icon .list .icon3{width:1.375rem;height:1.25rem;margin-left:1.35rem;}
+      .last .icon .list .text{color:#000;font-size:0.75rem;margin-top:0.35rem;}
+    </style>
+
+</head>
+<body>
+<div class="main">
+   <div class="head" id = "head" >
+      <div class="content">
+          <div class="text">精选旗下各类基金，提供各类策略服务，优势互补分散风险，满足不同人群的投资需求。以专业的投资能力、优秀的长期业绩和贴心的客户服务，为您提供全方位的投资理财解决方案。</div>
+      </div>
+   </div>
+
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+	<script src="../js/common.js?20210106" type="text/javascript"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script>
+        var url_layout = App.projectNm + "/app_func/query_cust_layout?layoutId=wap_group_buy&r=" + (Math.random()*10000).toFixed(0);
+        App.getNoJump(url_layout,null,function(result){
+            if (result.body.layout != undefined && result.body.layout != null){
+                var layoutList = result.body.layout;
+                for (var index in layoutList) {
+                    compose(layoutList[index]);
+                }
+            }
+        })
+
+        /**
+         * 组装div
+         * @param layout
+         */
+        function  compose(layout) {
+            var str = "";
+            //目前默认GET
+            var  requestMethod = layout.requestMethod;
+            var  requestUrl = layout.requestUrl+"&rl="+ (Math.random()*10000).toFixed(0);
+            App.getNoJump(App.applicationNm +requestUrl,null,function(result){
+                if (result.body.theme != undefined && result.body.theme != null){
+                    var themeList = result.body.theme;
+                    var size = themeList.length;
+                    for (var j = 0;j<size;j++) {
+                        var obj = themeList[j].object;
+                        var obj_size = obj.length;
+                        for(var k = 0;k<obj_size;k++){
+                            str = str + ' <div  class="'+obj[k].recomIdentify+'"> <div class="content"> <div class="cash_text">'
+                                +obj[k].buttonRemark+'</div> <div class="cash_text2">'+obj[k].recomElementRemark+'</div> <div class="middle"> <div class="text">'
+                                +obj[k].fundGroupTitle+'</div> <div class="hot">'+obj[k].fundGroupSubtitle
+                                +'</div> <div class="shouyi"> <div class="left"> <div style="margin-top:0.65rem"> <span class="number">'+obj[k].recomElementVal+'<i style="font-size:0.75rem">'+obj[k].recomElementUnit+'</i></span> <span class="money">'
+                                +obj[k].thresholdUnit+'</span> </div>  <div style="clear:both"> <span class="year">'+obj[k].recomElementNm+'</span> <span class="buy">'+obj[k].threshold+'</span> </div> </div> <a href="javascript:;">'
+                                +'<div class="right"><a href="'+obj[k].url+'"><img src="../images/img/arr.png" alt=""></div></a> </div> <div class="text2">'+obj[k].fundGroupSubtitle1+'</div> </div> </div> </div>';
+                        }
+                        $("#head").after(str);
+                    }
+                }
+
+            })
+        }
+
+    </script>
+
+
+    <div class="much_choose">更多进阶选择</div>
+    <div class="last">
+        <div class="icon">
+                <div class="list">
+                    <a href="inteliList.html">
+                        <img src="../images/img/icon_01.png" alt="" class="icon1">
+                        <div class="text">添富智投</div>
+                    </a>
+                </div>
+    
+                <div class="list">
+                    <a href="pensionList.html">
+                        <img src="../images/img/icon_02.png" alt="" class="icon2">
+                        <div class="text">添富养老</div>
+                    </a>
+                </div>
+
+
+                <div class="list">
+                    <a href="indexList.html">
+                        <img src="../images/img/icon_03.png" alt="" class="icon3">
+                        <div class="text">指数专区</div>
+                    </a>
+                </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

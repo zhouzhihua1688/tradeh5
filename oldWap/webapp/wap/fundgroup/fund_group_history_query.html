@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>历史收益查询</title>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        };
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+                oHtml.style.fontSize = '17.06px';
+            }else if(screenWidth >= 750){
+                oHtml.style.fontSize = '40px';
+            }else{
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="../css/base.css">
+    <style>
+        /* 禁用iPhone中Safari的字号自动调整,如横屏时会重新计算 */
+        html {  -webkit-text-size-adjust: 100%;  -ms-text-size-adjust: 100%;  }
+        input{  border: none;  outline-style: none;  }
+        /* 去除iPhone中默认的input样式 */
+        input[type="submit"], input[type="reset"], input[type="button"], input {  -webkit-appearance: none;  resize: none;  }
+        /* 取消链接高亮  */
+        body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);  }
+        /* 设置HTML5元素为块 */
+        article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  display: block;  }
+        /* 图片自适应 */
+        img {  width: 100%;  height: auto;  width: auto\9; /* ie8 */  -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/  border: none;  }
+        /* 初始化 */
+        body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  margin: 0;  padding: 0;  border: none;  }
+        /*body {  font: 14px 'Microsoft YaHei', Tahoma, Arial, sans-serif;  color: #666666;  background-color: #f6f6f6;   margin: 0 auto;  }*/
+        body {  font-size: 14px; color: #666666;  background-color: #f6f6f6;   margin: 0 auto;font-family: "PingFang SC","Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;   }
+        em, i {  font-style: normal;  }
+        .clearfix:after {  content: "";  display: block;  visibility: hidden;  height: 0;  clear: both;  }
+        .clearfix {  zoom: 1;  }
+        a {  text-decoration: none;  color: inherit;  }
+        a:hover {  text-decoration: none;  }
+        ul, ol {  list-style: none;  }
+        h1, h2, h3, h4, h5, h6 {  font-size: 100%;  font-weight: normal;  }
+        .fl{float: left;}
+        .fr{float: right;}
+        select:focus{outline: none;}
+        /*多次使用*/
+        html,body{
+            height: 100%;
+        }
+        .black{
+            color:#000;
+        }
+        .green{
+            color:#009944;
+        }
+        .red{
+            color:#f4333c;
+        }
+        .bold{
+            font-weight: bold;
+        }
+        .font-arial{ font-family: Arial; }
+        .header{
+            background: #fff;
+            padding: 0 .75rem;
+            color:#000;
+            font-size: 0.7rem;
+            height: 1.75rem;
+            line-height: 1.75rem;
+            border-bottom: 1px #eee solid;
+            overflow: hidden;
+        }
+        .content{
+            background: #fff;
+            padding-left: .75rem;
+            border-bottom: 1px #eee solid;
+            font-size: .7rem;
+        }
+        .content .list{
+            padding-right: .75rem;
+            height:2.5rem;
+            line-height: 2.5rem;
+            border-bottom: 1px #eee solid;
+            overflow: hidden;
+        }
+        .content p:last-of-type{
+            border-bottom: none;
+        }
+
+        /* modify by FH 20200220 S */
+        .center {
+            text-align: center;
+        }
+
+        .header span,
+        .content span {
+            display: inline-block;
+            width: 33.333%;
+        }
+
+        .header span:last-of-type,
+        .content span:last-of-type {
+            text-align: right;
+        }
+
+        /* modify by FH 20200220 E */
+    </style>
+</head>
+<body>
+<div class="header">
+    <span class="fl">日期</span><span class="center">日收益(元)</span><span class="fr">日涨跌幅</span>
+</div>
+<div class="content">
+    <!--<p class="list font-arial">
+        <span class="fl" >19-09-10</span><span class="fr green" >-22.09</span>
+    </p>
+    <p class="list font-arial">
+        <span class="fl">19-09-10</span><span class="fr red">22.09</span>
+    </p>
+    <p class="list font-arial">
+        <span class="fl">19-09-10</span><span class="fr green">-22.09</span>
+    </p>
+    <p class="list font-arial">
+        <span class="fl">19-09-10</span><span class="fr green">-22.09</span>
+    </p>
+    </p>-->
+</div>
+
+
+
+
+
+
+
+<script>
+    var groupId = App.getUrlParam("groupId");
+    var balanceSerialno = App.getUrlParam("balanceSerialno");
+    $(function() {
+        historyQuery(groupId, balanceSerialno);
+    });
+    function historyQuery(groupId,balanceSerialno) {
+               $.get("/fundgroup/v1/trader/query-cust-history-income?groupId=" + groupId + "&balanceSerialno="+ balanceSerialno, function (result) {
+                var body = result.body;
+                var f1_html = '';
+                body.forEach(function (item) {
+                    var groupNavdt = item.groupNavdt;
+                    groupNavdt = groupNavdt.substr(0,4)+"-"+groupNavdt.substr(4,2)+"-"+groupNavdt.substr(6,2);
+                    var cls = "";
+                    if (item.groupYield < 0) {
+                        cls = "green";
+                    } else {
+                        cls = "red";
+                    }
+					var cls1 = "red";
+					var groupYieldRate = App.formatMoney(item.groupYieldRate,2);
+					if(item.groupYieldRate < 0){
+						cls1 = "green";
+					}
+                    f1_html += '<p class="list font-arial"><span class="fl" >'+groupNavdt+'</span><span class="center '+cls+'" >'+item.groupYield+'</span><span class="fr '+cls1+'">'+groupYieldRate+'%</span></p>'
+                });
+                $('.content').html(f1_html);
+           });
+    }
+</script>
+
+</body>
+</html>

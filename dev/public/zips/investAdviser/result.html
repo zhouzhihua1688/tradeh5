@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>交易结果</title>
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!-- <link rel="stylesheet" href="./css/base.css"> -->
+    <!-- <link rel="stylesheet" href="./css/result_dialog.css"> -->
+    <link rel="stylesheet" href="./css/result.css?112">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div class="wrap" id="app">
+        <!-- 受理成功 -->
+        <div class="success" style="display:none">
+            <div class="top"> <strong>受理成功</strong> </div>
+            <div class="text">升级申请受理成功，预计<span>xx</span>月<span>xx</span>日完成确认。</div>
+            <div class="success_but">我知道了</div>
+            <div class="goPng"> </div>
+        </div>
+        <!-- 受理失败 -->
+        <div class="fail" style="display: none">
+            <div class="top">受理失败</div>
+            <div class="text">
+                升级申请受理失败，您的风险承受等级为<span>较低风险（C2</span>与投顾服务【汇添富跟我投】<span>中风险（R3）、【汇添富理财加】中风险(R3）</span>不匹配，您可更新风险测评后再次尝试升级。
+            </div>
+            <div class="fail_but">
+                <div>联系客服</div>
+                <div>我知道了</div>
+            </div>
+        </div>
+        <!--  <div class="fail_but">联系客服</div>
+    <div class="fail_but">我知道了</div> -->
+
+        <!-- 受理失败---系统繁忙 请稍后再试    -->
+        <div class="failSys" style="display: none">
+            <div class="top">受理失败</div>
+            <div class="text">系统繁忙，请稍后再试。</div>
+            <div class="failSys_but">
+                <div>联系客服</div>
+                <div>我知道了</div>
+            </div>
+        </div>
+
+        <!-- 风险测评结果已过有效期--立即测评   -->
+        <div class="evaluate" style="display: none">
+            <div class="top"></div>
+            <div class="text">您当前风险测评结果已过有效期，可重新进行风险测评后再尝试升级。</div>
+            <div class="evaluate_but">立即测评</div>
+        </div>
+
+        <!-- 您当前暂无可升级组合资产--去看看     -->
+        <div class="noRise" style="display: none">
+            <div class="top"></div>
+            <div class="text">您当前暂无可升级组合资产<br>添富投顾重磅上线，敬请关注</div>
+            <div class="evaluate_but">去看看</div>
+        </div>
+
+        <!-- 电话确认预约信息     -->
+        <div class="appointment" style="display: none">
+            <div class="top">确认预约信息</div>
+            <div class="text">回电时间：<span>11月18日</span> <span>09:00-12:00</span></div>
+            <div class="text">接听手机：<span>18578920916</span></div>
+            <div class="appointment_but">
+                <div>取消</div>
+                <div>确认</div>
+            </div>
+        </div>
+
+
+
+        <!-- 20211121 以下为实际使用的弹窗-->
+
+        <!-- 受理失败 -->
+        <div class="upgrade TF" style="display: none">
+            <div class="top">升级申请受理失败</div>
+            <!-- <div class="second">
+                您的风险承受等级为<span>较低风险（C2）</span>与投顾服务【汇添富跟我投】<span>中风险（R3）</span>、【汇添富理财加】<span>中风险（R3）</span>不匹配，您可更新风险测评后再次尝试升级。
+            </div> -->
+            <div class="second" v-if="riskLevelFlag" v-html="riskTip"></div>
+            <div class="second" v-else-if="employeeLimitFlag">您持有的组合成分基金不满足员工持有期限要求，暂不可升级。</div>
+            <!-- <div class="text text-c" v-else>系统繁忙，请稍后再试。</div> -->
+            <template
+                v-if="fundgroupUpgrade && fundgroupUpgrade.transResults&&fundgroupUpgrade.transResults.length>0&&fundgroupUpgrade.transResults[0]['ogroupName']">
+                <div class="third">您的升级申请受理结果如下：</div>
+                <div class="title">
+                    <div>升级方案</div>
+                    <div>金额</div>
+                    <div>受理结果</div>
+                </div>
+                <div class="list" v-for="(item,index) in fundgroupUpgrade.transResults">
+                    <div class="left"><span v-text="item.groupName"></span><span>->{{item.ogroupName}}</span></div>
+                    <div><span v-text="item.subAmt"></span>元</div>
+                    <div class="right"><span>失败</span><span class="limit" v-text="item.errorMsg"></span></div>
+                </div>
+                <div class="button-area">
+                    <div @click="callHotLine">联系客服</div>
+                    <div class="solid" v-if="riskLevelFlag" @click="gotoRiskTestPage">更新风险测评</div>
+                    <div class="solid" v-else-if="employeeLimitFlag" @click="gotoHomePage">我知道了</div>
+                    <div class="solid" v-else @click="gotoUpgradePage">稍后再试</div>
+                </div>
+            </template>
+            <template v-else>
+                <div class="button-area">
+                    <div @click="callHotLine">联系客服</div>
+                    <div class="solid" @click="gotoHomePage">我知道了</div>
+                </div>
+            </template>
+        </div>
+
+
+        <!-- 升级申请受理成功！      -->
+        <div class="upgrade succeed" v-if='fundgroupUpgrade&&fundgroupUpgrade.subConfirmDate' style="display: none">
+            <!-- 受理成功出现礼盒弹窗 -->
+            <div class='gift-dialog' v-if='fundgroupUpgrade&&fundgroupUpgrade.subConfirmDate&&(letter||gift)'>
+                <div v-show='gift&&!letter'>
+                    <img style='width:18.5rem' src="./img/giftbox1_02.png" alt="" srcset="">
+                    <span @click='toSee()' style=' position: relative;top: -3rem;width: 6.5rem; height: 1.5rem;'>
+                    </span>
+                </div>
+                <div v-show='letter&&!gift'>
+                    <span class='letter-close-icon' @click='letter=false;gift=false'></span>
+                    <img style='width:18.5rem' src="./img/letter20211231.png" alt="" srcset="">
+                </div>
+            </div>
+
+            <div class="top">升级申请受理成功！</div>
+            <div class="first">升级交易逐步确认，预计<span v-text="fundgroupUpgrade.subConfirmDate.substring(4,6)"></span>月<span
+                    v-text="fundgroupUpgrade.subConfirmDate.substring(6,8)"></span>日可全部确认。</div>
+            <div class="third">您的升级申请受理结果如下：</div>
+            <div class="title">
+                <div>升级方案</div>
+                <div>金额</div>
+                <div>受理结果</div>
+            </div>
+            <div class="list" v-for="(item,index) in fundgroupUpgrade.transResults">
+                <div class="left"><span v-text="item.groupName"></span><span>->{{item.ogroupName}}</span></div>
+                <div><span v-text="item.subAmt"></span>元</div>
+                <div class="right"><span style="color:#000">成功</span></div>
+            </div>
+            <!--   <div class="list">
+            <div class="left"><span>稳稳小确幸</span><span>->汇添富跟我投</span></div>
+            <div>1500.00元</div>
+            <div class="right"><span style="color:#000">成功</span></div>
+        </div> -->
+            <div class="succeed_but" @click="gotoHoldGroupPage">我知道了</div>
+            <!-- 等运营文案，宣传栏暂时隐藏 -->
+            <!-- <div class="goPng"></div> -->
+        </div>
+
+        <!-- 升级申请部分受理成功！ -->
+        <div class="upgrade part" v-if='fundgroupUpgrade&&fundgroupUpgrade.subConfirmDate' style="display: none">
+            <!-- 受理成功出现礼盒弹窗 -->
+            <div class='gift-dialog' v-if='fundgroupUpgrade&&fundgroupUpgrade.subConfirmDate&&(letter||gift)'>
+                <div v-show='gift&&!letter'>
+                    <img style='width:18.5rem' src="./img/giftbox1_02.png" alt="" srcset="">
+                    <span @click='toSee()' style=' position: relative;top: -3rem;width: 6.5rem; height: 1.5rem;'>
+                    </span>
+                </div>
+                <div v-show='letter&&!gift'>
+                    <span class='letter-close-icon' @click='letter=false;gift=false'></span>
+                    <img style='width:18.5rem' src="./img/letter.png" alt="" srcset="">
+                </div>
+            </div>
+
+            <div class="top">升级申请部分受理成功！</div>
+            <div class="first">升级交易逐步确认，预计<span v-text="fundgroupUpgrade.subConfirmDate.substring(4,6)"></span>月<span
+                    v-text="fundgroupUpgrade.subConfirmDate.substring(6,8)"></span>日可全部确认。</div>
+            <!-- <div class="second">
+                您的风险承受等级为<span>较低风险（C2）</span>与投顾服务【汇添富跟我投】<span>中风险（R3）</span>、【汇添富理财加】<span>中风险（R3）</span>不匹配，您可更新风险测评后再次尝试升级。
+            </div> -->
+            <div class="second" v-if="riskLevelFlag" v-html="riskTip"></div>
+            <!-- <div class="second" v-else-if="employeeLimitFlag">您持有的组合成分基金不满足员工持有期限要求，暂不可升级。</div> -->
+            <div class="third">您的升级申请受理结果如下：</div>
+            <div class="title">
+                <div>升级方案</div>
+                <div>金额</div>
+                <div>受理结果</div>
+            </div>
+            <div class="list" v-for="(item,index) in fundgroupUpgrade.transResults">
+                <div class="left"><span v-text="item.groupName"></span><span>->{{item.ogroupName}}</span></div>
+                <div><span v-text="item.subAmt"></span>元</div>
+                <div class="right">
+                    <span>{{item.tradeStatus=='TS'?'成功':(item.tradeStatus=='TP'?'部分成功':'失败')}}</span><span class="risk"
+                        v-text="item.errorMsg"></span></div>
+                <!-- <div class="right"><span>{{item.tradeStatusDisplay}}</span><span class="risk" v-text="item.errorMsg"></span></div> -->
+            </div>
+            <!--  <div class="list">
+            <div class="left"><span>稳稳小确幸</span><span>->汇添富跟我投</span></div>
+            <div>1500.00元</div>
+            <div class="right"><span>失败</span><span class="risk">风险等级不匹配</span></div>
+        </div> -->
+            <div class="button-area">
+                <div @click="callHotLine">联系客服</div>
+                <div class="solid" v-if="riskLevelFlag" @click="gotoRiskTestPage">更新风险测评</div>
+                <div class="solid" v-else-if="employeeLimitFlag" @click="gotoHomePage">我知道了</div>
+                <div class="solid" v-else @click="gotoUpgradePage">稍后再试</div>
+                <!-- <div class="solid" v-else @click="gotoRiskTestPage">更新风险测评test</div> -->
+            </div>
+        </div>
+
+    </div>
+    <script src="./js/jquery-3.2.1.min.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/vue.min.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    // 
+                    gift: true,
+                    letter: false,
+                    employeeLimitFlag: false,   // 是否 员工持基时间不满足
+                    riskLevelFlag: false,       // 是否 风险等级不匹配
+                    riskLevelName: '',          // 用户风险等级lable
+                    groupRiskLevelNameList: [], // 组合风险等级lable
+                    fundgroupUpgrade: '',
+                    resultList: [
+                        // {"returnCode":0,"returnMsg":"调用成功","body":{"hasNextStep":"0","tradeResult":null,"execResult":{"successInfo":null,"tradeAsyncQueryUrl":null,"contractNo":"","fundgroupUpgrade":{"custNo":"1023857413","hasRiskNotFitTrades":false,"riskNotFitgroupIds":[],"subConfirmDate":null,"tradeStatus":"TS","tradeStatusDisplay":"成功","transResults":[{"errorCode":null,"errorMsg":null,"groupId":"A0080","groupName":"稳稳小确幸","ogroupId":"A6103","ogroupName":"权益精选","subAmt":77409.4,"tradeStatus":"TS","radeStatusDisplay":null}]},"ecTradeSerialNo":null,"extendFields":null,"cpTn":"","listSuccessInfo":null,"serialNo":"mobile-bff_/v1/verify/verifyPasswordWeb_20211121111124"},"successInfo":"null","system":"FUNDGROUP","payFlag":null}},
+                        // 成功
+                        { "returnCode": 0, "returnMsg": "调用成功", "body": { "hasNextStep": "0", "tradeResult": null, "execResult": { "successInfo": null, "tradeAsyncQueryUrl": null, "contractNo": "", "fundgroupUpgrade": { "custNo": "1030935117", "hasRiskNotFitTrades": false, "riskNotFitgroupIds": [], "subConfirmDate": "20211123", "tradeStatus": "TS", "tradeStatusDisplay": "成功", "transResults": [{ "errorCode": null, "errorMsg": null, "groupId": "A0444", "groupName": "和聚宝+现金宝+债券", "ogroupId": "A6103", "ogroupName": "权益精选", "subAmt": 29193.87, "tradeStatus": "TS", "radeStatusDisplay": null }] }, "ecTradeSerialNo": null, "extendFields": null, "cpTn": "", "listSuccessInfo": null, "serialNo": "mobile-bff_/v1/verify/verifyPasswordWeb_20211119143920" }, "successInfo": "null", "system": "FUNDGROUP", "payFlag": null } },
+                        // 1
+                        { "returnCode": 0, "returnMsg": "调用成功", "body": { "hasNextStep": "0", "tradeResult": null, "execResult": { "successInfo": null, "tradeAsyncQueryUrl": null, "contractNo": "", "fundgroupUpgrade": { "custNo": "1030951540", "hasRiskNotFitTrades": true, "riskNotFitgroupIds": ["A7113"], "subConfirmDate": null, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "transResults": [{ "errorCode": "7210", "errorMsg": "风险等级不匹配", "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A7113", "ogroupName": "一般型-教育投资", "subAmt": 999.88, "tradeStatus": "TF", "radeStatusDisplay": null }] }, "ecTradeSerialNo": null, "extendFields": null, "cpTn": "", "listSuccessInfo": null, "serialNo": "mobile-bff_/v1/verify/verifyPasswordWeb_20211118090054" }, "successInfo": "null", "system": "FUNDGROUP", "payFlag": null } },
+
+                        // 2  -- ias fundgroup --
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023857413", "tradeStatus": "TP", "tradeStatusDisplay": "部分申请成功", "subConfirmDate": "20211124", "transResults": [{ "groupId": "A0354", "groupName": "指数宝-添富系列", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 0.23, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "5058", "errorMsg": "员工持基限制" }, { "groupId": "A0222", "groupName": "组合和三方一致", "ogroupId": "A6101", "ogroupName": "货币增强", "subAmt": 34895.9, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "5058", "errorMsg": "员工持基限制" }, { "groupId": "A0356", "groupName": "指数宝-小添", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 136409.7, "tradeStatus": "TP", "tradeStatusDisplay": "部分申请成功", "errorCode": "5058", "errorMsg": "员工持基限制" }, { "groupId": "A0069", "groupName": "跟我投策略组合", "ogroupId": "A6101", "ogroupName": "货币增强", "subAmt": 454548.99, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "9999", "errorMsg": "员工持基限制" }, { "groupId": "A0027", "groupName": "养老组合0-40积极型", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 162353.93, "tradeStatus": "TP", "tradeStatusDisplay": "部分申请成功", "errorCode": "5058", "errorMsg": "员工持基限制" }, { "groupId": "A0374", "groupName": "智投-智投组合1", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 42573.27, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "5058", "errorMsg": "员工持基限制" }, { "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 2000.06, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "5058", "errorMsg": "员工持基限制" }, { "groupId": "A0080", "groupName": "稳稳小确幸", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 77409.4, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "5058", "errorMsg": "员工持基限制" }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": true, "hasRiskNotFitTrades": false } },
+                        // 3
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023857401", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 36633.01, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }, { "groupId": "A0222", "groupName": "组合和三方一致", "ogroupId": "A6101", "ogroupName": "货币增强", "subAmt": 3945.09, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }], "riskNotFitgroupIds": ["A6101", "A6104"], "hasRiskNotFitTrades": true, "hasEmployeeLimitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023857401", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 36633.01, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }, { "groupId": "A0222", "groupName": "组合和三方一致", "ogroupId": "A6101", "ogroupName": "货币增强", "subAmt": 3945.09, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }], "riskNotFitgroupIds": ["A6101", "A6104"], "hasRiskNotFitTrades": true, "hasEmployeeLimitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023857401", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0222", "groupName": "组合和三方一致", "ogroupId": "A6101", "ogroupName": "货币增强", "subAmt": 3945.09, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }, { "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 36633.01, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }], "riskNotFitgroupIds": ["A6101", "A6104"], "hasRiskNotFitTrades": true, "hasEmployeeLimitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023857401", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 36633.01, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }, { "groupId": "A0222", "groupName": "组合和三方一致", "ogroupId": "A6101", "ogroupName": "货币增强", "subAmt": 3945.09, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }], "riskNotFitgroupIds": ["A6101", "A6104"], "hasRiskNotFitTrades": true, "hasEmployeeLimitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023857401", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0222", "groupName": "组合和三方一致", "ogroupId": "A6101", "ogroupName": "货币增强", "subAmt": 3945.09, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }, { "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 36633.01, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }], "riskNotFitgroupIds": ["A6101", "A6104"], "hasRiskNotFitTrades": true, "hasEmployeeLimitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023858483", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 7666.52, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "5015", "errorMsg": null }], "riskNotFitgroupIds": [], "hasRiskNotFitTrades": false, "hasEmployeeLimitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023858483", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 7666.52, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "5015", "errorMsg": null }], "riskNotFitgroupIds": [], "hasRiskNotFitTrades": false, "hasEmployeeLimitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023858483", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 7666.52, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "5015", "errorMsg": null }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023858483", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 7666.52, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "5015", "errorMsg": null }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1030901389", "tradeStatus": "TS", "tradeStatusDisplay": "成功", "subConfirmDate": "20211123", "transResults": [{ "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 0.93, "tradeStatus": "TS", "tradeStatusDisplay": "成功", "errorCode": null, "errorMsg": null }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1030901389", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 0.93, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "4016", "errorMsg": null }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1030951450", "tradeStatus": "TS", "tradeStatusDisplay": "成功", "subConfirmDate": "20211125", "transResults": [{ "groupId": "A0374", "groupName": "智投-智投组合1", "ogroupId": "A6105", "ogroupName": "养老2030", "subAmt": 990.5, "tradeStatus": "TS", "tradeStatusDisplay": "成功", "errorCode": null, "errorMsg": null }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1026491963", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0273", "groupName": "养老组合50-55稳健型", "ogroupId": "A6103", "ogroupName": "权益精选", "subAmt": 49096.01, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }], "riskNotFitgroupIds": ["A6103"], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": true } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1026491963", "tradeStatus": "TS", "tradeStatusDisplay": "成功", "subConfirmDate": "20211125", "transResults": [{ "groupId": "A0273", "groupName": "养老组合50-55稳健型", "ogroupId": "A6105", "ogroupName": "养老2030", "subAmt": 49096.01, "tradeStatus": "TS", "tradeStatusDisplay": "成功", "errorCode": null, "errorMsg": null }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1026492750", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0069", "groupName": "跟我投策略组合", "ogroupId": "A6103", "ogroupName": "权益精选", "subAmt": 1410.85, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "4032", "errorMsg": null }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1026491963", "tradeStatus": "TS", "tradeStatusDisplay": "成功", "subConfirmDate": "20211124", "transResults": [{ "groupId": "A0445", "groupName": "现金宝+债券", "ogroupId": "A6101", "ogroupName": "货币增强", "subAmt": 102001.72, "tradeStatus": "TS", "tradeStatusDisplay": "成功", "errorCode": null, "errorMsg": null }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023858483", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 7666.52, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "5015", "errorMsg": null }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023858483", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 7666.52, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "5015", "errorMsg": null }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023857413", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 2000.06, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "5058", "errorMsg": "员工持基限制" }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": true, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023857413", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0080", "groupName": "稳稳小确幸", "ogroupId": "A6103", "ogroupName": "权益精选", "subAmt": 77409.4, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "5058", "errorMsg": "员工持基限制" }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": true, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023858483", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 7666.52, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "5015", "errorMsg": null }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023857401", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0222", "groupName": "组合和三方一致", "ogroupId": "A6101", "ogroupName": "货币增强", "subAmt": 3945.09, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }, { "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 36633.01, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }], "riskNotFitgroupIds": ["A6101", "A6104"], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": true } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1030918100", "tradeStatus": "TS", "tradeStatusDisplay": "成功", "subConfirmDate": "20211124", "transResults": [{ "groupId": "A0444", "groupName": "和聚宝+现金宝+债券", "ogroupId": "A6103", "ogroupName": "权益精选", "subAmt": 624423.38, "tradeStatus": "TS", "tradeStatusDisplay": "成功", "errorCode": null, "errorMsg": null }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023727807", "tradeStatus": "TS", "tradeStatusDisplay": "成功", "subConfirmDate": "20211124", "transResults": [{ "groupId": "A0444", "groupName": "和聚宝+现金宝+债券", "ogroupId": "A6103", "ogroupName": "权益精选", "subAmt": 122605.4, "tradeStatus": "TS", "tradeStatusDisplay": "成功", "errorCode": null, "errorMsg": null }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023490097", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0238", "groupName": "基金除权3", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 29941.4, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }, { "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 1391.94, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }, { "groupId": "A0069", "groupName": "跟我投策略组合", "ogroupId": "A6103", "ogroupName": "权益精选", "subAmt": 3391.21, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }], "riskNotFitgroupIds": ["A6103", "A6104"], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": true } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023490097", "tradeStatus": "TS", "tradeStatusDisplay": "成功", "subConfirmDate": "20211126", "transResults": [{ "groupId": "A0238", "groupName": "基金除权3", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 29941.4, "tradeStatus": "TS", "tradeStatusDisplay": "成功", "errorCode": null, "errorMsg": null }, { "groupId": "A0069", "groupName": "跟我投策略组合", "ogroupId": "A6103", "ogroupName": "权益精选", "subAmt": 3391.21, "tradeStatus": "TS", "tradeStatusDisplay": "成功", "errorCode": null, "errorMsg": null }, { "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 1391.94, "tradeStatus": "TS", "tradeStatusDisplay": "成功", "errorCode": null, "errorMsg": null }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023857413", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0080", "groupName": "稳稳小确幸", "ogroupId": "A6103", "ogroupName": "权益精选", "subAmt": 77409.4, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "5058", "errorMsg": "员工持基限制" }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": true, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1026492750", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0069", "groupName": "跟我投策略组合", "ogroupId": "A6103", "ogroupName": "权益精选", "subAmt": 1410.85, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }], "riskNotFitgroupIds": ["A6103"], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": true } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1030911394", "tradeStatus": "TS", "tradeStatusDisplay": "成功", "subConfirmDate": "20211124", "transResults": [{ "groupId": "A0445", "groupName": "现金宝+债券", "ogroupId": "A6101", "ogroupName": "货币增强", "subAmt": 6005.02, "tradeStatus": "TS", "tradeStatusDisplay": "成功", "errorCode": null, "errorMsg": null }, { "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 0.17, "tradeStatus": "TS", "tradeStatusDisplay": "成功", "errorCode": null, "errorMsg": null }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1030917311", "tradeStatus": "TS", "tradeStatusDisplay": "成功", "subConfirmDate": "20211124", "transResults": [{ "groupId": "A0238", "groupName": "基金除权3", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 685.56, "tradeStatus": "TS", "tradeStatusDisplay": "成功", "errorCode": null, "errorMsg": null }, { "groupId": "A0080", "groupName": "稳稳小确幸", "ogroupId": "A6103", "ogroupName": "权益精选", "subAmt": 370.03, "tradeStatus": "TS", "tradeStatusDisplay": "成功", "errorCode": null, "errorMsg": null }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023857188", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0238", "groupName": "基金除权3", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 1975.56, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }], "riskNotFitgroupIds": ["A6104"], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": true } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1030917311", "tradeStatus": "TS", "tradeStatusDisplay": "成功", "subConfirmDate": "20211123", "transResults": [{ "groupId": "A0080", "groupName": "稳稳小确幸", "ogroupId": "A6103", "ogroupName": "权益精选", "subAmt": 0.01, "tradeStatus": "TS", "tradeStatusDisplay": "成功", "errorCode": null, "errorMsg": null }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023734150", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0354", "groupName": "指数宝-添富系列", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 56035.24, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }], "riskNotFitgroupIds": ["A6104"], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": true } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023857188", "tradeStatus": "TS", "tradeStatusDisplay": "成功", "subConfirmDate": "20211124", "transResults": [{ "groupId": "A0238", "groupName": "基金除权3", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 1975.56, "tradeStatus": "TS", "tradeStatusDisplay": "成功", "errorCode": null, "errorMsg": null }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1030945995", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6102", "ogroupName": "低波稳健", "subAmt": 0.13, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }], "riskNotFitgroupIds": ["A6102"], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": true } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023857443", "tradeStatus": "TS", "tradeStatusDisplay": "成功", "subConfirmDate": "20211124", "transResults": [{ "groupId": "A0069", "groupName": "跟我投策略组合", "ogroupId": "A6101", "ogroupName": "货币增强", "subAmt": 155191.84, "tradeStatus": "TS", "tradeStatusDisplay": "成功", "errorCode": null, "errorMsg": null }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023857443", "tradeStatus": "TS", "tradeStatusDisplay": "成功", "subConfirmDate": "20211124", "transResults": [{ "groupId": "A0069", "groupName": "跟我投策略组合", "ogroupId": "A6101", "ogroupName": "货币增强", "subAmt": 111065.76, "tradeStatus": "TS", "tradeStatusDisplay": "成功", "errorCode": null, "errorMsg": null }], "riskNotFitgroupIds": [], "hasEmployeeLimitTrades": false, "hasRiskNotFitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023857401", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 36633.01, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }, { "groupId": "A0222", "groupName": "组合和三方一致", "ogroupId": "A6101", "ogroupName": "货币增强", "subAmt": 3945.09, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }], "riskNotFitgroupIds": ["A6101", "A6104"], "hasRiskNotFitTrades": true, "hasEmployeeLimitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1026491342", "tradeStatus": "TS", "tradeStatusDisplay": "成功", "subConfirmDate": "20211124", "transResults": [{ "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 31176.31, "tradeStatus": "TS", "tradeStatusDisplay": "成功", "errorCode": null, "errorMsg": null }], "riskNotFitgroupIds": [], "hasRiskNotFitTrades": false, "hasEmployeeLimitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023734150", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0354", "groupName": "指数宝-添富系列", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 56035.24, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }], "riskNotFitgroupIds": ["A6104"], "hasRiskNotFitTrades": true, "hasEmployeeLimitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023734150", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0354", "groupName": "指数宝-添富系列", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 56035.24, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }], "riskNotFitgroupIds": ["A6104"], "hasRiskNotFitTrades": true, "hasEmployeeLimitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023734150", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0354", "groupName": "指数宝-添富系列", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 56035.24, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "5058", "errorMsg": "员工持基限制" }], "riskNotFitgroupIds": [], "hasRiskNotFitTrades": false, "hasEmployeeLimitTrades": true } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1030911655", "tradeStatus": "TS", "tradeStatusDisplay": "成功", "subConfirmDate": "20211125", "transResults": [{ "groupId": "A0069", "groupName": "跟我投策略组合", "ogroupId": "A6101", "ogroupName": "货币增强", "subAmt": 18981.25, "tradeStatus": "TS", "tradeStatusDisplay": "成功", "errorCode": null, "errorMsg": null }], "riskNotFitgroupIds": [], "hasRiskNotFitTrades": false, "hasEmployeeLimitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1026491963", "tradeStatus": "TS", "tradeStatusDisplay": "成功", "subConfirmDate": "20211123", "transResults": [{ "groupId": "A0445", "groupName": "现金宝+债券", "ogroupId": "A6101", "ogroupName": "货币增强", "subAmt": 5, "tradeStatus": "TS", "tradeStatusDisplay": "成功", "errorCode": null, "errorMsg": null }], "riskNotFitgroupIds": [], "hasRiskNotFitTrades": false, "hasEmployeeLimitTrades": false } },
+                        // 47
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023734150", "tradeStatus": "TP", "tradeStatusDisplay": "部分申请成功", "subConfirmDate": "20211126", "transResults": [{ "groupId": "A0344", "groupName": "指数宝-医药指数", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 379.99, "tradeStatus": "TS", "tradeStatusDisplay": "成功", "errorCode": null, "errorMsg": null }, { "groupId": "A0354", "groupName": "指数宝-添富系列", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 844.57, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "5058", "errorMsg": "员工持基限制" }], "riskNotFitgroupIds": [], "hasRiskNotFitTrades": false, "hasEmployeeLimitTrades": true } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023734150", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0354", "groupName": "指数宝-添富系列", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 844.57, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "5058", "errorMsg": "员工持基限制" }], "riskNotFitgroupIds": [], "hasRiskNotFitTrades": false, "hasEmployeeLimitTrades": true } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1030942727", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0080", "groupName": "稳稳小确幸", "ogroupId": "A6103", "ogroupName": "权益精选", "subAmt": 0.28, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }, { "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 0.09, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }, { "groupId": "A0444", "groupName": "和聚宝+现金宝+债券", "ogroupId": "A6103", "ogroupName": "权益精选", "subAmt": 0.04, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }, { "groupId": "A0069", "groupName": "跟我投策略组合", "ogroupId": "A6102", "ogroupName": "低波稳健", "subAmt": 747.82, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }], "riskNotFitgroupIds": ["A6103", "A6102", "A6104"], "hasRiskNotFitTrades": true, "hasEmployeeLimitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023734150", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0354", "groupName": "指数宝-添富系列", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 844.57, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "5058", "errorMsg": "员工持基限制" }], "riskNotFitgroupIds": [], "hasRiskNotFitTrades": false, "hasEmployeeLimitTrades": true } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1030942727", "tradeStatus": "TF", "tradeStatusDisplay": "失败", "subConfirmDate": null, "transResults": [{ "groupId": "A0080", "groupName": "稳稳小确幸", "ogroupId": "A6103", "ogroupName": "权益精选", "subAmt": 0.28, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }, { "groupId": "A0081", "groupName": "\"现金+\"尊享组合", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 0.09, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }, { "groupId": "A0444", "groupName": "和聚宝+现金宝+债券", "ogroupId": "A6103", "ogroupName": "权益精选", "subAmt": 0.04, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }, { "groupId": "A0069", "groupName": "跟我投策略组合", "ogroupId": "A6102", "ogroupName": "低波稳健", "subAmt": 747.82, "tradeStatus": "TF", "tradeStatusDisplay": "失败", "errorCode": "7210", "errorMsg": "风险等级不匹配" }], "riskNotFitgroupIds": ["A6103", "A6102", "A6104"], "hasRiskNotFitTrades": true, "hasEmployeeLimitTrades": false } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023734150", "tradeStatus": "TP", "tradeStatusDisplay": "部分申请成功", "subConfirmDate": "20211126", "transResults": [{ "groupId": "A0354", "groupName": "指数宝-添富系列", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 56035.24, "tradeStatus": "TP", "tradeStatusDisplay": "部分申请成功", "errorCode": "5058", "errorMsg": "员工持基限制" }], "riskNotFitgroupIds": [], "hasRiskNotFitTrades": false, "hasEmployeeLimitTrades": true } },
+                        { "returnCode": 0, "returnMsg": "", "body": { "custNo": "1023734150", "tradeStatus": "TP", "tradeStatusDisplay": "部分申请成功", "subConfirmDate": "20211126", "transResults": [{ "groupId": "A0354", "groupName": "指数宝-添富系列", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 56035.24, "tradeStatus": "TP", "tradeStatusDisplay": "部分申请成功", "errorCode": "5058", "errorMsg": "员工持基限制" }], "riskNotFitgroupIds": [], "hasRiskNotFitTrades": false, "hasEmployeeLimitTrades": true } },
+
+                        // 54 -- mobile-bff
+                        { "returnCode": 0, "returnMsg": "调用成功", "body": { "hasNextStep": "0", "tradeResult": null, "execResult": { "successInfo": null, "tradeAsyncQueryUrl": null, "contractNo": "", "fundgroupUpgrade": { "custNo": "1023734150", "hasRiskNotFitTrades": false, "riskNotFitgroupIds": [], "subConfirmDate": "20211126", "tradeStatus": "TP", "tradeStatusDisplay": "部分申请成功", "transResults": [{ "errorCode": "5058", "errorMsg": "员工持基限制", "groupId": "A0354", "groupName": "指数宝-添富系列", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 56035.24, "tradeStatus": "TP", "radeStatusDisplay": null }] }, "ecTradeSerialNo": null, "extendFields": null, "cpTn": "", "listSuccessInfo": null, "serialNo": "mobile-bff_/v1/verify/verifyPasswordWeb_20211122110936" }, "successInfo": "null", "system": "FUNDGROUP", "payFlag": null } },
+                        // 55
+                        { "returnCode": 0, "returnMsg": "调用成功", "body": { "hasNextStep": "0", "tradeResult": null, "execResult": { "successInfo": null, "tradeAsyncQueryUrl": null, "contractNo": "", "fundgroupUpgrade": { "custNo": "1023734150", "hasRiskNotFitTrades": false, "hasEmployeeLimitTrades": true, "riskNotFitgroupIds": [], "subConfirmDate": "20211126", "tradeStatus": "TP", "tradeStatusDisplay": "部分申请成功", "transResults": [{ "errorCode": "5058", "errorMsg": "员工持基限制", "groupId": "A0354", "groupName": "指数宝-添富系列", "ogroupId": "A6104", "ogroupName": "教育投资", "subAmt": 56035.24, "tradeStatus": "TP", "radeStatusDisplay": null }] }, "ecTradeSerialNo": null, "extendFields": null, "cpTn": "", "listSuccessInfo": null, "serialNo": "mobile-bff_/v1/verify/verifyPasswordWeb_20211122134253" }, "successInfo": "null", "system": "FUNDGROUP", "payFlag": null } },
+
+                    ],
+                }
+            },
+            computed: {
+                riskTip: function () {
+                    if (this.riskLevelName) {
+                        return '您的风险承受等级为<span>' + this.riskLevelName + '</span>与投顾服务' + this.groupRiskLevelNameList.join('、')
+                            + '不匹配，您可更新风险测评后再次尝试升级。'
+                    } else {
+                        return '您的风险承受等级与投顾服务' + this.groupRiskLevelNameList.join('、')
+                            + '不匹配，您可更新风险测评后再次尝试升级。'
+                    }
+
+                }
+            },
+            created() {
+                // 测试使用 S
+                // this.fundgroupUpgrade = this.resultList[1].body.execResult.fundgroupUpgrade;
+                // this.fundgroupUpgrade = this.resultList[testIndex?testIndex:2].body;
+                // let testIndex = utils.getUrlParam('testIndex')
+                // this.fundgroupUpgrade = this.resultList[testIndex?testIndex:2].body.execResult.fundgroupUpgrade;
+                // 测试使用 E
+
+                this.fundgroupUpgrade = utils.getSession(utils.fundgroupUpgrade);
+                // utils.removeSession(utils.fundgroupUpgrade);    // 用完删掉 ------
+
+                console.log("fundgroupUpgrade=", this.fundgroupUpgrade);
+
+                try {
+                    // 员工持基期限flag
+                    this.employeeLimitFlag = this.fundgroupUpgrade.hasEmployeeLimitTrades;
+                    // 风险等级不匹配   --   "hasRiskNotFitTrades":true,"riskNotFitgroupIds":["A7113"],"
+                    this.riskLevelFlag = this.fundgroupUpgrade.hasRiskNotFitTrades;
+                    if (this.riskLevelFlag && Array.isArray(this.fundgroupUpgrade.riskNotFitgroupIds)) {
+                        console.log('风险等级不匹配tips show');
+                        this.getRiskLevel();
+                        this.getFundGroupInfo(this.fundgroupUpgrade.riskNotFitgroupIds)
+                    }
+
+                    this.showUpgradeResult();
+                } catch (error) {
+                    console.log('error=', error);
+                    $(".TF").show();
+                }
+            },
+            methods: {
+                // 9584 升级页活动包和投顾主页活动包调整点 #2
+                toSee() {
+                    let params = {
+                        actId: '10032'
+                    }
+                    utils.isProdEnv() && (params.actId = '789');
+                    // 生产 actId:'798'
+                    // Uat actId:'10032'
+                    console.log(params)
+                    $.ajax({
+                        url: `/activity-center/api/v1/user/cutin/user-take-part?actId=${params.actId}`,
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: {},
+                        success: function (result) {
+                            if(result.returnCode == 1000){
+                                return utils.showTips('当前未登录')
+                            } else if(result.returnCode == 9999){
+                                return utils.showTips("网络连接错误！");
+                            } else if(result.returnCode == 0){
+                                // this.letter = !this.letter
+                            } else {
+                                // utils.showTips(result.returnMsg);
+                            } 
+                            this.gift = !this.gift
+                            this.letter = !this.letter
+
+                            console.log(result.returnMsg)
+                        }.bind(this),
+                       
+                    })
+                },
+                getRiskLevel: function () {
+                    // this.riskLevelName = '较低风险(C2)';
+                    utils.ajax({
+                        url: '/mobile-bff/v1/common/check-union-risk-level',
+                        type: 'GET',
+                        success: function (result) {
+                            this.riskLevelName = result.body.riskLevelName;
+                        }.bind(this)
+                    })
+                },
+                getFundGroupInfo: function (groupIds) {
+                    // this.groupRiskLevelNameList = ['【汇添富跟我投】<span>中风险(R3)</span>','【汇添富理财加】<span>中风险(R3)</span>'];
+                    // groupIds = ['A6106', 'A6107']
+                    groupIds.forEach(groupId => {
+                        utils.ajax({
+                            url: '/mobile-bff/v1/fund-group/detailInfo?groupId=' + groupId,
+                            type: 'GET',
+                            data: {},
+                            success: function (result) {
+                                let riskObj = {
+                                    '1': '极低风险(R0)',
+                                    '2': '低风险(R1)',
+                                    '3': '较低风险(R2)',
+                                    '4': '中等风险(R3)',
+                                    '5': '较高风险(R4)',
+                                    '6': '高风险(R5)',
+                                }
+                                if (result.body.groupname && riskObj[result.body.investRiskLevel]) {
+                                    this.groupRiskLevelNameList.push('【' + result.body.groupname + '】<span>' + riskObj[result.body.investRiskLevel] + '</span>')
+                                }
+                            }.bind(this)
+                        })
+                    });
+                },
+                // 拨打电话tel:4008889918
+                callHotLine: function () {
+                    window.location.href = 'tel:4008889918';
+                },
+                // 跳转到升级首页
+                gotoUpgradePage: function () {
+                    window.location.href = './index.html';
+                },
+                // 跳转到App首页，或者是 wezhan首页
+                gotoHomePage: function () {
+                    if (isApp()) {
+                        window.location.href = 'htffundxjb://action?type=hm';
+                    } else {
+                        window.location.href = '/mobileEC/wap/wezhan/service.html';
+                    }
+                },
+                // 跳转到风险测评首页
+                gotoRiskTestPage: function () {
+                    window.location.href = '/mobileEC/wap/common/riskTest.html?forwardUrl='
+                        + encodeURIComponent(window.location.pathname.replace(/(.*\/).*$/ig, '$1index.html'));
+                },
+                // 跳转到 我的资产-我的组合页面
+                gotoHoldGroupPage: function () {
+                    if (isApp()) {
+                        // window.location.href = 'htffundxjb://action?type=as&subType=fg';
+                        window.location.href = 'htffundxjb://action?type=hm';
+                    } else {
+                        window.location.href = '/tradeh5/newWap/myAssets/asset.html?index=2';
+                    }
+                },
+                showUpgradeResult: function () {
+                    if (this.fundgroupUpgrade && this.fundgroupUpgrade.tradeStatus) {
+                        switch (this.fundgroupUpgrade.tradeStatus) {
+                            case 'TP':
+                                //部分成功
+                                $(".part").show();
+                                break;
+                            case 'TS':
+                                //成功
+                                $(".succeed").show();
+                                break;
+                            case 'TF':
+                                //失败
+                                $(".TF").show();
+                                break;
+                            default:
+                                //失败
+                                $(".TF").show();
+                                break;
+                        }
+                    } else {
+                        $(".TF").show();
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

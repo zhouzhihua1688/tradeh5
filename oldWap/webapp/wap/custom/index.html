@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="自定义事件"/>
+    <title>自定义事件</title>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/mobileSelect.css">
+    <link rel="stylesheet" type="text/css" href="css/base_c.css">
+    <script>
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            screenWidth = screenWidth > 750 ? 750 : screenWidth;
+            oHtml.style.fontSize = screenWidth / 7.5 + 'px';
+        }
+
+    </script>
+    <style>
+        body {
+            font-size:0.3rem;
+            overflow-x: hidden;
+        }
+
+        .confirm {
+            width: 100%;
+            height: .85rem;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            background-color: #fd7e23;
+        }
+
+        .confirm > a {
+            height: .85rem;
+            display: block;
+            text-align: center;
+            line-height: .85rem;
+            margin: 0 auto;
+            font-size: 0.35rem;
+            color: #666;
+            background: #fd7e23;
+            color: #fff;
+            border-radius: 2px;
+        }
+         .content{
+             padding:0.2rem 0.3rem;
+             border-bottom:1px solid #eee;
+             display:flex;justify-content:space-between;align-items: center;
+         }
+        .content div{color:#000;font-size:0.3rem;text-align:right;}
+        .content div:nth-of-type(1){text-align: left;}
+        .content div:nth-of-type(2){width:80%;margin-right:0.3rem;text-align: justify}
+    </style>
+</head>
+<body>
+
+
+<div class="active_content">
+    <div class="active_layer">
+        <div class="top" style="margin-bottom: 0rem;">
+            <div class="input_box">
+                <div class="input">
+                    <label><span>标题</span><input type="text" id="eventTitle" name="" value=""
+                                                 style="font-size: .3rem"></label>
+                </div>
+            </div>
+
+            <div class="content">
+                <div>内容</div>
+                <div>
+<textarea type="text" id="eventContent" name="" rows="3" value=""
+                                                 style="font-size: .3rem;width:90%;padding:0.2rem;border:none;resize:none;"></textarea>
+				</div>
+            </div>
+        </div>
+        <div class="top" style="clear: both">
+            <div class="input_box">
+                <div class="input go">
+                    <label><span style="float:left">日期</span><div id="Date" style="font-size:0.3rem">选择日期</div>
+                        <p id="Date1"></p></label>
+                </div>
+            </div><!--
+            <div class="input_box">
+                <div class="input go">
+                    <label><span>提醒</span><input type="text" name="" placeholder="选择提醒方式" id="Tips"
+                                                 style="font-size:0.3rem"></label>
+                </div>
+            </div>-->
+        </div>
+    </div>
+    <div class="cover"></div>
+    <div class="tips_bottom">
+        <div class="title">
+            <span class="left cancel">取消</span>
+            <p>选择当日提醒方式</p>
+            <span class="right sure">确定</span>
+        </div>
+        <ul class="tipslist">
+            <li data="3" class="active">短信</li>
+            <li data="4" class="active">微信</li>
+        </ul>
+    </div>
+    <div class="pop" id="pop_ok">
+        <p>设置成功</p>
+        <a class="close">确定</a>
+    </div>
+	
+    <div class="pop" id="pop_err">
+        <p>标题不能为空</p>
+        <a class="close">确定</a>
+    </div>
+    <div class="pop" id="pop_err2">
+        <p>内容不能为空</p>
+        <a class="close">确定</a>
+    </div>	
+    <div class="pop" id="pop_err3">
+        <p>请选择提醒方式</p>
+        <a class="close">确定</a>
+    </div>	
+</div>
+<div class="confirm">
+    <a href="javascript:;">去设置</a>
+</div>
+
+
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="js/mobileSelect.min.js"></script>
+<script type="text/javascript" src="js/selectDate.js"></script>
+<script type="text/javascript" src="../js/common.js?20210121"></script>
+<script type="text/javascript">
+    
+    var eventTitle = "";
+	var eventContent = "";
+	var selectDate = "";
+	if(App.isNotEmpty(App.getUrlParam("eventTitle"))){
+		eventTitle = decodeURI(decodeURI(App.getUrlParam("eventTitle")));
+		$("#eventTitle").val(eventTitle)
+	}
+	if(App.isNotEmpty(App.getUrlParam("eventContent"))){
+		eventContent = decodeURI(decodeURI(App.getUrlParam("eventContent")));
+		$("#eventContent").val(eventContent)
+	}
+	if(App.isNotEmpty(App.getUrlParam("selectDate"))){
+		selectDate = decodeURI(decodeURI(App.getUrlParam("selectDate")));
+	}else{
+		selectDate = fmtDate('','');
+	}
+    $("input[name=selectDate]").on("focus", function () {
+        document.activeElement.blur();//屏蔽默认键盘弹出；
+    });
+	if ($("#eventTitle").val() != "") {
+		eventTitle = $("#eventTitle").val();
+	}
+	if ($("#eventContent").val() != "") {
+		eventContent = $("#eventContent").val();
+	}
+	$("#eventTitle").bind('input propertytychange',function(){
+		eventTitle = $("#eventTitle").val();
+	})
+	$("#eventContent").bind('input propertytychange',function(){
+		eventContent = $("#eventContent").val();
+	})
+	//格式化输出日期
+	function fmtDate(dd,t){
+		var a = new Date();
+		if(dd!=''){
+			a = new Date(dd);
+		}
+		var m = (a.getMonth()+1)>10 ?(a.getMonth()+1) : '0'+(a.getMonth()+1);
+		var d = (a.getDate()+1)>10 ?(a.getDate()) : '0'+(a.getDate());
+		if(t==1){
+			return a.getFullYear()+m+d;
+		}else{
+			return a.getFullYear()+"-"+m+"-"+d;
+		}
+	};
+    $("#Date").html(selectDate.split('-')[0]+'年'+ selectDate.split('-')[1]+'月'+selectDate.split('-')[2]+"日");
+    $('#Tips').val("短信,微信");
+    /*设置全部参数*/
+    var select1 = $.selectDate("#Date1", {
+        start: 2020,
+        end: new Date().getFullYear(),
+        select: [selectDate.split('-')[0], selectDate.split('-')[1], selectDate.split('-')[2]],
+        title: '&nbsp;'
+    }, function (data) {
+
+        $("#Date").html(data.year + "年" +  data.month + "月" +  data.day +"日");
+        selectDate = data.year + "-" +  data.month  + "-" +  data.day;
+    });
+
+    $('#Tips').click(function () {
+        $('.cover').show();
+        $('.tips_bottom').show();
+    })
+    $('.close').click(function () {
+        $('.cover').hide();
+        $('.pop').hide();
+        //history.go(-1);
+    })
+    $('.cancel').click(function () {
+        $('.cover').hide();
+        $('.tips_bottom').hide();
+    })
+    var chk = '3,4';
+    $('.sure').click(function () {
+        chk = '';
+        $('.cover').hide();
+        $('.tips_bottom').hide();
+        var txt = '';
+
+        for (var i = 0; i < $('.tipslist .active').length; i++) {
+			if(i+1 < $('.tipslist .active').length){
+				txt = txt + $('.tipslist .active').eq(i).text() + ',';
+				chk = chk + $('.tipslist .active').eq(i).attr("data") + ',';
+			}else{
+				txt = txt + $('.tipslist .active').eq(i).text();
+				chk = chk + $('.tipslist .active').eq(i).attr("data");
+			}
+        }
+        $('#Tips').val(txt);
+    })
+
+    $('.tipslist li').click(function () {
+        $(this).toggleClass('active');
+    })
+
+    $(".confirm").click(function () {
+		if ($("#eventTitle").val() != "") {
+			eventTitle = $("#eventTitle").val();
+		}
+		if ($("#eventContent").val() != "") {
+			eventContent = $("#eventContent").val();
+		}
+		window.location.href = "custom.html?eventTitle="+encodeURIComponent(eventTitle)+"&eventContent="+encodeURIComponent(eventContent)+"&selectDate="+selectDate;
+    });
+</script>
+</body>
+</html>

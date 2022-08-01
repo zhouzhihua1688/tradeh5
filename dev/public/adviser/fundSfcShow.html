@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta charset="gbk">-->
+    <title>我的顺风车</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+	<script type="text/javascript" src="js/phone-size.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+	<script type="text/javascript" src = "https://static.99fund.com/mobile/wap-lib/js/basic.js"></script>
+	<script type="text/javascript" src = "../wap/js/common.js?20210106"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        }
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+                oHtml.style.fontSize = '17.06px';
+            }else if(screenWidth >= 750){
+                oHtml.style.fontSize = '40px';
+            }else{
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+            }
+        }
+    </script>
+    <style>
+   body{background:#f5f5f5}
+    .main{width:100%;background:#f5f5f5;}
+    .head{width:100%;height:8.45rem;background: url('img/head.png') no-repeat;background-size: cover;}
+    .content{width:17.25rem;height:10.875rem;position: relative;top:-2.25rem;left:50%;margin-left:-8.625rem;background:#fff;
+      border-radius:0.25rem;padding-bottom:1.5rem;
+    }
+    .content .title{width:100%;margin-top:1rem;padding-top:1rem;}
+    .content .title .tip{width:0.2rem;height:0.75rem;background: #148CE6;border-radius: 0rem 0.15rem 0.15rem 0rem;display: inline-block;vertical-align: middle;}
+    .content .title .text{color:#000;font-size:0.8rem;font-weight: bold;display: inline-block;vertical-align: middle;margin-left:0.5rem;position: relative;}
+    .content .title .tip_text{width:1.7rem;height:0.8rem;background: #E5F4FE;display: inline-block;vertical-align: middle;border-radius:0.1rem;text-align: center;line-height:0.8rem;font-size:0.6rem;font-weight: 500;color: #148CE6;margin-left:0.5rem;}
+    .content .title .jiantou{width:0.4rem;height:0.75rem;display: inline-block;position: absolute;right:0.75rem;top:1.25rem;}
+    .content .title .jiantou img{width:0.4rem;height:0.75rem;}
+    .content .shouyi{width:100%;margin-top:0.75rem;}
+    .content .shouyi .text,.content .shouyi .text1{color:#666666;font-size: 0.65rem;margin-left:0.75rem;display: inline-block;}
+    .content .shouyi .text1{margin-left:2.55rem;}
+    .content .number{width:100%;}
+    .content .number .text{color:#F4333C;font-size:1rem;position: relative;top:0.5rem;left:0.75rem;}
+
+    .content .number .text1{color:#F4333C;font-size:1rem;position: relative;top:-0.75rem;left:7.95rem;}
+
+    .content .number .buy{width:3.5rem;height:1.5rem;background: #FB5C5F;border-radius:0.75rem;font-size:0.65rem;color:#fff;text-align:center;line-height: 1.5rem;position: absolute;right:0.75rem;top:3.5rem;}
+    .content .jiedu{width:100%;margin-top:0.5rem;}
+    .content .yanse{width:15.0rem;height:4.375rem;background: #F7FCFF;border-radius:0.1rem;margin:0 auto;position: relative;padding-bottom:0.5rem}
+    .content .jiedu .touxiang{width:2.0rem;height:2.575rem;background: url('img/touxiang.png') no-repeat;background-size: cover;position: absolute;top:0;left:-0.5rem;}
+    .content .jiedu .wenan{width:12.5rem;height:4rem;display: inline-block;margin-left:0.5rem;position: absolute;top:0.5rem;left:1.75rem;padding-bottom:0.75rem;overflow-y:auto;text-align: justify}
+    .content .jiedu .wenan .text{font-weight: bold;color: #000000;font-size: 0.6rem;}
+    .content .jiedu .wenan .text1{color: #666;font-size:0.6rem;margin-top:0.375rem;line-height:0.9rem;padding-right:0.5rem;}
+
+    .blue{color:#1affc1;}
+	#layout{display:none;}
+    </style>
+
+</head>
+<body>
+  <div class="main">
+    <div class="head"></div>
+
+  </div>
+
+<script>
+	//请求接口
+	getMyList();
+	
+	function getMyList() {
+		var url = "/assetcenter/v1/asset/list-ride";
+		$.get(url, function(result){
+			if(result.returnCode == 0 && result.body != undefined && result.body != null){
+				var fundList = result.body;
+				var htm = '';
+				if(fundList.length > 0){
+
+					for(var k in fundList){
+						var item = fundList[k];
+
+						var days = 0;
+						if(item.purchaseDate != null ){
+							var purchaseDate = item.purchaseDate;
+							var purchaseDateStr = purchaseDate.substr(0,4) + "-" + purchaseDate.substr(-4,2) + "-" + purchaseDate.substr(-2,2);
+							days = dateDiff(purchaseDateStr,fmtDate('',''));
+						}
+						var yieldStr = '<div class="text"><span style="font-size: 0.7rem;color:#F95D1F">+</span>0.00<span style="font-size: 0.7rem;color:#F95D1F">%</span></div>'; 
+						if(WAP.isNotEmpty(String(item.yield))){
+							if(String(item.yield).indexOf('-') == -1){
+								yieldStr = '<div class="text"><span style="font-size: 0.7rem;color:#F95D1F">+</span>'+WAP.formatMoney(String(item.yield),2)+'<span style="font-size: 0.7rem;color:#F95D1F">%</span></div>'; 
+							}else{
+								yieldStr = '<div class="text2"><span style="font-size: 0.7rem;color:#5fa134">-</span>'+WAP.formatMoney(String(item.yield.replace('-','')),2)+'<span style="font-size: 0.7rem;color:#5fa134">%</span></div>'; 
+							}
+						}
+						if(item.isHold == 'Y'){
+							htm+='<div class="content" style="margin-top:0.5rem" id="content_'+item.productId+'">'
+								  +'<div class="title">'
+									+'<div class="tip"></div>'
+									+'<div class="text">'+item.productName +'</div>'
+									+'<div class="tip_text">持有</div>'
+									+'<a href="htffundxjb://action?type=fund&subType=holdingDetail&productId=' + item.productId + '&balanceSerialNo='+item.serialNo+'&fundType='+item.productType+'&api='+item.api+'">'
+									+'	<div class="jiantou"><img src="img/jiantou.png" alt=""></div>'
+									+'</a>'
+								  +'</div>'
+								  +'<div class="shouyi">'
+									+'<div class="text">上车以来收益率</div>'
+									+'<div class="text1">已上车</div>'
+								  +'</div>'
+								  +'<div class="number">'
+									+''+yieldStr+''
+									+'<div class="text1">'+days+'<span style="font-size:0.9rem;color:#F95D1F">天</span></div>'
+									+'<a href="htffundxjb://action?type=fund&subType=purchase&tag=SFC_PURCHASE&fundId=' + item.productId + '"><div class="buy">继续购买</div></a>'
+								  +'</div>';
+
+							}
+							queryMarketInterpretation(item.productId);
+						}
+				}
+				$(".main").append(htm);
+			} else {
+				
+			}
+		});
+	}
+   //计算天数差的函数，通用  
+   function  dateDiff(sDate1,  sDate2){    //sDate1和sDate2是2006-12-18格式  
+
+       var  aDate,  oDate1,  oDate2,  iDays  ;
+       aDate  =  sDate1.split("-")  ;
+       oDate1  =  new  Date(aDate[0] , aDate[1]-1 , aDate[2],'0','0','0');    
+       aDate  =  sDate2.split("-")  ;
+       oDate2  =  new  Date(aDate[0] , aDate[1]-1 , aDate[2],'0','0','0');
+
+       iDays  =  parseInt(Math.abs(oDate1  -  oDate2)  /  1000  /  60  /  60  /24) ;   //把相差的毫秒数转换为天数  
+       return  iDays;
+	}
+	//格式化输出日期
+	function fmtDate(dd,t){
+		var a = new Date();
+		if(dd!=''){
+			a = new Date(dd);
+		}
+		var m = (a.getMonth()+1)>10 ?(a.getMonth()+1) : '0'+(a.getMonth()+1);
+		var d = (a.getDate()+1)>10 ?(a.getDate()) : '0'+(a.getDate());
+		if(t==1){
+			return a.getFullYear()+m+d;
+		}else{
+			return a.getFullYear()+"-"+m+"-"+d;
+		}
+	};
+function queryMarketInterpretation(relatedFunds) {
+    var data = {
+        'catalogId': '4076',
+        'pageSize': 10,
+        'pageNo': 1,
+        'sortInfo':{"orderFiled":"createDate","orderType":"DESC"},
+        'tagList': ['顺风车'],
+		'relatedFund':relatedFunds
+    };
+    var url ='/ess/v1/article/articles';
+    App.post(url,JSON.stringify(data), null, function (result) {
+        var infos = result.body;
+        if(infos != undefined && infos != null){
+            var html = '';
+            infos.forEach(function (item) {
+                html +='<div class="jiedu">'
+					+'<div class="yanse">'
+					  +'<div class="touxiang" style="background:url('+item.picture+') no-repeat;background-size:cover;"></div>'
+					  +'<div class="wenan" onclick="javascript:window.location.href=\''+ item.url.replace(/index.html/,'share.html') +'\'">'
+						+'<div class="text">'+ item.title +'</div>'
+						+'<div class="text1">'+ item.brief +'</div>'
+					  +'</div>'
+					+'</div>'
+				  +'</div>'
+				+'</div>';
+            });
+            $("#content_"+relatedFunds).append(html);
+            
+        } 
+    });
+}
+</script> 
+</body>
+</html>

@@ -1,0 +1,42 @@
+.success-body{
+    width: 100%;
+    /* Safari、Opera 以及 Chrome */
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+
+.success-body .icon{
+    width: 20%;
+}
+
+.success-body .subtitle{
+    width:70%;
+    background-color: #ffffff;
+    border-radius: 7px;
+    padding: 10px 6px 10px 6px;
+}
+
+.success-body .subtitle .success-num{
+    margin-bottom: 10px;
+}
+
+.success-body .subtitle2{
+    width:70%;
+    background-color: #ffffff;
+    border-radius: 7px;
+    padding: 10px 6px 10px 6px;
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+
+.success-body .subtitle2 .left{
+    width: 50%;
+    text-align: left;
+}
+
+.success-body .subtitle2 .right{
+    width: 50%;
+    text-align: right;
+}

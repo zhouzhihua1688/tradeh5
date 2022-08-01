@@ -1,0 +1,41 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <title>填写验证码</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/login/reg.css"/>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/weixin.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210302"></script>
+    <script type="text/javascript" src="../js/login/reg_2.js"></script>
+
+</head>
+<body>
+<div class="top-bar">
+    <div class="f-white f18">填写验证码</div>
+</div>
+<div class="dialog-area">
+    <div class="dialog-text">我们已经发送验证码到<span id="reg_mobileNo" class="f-orange"><!--186****1158--></span>的手机上</div>
+</div>
+<div class="dialog-area">
+    <div class="regcode-input"><input type="text" id="reg_authCode" maxlength="6" placeholder="请输入验证码"></div>
+    <div class="resend-text"><span id="resendTime"><!--60--></span>秒以后重新发送</div>
+    <div class="resend"><input type="button" id="resend_authCode" class="button-orange resendbutton" value="重新获取验证码"></div>
+</div>
+<!--<div class="area-height-10"></div>
+<div class="dialog-area">
+    <div class="regcode-input"><input type="text" id="reg_pig_authCode" maxlength="6" placeholder="请输入图片验证码"></div>
+    <div><img class="images" src="/mobileEC/services/wap_register_auth_code"></div>
+</div>-->
+<div class="area-height-20"></div>
+<div class="button-area">
+    <div class="button-orange button-width-big" id="register_next_btn">下一步</div>
+</div>
+</body>
+</html>

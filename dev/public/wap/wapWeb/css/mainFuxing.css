@@ -1,0 +1,89 @@
+
+@charset "utf-8";
+
+.font-arial{ font-family: Arial; }
+body {left: 0%; right: 0%;}
+button { outline: none;  }
+section{ background-color: #fff; color: #fff;}
+img { vertical-align: top;border: none;outline: none;width: 100%; display: block;}
+p { line-height: 1.5; word-wrap: break-word; text-align: justify; }
+table { width: 100%;border-collapse:collapse; }
+.hide { display: none !important; }
+.red { color: #fd5058;}
+.bolder { font-weight: bolder;}
+.padding-10 { padding: .25rem;}
+.margin-top-10 {margin-top: .5em;}
+.left{ float: left; }
+.right{ float: right; }
+.hide { display: none; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.black { color: #333333; }
+.margin-bottom-20 { margin-bottom: 20px;}
+.font-24 { font-size: 0.6rem;}
+.font-28 { font-size: 0.7rem;}
+.blank-20 { height: 1rem;}
+
+.layer { position: fixed; top: 0;left: 0;  background-color: rgba(0,0,0,0.7) ; height: 100%; width: 100%; overflow: auto; font-size: 0.6rem; z-index: 999;}
+.layer-wrap { width: 100%;max-width: 18.75rem; margin: 2.5rem auto;}
+
+.content {position: relative;padding-top: 1px; background: #fa4e4e url("../img/fuxing/bg_02.png") no-repeat center top; background-size: contain; -webkit-background-size: contain;}
+.light-box {   background: #fa4e4e url("../img/fuxing/pang.png") no-repeat center top; background-size: 100% 100%; -webkit-background-size: 100% 100%; margin: 14rem 1rem 0 1rem; min-height: 17.78rem; }
+.light-box-inner { padding: 2.4rem 2rem 1rem 2rem;}
+.light-box-inner h2 { color: #fff; font-size: .75rem; width: 12.6rem; line-height: 1.775rem;margin: 0 auto; background: url("../img/fuxing/h2_bg_05.jpg") no-repeat;background-size: contain; -webkit-background-size: contain; text-align: center;}
+.light-box-inner h2 span { font-size: .7rem;}
+.light-box-inner .flow { margin: .5rem 0 1rem;}
+.light-box-inner section {color: #777676; font-size: .6rem;}
+.light-box-inner section h4 { margin-bottom: .2rem;}
+.light-box-inner section ul { margin: 1rem 0;}
+.light-box-inner section ul li { float: left;margin-left: 12%; width: 20%; padding-left: 15%; position: relative; font-size: .8rem;}
+.light-box-inner section ul li img { margin-left: -.2rem; float: left; width: 50%; height: 1.2rem; width: auto; position: absolute; left: 25%;bottom: .05rem; }
+.light-box-inner form input:first-child{font-size:1rem;display:block;width:100%;height: 1.8rem;line-height: 1.8rem;text-align: center;border:1px #ff5956 solid;border-radius: 5px; -webkit-border-radius: 5px;}
+.light-box-inner form input:nth-of-type(2){font-size:.8rem;display: inline-block;margin-top:.55rem;width: 60%;height:1.25rem;line-height: 1.25rem;text-align: center;border:1px #ff5956 solid;border-radius: 5px;-webkit-border-radius: 5px;}
+.light-box-inner form button{display: inline-block;margin: .55rem 0 0 .1rem ;width:36%;height:1.25rem;background: #ff5956;color: #fff; border-radius: 5px; -webkit-border-radius: 5px;}
+.btn { width: 50%; 
+	display: block; margin: 0.5rem auto; 
+	line-height: 1.1rem; border-radius: .55rem; 
+	border: 2px solid #ff575e; color: #ff575e;
+	 font-weight: bolder; text-align: center; 
+	 font-size: .6rem;  letter-spacing: 6px;}
+
+.congratulation h2 { margin-top: 1rem; }
+.onekey-copy { display: table; width: 80%; margin: 0 auto;   }
+.onekey-copy>div { display: table-row;   }
+.onekey-copy>div>div { display: table-cell; padding:  .2rem 0 .22rem;}
+.onekey-copy>div>div:nth-of-type(1) { background-color: #d4d9d5; padding-left: .2rem; padding-right: .2rem; white-space: normal; overflow: hidden; }
+.onekey-copy>div>div:nth-of-type(2) { background-color: #ff5b52;  text-align: center; color: #fff; width: 3.4rem;}
+.congratulation .btn { width: 6rem; }
+
+.light-box.faq { margin: 0 .95rem 0 .95rem;   background-image: url("../img/fuxing/pang.png"); background-color: transparent; font-size: .6rem; color: #777676; min-height: 21.53rem; }
+.faq .light-box-inner { padding: 1.8rem 1.9rem 1rem 1.75rem; }
+
+.faq h4 { margin-top: .4rem; line-height: .9rem;}
+.faq section>div {background-color: rgba(248, 90,90, .15); padding: .4rem; border-radius: 5px; text-align: justify; position: relative;}
+.faq section>div:after { content: ""; display: block; width: 1.1rem; height: .6rem; bottom: -.6rem; right: .5rem; position: absolute; background: url("../img/fuxing/jbiao_05.png"); background-size: contain;background-size: contain;}
+.faq .btn { margin-top: 2.5rem; width: 6rem;}
+
+.light-box.rules { margin-top: 0;   background-image: url("../img/fuxing/pang.png"); background-color: transparent; font-size: .6rem; color: #777676; min-height: 21.53rem; }
+.rules ol { margin-top: 1rem;}
+.rules ol li { padding: .4rem .8rem .4rem 1.2rem; border-bottom: 1px solid #e5dfe5;  text-align: justify; line-height: 1.5;}
+.rules ol li span { margin-left: -.7rem;}
+.rules .btn { margin-top: 2rem; width: 6rem;}
+
+.risk-tips { padding: 1rem .9rem 1rem; font-size: 12px; color: #fff; }
+
+.btn-group { position: absolute;
+	top: .8rem;
+	right: 1rem;
+	 }
+.btn-group a {
+	display: block;
+	font-size: 14px;
+	color: #fff;
+	border: 1px solid #fff;
+	line-height: 24px;
+	padding: 0 8px;
+	border-radius: 12px;
+}
+.risk-tips h4 { font-size: 18px; padding: .35rem .35rem .15rem .35rem ; text-align: center; color:#fdf9f3 ; }
+.risk-tips p {color:#fff;opacity: .7;text-align: center;}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>身份验证</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/common.css">
+    <link rel="stylesheet" href="css/smsCode.css">
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+<body>
+<div class="step2">
+    <div class="title"></div>
+    <div class="input-block">
+        <div class="img">
+            <img src="img/pen.png">
+        </div>
+        <div class="content">
+            <input type="text" class="input-code" maxlength="6">
+        </div>
+        <div class="text sendCode">
+            60秒后重发
+        </div>
+    </div>
+    <div class="next-btn">下一步</div>
+    <div id="change"><a href="javascript:;">更换验证方式</a></div>
+</div>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;"
+           onclick="this.parentElement.parentElement.style='display:none'">确定</a>
+    </div>
+</div>
+<script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script src="js/cosBase.js"></script>
+<script src="js/smsCode.js"></script>
+</body>
+</html>

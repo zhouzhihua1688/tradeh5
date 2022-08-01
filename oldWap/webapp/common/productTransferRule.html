@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf8">
+    <title>交易规则</title>
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+	<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+	<script type="text/javascript" src = "https://static.99fund.com/mobile/wap-lib/js/basic.js"></script>
+    <script type="text/javascript" src="js/phone-size.js"></script>
+    <style>
+        .title {
+            padding: 0 .75rem;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            font-size: .8rem;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .title i {
+            display: inline-block;
+            width: .15rem;
+            height: .75rem;
+            background-color: #fb5c5f;
+            vertical-align: middle;
+            margin-right: .6rem;
+        }
+
+        .title2 {
+            padding: 0 .75rem;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            font-size: .8rem;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .title2 span:nth-of-type(1) {
+            font-size: .6rem;
+            line-height: .6rem;
+            padding: 0 .25rem;
+            border-radius: 2px;
+            color: #fff;
+            margin-right: .25rem;
+        }
+
+        .background-blue {
+            font-weight: normal;
+            background-color: #148ce6;
+        }
+
+        .background-red {
+            font-weight: normal;
+            background-color: #fb5c5f;
+        }
+
+        .conmon-section {
+            background: #fff;
+            overflow: hidden;
+            padding-bottom: .5rem;
+        }
+
+        .margin-t20 {
+            margin-top: .5rem;
+        }
+
+        .margin-b20 {
+            margin-bottom: .5rem;
+        }
+
+        .text-content {
+            padding: 0 .75rem;
+            line-height: 1.5;
+            color: #666;
+            font-size: .75rem;
+            overflow: hidden;
+        }
+
+        .text-content div {
+            width: 97%;
+            float: right;
+        }
+
+        .text-content i {
+            float: left;
+            width: .375rem;
+            height: .375rem;
+            border-radius: 50%;
+            margin-top: .4rem;
+            background: #333;
+
+        }
+
+        .text-content p {
+            margin-bottom: .5rem;
+        }
+
+        .text-content p span:nth-of-type(1) {
+            display: inline-block;
+            margin-right: .25rem;
+            vertical-align: middle;
+            margin-top: -0.25rem;
+        }
+
+        .noline {
+            padding: 0 .75rem;
+            font-size: .75rem;
+            overflow: hidden;
+            color: #000;
+        }
+
+        .noline li {
+            overflow: hidden;
+            width: 100%;
+            height: 2rem;
+            line-height: 2rem;
+        }
+
+        .noline li p {
+            float: left;
+        }
+
+        .noline li a {
+            float: right;
+            color: #148ce6;
+        }
+
+        .list-title {
+            overflow: hidden;
+            font-size: .7rem;
+            color: #000;
+            height: 1.75rem;
+            line-height: 1.75rem;
+            border-bottom: 1px #efefef solid;
+            padding: 0 .75rem;
+        }
+
+        .list-title p:nth-of-type(1) {
+            float: left;
+        }
+
+        .list-title p:nth-of-type(2) {
+            float: right;
+        }
+
+        .hasline {
+            overflow: hidden;
+            font-size: .7rem;
+            color: #666;
+        }
+
+        .hasline li {
+            overflow: hidden;
+            margin-left: .75rem;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            border-bottom: 1px #efefef solid;
+        }
+
+        .last {
+            border-bottom: none !important;
+        }
+
+        .hasline li p:nth-of-type(1) {
+            float: left;
+        }
+
+        .hasline li p:nth-of-type(2) {
+            float: right;
+            margin-right: .75rem;
+        }
+    </style>
+</head>
+
+<body>
+
+     <section class="content1" id="group" style="display:none;">
+            <ul class="clearfix border tab1">
+                <li class="active"><a>转购为基金</a></li>
+                <li ><a>转换为基金</a></li>
+                <!-- <li><a>转换为组合</a></li> -->
+                <li><a>转换为投顾组合</a></li>
+            </ul>
+            <div class="buy_fund"> 
+                <div class="section1 conmon-section">
+                     <div class="title">
+                         <i></i><span>交易规则</span>
+                     </div>
+                     <div class="text-content">
+                         <div>
+                             <p><span style="margin-top: 0;">采取先赎回转出基金再认/申购目标基金的方式进行交易；如转出基金赎回到账后，目标基金为暂停交易且暂停时间不超过5个交易日时，申购将顺延发起，如暂停时间超过5个交易日，将不再发起认/申购，赎回资金留在现金宝账户中。</span></p>
+                             <p>T日15点前发起，<span style="color: #000;font-weight: bold;">当个交易日15点前支持撤单。</span></p>
+                         </div>
+                     </div>
+                     <!--<div class="text-content">
+                         <i></i>
+                         <div>
+                             <p>T日15点前发起，当日15点前支持撤单；可直接转换的部分T+1确认，不支持转换的产品（如QDll基金）将通过先赎回再申购的方式实现，确认时间根据产品赎回到账周期和申购确认周期而定，全部交易完成时间可参考选择转入组合后的页面提示的交易完成时间。</p>
+                         </div>
+                     </div>-->
+                </div>
+                <div class="section2 conmon-section margin-t20">
+                 <div class="title">
+                     <i></i><span>手续费</span>
+                 </div>
+                 <div class="text-content">
+                     <i></i>
+                     <div>
+                         <p>转购交易手续费为转出基金赎回费和转入基金认/申购费之和。</p>
+                     </div>
+                 </div>
+                 <div class="text-content">
+                     <i></i>
+                     <div>
+                         <p>费率优惠规则：认/申购费视目标基金公告的优惠规则收取（0.1折起），赎回费暂不打折。</p>
+                     </div>
+                 </div>
+                </div>
+                <div class="section3 conmon-section margin-t20" id="outgroup1_b">
+                    
+                </div>
+                <div class="section4 conmon-section margin-t20" id="gf_b">
+                     <div class="title2">
+                         <span class="background-red">转入基金</span><span class="fundNm2"></span>
+                     </div>
+                     <div class="list-title">
+                         <p>认/申购金额</p>
+                         <p>认/申购费率</p>
+                     </div>
+                     <ul class="hasline" id="in31_b">
+                         
+                     </ul>
+                </div>
+                <div class="section5 conmon-section margin-b20" id="in32_b">
+         
+                </div>
+             </div>
+            <div class="for_fund" style="display:none;"> 
+               <div class="section1 conmon-section">
+                    <div class="title">
+                        <i></i><span>交易方式</span>
+                    </div>
+                    <div class="text-content">
+                        <div>
+                            <p><span>①</span><span>将拆分为多笔一对一的转入、转出子交易；</span></p>
+                            <p><span>②</span><span>转出基金和转入基金可直接转换时通过普通转换交易完成，暂不支持转换的产品（如QDII基金）将通过先赎回再申购的方式实现；</span></p>
+                            <p><span>③</span><span>T日15点前发起，可直接转换的部分T+1确认；通过先赎回再申购的方式实现部分，确认时间根据产品赎回到账周期和申购确认周期而定，组合转换全部交易完成时间可参考页面提示的交易完成时间；</span></p>
+                            <p><span>④</span><span>T日15点前发起，15点前支持撤单。</span></p>
+                        </div>
+                    </div>
+                    <!--<div class="text-content">
+                        <i></i>
+                        <div>
+                            <p>T日15点前发起，当日15点前支持撤单；可直接转换的部分T+1确认，不支持转换的产品（如QDll基金）将通过先赎回再申购的方式实现，确认时间根据产品赎回到账周期和申购确认周期而定，全部交易完成时间可参考选择转入组合后的页面提示的交易完成时间。</p>
+                        </div>
+                    </div>-->
+               </div>
+               <div class="section2 conmon-section margin-t20">
+                <div class="title">
+                    <i></i><span>转换费用</span>
+                </div>
+                <div class="text-content">
+                    <i></i>
+                    <div>
+                        <p>转换费用为多笔明细转入、转出交易的费用之和。明细转入、转出交易的费用规则：</p>
+                        <p><span>①</span><span>普通转换：转出基金赎回费+转入基金申购补差费</span></p>
+                        <p><span>②</span><span>先赎回再申购：转出基金赎回费+转入基金申购费</span></p>
+                    </div>
+                </div>
+                <div class="text-content">
+                    <i></i>
+                    <div>
+                        <p>费率优惠规则：申购补差费视转入基金公告情况可打折，转出基金赎回费不打折</p>
+                    </div>
+                </div>
+               </div>
+               <div class="section3 conmon-section margin-t20" id="outgroup1">
+                   
+               </div>
+               <div class="section4 conmon-section margin-t20" id="gf">
+					<div class="title2">
+						<span class="background-red">转入基金</span><span class="fundNm2"></span>
+					</div>
+					<div class="list-title">
+						<p>申购金额</p>
+						<p>申购费率</p>
+					</div>
+					<ul class="hasline" id="in31">
+						
+					</ul>
+               </div>
+               <div class="section5 conmon-section margin-b20" id="in32">
+        
+               </div>
+            </div>
+             <!-- 第二个的切换 -->
+            <div class="for_combination" style="display:none"> 
+                <div class="section1 conmon-section">
+                    <div class="title">
+                        <i></i><span>交易方式</span>
+                    </div>
+                    <div class="text-content">
+                        <div>
+                            <p><span>①</span><span>将拆分为多笔一对一的转入、转出子交易；</span></p>
+                            <p><span>②</span><span>转出基金和转入基金可直接转换时通过普通转换交易完成，暂不支持转换的产品（如QDII基金）将通过先赎回再申购的方式实现；</span></p>
+                            <p><span>③</span><span>T日15点前发起，可直接转换的部分T+1确认；通过先赎回再申购的方式实现部分，确认时间根据产品赎回到账周期和申购确认周期而定，组合转换全部交易完成时间可参考页面提示的交易完成时间；</span></p>
+                            <p><span>④</span><span>T日15点前发起，15点前支持撤单。</span></p>
+                        </div>
+                    </div>
+                    <!--<div class="text-content">
+                        <i></i>
+                        <div>
+                            <p>T日15点前发起，可直接转换的部分T+1确认，不支持转换的产品（如QDll）将通过先赎回再申购的方式实现，确认时间根据产品赎回到账周期和申购确认周期而定，全部交易完成时间可参考选择转入组合后的页面提示的交易完成时间。</p>
+                        </div>
+                    </div>-->
+               </div>
+               <div class="section2 conmon-section margin-t20">
+                <div class="title">
+                    <i></i><span>转换费用</span>
+                </div>
+                <div class="text-content">
+                    <i></i>
+                    <div>
+                        <p>转换费用为多笔明细转入、转出交易的费用之和。明细转入、转出交易的费用规则：</p>
+                        <p><span>①</span><span>普通转换：转出基金赎回费+转入基金申购补差费</span></p>
+                        <p><span>②</span><span>先赎回再申购：转出基金赎回费+转入基金申购费</span></p>
+                    </div>
+                </div>
+                <div class="text-content">
+                    <i></i>
+                    <div>
+                        <p>费率优惠规则：申购补差费和申购费视目标转入基金公告情况可打折，转出基金赎回费不打折</p>
+                    </div>
+                </div>
+               </div>
+               <div class="section3 conmon-section margin-t20" id="outgroup2">
+				
+                </div>
+                <!-- 9645 -->
+                <!-- <div class="section3 conmon-section margin-t20 margin-b20 " id="in44">
+                </div> -->
+                <div class="section3 conmon-section margin-t20 margin-b20 " id="in4">
+     
+                </div>
+            </div>
+    </section>
+
+
+    <section class="content1" id="fund" >
+        <ul class="clearfix border tab1">
+            <li class="active"><a>转购为基金</a></li>
+            <li ><a>转换为基金</a></li>
+            <!-- <li><a>转换为组合</a></li> -->
+                <li ><a>转换为投顾组合</a></li>
+        </ul>
+        <div class="buy_fund">
+            <div class="section1 conmon-section">
+                <div class="title">
+                    <i></i><span>交易规则</span>
+                </div>
+                <div class="text-content">
+                    <div>
+                        <p><span style="margin-top: 0;">采取先赎回转出基金再认/申购目标基金的方式进行交易；如转出基金赎回到账后，目标基金为暂停交易且暂停时间不超过5个交易日时，申购将顺延发起，如暂停时间超过5个交易日，将不再发起认/申购，赎回资金留在现金宝账户中。</span></p>
+                        <p>T日15点前发起，<span style="color: #000;font-weight: bold;">当个交易日15点前支持撤单。</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="section2 conmon-section margin-t20">
+                <div class="title">
+                    <i></i><span>手续费</span>
+                </div>
+                <div class="text-content">
+                    <i></i>
+                    <div>
+                        <p>转购交易手续费为转出基金赎回费和转入基金认/申购费之和。</p>
+                    </div>
+                </div>
+                <div class="text-content">
+                    <i></i>
+                    <div>
+                        <p>费率优惠规则：认/申购费视目标基金公告的优惠规则收取（0.1折起），赎回费暂不打折。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="section3 conmon-section margin-t20 outfund" >
+                <div class="title2">
+                    <span class="background-blue">转出基金</span><span class="fundNm"></span>
+                </div>
+                <div class="list-title">
+                    <p>申购金额</p>
+                    <p>申购费率</p>
+                </div>
+                <ul class="hasline" id="outfund11_b">
+                    
+                </ul>
+            </div>
+            <div class="section4 conmon-section" id="outfund12_b">
+               
+            </div>
+            <div class="section5 conmon-section margin-t20" id="ff_b">
+                <div class="title2">
+                    <span class="background-red">转入基金</span><span class="fundNm2"></span>
+                </div>
+                <div class="list-title">
+                    <p>认/申购金额</p>
+                    <p>认/申购费率</p>
+                </div>
+                <ul class="hasline" id="in11_b">
+                    
+                </ul>
+            </div>
+            <div class="section6 conmon-section margin-b20" id="in12_b">
+                
+            </div>
+        </div>
+        <div class="for_fund" style="display:none;">
+            <div class="section1 conmon-section">
+                <div class="title">
+                    <i></i><span>交易规则</span>
+                </div>
+                <div class="text-content">
+                    <div style="width: 100%;">
+                        <p>直接发起转出基金到转入基金的普通转换交易。</p>
+                        <p>T日15点前发起，<em style="font-style: normal; font-weight: bold;color: #000;">T+1日完成确认，当个交易日15点前支持撤单。</em></p>
+                        <p>如转认购基金，确认时间以实际确认为准。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="section2 conmon-section margin-t20">
+                <div class="title">
+                    <i></i><span>转换费用</span>
+                </div>
+                <div class="text-content">
+                    <i></i>
+                    <div>
+                        <p style="white-space:nowrap">转换费用=转出基金赎回费+转入基金申购补差费；</p>
+                    </div>
+                </div>
+                <div class="text-content">
+                    <i></i>
+                    <div>
+                        <p>费率优惠规则：申购补差费视转入基金公告情况可打折，转出基金赎回费不打折。</p>
+                    </div>
+                </div>
+                <div class="text-content">
+                    <i></i>
+                    <div>
+                        <p>如转认购基金，转换费用=转出基金赎回费+转认购基金认购费。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="section3 conmon-section margin-t20 outfund" >
+                <div class="title2">
+                    <span class="background-blue">转出基金</span><span class="fundNm"></span>
+                </div>
+                <div class="list-title">
+                    <p>申购金额</p>
+                    <p>申购费率</p>
+                </div>
+                <ul class="hasline" id="outfund11">
+                    
+                </ul>
+            </div>
+            <div class="section4 conmon-section" id="outfund12">
+               
+            </div>
+            <div class="section5 conmon-section margin-t20" id="ff">
+                <div class="title2">
+                    <span class="background-red">转入基金</span><span class="fundNm2"></span>
+                </div>
+                <div class="list-title">
+                    <p>申购金额</p>
+                    <p>申购费率</p>
+                </div>
+                <ul class="hasline" id="in11">
+                    
+                </ul>
+            </div>
+            <div class="section6 conmon-section margin-b20" id="in12">
+                
+            </div>
+        </div>
+        <!-- 第二个的切换 -->
+        <div class="for_combination" style="display:none">
+            <div class="section1 conmon-section">
+                <div class="title">
+                    <i></i><span>交易规则</span>
+                </div>
+                <div class="text-content">
+                    <div style="width: 100%;">
+                        <p><span>①</span><span>将采取先赎回转出基金再申购目标组合的方式交易；如转出基金赎回后，遇到目标组合中成分基金暂停交易的，该成分基金对应的申购失败，失败资金留在组合内的现金宝中；组合中开放申购的成分基金可正常申购。</span></p>
+                        <p><span>②</span><span>T日15点前发起，最早T+2开始确认，全部交易完成可参考页面提示的交易完成时间；</span></p>
+                        <p><span>③</span><span>T日15点前发起，当个交易日15点前支持撤单。</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="section2 conmon-section margin-t20">
+                <div class="title">
+                    <i></i><span>转换费用</span>
+                </div>
+                <div class="text-content">
+                    <i></i>
+                    <div>
+                        <p>转换费用为转出基金赎回费和组合申购费之和。</p>
+                    </div>
+                </div>
+                <div class="text-content">
+                    <i></i>
+                    <div>
+                        <p>费率优惠规则：申购费视目标转入组合公告情况打折（0.1折起），转出基金赎回费不打折。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="section3 conmon-section margin-t20 outfund">
+                <div class="title2">
+                    <span class="background-blue">转出基金</span><span class="fundNm"></span>
+                </div>
+                <div class="list-title">
+                    <p>申购金额</p>
+                    <p>申购费率</p>
+                </div>
+                <ul class="hasline" id="outfund21">
+                    
+                </ul>
+            </div>
+            <div class="section4 conmon-section" id="outfund22">
+                
+            </div>
+            <!-- 9645  -->
+            <div class="section5 conmon-section margin-t20 margin-b20" id="in22">
+                
+            </div>
+            <!-- <div class="section5 conmon-section margin-t20 margin-b20" id="in2">
+            </div> -->
+        </div>
+    </section>
+    <script>
+	var tansferType = WAP.getUrlParam("tansferType");	
+	var transferOutPrdid = WAP.getUrlParam("transferOutPrdid");
+	var transferInPrdid = WAP.getUrlParam("transferInPrdid");
+	if(tansferType == "ff" || tansferType == "fg"||tansferType == "fb"){
+		$("#group").hide();
+		$("#fund").show();
+		if(transferOutPrdid != "" ){
+			getOutBuyRate(transferOutPrdid);
+			getOutBackRate(transferOutPrdid);
+		}else{
+			$(".outfund").hide()
+		}
+        if(tansferType == "fb"){
+            if(transferInPrdid != ""){
+                getFundCanSubScribed(transferInPrdid);
+                // getInBuyRate(transferInPrdid);
+                // getInBackRate(transferInPrdid);
+                $("#ff_b").show();
+            }else{
+                $("#ff_b").hide();
+            }
+            $("#ff").hide();
+        }
+        else if(tansferType == "ff" ){
+            $('#fund > .tab1').children("li").eq(1).show().addClass("active").siblings().removeClass('active');
+			$('#fund > .tab1').children("li").parent().siblings().hide().eq(1).show()
+			if(transferInPrdid != ""){
+				getInBuyRate(transferInPrdid);
+				getInBackRate(transferInPrdid);
+				$("#ff").show();
+			}else{
+				$("#ff").hide();
+			}
+            $("#ff_b").hide();
+		}
+        else{
+			$('#fund > .tab1').children("li").eq(2).show().addClass("active").siblings().removeClass('active');
+			$('#fund > .tab1').children("li").parent().siblings().hide().eq(2).show()
+			if(transferInPrdid != ""){
+				getInGroup(transferInPrdid);
+			}
+			$("#ff").hide();
+			$("#ff_b").hide();
+		}
+	}else if(tansferType == "gf" || tansferType == "gg" || tansferType == "gb" ){
+		$("#fund").hide();
+		$("#group").show();
+		if(transferOutPrdid != "" ){
+			getOutGroup(transferOutPrdid)
+		}
+        if(tansferType == "gb"){
+            if(transferInPrdid != ""){
+                getFundCanSubScribed(transferInPrdid);
+				getInBuyRate(transferInPrdid);
+				getInBackRate(transferInPrdid);
+				$("#gf_b").show();
+			}else{
+				$("#gf_b").hide();
+			}
+            $("#gf").hide();
+        }
+		else if(tansferType == "gf" ){
+			if(transferInPrdid != ""){
+				getInBuyRate(transferInPrdid);
+				getInBackRate(transferInPrdid);
+				$("#gf").show();
+			}else{
+				$("#gf").hide();
+			}
+            $("#gf_b").hide();
+			$('#group > .tab1').children("li").eq(1).show().addClass("active").siblings().removeClass('active');
+			$('#group > .tab1').children("li").parent().siblings().hide().eq(1).show()
+		}else{
+			$("#gf").hide();
+			$("#gf_b").hide();
+			if(transferInPrdid != ""){
+				getInGroup(transferInPrdid);
+			}
+			$('#group > .tab1').children("li").eq(2).show().addClass("active").siblings().removeClass('active');
+			$('#group > .tab1').children("li").parent().siblings().hide().eq(2).show()
+		}
+	}
+	$(function () {
+		$('.tab1 li').click(function () {
+			if ($(this).hasClass("active")) {
+				return;
+			}
+			$(this).addClass("active").siblings().removeClass('active');
+			$(this).parent().siblings().hide().eq($(this).index()).show()
+		});
+
+	})
+		
+
+	function getFundNm(fundId,cls){
+		$.get(WAP.requestAddr + "/fund/fund_detail_info?fundId=" + fundId, null, function(resultStr){
+            // 9645
+		// $.get("/mobile-bff/v1/fund-group/detailInfo?fundId=" + fundId, null, function(resultStr){
+			// var result = JSON.parse(resultStr);
+            var result = typeof resultStr === 'string' ? JSON.parse(resultStr) : resultStr;
+			if(result.body != undefined && result.body != null){
+				$("."+cls).html(result.body.fundNm)
+			}
+		});
+	}		
+	
+    // 查询基金是否可认购
+    function getFundCanSubScribed(fundId){
+        // var data={fundId};
+        $.post({url:"/mobile-bff/v1/fund/detailInfo",data:JSON.stringify({fundId:fundId}),contentType : 'application/json',       success:function(resultStr){
+			// var result = JSON.parse(resultStr);
+            console.log(resultStr);
+            if(resultStr.returnCode===0){
+            var result=resultStr.body;
+                 if(result.canSubScribed=='0'){
+                    getInBuyRate(fundId,'00',true);
+                    getInBackRate(fundId,'00',true);
+                    $('#gf_b .list-title p').eq(0).html('申购金额');
+                    $('#ff_b .list-title p').eq(0).html('申购金额');
+                    $('#gf_b .list-title p').eq(1).html('申购费率');
+                    $('#ff_b .list-title p').eq(1).html('申购费率');
+                }else if(result.canSubScribed=='1'){
+                    $('#gf_b .list-title p').eq(0).html('认购金额');
+                    $('#ff_b .list-title p').eq(0).html('认购金额');
+                    $('#gf_b .list-title p').eq(1).html('认购费率');
+                    $('#ff_b .list-title p').eq(1).html('认购费率');
+                    getInBuyRate(fundId,'01')
+                    getInBackRate(fundId,'01')
+                }
+            }else if(resultStr.returnCode===1000){
+                WAP.showDialog(resultStr.returnMsg);
+            }else if(resultStr.returnCode===9999){
+                if (resultStr.returnMsg.indexOf('系统错误') > -1 || resultStr.returnMsg.indexOf('服务器错误') > -1) {
+                    WAP.showDialog("网络连接错误！")
+                } else {
+                    WAP.showDialog(resultStr.returnMsg) 
+                };
+            }
+		    },
+            error:function(e){
+                WAP.showDialog("网络连接错误！")
+            }
+        });
+    }
+
+	//查询基金信息申购费率
+	function getOutBuyRate(fundId,tradeType='00'){
+		getFundNm(fundId,"fundNm");
+		$.get("/productcenter/v1/new/query/funds/single/info/fee/online/range/collections?fundId=" + fundId+"&tradeType="+tradeType, null, function(result){
+
+			if(result.body != undefined && result.body != null){
+                console.log(result.body);
+				var feeLists = result.body.feeList;
+                console.log(feeLists);
+				if(feeLists != undefined && feeLists != ""){
+					var htm = '';
+					for(var i in feeLists){ 
+						var fee = feeLists[i].fixFee ;
+						if(feeLists[i].fixFee == 0){
+							fee = feeLists[i].feeRate.toFixed(2)+"%";
+						}else{
+							fee+="元/笔"; 
+						}
+						if(i==0){
+							htm+='<li><p>'+parseInt(feeLists[i].endAmount/10000)+'万以下</p><p>'+fee+'</p></li>';
+						}else if(i == feeLists.length-1){
+							htm+='<li class="last"><p>'+parseInt(feeLists[i].startAmount/10000)+'万(含)以上</p><p>'+fee+'</p></li>';
+						}else{
+							htm+='<li><p>'+parseInt(feeLists[i].startAmount/10000)+'万(含) - '+parseInt(feeLists[i].endAmount/10000)+'万</p><p>'+fee+'</p></li>';
+						}
+						$("#outfund11,#outfund21,#outfund11_b").html(htm);
+					}
+				}
+			 }
+		});
+	}
+	
+	//查询基金信息赎回费率
+	function getOutBackRate(fundId){
+		$.get("/productcenter/v1/new/query/funds/batch/info/fee/ta/redeem/range/collections?fundIdList=" + fundId+"&tradeType=00", null, function(result){
+
+			if(result.body != undefined && result.body != null){
+
+				var redeemLists = result.body[0].redeemList;
+				if(redeemLists != undefined && redeemLists != ""){
+					var htm = '<div class="list-title"><p>持有期限</p><p>赎回费率</p></div><ul class="hasline">';
+
+					for(var i in redeemLists){
+						if(i==0){
+							htm+='<li><p>T ＜ '+ftmDay(redeemLists[i].maxHoldDays)+'</p><p>'+redeemLists[i].feeRate+'%</p></li>';
+						}else if(i == redeemLists.length-1){
+							htm+='<li class="last"><p>T ≥ '+ftmDay(redeemLists[i].minHoldDays)+'</p><p>'+redeemLists[i].feeRate+'%</p></li>';
+						}else{
+							htm+='<li><p>'+ftmDay(redeemLists[i].minHoldDays)+' ≤ T ＜ '+ftmDay(redeemLists[i].maxHoldDays)+'</p><p>'+redeemLists[i].feeRate+'%</p></li>';
+						}
+					}
+					$("#outfund12,#outfund22,#outfund12_b").html(htm);
+				}
+			 }
+		});
+	}
+		
+		
+	
+	//查询基金信息申购费率
+	function getInBuyRate(fundId,tradeType='00',flag){
+		getFundNm(fundId,"fundNm2");
+		$.get("/productcenter/v1/new/query/funds/single/info/fee/online/range/collections?fundId=" + fundId+"&tradeType="+tradeType, null, function(result){
+
+			if(result.body != undefined && result.body != null){
+                console.log(result.body);
+				var feeLists = result.body.feeList;
+				if(feeLists != undefined && feeLists != ""){
+					var htm = '';
+					for(var i in feeLists){ 
+						var fee = feeLists[i].fixFee ;
+						if(feeLists[i].fixFee == 0){
+							fee = feeLists[i].feeRate.toFixed(2)+"%";
+						}else{
+							fee+="元/笔"; 
+						}
+						if(i==0){
+							htm+='<li><p>'+parseInt(feeLists[i].endAmount/10000)+'万以下</p><p>'+fee+'</p></li>';
+						}else if(i == feeLists.length-1){
+							htm+='<li class="last"><p>'+parseInt(feeLists[i].startAmount/10000)+'万(含)以上</p><p>'+fee+'</p></li>';
+						}else{
+							htm+='<li><p>'+parseInt(feeLists[i].startAmount/10000)+'万(含) - '+parseInt(feeLists[i].endAmount/10000)+'万</p><p>'+fee+'</p></li>';
+						}
+                        // console.log('in----------',fundId,tradeType,flag);
+                        if(tradeType=='00'&&!flag){
+                            $("#in11,#in31").html(htm);
+                        }else if(tradeType=='00'&&flag){
+                            $('#in31_b,#in11_b').html(htm)
+                        }
+                        else if(tradeType=='01'){
+                            $('#in31_b,#in11_b').html(htm)
+                        }   
+					}
+				}
+			 }
+		});
+	}
+	
+	//查询基金信息赎回费率
+	function getInBackRate(fundId,tradeType='00',flag){
+		$.get("/productcenter/v1/new/query/funds/batch/info/fee/ta/redeem/range/collections?fundIdList=" + fundId+"&tradeType="+tradeType, null, function(result){
+			if(result.body != undefined && result.body != null){
+                if(result.body.length>0){
+                    var redeemLists = result.body[0].redeemList;
+                }
+				if(redeemLists != undefined && redeemLists != ""){
+					var htm = '<div class="list-title"><p>持有期限</p><p>赎回费率</p></div><ul class="hasline">';
+
+					for(var i in redeemLists){
+						if(i==0){
+							htm+='<li><p>T ＜ '+ftmDay(redeemLists[i].maxHoldDays)+'</p><p>'+redeemLists[i].feeRate+'%</p></li>';
+						}else if(i == redeemLists.length-1){
+							htm+='<li class="last"><p>T ≥ '+ftmDay(redeemLists[i].minHoldDays)+'</p><p>'+redeemLists[i].feeRate+'%</p></li>';
+						}else{
+							htm+='<li><p>'+ftmDay(redeemLists[i].minHoldDays)+' ≤ T ＜ '+ftmDay(redeemLists[i].maxHoldDays)+'</p><p>'+redeemLists[i].feeRate+'%</p></li>';
+						}
+					}
+                    if(tradeType=='00'&&!flag){
+                            $("#in12,#in32").html(htm);
+                        }else if(tradeType=='00'&&flag){
+                            $('#in32_b,#in12_b').html(htm)
+                        }
+                        else if(tradeType=='01'){
+                            $('#in32_b,#in12_b').html(htm)
+                        }   
+					// $("#in12,#in32,#in32_b,#in12_b").html(htm);
+				}
+			 }
+		});
+	}
+        
+    //查询组合信息
+	
+	function getInGroup(groupId){
+        // 9645
+        getDetailInfo(groupId)
+
+	    // $.get(WAP.requestAddr + "/adviser/query_fundgroup_detail_info?groupId=" + groupId, null, function(resultStr){
+	    $.get( "/mobile-bff/v1/fund-group/detailInfo?groupId=" + groupId, null, function(resultStr){
+			// var result = JSON.parse(resultStr);
+            var result = typeof resultStr === 'string' ? JSON.parse(resultStr) : resultStr;
+
+	        if(result.body != undefined && result.body != null){console.log(result.body)
+	            var detailInfo = result.body.detailInfo;console.log(detailInfo)
+	            if(detailInfo != undefined && detailInfo != ""){console.log(detailInfo)
+	            	var groupDetails = detailInfo.groupDetails;
+                    var subListHtml = '<div class="title2"><span class="background-red">转入组合</span><span>'+detailInfo.groupname+'</span></div> <ul class="noline">';
+                    for(var i in groupDetails){
+                        var subgroup = groupDetails[i];
+                        var subFunds = subgroup.subList;
+                        if(subFunds.length == 0)
+                            continue;
+
+                        for(var j in subFunds){
+                            var fund = subFunds[j];
+                            var fundId = fund.fundId;
+                            var fundNm = fund.fundNm;
+                            subListHtml = subListHtml + "<li><p>"+ fundNm +"</p><a href='https://www.99fund.com/main/products/pofund/" + fundId + "/h5traderule.shtml'>查看费率</a></li>";
+                        }
+                    }
+                    subListHtml = subListHtml + "</ul>";
+                    // $("#in2").empty();
+                    // $("#in2,#in4").html(subListHtml);
+                     $("#in4").empty();
+                    $("#in4").html(subListHtml);
+	            }
+	         }
+	    });
+	}
+    // 9645 查询年投顾服务费率
+    function getDetailInfo(groupId){
+        $.get("/mobile-bff/v1/fund-group/detailInfo?groupId=" + groupId, function (result) {
+                if (result.returnCode == 0) {
+                    // 年投顾服务费率
+                    $("#in22").empty();
+                    var detailInfo=result.body
+
+                     // 9645
+                     var subListHtml = '<div class="title2"><span class="background-red">转入投顾组合</span><span>'+detailInfo.groupname+'</span></div> ';
+                    subListHtml=subListHtml+"<div style='padding: 0 0.75rem' class=''> 投顾组合年投顾费率：<span style='color:red'>"+detailInfo.investmentServicePerc+"%</span></div>"
+                    $("#in22").html(subListHtml);
+                }
+        })
+    }
+	function ftmDay(para){
+		if(para%30 == 0){//转为月
+			return parseInt(para/30)+'个月';
+		}
+		else if(para%365 == 0){//转为年
+			return parseInt(para/365)+'年';
+		}else{
+			return para+'天';
+		}
+	}
+	
+	function getOutGroup(groupId){
+	    // $.get(WAP.requestAddr + "/adviser/query_fundgroup_detail_info?groupId=" + groupId, null, function(resultStr){
+	    $.get("/mobile-bff/v1/fund-group/detailInfo?groupId=" + groupId, null, function(resultStr){
+			// var result = JSON.parse(resultStr);
+            var result = typeof resultStr === 'string' ? JSON.parse(resultStr) : resultStr;
+
+	        if(result.body != undefined && result.body != null){
+	            var detailInfo = result.body.detailInfo;
+	            if(detailInfo != undefined && detailInfo != ""){
+	            	var groupDetails = detailInfo.groupDetails;
+                    $("#outinfo1,#outinfo2").empty();
+                    var subListHtml = '<div class="title2"><span class="background-blue">转出组合</span><span>'+detailInfo.groupname+'</span></div> <ul class="noline">';
+                    for(var i in groupDetails){
+                        var subgroup = groupDetails[i];
+                        var subFunds = subgroup.subList;
+                        if(subFunds.length == 0)
+                            continue;
+                        for(var j in subFunds){
+                            var fund = subFunds[j];
+                            var fundId = fund.fundId;
+                            var fundNm = fund.fundNm;
+                            subListHtml = subListHtml + "<li><p>"+ fundNm +"</p><a href='https://www.99fund.com/main/products/pofund/" + fundId + "/h5traderule.shtml'>查看费率</a></li>";
+                        }
+                        
+                    }
+					subListHtml = subListHtml + "</ul>";
+                    $("#outgroup1,#outgroup2,#outgroup1_b").html(subListHtml);
+	            }
+	         }
+	    });
+	}
+    
+	
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>投资产品</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/fund/payment.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/fundgroup/genwotou.css?107">
+    <style>
+        /*弹框1*/
+        .Bomb-box,.Bomb-box1,.Bomb-box2{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+        .Bomb-box .Bomb-box-main,.Bomb-box1 .Bomb-box-main,.Bomb-box2 .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+        .Bomb-box .Bomb-box-tips,.Bomb-box1 .Bomb-box-tips{  text-align: center;  color: #333;  font-size: 0.75rem;  height: 2.5rem;  line-height: 2.5rem;  }
+        .Bomb-box .Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+        .Bomb-box .Bomb-box-content p,.Bomb-box1 .Bomb-box-content p,.Bomb-box2 .Bomb-box-content p{  line-height: 1rem;  }
+        .Bomb-box .Bomb-box-ok,.Bomb-box1 .Bomb-box-ok,.Bomb-box2 .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+        .Bomb-box .no-tips,.Bomb-box1 .no-tips,.Bomb-box2 .no-tips{font-size: 0.7rem;padding: 1.7rem 1.5rem 1.15rem 1.5rem;text-align: center;}
+        .Bomb-box .text-center,.Bomb-box1 .text-center,.Bomb-box2 .text-center{text-align: center;}
+        .Bomb-box .Bomb-box-content,
+        .Bomb-box1 .Bomb-box-content,
+        .Bomb-box2 .Bomb-box-content{ padding:.75rem 1.5rem; }
+	
+	
+        .section1 p {  padding: 0 .75rem; font-size: 0.6rem; color: #666; line-height: 1.75rem;height: 1.75rem;}
+        /*.section1 P:first-child~p { padding-top: 0;}*/
+        .bank-name { height: 1rem;}
+        /* 弹窗 */
+        .tip{position: fixed;
+			top: 0;
+			left: 0;
+			background-color: rgba(0,0,0,0.7);
+			height: 100%;
+			width: 100%;
+			overflow: auto;
+			font-size: 0.6rem;
+			z-index: 999;
+		}
+		.tip .tip_wrap{
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			-webkit-transform: translate(-50%,-50%);
+			transform: translate(-50%,-50%);
+			margin: 0;
+			width:80%;
+			/*height:16rem;*/
+			background: #fff;
+			-webkit-border-radius: 5px;
+		}
+        .tip .tip_wrap .tip_content h3{font-size:.75rem;font-weight: bold;color:#000;text-align: center;margin-top: 1rem;}
+		.tip .tip_wrap .tip_content h4{margin-top: .5rem;text-align: center;font-size: .7rem;}
+		.tip .tip_wrap .tip_content h4:nth-of-type(2){color:#fb5c5f;margin-top: .4rem;}
+		.tip .tip_wrap .tip_content p{padding:0 1.5rem 0 1.5rem;font-size: .7rem;margin-top: .7rem;line-height: 1rem;margin-bottom: 1rem;}
+		.tip .tip_wrap .tip_content{border-bottom: 1px #eee solid;}
+		.tip .tip_wrap .tip_btn ul li{text-align: center;font-size: .75rem;color:#006bfe;}
+		.tip .tip_wrap .tip_btn ul li a{display:block;text-align: center;font-size: .75rem;width:100%;padding:1rem 0;}
+       
+        .tip2{position: fixed;
+			top: 0;
+			left: 0;
+			background-color: rgba(0,0,0,0.7);
+			height: 100%;
+			width: 100%;
+			overflow: auto;
+			font-size: 0.6rem;
+			z-index: 999;
+		}
+		.tip2 .tip_wrap{
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			-webkit-transform: translate(-50%,-50%);
+			transform: translate(-50%,-50%);
+			margin: 0;
+			width:80%;
+			/*height:16rem;*/
+			background: #fff;
+			-webkit-border-radius: 5px;
+		}
+	    .tip2 .tip_wrap .tip_content p{padding:0 1.5rem 0 1.5rem;font-size: .7rem;margin-top: .7rem;line-height: 1rem;margin-bottom: 1rem;text-align: center;line-height: 3rem;}
+	    .tip2 .tip_wrap .tip_content{border-bottom: 1px #eee solid;}
+	    .tip2 .tip_wrap .tip_btn ul li{text-align: center;font-size: .75rem;color:#006bfe;}
+	    .tip2 .tip_wrap .tip_btn ul li a{display:block;text-align: center;font-size: .75rem;width:100%;padding:.7rem 0;}
+        .gift {height:  2.5rem; padding:0 .75rem;background: #fff;overflow: hidden;}
+        .gift p{line-height: 2.5rem}
+        .gift p img{
+            width: .4rem;
+            height: .75rem;
+            position: relative;
+            top: 2px;
+        }
+      
+        .gift p:first-child{color:#000;}
+        .left{float: left;}
+        .right{float: right;}
+        .list-group-item  input{margin-left: .75rem;text-align: left;}
+		
+        /*勾选样式*/
+        .section2 p {  padding: 0 .75rem; font-size: 0.4rem; color: #666; line-height: 1rem;margin: 0;}
+        .section2 { position: relative;margin-top: .8rem;}
+
+
+        .rules span.current { background-image: url("../images/fundgroup/chose1.png");}
+        .rules a { color: #3295e8; cursor: pointer;}
+        .grid-list li{padding: 0 .75rem 0 0 !important; border-bottom: 1px #efefef solid;}
+    </style>
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+<body>
+<div class="content">
+    <div class="table-box">
+        <div class="table-header">
+            <h4 class="col-6 text-left">基金名称</h4><h4 class="col-4 text-right">金额(元)</h4><h4 class="col-2 text-right"><span class="margin-R30">配比</span></h4>
+        </div>
+
+        <div class="box2">
+
+        </div>
+    </div>
+
+	<input type="hidden" id="select_per">
+    <section>
+
+        <div>
+            <button class="btn-orange" id="btn-submit"  >确认</button>
+        </div>
+    </section>
+</div>
+
+<div class="layer animated slideInUp" id="modify" style="display:none;">
+    <div class="buttons clearfix" >
+        <a href="javascript:;" class="fl button-no">取消</a>
+        <a href="javascript:;" class="fr button-ok">确定</a>
+    </div>
+    <div class="modify-input">
+        <input type="text" style="height: 1.25rem;" onkeyup="if(!/^[0-9]+$/.test(this.value)){this.value='';}"/>&nbsp;&nbsp;%
+    </div>
+</div>
+<div class="mask"></div>
+    <div class="Bomb-box" style="display: none;">
+        <div class="Bomb-box-main">
+            <div class="Bomb-box-content">
+                <p class="text-center" ></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;">确定</a>
+        </div>
+    </div>
+<div class="Bomb-box1" style="display: none;">
+    <div class="Bomb-box-main">
+        <div class="Bomb-box-content">
+            <p class="text-center" id="msg"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;">我知道了</a>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/lib/phone-size.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script type="text/javascript" src="../js/common.js?20210302"></script>
+<script type="text/javascript" src="../js/fund/batchMipList.js"></script>
+</body>
+</html>

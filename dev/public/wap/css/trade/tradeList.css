@@ -1,0 +1,337 @@
+html, body {
+    background: #f6f6f6;
+}
+
+select {
+    /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+    border: 0;
+    /*很关键：将默认的select选择框样式清除*/
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    /*在选择框的最右侧中间显示小箭头图片*/
+    background: url("../../images/taxExtension/select_down.png") no-repeat scroll right center transparent;
+    background-size: 0.6rem 0.325rem;
+    /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+    padding-right: 0.875rem;
+}
+
+/*清除ie的默认选择框样式清除，隐藏下拉箭头*/
+select::-ms-expand {
+    display: none;
+}
+
+.red {
+    color: #fb5c5f !important;
+}
+
+.blue {
+    color: #148ce6 !important;
+}
+
+.header{
+    background: #fff;
+    /*height: 2.25rem;*/
+    position: relative;
+}
+.header ul {
+    height: 2.25rem;
+    line-height: 1.25rem;
+    border-bottom: 0.025rem solid #eee;
+    overflow: hidden;
+}
+
+.header ul li {
+    float: left;
+    box-sizing: border-box;
+    width: 33.3%;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #000;
+    margin: .5rem 0;
+    border-right:0.025rem solid #eee ;
+}
+.header ul li:nth-child(3){
+    border-right:0
+}
+
+.header ul li span, .header ul li i {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.header ul li i {
+    width: .75rem;
+    height: 0.4rem;
+    margin-left: .2rem;
+    background: url("../../images/select_down.png") no-repeat;
+    background-size: 100% 100%;
+}
+.select-active{
+    background: url("../../images/select_up.png") no-repeat !important;
+    background-size: 100% 100% !important;
+}
+.header-more{
+    display: none;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top:2.25rem;
+    background:#fff  ;
+    font-size: 0;
+    z-index: 999;
+    line-height: 2rem;
+    border-top: 0.025rem solid #eee;
+}
+.header-more .box{
+    padding : .5rem 4% 0 4%;
+}
+.header-more .custom .custom-title{
+    padding: 0 4%;
+    height: 1.75rem;
+    line-height: 1.75rem;
+    border-bottom:0.025rem solid #eee;
+    overflow: hidden;
+}
+.header-more .custom .custom-title span{
+    display: inline-block;
+}
+.header-more .custom .custom-title p:nth-child(1){
+    font-size: .75rem ;
+    color:#000;
+    float: left;
+}
+.header-more .custom .custom-title p:nth-child(2){
+    font-size: .6rem ;
+    color:#666;
+    float: right;
+}
+.header-more .custom .custom-content{
+    padding: 4%;
+    font-size: .7rem;
+}
+.header-more .custom .custom-content input{
+    width:5rem ;
+    height: 1.75rem;
+    background: #e3e3e3;
+    text-align: center;
+}
+.header-more .custom .custom-content i{
+    display: inline-block;
+    margin: 0 .5rem;
+    vertical-align: center;
+}
+.header-more .custom .custom-content p{
+    display: inline-block;
+    width: 5rem;
+    line-height: 1.75rem;
+    text-align: center;
+    color:#fff;
+    background: #fe7e01;
+    margin-left: .75rem;
+    border-radius: 0.075rem ;
+}
+.header-more span{
+    display:inline-block;
+    font-size: .6rem;
+    line-height: .6rem;
+    color:#666;
+    padding: .5rem;
+    border-radius: .825rem;
+    background: #eee;
+    text-align: center;
+    margin-right: .4rem;
+}
+.header-more span:last-child{
+    margin-right: 0;
+}
+.header-more .custom{
+
+}
+.span-active{
+    background:#ffeeef !important;
+    color:#fb5c5f !important;
+}
+.header-mask{
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left:0;
+    top:2.25rem;
+    background: rgba(0,0,0,.5);
+    z-index: 10;
+}
+.content {
+    background: #fff;
+}
+
+.content .content-title {
+    height: 1.75rem;
+    line-height: 1.75rem;
+    text-align: left;
+    color: #666666;
+    background: #f6f6f6;
+    padding: 0 .75rem;
+}
+
+.content .content-title span {
+    float: left;
+}
+
+.content .content-title .choose {
+    display: none;
+    width: .75rem;
+    height: .75rem;
+    background: url("../../images/taxExtension/newIcon1.png") no-repeat;
+    float: right;
+    background-size: 100% 100%;
+    margin-top: .5rem;
+}
+
+.content .content-list {
+    margin-left: .75rem;
+}
+
+.content .content-list ul {
+    width: 100%;
+    line-height: 3.25rem;
+    overflow: hidden;
+    border-bottom: 0.025rem #efefef solid;
+}
+
+.content .content-list ul li {
+    float: left;
+    box-sizing: border-box;
+    color: #000;
+    font-size: .75rem;
+    line-height: 3.25rem;
+    height: 3.25rem;
+}
+
+.content .content-list ul li:nth-of-type(2) {
+    width: 8.75rem;
+    text-align: left;
+    line-height: .75rem;
+}
+
+.content .content-list ul li:nth-of-type(2) span {
+    display: block;
+    line-height: .75rem;
+}
+
+.content .content-list ul li:nth-of-type(2) span:nth-child(1), .content .content-list ul li:nth-of-type(2) span:nth-child(1), .content .content-list ul li:nth-of-type(3) span:nth-child(1) {
+    margin-top: .75rem;
+}
+
+.content .content-list ul li:nth-of-type(2) span:nth-child(2) {
+    font-size: 0.6rem;
+    margin-top: .5rem;
+    color: #666666;
+}
+
+.content .content-list ul li:nth-of-type(1) {
+    width: 2.5rem;
+    text-align: left;
+
+}
+
+.content .content-list ul li:nth-of-type(3) {
+    width: 6rem;
+    text-align: right;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.content .content-list ul li:nth-of-type(3) span {
+    display: block;
+    line-height: .75rem;
+}
+
+.content .content-list ul li:nth-of-type(3) span:nth-child(2) {
+    font-size: 0.6rem;
+    margin-top: .5rem;
+}
+
+.content .content-list ul li:nth-of-type(3) .choose {
+    display: none;
+    width: .75rem;
+    height: .75rem;
+    background: url("../../images/taxExtension/newIcon1.png") no-repeat no-repeat;
+    background-size: 100% 100%;
+    float: right;
+    margin-top: -1.5rem;
+}
+
+
+.active {
+
+    background: url("../../images/taxExtension/newIcon2.png") no-repeat !important;
+    background-size: 100% 100% !important;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;
+    border-top: 0.025rem #eeeeee solid;
+}
+
+.footer .down-start {
+    width: 100%;
+    line-height: 2.5rem;
+    background: #fe7e01;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #fff;
+}
+
+.footer .download {
+    width: 100%;
+    line-height: 2.5rem;
+}
+
+.footer .download li {
+    float: left;
+    width: 50%;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 0.85rem;
+}
+
+.footer .download .cancel {
+    background: #fff;
+    border-right: 0.025rem #ffcece solid;
+    color: #ff7e00;
+}
+
+.footer .download .affirm {
+    background: #ff7e00;
+    color: #fff;
+}
+
+.data_more {
+    width: 100%;
+    height: 1.75rem;
+    border-top: 1px#eee solid;
+    text-align: center;
+    line-height: 1.75rem;
+    background-color: #ffffff;
+}
+
+.data_more a {
+    color: #148ce6;
+    font-size: .65rem;
+}
+
+.data_more img {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-top: -3px;
+    display: none;
+}
+

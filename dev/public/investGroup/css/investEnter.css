@@ -1,0 +1,287 @@
+html,body {background: #f6f6f6;}
+[v-cloak] {
+    display: none;
+}
+.fgx{width:100%;border-top:1px solid #eee;padding:0!important;}
+.fund-title{height:2.5rem;padding: 0rem 0.75rem;background: #fff;display: flex; justify-content: space-between; align-items: center;} 
+.fund-title .fund-name{font-size: 0.75rem;color:#000;line-height: 2.5rem;display:inline-block}
+.fund-title .fund-name .fund-left{font-weight: bold}
+.fund-title .fund-number{font-size: 0.65rem;color:#666;line-height:2.5rem;display:inline-block;margin-left:0.1rem;}
+.fund-title .arrow img{width:0.4rem;height:0.75rem;}
+.redeem-amount{padding:0.625rem 0.75rem;display: flex; justify-content: space-between; align-items: center;background: #fff;}
+.warehouse{font-size: 0.75rem;padding:0.75rem 0.75rem;background: #fff;display: flex; justify-content: space-between; align-items: center;border-bottom: 1px #eee solid;}
+.becomedue{font-size: 0.75rem;padding:0.75rem 0.75rem;background: #fff;display: flex; justify-content: space-between; align-items: center;}
+.becomedue img{width:0.4rem;height:0.75rem;margin-left: .25rem;margin-top: 2px;}
+.becomedue-select{
+	display: flex;
+	align-items: center;
+}
+
+
+.roll-enter{padding:0.75rem 0.75rem 0.625rem 0.75rem;display: flex; justify-content: space-between; align-items: center;margin-top:0.5rem;background: #fff;}
+.roll-enter .roll-money{font-size:0.75rem;color:#000;}
+.roll-enter .roll-rule{font-size:0.65rem;color:#148ce6;}
+
+.enter-amount{display: flex; justify-content: space-between; align-items: center;padding: 0 0.75rem 1rem 0.75rem;background: #fff;}
+.enter-amount .mark{width:20%;font-size:1.5rem;color:#000;margin-top:0.75rem;text-align:center}
+.enter-amount .enter-money{flex: 1;}
+.enter-amount .enter-money img{width: .5rem;height: .35rem;}
+.enter-amount .turn-chinese{white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;width: 12rem;}
+.enter-amount .turn-chinese span{font-size:0.6rem;color:#666;margin-left:0.25rem;}
+.enter-amount .input-number{height:2rem;transform: translateY(0%);}
+.enter-amount .input-number input{width:100%;color:#000;font-size:1.5rem;padding:0rem 0rem 0rem 0rem;outline: none;height:2rem}
+.enter-amount .close{width:10%;text-align:right}
+.enter-amount .close img{width:0.75rem;height:0.75rem}
+
+.choose-money{width:100%;height:2.25rem;background:#fff;font-size:0.65rem;color:#d8b456;border-bottom:1px solid #eee;}
+.choose-money .two-thousand,.choose-money .half{padding:0 0.5rem;height:1rem;border:1px solid #ebd9aa;float:left;border-radius:1.25rem;text-align:center;line-height:1rem;margin-left:0.75rem;} 
+.choose-money .two-thousand:nth-of-type(1){margin-left:3.85rem;}
+.choose-money .all{padding:0 0.5rem;height:1rem;float:left;border-radius:1.25rem;text-align:center;line-height:0.95rem;margin-left:0.75rem;border:1px solid #ccc;} 
+.choose-money .text{color:#40a7ef;display: inline-block;float:right;margin-right:0.75rem;font-size:0.75rem;}
+.active{color:#d8b456;border:0!important;background: #ebd9aa;font-weight:bold}
+
+.invest{padding:0.75rem 0.75rem;font-size:0.75rem;display: flex; justify-content: space-between; align-items: center;background: #fff;border-bottom:1px solid #eee;margin-top:0.5rem;}
+.invest .invest-account{width:20%;}
+.invest .invest-input{width:45%;}
+.invest .invest-input input{width:100%;height: 100%; font-size:0.75rem;color:#000;font-weight: bold;outline: none;padding:0.1rem 0;}
+.invest .invest-choose{width:30%;text-align:right;color: #178ce6}
+.rate{padding:0.625rem 0.75rem;background: #fff}
+.rate .rate-red{color:#fb5c5f;}
+.payment{margin-top:0.5rem;display: flex; justify-content: space-between; align-items: center;background: #fff;padding:1rem 0.75rem;border-top:1px solid #eee;font-size: 0.75rem}
+.payment .payment-title{width:20%;}
+.payment .payment-mode{width:75%;text-align:right}
+.payment .payment-mode .balance{font-size:0.6rem;color:#666;padding-top:0.25rem;}
+.payment .payment-img{width:5%;text-align:right}
+.payment .payment-img img{width:0.4rem;height:0.75rem;}
+.notes{font-size:0.6rem;color:#666;padding:0.75rem 0.75rem 0.625rem 0.75rem;}
+.agreement{padding:0 0.75rem;display: flex; justify-content: space-between; }
+.agreement .unicheck{width:5%;}
+/* .agreement .unicheck .choose-img{width:0.7rem;height: 0.7rem;text-align: right;background: url('../images/unicheck.png') no-repeat;background-size:cover;} */
+.bgActive{width:0.7rem;height: 0.7rem;text-align: right;background: url('../images/checked.png') no-repeat;background-size:100% 100%;margin-top: 0.1rem;}
+.nobgActive{width:0.7rem;height: 0.7rem;text-align: right;background: url('../images/unicheck.png') no-repeat;background-size:100% 100%;margin-top: 0.1rem;}
+.agreement .agree{width:95%;font-size:0.65rem;color:#666;margin-left:0.35rem;}
+.agreement .agree .agree-color{color:#148ce6;}
+.footer_tips {margin-top: 1.25rem;padding: 0 .75rem .75rem .75rem;font-size: .65rem;color: #999;}
+.footer_tips .title{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: .75rem;
+}
+.footer_tips .title .line{
+	width: 6.875rem;
+	height: 1px;
+	border-bottom: 1px #ccc solid;
+}
+.footer_fiexd {position: fixed; z-index: 99; left: 0; bottom: 0; height: 2.5rem; width: 100%;background: #ffd9b3;color: #fff5ec;}
+.footer_fiexd.active{
+  background-color: #fe7e01;
+  color: #fff
+}
+.footer_fiexd div{text-align:center;line-height:2.5rem;font-size:0.85rem} 
+
+/* 选择已有账户的样式 */
+.layer,.choose-pay { background-color: #ffffff; height: 100%; width: 100%; position: fixed; top: 0;left:0; overflow: auto;z-index:10;}
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+@keyframes slideInDown{
+    0%{opacity:0;-webkit-transform:translateY(-2000px);-ms-transform:translateY(-2000px);transform:translateY(-2000px)}
+    100%{-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}}
+@keyframes slideInUp{
+    0%{opacity:0;-webkit-transform:translateY(100%);-ms-transform:translateY(100%);transform:translateY(100%)}
+    100%{-webkit-transform:translateY(30%);-ms-transform:translateY(30%);transform:translateY(30%)}}
+.slideInDown{-webkit-animation-name:slideInDown;animation-name:slideInDown}
+.slideInUp{-webkit-animation-name:slideInUp;animation-name:slideInUp;}
+
+.account,.bank-card{width:100%;height:100%;}
+.account .account-title{color:#000;font-size:0.8rem;padding:0.75rem;font-weight:bold}
+.account .account-List{display: flex; justify-content: space-between; align-items: center;padding:0.875rem 0.75rem;border-bottom:1px solid #eee;}
+.account .account-List .account-name{font-size:0.75rem;color:#000;}
+.account .account-List img{width:0.4rem;height: 0.75rem}
+.account .newAccount{width:100%;padding:0.625rem 0rem;}
+.account .addAccount{height:1.75rem;width:9.0rem;border:1px solid #fe5a5b;border-radius:1.25rem;margin:0 auto;font-size:0.75rem;color:#fe5a5b;text-align: center;line-height:1.75rem}
+
+/* 选择支付方式样式 */
+.bank-card .xjb{padding:0.75rem;display: flex; justify-content: space-between; align-items: center;}
+.bank-card .xjb-img{width:10%;}
+.bank-card .xjb-img img{width:1rem;height:1rem;}
+.bank-card .xjb-title{width:90%;}
+.bank-card .xjb-title .xjb-name{font-size: 0.75rem;color:#000;}
+.bank-card .xjb-title .xjb-balance{font-size:0.6rem;color:#666;padding-top:0.2rem;}
+
+.bank-card .card{padding:0.75rem;display: flex; justify-content: space-between; align-items: center;border-top:1px solid #eee;}
+.bank-card .card-img{width:10%;}
+.bank-card .card-img img{width:1rem;height:1rem;}
+.bank-card .card-title{width:80%;}
+.bank-card .card-title .card-name{font-size: 0.75rem;color:#000;}
+.bank-card .card-title .card-balance{font-size:0.6rem;color:#666;padding-top:0.2rem;}
+.bank-card .card-btn{width:20%;}
+.bank-card .card-text{padding:0 0.25rem;height:1rem;border-radius: 1.25rem;text-align: center;line-height:1rem;border: 1px solid #488bc7;color: #488bc7;}
+.bank-card .card-text.icon-union {
+    border: 1px solid #eb6561;
+    color: #eb6561;
+}
+.bank-card .card-text.icon-E-bank {
+    border: 1px solid #ee8837;
+    color: #ee8837;
+}
+.bank-card .card-text.icon-shorcut {
+    border: 1px solid #488bc7;
+    color: #488bc7;
+}
+/* pdf协议弹窗 */
+.mask-protocol {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, .7);
+  
+  z-index: 99999999;
+}
+
+.protocol-wraper {
+  /* display: none; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.protocol-pdf {
+  height: 80%;
+  overflow-y: scroll;
+  z-index: 9999999999999999999;
+  border-radius:.25rem
+}
+
+.fixed-btn {
+  display: none;
+  position: absolute;
+  bottom: 10%;
+  left: 10%;
+  right: 0;
+  width: 80%;
+  border: none;
+  background-color: #fff;
+  line-height: 2rem;
+  height: 2rem;
+  outline: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  border-top: 1px solid #eee;
+  border-radius: 0 0 .25rem .25rem;
+  font-size: .7rem;
+  z-index: 999999999999999999999;
+}
+.fixed-top {
+  display: none;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  right: 0;
+  width: 80%;
+  border: none;
+  background-color: #fff;
+  line-height: 2.2rem;
+  height: 2rem;
+  outline: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  border-bottom: 1px solid #eee;
+  border-radius: .25rem .25rem 0 0;
+  font-size: .7rem;
+  text-align: center;
+  z-index: 999999999999999999999;
+}
+.close-img{
+  position: absolute;
+  left: .625rem;
+  top: .625rem;
+  width: .75rem;
+}
+/* 20211206新加入修改协议的地方 */
+.agreement-new{background-color: #ffffff;width: 100%; position: absolute; bottom: 0; left: 0; overflow-y: auto; z-index:999999; top:auto; }
+.agreement-head{height:2.5rem;width:100%;display: flex;justify-content: space-between;align-items: center;}
+.agreement-head .agreement-title{width:80%;font-size:0.75rem;margin-left:0.75rem;}
+.agreement-head .agreement-close{width: .75rem;margin-right: .75rem;}
+
+.agreement-iframe{height:12rem;text-align: justify;margin-left:0.75rem;margin-right:0.65rem;font-size:0.6rem;color:#000;}
+.agreement-btn{width:17.25rem;height:2.25rem; text-align: center;line-height: 2.25rem;background: #9cbce0;opacity:0.8;color:#fff;font-size:0.85rem;border-radius:3px;margin: .75rem auto;}
+.agreement-btn.active{width:17.25rem;height:2.25rem;text-align: center;line-height: 2.25rem;background: #0757b2;color:#fff;font-size:0.85rem;border-radius:3px;margin: .75rem auto;}
+.take-care{
+  padding: .75rem 0 0 .75rem;color: #666666;
+}
+input::-webkit-input-placeholder {
+  font-size:0.75rem
+}
+input:-moz-placeholder {
+  font-size:0.75rem
+}
+input::-moz-placeholder {
+  font-size:0.75rem
+}
+input::-ms-input-placeholder {
+ font-size:0.75rem 
+}
+.gift {height:  2.5rem; padding:0 .75rem; margin-top:.1rem; background: #fff;overflow: hidden;}
+.gift p{line-height: 2.5rem; font-size: 0.75rem;}
+.gift p img{
+    width: .4rem;
+    height: .75rem;
+    position: relative;
+    top: 2px;
+}        
+.gift p:first-child{color:#000;}
+.left{float: left;width: 60%;}
+.right{float: right;width: 40%;}
+
+.icon { display: inline-block;  width: 0.75rem; height: 0.75rem; vertical-align: middle; margin: -2px 0px 0 0; padding: 0 5px;  }
+.icon-point { background: url("/mobileEC/wap/images/point.png") no-repeat center center; background-size: contain; }
+
+/*弹框*/
+.Bomb-box{z-index: 999;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+.Bomb-box .Bomb-box-main{width: 15rem; background-color: #fff;  margin: 12rem auto 0;  border-radius: 0.3rem;  }
+.Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+.Bomb-box .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+.Bomb-box .Bomb-box-content{ padding:.75rem 1.5rem; }
+/* 选择止盈或过期处理方式 */
+.flex {
+	display: flex;
+	align-items: center;
+}
+
+.flexB {
+	justify-content: space-between;
+	color: #000;
+	font-size: .75rem;
+}
+.font-color{
+	color: #666;
+	font-size: .7rem;
+}
+.padding{
+	padding:0.75rem 1.25rem .75rem 0;
+	margin-left: 1.25rem;
+}
+.cirClick{
+	width: 0.75rem;
+	height: 0.75rem;
+	background: url('../images/checked.png') no-repeat no-repeat;
+	background-size: 100% 100%;
+}
+
+.cir{
+	width: 0.75rem;
+	height: 0.75rem;
+	background: url('../images/unicheck.png') no-repeat no-repeat;
+	background-size: 100% 100%;
+}

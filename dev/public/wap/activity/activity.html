@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>精彩活动</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/account/base_tfh.css">
+    <link rel="stylesheet" href="../css/account/main.css">
+    <link rel="stylesheet" href="../css/account/transation.css">
+	<script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/weixin.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210302"></script>
+    <script type="text/javascript" src="../js/activity/activity.js"></script>
+    <style>
+        body { background-color: #efeff4;margin: 0 auto}
+    </style>
+</head>
+<body>
+    <div class="activity-nav">
+        <ul class="clearfix">
+            <li class="fl current">线上活动</li>
+            <li class="fl">线下活动回顾</li>
+        </ul>
+    </div>
+    <div class="activity-content">
+        <div class="activity-ing" id="activity_onLine">
+            <ul>
+               <!--  <li>
+                    <img src="img/activity_01.png" alt="">
+                    <div class="activity-title">
+                        <h4>月满中秋活动</h4>
+                        <p class="font-arial">活动时间：2017.09.01至2017.10.01</p>
+                        <p>中秋嘉年华浓情时刻</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="img/activity_02.png" alt="">
+                    <div class="activity-title">
+                        <h4>红包时间</h4>
+                        <p class="font-arial">活动时间：2017.09.01至2017.10.09</p>
+                        <p>送红包活动开始啦</p>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+        <div class="activity-ing activity-end" id="activity_offLine">
+            <ul>
+                <!-- <li>
+                    <span class="end-lable">已结束</span>
+                    <img src="img/activity_03.png" alt="">
+                    <div class="activity-title">
+                        <h4>线下理财高管沙龙</h4>
+                        <p class="font-arial">活动时间：2017.09.01至2017.09.09</p>
+                        <p>加入添富会，从此开启高端理财的新世界。</p>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    $(".activity-nav ul li").on("click",function () {
+        $(this).addClass("current").siblings().removeClass("current");
+        if($(this).index()==0){
+            $(".activity-ing").show();
+            $(".activity-end").hide();
+        }else if ($(this).index()==1){
+            $(".activity-ing").hide();
+            $(".activity-end").show();
+        }
+    });
+</script>

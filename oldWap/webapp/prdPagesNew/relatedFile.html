@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!--<meta charset="GBK">-->
+	 <meta charset="utf8">
+	<title>相关文件</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="css/base.css">
+
+	<script type="text/javascript" src="js/zepto.min.js"></script>
+	<script type="text/javascript" src="../basic/basic.js"> </script>
+	<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.base64.js"></script>
+
+	<script>
+       	setFont();
+		window.onresize = function () {
+			setFont();
+		}
+		function setFont() {
+			var windowWidth = document.documentElement.clientWidth;
+			windowWidth = windowWidth > 750 ? 750 : windowWidth;
+			document.documentElement.style.fontSize = windowWidth / (750 / 40) + "px";
+		}
+	</script>
+	<style type="text/css">
+
+		ul li  {
+			font-size: 0.6rem;
+			color: #0f0f0f;
+			border-bottom: 1px #C4E4EF solid;
+			text-align: center;
+			height: 2.2rem;
+			line-height: 2.2rem;
+			width: 100%;
+			float: left;
+			list-style:none;
+		}
+		ul li span{
+			float: left;
+		}
+		ul li img{
+			float: right;
+			margin-top: 0.6rem;
+			width: 0.65rem;
+			margin-right: 0.3rem;
+			height: 1rem;
+		}
+
+	</style>
+</head>
+<body>
+<div style="background-color: #ffffff;">
+	<ul id="fileUl">
+		</ul>
+</div>
+
+</body>
+<script>
+
+	$(function () {
+        $.get("/mobile-bff/v1/vip/top-detailInfo?fundId="+WAP.getUrlParam("productId") ,null, function(result){
+            var data = result;
+            console.log(data);
+            if( data.returnCode == 0){
+                var attachment = data.body.attachment;
+                if( attachment != undefined && attachment != null && attachment != '' ){
+                    var html ="";
+                    attachment.forEach((item,index) => {
+                        var title = item.title;
+						if(title.length > 28){
+						    title = title.substring(0,26)+"……";
+						}
+                        html = html + "<li><a href='htffundxjb://action?type=url&link="+$.base64.encode(item.url)+" '><span>《"+title+"》</span>" +
+							"<div class=\"arrow\">" +
+							"<img src=\"../images/topfund/icon1.png\" alt=\"\"></div></a></li>";
+
+                    });
+                    console.log(html);
+
+                    $("#fileUl").append(html);
+				}
+
+            }
+		});
+
+        });
+</script>
+</html>

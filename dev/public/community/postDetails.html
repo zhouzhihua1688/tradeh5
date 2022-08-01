@@ -1,0 +1,2051 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../base/css/base.css">
+    <link rel="stylesheet" href="../base/css/common.css">
+    <link rel="stylesheet" href="./css/neplayer.min.css">
+    <link rel="stylesheet" href="./css/postDetails.css">
+    <link rel="stylesheet" href="./css/mint.css">
+    <link rel="stylesheet" href="./css/vote.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+        document.title="\u200E";
+    </script>
+    <style>
+        .choice .select .second .pro_left.hide{display:none}
+        .choice .select .second .pro_left.circle{border-right:none;border-radius: 50px;margin-left:0.25rem}
+        .choice .select .second .pro_right.circle{border-right:none;border-radius: 50px;margin-left:0.25rem}
+        .choice .select .second .pro_right.hide{display:none;}
+
+         .select .second .pro_right.circle{borderRight: 'none';borderRadius: '50px';marginLeft:'0.45rem'}
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="content404">
+            <img src="img/doc404.png" alt="">
+            <p>哎呀，该内容不存在，<a href='javascript:;' @click="gotoCommunityHome()">去首页看看吧~</a></p>
+        </div>
+        <div class="main" >
+            <div class="title"></div>
+            <div class="follow">
+                <div class="img"></div>
+                <div class="nameList">
+                    <p class="text" id="nickname"></p>
+                    <img src="img/details_07.png" alt="" class="tipImg">
+                    <p class="textRight"></p>
+                    <p class="time"></p>
+                    
+                    
+                </div>
+                <!-- 徽章 -->
+                <div class='badgeList' style='display:flex'></div>
+                
+                <div :class="'guanzhu '+((postDetail.userInfo&&postDetail.userInfo.followStatus==1)?'followed':'')" 
+                    @click="followUser" v-text="(postDetail.userInfo&&postDetail.userInfo.followStatus==1)?'已关注':'+关注'"></div>
+            </div>
+            <div class="sub-content">
+                <p class="sub-tag"  style="overflow-x: auto;white-space: nowrap;">
+                    <!-- <a href="javascript:;"></a> -->
+                </p> 
+            </div>
+            <!--9666 2. 社区关联直播的文章详细页，直播图片展示在文章正文的下方，即先展示正文再展示直播图片 -->
+            <div class="textList" ref='textList'></div>
+            <div class="videoList" v-if="videoInfo">
+                <!-- 视频 -->
+                <div class="video_box" style="width:100%;position:relative;"
+                    :style="videoInfo.isLive==='0'?'padding-bottom:56.25%;height:0':'height:auto'">
+                    <template v-if="videoInfo.isLive==='0'">
+                        <!-- <video width="100%" height="100%" controls controlslist="nodownload" :poster="videoInfo.picture" style="position: absolute;top:0;left: 0;width: 100%;height: 100%" >
+                           <source :src="videoInfo.url" type="video/mp4">
+                           <p>浏览器不支持视频</p>
+                       </video> -->
+                        <video id="my-video" class="video-js vjs-big-play-centered vjs-fluid" x-webkit-airplay="allow"
+                            webkit-playsinline playsinline x5-video-player-type="h5" x5-video-player-fullscreen="true"
+                            x5-video-orientation="landscape|portrait" controls :poster="videoInfo.picture"
+                            :data-index="-1" data-setup="{}">
+                            <source :src="videoInfo.url" type="video/mp4" />
+                        </video>
+                    </template>
+                    <template v-else-if="videoInfo.isLive==='2'">
+                        <!-- 小鹅直播 -->
+                        <a href="javascript:;" style="display: block;" @click="openPage(videoInfo)">
+                            <img :src="videoInfo.picture" alt="" style="display: block;width: 100%;">
+                        </a>
+                    </template>
+                    <template v-else>
+                         <!-- videoInfo.isLive==='4' 火山直播 -->
+                        <a href="javascript:;" style="display: block;" @click="openPage2(videoInfo)">
+                            <img :src="videoInfo.picture" alt="" style="display: block;width: 100%;">
+                        </a>
+                    </template>
+                </div>
+            </div>
+            <!-- <div class="textList" ref='textList'></div> -->
+            <div class="echarts">
+                <!--<img src="" alt="">-->
+            </div>
+            <!-- 附件 -->
+            <div class="article-attach">
+                <div class="attachList" v-if="attachList&&attachList.length>0" v-for="(aTag,index) in attachList">
+                    <span class="image"><img src="./img/attachImage.png" style="margin-left: 5px;width:40px;height:40px;max-width: none;"
+                            alt="附件" /></span>
+                    <a href='javascript:;' @click="gotoUrl(aTag,'pdf')" class="attachName" v-text="aTag.attachName"
+                       ></a>
+                </div>
+            </div>
+            <!-- 超链接 -->
+            <div class="article-attach">
+                <div class="attachList" v-if="attachUrlList&&attachUrlList.length>0" v-for="(aTag,index) in attachUrlList">
+                    <span class="image"><img src="./img/urlIcon.png" style="margin-left: 5px;width:40px;height:40px;max-width: none;"
+                            alt="" /></span>
+                    <a href='javascript:;' @click="gotoUrl(aTag)" class="attachName" v-text="aTag.attachName"
+                       ></a>
+                </div>
+            </div>
+            <div id="product"></div>
+
+
+            <!-- 单选未选 -->
+            <div class="noChoice">
+                    <div style="margin-top:0.75rem;position:relative" id="choiceText">
+                        <span style="width:0.2rem;height:0.75rem;display: inline-block;background:#fb5c5f;margin:0;border-radius: 0 3px 3px 0;float:left;position:relative;top:0.15rem"></span>
+                        <span style="margin-left:0.65rem;margin-right: 0.6rem;margin-top:-0.15rem;display: inline-block;font-size:0.75rem;font-weight: bold;color:#000;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical" id="surveyTitle"></span>
+                        <div style="margin-left:0.85rem;margin-top:-0.15rem;display:block;clear:both;font-size:0.6rem;font-weight: bold;color:#666;padding-top:0.75rem;padding-right: 0.75rem;text-align:justify" id="surveyDesc"></div>
+                    </div>
+                    <div class="vote" style="padding:0.5rem 0rem;display: none">
+                        <div class="first" @click="vote('1')">
+                            <span class="buy"></span>
+                        </div>
+                          <div class="vs"></div>
+                        <div class="second" @click="vote('2')">
+                            <span class="nobuy"></span>
+                        </div>
+                    </div>
+
+                <!--多个问答单选-未选-->
+                <!--<template>-->
+                    <div class="moreSelect" id="no_moreSelect" style="margin-top: 0.75rem;">
+                        <div id="choiceTextMore" style="position:relative">
+                            <span style="width:0.2rem;height:0.75rem;display: inline-block;background:#fb5c5f;margin:0;border-radius: 0 3px 3px 0;float:left;position:relative;top:0rem"></span>
+                            <span style="margin-left:0.65rem;margin-right: 0.6rem;position: relative;bottom: 0.15rem;display: inline-block;font-size:0.75rem;font-weight: bold;color:#000;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical" id="noSurveyTitle"></span>
+                            <div style="margin-left:0.85rem;margin-top:-0.15rem;display:block;clear:both;font-size:0.6rem;font-weight: bold;color:#666;padding-top:0.75rem;padding-right: 0.75rem;text-align:justify" id="noSurveyDesc"></div>
+
+                        </div>
+                        <template v-for="(item,index) in msgAllData" v-if="item.voteInfo">
+                            <template v-for="(questionItem, questionIndex) in item.voteInfo.questions">
+                                <!--判断是不是多选一单选questionType=='1' 未选-->
+                                <template v-if="item.voteInfo.questions[0].questionType=='1'">
+
+                                    <span v-for="(itemOp,indexOp) in questionItem.options"  @click="moreSelect(item,questionItem,itemOp,indexOp)" v-if="item.voteInfo&&item.voteInfo.complete==false">
+                                        <div class="list">
+                                            <div class="tiao one red">
+                                            </div>
+                                            <div class="text" v-text="itemOp.optionName" style="text-align: center;width: 100%;position:absolute;top:0;left:0;margin:0"></div>
+                                            <!--<div class="tick">-->
+                                            <!--<span></span>-->
+                                            <!--<span></span>-->
+                                            <!--</div>-->
+                                        </div>
+                                   </span>
+                                </template>
+                                <!--多选questionType=='2'-->
+                                <template v-else>
+                                     <span v-for="(itemOp,indexOp) in questionItem.options"  @click="muchSelect(item,questionItem,itemOp,indexOp)" v-if="item.voteInfo&&item.voteInfo.complete==false">
+                                         <!--:class="moreActiveIndex == indexOp ? 'moreActive' : ''" -->
+                                         <!--:class="{'moreActive':spanIndex.indexOf(index)>-1}"-->
+                                         <div class="list" :class="{'moreActive':moreActiveIndex.indexOf(itemOp)!=-1}">
+                                            <div class="tiao one red">
+                                            </div>
+                                            <div class="text" v-text="itemOp.optionName" style="text-align: center;width: 100%;position:absolute;top:0;left:0;margin:0"></div>
+                                            <!--<div class="tick">-->
+                                            <!--<span></span>-->
+                                            <!--<span></span>-->
+                                            <!--</div>-->
+                                        </div>
+                                     </span>
+                                     <div class="confirm" @click="confirm(item,questionItem)" :class="{confirmActive:item.active}">投票</div>
+                                </template>
+                            </template>
+                        </template>
+                    </div>
+                <!--</template>-->
+
+            <!-- 单选已选 -->
+            <div class="choice">
+                <div class="choiceVote" style="display:none;" @click="choiceVote()">
+                    <div class="selectTip" style="margin-top:0.75rem">
+                        <div class="active choiceOne"></div>
+                        <div class="choiceTwo"></div>
+                    </div>
+                    <div class="select">
+                        <div class="first"></div>
+                        <div class="second">
+                            <div class="left pro_left"></div>
+                            <div class="right pro_right"></div>
+                        </div>
+                        <div class="four"></div>
+                    </div>
+                </div>
+                <div class="moreSelect" @click="showTips()" id="moreSelect" style="margin-top: 0.75rem;">
+                    <span style="width:0.2rem;height:0.75rem;display: inline-block;background:#fb5c5f;margin:0;border-radius: 0 3px 3px 0;float:left;position:relative;top:0rem"></span>
+                    <span style="margin-left:0.65rem;margin-right: 0.6rem;position: relative;bottom: 0.15rem;display: inline-block;font-size:0.75rem;font-weight: bold;color:#000;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical" id="moreSelectTitle"></span>
+                    <div style="margin-left:0.85rem;margin-top:-0.15rem;display:block;clear:both;font-size:0.6rem;font-weight: bold;color:#666;padding-top:0.75rem;padding-right: 0.75rem;text-align:justify" id="moreSurveyDesc"></div>
+
+                    <template v-for="(item,index) in msgAllData" v-if="item.voteInfo">
+                        <template v-for="(questionItem, questionIndex) in item.voteInfo.questions">
+                           <!--判断是不是多选一单选 questionType=='1' 已选结果-->
+                           <template v-if="item.voteInfo.questions[0].questionType=='1'">
+                                <span v-for="(itemOp,indexOp) in questionItem.options" v-if="item.voteInfo&&item.voteInfo.complete==true">
+                                    <!--给选中的加class:moreActive-->
+                                    <div class="list" :class="{moreActive:item.voteInfo.optionStats[indexOp].optionId==item.voteInfo.answerDetails[0].optionId}">
+                                        <div class="tiao one grey" :style="{width: item.voteInfo.optionStats[indexOp].fenshu + '%'}" :class="{red:item.voteInfo.optionStats[indexOp].optionId==item.voteInfo.answerDetails[0].optionId}">
+                                        </div>
+                                        <div class="tick">
+                                            <span v-text="item.voteInfo.optionStats[indexOp].optionId==item.voteInfo.answerDetails[0].optionId?item.voteInfo.optionStats[indexOp].optionName+'  ✓':item.voteInfo.optionStats[indexOp].optionName"></span>
+                                            <span v-text="percent(item.voteInfo.optionStats[indexOp].fenshu)"></span>
+                                        </div>
+                                        <!--<div class="text" v-text="itemOp.optionName" v-if="item.voteInfo.answerDetails!=null"></div>-->
+
+                                    </div>
+                               </span>
+                           </template>
+                           <!--是多选多已选结果-->
+                           <template v-else>
+                               <span v-for="(itemOp,indexOp) in questionItem.options" v-if="item.voteInfo&&item.voteInfo.complete==true">
+                                    <!--给选中的加class:moreActive-->
+                                    <div class="list" :class="{moreActive:item.voteInfo.optionStats[indexOp].active}">
+                                        <div class="tiao one grey" :style="{width: item.voteInfo.optionStats[indexOp].fenshu + '%'}" :class="{red:item.voteInfo.optionStats[indexOp].active}">
+                                        </div>
+                                        <div class="tick">
+                                            <span v-text="item.voteInfo.optionStats[indexOp].active?item.voteInfo.optionStats[indexOp].optionName+'  ✓':item.voteInfo.optionStats[indexOp].optionName"></span>
+                                            <span v-text="percent(item.voteInfo.optionStats[indexOp].fenshu)"></span>
+                                        </div>
+                                        <!--<div class="text" v-text="itemOp.optionName" v-if="item.voteInfo.answerDetails!=null"></div>-->
+
+                                    </div>
+
+                               </span>
+                               <div class="confirm confirmActive">已投票</div>
+                           </template>
+                       </template>
+                   </template>
+                </div>
+            </div>
+
+
+            <!-- 底部弹窗 -->
+            <div class="pop">
+                <div class="layer0 slideInUp" id="layer0" style="display: none;">
+                    <div style="position: fixed;bottom:0px;display: block;width:17.25rem;padding:0 0.75rem">
+                        <div class="giftlist giftlist0">
+                            <a href="javascript:;" @click="cancelVote()">
+                                <div class="noTips">取消投票</div>
+                            </a>
+                        </div>
+                        <div class="close" @click="close()">
+                           <a href="javascript:;" style="color:#0070fa;font-size:0.75rem">取消</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pop">
+                <div class="layer0 slideInUp" id="showTips" style="display: none;">
+                    <div style="position: fixed;bottom:0px;display: block;width:17.25rem;padding:0 0.75rem">
+                        <div class="giftlist giftlist0">
+                            <a href="javascript:;" @click="cancelMoreVote()">
+                                <div class="noTips">取消投票</div>
+                            </a>
+                        </div>
+                        <div class="close" @click="close()">
+                            <a href="javascript:;" style="color:#0070fa;font-size:0.75rem">取消</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="risk" >
+                风险及免责提示：以上内容仅代表作者的个人观点，不代表汇添富基金的任何立场，不构成与汇添富基金相关的任何投资建议。在作出任何投资决定前，投资者应根据自身情况考虑投资产品相关的风险因素，并于需要时咨询专业投资顾问意见。汇添富基金亦无法证实上述内容的真实性、准确性和原创性，对此汇添富基金不作任何保证和承诺
+            </div>
+            <div class="dianzan">点赞<span id="zanNum"></span> · 评论<span id="commentNum"></span>
+                <!--· 转发<span id="repostNum"></span>-->
+            </div>
+            <div style="height: 0.5rem;background:#f6f6f6"></div>
+            <div class="comment" id="comments" ></div>
+            <div id="clist"></div>
+            <div id="noList">暂无评论</div>
+            <div class="nomore">没有更多啦</div>
+            <!-- <div style="
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 3rem;
+            background: rgb(246, 246, 246);"></div> -->
+            <div class="input">
+                <div><input type="text" id="comment" placeholder="喜欢就评论"></div>
+                <div style="width:2rem;"><span class="sendComment">发送</span></div>
+                <div><img src="img/zan.png" id="zan1" alt="" class="zan"><img src="img/share.png" alt="" class="wei_1">
+                </div>
+            </div>
+        </div>
+
+        <mt-popup v-model="popupVisible" position="bottom" class="recomment">
+            <h4 class="recomment-t" style="display: none;">
+                <i @click="recommentVisible" id="hides"></i> 全部回复
+            </h4>
+            <div class="recomment-c">
+                <div class="recomment-content">
+
+                </div>
+                <p class="recomment-count"></p>
+                <div class="recomment-list">
+
+                </div>
+                <div class="recomment-bottom"></div>
+            </div>
+            <div class="recomment-flex">
+                <input type="text" placeholder="回复楼主" id="recomment-con">
+                <span class="recomment-send">发送</span>
+            </div>
+        </mt-popup>
+        
+
+    </div>
+    <script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+    <!--<script src="./js/vote.js"></script>-->
+    <script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+    <script src="./js/moment.min.js"></script>
+    <script src="./js/mint.js"></script>
+    <script src="./js/neplayer.min.js"></script>
+    <!-- <script type="text/javascript" src="../base/js/lib/jweixin-1.6.0.js"></script> -->
+    <!-- <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script> -->
+    <script>
+        // itemType:{topic:{type:'1',name:'话题'},post:{type:'2',name:'动态'},fund:{type:'3',name:'基金'},comment:{type:'4',name:'留言'},reply:{type:'5',name:'回复'},user:{type:'6',name:'用户'},activity:{type:'8',name:'活动'}},
+        var vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    postDetail: {},     // 20210924 关注账号
+                    hasSendFlag: false,  // 是否已经发送过 评论/回复
+                    popupVisible: false,
+                    videoInfo: null,
+                    attachList: [],
+                    attachUrlList:[],
+                    // 20210810 消息通知跳转定位处理
+                    postId: utils.getUrlParam('postId'),
+                    commentId: utils.getUrlParam('commentId'),
+                    replyId: utils.getUrlParam('replyId'),
+                    // 20210810 消息通知跳转定位处理
+                    voteInfoList:[],
+                    buyId:'',
+                    nobuyId:'',
+                    percentLeft:'',
+                    percentRight:'',
+                    surveyId:'',
+                    surveySceneCode:'',
+                    msgAllData:[],
+                    moreActiveIndex:[],   //用于添加样式用
+                    confirmActiveIndex:-1,
+                    moreActiveIndex2:[],
+                    arrOptionId:[],
+                }
+            },
+            mounted() {
+                var that = this;
+                $(document).click(function (event) {
+                    var ttt = $(event.target);
+                    if (ttt.parents('.input').length > 0 || ttt.parents('.commentInfo').length > 0 || ttt.hasClass('wei')) {
+                        return;
+                    } else {
+                        $("#comment").removeAttr('itemId');
+                        $("#comment").attr('placeholder', '喜欢就评论');
+                    }
+                });
+                var postId = utils.getUrlParam('postId');
+                if (postId) {
+                    this.showDetail(postId);
+                } else {
+                    // 20210810 展示缺省页面
+                    return;
+                }
+                // 是否为app
+                if(isApp()){
+                    $('.wei_1').show();
+                }else{
+                    $('.input div:nth-of-type(1)').css('width','13rem');
+                    $('.input div input').css('width','12rem');
+                    $('.wei_1').hide();
+                }
+               
+                //动态点赞
+                $("#zan1").click(function () {
+                    var params = {
+                        itemId: $(this).attr('data-id'),
+                        status: $(this).attr('data-stat')
+                    }
+
+                    // return;
+                    utils.ajax({
+                        url: "/sfs/api/v1/thumb/post",
+                        type: 'POST',
+                        data: params,
+                        success: function (result) {
+                            // this.getMsgList(true);
+                            that.showDetail(postId);
+                        }.bind(this)
+                    });
+                });
+                //弹窗再回复
+                $(".recomment-send").click(function () {
+                    var params = {
+                        content: $('#recomment-con').val(),
+                        itemId: $('#recomment-con').attr('data-id'),
+                        itemType: '4'
+                    }
+                    console.log('sendComment params', params)
+                    // return;
+                    utils.ajax({
+                        url: "/sfs/api/v1/comment",
+                        type: 'POST',
+                        data: params,
+                        success: function (result) {
+                            $('#recomment-con').val('');
+                            Vue.$toast({
+                                message: '回复提交成功',
+                                position: 'center',
+                                duration: 2000
+                            });
+                            setTimeout(function () {
+                                this.showAllCommentFresh($('#recomment-con').attr(
+                                    'data-id'));
+                            }.bind(this), 2000)
+                        }.bind(this)
+                    });
+                }.bind(this));
+                //发送评论
+                $(".sendComment").on('click', function () {
+                    var params = {
+                        // content: $(this).parents('input').find('input').val(),
+                        content: $('#comment').val(),
+                        itemId: $('#comment').attr('itemId') ? $('#comment').attr('itemId') :
+                            postId,
+                        itemType: $('#comment').attr('itemId') ? '4' : "2",
+                        // userAgent: navigator.userAgent,
+                        // userIp: returnCitySN["cip"]
+                    }
+                    console.log('sendComment params', params)
+                    // return;
+                    utils.ajax({
+                        url: "/sfs/api/v1/comment",
+                        type: 'POST',
+                        data: params,
+                        success: function (result) {
+                            this.hasSendFlag = true;
+                            $('#comment').val('');
+                            Vue.$toast({
+                                message: '您的评论已提交，请等待工作人员审核通过后发布',
+                                position: 'center',
+                                duration: 2000
+                            });
+                            setTimeout(function () {
+                                this.showComment(postId);
+                            }.bind(this), 2000)
+                        }.bind(this)
+                    });
+                }.bind(this));
+
+                // // 设置评论区高度，不满一屏幕的时候撑满页面                
+                // var gap = $(window).height() - $(document.body).height();
+                // if (gap > 0) {
+                //     if (!$("#clist").html()) {
+                //         $('#noList').height(gap + $('#noList').height());
+                //     } else {
+                //         $('#clist').height(gap + $('#clist').height());
+                //     }
+                // }                
+
+                // $("#hides").click(function () {
+                //     // $(".main").show();
+                //     // $(".recomment").hide();
+                //     this.popupVisible=false;
+                // }.bind(this));
+
+            },
+            created(){
+            },
+            methods: {
+                returnComments(){
+                    $('html,body').animate({scrollTop: $('#comments').offset().top}, 500) // 跳转到某点
+                },
+                urlToLink(str, flag) {
+                    if (!str) return '';
+                    var re = /((http|https):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|])/g;
+                    var len1 = str.length;
+                    str = str.replace(/&nbsp;/g, ' ');
+                    str = str.replace(re, "<a href='$1' target='_blank' >网页链接</a>");
+                    var len2 = str.length;
+                    var len = len2 - len1 + 38;
+                    console.log(len);
+                    if (flag) {
+                        if (str.length > len) {
+                            str = str.slice(0, len) + '...';
+                        }
+                    }
+                    return str
+                },
+                // 20210812 返回社区首页
+                gotoCommunityHome() {
+                    if (isApp()) {
+                        window.location.href = 'htffundxjb://action?type=hm&subType=community';
+                    } else {
+                        window.location.href = '/tradeh5/newWap/community/index.html';
+                    }
+                },
+                gotoUrl(item, linkType) {
+                    var itemUrl = item.url;
+                    if(!itemUrl){
+                        return false;
+                    }
+                    itemUrl = String(itemUrl).replace(/^\/\//, window.location.protocol + '//');
+                    if (isApp()) {
+                        if (itemUrl.slice(0, 13) == 'htffundxjb://') {
+                            window.location.href = itemUrl;
+                        } else {
+                            if(linkType == 'pdf'){
+                                window.location.href = 'htffundxjb://action?type=url&linkType=pdf&link=' + btoa(itemUrl);
+                            } else {
+                                window.location.href = 'htffundxjb://action?type=url&link=' + btoa(itemUrl);
+                            }
+                        }
+                    } else {
+                        window.location.href = itemUrl;
+                    }
+                },
+                // 20210924 关注账号
+                followUser(){
+                    let item = this.postDetail;
+                    console.log('focusUser item.userId=', item.userId);
+                    console.log('focusUser item.userInfo.followStatus=', item.userInfo.followStatus);
+                    var itemIds = [item.userInfo.userId];
+                    // 关注状态（1：关注 0：取关）
+                    var params = {
+                        // itemId: '',
+                        itemIds: itemIds,
+                        status: ((item.userInfo&&item.userInfo.followStatus==1)?0:1)
+                    }
+                    utils.ajax({
+                        url: "/sfs/api/v1/follow/user",
+                        type: 'POST',
+                        data: params,
+                        success: function (result) {
+                            var message = params.status?'关注成功':'取消关注成功';
+                            Vue.$toast({
+                                message,
+                                position: 'center',
+                                duration: 2000
+                            });
+                            // this.getMsgList(true,'','FOLLOW');  // 刷新关注tab页
+                            // 刷新当前item关注状态
+                            this.$set(item.userInfo, 'followStatus', params.status);
+                        }.bind(this)
+                    });
+                },
+                //动态详情
+                showDetail(postId) {
+                    console.log("666666666")
+                    var that = this;
+                    this.msgAllData=[];  //push后每次先清空
+                    utils.get('/sfs/api/v1/post/' + postId + (this.commentId?('?commentId='+this.commentId):''), function(res){
+                        console.log('/sfs/api/v1/post/ res=', res);
+                        if(res.returnCode != 0) {
+                            $('.main').hide();
+                            $('.content404').css('display', 'flex');
+                        }
+                    }, function (res) {
+                        // 20210924 关注账号
+                        if(res.returnCode == 0 && res.body){
+                            this.postDetail = res.body;
+                            if(res.body.articleType&&res.body.articleType==1){  //20220606文章类型(1-链接)
+                                window.location.href=res.body.articleUrl;
+                                return;  // 20220615，页面跳转走了，以下逻辑不再处理
+                            }
+                        }
+
+
+                        var body = res.body;
+                        this.msgAllData.push(res.body);
+                        console.log( ' this.msgAllData',this.msgAllData)
+                        // 设置微信分享相关
+                        if(getCookie('channelCode') != 'airstar' && getCookie('channelCode') != 'zhengtong' &&  utils.isWeixin()){
+                            wxShare(body.summary,body.title);
+                        }
+// 20210915-添加投票功能
+                        if(body.voteInfo==null||body.voteInfo==""){  //确定有没有投票功能
+                           $(".vote").hide();
+                           $("#choiceText").hide();
+                           $(".moreSelect").hide();
+                        }else {
+                            if (body.voteInfo.questions[0].options.length<3){
+                                $(".moreSelect").hide(); //当只有A,B问题单选，把moreSelect的节点隐藏
+                                $("#choiceText").show(); //但大于三个问题单选，把choiceText的节点隐藏
+                                this.surveyId = body.voteInfo.surveyId;
+                                this.surveySceneCode = body.voteInfo.surveySceneCode;
+                                var voteList = body.voteInfo.questions[0];
+                                var choiceOne = voteList.options[0].optionId;
+                                var choiceTwo = voteList.options[1].optionId;
+
+                                if (body.voteInfo.complete == false) {
+
+                                    $(".vote").show();            //未投票
+
+                                    if (body.voteInfo.surveyTitle) {
+                                        // $("#surveyTitle").html(body.voteInfo.surveyTitle.substr(0, 20));  
+                                         $("#surveyTitle").html(body.voteInfo.surveyTitle);  //20220307-修改显示三行+'...'
+
+                                        if(body.voteInfo.surveyDesc.length>70){  //20220110增加超过一定数字...查看全部
+                                            $("#surveyDesc").html(body.voteInfo.surveyDesc.substr(0,70)+'<span style="color:#148ce6" class="showText">...查看全部</span>');
+                                        }else{
+                                           $("#surveyDesc").html(body.voteInfo.surveyDesc); 
+                                        }
+                                        $(".showText").click(function(){
+                                            $("#surveyDesc").html(body.voteInfo.surveyDesc); 
+                                        })
+
+                                    } else {
+                                        $("#surveyTitle").html("");
+                                        $("#choiceText").hide();
+                                    }
+
+
+                                    $(".noChoice .buy").text(voteList.options[0].optionName); //未投票左边文案
+                                    this.buyId = voteList.options[0].optionId;
+
+                                    $(".noChoice .nobuy").text(voteList.options[1].optionName); //未投票右边文案
+                                    this.nobuyId = voteList.options[1].optionId;
+
+                                } else {
+
+                                    $(".choiceVote").show();          //有投票
+
+                                    var optionStats = body.voteInfo.optionStats;         //投票数据
+
+                                    if (body.voteInfo.surveyTitle) {
+                                        // $("#surveyTitle").html(body.voteInfo.surveyTitle.substr(0, 20));
+                                         $("#surveyTitle").html(body.voteInfo.surveyTitle);  //20220307-修改显示三行+'...'
+                                        // $("#surveyDesc").html(body.voteInfo.surveyDesc);
+                                        if(body.voteInfo.surveyDesc.length>70){  //20220110增加超过一定数字...查看全部
+                                            $("#surveyDesc").html(body.voteInfo.surveyDesc.substr(0,70)+'<span style="color:#148ce6" class="showText">...查看全部</span>');
+                                        }else{
+                                           $("#surveyDesc").html(body.voteInfo.surveyDesc); 
+                                        }
+                                        $(".showText").click(function(){
+                                            $("#surveyDesc").html(body.voteInfo.surveyDesc); 
+                                        })
+                                    } else {
+                                        $("#surveyTitle").html("");
+                                        $("#choiceText").hide();
+                                    }
+
+                                    var prices = optionStats.reduce((p, e) => p + e.optionCount, 0); //数组值相加求百分比用
+                                    for (var j = 0; j < optionStats.length; j++) {
+                                        if (choiceOne == optionStats[j].optionId) {
+                                            var left = (optionStats[j].optionCount / prices * 100).toFixed(1);
+                                            $(".choice .select .first").text(left + '%');   //左边数据
+
+                                            // that.add(left, "");
+                                        }
+
+                                        if (choiceTwo == optionStats[j].optionId) {
+                                            var right = (optionStats[j].optionCount / prices * 100).toFixed(1);
+                                            $(".choice .select .four").text(right + '%');  //右边数据
+
+                                            // that.add("", right);
+                                        }
+                                        if(left>=100){
+                                        $(".choice .select .second .pro_right").addClass("hide");
+                                        $(".choice .select .second .pro_left").addClass("circle")
+                                        }
+
+                                        if(right>=100){
+                                            $(".choice .select .second .pro_left").hide();
+                                            $(".select .second .pro_right").addClass("circle");
+                                            // $(".choice .select .second .pro_right").css({
+                                            //         borderRight: 'none',
+                                            //         borderRadius: '50px',
+                                            //         marginLeft:'0.45rem'
+                                            //     });
+                                        }
+                                        that.add(left, right);
+                                    }
+
+
+                                    var answerDetails = body.voteInfo.answerDetails;         //点击投票的是哪一个数据
+
+                                    for (var m = 0; m < answerDetails.length; m++) {
+                                        if (voteList.options[0].optionName === answerDetails[m].optionName) {
+                                            $(".choice .choiceOne").text('已选 [' + answerDetails[m].optionName + '] ✓');
+                                            $(".choiceVote .choiceTwo").text(voteList.options[1].optionName)
+                                        }
+
+                                        if (voteList.options[1].optionName === answerDetails[m].optionName) {
+                                            $(".choiceVote .choiceTwo").text('已选 [' + answerDetails[m].optionName + '] ✓');
+                                            $(".choiceVote .choiceOne").text(voteList.options[0].optionName);
+                                        }
+                                    }
+
+
+                                    // for(var i=0; i<optionsList.length;i++) {
+                                    //   console.log(optionsList[i]);
+                                    //     for(var j=0;j<optionStats.length;j++){
+                                    //         if(optionsList[i].optionId==optionStats[j].optionId){
+                                    //             $(".choice .select .first").text(optionStats[j].optionCount);
+                                    //         }
+                                    //     }
+                                    // }
+
+                                    // $(".choice .select .first").text(body.voteInfo.optionStats[1].optionName);
+
+                                }
+                            }else {
+                                this.surveyId = body.voteInfo.surveyId;
+                                // $("#noSurveyTitle").text(body.voteInfo.surveyTitle.substr(0,20));  //未投票标题
+                                 $("#noSurveyTitle").text(body.voteInfo.surveyTitle);  //20220307-修改显示三行+'...'
+                                // $("#noSurveyDesc").text(body.voteInfo.surveyDesc);  //未投票标题
+
+                                if(body.voteInfo.surveyDesc.length>70){  //20220110增加超过一定数字...查看全部
+                                    $("#noSurveyDesc").html(body.voteInfo.surveyDesc.substr(0,70)+'<span style="color:#148ce6" class="showText">...查看全部</span>');
+                                }else{
+                                   $("#noSurveyDesc").html(body.voteInfo.surveyDesc); 
+                                }
+                                $(".showText").click(function(){
+                                    $("#noSurveyDesc").html(body.voteInfo.surveyDesc); 
+                                })
+
+
+                                // $("#moreSelectTitle").text(body.voteInfo.surveyTitle.substr(0,20)); //已经投票标题
+                                $("#moreSelectTitle").text(body.voteInfo.surveyTitle);  //20220307-修改显示三行+'...'
+                                // $("#moreSurveyDesc").text(body.voteInfo.surveyDesc); //已经投票标题
+
+                                if(body.voteInfo.surveyDesc.length>70){  //20220110增加超过一定数字...查看全部
+                                    $("#moreSurveyDesc").html(body.voteInfo.surveyDesc.substr(0,70)+'<span style="color:#148ce6" class="showText">...查看全部</span>');
+                                }else{
+                                   $("#moreSurveyDesc").html(body.voteInfo.surveyDesc); 
+                                }
+                                $(".showText").click(function(){
+                                    $("#moreSurveyDesc").html(body.voteInfo.surveyDesc); 
+                                   return false;  //阻止冒泡影响父级事件
+                                })
+
+                                // 当回答问题的为多个选一个
+                                console.log("---------", this.msgAllData)
+                                $("#choiceText").hide(); //但大于三个问题单选，把choiceText的节点隐藏
+                                if (this.msgAllData[0].voteInfo.optionStats) {  //当有投票数据-下面代码取投票的数据
+                                    $("#no_moreSelect").hide();   //当有投票数据-隐藏未投票节点
+                                    $("#moreSelect").show();
+                                    for (var i = 0; i < this.msgAllData.length; i++) {
+
+                                        this.msgAllData[i].voteInfo.optionStats.sort((a, b) => {
+                                            return a.optionId - b.optionId
+                                        })
+
+                                    }
+                                    console.log("排序好的", this.msgAllData);
+
+                                    // 求总和
+                                    for (var j = 0; j < this.msgAllData.length; j++) {
+                                        var sum = this.msgAllData[j].voteInfo.optionStats.reduce((pre, cur) => {
+                                            return pre + cur.optionCount
+                                        }, 0)
+                                    }
+
+                                    for (var m = 0; m < this.msgAllData.length; m++) {
+
+                                        for (var j in this.msgAllData[m].voteInfo.optionStats) {
+
+                                            this.msgAllData[m].voteInfo.optionStats[j].fenshu = this.msgAllData[m].voteInfo.optionStats[j].optionCount / sum * 100;
+
+                                            for(var k in this.msgAllData[m].voteInfo.answerDetails){  //用来给选中投票的添加样式判断 active字段
+
+                                                if(this.msgAllData[m].voteInfo.optionStats[j].optionId==this.msgAllData[m].voteInfo.answerDetails[k].optionId){
+                                                    this.msgAllData[m].voteInfo.optionStats[j].active=true;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    console.log("添加比分====", this.msgAllData);
+                                }else{
+                                    $("#moreSelect").hide();//当没有投票数据-隐藏投票节点
+                                    $("#no_moreSelect").show();
+                                }
+                            }
+                        }
+
+                        // else{
+                        //     // this.voteInfoList= voteList.options;
+                        //     $(".noChoice .buy").text(voteList.options[0].optionName);
+                        //     this.buyId=voteList.options[0].optionId;
+                        //
+                        //     $(".noChoice .nobuy").text(voteList.options[1].optionName);
+                        //     this.nobuyId=voteList.options[1].optionId;
+                        // }
+
+                        if (body) {
+                            document.title = (body.postType == 2 ? '动态详情' : '文章详情');
+                            $(".title").html(body.title);
+                            if (body.topics&&body.topics.length>0) {   //原来是body.topicId
+                                console.log('body.topics',body.topics)
+                                // $(".sub-tag a").text('#' + body.topicName).attr('href',
+                                //     '/tradeh5/newWap/community/topicDetail.html?topicId=' + body.topicId
+                                // );
+                                let tagHtml='';
+                                for(var i=0;i<body.topics.length;i++){
+                                    tagHtml+="<a style='margin-right:0.65rem;' href=/tradeh5/newWap/community/topicDetail.html?topicId="+body.topics[i].id+">"+"#"+body.topics[i].name+"</a>"
+                                }
+                                $(".sub-tag").html(tagHtml);
+                            } else {
+                                $(".sub-tag").hide()
+                            }
+
+                            $(".textList").html(body.content);
+                            $("#zan1").attr('data-id', body.postId);
+                            $("#zan1").attr('data-stat', (body.thumb ? 0 : 1));
+                            $("#zan1").attr('src', 'img/' + (body.thumb ? 'zan-chose' : 'zan') +
+                                '.png');
+                            this.clickShareIcon(); //分享按钮点击事件
+                            if (body.imagesList && body.postType == 2) { //动态(postType = 2)图片正常显示；文章(postType = 1)imagesList是缩略图，在正文中不展示
+                                var htm0 = '';
+                                var imagesList = body.imagesList;
+                                imagesList.forEach(function (item, index) {
+                                    htm0 += '<img src="' + item.imageUrl + '" alt="">';
+                                });
+                                $(".echarts").html(htm0);
+                            }
+                            if (body.videoInfo) {
+                                that.videoInfo = body.videoInfo;
+                                if(that.videoInfo.isLive==='0'){
+                                    that.$nextTick(()=>{
+                                        var myPlayer = new neplayer('my-video');
+                                    })
+                                }
+                            }
+                            if (body.productsList) {
+                                var htm1 = '';
+                                var productList = body.productsList;
+                                productList.forEach(function (item, index) {
+                                    htm1 += '<div class="htf"><div class="htlText" data-id="' +
+                                        item.productId + '" data-tp="' + item
+                                            .productCategoryId + '">' + (item.productName ? item
+                                                .productName : '') + '  ' + item.productId +
+                                        '<img src="img/details_11.png" alt=""></div></div>';
+                                });
+                                $("#product").html(htm1);
+                            }
+                            if (body.attachments) {
+                                // attachType=1
+
+                                // this.attachList = body.attachments;  
+                                body.attachments.forEach((item)=>{
+                                    if(item.attachType==1){
+                                        // 文件地址
+                                        this.attachList.push(item)
+                                    }else if(item.attachType==5){
+                                        // 链接地址
+                                        this.attachUrlList.push(item)
+                                    }
+                                   
+                                })
+                                $(".article-attach").show();
+                            }
+                            // if(body.attachments){
+                            //     var html2='';
+                            //     var attachList=body.attachments;
+                            //     attachList.forEach(function(item,index){
+                            //         html2+='<div class="attachList" ><span class="image"><img src="./img/attachImage.png" style="width: 40px;height: 40px;" alt="附件" /></span><a :href="'+item.url+'" class="attachName" v-text="'+item.attachName+'" style="margin-left: 10px;">报告名称</a></div>'
+                            //     });
+                            //     $(".article-attach").html(html2);
+                            // }
+                            $(".htlText").click(function () {
+                                if (isApp()) {
+                                    if ($(this).attr('data-tp') == '1') { //基金
+                                        window.location.href =
+                                            "htffundxjb://action?type=fd&fundId=" + $(this)
+                                                .attr('data-id');
+                                    } else {
+                                        window.location.href =
+                                            "htffundxjb://action?type=fundGroup&subType=fgd&groupId=" +
+                                            $(this).attr('data-id');
+                                    }
+
+                                    //window.location.href = 'htffundxjb://action?type=url&link=' + $.base64.encode(location.origin + '/tradeh5/newWap/community/topicDetailList.html?productId=' + productId);
+                                } else {
+                                    if ($(this).attr('data-tp') == '1') { //基金
+                                        window.location.href = location.origin +
+                                            '/mobileEC/wap/fund/steadyCombination.html?fundId=' +
+                                            $(this).attr('data-id');
+                                    } else {
+                                        window.location.href = location.origin +
+                                            '/mobileEC/wap/fundgroup/group_fund_details.html?groupId=' +
+                                            $(this).attr('data-id');
+                                    }
+                                }
+                            });
+                            $("#zanNum").html(body.thumbCount);
+                            $("#commentNum").html(body.commentCount);
+                            $("#repostNum").html(body.viewCount);
+                            $(".comment").html('评论(' + body.commentCount + ')');
+                            //评论列表
+                            if (body.commentCount > 0) {
+                                //请求评论接口
+                                this.showComment(postId);
+                            }else{
+                                console.log('2555555')
+                                $('#noList').css('display','flex')
+                            }
+                            if (body.userInfo) {
+                                var userInfo = body.userInfo;
+                                $(".img").html('<img src="' + userInfo.avatarImage + '" alt="">');
+                                $("#nickname").html(userInfo.nickname);
+                                $(".img,#nickname").click(function () {
+                                    window.location.href =
+                                        'htffundxjb://action?type=community&subType=personalPage&socialUserId=' +
+                                        userInfo.userId;
+                                });
+                                if (userInfo.verified) {
+                                    $(".tipImg").show()
+                                } else {
+                                    $(".tipImg").hide()
+                                }
+                                if (userInfo.badgeList&&userInfo.badgeList.length>0) {
+                                    console.log('徽章。。。。') 
+                                     var badgeHtm=''
+                                    userInfo.badgeList.forEach((item)=>{
+                                      
+                                        badgeHtm+='<img class="badgeUImg"  src="' + item.iconImageLight + '" alt="">'
+                                    })
+                                    $(".badgeList").html(badgeHtm);
+                                } else {
+                                    // $(".tipImg").hide()
+                                }
+                                if (userInfo.textRight) {
+                                    $(".textRight").html(userInfo.textRight ? userInfo.textRight : '')
+                                        .show();
+                                } else {
+                                    $(".textRight").hide()
+                                }
+                                $(".time").html(this.showTime(body.createTime, body.systemTime));
+                            }
+                        }
+                    }.bind(this));
+
+                },
+// 未投票点击当前按钮
+                vote:function(index){
+                    var _this=this;
+                    var optionId="";
+                    var choiceOne=""
+                    var choiceTwo=""
+                    choiceOne=$(".noChoice .buy").text();
+                    choiceTwo=$(".noChoice .nobuy").text();
+                    if(index==1){
+                        optionId=this.buyId;
+                    }else{
+                        optionId=this.nobuyId;
+                    }
+                    var answerVoList=[
+                        {
+                            "optionArray": [optionId],
+                            "questionId":142
+                        }
+                    ]
+                    var params={};
+                    params.answerVoList=answerVoList;
+                    params.branchCode="247";
+                    params.surveyId= this.surveyId;
+                    params.surveySceneCode=this.surveySceneCode;
+                    console.log(params)
+// 投票调取提交问卷接口
+                    $(".vote").hide();
+                    $(".choiceVote").show();
+
+                    var postId = utils.getUrlParam('postId');
+
+
+                    // _this.getPpercent(postId);
+
+// 20210915-添加投票功能
+                    utils.ajax({
+                        url: "/caa/v1/survey/survey",
+                        type: 'POST',
+                        data: params,
+                        success: function (result) {
+                            if (result.returnCode === 0) {
+                                $(".vote").hide();
+                                $(".choiceVote").show();
+                                _this.getPpercent(postId);
+                                // if(index==1){
+                                //     $(".choiceVote .choiceOne").text('已选 ['+choiceOne+'] ✓');
+                                //     $(".choiceVote .choiceTwo").text(choiceTwo);
+                                // }else{
+                                //     $(".choiceVote .choiceTwo").text('已选 ['+choiceTwo+'] ✓');
+                                //     $(".choiceVote .choiceOne").text(choiceOne);
+                                // }
+
+                            }
+                        }.bind(this)
+                    });
+
+                },
+
+
+                getPpercent:function(postId){
+                    var _this=this;
+                    $(".noChoice").show();
+                    utils.get('/sfs/api/v1/post/' + postId + (this.commentId?('?commentId='+this.commentId):''), function(res){
+                        console.log('/sfs/api/v1/post/ res=', res);
+                    }, function (res) {
+                        var body = res.body;
+
+                        var voteList=body.voteInfo.questions[0];
+                        var choiceOne=voteList.options[0].optionId;
+                        var choiceTwo=voteList.options[1].optionId;
+                        var optionStats=body.voteInfo.optionStats;         //投票数据
+
+                        if(body.voteInfo.complete==false){
+
+                            $(".noChoice .vote").show();
+                            $(".choiceVote").hide();
+                            $(".noChoice .buy").text(voteList.options[0].optionName); //未投票左边文案
+                            this.buyId=voteList.options[0].optionId;
+
+                            $(".noChoice .nobuy").text(voteList.options[1].optionName); //未投票右边文案
+                            this.nobuyId=voteList.options[1].optionId;
+                        }else {
+                            $(".noChoice .vote").hide();
+                            $(".choiceVote").show();          //有投票
+
+                            // $(".select .second .left").show();
+
+                            $(".select .second .right").show();
+
+                            $(".select .second .left").css({
+                                borderRight: '1rem solid #fb5c5f',
+                                borderRadius: '50px 100px 100px 0px'
+                            });
+
+                            var prices = optionStats.reduce((p, e) => p + e.optionCount, 0); //数组值相加求百分比用
+                            for (var j = 0; j < optionStats.length; j++) {
+                                if (choiceOne == optionStats[j].optionId) {
+                                    var left = (optionStats[j].optionCount / prices * 100).toFixed(1);
+                                    $(".choice .select .first").text(left + '%');   //左边数据
+                                    // _this.add(left, "");
+
+                                }
+                                if (choiceTwo == optionStats[j].optionId) {
+                                    var right = (optionStats[j].optionCount / prices * 100).toFixed(1);
+                                    $(".choice .select .four").text(right + '%');  //右边数据
+                                    // _this.add("", right);
+                                }
+
+                                  if(left>=100){
+                                      $(".choice .select .second .pro_right").hide();
+
+                                      $(".choice .select .second .pro_left").show();
+
+                                      $(".choice .select .second .pro_left").css({
+                                              borderRight: 'none',
+                                              borderRadius: '50px'
+                                          });
+                                  }else{
+                                      $(".choice .select .second .pro_left").show();
+                                      $(".select .second .pro_right").removeClass("circle");
+
+                                      // $(".select .second .pro_right").css({
+                                      //     borderRadius: '50px',
+                                      // });
+                                  }
+
+
+                                if(right>=100){
+
+                                    $(".choice .select .second .pro_left").hide();
+                                    // $(".select .second .pro_right").css({
+                                    //     borderRight: 'none',
+                                    //     borderRadius: '50px',
+                                    //     marginLeft:'0.45rem'
+                                    // });
+                                    $(".select .second .pro_right").addClass("circle");
+                                }
+
+
+                                _this.add(left,right);
+                            }
+
+                            var answerDetails = body.voteInfo.answerDetails;         //点击投票的是哪一个数据
+
+                            for (var m = 0; m < answerDetails.length; m++) {
+                                if (voteList.options[0].optionName === answerDetails[m].optionName) {
+                                    $(".choice .choiceOne").text('已选 [' + answerDetails[m].optionName + '] ✓');
+                                    $(".choiceVote .choiceTwo").text(voteList.options[1].optionName)
+                                }
+
+                                if (voteList.options[1].optionName === answerDetails[m].optionName) {
+                                    $(".choiceVote .choiceTwo").text('已选 [' + answerDetails[m].optionName + '] ✓');
+                                    $(".choiceVote .choiceOne").text(voteList.options[0].optionName);
+                                }
+                            }
+                        }
+
+                    }.bind(this));
+                },
+
+// 20210913-start-添加投票功能
+                // 投票比对
+                /*add——创建tbx下的div加文字和变宽度的方法*/
+                add:function(i,k){
+                    // var i=40;
+                    // var k=60;
+                    // var tbox =$(".bar");
+                    // var tiao =$(".tiao");
+                    // var progress =$(".progress");
+                    var second =$(".select .second");
+                    var left =$(".select .second .left");
+                    var right =$(".select .second .right");
+                    if(i>=100){
+                        // $(".choice .select .second .pro_right").addClass("hide");
+
+                        left.css("width","100%");
+                        // $(".choice .select .four").text('0.0%');  //右边数据
+
+                        // $(".select .second .left").show();
+                        // $(".select .second .right").hide();
+
+                        // $(".select .second .left").css({
+                        //     borderRight: 'none',
+                        //     borderRadius: '50px'
+                        // });
+
+                        // $(".vote .first .number").html("100%");
+                    }else{
+                        // $(".choice .select .second .pro_left").removeClass("hide");
+                        // $(".choice .select .second .pro_right").removeClass("circle");
+
+                        left.css("width",i+"%");
+                        // $(".vote .first .number").html(i+"%")
+                    }
+                    if(k>=100){
+                        // $(".choice .select .second .pro_left").addClass("hide");
+                        //
+                        // $(".choice .select .second .pro_right").addClass("circle");
+
+
+                        right.css("width","100%");
+                        // $(".choice .select .first").text(left+'%');   //左边数据
+
+                        // $(".select .second .left").hide();
+                        // $(".choice .select .second .pro_right").addClass("circle");
+                        // $(".select .second .right").css({
+                        //     borderRight: 'none',
+                        //     borderRadius: '50px',
+                        //     marginLeft:'0.45rem'
+                        // });
+
+                        // $(".vote .second .number").html("100%");
+                    }else{
+                        right.css("width",k+"%");
+                        // $(".vote .second .number").html(k+"%")
+                    }
+                },
+
+                choiceVote:function(){
+                    $("#layer0").show();
+                },
+                showTips:function(){
+                    $("#showTips").show();
+                },
+                close:function(){
+                    $("#layer0").hide()
+                    $("#showTips").hide()
+                },
+// 取消投票
+        // 调取取消问卷接口
+                cancelVote:function(){
+                    var _this=this;
+                    console.log(this.surveyId);
+                    var postId = utils.getUrlParam('postId');
+
+                    utils.ajax({
+                        url: "/caa/v1/survey/survey/cancel",
+                        type: 'POST',
+                        data:{
+                               surveyId:this.surveyId,
+                               branchCode:'247'
+                              },
+                        success: function (result) {
+                            if (result.returnCode === 0) {
+                                $("#layer0").hide();
+                                _this.getPpercent(postId);
+                            }
+                        }.bind(this)
+                    });
+
+
+                    // utils.ajax({
+                    //     url: '/caa/v1/survey/survey/cancel?surveyId='+this.surveyId+'&branchCode=247',
+                    //     success: function (result) {
+                    //         if (result.returnCode === 0) {
+                    //             $("#layer0").hide()
+                    //             _this.getPpercent(postId);
+                    //         }
+                    //     }.bind(this)
+                    // })
+
+                },
+
+// 这是多个投票回答(A,B,C,D)单选一个的代码
+                moreSelect:function(item,questionItem,itemOp,indexOp){
+                    var _this=this;
+                    _this.voteInfoList=[];
+                    _this.questionsList=[];
+                    _this.optionsList=[];
+
+                    for (var i= 0; i<_this.msgAllData.length; i++) {
+                        if(_this.msgAllData[i].voteInfo){
+                            _this.voteInfoList.push(_this.msgAllData[i].voteInfo);
+                        }
+
+                    }
+                    for (var k= 0; k<this.voteInfoList.length; k++) {
+                        _this.questionsList=_this.questionsList.concat(_this.voteInfoList[k].questions);
+                    }
+
+
+                    for (var m=0;m<_this.questionsList.length;m++) {
+                        if(_this.questionsList[m].options.length>2){
+                            _this.optionsList=_this.optionsList.concat(_this.questionsList[m].options);
+                        }
+                    }
+
+
+                    console.log(_this.questionsList);
+                    console.log(_this.optionsList);
+
+                    this.$nextTick(function () {
+                        _this.optionsList.forEach(function (item) {
+
+                            Vue.set(item,'active',false);
+                        });
+                        Vue.set(itemOp,'active',true);
+
+                    });
+
+                    // 调取投票接口
+                    console.log("item",item);
+                    var optionId = questionItem.options[indexOp].optionId;
+                    var questionId = questionItem.questionId;
+                    var surveyId=item.voteInfo.surveyId;
+                    var surveySceneCode=item.voteInfo.surveySceneCode;
+
+                    console.log("optionId",optionId);
+                    console.log("questionId",questionId);
+                    console.log("surveyId",surveyId);
+                    console.log("surveySceneCode",surveySceneCode);
+
+                    var params={};
+                    var answerVoList=[
+                        {
+                            "optionArray": [optionId],
+                            "questionId":questionId
+                        }
+                    ]
+                    params.answerVoList=answerVoList;
+                    params.branchCode="247";
+                    params.surveyId=surveyId;
+                    params.surveySceneCode=surveySceneCode;
+                    console.log(params);
+                    var postId = utils.getUrlParam('postId');
+                    console.log("postId",postId);
+                    // 提交投票
+                    utils.ajax({
+                        url: "/caa/v1/survey/survey",
+                        type: 'POST',
+                        data: params,
+                        success: function (result) {
+                            if (result.returnCode === 0) {
+                                // 更新当前投票item
+                                utils.ajax({
+                                    url: "/sfs/api/v1/post/" + item.postId,
+                                    type: 'GET',
+                                    success: function (result) {
+                                        if (result.returnCode === 0 && result.body && result.body.voteInfo ) {
+                                            console.log('/sfs/api/v1/post/ result=', result)
+
+                                            if(result.body.voteInfo.optionStats){
+                                                var voteInfo = result.body.voteInfo;
+
+
+                                                voteInfo.optionStats.sort((a,b) => {
+                                                    return a.optionId - b.optionId
+                                                })
+
+                                                // 求总和
+                                                var sum = voteInfo.optionStats.reduce((pre, cur)=>{
+                                                    return pre + cur.optionCount
+                                                },0)
+
+                                                console.log("sum",sum);
+
+                                                for(var j in voteInfo.optionStats){
+                                                    voteInfo.optionStats[j].fenshu=voteInfo.optionStats[j].optionCount/sum*100;
+                                                }
+                                            }
+                                            this.$set(item, 'voteInfo', result.body.voteInfo);
+                                            _this.showDetail(postId);
+                                        }
+                                    }.bind(this)
+                                });
+
+                            }
+                        }.bind(this)
+                    });
+                },
+                percent: function (fenshu) {
+                    return fenshu?fenshu.toFixed(1)+'%':'0%';
+                },
+//这是多个投票回答(A,B,C,D)选择多个的代码
+
+                muchSelect:function(item,questionItem,itemOp){
+                    var _this=this;
+                    // 这一步只是列表添加样式用
+                    if (this.moreActiveIndex.indexOf(itemOp) !== -1) {  //用于添加列表样式用
+                        this.moreActiveIndex.splice(this.moreActiveIndex.indexOf(itemOp), 1); //用于添加列表样式用，取消
+                        itemOp.check=false;      //用作下面代码取消optionId用
+                    } else {
+                        this.moreActiveIndex.push(itemOp);//用于添加列表样式用，选中添加到数组里
+                        itemOp.check=true;     //用作下面代码选中获取optionId用
+                    }
+
+                    // 添加或者取消按钮的样式
+                    if(item.active){
+                      if(this.moreActiveIndex==""){
+                        Vue.set(item,'active',false);//取消按钮的样式
+                      }
+                    }else{
+                        Vue.set(item,'active',true);// 添加按钮的样式
+                    }
+                    // this.$nextTick(function () {
+                    //     _this.optionsList.forEach(function (item) {
+                    //
+                    //         Vue.set(item,'active',false);
+                    //     });
+                    //     Vue.set(itemOp,'active',true);
+                    //
+                    // });
+
+                    // 调取投票接口
+                    // console.log("item",item);
+                    //
+                    // var arr=[];
+                    // var optionId=questionItem.options[indexOp].optionId;
+
+
+                    // let text=$(this).text();
+
+                    // let text = questionItem.options.optionId;
+                    // let ind = arr.indexOf(text);
+                    //
+                    // if (ind === -1) {
+                    //     arr.push(text);
+                    // }
+                    // else {
+                    //     arr.splice(ind, 1);
+                    // }
+
+
+                },
+                // 点击确认投票按钮
+                confirm:function(item,questionItem){
+                    var _this=this;
+                    var arrOptionId=[];
+                    for (var i=0;i<questionItem.options.length;i++) {
+                        if(questionItem.options[i].check&&questionItem.options[i].check==true){
+                            arrOptionId.push(questionItem.options[i].optionId);    //拿到选择的OptionId
+                        }
+                    }
+
+                   if(arrOptionId==""){   //如果没有选择列表，不能点击
+                       return false;
+                   }
+
+                    var questionId = questionItem.questionId;
+                    var surveyId=item.voteInfo.surveyId;
+                    var surveySceneCode=item.voteInfo.surveySceneCode;
+
+                    console.log("questionId",questionId);
+                    console.log("surveyId",surveyId);
+                    console.log("surveySceneCode",surveySceneCode);
+
+
+                    var params={};
+                    var answerVoList=[
+                        {
+                            "optionArray": arrOptionId,
+                            "questionId":questionId
+                        }
+                    ]
+                    params.answerVoList=answerVoList;
+                    params.branchCode="247";
+                    params.surveyId=surveyId;
+                    params.surveySceneCode=surveySceneCode;
+                    console.log(params);
+                    var postId = utils.getUrlParam('postId');
+                    console.log("postId",postId);
+                    // 提交投票
+                    utils.ajax({
+                        url: "/caa/v1/survey/survey",
+                        type: 'POST',
+                        data: params,
+                        success: function (result) {
+                            if (result.returnCode === 0) {
+
+                            //更新当前投票item
+                                utils.ajax({
+                                    url: "/sfs/api/v1/post/" + item.postId,
+                                    type: 'GET',
+                                    success: function (result) {
+                                        if (result.returnCode === 0 && result.body && result.body.voteInfo ) {
+                                            console.log('/sfs/api/v1/post/ result=', result)
+
+                                            if(result.body.voteInfo.optionStats){
+                                                var voteInfo = result.body.voteInfo;
+
+                                                voteInfo.optionStats.sort((a,b) => {
+                                                    return a.optionId - b.optionId
+                                                })
+
+                                                // 求总和
+                                                var sum = voteInfo.optionStats.reduce((pre, cur)=>{
+                                                    return pre + cur.optionCount
+                                                },0)
+
+                                                console.log("sum",sum);
+
+                                                for(var j in voteInfo.optionStats){
+                                                    voteInfo.optionStats[j].fenshu=voteInfo.optionStats[j].optionCount/sum*100;
+
+                                                    for(var k in voteInfo.answerDetails){  //用来给选中投票的添加样式判断 active字段
+
+                                                        if(voteInfo.optionStats[j].optionId==voteInfo.answerDetails[k].optionId){
+                                                            voteInfo.optionStats[j].active=true;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            this.$set(item, 'voteInfo', result.body.voteInfo);
+                                            _this.showDetail(postId);
+                                        }
+                                    }.bind(this)
+                                });
+                            }
+                        }.bind(this)
+                    });
+
+                },
+
+            // 调取取消接口
+                cancelMoreVote:function(){
+                    var _this=this;
+                    console.log(this.surveyId);
+                    var postId = utils.getUrlParam('postId');
+
+                    utils.ajax({
+                        url: "/caa/v1/survey/survey/cancel",
+                        type: 'POST',
+                        data:{
+                            surveyId:this.surveyId,
+                            branchCode:'247'
+                        },
+                        success: function (result) {
+                            if (result.returnCode === 0) {
+                                _this.moreActiveIndex=[];   //把上次选中的索引样式清空
+                                $("#showTips").hide();
+                                _this.showDetail(postId);
+                            }
+                        }.bind(this)
+                    });
+
+
+                    // utils.ajax({
+                    //     url: '/caa/v1/survey/survey/cancel?surveyId='+this.surveyId+'&branchCode=247',
+                    //     success: function (result) {
+                    //         if (result.returnCode === 0) {
+                    //             $("#layer0").hide()
+                    //             _this.getPpercent(postId);
+                    //         }
+                    //     }.bind(this)
+                    // })
+
+                },
+
+                // 20210913-end-添加投票功能
+                //获取话题评论列表
+                showComment(postId) {
+                    console.log('888')
+                    $('.recomment-t').css("display", "flex")
+                    var that = this;
+                    var params = {
+                        commentSort: 'THUMB',
+                        itemId: postId,
+                        itemType: 2,
+                        pageNum: 1,
+                        pageSize: 1000
+                    }
+
+                    utils.ajax({
+                        url: "/sfs/api/v1/comment/page-list",
+                        type: 'POST',
+                        data: params,
+                        success: function (result) {
+                            var commentsList = result.body.rows;
+                            var htm = '';                            
+                            commentsList.forEach(function (items, index) {
+                                var item = items
+                                // 徽章
+                                if(item.badgeList&&item.badgeList.length>0){
+                                    var htm2=''
+                                    item.badgeList.forEach((item,index) => {
+                                    htm2+='<img src="' + item
+                                        .iconImageLight +
+                                    '" alt="" class="img userinfo1  badgeImg" data="' + item.badgeId +
+                                    '">'
+                                 })
+                                }else{
+                                    var htm2 ='<i></i>';
+                                }
+                                htm += '    <div class="commentList">' +
+                                    '<div class="userInfos" ><img src="' + item
+                                        .avatarImage +
+                                    '" alt="" class="img userinfo1" data="' + item.userId +
+                                    '"><span class="userinfo2" data="' + item.userId +
+                                    '">' + item
+                                        .nickname + '</span>' 
+                                        +htm2+
+                                    (item.admin ? '<span class="close-icon fr"  data-id="' +
+                                        item.id +
+                                        '" data-itemType="' + item.itemType +
+                                        '"><img src="img/del.png" alt="del.png" /></span>' :
+                                        '') +
+                                    '</div>' +
+                                    '<div class="commentInfo"><div class="text" data="' +
+                                    item.nickname +
+                                    '" data-id="' + item.id + '">' + item.content +
+                                    ' </div>' +
+                                    '</div>';
+                                //留言回复 如果有就展示
+                                if (item.replyList && item.replyList.total > 0) {
+                                    var replyCnt = item.replyList.total;
+                                    var replyList = item.replyList.rows;
+                                    htm += '<div class="sanjiao"></div>' +
+                                        '<div class="liuyan">';
+                                    //只展示3条
+                                    replyList.forEach(function (item2, index2) {
+                                        if (index2 < 3) {
+                                            htm +=
+                                                '<p><span style="color:#148ce6" data-user="'+item2.userId+'">' +
+                                                item2
+                                                    .nickname +
+                                                '</span> 回复 <span style="color:#148ce6" data-user="'+item.userId+'">' +
+                                                item
+                                                    .nickname + '：</span>' + item2
+                                                    .content +
+                                                (item2.admin ?
+                                                    '<span class="close-icon fr"  data-id="' +
+                                                    item2
+                                                        .id + '" data-itemType="' +
+                                                    item2.itemType +
+                                                    '"><img src="img/del.png" alt="del.png"></span>' :
+                                                    '') +
+                                                '</p>'
+                                        }
+                                    });
+
+                                    if (replyCnt > 3) {
+                                        htm += '<div class="all" data-item="' + escape(JSON
+                                            .stringify(
+                                                item)) + '">全部' + replyCnt +
+                                            '条评论<img src="img/details_11.png" alt="del.png" /></div>';
+                                    }
+                                    htm += '</div>';
+                                }
+
+                                htm += '<div class="listTime">' +
+                                    '<div class="textTime">' + item.createTime + '</div>' +
+                                    '<div>' +
+                                    '<img src="img/' + (item.thumb ? 'zan-chose' : 'zan') +
+                                    '.png" alt="" class="zan zan0" data-id="' + item.id +
+                                    '" data-stat="' +
+                                    (item.thumb ? 0 : 1) + '">' +
+                                    '<span class="number">' + item.thumbCount + '</span>'
+                                    + '<img src="img/comment.png" data-id="' + item.id + '" data="' + item.nickname + '" alt="" class="wei">'
+                                    +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
+                            });
+
+                            $("#clist").html(htm);
+
+                            // 20210810 消息通知跳转定位处理
+                            if(that.commentId){
+                                if(that.replyId){
+                                    // 定位到回复，打开回复弹窗
+                                    that.showAllComment(escape(JSON.stringify(commentsList.filter(function(item){return item.id==that.commentId})[0])), that.replyId);
+                                } else{
+                                    // 定位到评论
+                                    setTimeout(function(){
+                                        focusComment(that.commentId);
+                                    }, 0)
+                                } 
+                            }
+                            //查看所有评论
+                            $(".all").click(function () {
+                                // console.log($(this).attr('data-item'));
+                                that.showAllComment($(this).attr('data-item'));
+                            });
+                            $('.nomore').css("display", "flex")
+
+                            if (!that.hasSendFlag && (utils.getUrlParam('hash') == '1' || utils.getUrlParam('hash') == '2')) {
+                                //document.getElementById('comment').scrollIntoView();
+                                $("#comment").focus();
+                            }
+                            // 点击用户名跳转
+                            $('.liuyan span').click(function(){
+                                window.location.href =
+                                    'htffundxjb://action?type=community&subType=personalPage&socialUserId=' +
+                                    $(this).attr('data-user');
+                            })
+                            //点击用户头像
+                            $(".userinfo1,.userinfo2").click(function () {
+                                window.location.href =
+                                    'htffundxjb://action?type=community&subType=personalPage&socialUserId=' +
+                                    $(this).attr('data');
+                            })
+                            //删除评论
+                            $(".close-icon").click(function () {
+                                // var params = {
+                                //     id: $(this).attr('data-id') 
+                                // }
+                                var itemType = $(this).attr('data-itemType');
+                                utils.showTips({
+                                    title: '您确定要删除该条' + (itemType == '2' ? '评论' :
+                                        '回复') + '吗？', //标题
+                                    // title: '您确定要删除该条评论吗？', //标题
+                                    // content: '确认要删除吗', //内容
+                                    showCancel: true, //是否显示取消按钮，默认false
+                                    confirmText: '确定', //确认按钮文字，默认确定
+                                    complete: function () {
+                                        utils.ajax({
+                                            url: "/sfs/api/v1/comment?id=" +
+                                                $(this)
+                                                    .attr('data-id'),
+                                            type: 'DELETE',
+                                            // data: params,
+                                            success: function (result) {
+                                                var message = (
+                                                    itemType ==
+                                                        '2' ?
+                                                        '评论' : '回复'
+                                                ) + '删除成功';
+                                                Vue.$toast({
+                                                    message,
+                                                    position: 'center',
+                                                    duration: 2000
+                                                });
+                                                that.showComment(
+                                                    postId);
+                                            }.bind(this)
+                                        });
+                                    }.bind(this)
+                                })
+                            })
+                            //评论点赞                    
+                            $(".zan0").click(function () {
+                                var params = {
+                                    itemId: $(this).attr('data-id'),
+                                    status: $(this).attr('data-stat')
+                                }
+                                console.log(params);
+                                // return;
+                                utils.ajax({
+                                    url: "/sfs/api/v1/thumb/comment",
+                                    type: 'POST',
+                                    data: params,
+                                    success: function (result) {
+                                        $('#comment').val('');
+                                        var zanStat = $(this).attr('data-stat');
+                                        console.log('zanStat', zanStat)
+                                        if (zanStat == '0') {
+                                            $(this).attr('src', 'img/zan.png');
+                                            $(this).attr('data-stat', '1');
+                                            $(this).siblings('span.number')
+                                                .html(Number($(this)
+                                                    .siblings('span.number')
+                                                    .html()) - 1);
+                                        } else {
+                                            $(this).attr('src',
+                                                'img/zan-chose.png');
+                                            $(this).attr('data-stat', '0');
+                                            $(this).siblings('span.number')
+                                                .html(Number($(this)
+                                                    .siblings('span.number')
+                                                    .html()) + 1);
+                                        }
+                                        // showComment(postId);
+                                    }.bind(this)
+                                });
+                            });
+                            // 点击评论图标
+                            $("img.wei").click(function (event) {
+                                // document.getElementById('comment').scrollIntoView();
+                                $("#comment").attr('itemId', $(this).attr('data-id'));
+                                $("#comment").attr('placeholder', '回复' + $(this).attr('data') + ':');
+                                $("#comment").focus();
+                            });
+                            //点击昵称 回复评论
+                            $(".commentInfo > .text").click(function () {
+                                // document.getElementById('comment').scrollIntoView();
+                                $("#comment").attr('itemId', $(this).attr('data-id'));
+                                $("#comment").attr('placeholder', '回复' + $(this).attr(
+                                    'data') + ':');
+                                $("#comment").focus();
+                            });
+                            // 评论数修改
+                            $('#comments').html('评论（' + commentsList.length + ')');
+                            $('#commentNum').html(commentsList.length);
+
+
+                             // // 9534  定位到评论列表
+                            if(utils.getUrlParam('returnComments')=='true'){
+                                this.$nextTick(()=>{
+                                    this.returnComments()
+                                })
+                            }
+                        }.bind(this)
+                    });
+                },
+
+                popUpdeleteHandler() {
+                    var that = this;
+                    //删除评论
+                    $(".recomment-c .close-icon").click(function () {
+                        // var params = {
+                        //     id: $(this).attr('data-id') 
+                        // }
+                        var itemType = $(this).attr('data-itemType');
+                        utils.showTips({
+                            title: '您确定要删除该条' + (itemType == '2' ? '评论' : '回复') + '吗？', //标题
+                            // title: '您确定要删除该条评论吗？', //标题
+                            // content: '确认要删除吗', //内容
+                            showCancel: true, //是否显示取消按钮，默认false
+                            confirmText: '确定', //确认按钮文字，默认确定
+                            complete: function () {
+                                utils.ajax({
+                                    url: "/sfs/api/v1/comment?id=" + $(this).attr(
+                                        'data-id'),
+                                    type: 'DELETE',
+                                    // data: params,
+                                    success: function (result) {
+                                        var message = (itemType == '2' ? '评论' :
+                                            '回复') + '删除成功';
+                                        Vue.$toast({
+                                            message,
+                                            position: 'center',
+                                            duration: 2000
+                                        });
+                                        if (itemType == '2') {
+                                            // $(".main").show();
+                                            // $(".recomment").hide();
+                                            that.popupVisible = false;
+                                            that.showComment(postId);
+                                        } else {
+                                            that.showAllCommentFresh($(
+                                                '#recomment-con').attr(
+                                                    'data-id'));
+                                        }
+                                    }.bind(this)
+                                });
+                            }.bind(this)
+                        })
+                    })
+                },
+                showAllComment(itemIn, replyId) {
+                    var that = this;
+                    var items = JSON.parse(unescape(itemIn));
+                    var htm = '<div class="re-user">' +
+                        '<img src="' + items.avatarImage + '" alt="" class="re-icon">' +
+                        '<span>' + items.nickname + '</span>' +
+                        (items.admin ? '<span class="close-icon fr"  data-id="' + items.id +
+                            '" data-itemType="' +
+                            items
+                                .itemType + '"><img src="img/del.png" alt="del.png" /></span>' : '') +
+                        '</div>' +
+                        '<p class="re-summery">' + items.content + ' </p>' +
+                        '<p class="re-time">' + items.createTime + '</p>';
+                    $(".recomment-content").html(htm);
+                    $("#recomment-con").attr("data-id", items.id);
+                    //该评论的回复信息
+                    var params = {
+                        itemId: items.id,
+                        itemType: 4,
+                        pageNum: 1,
+                        pageSize: 1000
+                    }
+
+                    utils.ajax({
+                        url: "/sfs/api/v1/comment/page-list",
+                        type: 'POST',
+                        data: params,
+                        success: function (result) {
+                            var commentsList = result.body.rows;
+                            var cnt = result.body.total;
+                            var htm2 = '';
+                            $(".recomment-count").html('回复 · <span>' + cnt + '</span>条');
+                            commentsList.forEach(function (item2, index2) {
+                                htm2 += '            <div class="list-content">' +
+                                    '<div class="list-user">' +
+                                    '   <img src="' + item2.avatarImage +
+                                    '" alt="" class="re-icon">' +
+                                    '  <span>' + item2.nickname + '</span>' +
+                                    (item2.admin ?
+                                        '<span class="close-icon fr"  data-id="' +
+                                        item2.id +
+                                        '" data-itemType="' + item2.itemType +
+                                        '"><img src="img/del.png" alt="del.png" /></span>' :
+                                        ''
+                                    ) +
+                                    '</div>' +
+                                    '<p class="list-summery">' + item2.content + '</p>' +
+                                    '<p class="list-time">' + item2.createTime + '</p>' +
+                                    '</div>';
+                            }.bind(this));
+                            $(".recomment-list").html(htm2);
+
+                            // 20210810 消息通知跳转定位处理
+                            if(replyId){
+                                setTimeout(function(){
+                                    focusReply(replyId);
+                                }, 0)
+                            }
+                            
+                            // 浮层删除处理
+                            this.popUpdeleteHandler();
+                        }.bind(this),
+
+                    });
+                    // $(".main").hide();
+                    // $(".recomment").show();
+                    this.$nextTick(() => {
+                        this.popupVisible = true;
+                    })
+                  
+                },
+                
+                //单条列表刷新
+                showAllCommentFresh(id) {
+                    //该评论的回复信息
+                    var params = {
+                        commentSort: 'THUMB',
+                        itemId: id,
+                        itemType: 4,
+                        pageNum: 1,
+                        pageSize: 1000
+                    }
+
+                    utils.ajax({
+                        url: "/sfs/api/v1/comment/page-list",
+                        type: 'POST',
+                        data: params,
+                        success: function (result) {
+                            var commentsList = result.body.rows;
+                            var cnt = result.body.total;
+                            var htm2 = '';
+                            $(".recomment-count").html('回复 · <span>' + cnt + '</span>条');
+                            commentsList.forEach(function (item2, index2) {
+                                htm2 += '            <div class="list-content">' +
+                                    '<div class="list-user">' +
+                                    '   <img src="' + item2.avatarImage +
+                                    '" alt="" class="re-icon">' +
+                                    '  <span>' + item2.nickname + '</span>' +
+                                    (item2.admin ?
+                                        '<span class="close-icon fr"  data-id="' +
+                                        item2.id +
+                                        '" data-itemType="' + item2.itemType +
+                                        '"><img src="img/del.png" alt="del.png" /></span>' :
+                                        ''
+                                    ) +
+                                    '</div>' +
+                                    '<p class="list-summery">' + item2.content + '</p>' +
+                                    '<p class="list-time">' + item2.createTime + '</p>' +
+                                    '</div>';
+                            }.bind(this));
+                            $(".recomment-list").html(htm2);
+
+                            // 浮层删除处理
+                            this.popUpdeleteHandler();
+                        }.bind(this),
+
+                    });
+                },
+                showTime(createTime, systemTime) {
+                    if (!systemTime) {
+                        return createTime.split(' ')[1];
+                    } else {
+                        let diff_s = Math.abs(moment(createTime).diff(moment(systemTime), 'seconds'));
+                        let diff_m = Math.abs(moment(createTime).diff(moment(systemTime), 'minutes'));
+                        let diff_h = Math.abs(moment(createTime).diff(moment(systemTime), 'hours'));
+                        let diff_d = Math.abs(moment(createTime.slice(0, 10) + ' 00:00:00').diff(moment(
+                            systemTime),
+                            'days'));
+                        // let diff_W = Math.abs(moment(createTime).diff(moment(systemTime), 'weeks'));
+                        // let diff_M = Math.abs(moment(createTime).diff(moment(systemTime), 'months'));
+                        let diff_Y = Math.abs(moment(createTime.slice(0, 4) + '-01-01 00:00:00').diff(moment(
+                            systemTime),
+                            'years'));
+
+                        if (diff_m < 1) { //  1分钟以内，显示xx秒前
+                            return diff_s + '秒前';
+                        } else if (diff_h < 1) { //  1小时以内，显示xx分钟前
+                            return diff_m + '分钟前';
+                        } else if (diff_h >= 1) {
+                            if (diff_d < 1) { // 今天以内的，用xx:xx(如18:20)
+                                return createTime.slice(11, -3);
+                            } else if (diff_d >= 1 && diff_d < 2) { // 昨天，用昨天xx：xx
+                                return '昨天' + createTime.slice(11, -3);
+                            } else if (diff_Y < 1) { // 昨天以前的且在当前年的，用mm/dd xx:xx表示
+                                return createTime.slice(5, -3).replace(/-/g, '/');
+                            } else { // 不在当前年的，用yy/mm/dd xx:xx
+                                return createTime.slice(0, -3).replace(/-/g, '/');
+                            }
+                        }
+
+                    }
+                },
+                // 分享按钮点击事件
+                clickShareIcon() {
+                    $('.wei_1').on('click', function () {
+                        if(this.postDetail.isShare=='1'){
+                            window.location.href = 'shareAct?eventCode=COMMUNITY_POST_FX&eventId=' + utils.getUrlParam('postId');
+                        }else{
+                            Vue.$toast({
+                                message: '该内容暂不支持分享',
+                                position: 'center',
+                                duration: 2000
+                            });
+                        }
+                        // var imgUrl = '';
+                        // if(item.imagesList && item.imagesList[0] && item.imagesList[0].imageUrl){
+                        //     imgUrl = item.imagesList[0].imageUrl;
+                        //     imgUrl = String(imgUrl).replace(/^\/\//, window.location.protocol + '//');
+                        // }
+                        // var shareInfoParams = {
+                        //     iTemType: '2',
+                        //     iTemId: item.postId,
+                        //     title: item.title,
+                        //     content: item.content,
+                        //     imgUrl: imgUrl,
+                        //     url: window.location.origin +
+                        //         '/tradeh5/newWap/community/postDetails.html?postId=' +
+                        //         item.postId,
+                        // };
+                        // console.log('shareInfo shareInfoParams=', shareInfoParams)
+                        // try {
+                        //     if (isIosApp()) {
+                        //         window.webkit.messageHandlers.shareSocialItem.postMessage(
+                        //             shareInfoParams);
+                        //     } else if (isAndroidApp()) {
+                        //         handler.shareSocialItem(shareInfoParams.iTemType, shareInfoParams
+                        //             .postId,
+                        //             shareInfoParams.title, shareInfoParams.content, shareInfoParams
+                        //             .imgUrl,
+                        //             shareInfoParams.url);
+                        //     }
+                        // } catch (e) {
+                        //     console.log(e);
+                        // }
+                    }.bind(this));
+                },
+                recommentVisible() {
+                    this.popupVisible = false;
+                },
+                openPage(videoInfo) {
+                    // 小鹅直播
+                    if (isApp()) {
+                        // IOS两个都支持，安卓只支持传videoId
+                        // window.location.href = 'htffundxjb://action?type=media&subType=liveXE&link=' + btoa(videoInfo.url);
+                        window.location.href = 'htffundxjb://action?type=media&subType=liveXE&videoId=' + videoInfo.videoId;
+                    } else {
+                        window.location.href = videoInfo.shareLinkUrl;
+                    }
+                },
+                openPage2(videoInfo) {
+                    // 火山直播
+                    if (isApp()) {
+                        // window.location.href = 'htffundxjb://action?type=media&subType=volcengine&activityId=XXX&isPortrait=1';
+                        window.location.href = videoInfo.url;
+                    } else {
+                        window.location.href = videoInfo.shareLinkUrl;
+                    }
+                },
+            },
+            updated() {
+
+            },
+
+
+        })
+
+        function focusComment(commentId){
+            // commentId = '21081014302QDVJP';
+            var domItem = $('.commentList .commentInfo').find('[data-id='+commentId+']').parents('.commentList');
+            $(window).scrollTop(domItem.offset().top - $(window).height()*0.3);
+            domItem.find('.commentInfo').addClass('blink');
+            setTimeout(function(){domItem.find('.commentInfo').removeClass('blink');}, 5000)
+        }
+
+        function focusReply(replyId){
+            // replyId = '21081116242QLYT1';
+            var domItem = $('.recomment-list .list-content').find('[data-id='+replyId+']').parents('.list-content');
+            $('.recomment-c').scrollTop(domItem.position().top - $('.recomment-c').height()*0.3);
+            domItem.addClass('blink');
+            setTimeout(function(){domItem.removeClass('blink');}, 5000)
+        }
+    </script>
+</body>
+
+</html>

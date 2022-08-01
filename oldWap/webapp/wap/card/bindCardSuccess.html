@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>成功</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css">
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/weixin.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script type="text/javascript" src="../js/card/bindCardSuccess.js"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+
+    <style>
+        html,body { background-color: #fff; color: #666;}
+        .fl{
+            float: left;
+        }
+        .fr{
+            float: right;
+        }
+        .clearfix:after{
+            content: ".";     /**//*内容为“.”就是一个英文的句号而已。也可以不写。*/
+            display: block;   /**//*加入的这个元素转换为块级元素。*/
+            clear: both;     /**//*清除左右两边浮动。*/
+            visibility: hidden;      /**//*可见度设为隐藏。注意它和display:none;是有区别的。visibility:hidden;仍然占据空间，只是看不到而已；*/
+            line-height: 0;    /**//*行高为0；*/
+            height: 0;     /**//*高度为0；*/
+            font-size:0;    /**//*字体大小为0；*/
+        }
+        .wrap {
+            padding: 4.5rem 0.75rem;
+        }
+        .wrap-top {
+            height: 1.25rem;
+            line-height: 1.25rem;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+        .wrap-top i {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+        .wrap-middle {
+            padding: 1.95rem 0;
+        }
+        .wrap-middle p {
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        .recommendBox{
+            margin-top: 2rem;
+        }
+        .recommendTitle{
+            color: #000;
+            font-size: .75rem;
+            line-height: .75rem;
+            padding-bottom: 1rem;
+        }
+        .recommendTitle span{
+            color: #666;
+            font-size: 0.65rem;
+            margin-left: .5rem;
+        }
+        .recommendContent {
+            padding-bottom: .5rem;
+        }
+        .recommendContent a{
+            width: 8.25rem;
+            /* height: 7rem; */
+            border: 1px #ddd solid;
+            border-radius: 3px;
+            text-align: center;
+            background: url(../images/recommendBg.png) no-repeat no-repeat;
+            background-size: cover;
+        }
+        .recommendContent a>h2{
+            margin-top: 0.875rem;
+            line-height: 1.2rem;
+            font-size: 1.2rem;
+            color: #f13642;
+        }
+        .recommendContent a>h4{
+            margin-top: .5rem;
+            line-height: .65rem;
+            color: #666;
+            font-size: 0.65rem;
+        }
+        .recommendContent a>p{
+            margin-top: 1rem;
+            line-height: .65rem;
+            color: #000;
+            font-size: 0.65rem;
+        }
+        .recommendContent a>span{
+            display: inline-block;
+            line-height: .75rem;
+            padding: 0.125rem 0.3rem;
+            margin-top: .5rem;
+            margin-bottom: 0.9rem;
+            background-color: #ffefef;
+            border-radius: 0.5rem;
+            font-size: 0.55rem;
+            color: #f85d63;
+        }
+        .swiper-pagination-custom {
+            bottom: 0 !important;
+            left: 0;
+            width: 100%;
+            height: .75rem;
+            line-height: .75rem;
+        }
+
+        .swiper-pagination-customs {
+            width: .25rem;
+            height:.25rem;
+            border-radius: 50%;
+            display: inline-block;
+            background: #dddddd;
+            margin: 0 .25rem;
+        }
+
+        .swiper-pagination-customs-active {
+            width: .5rem;
+            height:.25rem;
+            border-radius: .125rem;
+            display: inline-block;
+            background-color: #f85d63;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="wrap-top">
+        <i class="icon icon-ok-red"></i> 绑卡成功！
+    </div>
+    <!--<div class="wrap-middle">
+       <p>添富现金宝，放心存，随心取！<br>受益多多，安全性佳！<br>可购多种理财产品，投资更省心！</p>
+    </div>-->
+    <div class="col-6 text-center">
+        <a class="btn  btn-default btn-orange-2 border-orange" href="http://www.99fund.com/m.htm">下载APP体验更流畅</a>
+    </div>
+    <div class="col-6 text-center">
+        <a href="../fund/all_funds.html" class="btn btn-default border-orange orange">去全部基金</a>
+    </div>
+
+    <div class="recommendBox">
+        <div class="recommendTitle" id="theme"></div>
+        <div class="recommendContent swiper-container" id="swiper1">
+
+                <!--<div class="content swiper-slide clearfix">
+                    <a href="javascript:;" class="fl">
+                        <h2>人气短债</h2>
+                        <h4>臻选推荐</h4>
+                        <p>汇添富高息债债券A</p>
+                        <span>攻守兼备  特供</span>
+                    </a>
+                    <a href="javascript:;" class="fr">
+                        <h2>人气短债</h2>
+                        <h4>臻选推荐</h4>
+                        <p>汇添富高息债债券A</p>
+                        <span>现金增强  较低风险</span>
+                    </a>
+                </div>
+                <div class="content swiper-slide clearfix">
+                    <a href="javascript:;" class="fl">
+                        <h2>人气短债</h2>
+                        <h4>臻选推荐</h4>
+                        <p>汇添富高息债债券A</p>
+                        <span>攻守兼备  特供</span>
+                    </a>
+                    <a href="javascript:;" class="fr">
+                        <h2>人气短债</h2>
+                        <h4>臻选推荐</h4>
+                        <p>汇添富高息债债券A</p>
+                        <span>现金增强  较低风险</span>
+                    </a>
+                </div>
+                <div class="content swiper-slide clearfix">
+                    <a href="javascript:;" class="fl">
+                        <h2>人气短债</h2>
+                        <h4>臻选推荐</h4>
+                        <p>汇添富高息债债券A</p>
+                        <span>攻守兼备  特供</span>
+                    </a>
+                    <a href="javascript:;" class="fr">
+                        <h2>人气短债</h2>
+                        <h4>臻选推荐</h4>
+                        <p>汇添富高息债债券A</p>
+                        <span>现金增强  较低风险</span>
+                    </a>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>-->
+
+    </div>
+</div>
+
+</div>
+<script type="text/javascript" src="../js/lib/swiper-4.2.2.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>信息填写</title>
+    <link rel="stylesheet" href="../base/css/base.css">
+    <link rel="stylesheet" href="../base/css/mobiscroll.custom-3.0.0-beta6.min.css">
+    <link rel="stylesheet" href="./css/fillInInfo.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <ul class="form-list">
+                <li>
+                    <p>姓名</p>
+                    <p>王多多</p>
+                </li>
+                <li>
+                    <p>姓名拼音</p>
+                    <p>Wang Duoduo</p>
+                </li>
+                <li>
+                    <p>身份证号</p>
+                    <p>3109***(身份证)</p>
+                </li>
+                <li>
+                    <p>联系电话</p>
+                    <p>18000009192</p>
+                </li>
+            </ul>
+            <ul class="form-list">
+                <li>
+                    <p>资产截至日期</p>
+                    <p>
+                        <calendar v-model="userInfo.assetDate" :config="config" readonly="true"></calendar><img
+                            src="./img/arrow-r.png" alt="">
+                    </p>
+                </li>
+                <li>
+                    <p>申请用途</p>
+                    <input type="text" placeholder="请填写申请用途">
+                </li>
+                <li>
+                    <p>省/市/区</p>
+                    <div>
+                        <!-- <input type="text" placeholder="请填写省/市/区" disabled> -->
+                        <ul class='survey_nations survey_2'> </ul>
+                        <img src="./img/arrow-r.png" alt="">
+                    </div>
+                </li>
+                <li>
+                    <p>详细地址</p>
+                    <input type="text" placeholder="请填写详细地址">
+                </li>
+            </ul>
+            <p class="desc">本人承诺自行承担因申请开具或使用该资产证明文件产生的一切责任。本人了解资产证明书的寄送过程中，可能会泄露本人个人信息，并愿意承受由此带来的风险。</p>
+            <div class="next">
+                <a href="javascript:;">确认</a>
+            </div>
+            <div class="record"><span>申请记录</span><img src="./img/blue_arrow.png" alt=""></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+    <script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+    <script type="text/javascript" src="../base/js/lib/vueCalender.js"></script>
+    <script type="text/javascript" src="../base/js/lib/mobiscroll.custom-3.0.0-beta6.min.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    config: {
+                        type: 'date',
+                        minDate: '',
+                        maxDate: '',
+                        formatTp: '.', //默认‘-’
+                    },
+                    // 地区选择初始对象
+                    areaSelect: {
+                        provinceCode: '',
+                        cityName: '',
+                        area: '',
+                        cityCode: '',
+                        areaCode: '',
+                        city: [],
+                        nations: []
+                    },
+                    userInfo:{
+                        assetDate: '',
+                        invNm:'',
+                        invPy:''
+                    }
+                }
+            },
+            created() {
+                this.getListAndCustomerInfo();
+                this.getUserInfo();
+            },
+           
+            methods: {
+                // 获取必要信息
+                getUserInfo(){
+                    utils.ajax({
+                        url:'/assetcenter/v2/certification/apply-info',
+                        success:function(res){
+                            console.log(res);
+                            if(res.returnCode === 0&&res.body){
+                                const result = res.body;
+                                const reg = /(\d{4})(\d{2})(\d{2})/;
+                                // this.$set(object, key, value)
+                                this.config.minDate = result.earlyDate.replace(reg,'$1-$2-$3');
+                                this.config.maxDate = result.lateDate.replace(reg,'$1-$2-$3');
+                                this.userInfo.assetDate = result.lateDate.replace(reg,'$1.$2.$3');
+                                this.userInfo.invNm = result.invNm;
+                                this.userInfo.invPy = result.invPy;
+                            }
+                        }.bind(this)
+                    })
+                },
+                isNotEmpty(str) {
+                    if (str == null || str == undefined || str == "" || String(str).trim() == "" || str ==
+                        "null") {
+                        return false;
+                    }
+                    return true;
+                },
+                //查询国家地区列表
+                queryNationList(idTp) {
+                    return new Promise((resolve, reject) => {
+                        var url = "/icif/v1/paras?paraKey=NATION&idTp=" + idTp;
+                        utils.get(url, null, function (result) {
+                            if (result.body != undefined && result.body != null) {
+                                var paras = result.body.paras;
+                                var nations = [];
+                                paras.forEach(function (item) {
+                                    nations.push({
+                                        "nationCode": item.pmCo,
+                                        "nationName": item.pmNm
+                                    })
+                                });
+                                resolve(nations);
+                            }
+                        })
+                    })
+                },
+                //查询中国省市区地区列表
+                queryProvinceList(idTp) {
+                    return new Promise((resolve, reject) => {
+                        var url = "/icif/v1/paras?paraKey=PROVINCE&idTp=" + idTp;
+                        utils.get(url, null, function (result) {
+                            if (result.body != undefined && result.body != null) {
+                                var paras = result.body.paras;
+                                var city = [];
+                                paras.forEach(function (item) {
+                                    city.push({
+                                        "subParas": item.subParas,
+                                        "provinceCode": item.pmCo,
+                                        "provinceName": item.pmNm
+                                    })
+                                });
+                                resolve(city);
+                            }
+                        })
+                    })
+                },
+                // 获取完整的三级联动数据
+                getListAndCustomerInfo() {
+                    var _self = this;
+                    $.ajax({
+                        url: "/mobile-bff/v1/customerInfo/basic-customer-info?r=t" + (Math.random() *
+                            10000).toFixed(0),
+                        type: "GET",
+                        dataType: "json",
+                        contentType: 'application/json',
+                        beforeSend: function (req) {
+                            req.setRequestHeader("version",
+                                "7.40"); //20220525使用反洗钱用户信息code,必须传7.40版本号
+                        },
+                        success: function (result) {
+                            if (result.returnCode == 0 && result.body != undefined && result.body !=
+                                null) {
+                                var basicUserInfo = result.body.buserInfo;
+                                if (basicUserInfo != undefined && basicUserInfo != null) {
+                                    idTp = basicUserInfo.idtp;
+                                    Promise.all([_self.queryNationList(idTp), _self
+                                            .queryProvinceList(idTp)
+                                        ])
+                                        .then(function (results) {
+                                            _self.areaSelect.nations = results[0];
+                                            _self.areaSelect.city = results[1];
+                                            var li = '';
+                                            var China = '';
+                                            var Hongkong = '';
+                                            var Macao = '';
+                                            var Taiwan = '';
+                                            $.each(_self.areaSelect.city, function (index, el) {
+                                                if (el.provinceName == '澳门特别行政区') {
+                                                    Macao += '<li data-val=' + el
+                                                        .provinceName + '>' + el
+                                                        .provinceName +
+                                                        '<ul class="citys" data-value=' +
+                                                        el.provinceCode + '></ul></li>'
+                                                } else if (el.provinceName ==
+                                                    '香港特别行政区') {
+                                                    Hongkong += '<li data-val=' + el
+                                                        .provinceName + '>' + el
+                                                        .provinceName +
+                                                        '<ul class="citys" data-value=' +
+                                                        el.provinceCode +
+                                                        '></ul></li>'
+                                                } else if (el.provinceName == '台湾省') {
+                                                    Taiwan += '<li data-val=' + el
+                                                        .provinceName + '>' + el
+                                                        .provinceName +
+                                                        '<ul class="citys" data-value=' +
+                                                        el.provinceCode + '></ul></li>'
+                                                } else {
+                                                    China += '<li data-val=' + el
+                                                        .provinceName + '>' + el
+                                                        .provinceName +
+                                                        '<ul class="citys" data-value=' +
+                                                        el.provinceCode + '></ul></li>'
+                                                }
+
+                                            })
+
+                                            $('.survey_2').html(China);
+                                            $.each(_self.areaSelect.city, function (index, el) {
+                                                // $(el).each(function (itemindex, item) {
+                                                $('.citys').each(function (inindex,
+                                                    inel) {
+                                                    if (inel.dataset.value == el
+                                                        .provinceCode) {
+                                                        var cityLi = '';
+                                                        $.each(el.subParas,
+                                                            function (
+                                                                citysindex,
+                                                                citysitem) {
+                                                                cityLi +=
+                                                                    '<li data-val=' +
+                                                                    citysitem
+                                                                    .pmNm +
+                                                                    '>' +
+                                                                    citysitem
+                                                                    .pmNm +
+                                                                    '<ul>'
+                                                                var district =
+                                                                    '';
+                                                                $(citysitem
+                                                                        .subParas
+                                                                    )
+                                                                    .each(
+                                                                        function (
+                                                                            disindex,
+                                                                            districtval
+                                                                        ) {
+                                                                            district
+                                                                                +=
+                                                                                '<li data-val=' +
+                                                                                districtval
+                                                                                .pmNm +
+                                                                                '>' +
+                                                                                districtval
+                                                                                .pmNm +
+                                                                                '</li>'
+                                                                        })
+                                                                cityLi +=
+                                                                    district +
+                                                                    '</ul></li>'
+                                                            })
+                                                        $(inel).append(cityLi)
+                                                    }
+
+                                                })
+                                            });
+                                            $(".survey_2").mobiscroll().treelist({
+                                                theme: "ios",
+                                                lang: "zh",
+                                                group: true,
+                                                placeholder: '请选择省/市/区',
+                                                display: 'bottom',
+                                                inputClass: 'survey_2',
+                                                onSet: function (val) {
+                                                    if (val != undefined && val !=
+                                                        null && _self.isNotEmpty(val
+                                                            .valueText)) {
+                                                        var strings = val.valueText
+                                                            .split(' ');
+                                                        _self.areaSelect.cityName =
+                                                            strings[0];
+                                                        _self.areaSelect.area =
+                                                            strings[2];
+                                                        _self.areaSelect.city
+                                                            .forEach(function (
+                                                                result) {
+                                                                if (result
+                                                                    .provinceName ==
+                                                                    strings[0]
+                                                                ) {
+                                                                    _self
+                                                                        .areaSelect
+                                                                        .provinceCode =
+                                                                        result
+                                                                        .provinceCode;
+                                                                    var citys =
+                                                                        result
+                                                                        .subParas;
+                                                                    citys
+                                                                        .forEach(
+                                                                            function (
+                                                                                item
+                                                                            ) {
+                                                                                if (item
+                                                                                    .pmNm ==
+                                                                                    _self
+                                                                                    .areaSelect
+                                                                                    .cityName
+                                                                                ) {
+                                                                                    _self
+                                                                                        .areaSelect
+                                                                                        .cityCode =
+                                                                                        item
+                                                                                        .pmCo;
+                                                                                }
+                                                                                var areas =
+                                                                                    item
+                                                                                    .subParas;
+                                                                                areas
+                                                                                    .forEach(
+                                                                                        function (
+                                                                                            areaItem
+                                                                                        ) {
+                                                                                            if (areaItem
+                                                                                                .pmNm ==
+                                                                                                _self
+                                                                                                .areaSelect
+                                                                                                .area
+                                                                                            ) {
+                                                                                                _self
+                                                                                                    .areaSelect
+                                                                                                    .areaCode =
+                                                                                                    areaItem
+                                                                                                    .pmCo;
+                                                                                            }
+                                                                                        }
+                                                                                    )
+                                                                            })
+
+                                                                }
+                                                            });
+                                                    }
+                                                }
+                                            });
+
+                                        }).catch(error => {
+                                            console.log(error);
+                                        })
+                                }
+                            } else if (result.returnCode == 1000) {
+                                console.log('sso_cookie过期失效或者不存在情况!')
+                                return utils.jumpLoginByChannelCode();
+                            } else if (result.returnCode == 9999) {
+                                if (result.returnMsg.indexOf('系统错误') > -1 || result.returnMsg
+                                    .indexOf('服务器错误') > -1) {
+                                    utils.showTips("网络连接错误！");
+                                } else {
+                                    utils.showTips(result.returnMsg);
+                                }
+                            }
+                        },
+                        error: function (result) {
+                            alertTips('当前服务或网络异常，请稍后重试')
+                        }
+                    })
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

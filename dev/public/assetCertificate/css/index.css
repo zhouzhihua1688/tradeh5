@@ -1,0 +1,83 @@
+html, body {
+  background-color: #f6f6f6;
+}
+[v-cloak]{
+  display: none;
+}
+.container {
+  color: #666;
+}
+
+.container h4 {
+  padding: 0 0.75rem;
+  line-height: 1.75rem;
+  font-size: 0.7rem;
+  color: #666;
+}
+
+.container .form-list {
+  background-color: #fff;
+  padding-left: 0.75rem;
+}
+
+.container .form-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding-right: 0.75rem;
+  height: 2.5rem;
+  border-bottom: 1px #eee solid;
+  font-size: 0.75rem;
+  color: #000;
+}
+
+.container .form-list li:nth-of-type(2) p:nth-child(2) input {
+  text-align: right;
+  vertical-align: middle;
+  outline: none;
+  font-size: 0.75rem;
+  color: #000;
+}
+
+.container .form-list li:nth-of-type(2) p:nth-child(2) img {
+  width: .75rem;
+  vertical-align: middle;
+}
+
+.container .form-list li:nth-of-type(3) input {
+  vertical-align: middle;
+  outline: none;
+  font-size: 0.75rem;
+  color: #000;
+  border: none;
+  text-align: right;
+  margin-right: .25rem;
+}
+
+.container .form-list li:nth-of-type(3) img {
+  width: .4rem;
+  vertical-align: middle;
+}
+
+.container .desc {
+  padding: 0.5rem 0.75rem 1.25rem;
+  font-size: 0.6rem;
+}
+
+.container .next {
+  padding: 0 0.75rem;
+}
+
+.container .next a {
+  display: block;
+  width: 100%;
+  height: 2.25rem;
+  line-height: 2.25rem;
+  color: #fff;
+  font-size: 0.85rem;
+  background-color: #0757b2;
+  text-align: center;
+  border-radius: .2rem;
+  outline: none;
+}

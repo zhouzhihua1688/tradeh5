@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!--<meta charset="GBK">-->
+	 <meta charset="utf8">
+	<title></title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../css/base.css">
+	<link rel="stylesheet" href="../css/base_v1.css">
+	<style type="text/css">
+		.font-arial{ font-family: Arial; }
+		section{
+			background-color: #fff;
+			overflow: hidden;
+		}
+		.icon {
+		display: inline-block;
+		width: .8rem;height: .8rem;
+		vertical-align:middle; margin:auto; margin-left: .3rem; padding:0;
+		}
+		
+		.left{
+			float: left;
+		}
+		.right{
+			float: right;
+		}
+
+		/*弹框1*/
+		.Bomb-box,.Bomb-box1{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+		.Bomb-box .Bomb-box-main,.Bomb-box1 .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+		.Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+		.Bomb-box .Bomb-box-ok,.Bomb-box1 .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+		.Bomb-box .Bomb-box-content,.Bomb-box1 .Bomb-box-content{ padding:.75rem 1.5rem; }
+        .content1 ul { height: 1.5rem; padding: 0.8rem 0.4rem; font-size:0.7rem; padding-bottom:2rem;}
+        .content1 ul li { float: left; width:50%; color: #666666; text-align: center; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;border-right: 1px #eeeeee solid; }
+        .content1 ul li:last-child { border: 0; }
+        .content1 ul li p { padding-top: 0.1rem; text-align: center; font-size: 1rem;margin-top: .2rem;}
+
+		.content1 .tablelist_1{height:6.5rem;background: url('../images/fund/bg1.png') no-repeat ;background-size:100% 100%;font-size: .65rem; }
+		.content1 .tablelist_1 table{width:100%;padding:.9rem 0 0 ;}
+		.content1 .tablelist_1 table tr td{text-align: center;width: 33.333%;}
+		.content1 .tablelist_1 table tr:nth-of-type(2){color:#f4333c;}
+		.content2{
+			height: 370px;
+			position: relative;
+		}
+		.content2 h3{
+			color: #333333;
+			line-height: 35px;
+			padding-left: 15px;
+			background-color: #f6f6f6;
+		}
+		.content2 ul{ width:  100%; margin: 0 auto; overflow: hidden; }
+		.content2 ul li{ width: 50%; font-size: 12px;text-align: center; }
+		.content2 ul li:first-child{ float: left; }
+		.content2 ul li:last-child{ float: right; }
+		.content2 ul li a{ color: #000; display: block; width: 100%; height: 40px; line-height: 40px;  float: left; text-align: center;font-size: 14px;}
+		.content2 ul li.active a {  color: #fb5c5f;border-bottom: 1px solid #ffadae;}
+		.content2 ul.tab2 { width: 92%;margin: 0 auto;}
+		.content2 ul.tab2 li { width: 20%; float: left; }
+		.content2 ul.tab2 li a{ width: 100%; background-color: #fff; margin-left: 0%; color: #fb5c5f; border:1px #fe5a5b solid;box-sizing: border-box; }
+		.content2 ul.tab2 li:first-child a{border-radius:3px 0 0 3px;border-right: none;}
+		.content2 ul.tab2 li:nth-child(2) a{border-right: none;}
+		.content2 ul.tab2 li:nth-child(3) a{border-right: none;}
+		.content2 ul.tab2 li:last-child a{border-radius:0 3px 3px 0;border-left: none;}
+		.content2 ul.tab2 li.active a{  background-color: #fb5c5f; color: #ffffff; }
+
+		.content4{
+			margin-top:.5rem;
+			padding-left: .75rem;
+			margin-bottom: .5rem;
+		}
+		.content4 table{
+			width: 100%;
+			border-collapse: collapse;
+			font-size:.75rem;
+		}
+		.content4 table tr{height:2.5rem;border-bottom: 1px #eee solid;}
+		.content4 table tr td img{width:.4rem;height:.75rem;position: relative;top:2px;}
+		.content4 table tr td:nth-of-type(1){color:#000;}
+		.content4 table tr td:nth-of-type(2){text-align: right;padding-right:.75rem;}
+
+		.fee-rate{width:78%;margin-left:11%;font-size: .6rem;color:#fb5c5f;background: #fee5e5;border-radius: .5rem;text-align: center; margin-top: -3.5rem;}
+		.footer_fiexd{position:fixed;left: 0;bottom: 0;width:100%;background: #fff;}
+		.footer_fiexd ul{display: flex;}
+		.footer_fiexd ul li{flex: 1;height:2.5rem;background:#fe7e01 ;}
+		/* .footer_fiexd ul li:nth-of-type(1){	} */
+		.footer_fiexd ul li:nth-of-type(1){background: #fff;}
+		.footer_fiexd ul li a{display:block;width:100%;height: 100%;line-height: 2.5rem;text-align: center;color:#fff;font-size: .8rem;}
+		.footer_fiexd ul li:first-child a{color: #000; border-top: 1px #eee solid;}
+		.footer_fiexd ul li a:first-child img{width: 0.7rem;height: 0.7rem;padding-right: 0.2rem;padding-top: 0.2rem;}
+
+		.noData { position: absolute; top: 45%; right: 0; font-size: 0.24rem;width: 100%; text-align: center; }
+	
+		.money{
+          width:100%;
+          /* height:4rem; */
+          /*background:red;*/
+          margin:0 auto;
+          /*border:1px solid red;*/
+        }
+        .money p{
+            text-align: center;
+            padding:1.5rem 0 .2rem 0;
+            font-size: 0.7rem;
+            color:#666666;
+        }
+        .money span{
+           text-align: center;
+           display: block;
+           font-size: 1.75rem; 
+           color:#f4333c;
+        }
+		.color_red{
+			color: #f4333c!important;
+		}
+		.color_green{
+			color: #009944!important;
+		}
+	</style>
+</head>
+<body>
+	<section class="content1">
+				<div class="money">
+					 <p id="fund_name"></p>
+				</div>
+				<ul>
+					<li>
+						<h4 class="font26">单位净值(<span id="nav_dt"></span>)</h4>
+						<p class="font-arial color_red" id="nav">0.00</p>
+					</li>
+					<li>
+						<h4 class="font26 historical-detail">日涨跌幅</h4>
+						<p class="font-arial color_red" id="yield">0.00</p>
+					</li>
+				</ul>
+	</section>
+
+	<section class="content4">
+		<table>
+			<tbody>
+			<tr>
+				<td>参考市值(<span class="currency-type">元</span>)</td>
+				<td id="union_balance"></td>
+			</tr>
+			<tr>
+				<td>持有份额(份)</td>
+				<td id="balance"></td>
+			</tr>
+			<tr>
+				<td>可用份额(份)</td>
+				<td id="avaliable"></td>
+			</tr>
+			<tr>
+				<td>收费方式</td>
+				<td>前端收费</td>
+			</tr>
+			<tr>
+				<td>代销机构</td>
+				<td id="seat_name"></td>
+			</tr>
+			</tbody>
+		</table>
+	</section>
+
+	<section class="content4">
+		<table>
+			<tbody>
+				<tr>
+					<td>定投方式</td>
+					<td><span id="isMip">无</span>定投&nbsp;<img src="../images/fund/arrow.png"></td>
+				</tr>
+				<tr>
+					<td>分红方式</td>
+					<td id="melonmd">现金分红</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+	<section style="margin-bottom: 4rem;"></section>
+
+	<div class="footer_fiexd">
+		<p id="view_feeRate" class="fee-rate" style="display: none"></p>
+	</div>
+	<div class="footer_fiexd">
+		<ul style="width: 100%;">
+			<!-- <li><a href="javascript:;" class="sign"><img src="img/icon_3.png" alt=""><span style="color:#fb5c5f;">关注</span></a></li> -->
+			<!--<li style="width: 50%;"><a href="javascript:;" class="investment">定投</a></li>-->
+			<li style="width: 100%;"><a href="javascript:;" class="buy">申购</a></li>
+		</ul>
+	</div>
+
+	<!-- 提示弹窗 -->
+	<div class="Bomb-box" style="display: none;">
+		<div class="Bomb-box-main">
+			<div class="Bomb-box-content">
+				<p class="text-center"></p>
+			</div>
+			<a class="Bomb-box-ok" href="javascript:;">确定</a>
+		</div>
+	</div>
+	    <!-- 问号弹窗 -->
+		<div class="Bomb-box1" style="display: none;">
+			<div class="Bomb-box-main">
+				<div class="Bomb-box-content">
+					<p class="text-center"></p>
+				</div>
+				<a class="Bomb-box-ok" href="javascript:;">确定</a>
+			</div>
+		</div>
+	<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+	<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../js/lib/phone-size.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+	<script type="text/javascript" src="../js/common.js?20210302"></script>
+	<script type="text/javascript" src="../js/fund/fund_holding_agent_currency_detail.js"></script>
+</body>
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>交易明细</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base_v1.css">
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+   <style>
+        body,html{background: #f6f6f6;}
+        body {left: 0%; right: 0%;font:14px 'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+        button { outline: none;  }
+          /* 图片自适应 */
+        img {
+              width: 100%;
+              height: auto;
+              width: auto\9; /* ie8 */
+              -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/
+              border: none;
+              vertical-align: top;
+              outline: none;
+              display: block;
+            }
+        p { word-wrap: break-word; text-align: justify; }
+        table { width: 100%;border-collapse:collapse; }
+        .main{width:100%;height:100%;background:#fff;}
+        .first{text-align:center;font-size: 0.7rem;color:#000;padding-top:0.5rem;}
+        .second{text-align:center;font-size:1.75rem;color:#000;padding-top:0.5rem;}
+        .third{text-align:center;font-size:0.7rem;padding-top:0.5rem;}
+		.thirdM{text-align:center;font-size:0.6rem;padding-top:0.5rem;}
+        .four{padding-top:1rem;border-bottom:1px solid #eee;padding-bottom:0.75rem;color:#000;font-size:0.75rem}
+        .four img{width:0.85rem;height:0.85rem;vertical-align: middle;display: inline-block;padding-left:0.75rem;padding-right:0.75rem;margin-top:-0.2rem;float:left;}
+        .five{color:#000;font-size:0.75rem;padding-left:0.75rem;}
+        .six{width:100%;display:flex;justify-content:space-between;align-items: center;margin-top:0.85rem;}
+        .six div{width:40%;font-size:0.75rem;color:#666;text-align: left}
+        .six div:nth-of-type(1){text-indent:0.75rem}
+        .six div:nth-of-type(2){width:60%;text-align: right;margin-right:0.75rem;color:#000}
+        .six img{width:0.4rem;height:0.75rem;vertical-align: middle;display: inline-block;margin-left:0.35rem;margin-top:-0.1rem}
+		#balance_txt img{width:0.4rem;height:0.75rem;vertical-align: middle;display: inline-block;margin-left:0.35rem;margin-top:-0.1rem}
+        .seven{width:100%;height:2.25rem;line-height:2.25rem;color:#666;font-size:0.7rem;text-indent: 0.75rem;background: #f6f6f6;}
+        .eight{width:100%;display:flex;justify-content:space-between;align-items: center;padding:0.5rem 0rem;    padding-bottom: .15rem;}
+        .eight div:nth-of-type(1){width:29%;font-size: 0.65rem;color:#000;padding-left: 0.65rem}
+        .eight div:nth-of-type(2){width:3.0rem;height:0.75rem;border:1px solid #ccc;border-radius:50px;line-height: 0.75rem;text-align: center;font-size:0.55rem}
+        .eight div:nth-of-type(3){width:47%;font-size: 0.65rem;color:#000;}
+        .eight img{width:0.45rem;height:0.45rem;display: inline-block;vertical-align: middle}
+        .nine{font-size: 0.5rem;color:#666;text-indent:0.75rem;padding-bottom:0.5rem;border-bottom:1px solid #eee;}
+		.nine img{width:0.4rem;height:0.75rem;vertical-align: middle;display: inline-block;margin-left:0.35rem;margin-top:-0.1rem}
+        .ten{width:100%;display:flex;justify-content:space-between;align-items: center;padding:0.5rem 0rem 0rem 0rem;}
+        .ten div{font-size: 0.6rem;color:#666;}
+        .ten div:nth-of-type(1){padding-left:0.75rem;width:33%;}
+        .ten div:nth-of-type(2){width:30%;text-align:center}
+        .ten div:nth-of-type(3){width:33%;text-align:right;padding-right:0.75rem;}
+        .fundList{width:100%;display:flex;justify-content:space-between;align-items: center;background: #fff;border-bottom:1px solid #efefef;padding:0.5rem 0rem;min-height: 1.5rem;}
+        .fundList div{color:#000;font-size:0.7rem;}
+        .fundList .one{width:35%;}
+        .fundList .two{width:10%;}
+        .fundList .three{width:40%;text-align:center;}
+		.fundList .three div{font-size: .7rem !important}
+		.fundList .three div:nth-of-type(2){font-size: .35rem !important}
+		.fundList .number4{width:23%;text-align:right;padding-right:0.75rem;}
+		.fundList .number4 div:nth-of-type(2){font-size: .35rem !important}
+        .fundList .number4.color{color:#fb5c5f;}
+        .fundList .one .zhuan{width:3.0rem;height:0.75rem;border:1px solid #ccc;font-size:0.55rem;text-align:center;border-radius:50px;margin:0.2rem 0rem 0.2rem 0.75rem;color:#666;}
+        .fundList .one .zhuan img{width:0.45rem;height:0.45rem;display: inline-block;vertical-align: middle;}
+		.sevens{width:100%;height:1.25rem;line-height:1.25rem;color:#666;font-size:0.7rem;text-indent: 0.75rem;background: #f6f6f6;}
+        .borderLine{width:1px;height:1.35rem;background: #fb5c5f;margin-left:1.15rem;margin-top:-0.05rem;}
+	  	.circle{width:0.5rem;height:0.5rem;border-radius:1.25rem;border:1px solid #fb5c5f;margin-left:0.85rem;margin-right: 0.65rem;float:left;}
+	  	.four span {margin-top:-0.05rem;float:left;margin-top:-0.25rem;}
+		#tradeProcesses2{float: left;display: inline;width: 80%;padding-left: .25rem;}
+		#twoMsg{display:none;padding-bottom:1.5rem;min-height:4rem}
+		#oneMsg{min-height:1.25rem;display:none}
+    </style>
+</head>
+<body>
+<div class="main" style="margin-bottom:3rem;">
+  <div class="first"></div>
+  <div class="second"></div>
+  <div class="third"></div>
+  <div class="thirdM"></div>
+  <div class="four" id="oneMsg" style="">
+  <img src="../images/trade/shizhong.png" alt=""><span id="tradeProcesses"><span>
+  </div>
+  <div class="four" id="twoMsg" >
+  <div style="padding-bottom:.75rem;"><img src="../images/trade/shizhong.png" alt=""><span id="tradeProcesses1"><span></div>
+  	<div class="borderLine"></div>
+  	<div class="circle"></div>
+  	<span id="tradeProcesses2"></span>
+  </div>
+  <div id="infos">
+ 
+  </div> 
+  <div id="balance_txt" style="display:none;">
+    <div class="sevens"></div> 
+    <div style="padding-bottom:.75rem">
+      <div class="six">
+        <div>交易后余额</div>
+        <div id="balance"></div>
+      </div>
+  </div> 
+   </div> 
+   <!--申购-->
+   <div id="purchase" style="display:none">
+		<div class=""></div>
+   </div>
+   
+	<div id="cancleBtn" style="display:none;position: fixed;left: 0;bottom: 0;width: 100%;">
+		<button class="btn-orange" id="btn-submit" style="width: 100%;margin:0;">撤单</button>
+	</div>
+    <div class="mask"></div>
+    <!-- 提示弹窗 -->
+    <div class="Bomb-box" style="display: none;">
+        <div class="Bomb-box-main">
+            <div class="Bomb-box-content" style="padding-top:1rem">
+                <p class="text-center"></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;">确定</a>
+        </div>
+    </div>
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/lib/phone-size.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script type="text/javascript" src="../js/common.js?20210302"></script>
+<script>
+var url = App.getSession("tradeInfoApi");
+console.log(url);
+var productInfoId = '';
+var cancelDetail = {};
+var cancleData = {};
+if(App.isNotEmpty(url)){
+    App.get('/'+url,null,function(res){
+		if(res){
+			var body = res.body;
+            cancelDetail = res.body;
+			var str = body.tradeTypeName;
+			if(App.isNotEmpty(body.tradeUnit)){
+				str+="("+body.tradeUnit+")";
+			}
+			$(".first").html(str);
+			$(".second").html(body.tradeAmount ? body.tradeAmount :'--');
+			$(".third").html(body.tradeStatusName);
+			if(body.tradeStatusName != '交易成功' && body.tradeStatusName != '确认成功'){
+				$(".third").css({'color':'#fb5c5f'});
+			}
+			if(App.isNotEmpty(body.tradeProcesses)){
+				if(body.tradeProcesses.length > 1){
+					$("#tradeProcesses1").html(body.tradeProcesses[0]);
+					$("#tradeProcesses2").html(body.tradeProcesses[1]);
+					$("#twoMsg").show();
+				}else{
+					$("#tradeProcesses").html(body.tradeProcesses);
+					$("#oneMsg").show();
+				}
+			}
+			if(body.tradeProcessTip){
+				$(".thirdM").html(body.tradeProcessTip);
+			}
+			productInfoId = body.productId;
+			var htm0 = '';
+			var tradeinfos = body.tradeInfos;
+			tradeinfos.forEach(function (item,index) {
+				if(item.infoTypeName){
+					if(index == 0 && App.isEmpty(body.tradeProcesses)){
+					htm0+= '<div style="padding:0.75rem 0rem;border-bottom:1px solid #eeee;border-top: 1px solid #eeee;margin-top: 1rem;">'+
+						'<div class="five">'+item.infoTypeName+'</div> '  ;
+					}else{
+					htm0+= '<div style="padding:0.75rem 0rem;border-bottom:1px solid #eeee;">'+
+						'<div class="five">'+item.infoTypeName+'</div> '  ;
+					}			
+				}
+
+					var info = item.infos;
+					if(info){
+						info.forEach(function (item2,index2) {
+						if(item2.tips){
+							htm0+='<div class="six"><div>'+item2.title+'<img src="../images/point.png" alt="" style="width:.65rem;height:.65rem" onclick=alertTips("'+item2.tips+'")></div>';
+						}else{
+							htm0+='<div class="six"><div>'+item2.title+'</div>';
+						}						
+						var jumpUrl = item2.jumpUrl;
+						if(jumpUrl && (jumpUrl.indexOf('fundId') > -1 || jumpUrl.indexOf('groupId') > -1)){	//基金和组合跳转
+
+							var thisUrl = '';
+							var productId = jumpUrl.substr(jumpUrl.lastIndexOf("=")+1,10);
+							
+							if(jumpUrl.indexOf("A") > -1 || jumpUrl.indexOf("Z") > -1 || jumpUrl.indexOf("C") > -1){
+								// 转出组合，跳转相应的老的组合标准详情，否则跳新的组合
+								if(jumpUrl.indexOf('subType=fgd')>-1){
+									thisUrl = '/mobileEC/wap/fundgroup/group_fund_details.html?groupId='+productId;
+								}else{
+									thisUrl = '/mobileEC/adviser/investGroupDetails.html?groupId='+productId;
+								}
+							}else{
+								thisUrl = '/mobileEC/wap/fund/steadyCombination.html?fundId='+productId;
+							}
+							htm0+='<div onclick="window.location.href=\''+thisUrl+'\'">'+item2.content+'<img src="../images/trade/arr.png" alt=""></div>';
+							
+						}else if(jumpUrl && jumpUrl.indexOf('api=') > -1){
+
+							var api = getApi(jumpUrl);
+							
+							htm0+='<div onclick="gotoUrl(\''+api+'\')"><img src="../images/trade/arr.png" alt=""></div>';
+
+						}else{
+							if(item2.content){
+								htm0+='<div>'+item2.content+'</div>';
+							} else {
+								// htm0+='<div class="six"><div>'+item2.title+'</div>';
+								htm0 = htm0.replace(/(.*\<div)(\>)/ig, '$1 style="width:100%;"$2')
+							}
+							// console.log('htm0=', htm0);
+
+
+						}
+						htm0+='</div>';
+						
+						});
+					}
+					htm0+='</div>';
+			});
+			$("#infos").html(htm0);
+			if(App.isNotEmpty(body.balance)){
+				$("#balance").html(body.balance);
+				$("#balance_txt").show();
+			}
+			if(body.hasRelatedRecord){
+				var api = getApi(body.relatedRecordJumpUrl).replace('/','').replace('&apkind=','?');
+				var htm4 = '<div style="padding-bottom:.75rem;border-top:1px solid #eeeeee">'+
+				  '<div class="six" onclick="gotoUrl(\''+api+'\')">'+
+					'<div>'+body.relatedRecordName+'</div>'+
+					'<div> <img src="../images/trade/arr.png" alt=""></div>'+
+				  '</div>'+
+			  '</div> ';
+				$("#balance_txt").append(htm4);
+			}
+
+			//组合明细
+			if(body.fundGroupTradeDetailsApp&&body.fundGroupTradeDetailsApp.length>0){
+				var htm2 = '';
+				// htm2+='  <div class="seven">'+body.tradeTypeName+'明细</div>  ';
+				htm2+='  <div class="seven">' + 
+					(~body.tradeTypeName.indexOf("转入")?"转入明细":
+					(~body.tradeTypeName.indexOf("调仓")?"调仓明细":"升级明细") ) + 
+					'</div>  ';
+				var details = body.fundGroupTradeDetailsApp;
+				details.forEach(function(item3,index3){
+					var correlateStr = '';
+					if(item3.correlateTypeName){
+						var api = getApi(item3.correlateJumpUrl);
+						correlateStr = '<span style="float:right;padding-right: .5rem;color:#148ce6" onclick="gotoUrl(\''+api+'\')" >'+item3.correlateTypeName+'<span><img src="../images/trade/arr.png" alt="">';
+					}
+					if(body.tradeTypeName.indexOf("申购") > -1){//申购明细
+
+						htm2+='<div class="eight" >'+
+								  '<div style="width:100% ;font-weight:bold;">'+item3.fundName+'</div>'+
+							  '</div>'+
+							  '<div class="nine">'+(item3.remark ? item3.remark:'') + correlateStr+'</div>'+
+							  '<div class="fundList">'+
+								  '<div class="one">'+
+									'<div style="padding-left:0.75rem">'+item3.pmNameApp+'</div>'+
+								  '</div>';
+								  if(item3.status != "已撤单"){
+								  htm2+='<div class="three">'+
+									// '<div>'+(item3.ackQutyDisplay ? item3.ackActionName+item3.ackQutyDisplay+'份' :'--')+'</div>'+
+									// '<div>('+(item3.ackAmtDisplay ? item3.ackActionName+item3.ackAmtDisplay+item3.actionValueUnit : '--')+')</div>'+
+									(item3.ackQutyDisplay? ('<div>'+(item3.ackActionName?item3.ackActionName:'确认')+item3.ackQutyDisplay+'份'+'</div>') : '<div style="display:none"></div>' ) +
+									(item3.ackAmtDisplay? ('<div>('+(item3.ackActionName?item3.ackActionName:'确认')+item3.ackAmtDisplay+item3.tradeUnit+')</div>') : '<div style="display:none"></div>' ) +
+								  '</div>';
+								  }else{
+								  htm2+='<div class="three">'+
+									'<div></div>'+
+									'<div></div>'+
+								  '</div>';
+								  }
+								  if(item3.status == "交易成功"){
+									  htm2+='<div class="number4 ">'+
+										'<div>'+ item3.status +'</div>'+
+										'<div>手续费'+item3.fee+item3.tradeUnit+'</div>'+
+									  '</div>';
+								  }else{
+									  htm2+='<div class="number4 color">'+item3.status +'</div>';
+								  }
+							htm2+='</div>';
+						
+						
+					}else if(body.tradeTypeName.indexOf("赎回") > -1){
+
+						htm2+='<div class="eight" >'+
+								  '<div style="width:100%;font-weight:bold; ">'+item3.fundName+'</div>'+
+							  '</div>'+
+							  '<div class="nine">'+(item3.remark ? item3.remark:'') +correlateStr+'</div>'+
+							  '<div class="fundList">'+
+								  '<div class="one">'+
+									'<div style="padding-left:0.75rem">'+item3.pmNameApp+'</div>'+
+								  '</div>';
+								  if(item3.status != "已撤单"){
+								  htm2+='<div class="three">'+
+									// '<div>'+(item3.ackQutyDisplay ? item3.ackActionName+item3.ackQutyDisplay+'份' :'--')+'</div>'+
+									// '<div>('+(item3.ackAmtDisplay ? item3.ackActionName+item3.ackAmtDisplay+item3.actionValueUnit : '--')+')</div>'+
+									(item3.ackQutyDisplay? ('<div>'+(item3.ackActionName?item3.ackActionName:'确认')+item3.ackQutyDisplay+'份'+'</div>') : '<div style="display:none"></div>' ) +
+									(item3.ackAmtDisplay? ('<div>('+(item3.ackActionName?item3.ackActionName:'确认')+item3.ackAmtDisplay+item3.tradeUnit+')</div>') : '<div style="display:none"></div>' ) +
+								  '</div>';
+								  }else{
+								  htm2+='<div class="three">'+
+									'<div></div>'+
+									'<div></div>'+
+								  '</div>';
+								  }
+								  if(item3.status == "交易成功"){
+									  htm2+='<div class="number4 ">'+
+										'<div>'+ item3.status +'</div>'+
+										'<div>手续费'+item3.fee+item3.tradeUnit+'</div>'+
+									  '</div>';
+								  }else{
+									  htm2+='<div class="number4 color">'+item3.status +'</div>';
+								  }
+							htm2+='</div>';
+
+					}else if(body.tradeTypeName.indexOf("转") > -1 || body.tradeTypeName.indexOf("调仓") > -1){
+
+						htm2+='<div class="eight" >'+
+								  '<div style="width:40%;font-weight:bold;">'+item3.fundName+'</div>'+
+								  '<div ' + (item3.code=='TF'?'':'style="display:none"') + '><img src="../images/trade/fund_icon2.png" alt="">&nbsp转换为</div>'+
+								  '<div style="padding-left:.5rem;padding-right:.35rem;font-weight:bold;">'+item3.ofundName+'</div>'+
+							  '</div>'+
+							  '<div class="nine">'+(item3.remark ? item3.remark:'') +correlateStr+'</div>'+
+							  '<div class="fundList">'+
+								  '<div class="one">'+
+									'<div style="padding-left:0.75rem">'+item3.pmNameApp+'</div>'+
+								  '</div>';
+								  if(item3.status != "已撤单"){
+								  htm2+='<div class="three">'+
+									// '<div>'+(item3.ackQutyDisplay ? item3.ackActionName+item3.ackQutyDisplay+'份' :'--')+'</div>'+
+									// '<div>('+(item3.ackAmtDisplay ? item3.ackActionName+item3.ackAmtDisplay+item3.actionValueUnit : '--')+')</div>'+
+									(item3.ackQutyDisplay? ('<div>'+(item3.ackActionName?item3.ackActionName:'确认')+item3.ackQutyDisplay+'份'+'</div>') : '<div style="display:none"></div>' ) +
+									(item3.ackAmtDisplay? ('<div>('+(item3.ackActionName?item3.ackActionName:'确认')+item3.ackAmtDisplay+item3.tradeUnit+')</div>') : '<div style="display:none"></div>' ) +
+								  '</div>';
+								  }else{
+								  htm2+='<div class="three">'+
+									'<div></div>'+
+									'<div></div>'+
+								  '</div>';
+								  }
+								  if(item3.status == "交易成功"){
+									  htm2+='<div class="number4 ">'+
+										'<div>'+ item3.status +'</div>'+
+										'<div>手续费'+item3.fee+item3.tradeUnit+'</div>'+
+									  '</div>';
+								  }else{
+									  htm2+='<div class="number4 color">'+item3.status +'</div>';
+								  }
+							htm2+='</div>';
+
+					}else{
+						htm2+='<div class="eight" >'+
+								  '<div style="width:40%;font-weight:bold;">'+item3.fundName+'</div>'+
+								  '<div><img src="../images/trade/fund_icon2.png" alt="">&nbsp转换为</div>'+
+								  '<div style="padding-left:.5rem;padding-right:.35rem;font-weight:bold;">'+item3.ofundName+'</div>'+
+							  '</div>'+
+							  '<div class="nine">'+(item3.remark ? item3.remark:'') +correlateStr+'</div>'+
+							  '<div class="fundList">'+
+								  '<div class="one">'+
+									'<div style="padding-left:0.75rem">'+item3.pmNameApp+'</div>'+
+								  '</div>';
+								  if(item3.status != "已撤单"){
+								  // htm2+='<div class="three">'+
+									// '<div>'+(item3.ackQutyDisplay ? item3.ackActionName+item3.ackQutyDisplay+'份' :'--')+'</div>'+
+									// '<div>('+(item3.ackAmtDisplay ? item3.ackActionName+item3.ackAmtDisplay+item3.actionValueUnit : '--')+')</div>'+
+								  // '</div>';
+									htm2+='<div class="three">'+
+									// '<div>'+(item3.ackQutyDisplay ? item3.ackActionName+item3.ackQutyDisplay+'份' :'--')+'</div>'+
+									// '<div>('+(item3.ackAmtDisplay ? item3.ackActionName+item3.ackAmtDisplay+item3.actionValueUnit : '--')+')</div>'+
+									(item3.ackQutyDisplay? ('<div>'+(item3.ackActionName?item3.ackActionName:'确认')+item3.ackQutyDisplay+'份'+'</div>') : '<div style="display:none"></div>' ) +
+									(item3.ackAmtDisplay? ('<div>('+(item3.ackActionName?item3.ackActionName:'确认')+item3.ackAmtDisplay+item3.tradeUnit+')</div>') : '<div style="display:none"></div>' ) +
+								  '</div>';
+								  }else{
+								  htm2+='<div class="three">'+
+									'<div></div>'+
+									'<div></div>'+
+								  '</div>';
+								  }
+								  if(item3.status == "交易成功"){
+									  htm2+='<div class="number4 ">'+
+										'<div>'+ item3.status +'</div>'+
+										'<div>手续费'+item3.fee+item3.tradeUnit+'</div>'+
+									  '</div>';
+								  }else{
+									  htm2+='<div class="number4 color">'+item3.status +'</div>';
+								  }
+							htm2+='</div>';
+					}
+				});
+				$("#purchase").html(htm2).show();
+				
+			
+			}
+			if(body.cancelable === true){//可撤单
+				$("#cancleBtn").show();
+			}
+			//cancleData.apKind = body.apKind;
+			cancleData.serialNo = body.serialNo;
+			//cancleData.subApKind = body.subApKind;
+		}
+    });
+}
+//撤单
+$("#btn-submit").click(function(){
+		// if(productInfoId.indexOf('A') > -1 || productInfoId.indexOf('Z') > -1 || productInfoId.indexOf('C') > -1){
+		// 	var url = App.projectNm + "/adviser/group_cancel";
+		// }else{
+		// 	var url = App.projectNm + "/fund/fund_cancel";
+		// }
+        var url = '/mobile-bff/v1/common/ec-trade-cancel';
+        var params = {
+            apKind: cancelDetail.apKind,
+            // "arAcctId": "string",
+            productId: cancelDetail.productId,
+            serialNo: cancelDetail.serialNo,
+            subApkind: cancelDetail.subApKind,
+            // "subProductType": "string",
+            tradeProductType: cancelDetail.productType
+        };
+        utils.post(url, JSON.stringify(params), null, function (result) {
+            App.setSession(App.serialNo_info, result.body.info);
+            App.setSession(App.serialNo, result.body.serialNo);
+            App.setSession(App.serialNo_success_show_data, cancleData);
+
+            App.setSession(App.serialNo_forword_url, "/mobileEC/wap/fund/fundCancleSuccessfully.html");
+            utils.verifyTradeChain(result.body)
+            // window.location.href = "../common/setPassword.html";
+        });
+});
+function gotoUrl(s){
+	App.setSession("tradeInfoApi",s);
+	window.location.href = 'tradeInfo.html';
+}
+function getApi(s){
+	return s.substr(s.lastIndexOf("api")+4,100);;
+}
+</script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+</body>
+</html>

@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>账户管理</title>
+    <link rel="stylesheet" href="../css/wezhan/base_wezhan.css">
+    <link rel="stylesheet" type="text/css" href="../css/base.css">
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <style>
+        .container {
+            font-size: .75rem;
+            color: #000;
+            overflow: hidden;
+        }
+
+        .container .section {
+            display: block;
+            overflow: hidden;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            background: #fff;
+            padding: 0 .75rem;
+            margin-top: .5rem;
+        }
+
+        .container .section p {
+            float: left;
+        }
+
+        .container .section1 i {
+            float: right;
+            width: .4rem;
+            height: .75rem;
+            background: url(../images/wezhan/arrow_r_black.png) no-repeat;
+            background-size: 100% 100%;
+            margin-top: .88rem;
+        }
+
+        .container .section2 i {
+            float: right;
+            width: 2.5rem;
+            height: 1.25rem;
+            border-radius: .625rem;
+            margin-top: .75rem;
+        }
+
+        .switch_close {
+            background: url(../images/wezhan/switch_close.png);
+            background-size: 100% 100%;
+        }
+
+        .switch_open {
+            background: url(../images/wezhan/switch_open.png);
+            background-size: 100% 100%;
+        }
+
+        .main #product {
+            box-sizing: border-box;
+            padding: 1rem .75rem .25rem .75rem;
+            border-radius: 5px;
+            margin: .75rem;
+            /* border: 2px #000 solid; */
+            background-color: #fff;
+        }
+
+        .main .title {
+            font-size: 1rem;
+            font-weight: 900;
+            color: #000;
+            margin-left: .75rem;
+            margin-top: 1rem;
+
+        }
+
+        .main .title a:last-of-type {
+            line-height: 1.3rem;
+            float: right;
+            font-size: .75rem;
+            font-weight: 200;
+            color: #666666;
+            margin-right: .75rem;
+        }
+
+        .main .integral {
+            box-sizing: border-box;
+            padding: 1rem .75rem .01rem .75rem;
+            border-radius: 10px;
+            margin: .75rem;
+            /* border: 2px #000 solid; */
+            background-color: #fff;
+        }
+
+        .main .integral .list {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .main .integral .list p {
+            font-size: .85rem;
+            margin-bottom: .5rem;
+            font-weight: 900;
+            color: #000;
+        }
+
+        .main .integral .list img {
+            vertical-align:middle;
+            width: 0.75rem;
+            height: 0.75rem;
+            display: inline-block;
+            margin-top: 0.05rem;
+        }
+
+        .main .integral .list a {
+            position: absolute;
+            /* background: url(img/icon_5.png) no-repeat center; */
+            width: 3.25rem;
+            height: 1.5rem;
+            top: 50%;
+            margin-top: -.75rem;
+            right: 0;
+            /* background-size: 100% 100%; */
+            font-size: 0.6rem;
+            border-radius: 1rem;
+            text-align: center;
+            line-height: 1.5rem;
+            color: #fb5c5f;
+            border:#fb5c5f solid 1px;
+        }
+/*弹窗样式*/
+.common_layer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    font-size: 0.6rem;
+    z-index: 999;
+}
+
+.common_layer-wrap {
+    border-radius: 5px;
+    width: 13.5rem;
+    height: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    /*padding-left:1rem;*/
+    padding-top: 1rem;
+    background: #fff;
+    text-align: center;
+    font-size: 0.7rem;
+}
+
+.common_layer-wrap p {
+    text-align: center;
+    font-size: 0.7rem;
+    margin-bottom: .2rem;
+}
+.common_layer-left nav {
+   font-size: .75rem;
+   color: #000;
+   font-weight: 900;
+   margin-bottom: 1rem;
+}
+.common_layer-left p {
+    padding:0 1rem;
+
+    text-align: left;
+
+}
+.common_layer-left p:nth-of-type(2){
+    margin-bottom: .5rem;
+}
+.common_layer-left p:last-of-type{
+    margin-top: .5rem;
+}
+.common_xiantiao {
+    border-bottom: 1px solid #eeeeee;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.common_check {
+    font-size: 0.75rem;
+    display: block;
+    height: 2.35rem;
+    line-height: 2.35rem;
+    text-align: center;
+    color: #006bfe;
+}
+
+.common_check1 {
+    font-size: 0.75rem;
+    display: block;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    text-align: center;
+    color: #006bfe;
+}
+
+.common_remove {
+    width: 45%;
+    height: 2.5rem;
+    float: left;
+    font-size: 0.75rem;
+    display: block;
+    color: #006bfe;
+    text-align: center;
+    line-height: 2.5rem;
+}
+
+.common_check2 {
+    width: 45%;
+    height: 2.5rem;
+    font-size: 0.75rem;
+    display: block;
+    color: #006bfe;
+    float: right;
+    text-align: center;
+    line-height: 2.5rem;
+}
+
+.common_check3 {
+    font-size: 0.75rem;
+    display: block;
+    height: 3.25rem;
+    line-height: 3.25rem;
+    text-align: center;
+    color: #006bfe;
+}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="../card/manage_card.html" class="section section1">
+            <p>银行卡管理</p>
+            <i></i>
+        </a>
+        <a href="javascript:;" class="section section2" style="display:none;">
+            <p>解除账号绑定</p>
+            <i class="switch_open"></i>
+        </a>
+        <a href="../common/riskTest.html" class="section section1">
+            <p>风险测评</p>
+            <i></i>
+        </a>
+        <a href="../userInfo/parfectInfo.html" class="section section1">
+            <p>完善个人信息</p>
+            <i></i>
+        </a>
+    <div class="common_layer" id="confirm" >
+        <div class="common_layer-wrap" style="height:5.45rem">
+            <p>确认要解绑吗?</p>
+            <div class="common_xiantiao">
+            </div>
+            <a href="javascript:void(0)" class="common_remove">取消</a>
+            <a href="javascript:void(0)" class="common_check2" onclick="unbind()">确定</a>
+        </div>
+    </div>
+    <div class="common_layer" id="lottery1">
+        <div class="common_layer-wrap">
+            <p id="common_msg">解绑成功！</p>
+            <div class="common_xiantiao">
+            </div>
+            <a href="javascript:void(0)" class="common_check1">我知道了</a>
+        </div>
+    </div>
+        
+    </div>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+	<script src="../js/common.js?20210302" type="text/javascript"></script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script>
+if (utils.isWeixin()) {
+    // if(!utils.getCookie("sso_cookie_ext_dp")){
+    //     window.location = "/tradeh5/newWap/auth/login_officalAccounts.html?referUrl=" + encodeURIComponent(window.location.href);
+    // }
+	var sys = "1";
+	if(utils.getCookie("channelCode") == "tfhwx"){
+		sys = "2";
+	}
+	var url = "/mobile-bff/v1/weixin/queryBindStatus?system="+sys;
+	utils.get(url, null, function(result){
+		if (result.body != undefined && result.body != null){
+			if(result.body.bindStatus == "1"){//已绑定
+				$(".section2").show();
+			}
+		}
+	});
+
+} else {
+    if(!utils.getCookie("sso_cookie")){
+        window.location = App.loginPage + "?referUrl=" + encodeURIComponent(window.location.href);
+    }
+}
+
+    // var switchFlag = false;
+	$(".section2 i").click(function () {
+		$("#confirm").show();
+	})
+	function unbind(){
+		// if (switchFlag) {
+		// 	//跳转至
+		// 	window.location = App.loginPage + "?referUrl=" + encodeURIComponent(window.location.href);
+		// } else {
+			$("#confirm").hide();
+			var url = "/mobile-bff/v1/weixin/weixinUnbind?system="+sys;
+			App.get(url, null, function(result){
+				if (result.body != undefined && result.body != null){
+					var res = result.body;
+					if(res.body && res.body.operateRst == "2"){
+						$("#lottery1").show();
+						$(".section2").hide();
+                        var accessToken = App.getCookie("sso_cookie") ? App.getCookie("sso_cookie").replace(/"/g,'') : "";
+                        var data = JSON.stringify({
+                            "accessToken": accessToken
+                        });
+                        App.post("/mobile-bff/v1/login/login-out", data, null, function (result) {
+                            App.clearSession();
+							window.location = "../login/wx_login.html?channelCode="+channelCode+"&unbind=1";
+                        });
+					}
+                    $(".section2").hide();
+				}
+			});
+			$(this).removeClass("switch_open").addClass('switch_close')
+			// switchFlag = true;
+		// }
+	}
+    
+    $(".common_check,.common_check1,.common_check2,.common_check3").click(function () {
+        $("#lottery1").hide()
+    })
+	$(".common_remove").click(function(){
+		$("#confirm").hide();
+	});
+    </script>
+</body>
+</html>

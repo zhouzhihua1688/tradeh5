@@ -1,0 +1,17 @@
+.dialog-agreement{
+    padding-left: 8px;
+    padding-top: 5px;
+    text-decoration:underline;
+}
+
+.dialog-agreement a{
+    color: #999999;
+    font-size: 12px;
+}
+
+.card-list1 .card-detail{
+    width: 100%;
+    padding-left: 8px;
+    line-height: 18px;
+}
+

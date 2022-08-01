@@ -1,0 +1,130 @@
+@charset "utf-8";
+.main{
+	width:100%;
+	/* height:100%; */
+	margin:0px;
+	padding:0px;
+	/* padding-bottom: 2.5rem; */
+	background:#fff;
+}
+.head{
+	width:100%;
+	height:2.5rem;
+	border-top:1px solid #eeeeee;
+
+}
+.head .first{
+	width:90%;
+	height:100%;
+	margin:0 auto;
+}
+.head .first .text,.head .first .text1{
+	text-align: center;
+	line-height: 2.5rem;
+	font-size: 0.75rem;
+	color:#000;
+	float:left;
+}
+.head .first .text1{float:right;}
+.explain{
+	/* height:100%; */
+	width:90%;
+	margin:0 auto;
+	color:#666;
+	font:0.6rem;
+	text-align:left;
+	margin-top:0.75rem;
+}
+
+
+.alert-password-background {
+    position: absolute;
+    background-image: url(../../images/common/background-70.png);
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 640px;
+
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+
+.alert-dialog{
+    width: 240px;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+.alert-dialog .alert-title{
+    width: 100%;
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.alert-dialog .alert-subtitle{
+    width: 90%;
+    padding-bottom: 8px;
+    margin-left: 5%;
+}
+
+.alert-dialog .alert-input {
+    width: 88%;
+    margin-left: 5%;
+    border: 1px #ebebeb solid;
+}
+
+.alert-dialog .alert-button {
+    width: 100%;
+    margin-top: 9px;
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+
+.alert-dialog .alert-button .button-left{
+    width: 50%;
+    text-align: center;
+    border-top: 1px #ebebeb solid;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.alert-dialog .alert-button .button-right{
+    width: 50%;
+    text-align: center;
+    border-top: 1px #ebebeb solid;
+    border-left: 1px #ebebeb solid;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    box-sizing:border-box;
+}
+
+.button-style{
+    border: none;
+    background: none;
+    color: #2d6590;
+    width: 90%;
+    height: 100%;
+}
+
+.finish{
+	width:100%;
+	height:2.25rem;
+	margin-top:1.25rem;
+}
+.finish a{
+	width:90%;
+	height:2.25rem;
+	background:#FE7E01;
+	display: block;
+	margin:0 auto;
+	font-size: 0.85rem;
+	text-align: center;
+	line-height: 2.25rem;
+	border-radius:3px;
+	color: #fff;
+}

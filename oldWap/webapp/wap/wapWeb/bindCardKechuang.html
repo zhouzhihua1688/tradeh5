@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>银行卡绑定成功</title>
+    <link rel="stylesheet" type="text/css" href="css/basekc.css">
+    <script>
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            screenWidth = screenWidth > 640 ? 640 : screenWidth;
+            oHtml.style.fontSize = screenWidth / 7.5 + 'px';
+        }
+    </script>
+
+    <style type="text/css">
+        .part{
+            position: absolute;
+            left: 0;
+            top: 3.9rem;
+            width: 100%;
+            text-align: center;
+            background-color: transparent;
+        }
+        .part img{
+            width: 5.11rem;
+            margin-bottom: 0.1rem;
+        }
+        .success{
+            position: absolute;
+            left: 2.75rem;
+            top: 1.75rem;
+            width: 1.93rem;
+        }
+        .part a{
+            width: 5.11rem;
+            height: 0.97rem;
+            background: url(img/kechuang/btn2.png?1) no-repeat center;
+            background-size: 5.11rem;
+            display: block;
+            margin: auto;
+            margin-bottom: 0.1rem;
+            text-align: center;
+            line-height: 0.97rem;
+            font-size: 0.3rem;
+            color: #fca628;
+        }
+        .part a:nth-of-type(2){
+            background-image: url(img/kechuang/btn1.png?1);
+            color: #6ad5ff;
+        }
+    </style>
+</head>
+<body>
+<div class="active_content">
+    <div class="active_layer">
+        <img src="img/kechuang/register_bg.jpg?1">
+    </div>
+    <div class="active_layer">
+    <img src="img/kechuang/card2.png">
+        <div class="part">
+            <a href="https://huodong.99fund.com/mcpweb/uppages/kechuangjijin0423/share.html?utm_source=nmgmc">立即抢占科创先机</a>
+            <a href="http://www.99fund.com/m_weixin.htm">下载App查看详情</a>
+        </div>
+        <img src="img/kechuang/btn_word.png" class="success">
+    </div>
+
+</div>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/weixin.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+</body>
+</html>

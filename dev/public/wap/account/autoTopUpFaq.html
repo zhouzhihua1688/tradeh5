@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--<meta charset="utf8">-->
+    <title>工资宝</title>
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/base_wx.css">
+    <script type="text/javascript" src="../js/lib/zepto.min.js"></script>
+    <script>
+        setFont();
+        window.onresize = function () {
+            setFont();
+        };
+        function setFont() {
+            var windowWidth = $(window).width();
+            windowWidth = windowWidth > 750 ? 750 : windowWidth;
+            $("html").css({"fontSize": windowWidth / (750 / 40)});
+        }
+
+    </script>
+    <style type="text/css">
+        .font-arial {
+            font-family: Arial;
+        }
+        body { font-size: 14px;}
+        @media only screen and (max-width: 320px) {
+            body { font-size: 12px;}
+        }
+        button { outline: none; }
+        img {  vertical-align: top;  border: 0;  outline: 0;  width: 100%;  height: auto; }
+        p { line-height: 1.5;  word-wrap: break-word;  text-align: justify; font-size: 1em;}
+        .left { float: left;}
+        .right { float: right;}
+
+        section { padding: 1em .56rem; background-color: #fff; margin-bottom: 1.2em;}
+        section .icon-box { float: left;  width: 2.2em;padding-right: .4em;}
+        section .h2 { font-size: 1.2em; font-weight: bolder; color: #fe7e01; }
+        
+        .section1 ul li { float: left; width: 33.33%; text-align: center; }
+        .section1 ul li div { margin:  0 auto; width: 2.7rem; padding: .8em 0;}
+        .section1 ul li p { text-align: center; font-size: 1em; color: #666; width: 100%;}
+        .section1 ul li p:first-of-type {  color: #fe7e01; font-size: 1.25em; font-weight: bolder; }
+        .section1 h2 { padding-top:.2em;}
+
+        .section2 .item {margin-top: 2em;}
+        .section2 .item .img-box { width: 29%; }
+        .section2 .item .text-box { position: relative; width: 71%; padding:0 .5em 0 1.6rem; margin-top: 1.4rem;  -webkit-box-sizing: border-box;  -moz-box-sizing: border-box;  box-sizing: border-box;}
+        .section2 .item:last-of-type .text-box { margin-top: 1.8rem;}
+        .section2 .item .half-setting { position: absolute; top:  -.7rem; left: .8rem; width: .675rem;}
+        .section2 .item .no { position: absolute; top: -.7rem; left: 1.8rem; width: .9rem;}
+
+        .section3 {     padding: 0 .56rem 2em; margin: 0;}
+        .section3 .more-problem { display: block;  text-align: left; line-height: 3.2em;  font-size: 1.2em;  font-weight: bolder; color: #fe7e01;  }
+        .section3 .more-problem img { width: 1.8em; vertical-align: middle;}
+        .section3 h2 { font-size: 1.3em; font-weight: bolder; padding: 0.8em 0; color: #000;}
+
+        .section3  article { padding:0 1rem;}
+        .section3 .padding-bottom { padding-bottom: 0.6em;}
+        .section3 p .tips  { font-size: .8em; color: #999999;}
+        .section3 .red { color: #fb5c5f;}
+    </style>
+</head>
+<body>
+<div class="content">
+    <section class="section1">
+        <div class="clearfix">
+            <div class="icon-box"><img src="../images/icon_10.png" alt=""></div>
+            <h2 class="h2">工资宝的优势</h2>
+        </div>
+        <ul class="clearfix">
+            <li>
+                <div><img src="../images/adv_14.png" alt=""></div>
+                <p>自动转</p>
+                <p>省时省心</p>
+            </li>
+            <li>
+                <div><img src="../images/adv_17.png" alt=""></div>
+                <p>得收益</p>
+                <p>薪金理财</p>
+            </li>
+            <li>
+                <div><img src="../images/adv_20.png" alt=""></div>
+                <p>灵活选</p>
+                <p>多种产品</p>
+            </li>
+
+        </ul>
+    </section>
+    <section class="section2">
+        <div class="clearfix">
+            <div class="icon-box"><img src="../images/icon_34.png" alt=""></div>
+            <h2 class="h2">如何使用</h2>
+        </div>
+        <div class="item clearfix">
+            <div class="left img-box"><img src="../images/use_07.png" alt=""></div>
+            <div class="right text-box">
+                <p>设定计划：每月几号、从哪张卡、转多少钱；</p>
+                <img class="half-setting" src="../images/half_setting_18.png" alt="">
+                <img class="no" src="../images/no_30.png" alt="">
+            </div>
+        </div>
+        <div class="item clearfix">
+            <div class="left text-box">
+                <p> 指定日期系统自动发起扣款为您转入指定产品，获取收益；</p>
+                <img class="half-setting" src="../images/half_setting_18.png" alt="">
+                <img class="no" src="../images/no_69.png" alt="">
+            </div>
+            <div class="right img-box"><img src="../images/use_14.png" alt=""></div>
+        </div>
+        <div class="item clearfix">
+            <div class="left img-box"><img src="../images/use_17.png" alt=""></div>
+            <div class="right text-box">
+                <p>查看已坚持期数，规律存钱，养成良好习惯；</p>
+                <img class="half-setting" src="../images/half_setting_18.png" alt="">
+                <img class="no" src="../images/no_107.png" alt="">
+            </div>
+        </div>
+    </section>
+    <section class="section3">
+        <div class="more-problem"><img src="../images/icon_53.png" alt="">更多问题</div>
+        <div>
+            <h2>1. 通过工资宝转入的资金进到哪了？</h2>
+            <article>
+                <p class="padding-bottom">工资宝转入的资金自动转入现金宝中，可以在[首页]-[现金宝]-[交易查询]查看到转入的资产和每日收益。</p>
+                <p><span class="tips">温馨提示：现金宝支持当日充值当日取出，如临时需要资金，可直接从现金宝中取出即可。资金取出秒级到账，不收手续费。具体可参见取现页面的《取现规则》。</span></p>
+            </article>
+        </div>
+        <div>
+            <h2>2. 工资宝当月转入失败怎么办？</h2>
+            <article>
+                <p class="padding-bottom">我司会在每个基金交易日09:00-10:00左右对当天所有需要发起扣款的工资宝计划执行扣款，为保证每月工资能顺利转入，<span class="red">建议设置转入日期为每月工资下发日的后一日；</span></p>
+                <p>如扣款失败，系统会发送短信进行提醒，您可在资金充足时登录现金宝APP手动转入。</p>
+            </article>
+        </div>
+        <div>
+            <h2>3. 工资宝计划的扣款规则是怎样的？</h2>
+            <article>
+                <p class="padding-bottom">当天设置的工资宝计划在<span class="red">下一个自然日生效</span>。由于节假日当天转入无收益，工资宝的扣款只在基金交易日发起，设置的转入日期如遇节假日，<span class="red">会自动顺延到节假日后的下一个基金交易日发起扣款</span>；</p>
+                <p class="padding-bottom">系统在每个基金交易日09:00—10:00左右对当天所有需要发起扣款的工资宝计划执行扣款，为保证每月工资能顺利转入成功，<span class="red">建议设置转入日期为每月工资下发日的后一日。</span></p>
+                <p><span class="tips">温馨提醒：货币基金不等于银行存款，基金投资需谨慎。设置工资宝前请仔细阅读工资宝服务协议了解相关规则。</span></p>
+            </article>
+        </div>
+    </section>
+</div>
+</body>
+</html>

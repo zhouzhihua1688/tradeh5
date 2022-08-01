@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <title>取现</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/takecash.css"/>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/weixin.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script type="text/javascript" src="../js/account/takecash.js"></script>
+</head>
+<body>
+<div id="alert-password-div" style="display: none;">
+<div class="alert-password-background">
+    <div class="alert-dialog">
+        <div class="alert-title f-black f16">请输入交易密码</div>
+        <div class="alert-subtitle f12" id="alert_info"></div>
+        <div><input class="alert-input" id="pwd" type="password" maxlength="6"></div>
+        <div class="alert-button"><div class="button-left"><input type="button" class="button-style" id="cancel" value="取消"></div><div class="button-right"><input type="button" class="button-style" id="confirm" value="确定"></div></div>
+    </div>
+</div>
+</div>
+<div id="takecash_panel">
+<div class="top-bar">
+    <div class="f-white f18">取现</div>
+</div>
+
+<div class="area-height-20"></div>
+<div class="card-list" id="card_div_btn">
+    <div class="f-blue left2"><span id="card_list_bankNm"></span> <span id="card_list_displayAcco"></span></div>
+    <div class="right2"><img src="../images/common/tips.png"></div>
+</div>
+<div class="card-list" id="takebackType_btn">
+    <div class="left2"><span id="takeTp_title">快速取现</span><span class="f-orange">(<span id="takeTp_text"></span>)</span><span id="takeTp_nextDate" class="takeCashNextDate"></span></div>
+    <div class="right2"><img src="../images/common/tips.png"></div>
+</div>
+
+<div class="area-height-20"></div>
+<div class="reminder">
+    <div class="f11 left2">本次可取现最大金额<span id="limit_text"></span>元</div>
+    <div class="right2"><a href="javascript:void(0)"><span class="f11 f-blue" id="howToCalc">如何计算</span></a></div>
+</div>
+<div class="card-list">
+    <div class="left"><span class="f-black">取现金额：</span></div>
+    <div class="right"><input type="number" id="amount" maxlength="10" placeholder="输入取现金额"></div>
+</div>
+<div class="area-height-20"></div>
+<div class="area-height-20"><div style="padding-left: 4%"><a href="javascript:void(0)"><span class="f11 f-blue" id="takeRule">查看取现规则</span></a></div></div>
+<div class="button-area">
+    <div class="button-orange button-width-big" id="next_btn">下一步</div>
+</div>
+</div>
+<div id="selected_card_panel" style="display: none;">
+    <div class="top-bar">
+        <div class="f-white f18">选择付款方式</div>
+    </div>
+    <div id="cards_panel"></div>
+</div>
+<div id="seleted_type_panel" style="display: none;">
+    <div class="top-bar">
+        <div class="f-white f18">现金宝</div>
+    </div>
+    <div class="dialog-area background-orange f-white"><div style="padding: 8px">请选择取现方式</div></div>
+    <div class="card-list2" id="cashType_1">
+        <div class="card-detail">
+            <div class="f-black">普通取现（当天有收益）</div>
+            <div class="f11">不限额度，不限次数，<span id="next_date"></span></div>
+        </div>
+    </div>
+    <div class="card-list2" id="cashType_2">
+        <div class="card-detail">
+            <div class="f-black">快速取现（当天无收益）</div>
+            <div class="f11">预计今天到账，取现资金今天不产生收益</div>
+        </div>
+    </div>
+    <div class="dialog-area"><div class="dialog-agreement"><a href="https://trade.99fund.com/common/realcash_agreement_card.html">查看快速取现协议</a></div></div>
+</div>
+</body>
+</html>

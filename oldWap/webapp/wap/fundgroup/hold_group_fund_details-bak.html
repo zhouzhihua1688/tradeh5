@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!--<meta charset="utf8">-->
+	<title>持有明细</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../css/base.css">
+	<link rel="stylesheet" href="../css/fundgroup/base_adviser.css">
+	<style type="text/css">
+		img{ display: block;max-width: 100%;height: auto; border: 0;}
+		section{ background-color: #fff; }
+		i.next{  display: inline-block;  width: 8px;  height: 16px;  background: url(../images/fundgroup/icon01.png) no-repeat left top;  -webkit-background-size: contain;
+			background-size: contain; vertical-align: middle; margin-left: 7px;
+		}
+		.icon { display: inline-block; width: 10px;height: 10px;background-size: contain;vertical-align: middle;margin-right: 5px;margin-top: -4px;}
+		.icon-1 { background-image: url("../images/fundgroup/react_01.png")}
+		.icon-2 { background-image: url("../images/fundgroup/react_02.png")}
+		.icon-3 { background-image: url("../images/fundgroup/react_03.png")}
+		.icon-4 { background-image: url("../images/fundgroup/react_04.png")}
+		.font-arial{ font-family: Arial; }
+		.font24 { font-size: 0.7rem;}
+		.font26 { font-size: 0.7rem;}
+		.font30 { font-size: 0.8rem;}
+		.left{ 	float: left; }
+		.right{ float: right; }
+		.next{display: inline-block;width: 0.107rem;height: 0.213rem;background: url(../images/fundgroup/icon01.png) no-repeat left top;-webkit-background-size: contain;background-size: contain;vertical-align: middle;margin-left: 0.933rem;		}
+		.red { color: #f85d63; }
+		.green{color: #009944 }
+
+		.content1 { padding-top: 1rem;}
+		.content1 ul{ height:2rem;padding: 0.667rem 0.4rem; }
+		.content1 ul li{float: left;width: 33%;color: #999999;border-right: 1px solid #eeeeee;text-align: center;
+			-webkit-box-sizing: border-box;	-moz-box-sizing: border-box;	box-sizing: border-box; }
+		.content1 ul li:last-child{ border: 0; }
+		.content1 ul li p{ padding-top: 0.107rem;  }
+
+		.content2{ padding-bottom: 0.333rem; display: none; }
+		.content2 h3{ color: #333333;background-color: #f6f6f6; padding: 0.4rem 0.4rem;  }
+		.content2 ul{padding: 0.6rem 1.5rem; height: 1rem;}
+		.content2 ul li{ float: left; margin-left: 0.4rem;background-color: #eeeeee; border-radius: 0.1rem;}
+		.content2 ul li:first-child{  margin-left: 0.42rem;}
+		.content2 ul li a{ display: block; width: 3.5rem; height: 1.4rem; line-height: 1.4rem; text-align: center; color: currentColor;}
+		.content2 ul li.active{ background-color: #fb5c5f;color: #fff;}
+		.content2 .diagram { position: relative;}
+
+		.content3 h3{ color: #333333;background-color: #f6f6f6; padding: 0.4rem 0.4rem;  }
+		.content3 table{ width: 100%; border-collapse: collapse;line-height: 1.5;}
+		.content3 table tr{  border-bottom: 1px solid #eeeeee;text-align: right; }
+		.content3 table th {  color: #333333; font-weight: normal;padding: 0.453rem 0;  }
+		.content3 table th:first-child { text-align: left; padding-left: 0.4rem; padding-right: 0.1rem; }
+		.content3 table th:last-child { padding-right: 0.4rem;padding-left: 0.3rem; }
+		.content3 table tr td{  padding: 0.453rem 0; }
+		.content3 table tr td:first-child{ text-align: left; padding-left: 0.4rem;padding-right: 0.1rem;}
+		.content3 table tr td:last-child{ padding-right:0.4rem;padding-left: 0.3rem;}
+		.content3 table tr:last-child{ border-bottom: 0; }
+		.content3 table tbody .deal { width:auto; background-color: #fee7e7; color: #fb5c5f; padding: 0 0.35rem; border-radius: 0.4rem; font-size: 0.32rem;display: inline-block; }
+
+		.content4  { margin: 0.267rem 0 ;position: relative;}
+		.content4 h3 { line-height: 2rem; padding: 0 0.4rem;border: 1px solid #eeeeee;}
+		.content4 span { color: #fb5c5f;}
+
+		.content5 {margin: 0.267rem 0 0rem;}
+		.content5 ul{  padding: 0 15px;  height: 45px;  line-height: 45px; }
+		.content5 ul li:first-child{  font-size: .7rem;  color: #333333;	}
+		.content5 ul li:first-child span{  font-size: .7rem;  color: #999999;}
+		.content5 ul li:last-child a{ font-size: .7rem}
+		.content5 ul li:last-child span{ color: #fb5c5f;}
+
+		.fixbottom{position: fixed;left: 0;bottom: 0;background-color: #fff;width: 100%;border-top: 1px solid #eeeeee;  }
+		.fixbottom li { float: left; width: 33%; border-right: 1px solid #eeeeee;box-sizing: border-box;}
+		.fixbottom li:last-child { border: none;}
+		.fixbottom .btn{display: block;height: 3em;line-height: 3em;color: #fb5c5f;font-size: 1.15em;text-align: center;}
+		.icon-question { display: inline-block; width: 1.2rem; height: 0.8rem; background: url("../images/fundgroup/icon2.png") center center no-repeat; background-size: contain; vertical-align: middle; }
+
+		.noData{ position: absolute; top: 50%; right: 0; font-size: 0.24rem;/* width: 100%;  */text-align: center; }
+		.noData2{ position: absolute; top: 50%; right: 0; font-size: 0.24rem;width: 100%; text-align: center; }
+		.noData{top:55%; left:36px;}
+		/*弹框*/
+		.layer{z-index: 9999999; display: none;  position: fixed;  top: 0;  left: 0;  background-color: rgba(0,0,0,0.7);  height: 100%;  width: 100%;  overflow: auto;}
+		.layer-wrap{margin: 40% 15% 5% 15%;background-color: #fff;border-radius: 8px;}
+		.layer-body{padding: 7% 8% 7% 8%;text-align: center;}
+		.layer-wrap .layer-body p{font-size:14px;line-height: 21px; color: #666;display: inline-block;text-align: justify}
+		.layer-wrap .layer-body span{font-size: 16px;display: block;  padding-top: 10px;color: #333;font-weight: 600;}
+		.layer-wrap button{font-size: .7rem;
+			color: #fb505f;
+			background-color: #fff;
+			border-top: solid 1px #eeeeee;
+			border-left: 0;
+			border-right: 0;
+			border-bottom: 0;
+			width: 90%;
+			height: 45px;
+			display: block;
+			margin: 0 auto;
+		}
+		.layer-wrap button:focus{outline: none;}
+		/*弹框1*/
+		.Bomb-box{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+		.Bomb-box .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+		.Bomb-box .Bomb-box-tips{  text-align: center;  color: #333;  font-size: 0.75rem;  height: 2.5rem;  line-height: 2.5rem;  }
+		.Bomb-box .Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+		.Bomb-box .Bomb-box-content p{  line-height: 1rem;  }
+		.Bomb-box .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+		.Bomb-box .no-tips{font-size: 0.7rem;padding: 1.7rem 1.5rem 1.15rem 1.5rem;text-align: center;}
+		.Bomb-box .text-center{text-align: center;}
+		.Bomb-box .Bomb-box-content{ padding:.75rem 1.5rem; }
+		.content0{
+			display: none;
+			margin-top: .5rem;
+		}
+		.content0 .jingzhi {
+			font-size: .65rem;
+			/* font-weight: 900; */
+			height: 2rem;
+			box-sizing: border-box;
+			color: #000;
+			padding: 0 .75rem;
+			margin-top: 1.4rem;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.content0 .jingzhi img {
+			width: .7rem;
+			/* transform: rotateX(180deg) */
+			display: inline-block;
+		}
+
+		.content0 .jingzhi img.right_1 {
+			transform: rotateZ(270deg);
+		}
+
+		.content0 .wrap {
+			overflow: hidden;
+			position: relative;
+			width: 100%;
+			height: 2rem;
+		}
+	</style>
+</head>
+<body>
+<section class="content1">
+	<ul class="clearfix">
+		<li>
+			<h4 class="font24">参考市值</h4>
+			<p class="font-arial font30 red" id="marketValue" ></p>
+		</li>
+		<li>
+			<h4 class="font24"><span id="income_title">最新收益</span>(<span id="income_dt"></span>)</h4>
+			<p class="font-arial font30 red" id="income" ><!-- <small>%</small> --></p>
+		</li>
+		<li>
+			<h4  class="font24">持有盈亏</h4>
+			<p class="font-arial font30 red" id="holdingProfit" ></p>
+		</li>
+	</ul>
+
+	<ul class="clearfix">
+		<li>
+			<h4 class="font24">投入本金</h4>
+			<p class="font-arial font30 red" id="holdingCost" ></p>
+		</li>
+		<li>
+			<h4  class="font24">累计盈亏</h4>
+			<p class="font-arial font30 red" id="totalProfit" ></p>
+		</li>
+		<li>
+			<h4 class="font24">持仓收益率</h4>
+			<p class="font-arial font30 red" id="holdingYield" ><!-- <small>%</small> --></p>
+		</li>
+	</ul>
+</section>
+<section class="content0">
+	<ul class="wrap">
+		<!--<li class="jingzhi div-jump list" style=" margin-top: 0.01rem;">
+			<p><img src="../images/fundgroup/sound.png" alt="" style="margin-right: .45rem;"><span
+					id="soundHoldNotice">“跟我投”调仓啦！</span></p>
+			<img class="right_1" src="../images/fundgroup/icon02.png">
+		</li>
+		<li class="jingzhi div-jump list" style=" margin-top: 0.01rem;">
+			<p><img src="../images/fundgroup/sound.png" alt="" style="margin-right: .45rem;"><span
+					id="soundHoldNotice">“跟我投”调仓啦11！</span></p>
+			<img class="right_1" src="../images/fundgroup/icon02.png">
+		</li>
+		<li class="jingzhi div-jump list" style=" margin-top: 0.01rem;">
+			<p><img src="../images/fundgroup/sound.png" alt="" style="margin-right: .45rem;"><span
+					id="soundHoldNotice">“跟我投”调仓啦222！</span></p>
+			<img class="right_1" src="../images/fundgroup/icon02.png">
+		</li>-->
+	</ul>
+</section>
+<section class="content2" id="profitChart" >
+	<h3 class="font26">收益走势图</h3>
+	<div>
+		<div class="diagram">
+			<div>
+				<div id="pie1" style="width: 100%; height: 17rem;"></div>
+			</div>
+			<div class="noData" style="display: none;">
+				<p>购买后五个交易日展示收益曲线</p>
+			</div>
+		</div>
+	</div>
+	<ul class="clearfix tab2">
+		<li class="active" value="1"><a class="font24">1个月</a></li>
+		<li value="2"><a class="font24">6个月</a></li>
+		<li value="3"><a class="font24">1年</a></li>
+		<li value="4"><a class="font24">全部</a></li>
+	</ul>
+</section>
+<section class="content3">
+	<h3 class="font26">组合配置比例</h3>
+	<table>
+		<thead>
+		<tr>
+			<th align="left" style="width: 60%;">基金名称</th>
+			<th align="right" style="width: 15%;">占比</th>
+			<th align="right" style="width: 25%;">参考市值<br/>(份额)</th>
+		</tr>
+		</thead>
+		<tbody id="fundGroupList">
+
+		</tbody>
+	</table>
+</section>
+<section class="content4">
+	<h3 class="font30">偏离度<a id="custIrrelevance" class="red">0.00%</a> <i class="icon icon-question" onclick="javascript:layerShow();"></i> <span id="isIrrelevance" style="text-align: right;"></span></h3>
+	<div id="bar" style="width: 100%; height: 16rem;"></div>
+    <div class="noData2" style="display: none;">
+        <p>没有足够的数据可展示</p>
+    </div>
+</section>
+<section class="content5" id="trade_sestion">
+	<ul>
+		<li class="left">
+			<p>交易记录</p>
+		</li>
+		<li class="right">
+			<p ><a href="javascript:;" id="trade_count_a"><span class="font-arial red" id="trade_count"></span>笔交易确认中</a><i class="next"></i></p>
+		</li>
+	</ul>
+</section>
+<section class="content5" id="transfer_sestion" style="display: none;">
+	<ul>
+		<li class="left">
+			<p>调仓方式<i onclick="layerShowTransfer()"></i></p>
+		</li>
+		<li class="right">
+			<p ><a href="javascript:;" id="transfer_count_a"></a><i class="next"></i></p>
+		</li>
+	</ul>
+</section>
+
+<section style="height: 2rem; background-color: #f6f6f6;">
+</section>
+<!--<section class="content5" id="dividend_sestion" style="display: none;">
+	<ul>
+		<li class="left">
+			<p>分红记录</p>
+		</li>
+		<li class="right">
+			<p ><a href="javascript:;" id="dividend_count_a"><span class="font-arial red" id="dividend_count"></span>笔分红确认中</a><i class="next"></i></p>
+		</li>
+	</ul>
+</section>-->
+<!--<section class="content5" id="mip_sestion" style="display: none;">
+	<ul>
+		<li class="left">
+			<p>定投状态</p>
+		</li>
+		<li class="right">
+			<p ><a href="javascript:;" id="mip_count_a">有定投</a><i class="next"></i></p>
+		</li>
+	</ul>
+</section>-->
+<!-- <div class="fixbottom">
+	<ul>
+		<li><a href="javascript:void(0);" class="btn">一键跟投</a></li>
+		<li><a href="javascript:void(0);" class="btn">赎回</a></li>
+		<li><a href="javascript:void(0);" class="btn">追加购买</a></li>
+	</ul>
+</div> -->
+<!--弹框-->
+	<div class="layer">
+		<div class="layer-wrap">
+			<div class="layer-body">
+				<p id="display_yield_desc" >偏离度是反映您的组合与标准组合差异的指数，基金净值波动、投资经理调整组合都会产生偏离度。当偏离度大于一定阈值允许一键调整。</p>
+			</div>
+			<button>我知道了</button>
+		</div>
+	</div>
+<!-- 提示弹窗 -->
+<div class="Bomb-box" style="display: none;">
+	<div class="Bomb-box-main">
+		<div class="Bomb-box-content">
+			<p class="text-center"></p>
+		</div>
+		<a class="Bomb-box-ok" href="javascript:;">确定</a>
+	</div>
+</div>
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/lib/echarts.min.js"></script>
+<script type="text/javascript" src="../js/lib/phone-size.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script type="text/javascript" src="../js/common.js?20210106"></script>
+<script type="text/javascript" src="../js/fundgroup/hold_group_fund_details.js"></script>
+</body>
+</html>

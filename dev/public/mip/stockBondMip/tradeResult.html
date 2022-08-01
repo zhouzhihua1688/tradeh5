@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>交易结果</title>
+  <link rel="stylesheet" href="css/base.css">
+  <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+  <style>
+  	body{background:#fff}
+  	.result{background:#fff;padding:2rem 0.75rem;text-align:center;}
+  	.result img{width:1.25rem;height:1.25rem;display: inline-block;vertical-align: middle;margin-top:-0.2rem;}
+  	.result .text{display: inline-block;font-size:0.75rem;color:#000;margin-left:0.35rem;}
+  	.confirm{width:17.25rem;height:2.5rem;background: #fe7e01;margin:0 auto;border-radius: 5px;text-align: center;line-height: 2.5rem;font-size:0.8rem;color:#fff;}
+    .confirm .title{font-size: 0.85rem;}
+    [v-cloak]{
+        display: none;
+    }	/* .success_info{margin-top: 2rem;} */
+  </style>
+</head>
+<body>
+<div id='app' v-cloak>
+	<div class="result">
+		<div class="img"><img src="img/ok_red.png" alt="" >&nbsp;&nbsp;<span v-if='successTitle'>{{successTitle}}</span></div>
+		<!-- <div class="success_info" v-if="successInfo" >{{successInfo}}</div> -->
+	</div>
+	<div class="confirm" @click="confirm()"><span class="title">确认</span></div>
+</div>
+
+<script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script src="/tradeh5/newWap/base/js/lib/vue.js"></script>
+<script>
+	const vm =new Vue({
+    el: '#app',
+    data:{
+        type:utils.getUrlParam('type'),
+    },
+    created() {
+        // utils.showTips('tradeResult created')
+        // if(utils.getSession('__success_info') && utils.getSession('__success_info') != 'null'){
+        //     this.successInfo = utils.getSession('__success_info');
+        // }
+    },
+    mounted() {
+        // utils.showTips('tradeResult mounted')
+    },
+
+    beforeUpdate(){
+
+    },
+
+    updated(){
+    },
+
+   
+
+    computed: {
+        successTitle(){
+            switch(this.type){
+                case '0':return '创建计划成功'
+                case '1':return '修改计划成功'
+            }
+        }
+    },
+    watch: {
+     
+    },
+    methods: {
+        confirm:function(){
+        	var itemUrl ="index.html";   //跳转到投我的股债定投宝
+            if(isApp()){
+                window.location.href = 'htffundxjb://action?type=url&link='+btoa(window.location.origin+'/tradeh5/newWap/mip/stockBondMip/'+itemUrl)+'&ref=tradeResult';
+            }else{
+                window.location.href = itemUrl;
+            }
+    }
+    }
+})
+</script>
+</body>
+</html>

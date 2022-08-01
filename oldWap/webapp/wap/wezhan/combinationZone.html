@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>组合专区</title>
+
+    <link rel="stylesheet" type="text/css" href="../css/wezhan/base_wezhan.css">
+    <link rel="stylesheet" type="text/css" href="../css/base.css">
+    <link rel="stylesheet" type="text/css" href="../css/wezhan/combinationZone.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        };
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+                oHtml.style.fontSize = '17.06px';
+            }else if(screenWidth >= 750){
+                oHtml.style.fontSize = '40px';
+            }else{
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+            }
+        }
+    </script>
+
+
+</head>
+<body>
+    <section class="content1">
+        <ul class="clearfix border tab1"  id="tab_yl" style="display:none;">
+            <li class="active"><a>策略组合</a></li>
+            <li><a>指数宝</a></li>
+            <li><a>添富智投</a></li>
+            <li><a>添富养老</a></li>
+        </ul>
+        <ul class="clearfix border tab3" id="tab_3">
+            <li class="active"><a>策略组合</a></li>
+            <li><a>指数宝</a></li>
+            <li><a>添富智投</a></li>
+        </ul>
+        <!-- 策略组合 -->
+        <div class="for_combination">
+
+            
+        </div>
+        <!-- 指数宝 -->
+        <div class="for_index" style="display:none">
+
+
+        </div>
+        <!-- 添富智投 -->
+        <div class="for_zhitou" style="display:none">
+
+        </div>
+        <!-- 添富养老 -->
+        <div class="for_yanglao" style="display:none">
+
+        </div>
+        <div class="mask">
+            <div class="answer">
+                <div class="answer_text"></div>
+                <a href="javascript:;" class="close">确定</a>
+            </div>
+        </div>
+    </section>
+    <script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+	<script src="../js/common.js?20210106" type="text/javascript"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script>
+		var range = "";
+    	//过滤年龄 注释
+    	
+		var url = App.projectNm + "/account/query_user_info_wap?date=" + (new Date()).getTime();
+		App.getNoJump(url, null, function (result) {
+			if (result.returnCode == 0){
+				App.setSession(App.userInfo, result.body);
+				var age = result.body.age;
+				if(age >= 55){
+					range = "05";
+				}else if(age >= 50 && age < 55){
+					range = "04";
+				}else if(age >= 45 && age < 50){
+					range = "03";
+				}else if(age >= 40 && age < 45){
+					range = "02";
+				}else if(age > 0){
+					range = "01";
+				}
+				$("#tab_3").hide();
+				$("#tab_yl").show();
+        	}else{
+        		$("#tab_yl").hide();
+        		$("#tab_3").show();
+        	}
+        	console.log(range)
+        });
+        
+		var fundgroupType = "06";
+        $(function(){
+
+            $(".tab1 li").click(function(event){
+                if ($(this).hasClass("active")) {
+                    return;
+                }
+                $(this).addClass("active").siblings().removeClass('active');
+                $(this).parent().siblings().hide().eq($(this).index()).show()
+                //("01", "智能投顾组合"),("02", "养老组合"),("03", "指数宝"),("06","策略组合")
+
+                if($(this).index() == 0){ //策略组合
+                    fundgroupType = "06";
+
+                } else if ($(this).index() == 1){ //指数宝
+                    fundgroupType = "03";
+                    
+                } else if ($(this).index() == 2){ //添富智投
+                    fundgroupType = "01";
+                    
+                } else if ($(this).index() == 3){ //添富养老
+                    fundgroupType = "02";
+                    
+                }
+				queryGroupList(fundgroupType);
+				$("#tab_3").hide();
+            });
+			
+            $(".tab3 li").click(function(event){
+                if ($(this).hasClass("active")) {
+                    return;
+                }
+                $(this).addClass("active").siblings().removeClass('active');
+                $(this).parent().siblings().hide().eq($(this).index()).show()
+                //("01", "智能投顾组合"),("02", "养老组合"),("03", "指数宝"),("06","策略组合")
+
+                if($(this).index() == 0){ //策略组合
+                    fundgroupType = "06";
+
+                } else if ($(this).index() == 1){ //指数宝
+                    fundgroupType = "03";
+                    
+                } else if ($(this).index() == 2){ //添富智投
+                    fundgroupType = "01";
+                    
+                } else if ($(this).index() == 3){ //添富养老
+                    fundgroupType = "02";
+                    
+                }
+				queryGroupList(fundgroupType);
+				$("#tab_yl").hide();
+            });
+			
+		queryGroupList(fundgroupType);
+    });
+
+
+
+
+        function queryGroupList(fundgroupType) {
+            var url = "/productcenter/v1/new/info/fundgroup/list/fundgroup-type/collections?fundgroupType=" + fundgroupType;
+            App.get(url, null, function(result){
+				if (result.body != undefined && result.body != null){
+                    var fundGroupList = result.body;
+					$(".for_zhitou").html("");
+					$(".for_index").html("");
+					$(".for_yanglao").html("");
+					$(".for_combination").html("");
+                    if (fundGroupList != undefined && fundGroupList != null){
+                        for(var i in fundGroupList) {
+							
+                            setPanel(i,fundGroupList[i], fundgroupType);
+                        }
+						if(fundgroupType == "06"){//追加A0080数据
+							var url = "/productcenter/v1/new/info/fundgroup/list/fundgroup-type/collections?fundgroupType=01";
+							App.get(url, null, function(result){
+								if (result.body != undefined && result.body != null){
+									var fundGroupList = result.body;
+									if (fundGroupList != undefined && fundGroupList != null){
+										for(var i in fundGroupList) {
+											if(fundGroupList[i].groupId == "A0080"){
+												setPanel(i,fundGroupList[i], fundgroupType);
+											}
+										}
+									}
+								}
+							});
+						}
+                    }
+                }
+            });
+        }
+
+        function setPanel(i,fundGroup, fundGroupType) {
+
+			var margin = 'margin-t20';
+            var fundGroupId = fundGroup.groupId;
+            var fundGroupName = fundGroup.groupName;
+
+            var displayYield = fundGroup.yearReturn;
+            var displayYieldTypeNm = "最近一年收益率";
+            var displayYieldDesc = "该组合最近一年以来收益率。组合收益率根据组合中各基金的占比和净值变化测算得到，历史业绩仅作参考，不作为对未来业绩的承诺或预测。";
+
+            //稳稳小确幸展示上线以来
+            if (fundGroupId == "A0080") {
+                displayYield = fundGroup.fromOnlineReturn;
+                displayYieldTypeNm = "上线以来";
+                displayYieldDesc = "该组合上线以来收益率。组合收益率根据组合中各基金的占比和净值变化测算得到，历史业绩仅作参考，不作为对未来业绩的承诺或预测。";
+            }
+
+            var displayYieldColor = "red";
+            if(App.isNotEmpty(displayYield) && displayYield != "-" && displayYield != "--" && Number(displayYield) < 0){
+                displayYieldColor = "green";
+            }
+            if(App.isEmpty(displayYield)){
+            	if(displayYield == "0" || displayYield == "0.0"){
+            		displayYield = "0.0%";
+            	}else{
+            		displayYield = '--';
+            	}
+            }else{
+            	displayYield = displayYield+'%';
+            }
+            var dayYield = fundGroup.dailyGrowthRate;
+            var dayYieldDt = fundGroup.latestNavDate;
+            if(App.isEmpty(dayYieldDt)){
+                dayYieldDt = "--";
+            } else {
+                dayYieldDt = App.formatTargetDateStr("yyyy-MM-dd", App.strToDate(dayYieldDt))
+            }
+            if(App.isEmpty(dayYield)){
+            	if(dayYield == "0" || dayYield == "0.0"){
+            		dayYield = "0.00%";
+            	}else{
+                	dayYield = "--";
+                }
+            } else {
+                dayYield = dayYield.toFixed(2)+"%";
+            }
+			var yieldColor = "green";
+			if(dayYield.indexOf("-") == -1 || dayYield == "--"){
+				yieldColor = "red";
+			}
+            var iconClass = "icon-question1";
+
+            //red:#fb5c5f、#009944
+
+			var groupHtml = '            <div class="group1 '+margin+'" onclick="gotoDetailPage(\'' + fundGroupId + '\')" >'
+				+'<a href="javascript:;" class="group1_title">'
+				+'   <p>'+ fundGroupName +'</p>'
+				+'   <i></i>'
+				+'</a>'
+				+'<div class="group1_content">'
+				+'    <div class="content_l">'
+				+'        <p><span>'+ displayYieldTypeNm +'</span><i class="question" desc="'+displayYieldDesc+'"></i></p>'
+				+'        <p class="'+displayYieldColor+'">'+ displayYield +'</p>'
+				+'    </div>'
+				+'    <div class="content_r">'
+				+'        <p>日涨跌幅('+ dayYieldDt +')</p>'
+				+'        <p class="'+yieldColor+'">'+dayYield+'</p>'
+				+'    </div>'
+				+'</div>'
+			+'</div>';
+            if(fundGroupType == "01"){//过滤掉A0080
+				if(fundGroupId == "A0080"){
+					return ;
+				}
+                $(".for_zhitou").append(groupHtml);
+				$(".for_zhitou").show();
+            } else if(fundGroupType == "02"){
+            	if(range != ""){//有年龄显示对应数据 否则全部显示
+					if(range != fundGroup.ageRange){
+						return;
+					}
+				}
+				if(App.isEmpty(groupHtml)){
+					$(".for_yanglao").html("<div style=\" position: fixed; text-align: center; width: 100%; top: 30%;\">您还未实名，请先去绑卡实名后，再来购买</div>");
+				} else {
+					$(".for_yanglao").append(groupHtml);
+				}
+				$(".for_yanglao").show();
+            }else if(fundGroupType == "03"){
+
+                $(".for_index").append(groupHtml);
+				$(".for_index").show();
+            } else if(fundgroupType == "06") {
+
+                $(".for_combination").append(groupHtml);
+				$(".for_combination").show();
+            }
+
+            $(".question").click(function (e) {
+				$(".answer_text").html($(this).attr("desc"));
+                $(".mask").show();
+				e.stopPropagation();
+            });
+            $(".close").click(function () {
+                $(".mask").hide();
+            });
+
+
+        }
+            $(".text2").each(function(){
+                // console.log($(this).html());
+                if(($(this).html().replace(/(^\s*)|(\s*$)/g, "").length)>=20){
+                    $(this).removeClass("wordwrapping");
+                }else{
+                    $(this).addClass("wordwrapping");
+                }
+            })
+
+        function gotoDetailPage(fundgroupId) {
+            if(fundgroupId == "A0081"){
+                window.location.href = "../fundgroup/group_fund_details_xjj.html?groupId=" + fundgroupId;
+            } else if(fundgroupId == "A0069"){
+                window.location.href = "../fundgroup/follow_me_details.html?groupId=" + fundgroupId;
+            } else {
+                window.location.href = "../fundgroup/group_fund_details.html?groupId=" + fundgroupId;
+            }
+        }
+
+    </script>
+</body>
+</html>

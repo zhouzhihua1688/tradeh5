@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!--<meta charset="GBK">-->
+	 <meta charset="utf8">
+	<title>投资目标</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../css/topfund/base.css">
+	<script type="text/javascript" src="../js/lib/zepto.min.js"></script>
+	<script type="text/javascript" src="../js/common.js?20210106"> </script>
+
+	<script>
+       	setFont();
+		window.onresize = function () {
+			setFont();
+		}
+		function setFont() {
+			var windowWidth = document.documentElement.clientWidth;
+			windowWidth = windowWidth > 750 ? 750 : windowWidth;
+			document.documentElement.style.fontSize = windowWidth / (750 / 40) + "px";
+		}
+	</script>
+	<style type="text/css">
+		body { background-color: #fff;}
+		ul li p { font-size: .7rem; color: #000000; line-height: 1.5;}
+		ul li { padding: 1.1rem .75rem 0;}
+	</style>
+</head>
+<body>
+	<ul>
+		<li><p id="investtarget"><!--本资产管理计划拟通过受让标的资产，并且通过资金监管确保支付的受让价款资金专项用于目标项目的开发建设支出，以追求资产管理计划的相对稳定增值。--></p></li>
+	</ul>
+	<script>
+
+		$("#investtarget").html(App.getSession("investtarget"));
+	</script>
+</body>
+</html>

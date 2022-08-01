@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>止盈或到期处理方式</title>
+    <link rel="stylesheet" href="css/base.css">
+    <script src="../base/js/baseHead.js"></script>
+    <style>
+        * {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .flex {
+            display: flex;
+            align-items: center;
+        }
+
+        .flexB {
+            justify-content: space-between;
+        }
+        .font-color{
+            color: #666;
+        }
+        .padding{
+            padding:0.95rem 1.25rem;
+        }
+        .cirClick{
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            border: none;
+            background: #fb5c5f;
+        }
+        .cirClick::after{
+            display: block;
+            content: '\2714';
+            clear: both;
+            color: #fff;
+            text-align: center;
+            line-height: 0.75rem;
+        }
+        .cir{
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            border: 1px solid #9b9b9b;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id='app' >
+        <div class="padding" style="background: #fff;">
+            <div class="flex flexB">
+                <div>自动转入新策略</div>
+                <div class="cirClick" id="cir1"></div>
+            </div>
+            <br>
+            <div class="font-color" style="width: 85%;">达到止盈目标或到期后,自动转出再转入到同类型的投顾策略中,继续享受投顾服务;若当期无销售中的同类策略,则转出资金默认充值到现金宝</div>
+        </div>
+        <div class="padding" style="background: #fff;margin-top: 1px;">
+            <div class="flex flexB">
+                <div>转出到现金宝</div>
+                <div class="cir" id="cir2"></div>
+            </div>
+            <br>
+            <div class="font-color" style="width: 85%;">
+                达到止盈目标或到期后,转出资金充值到现金宝。
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="../base/js/utils.js"></script>
+    <script src="../base/js/lib/vue.min.js"></script>
+    <script>
+        $('#cir2').click(function() {
+            $('#cir2').removeClass('cir').addClass('cirClick')
+            $('#cir1').removeClass('cirClick').addClass('cir')
+        })
+        $('#cir1').click(function() {
+            $('#cir1').removeClass('cir').addClass('cirClick')
+            $('#cir2').removeClass('cirClick').addClass('cir')
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>交易查询</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/trade/base.css">
+    <link rel="stylesheet" href="../css/trade/transation.css">
+    <style>
+        body { background-color: #efeff4;}
+        .query-list { padding-bottom: 0; margin-bottom: 0;}
+        #wrapper{
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0rem;
+            overflow: hidden;
+            z-index: 1;
+            background-color: #ccc;
+        }
+
+        .more{
+            height: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+        .pull_icon{
+            width: 25px;
+            height: 25px;
+            background-image: url('../images/trade/pull.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 25px;
+            transition: all .5s;
+        }
+        .more span{
+            padding-left: .5rem;
+        }
+
+        .scroller{
+            background-color: #fff;
+        }
+
+
+        .more .flip{
+            transform: rotate(180deg);
+        }
+        .loading{
+            background-image: url('../images/trade/loading.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 25px;
+        }
+        .more .loading{
+        -webkit-transform: rotate(0deg) translateZ(0);
+        -webkit-transition-duration: 0;
+        -webkit-animation-name: loading;
+        -webkit-animation-duration: 2s;
+        -webkit-animation-iteration-count: infinite;
+        -webkit-animation-timing-function: linear;
+        }
+
+        @-webkit-keyframes loading {
+        from {
+            -webkit-transform: rotate(0deg) translateZ(0);
+        }
+        to {
+            -webkit-transform: rotate(360deg) translateZ(0);
+        }
+        }
+        
+		.transaction-btn{
+		    position: fixed;
+		    width: 100%;
+		    height: 3rem;
+		    left: 0;
+		    border-top: solid 1px #d5d5d5;
+		    bottom: 0;
+		    box-shadow: 0px -3px 10px #cccccc;    
+		    z-index: 1;
+		}
+		.transaction-btn a{
+		    background-color: #fff;
+		    display: block;
+		    text-align: center;
+		    height: 3rem;
+		    line-height: 3rem;
+		    font-size: 16px;
+		}
+    </style>
+</head>
+<body>
+
+    <!-- <header class="query-list">
+        所有交易暂时注释<i></i>
+    </header> -->
+    <div id="wrapper">
+        <div class="scroller">
+            <div class="content">
+                    <ul></ul>
+                </div>
+            <div class="more"><i class="pull_icon"></i><span>上拉加载...</span></div>
+        </div>
+    </div>
+   
+    <div class="layer animated slideInDown" id="transactionType" style="display: none">
+        <ul class="grid-list">
+            <li class="grid-list-item heigth-80 bottom-border frist-li current">
+                <div class="clearfix">
+                    <span class="fl">所有交易</span><i class="fr"></i>
+                </div>
+            </li><!--暂时注释
+            <li class="grid-list-item heigth-80 bottom-border">
+                <div>
+                    <span>现金宝交易</span><i class="fr"></i>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-80 bottom-border">
+                <div>
+                    <span>基金交易</span><i class="fr"></i>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-80 bottom-border">
+                <div>
+                    <span>高端理财交易</span><i class="fr"></i>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-80 bottom-border">
+                <div>
+                    <span>信用卡还款</span><i class="fr"></i>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-80 bottom-border">
+                <div>
+                    <span>定期理财交易</span><i class="fr"></i>
+                </div>
+            </li>
+-->
+        </ul>
+    </div><!--
+<div class="transaction-btn">
+    <a id="querySwitchBtn" href="javascript:void(0);">查询设置</a>
+</div>
+   -->
+    <ul style="display: none;" class="demo">
+<!--        <li class="clearfix">
+            <div class="fl">
+                <p>赎回至现金宝(汇添富美元债债券（QDII）美元现汇,A)</p>
+                <span class="font-arial">20,000,000,200.00 元</span>
+            </div>
+            <div class="fr">
+                <p class="font-arial">20,000,000,200.00 元</p>
+                <span class="leave">已撤单</span>
+            </div>
+        </li>-->
+    </ul>
+
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/account/trade-base.js"></script>
+<script type="text/javascript" src="../js/trade/iscroll.js"></script>
+<script type="text/javascript" src="../js/common.js?20210106"></script>
+<script type="text/javascript" src="../js/trade/trade.js"></script>
+</body>
+</html>

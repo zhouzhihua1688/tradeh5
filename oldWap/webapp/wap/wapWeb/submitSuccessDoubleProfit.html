@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	 <meta charset="utf-8">
+	<!--<meta charset="utf8">-->
+	<title>活动</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="css/doubleprofitbase.css">
+	<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<style type="text/css">
+		.font-arial{ font-family: Arial; }
+		button { outline: none; }
+		section{ background-color: #fa4d53; }
+		img { vertical-align: top; display:block; border: 0;}
+		.left{ float: left; }
+		.right{ float: right; }
+		.hide { display: none; }
+		.hide { display: none; }
+		.blank-20 { height: 20px; }
+		.font-24 { font-size: 0.32rem; }
+		.font-26 { font-size: 0.35rem; }
+		.font-28 { font-size: 0.37rem; }
+		.font-30 { font-size: 0.4rem;}
+		.text-center { text-align: center; }
+		.black { color: #333333; }
+		.margin-bottom-20 { margin-bottom: 20px;}
+		p { line-height: 1.5; }
+		table { width: 100%; }
+		.btn-yellow { width: 40%;height: 0.8rem; line-height: 0.8rem;border-radius: 0.4rem; background-color: #fac54c;display:block;margin: 0 auto; font-size: 0.32rem;color: #fa4d53;text-align: center; }
+		.btn-block { width: 80%;  }
+		.btn-big { height: 0.9rem;line-height: 0.9rem; border-radius: 0.45rem; font-size: 0.40rem;}
+		.btn-hyacinth { background-color: #f74c52; color:#fbd15f;}
+		.bolder { font-weight: bolder;}
+
+
+		.content1 { position: relative; }
+		.content1 .btn-group { position: absolute; top: 0.33rem; right: 0.3rem; }
+		.content1 button {  font-size: 12px;  height: 28px; background: none; border: 1px solid #fa4d53; border-radius: 14px; padding: 0 10px; }
+		.content2 { position: relative;top:-1px; }
+		.content2 time { position: absolute;top:0;margin: 0 0.3rem; }
+		.content3 {	/*background: url(img/bg_04.png) no-repeat; background-size: cover;*/position: relative;top:-2px;}
+		.content3 div { position: absolute; top: 0; padding: 0 0.4rem;width: 9.2rem;}
+		.content3 div p { color: #fa4d53; text-align: center; font-weight: bolder; padding: 1rem 0 0.75rem; }
+		.content3 ol li { width: 50%;}
+		.content3 ol a { width: 70%; margin: 0 0.2rem;}
+
+		.content5 { padding: 0 0.3rem 80px; background-color: #fa4d53; font-size: 0.32rem; margin-top: -3px;}
+		.content5 h4 {  line-height: 0.9rem;height: 0.9rem; color: #fed5b5; text-align: center; }
+		.content5 p { color: #fed5b5; line-height: 1.5; text-align: justify; margin: 10px 0; word-wrap: break-all;}
+		.content5 table th,.content5 table td { background: #fed5b5; padding: 0.2rem 0.29rem; border-radius: 4px;  }
+		.content5 table th { color: #fa4d53; }
+		.content5 table td { color: #333333; }
+
+		.layer { display: none; position: fixed; top: 0;left: 0;  background-color: rgba(0,0,0,0.7) ; height: 100%; width: 100%; overflow: auto; font-size: 0.32rem;}
+		.layer-wrap { width: 8.26rem; margin: 1.38rem auto;}
+		.layer-heading { background: url(img/model_bg.png) no-repeat; height: 1.6rem; width: 8.26rem; border-radius: 5px 5px 0 0;}
+		.layer-heading a { position: absolute; display: inline-block; width: 0.64rem; height: 0.6rem; padding-top: 0.2rem; font-size: 0.5rem;  margin-left: 0.5rem;
+			color: #333333;  border-radius: 0 0 0.3rem 0.3rem;  background-color: #fff; text-align: center;font-weight: bolder; }
+		.layer-heading h4 { text-align: center;line-height: 1.6rem; color: #c31628;font-size: 0.48rem; font-weight: bolder;}
+		.layer-body { background-color: #fff;  border-radius: 0 0 5px 5px ; min-height: 3.2rem; padding: 0.5rem}
+
+		.phone { width: 80%; height: 0.8rem; margin: 0 auto; display: block; border: 1px solid red; padding: 0 15px;  box-sizing: border-box; border-radius: 0.4rem; font-size: 0.32rem; }
+		#rules ul li { padding-left: 10px; }
+		#rules ul li i { float: left;width: 10px; border-radius: 50%; height: 10px; background-color: #fcdc70;margin-left: -0.4rem; margin-top: 0.1rem;}
+		#lottery .mobile-error { height: 20px; font-size: 12px; color: red;  width: 80%; height: 0.8rem; margin: 0 auto; padding-left: 15px;}
+	
+	</style>
+	
+</head>
+<body>
+	<section class="content1">
+		<img src="img/header.jpg">
+		<img src="img/banner_02.jpg" alt="">
+		<div class="btn-group">
+			<button class="rules-btn">活动规则</button>
+		</div>
+	</section>
+	<section class="content2">
+		<img src="img/bg_01.jpg" alt="">
+		<time>活动时间：即日起<!-- <span id="startDateStr"></span>至<span id="endDateStr"></span> --></time>
+	</section>
+	<section class="content3">
+		<img src="img/bg_02.jpg" alt="">
+		<div>
+			<p class="font-30">感谢配合我们的体验调研，您在问卷抽奖中<br>获得了连续3天现金宝收益翻倍奖励哦~！</p>
+			<ol>
+				<li class="left"><a class="btn-yellow btn-block btn-hyacinth  right" href="../wezhan/service.html">返回首页</a></li>
+				<li class="right"><a class="btn-yellow btn-block" href="http://www.99fund.com/m.htm">马上投资</a></li>
+			</ol>
+		</div>
+	</section>
+	<section class="content5">
+		<h4>举个例子</h4>
+		<p class="bolder">新用户王先生于6月12日10：00参加活动获得收益翻倍奖励，6月12日12：00（周一）现金宝余额为50000元，6月13日（周二）18：00有事转出15000元（普通取现），6月14日10：00（周三）充值5000元，6月15日13：00（周四）有事转出20000元（普通取现），则：</p>
+		<p>现金宝七日年化收益率4.176%，日每万份净收益1.1265（数据截至2017年6月8日，数据来自汇添富基金官网）。交易日15：00前申购赎回现金宝份额当日确认，15：00后申购赎回现金宝份额下一个交易日确认。</p>
+		<table>
+			<thead>
+				<tr>
+					<th style="width:20%;">到账时间</th>
+					<th style="width:55%;">正常收益金额</th>
+					<th >翻倍后总收益金额</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>6月13日</td>
+					<td> <span>5*1.1265=5.63</span>元</td>
+					<td style="text-align: center; "><span>11.26</span>元</td>
+				</tr>
+				<tr>
+				<td>6月14日</td>
+					<td> <span>5*1.1265=5.63</span>元 </td>
+					<td style="text-align: center; "><span>11.26</span>元</td>
+				</tr>
+				<tr>
+				<td>6月15日</td>
+					<td><span>4*1.1265=4.51</span>元</td>
+					<td style="text-align: center; "><span>9.02</span>元</td>
+				</tr>
+				<tr>
+				<td>6月16日</td>
+					<td> <span>2*1.1265=2.25元</span></td>
+					<td style="text-align: center; ">2.25元（无翻倍收益）</td>
+				</tr>
+			</tbody>
+		</table>
+		<div>
+			<p>王先生6.13-6.15获得翻倍后总收益为<span>11.26+11.26+9.02=31.54</span>元。</p>
+		</div>
+	<div ><p style="padding-top:30px;font-size: 12px;color: #7C7C7C;">
+	风险提示：购买货币基金并不等于将资金作为存款存放在银行或存款类金融机构，不保证一定盈利，也不保证最低收益。基金投资需谨慎。请仔细阅读活动规则。</p></div>
+	</section>
+	<!-- 活动规则 -->
+	<div class="layer" id="rules">
+		<div class="layer-wrap">
+			<div class="layer-heading">
+				<a class="close">×</a>
+				<h4>活动规则</h4>
+			</div>
+			<div class="layer-body">
+			 	<ul>
+			 		<li><i class=""></i><p class=" font-26 black">1、活动时间：即日起。</p></li>
+			 		<li><i class=""></i><p class=" font-26 black">2、本次活动仅面向汇添富基金的新用户。新用户学习投资者教育知识并进行答题抽奖，有机会获得现金宝货币基金连续3天收益翻倍奖励（即在货币基金本身收益之外获得一倍奖励）。</p></li>
+			 		<li><i class=""></i><p class=" font-26 black">3、收益翻倍时间为<b>活动期间首次投资后正常起息日起连续三天</b>。本次活动产品是现金宝货币基金，每天享翻倍收益的<b>本金上限5万元</b>。</p></li>
+			 		<li><i class=""></i><p class=" font-26 black">4、用户每日翻倍收益以翻倍期间每日现金宝账户金额存量为准，活动期间的每日翻倍收益在和正常产生收益的同步以红包的形式发送至账户，用户可登录现金宝APP“<b>我的账户</b>”—“<b>我的活动</b>”—“<b>我的加倍收益</b>”<b>页面</b>查看。3天翻倍收益都产生后才可领取奖励，需在30天有效期内领取，逾期不领视为自动放弃。</p></li>
+			 		<li><i class=""></i><p class=" font-26 black">5、由于答题抽奖机会有限，先到先得，奖完为止；手机或证件号码相同都视为同一用户并以最早领取的记录为准。</p></li>
+			 		<li><i class=""></i><p class=" font-26 black">6、用户在本次活动中向本公司提供手机号码等个人信息的行为将视为同意本公司向其发送活动、产品或者服务信息。本公司将对用户提供的手机号码等个人信息采取严格的保密措施。</p></li>
+			 		<li><i class=""></i><p class=" font-26 black">7、参与本次活动的新用户应确保本人年满18周岁，且具备证券投资基金合格投资者的资格，否则由此引起无法领取奖励的情形，本公司不承担任何责任。奖品不含个人所得税，获奖者需自行承担、申报、缴纳。</p></li>
+			 		<li><i class=""></i><p class=" font-26 black">8、在法律法规的范围内，以上活动最终解释权归汇添富基金所有。如有任何疑问，请致电400-888-9918，按0转人工服务（免长途）。</p></li>
+			 		<li><i class=""></i><p class=" font-26 black">9、风险提示:购买货币基金并不等于将资金作为存款存放在银行或存款类金融机构，不保证一定盈利，也不保证最低收益。基金投资需谨慎。</p></li>
+			 	</ul>
+			</div>
+		</div>
+	</div>
+<script>
+	var windowWidth =  $(window).width();
+	windowWidth = windowWidth> 750 ? 750 : windowWidth;
+	$("html").css({"fontSize": windowWidth/10 });
+
+	// 老用户
+	$(".olderUser-btn").click(function(){
+		layerShow("#olderUser");
+	});
+
+	//规则
+	$(".rules-btn").on("click",function(){
+		layerShow("#rules");
+	});
+
+	function layerShow(selector){
+		$(document.body).css({ "overflow-x":"hidden","overflow-y":"hidden"});
+		$(selector).show();
+	}
+
+	function layerClose(){
+		$(document.body).css({  "overflow":"auto"});
+		$(".layer").hide();
+	}
+
+	$(".close").click(function(e){
+		$(document.body).css({  "overflow":"auto"});
+		$(this).parents(".layer").hide();
+	});
+
+	$(function(){
+		var startDateStr =  getUrlParam("startDateStr");
+		var endDateStr = getUrlParam("endDateStr");
+		$("#startDateStr").html(startDateStr);
+		$("#endDateStr").html(endDateStr);
+	});
+	
+	function getUrlParam(key) {
+	        var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)", "i");
+	        var r = window.location.search.substr(1).match(reg);
+	        if (r != null) {
+	            return unescape(r[2]);
+	        }
+	        return "";
+	}
+</script>
+</body>
+</html>

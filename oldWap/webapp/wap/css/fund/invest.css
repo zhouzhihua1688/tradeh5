@@ -1,0 +1,190 @@
+body{
+    font-size: 15px;
+}
+.top-bar .left{
+    width: 33%;
+    text-align: left;
+}
+.top-bar .mid {
+    text-align:center;
+}
+.top-bar .right{
+    width: 33%;
+    text-align: right;
+}
+.invest-box{
+    height: 43px;
+    display:-webkit-box;
+    border-radius: 4px;
+}
+.invest-type{
+    width: 100%;
+    margin-top: 5px;
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+
+.invest-type .button{
+    width: 25%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+}
+.f-left{
+    border: 1px orange solid;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+.f-right{
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border: 1px orange solid;
+}
+.item{
+    width: 100%;
+    display:-webkit-box;
+    line-height: 28px;
+}
+.item .leftbox{
+    margin-left: 5px;
+    width: 45%;
+}
+.fund_list .line{
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px #d7d7d7 solid;
+    margin: 5px 0 5px 0;
+}
+.fund_list {
+    background-color: #ffffff;
+    margin-top: 10px;
+    padding-top: 4%;
+    padding-bottom: 4%;
+}
+.right img{
+    padding-top:5px;padding-left: 5px;
+}
+.items{
+    margin-left: 5%;
+    width: 90%;
+}
+.alert-password-background {
+    position: absolute;
+    background-image: url(../../images/common/background-70.png);
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 640px;
+
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+
+.alert-dialog{
+    width: 240px;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+.alert-dialog .alert-title{
+    width: 100%;
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.alert-dialog .alert-subtitle{
+    width: 90%;
+    padding-bottom: 8px;
+    margin-left: 5%;
+}
+
+.alert-dialog .alert-input {
+    width: 88%;
+    margin-left: 5%;
+    border: 1px #ebebeb solid;
+}
+
+.alert-dialog .alert-button {
+    width: 100%;
+    margin-top: 9px;
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+
+.alert-dialog .alert-button .button-left{
+    width: 50%;
+    text-align: center;
+    border-top: 1px #ebebeb solid;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.alert-dialog .alert-button .button-right{
+    width: 50%;
+    text-align: center;
+    border-top: 1px #ebebeb solid;
+    border-left: 1px #ebebeb solid;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    box-sizing:border-box;
+}
+.button-style{
+    border: none;
+    background: none;
+    color: #2d6590;
+    width: 90%;
+    height: 100%;
+}
+
+
+.card-list33{
+    width: 100%;
+    border-bottom: 1px #cccccc solid;
+    height: 60px;
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+.card-list4{
+    width: 100%;
+    border-bottom: 1px #cccccc solid;
+    height: 60px;
+
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+.card-list22{
+    width: 100%;
+    border-bottom: 1px #cccccc solid;
+    height: 60px;
+
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+.button-area{
+    padding-top: 20px;
+}
+.rightbox{
+    width: 51%;
+}
+.content{
+    width: 100%;
+}
+
+.leftnm{
+    padding-top: 3px;
+}
+.leftimg{
+    padding-top: 3px;
+}
+/**
+ * Created by sun on 15-03-18.
+ */

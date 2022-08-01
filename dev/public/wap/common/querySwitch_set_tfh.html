@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>查询开关设置</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/wx/base.css">
+    <link rel="stylesheet" href="../css/wx/common.css">
+    <link rel="stylesheet" href="../css/wx/transation.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <style>
+        body { background-color: #fff;}
+        .submit{padding: 0;}
+        /*弹框1*/
+        .Bomb-box,.Bomb-box1,.Bomb-box2{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+        .Bomb-box .Bomb-box-main,.Bomb-box1 .Bomb-box-main,.Bomb-box2 .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+        .Bomb-box .Bomb-box-tips,.Bomb-box1 .Bomb-box-tips{  text-align: center;  color: #333;  font-size: 0.75rem;  height: 2.5rem;  line-height: 2.5rem;  }
+        .Bomb-box .Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+        .Bomb-box .Bomb-box-content p,.Bomb-box1 .Bomb-box-content p,.Bomb-box2 .Bomb-box-content p{  line-height: 1rem;  }
+        .Bomb-box .Bomb-box-ok,.Bomb-box1 .Bomb-box-ok,.Bomb-box2 .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+        .Bomb-box .no-tips,.Bomb-box1 .no-tips,.Bomb-box2 .no-tips{font-size: 0.7rem;padding: 1.7rem 1.5rem 1.15rem 1.5rem;text-align: center;}
+        .Bomb-box .text-center,.Bomb-box1 .text-center,.Bomb-box2 .text-center{text-align: center;}
+        .Bomb-box .Bomb-box-content,
+        .Bomb-box1 .Bomb-box-content,
+        .Bomb-box2 .Bomb-box-content{ padding:.75rem 1.5rem; }
+    </style>
+</head>
+<body>
+<div><img src="../images/common/top_icon.png" alt=""></div>
+    <div class="transaction-set">
+        <p class="title">设置资产是否可见</p>
+        <div>
+
+            <div class="input-box clearfix">
+                <label for="">查询功能</label><span class="transaction-on-off" obt="0"><img src="../images/common/icon_on_off.png" alt=""></span>
+            </div>
+
+            <a class="btn-big submit" href="javascript:;">确定</a>
+        </div>
+    </div>
+    <div class="download-type">
+        <p>全新手机现金宝下载</p>
+        <div class="clearfix two-size">
+            <a href="https://www.99fund.com/m.htm"><p class="fl"><i><img src="../images/common/icon-android.png" alt=""></i>iphone版下载</p></a>
+            <a href="https://www.99fund.com/m.htm"><p class="fr"><i><img src="../images/common/icon-ap.png" alt=""></i>Android版下载</p></a>
+        </div>
+    </div>
+
+    <!-- 提示弹窗 -->
+    <div class="Bomb-box" style="display: none;">
+        <div class="Bomb-box-main">
+            <div class="Bomb-box-content">
+                <p class="text-center"></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;">我知道了</a>
+        </div>
+    </div>
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/phone-size.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script type="text/javascript" src="../js/common.js?20210302"></script>
+<script>
+	function getUrlParam(key) {
+	    var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)", "i");
+	    var r = window.location.search.substr(1).match(reg);
+	    if (r != null) {
+	        return unescape(r[2]);
+	    }
+	    return "";
+	}
+	var flag = getUrlParam("flag");
+    if (flag==0){
+        $(".transaction-on-off").addClass('cur');
+        $(".transaction-on-off").attr('obt','1');
+    }else if (flag==1){
+        $(".transaction-on-off").removeClass('cur');
+        $(".transaction-on-off").attr('obt','0');
+    }
+
+    $(".submit").on("click",function () {
+    	var oid = getUrlParam("oid");
+
+
+//        查询开关的值
+        var transactionVal = $(".transaction-on-off").attr("obt");
+        /*验证密码*/
+		var channelCode = App.getCookie("channelCode");
+        var url = "/weixin/v1/offiaccount/switch/setSwitch?channelCode="+channelCode+"&queryFlag="+transactionVal;
+		var dataMap = {};
+
+
+        App.post(url, JSON.stringify(dataMap) , null , function(result){
+
+        	if(result.returnCode == "0"){
+				if(result.body){
+					window.location="set_successfully.html";
+				}else{
+					
+				}
+        	}else{
+                alertTips(result.returnMsg);
+				return;
+        	}
+        });
+    });
+
+//    关闭弹框
+    $(".Bomb-box-ok").on("click",function () {
+        $(".Bomb-box").hide();
+    })
+//    查询开关
+    $(".transaction-on-off").on("click",function () {
+        var dataObt=$(this).attr("obt");
+        if (dataObt==0){
+            $(this).addClass('cur');
+            $(this).attr('obt','1');
+        }else if (dataObt==1){
+            $(this).removeClass('cur');
+            $(this).attr('obt','0');
+        }
+    })
+</script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+</body>
+</html>

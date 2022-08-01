@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>税延养老</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <!--<link rel="stylesheet" href="css/payment.css">-->
+    <link rel="stylesheet" href="../css/base_v1.css">
+    <link rel="stylesheet" href="../css/taxExtension/accessRecord.css">
+    <link rel="stylesheet" href="../css/taxExtension/payment.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <style>
+        .red{
+            color:#fb5c5f !important;
+        }
+        .header {
+            position: relative;
+            width: 100%;
+            height: 7rem;
+            background: url("../images/taxExtension/header_home.png") no-repeat;
+            background-size: 100% 100%;
+            color:#fff;
+            text-align: center;
+        }
+
+        .header h4 {
+            padding-top: 1.25rem;
+            font-size: 0.7rem;
+            line-height: .7rem;
+        }
+        .header .total-assets{
+            padding-top: .75rem;
+            font-size: 1.75rem;
+            line-height: 1.75rem;
+            /*font-weight: bold;*/
+        }
+        .header .userinfo{
+            display: inline-block;
+            font-size: 0.6rem;
+            line-height: .6rem;
+            color:#fb5c5f;
+            padding:0.3rem 0.85rem;
+            background: #fff;
+            -webkit-border-radius: .6rem;
+            -moz-border-radius: .6rem;
+            border-radius: .6rem;
+            margin-top: .75rem;
+        }
+        .header .tips{
+            position: absolute;
+            right: .75rem;
+            top: .75rem;
+            font-size: 0;
+        }
+        .header .tips span,.header .tips i{
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .header .tips span{
+            font-size: 0.6rem;
+            margin-right: 0.25rem;
+            color:#fffefe
+        }
+        .header .tips i{
+            width: .75rem;
+            height: .75rem;
+            background: url("../images/taxExtension/wenhao.png") no-repeat;
+            background-size: 100% 100%;
+        }
+        .nav{
+            margin: .5rem 0;
+            background: #fff;
+            overflow: hidden;
+        }
+        .nav .navlist{
+
+        }
+        .nav .navlist a{
+            display: block;
+            width: 25%;
+            float: left;
+            text-align: center;
+            font-size: 0;
+            padding: 0.5rem 0 1rem 0;
+        }
+        .nav .navlist a img{
+            width: 1.25rem;
+            height: 1rem;
+        }
+        .nav .navlist a span{
+            display: block;
+            text-align: center;
+            font-size: 0.7rem;
+            color:#000;
+            margin-top: .5rem;
+        }
+        .content-header {
+            position: relative;
+            background: #fff;
+            line-height: 2.25rem;
+            border-bottom: 0.025rem #eeeeee solid;
+            padding:0 .75rem;
+            font-size: 0;
+        }
+
+        .content-header i, .content-header span {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .content-header i {
+            width: 0.45rem;
+            height: .5rem;
+            background: url("../images/icon_1.png") no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .content-header span:nth-of-type(1) {
+            font-size: .75rem;
+            color: #000000;
+            margin-left: 0.2rem;
+        }
+
+        .content-header span:nth-of-type(2) {
+            font-size: 0.65rem;
+            color: #666666;
+            margin-left: .5rem;
+        }
+        .content-header a{
+            position: absolute;
+            right: .75rem;
+            font-size: 0.65rem;
+            color: #666666;
+        }
+        .content .content-list ul li:nth-of-type(2) {
+            width: 6.5rem;
+            text-align: center;
+        }
+        .content .content-list ul li:nth-of-type(3) {
+            width: 4.25rem;
+            text-align: right;
+        }
+        .content .content-list ul li:nth-of-type(2) span:nth-of-type(1) {
+            margin-top: .75rem;
+            font-size: .75rem;
+        }
+        .content .content-list ul li:nth-of-type(2) span:nth-of-type(2) {
+            font-size: 0.6rem;
+            margin-top: .5rem;
+            color: #666666;
+        }
+        .content .content-list ul li:nth-of-type(2) span {
+            display: inline-block;
+            height: .75rem;
+            line-height: .75rem;
+        }
+        .content .content-list .status {
+            /*display: block;*/
+            line-height: 0 !important;
+        }
+        .content-list-title{
+            padding-left: .75rem;
+            border-bottom: 0.025rem #eeeeee solid;;
+            font-size: 0.7rem;
+            color:#000000;
+            overflow: hidden;
+        }
+        .content-list-title p{
+            height: 1.75rem;
+            line-height: 1.75rem;
+            float: left;
+        }
+        .content-list-title p:nth-of-type(1){
+            width: 6.5rem;
+            text-align: left;
+        }
+        .content-list-title p:nth-of-type(2){
+            width: 6.5rem;
+            text-align: center;
+        }
+        .content-list-title p:nth-of-type(3){
+            width: 4.25rem;
+            text-align: right;
+        }
+        .footers{
+            padding: .5rem 0;
+            position: relative;
+        }
+        .footers img{
+            display: block;
+        }
+        .footers a{
+            display: block;
+            position: absolute;
+            left:0;
+            top: .5rem;
+            width: 100%;
+            height: 5rem;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h4>养老账户总资产</h4>
+    <h2 class="total-assets" id="totalAsset"></h2>
+    <p class="userinfo"><span id="name"></span>，<span id="mobile"></span></p>
+    <div class="tips">
+        <span>常见问题</span><i></i>
+    </div>
+</div>
+
+<section id="panel">
+    <!--<div class="nav">
+        <div class="navlist">
+            <a href="javascript:;">
+                <img src="../images/taxExtension/navicon_01.png" alt="">
+                <span>立即购买</span>
+            </a>
+            <a href="javascript:;">
+                <img src="../images/taxExtension/navicon_02.png" alt="">
+                <span>自动购买</span>
+            </a>
+            <a href="javascript:;">
+                <img src="../images/taxExtension/navicon_03.png" alt="">
+                <span>账户信息</span>
+            </a>
+            <a href="javascript:;">
+                <img src="../images/taxExtension/navicon_04.png" alt="">
+                <span>交易查询</span>
+            </a>
+            <a href="javascript:;">
+                <img src="../images/taxExtension/navicon_05.png" alt="">
+                <span>税延计算器</span>
+            </a>
+            <a href="javascript:;">
+                <img src="../images/taxExtension/navicon_06.png" alt="">
+                <span>税延凭证</span>
+            </a>
+            <a href="javascript:;">
+                <img src="../images/taxExtension/navicon_07.png" alt="">
+                <span>存取记录</span>
+            </a>
+            <a href="javascript:;">
+                <img src="../images/taxExtension/navicon_08.png" alt="">
+                <span>更多</span>
+            </a>
+        </div>
+    </div>
+    <div class="content">
+        <div class="content-header">
+            <i></i>
+            <span>近期购买记录</span>
+            <span>省心理财，稳健回报</span>
+            <a href="javascript:;" >更多</a>
+        </div>
+        <div class="content-list-title">
+            <p>购买产品</p>
+            <p>购买金额</p>
+            <p>购买日期</p>
+        </div>
+        <div class="content-list">
+            <ul class="list">
+                <li class="zh">
+                    <span>汇添富税延养老1号
+                        <span></span><span>007892</span>
+                    </span>
+                </li>
+                <li class="status">
+                    <span >1000元</span><br>
+                    <span class="red">受理成功</span>
+                </li>
+                <li><span>2019-01-12</span><i class="choose "></i></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footers">
+        <img src="../images/taxExtension/footers.png" alt="">
+        <a href="javascript:;"></a>
+    </div>-->
+</section>
+
+<div class="mask"></div>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <p class="Bomb-box-tips" style="padding-top: 0.75rem;"></p>
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;">确定</a>
+    </div>
+</div>
+
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script type="text/javascript" src="../js/common.js?20210106"></script>
+<script type="text/javascript" src="../js/layout.js"></script>
+<script type="text/javascript" src="../js/taxExtension/taxIndex.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>取现</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/account/cash.css">
+    <link rel="stylesheet" type="text/css" href="../css/fund/payment.css">
+	<script src="../js/lib/phone-size.js"></script>
+    <script>
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            screenWidth = screenWidth > 750 ? 750 : screenWidth;
+            oHtml.style.fontSize = screenWidth / 7.5 + 'px';
+        }
+    </script>
+    <style>
+/*弹窗样式*/
+.common_layer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    font-size: 0.6rem;
+    z-index: 999;
+}
+
+.common_layer-wrap {
+    border-radius: 5px;
+    width: 6rem;
+    height: auto;
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    /*padding-left:1rem;*/
+    padding-top: .5rem;
+    background: #fff;
+    text-align: center;
+    font-size: 0.7rem;
+}
+
+.common_layer-wrap p {
+    text-align: center;
+    font-size: 0.35rem;
+    margin-bottom: .2rem;
+}
+.common_layer-left nav {
+   font-size: .75rem;
+   color: #000;
+   font-weight: 900;
+   margin-bottom: 1rem;
+}
+.common_layer-left p {
+    padding:0 1rem;
+
+    text-align: left;
+
+}
+.common_layer-left p:nth-of-type(2){
+    margin-bottom: .5rem;
+}
+.common_layer-left p:last-of-type{
+    margin-top: .5rem;
+}
+.common_xiantiao {
+    border-bottom: 1px solid #eeeeee;
+    width: 100%;
+    margin-top: .5rem;
+}
+
+.common_check {
+    font-size: 0.75rem;
+    display: block;
+    height: 2.35rem;
+    line-height: 2.35rem;
+    text-align: center;
+    color: #006bfe;
+}
+
+.common_check1 {
+    font-size: 0.4rem;
+    display: block;
+    height: 1rem;
+    line-height: 1rem;
+    text-align: center;
+    color: #006bfe;
+}
+       .tips {display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; background-color: rgba(0, 0, 0, 0.507); font-size: .3rem; }
+
+        .tips>div {background: #fff; position: absolute; left: 10%; right: 10%; top: 50%; transform: translateY(-50%); padding:.1rem .1rem 0; border-radius: .1rem; }
+
+        .tips .tips_text {padding: .35rem; border-bottom: 1px solid #eee; }
+
+        .tips .button {display: flex; align-items: center; text-align: center; }
+
+        .tips .button span {margin-top: .1rem; padding: .25rem 0; margin-bottom: .1rem; width: 50%; color: #1370fa; }
+
+        .tips .button span:nth-of-type(1) {border-right: 1px solid #eee;}
+        .dim {
+            color: #666666;
+            line-height: .35rem;
+            padding: .15rem .35rem;
+        }
+        .checkBox {
+            vertical-align: middle;
+            margin-top: -.1rem;
+            height: .2rem;
+            width: .2rem;
+            margin-right: .2rem;
+        }
+    </style>
+</head>
+<body>
+
+<div id="alert-password-div" style="display: none;">
+<div class="alert-password-background">
+    <div class="alert-dialog">
+        <div class="alert-title f-black f16">请输入交易密码</div>
+        <div class="alert-subtitle f12" id="alert_info"></div>
+        <div><input class="alert-input" id="pwd" type="password" maxlength="6"></div>
+        <div class="alert-button"><div class="button-left"><input type="button" class="button-style" id="cancel" value="取消"></div><div class="button-right"><input type="button" class="button-style" id="confirm" value="确定"></div></div>
+    </div>
+</div>
+</div>
+<div id="selected_card_panel" style="display: none;">
+    <div class="top-bar">
+        <div class="f-white f18"></div>
+    </div>
+    <div id="cards_panel" class="banklist"></div>
+</div>
+<div class="active_content" id="takecash_panel">
+    <div class="active_layer">
+        <div class="c_bank"  id="card_div_btn">
+            <div class="pic left">
+                <i id="card_list_bankIco" class=""></i>
+            </div>
+            <div class="c_bank_info left">
+                <h3 id="card_list_bankNm"></h3>
+                <p id="card_list_displayAcco"></p>
+            </div>
+
+        </div>
+        
+        
+        <!-- 取现方式 -->
+        <div class="cash_type">
+        	<input type="hidden" value="" id="next_date">
+        	<input type="hidden" value="" id="cashBalance">
+        	
+            <div class="c_type selected" data="1">
+                <div><h4>快速取现</h4><p id="takeTp_nextDate"></p></div>
+            </div>
+            <div class="c_type" style="border: none;" data="0">
+                <div><h4>普通取现</h4><p id="next_date2"></p></div>
+            </div>
+        </div>
+        <!-- 取现金额 -->
+        <div class="cash_amount">
+            <h2>取现金额</h2>
+            <div class="input_box">
+                <input type="number" id="amount" maxlength="10" name="cash" placeholder="输入取现金额">
+                <p class="right" style="line-height: 0.44rem;width: auto;" id="all">全部取出</p>
+            </div>
+            <h6>本卡可取现额度<span  id="limit_text"></span>元
+            <img src="../images/point.png" class="icon" alt="" style="width: 0.3rem;height: 0.3rem;position: relative;top: .05rem;">
+            <p class="fr" style="color: rgba(20,140,230,1);touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"  id="takeRule">取现规则</p>
+            </h6>
+        </div>
+        <!-- 取现规则 
+        <div class="c_rule" id="takeRule">
+            <p >取现规则</p>
+        </div>-->
+		<p class="dim" style="display:none;"><img class="checkBox" src="../images/checked.png" alt="">同意<a href="https://trade.99fund.com/common/realcash_agreement_card.html" style="color: rgba(20,140,230,1);touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">《快速取现服务协议》</a></p>
+        <!-- 确定 -->
+        <div class="makesure">
+            <a id="next_btn">确认</a>
+        </div>
+        <!--<p class="intr" id="date_txt">预计最快于下个交易日1:00到账，实际以银行入账时间为准…</p>-->
+    </div>
+
+</div>
+    <div class="common_layer" id="lottery1">
+        <div class="common_layer-wrap">
+            <p id="common_msg">解绑成功！</p>
+            <div class="common_xiantiao">
+            </div>
+            <a href="javascript:void(0)" class="common_check1">我知道了</a>
+        </div>
+    </div>
+    <!-- 弹窗 -->
+    <div class="tips" id="conf_alert">
+        <div>
+            <p class="tips_text"  id="conf_msg"></p>
+            <a href="javascript:;"><p class="button"><span id="take">知道了</span><span id="viewMore">查看详情</span></p></a>
+        </div>
+    </div>
+    
+    <div class="tips" id="tips_alert">
+        <div>
+            <p class="tips_text" id="tips_msg"></p>
+            <a href="javascript:;"><p class="button"><span id="take2">知道了</span><span id="viewMore2">查看详情</span></p></a>
+        </div>
+    </div>
+	<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+	<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../js/lib/weixin.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script type="text/javascript" src="../js/common.js?20210106"></script>
+	<script type="text/javascript" src="../js/account/cash.js?20200708"></script>
+<script>
+    $('.c_type').click(function(){
+        $(this).addClass('selected').siblings('.c_type').removeClass('selected');
+        selectType($(this).attr("data"));
+    })
+    $("#all").click(function(){
+    	$("#amount").val($("#limit_text").html().replace(/,/g, ""));
+    });
+    
+    $(".common_check1").click(function () {
+        $("#lottery1").hide()
+    })
+</script>
+</body>
+</html>

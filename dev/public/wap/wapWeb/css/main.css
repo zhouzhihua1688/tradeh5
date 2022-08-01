@@ -1,0 +1,620 @@
+html{
+    min-height: 100%;
+    position: relative;
+}
+
+.logo{
+    background-color: #fff;
+    padding: 2% 5%;
+}
+.logo img{
+    width: 60%;
+}
+.title{
+    background-color: #fe7e01;
+    height: 2.2em;
+    line-height: 2.2em;
+    text-align: center;
+    color: #fff;
+    font-weight: normal;
+    margin: 0;
+}
+.nav{
+    padding: 7% 5% 5%;
+    overflow: hidden;
+}
+/* S modal of input password */
+.modal-fade {
+    width:80%;
+    position: fixed;
+    top: 50%;
+    left:50%;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    z-index: 1060;
+}
+div.mask {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    overflow: hidden;
+    background-color:rgba(0,0,0,0.5);
+}
+.btn-confirm {
+    background-color:#fe7e01;
+    color: #fff;
+    border-radius: 5px;
+}
+.btn-cancel{
+    border: 1px solid #dddddd;
+    background-color:#fdfdfd;
+    color: #555;
+    border-radius: 5px;
+}
+.center-block {
+    display: block;
+    margin-right: auto!important;
+    margin-left: auto!important;
+}
+.modal-body{
+    text-align:center;
+    background-color: #f5f5f5;
+    padding-bottom: .5em;
+    border-radius: 5px;
+}
+.modal-body .notice{
+    text-align: left;
+    margin-top: 0;
+    line-height: 1.3em;
+    font-size: 1em;
+}
+.modal-title{
+    height: 1em;
+    line-height: 1em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #dddddd;
+}
+.modal-middle{
+    margin-top: 1.5em;
+}
+
+.addcolor{
+    color: #fe7e01;
+}
+
+
+ul, li{margin: 0; padding: 0;}
+.pwd-area ul { width: 94%; height: 2.5em; margin: 0 auto; text-align: center;}
+.pwd-area li {list-style-type: none; display: inline-block; width: 16%; height: 2.5em; border: 1px solid #dedede; border-right: none; line-height: 2.5em; vertical-align: top;outline: none; background-color: #fff;}
+.pwd-area li.last {border-right: 1px solid #dedede}
+.pwd-area li i {display: block; border-radius: 5px; width: 0px; height: 0px; border: 5px solid #000; margin: 1em auto; visibility: visible;}
+.pwd-area li i {display: none;}
+.pwd-area input {display: block; border: none; outline: none; opacity: 0; margin: -2.5em 0 2.5em -9999px;}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+/* new add for modal-fade */
+.modal-fade .setpwd{
+    width:100%;
+    display: block;
+    padding-bottom: 0;
+    overflow: hidden;
+}
+.modal-fade .settitle{
+    padding-top: 1em;
+}
+.modal-fade .modal-body .setnotice{
+    padding: 1% 5%;
+}
+
+.modal-input{
+    margin-bottom: 1em;
+    padding: 0 5%;
+    position: relative;
+}
+.modal-input input{
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    padding-left: 1em;
+    height: 3em;
+    line-height: 3em;
+    font-size: 1em;
+    width: 100%;
+    outline: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+}
+.modal-input .error{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    margin-top: -10px;
+    background: url("../img/error.png") no-repeat;
+    background-size: 20px 20px;
+    text-indent: -9999px;
+    display: none;
+    z-index: 100;
+}
+.modal-bottom{
+    width: 100%;
+    margin-top: 1.5em;
+    border-top: 1px solid #e5e5e5;
+    overflow: hidden;
+}
+.modal-bottom button{
+    width: 50%;
+    float: left;
+    zoom: 1;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    line-height: normal;
+    white-space: nowrap;
+    vertical-align: baseline;
+    text-align: center;
+    cursor: pointer;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-family: inherit;
+    font-size: 100%;
+    padding: 1em 1em;
+    text-decoration: none;
+    border-radius: 2px;
+    border: 0;
+    background-color: transparent;
+    color: #4e97f7;
+}
+.modal-bottom .btnleft{
+    border-right: 1px solid #e5e5e5;
+}
+/* E modal of input password */
+
+/* S index.html */
+.index-top{
+    overflow: hidden;
+    padding: .5em;
+    background-color: #fff;
+    line-height: 2.2em;
+    height: 2.2em;
+}
+.index-top .index-top-left{
+    width: 25%;
+    float: left;
+}
+.index-top .index-top-right{
+    float: right;
+    color: #ff7200;
+    line-height: 2.2em;
+    height: 2.2em;
+}
+.index-top .index-top-right a{
+    color: #ff7200;
+    text-decoration: none;
+}
+.index-banner{
+    padding-bottom: 55px;
+}
+.index-bottom {
+    position: fixed;
+    width: 95.6%;
+    padding: 0 2.2%;
+    height: 55px;
+    line-height: 55px;
+    background-color: #fff;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+.index-bottom a{
+    text-decoration: none;
+    margin-left: 1em;
+}
+
+.index-top-middle{
+    float: left;
+    margin-left: .5em;
+    line-height: 2.2em;
+    height: 2.2em;
+    color: #666;
+}
+.index-addcard{
+    border: 1px solid #fe7e01;
+    background-color: #fff;
+    color: #fe7e01;
+    border-radius: 4px;
+    text-align: center;
+    display: block;
+    width: 86%;
+    margin: 1em auto;
+    padding: .7em;
+    text-decoration: none;
+}
+/* E index.html */
+/* S login.html */
+html{
+
+}
+body{
+    background-color: #f0f0f0;
+}
+.section {
+    padding: 2% 5%;
+    overflow: hidden;
+    color: #555;
+}
+.remark{
+    font-size: .8em;
+    text-align: center;
+    color: #666;
+    line-height: 1.5em;
+}
+.remark .agreement{
+    color: #ff6600;
+    text-decoration: none;
+    outline: none;
+}
+.foottips{
+    color: #696969;
+    line-height: 1.4em;
+    font-size: 12px;
+    text-align: center;
+}
+.banner{
+    width: 90%;
+    margin: 12% auto 2%;
+    text-align: center;
+}
+.banner i{
+    width: 20%;
+    max-width: 129px;
+    display: block;
+    margin: 0 auto;
+}
+.banner .subtitle{
+    color: #844502;
+    font-size: 1em;
+}
+.banner .rate{
+    color: #ff6600;
+    font-size: 2em;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.section-bottom{
+    text-align: center;
+    margin: 10% auto 2%;
+    display: block;
+    width: 100%;
+}
+
+.btn-bind {
+    background-color:#fe7e01;
+    color: #fff;
+    border-radius: 4px;
+    padding: .7em 1em;
+    box-sizing: border-box;
+}
+.btn-register{
+    border: 1px solid #fe7e01;
+    background-color:#fff;
+    color: #fe7e01;
+    border-radius: 4px;
+    margin-top: 1em;
+    box-sizing: border-box;
+    padding: .4em 1em;
+}
+.pure-form .pure-group .group-box{
+    position: relative;
+}
+.pure-form .pure-group input{
+    padding: 12px;
+    padding-left: 12%;
+    border-color: #e7e7e7;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+}
+.pure-form .pure-group input.login-name{
+    background: url("../img/name.png") no-repeat 4% 50% #fff;
+    background-size: 14px 16px;
+}
+.pure-form .pure-group input.login-pwd{
+    background: url("../img/pwd.png") no-repeat 4% 50% #fff;
+    background-size: 14px 18px;
+    border-top: 0;
+    border-radius: 0 0 4px 4px;
+}
+.pure-form .pure-group input.login-viri{
+    background: url("../img/viri.png") no-repeat 6.5% 50% #fff;
+    background-size: 18px 17px;
+    border: 0;
+    padding-left: 17%;
+    max-width: 100%;
+}
+.pure-form .pure-group input:focus{
+    border-color: #e7e7e7;
+}
+.pure-form .pure-group .error{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 4%;
+    top: 50%;
+    margin-top: -10px;
+    background: url("../img/error.png") no-repeat;
+    background-size: 20px 20px;
+    text-indent: -9999px;
+    display: none;
+    z-index: 100;
+}
+.pure-form  .veri {
+    background-color: #fff;
+    padding: 0;
+    overflow: hidden;
+}
+.pure-form  .veri-left {
+    float: left;
+    width: 70%;
+    position: relative;
+}
+.pure-form  .veri-right {
+    width: 30%;
+    float: right;
+    max-width: 108px;
+    padding-top: 4px;
+}
+/* E login.html */
+/* S registerPhoneNum.html */
+.pure-form .pure-group .phone{
+    background-color: #fff;
+}
+.pure-form .pure-group .phoneword{
+    display: inline-block;
+    padding-left: 1em;
+}
+.pure-form .pure-group .phonenum{
+    display: inline-block;
+    border: 0;
+    padding-left: 2%;
+    top: 0;
+}
+/* E registerPhoneNum.html */
+/* S verifyPhoneNum.html */
+.top-remind{
+    padding: 0 2%;
+}
+.top-remind p{
+    font-size: 0.9em;
+    color: #666;
+    line-height: 1.25em;
+}
+.top-remind span{
+    color: #fe7e01;
+}
+.pure-form .pure-group input.phone-viri{
+    background: url("../img/phone.png") no-repeat 7% 50% #fff;
+    background-size: 14px 20px;
+    border: 0;
+    top: 0;
+    padding-left: 17%;
+}
+.pure-form .pure-group .btn-setcode{
+    border: none;
+    background-color: #fff;
+    outline: none;
+    border-left: 1px solid #e7e7e7;
+    font-family: inherit;
+    font-size: 100%;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    line-height: normal;
+    white-space: nowrap;
+    vertical-align: baseline;
+    text-align: center;
+    cursor: pointer;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.pure-form .pure-group .line{
+    width: 100%;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 0;
+    margin: 0;
+}
+@media screen and (max-width: 320px) {
+    .pure-form .pure-group .btn-setcode{
+        font-size: 90%;
+    }
+}
+/* E verifyPhoneNum.html */
+/* S setLoginPassword.html */
+.toptips{
+    padding: 3% 2% 3% 2%;
+}
+.bottomtips{
+    padding: 0 2% 6%;
+}
+.toptips p,.bottomtips p{
+    font-size: 0.9em;
+    color: #666;
+    line-height: 1.25em;
+    margin: 0;
+}
+.pure-form .pure-group input.setpwd{
+    padding: 4% 5%;
+    border-radius: 0;
+}
+.pure-form .pure-group input.setagain{
+    padding: 4% 5%;
+    border-radius: 0;
+    border-top: 0;
+}
+/* E setLoginPassword.html */
+/* S cardManage.html */
+ul.bankcards{
+    list-style: none;
+    overflow: hidden;
+    margin-top: 1em;
+    background-color: #fff;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+}
+.bankcards li{
+    width: 100%;
+    overflow: hidden;
+}
+.bankcards li .li-left{
+    width: 22%;
+    float: left;
+}
+
+.bankcards li .li-right{
+    width: 78%;
+    float: right;
+    position: relative;
+    border-bottom: 1px solid #e7e7e7;
+    text-decoration: none;
+}
+.bankcards li:last-child .li-right{
+    border-bottom: none;
+}
+.bankcards li .li-right .bankname{
+    color: #333;
+    font-weight: bold;
+    margin: 11px 0;
+}
+.bankcards li .li-right .banknum{
+    color: #666;
+    margin: 11px 0;
+}
+.bankcards li .li-right .person{
+    margin-left: 2em;
+}
+.bankcards li .li-right .arrow {
+    background: transparent url(../img/arrow.png) center center no-repeat;
+    width:15px;
+    height: 25px;
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    margin-top: -12px;
+    background-size: 10px 15px;
+}
+.card-add{
+    margin-top: 1em;
+    background-color: #fff;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+    text-align: center;
+    padding: 8px;
+    margin-bottom: 1em;
+    display: block;
+    color: #666;
+    text-decoration: none;
+}
+.card-add i.icon-add{
+    width: 30px;
+    height: 30px;
+    display: block;
+    margin: 0 auto .5em;
+    background: transparent url("../img/add.png") no-repeat center center;
+    background-size: 30px 30px;
+}
+.bankcards li .li-left i{ height:30px;/* background: url(../img/bank_logos.png) no-repeat left center; */ width:30px; vertical-align:middle; margin: 17px auto;display: block;}
+.bankcards li .li-left i.ico_002{ background-position:2px -4px;}
+.bankcards li .li-left i.ico_2{ background-position:2px -4px;}
+.bankcards li .li-left i.ico_102{ background-position:2px -4px;}
+.bankcards li .li-left i.ico_202{ background-position:2px -4px;}
+.bankcards li .li-left i.ico_802{ background-position:2px -4px;}
+.bankcards li .li-left i.ico_104{ background-position:-31px -4px;}
+.bankcards li .li-left i.ico_604{ background-position:-31px -4px;}
+.bankcards li .li-left i.ico_005{ background-position:-68px -4px;}
+.bankcards li .li-left i.ico_605{ background-position:-68px -4px;}
+.bankcards li .li-left i.ico_705{ background-position:-68px -4px;}
+.bankcards li .li-left i.ico_006{ background-position:-105px -4px;}
+.bankcards li .li-left i.ico_106{ background-position:-105px -4px;}
+.bankcards li .li-left i.ico_806{ background-position:-105px -4px;}
+.bankcards li .li-left i.ico_007{ background-position:2px -41px;}
+.bankcards li .li-left i.ico_607{ background-position:2px -41px;}
+.bankcards li .li-left i.ico_008{ background-position:-31px -41px;}
+.bankcards li .li-left i.ico_108{ background-position:-31px -41px;}
+.bankcards li .li-left i.ico_608{ background-position:-31px -41px;}
+.bankcards li .li-left i.ico_808{ background-position:-31px -41px;}
+.bankcards li .li-left i.ico_009{ background-position:-68px -41px;}
+.bankcards li .li-left i.ico_109{ background-position:-68px -41px;}
+.bankcards li .li-left i.ico_609{ background-position:-68px -41px;}
+.bankcards li .li-left i.ico8{ background-position:-105px -41px;}
+.bankcards li .li-left i.ico_019{ background-position:4px -75px;}
+.bankcards li .li-left i.ico_619{ background-position:4px -75px;}
+.bankcards li .li-left i.ico_819{ background-position:4px -75px;}
+.bankcards li .li-left i.ico10{ background-position:-31px -75px;}
+.bankcards li .li-left i.ico_103{ background-position:-68px -75px;}
+.bankcards li .li-left i.ico_613,
+.bankcards li .li-left i.ico_813{ background-position:-68px -75px;}
+.bankcards li .li-left i.ico_014{ background-position:-105px -75px;}
+.bankcards li .li-left i.ico_614{ background-position:-105px -75px;}
+.bankcards li .li-left i.ico_814{ background-position:-105px -75px;}
+.bankcards li .li-left i.ico_011{ background-position:3px -108px;}
+.bankcards li .li-left i.ico_112{ background-position:-31px -108px;}
+.bankcards li .li-left i.ico_012{ background-position:-31px -108px;}
+.bankcards li .li-left i.ico_812{ background-position:-31px -108px;}
+.bankcards li .li-left i.ico_018{ background-position:-68px -108px;}
+.bankcards li .li-left i.ico_618{ background-position:-68px -108px;}
+.bankcards li .li-left i.ico16{ background-position:-105px -108px;}
+.bankcards li .li-left i.ico_015{ background-position:2px -141px;}
+.bankcards li .li-left i.ico_815{ background-position:2px -141px;}
+.bankcards li .li-left i.ico18{ background-position:-31px -143px;}
+.bankcards li .li-left i.ico19{ background-position:-68px -141px;}
+.bankcards li .li-left i.ico20{ background-position:-105px -141px;}
+.bankcards li .li-left i.ico21{ background-position:2px -177px;}
+.bankcards li .li-left i.ico22{ background-position:-31px -177px;}
+.bankcards li .li-left i.ico23{ background-position:-68px -177px;}
+.bankcards li .li-left i.ico24{ background-position:-105px -177px;}
+.bankcards li .li-left i.ico25{ background-position:2px -206px;}
+.bankcards li .li-left i.ico26{ background-position:-31px -203px;}
+.bankcards li .li-left i.ico27{ background-position:-68px -206px;}
+.bankcards li .li-left i.ico28{ background-position:-105px -207px;}
+.bankcards li .li-left i.ico29{ background-position:2px -238px;}
+.bankcards li .li-left i.ico30{ background-position:-33px -235px;}
+.bankcards li .li-left i.ico31{ background-position:-68px -235px;}
+.bankcards li .li-left i.ico32{ background-position:-105px -236px;}
+.bankcards li .li-left i.ico33{ background-position:3px -268px;}
+.bankcards li .li-left i.ico34{ background-position:-34px -267px;}
+.bankcards li .li-left i.ico35{ background-position:-68px -267px;}
+.bankcards li .li-left i.ico36{ background-position:-105px -267px;}
+.bankcards li .li-left i.ico37{ background-position:5px -299px;}
+.bankcards li .li-left i.ico_003{ background-position:-33px -299px;}
+.bankcards li .li-left i.ico_603{ background-position:-33px -299px;}
+.bankcards li .li-left i.ico_803{ background-position:-33px -299px;}
+.bankcards li .li-left i.ico_110{ background-position:-67px -299px;}
+.bankcards li .li-left i.ico_101{ background-position:-106px -299px;}
+.bankcards li .li-left i.ico_107{ background-position:5px -336px;}
+.bankcards li .li-left i.ico_013{ background-position:-32px -336px;}
+.bankcards li .li-left i.ico_621{ background-position:-104px -336px;}
+.bankcards li .li-left i.ico_617{ background-position:-32px -142px;}
+.bankcards li .li-left i.icons{ background-position:-66px -336px;}
+/* E cardManage.html */

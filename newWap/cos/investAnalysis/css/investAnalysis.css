@@ -1,0 +1,137 @@
+html,body{
+    max-width: 720px;
+}
+.view{
+    padding: .5rem .75rem;
+}
+.result-box{
+    margin-bottom: .5rem;
+}
+.title{
+    height: 3.2rem;
+    line-height: 3.2rem;
+    padding-left: .75rem;
+    border-radius: .2rem .2rem 0 0;
+}
+.title-icon{
+    display: inline-block;
+    vertical-align: middle;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: .5rem;
+}
+.title-text{
+    vertical-align: middle;
+    font-size: .75rem;
+    color: #fff;
+}
+.icon-bg0{
+    background: url('../img/icon0.png') no-repeat;
+    background-size: 100% 100%;
+}
+.icon-bg1{
+    background: url('../img/icon1.png') no-repeat;
+    background-size: 100% 100%;
+}
+.icon-bg2{
+    background: url('../img/icon2.png') no-repeat;
+    background-size: 100% 100%;
+}
+.result-bg0{
+    background: url('../img/titlebg_0.png') no-repeat;
+    background-size: 100% 100%;
+}
+.result-bg1{
+    background: url('../img/titlebg_1.png') no-repeat;
+    background-size: 100% 100%;
+}
+.result-bg2{
+    background: url('../img/titlebg_2.png') no-repeat;
+    background-size: 100% 100%;
+}
+.content{
+    background-color: #fff;
+    padding: .75rem .75rem 1rem .75rem;
+}
+.content p{
+    font-size: .7rem;
+    color: #000;
+    line-height: 1.5;
+}
+.content p span{
+    font-weight: bold;
+}
+.content p em{
+    font-style: normal;
+    color: #fb5c5f;
+}
+.content .desc{
+    position: relative;
+    background-color: #f7fcff;
+    border-radius: .2rem;
+    padding: .25rem .75rem .25rem 1.25rem;
+}
+.content .desc .desc-text{
+    color: #666;
+    font-size: .6rem;
+}
+.content .desc>img{
+    position: absolute;
+    left: .225rem;
+    top: .45rem;
+    width: .65rem;
+}
+.content .static-img{
+    display: block;
+    margin-top: 1rem;
+}
+/* echarts图 */
+.frequent-result .echart{
+    margin-top: .5rem;
+    background-color: #fff !important;
+    min-height: 11rem;
+}
+.regular-result .echart{
+    margin-top: .5rem;
+    background-color: #fff !important;
+    min-height: 11rem;
+}
+.concentration-result .content .middle-content{
+    display: flex;
+    align-items: center;
+    margin-top: .5rem;
+    background-color: #fff !important;
+    min-height: 7.5rem;
+    /* height: 7.5rem 300/40; */
+}
+.middle-content .echart {
+    width: 9.375rem /* 375/40 */;
+    height: 7.5rem /* 300/40 */;
+}
+.concentration-result .content .middle-content .charts-list .list-item {
+    /* height: .75rem 30/40; */
+    line-height: 1.5 /* 30/40 */;
+    word-wrap: break-word;
+    font-size: .6rem /* 24/40 */;
+    margin-top: .15rem /* 20/40 */;
+}
+
+.concentration-result .content .middle-content .charts-list .list-item.on {
+    font-weight: bold;
+}
+
+.concentration-result .content .middle-content .charts-list .list-item i {
+    display: inline-block;
+    width: .3rem /* 12/40 */;
+    height: .3rem /* 12/40 */;
+    margin-right: .3rem /* 5/40 */;
+    border-radius: .15rem;
+    vertical-align: middle;
+}
+
+/* .concentration-result .content .middle-content .charts-list .list-item .type {
+    display: inline-block;
+} */
+/* .concentration-result .echart{
+    
+} */

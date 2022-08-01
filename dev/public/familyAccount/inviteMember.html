@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>邀请家庭成员</title>
+	<link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+	<link rel="stylesheet" href="/tradeh5/newWap/base/css/common.css">
+	<link rel="stylesheet" href="css/inviteMember.css">
+	<script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+	<script type="text/javascript" src="/tradeh5/newWap/base/js/needLogin.js"></script>
+</head>
+
+<body>
+	<div class="container">
+		<div class="topInput" style="display: none;">
+			<div class="input-title">被邀请人在该家庭中是？</div>
+			<div class="input-block">
+				<input id="nickname" type="text" placeholder="请输入角色名(五个字以内)" maxlength="5">
+			</div>
+		</div>
+		<div class="input-title">被邀请人的真实姓名</div>
+		<div class="input-block">
+			<input id="realName" type="text" placeholder="请输入姓名">
+		</div>
+		<div class="input-title">被邀请人的手机号码</div>
+		<div class="input-sub-title">接受邀请时验证手机号，若未注册现金宝将自动注册</div>
+		<div class="input-block">
+			<input id="phoneNum" type="text" placeholder="请输入手机号" maxlength="11">
+		</div>
+		<div class="btn1">立即邀请</div>
+		<div class="btn2">暂无手机号，建立成员档案</div>
+	</div>
+	<div class="Bomb-box">
+		<div class="Bomb-box-main">
+			<div class="Bomb-box-content">
+				<p class="text-center"></p>
+			</div>
+			<a class="Bomb-box-ok" href="javascript:;"
+				onclick="this.parentElement.parentElement.style='display:none'">确定</a>
+		</div>
+	</div>
+	
+	<div class="copy-mask">
+		<div class="copy-content">
+			<h4 class="copy-title">邀请链接已复制</h4>
+			<div class="copy-text">
+				<p>http://99fund.com/utm_source=n20123123123123123123</p>
+			</div>
+			<a style="display:inline-block" href="weixin://"><img src="./img/copy.png" alt=""></a>
+		</div>
+	</div>
+	<script type="text/javascript" src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/tradeh5/newWap/base/js/utils.js"></script>
+	<script>
+		$(function () {
+			// getAccount();
+			// 判断微信环境还是浏览器环境
+			var ua = navigator.userAgent.toLowerCase();
+			var inviteMember = utils.getSession("inviteMember");
+			var roleId,type,iconUrl;
+			if(inviteMember){
+				roleId = inviteMember.roleId;
+				type = inviteMember.orderNum;
+				iconUrl = inviteMember.iconUrl;
+			}
+			//  这个确定
+			var memberStatus=utils.getUrlParam("memberStatus");
+			var teamId = '';
+			//是否开启亲情宝 获取teamId
+			utils.get('/sfs/v1/accounts/is-open?version=6.6', null, function (result) {
+				if (result.returnCode == 0) {
+					if (result.body.isOpen) {
+						teamId = result.body.teamId
+					}
+				}
+			});
+			if(memberStatus&&memberStatus==2){
+				iconUrl=utils.getUrlParam("avatarImage");
+				roleId=utils.getUrlParam("teamMemberRole");
+				$('#realName').val(utils.getUrlParam("memberName"));
+				$('#nickname').val(utils.getUrlParam("memberRoleName"));
+				var memberId=utils.getUrlParam("memberId")
+				$(".topInput").show();
+				$(".btn2").hide();
+			}
+			else{
+				if (roleId == 99) {
+					$("#nickname").val(utils.getSession("nickname"))
+					$(".topInput").show();
+				} else {
+					$("#nickname").val(inviteMember.roleName);
+					$(".topInput").hide();
+				}
+			}
+			
+			$('.btn1').on('click', function () {
+				if (roleId == 99 && !$('#nickname').val()) {
+					$('.text-center').text('请输入角色名(五个字以内)');
+					$('.Bomb-box').show();
+					return false;
+				}
+				if (roleId == 99 && !$('#nickname').val().length > 5) {
+					$('.text-center').text('角色名最多可以输入5个字');
+					$('.Bomb-box').show();
+					return false;
+				}
+				if (!$('#realName').val()) {
+					$('.text-center').text('请输入姓名');
+					$('.Bomb-box').show();
+					return false;
+				}
+				if (!$('#phoneNum').val()) {
+					$('.text-center').text('请输入手机号');
+					$('.Bomb-box').show();
+					return false;
+				}
+				if (!/^1(3[0-9]|4[01456879]|5[0-35-9]|6[2567]|7[0-8]|8[0-9]|9[0-35-9])\d{8}$/.test($(
+						'#phoneNum').val())) {
+					$('.text-center').text('请输入正确的手机号码!');
+					$('.Bomb-box').show();
+					return false;
+				}
+				var params = {
+                    acceptMode: "MOBILE",
+                    branchCode: "247",
+                    avatarImage: iconUrl,
+                    teamId:teamId,
+					teamMemberRole:roleId,
+					inviteMobile:$('#phoneNum').val(),
+					memberName:$('#realName').val()
+                };
+				(roleId == 99)&&(params.customRoleName=$("#nickname").val());
+				(roleId != 99)&&(params.nickName=$("#nickname").val());
+				memberId&&(params.memberId=memberId);
+				invitation(params,ua);
+			});
+			$('.btn2').on('click', function () {
+				window.location.href = 'addMemberProfile.html';
+			});
+			
+		});
+		// 邀请成员接口
+		// /sfs/v1/accounts/member/invitation 
+		function invitation(params,ua) {
+			utils.ajax({
+				url: '/sfs/v1/accounts/member/invitation',
+				type: 'POST',
+				data: params,
+				success: function (result) {
+					if (result.returnCode === 0) {
+						var inviteId=result.body.inviteId;
+						var inviteCode=result.body.inviteCode;
+						var domain=window.location.origin;
+						var jumpUrl=`${domain}/mobileEC/wap/login/home_login.html?inviteCode=${inviteId}-${inviteCode}`;
+						// 微信
+						if(ua.match(/MicroMessenger/i)=="micromessenger"){
+							utils.setSession('__qqbOrigin','wechat');
+							window.location.href=jumpUrl;
+						}
+						// 非微信
+						else{
+							copyUrl(jumpUrl);
+						}
+					}
+				}.bind(this)
+			})
+		}
+		// 复制url
+		function copyUrl(text){
+			var url=text;
+			var oInput = document.createElement('input');
+			oInput.value = url;
+			document.body.appendChild(oInput);
+			oInput.select(); // 选择对象
+			document.execCommand("Copy"); // 执行浏览器复制命令
+			oInput.className = 'oInput';
+			oInput.style.display='none';
+			$(".copy-text p").text(text);
+			$(".copy-mask").show();
+		}
+	</script>
+</body>
+
+</html>

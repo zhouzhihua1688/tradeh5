@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>我的股债定投宝</title>
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <script>
+      // 相对字体大小设置
+      var oHtml = document.documentElement;
+      getFont();
+      window.onresize = function () {
+        getFont();
+      };
+
+      function getFont() {
+        var screenWidth = oHtml.clientWidth;
+        if (screenWidth <= 320) {
+          oHtml.style.fontSize = "17.06px";
+        } else if (screenWidth >= 750) {
+          oHtml.style.fontSize = "40px";
+        } else {
+          oHtml.style.fontSize = screenWidth / (750 / 40) + "px";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app" v-cloak>
+      <header>
+        <img src="img/banner.png" alt="" />
+      </header>
+      <section class="mip-list" v-show="mipList.length > 0">
+        <div class="wrapper" v-for="(item, index) in mipList" :key="item.contractNo">
+          <div class="headLabel">
+            <div class="leftHeadPanel">
+              <div class="leftLabel"></div>
+              <h4 class="title">{{item.contractDesc}}</h4>
+            </div>
+            <div class="stopTag" v-if="item.contractStatus == 'C'">
+              <p>已终止</p>
+            </div>
+          </div>
+          <div class="grid">
+            <div class="gridTop">
+              <div class="item">
+                <p class="item-name">参考市值(元)</p>
+                <p class="item-value">{{item.totalAmt|numFormat}}</p>
+              </div>
+              <div class="item">
+                <p class="item-name">累计定投</p>
+                <p class="item-value">{{item.totalSuccessAmt|numFormat}}</p>
+              </div>
+              <div class="item">
+                <p class="item-name">已投期数</p>
+                <p class="item-value">{{item.totalSuccessCount}}</p>
+              </div>
+            </div>
+            <div class="gridBottom">
+              <div class="item">
+                <p class="item-name">累计收益</p>
+                <p :class="'item-value ' + (item.totalProfit >= 0 ? 'red' : 'green')">{{item.totalProfit|numFormat}}</p>
+              </div>
+              <div class="item">
+                <p class="item-name">持有收益</p>
+                <p :class="'item-value ' + (item.balanceProfit >= 0 ? 'red' : 'green')">{{item.balanceProfit|numFormat}}</p>
+              </div>
+              <div class="item">
+                <p class="item-name">当前收益率</p>
+                <p :class="'item-value ' + (item.currentProfit >= 0 ? 'red' : 'green')">{{item.currentProfit|numFormat}}%</p>
+              </div>
+            </div>
+          </div>
+          <div v-if="item.childContractInfoList&&item.childContractInfoList.length>0">
+            <div class="plan-list" @click="startChildMipDetail(child.contractNo)" v-for="(child, childIndex) in item.childContractInfoList">
+              <div class="plan-name">{{child.contractDesc}}</div>
+              <div class="plan-arrow"><img src="img/arr.png" alt="" /></div>
+            </div>
+          </div>
+
+          <div class="opreate-btn" v-if="item.contractStatus != 'C'">
+            <a href="javascript:;" @click="stopContract(item.contractNo)">终止</a>
+            <a href="javascript:;" class="active" @click="modifyContract(item.contractNo)">修改</a>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+    <script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script>
+    <script src="./js/index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,127 @@
+/* Start reset */
+*{ margin: 0; padding: 0;}
+html {-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;}
+body{ font: 16px/1em Microsoft YaHei,sans-serif;color: #666;}
+@media only screen and (max-width: 320px) {
+    body{ font-size: 14px; }
+}
+ul, ol, dl{ list-style: none;}
+em, i{ font-style: normal;}
+input{ border: 0;line-height: normal;}
+img{ display: block;max-width: 100%;height: auto; border: 0;}
+table {border-collapse: collapse;border-spacing: 0;}
+a{ text-decoration: none; }
+a:active,
+a:hover {
+    outline: 0;
+}
+/* End reset */
+
+/* invite.html and rule.html */
+.wrapper{
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.content{
+    padding: 5% 5% 0;
+}
+.content h3{
+    font-size: 1.17em;
+    margin-bottom: 1em;
+    line-height: 1em;
+}
+.content p{
+    font-size: 1em;
+    line-height: 1.5em;
+    margin-bottom: 1em;
+}
+.content p span{
+    color: #fe7e01;
+}
+.content .risk{
+    margin-top: 2em;
+    color: #999;
+    padding-bottom: 1.5em;
+}
+.footer{
+    border-bottom: 1px solid #cdcdcd;
+}
+.footer img{
+    width: 44%;
+    margin: 0 auto;
+}
+.pack{
+    width: 90%;
+    margin: 0 auto;
+    display: block;
+    border-top: 1px solid #eaeaea;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+.fill{
+    background-color: #f3f3f3;
+    height: 5em;
+}
+.fixbottom{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: #fe7e01;
+    width: 100%;
+}
+.fixbottom .btn{
+    display: block;
+    height: 3em;
+    line-height: 3em;
+    color: #fff;
+    font-size: 1.15em;
+    text-align: center;
+}
+/* result.html */
+.packet{
+    width: 60%;
+    margin: 14% auto 3%;
+    background: url("../img/packet.png") center center no-repeat;
+    background-size: 100% 100%;
+    text-align: center;
+    padding-top: 42%;
+    padding-bottom: 3%;
+}
+.packet .p1{
+    font-size: 1.5em;
+    color: #fff;
+    line-height: 1.5em;
+}
+.packet .p1 strong{
+    font-size: 2.0em;
+    font-family: arial, sans-serif;
+}
+.packet .p2{
+    font-size: 1.5em;
+    color: #fff75c;
+    line-height: 1.5em;
+    font-weight: bold;
+}
+.packet .p3{
+    font-size: 1.25em;
+    color: #fff75c;
+    line-height: 1.5em;
+    font-weight: bold;
+}
+.lookover{
+    text-align: center;
+    line-height: 1.5em;
+    font-size: 1em;
+    color: #dd332b;
+}
+.money{
+    padding: 2% 5% 0;
+}
+.done{
+    position: relative;
+    top: -5px;
+    width: 75%;
+    margin: 0 auto 1em;
+    display: block;
+}

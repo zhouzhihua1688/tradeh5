@@ -1,0 +1,2128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!--<meta charset="GBK">-->
+	<meta charset="utf8">
+	<title></title>
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="css/base_gwt.css">
+	<link rel="stylesheet" href="./css/index.css?1">
+	<script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+	<script type="text/javascript" src="js/phone-size.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.base64.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/echarts.min.js"></script>
+	<!-- <script type="text/javascript" src = "https://static.99fund.com/mobile/wap-lib/js/basic.js"></script> -->
+	<script type="text/javascript" src="/tradeh5/newWap/base/js/utils.js"></script>
+	<script type="text/javascript" src = "../wap/js/common.js?20211119"></script>
+
+
+	<!-- 	<script type="text/javascript" src="js/phone-size.js"></script>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery.base64.js"></script>
+		<script type="text/javascript" src="js/echarts.min.js"></script>
+		<script type="text/javascript" src="js/base.js"></script>
+		<script type="text/javascript" src="js/zepto.min.js"></script>
+		<script type="text/javascript" src="js/common.js"></script> -->
+		<!-- <script src="js/utils.js"></script> -->
+
+	<style type="text/css">
+		#layout {display:none;}
+		.font-arial {font-family: Arial; }
+		body { font-size: 12px; } 
+		section {background-color: #fff; overflow: hidden; }
+		.left {float: left; }
+		.right {float: right; }
+		.next {
+			/* display: inline-block;
+			width: 8px;
+			height: 16px;
+			background: url(img/icon01.png) no-repeat left top;
+			-webkit-background-size: contain;
+			background-size: contain;
+			vertical-align: middle;
+			margin-left: 7px; */
+		}
+
+		.content1 {/*border-top: 1px solid #dddddd;*/margin-bottom: .35rem; position: relative; }
+		/*.content1 p {
+			text-align: center;
+			height: .75rem;
+			line-height: .75rem;
+			margin-top: .4rem;
+			!*color: #fb5c5f;*!
+		}
+
+		.content1 p span {
+			display: inline-block;
+			padding: .1rem .5rem;
+			-webkit-border-radius: 1.4rem;
+			!*background: #fee5e5;*!
+			margin-left: .25rem;
+		}*/
+
+		.content1 .jingzhi {padding: 1.25rem 0rem .6rem 0rem; margin-top: 4rem; }
+		.content1 .jingzhi table {border: 0; cellspacing: 0; cellpadding: 0; border-collapse: collapse; }
+		.content1 .jingzhi table td {width: 16%; text-align: center; }
+		.content1 .jingzhi table tr:first-child td {font-size: .65rem; color: #666; }
+		.content1 .jingzhi table tr:last-child td {font-size: 1rem; padding-top: .2rem; }
+		.content1 .jingzhi table tr td:first-child {border-right: .1px #eee solid;
+		}
+		.content1 .jingzhi table tr:first-child td:last-child img {width: .75rem;}
+		.content1 .tablelist_1 {margin-top: -.3rem; height: 3rem; background: url(img/echart_table.png) no-repeat; background-size: cover; font-size: .6rem; }
+		.content1 .tablelist_1 table {width: 100%; padding: .8rem 1.1rem .5rem 1.1rem; }
+
+		.content1 .tablelist_1 table tr td {text-align: center;}
+
+		.content1 .tablelist_1 table tr:nth-of-type(2) {color: #f4333c;}
+		.content2 {height: 17.5rem;}
+
+		.content2 h3 {color: #333333; line-height: 35px; padding-left: 15px; background-color: #f6f6f6; }
+		.content2 .tab1 li,
+		.content3 .tab1 li,
+		.content4 .tab1 li {margin-top: .75rem; margin-left: .75rem; font-size: .85rem; color: #000; text-align: center; }
+
+		.content2 .tab1 li img,
+		.content3 .tab1 li img,
+		.content4 .tab1 li img {width: 1rem;}
+		.content2 ul li a {color: #000; display: block; width: 100%; height: 1.5rem; line-height: 1.5rem; float: left; text-align: center; font-size: 14px; }
+		.content2 ul.tab2 {width:100%;margin: 0 auto;}
+		.content2 ul.tab2 li {width: 20%;float: left;}
+		.content2 ul.tab2 li a {width: 100%; /* background-color: #fff; */ margin-left: 0%; /* color: #148ce6; */ /* border: 1px #148ce6 solid; */ color: #666; background:#fafafa; border: 1px #eee solid; } .content2 ul.tab2 li:first-child a {border-radius: 3px 0 0 3px;border-right: none;}
+		.content2 ul.tab2 li:last-child a {border-radius: 0 3px 3px 0;}
+		.content2 ul.tab2 li.active a {background-color: #fff;border:1px #eee solid;color: #000;
+		}
+
+		.footer_fiexd {position: fixed; z-index: 99999999; left: 0; bottom: 0; height: 2.5rem; width: 100%; background: #fff; }
+		.footer_fiexd ul {
+			/* display: flex; */
+		}
+		.footer_fiexd ul li {box-sizing: border-box; float: left; width: 33.3%; padding: 0; margin: 0; /* flex: 1; */ height: 2.5rem; background: #fff; }
+		/* .footer_fiexd ul li:nth-of-type(1){	} */
+		.footer_fiexd ul li:nth-of-type(2) {
+			border-right: 1px #fff solid;
+			background: #0757b2;
+		}
+		.footer_fiexd ul li a {display: block; width: 100%; height: 100%; line-height: 2.5rem; text-align: center; color: #ffca61; font-size: .8rem; }
+		.footer_fiexd ul li:first-child a {color: #0757b2; border-top:0.5px #eee solid; }
+		.footer_fiexd ul li a:first-child img {width: 1rem; height: 1rem; padding-right: 0.3rem; padding-top: 0.2rem; }
+		.tip,
+		.tip2 {position: fixed; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.7); height: 100%; width: 100%; overflow: auto; font-size: 0.6rem; z-index: 999999999; }
+		.tip .tip_wrap,
+		.tip2 .tip_wrap {position: absolute; left: 50%; top: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%); margin: 0; width: 80%; /*height:16rem;*/ background: #fff; -webkit-border-radius: 5px; }
+		.tip .tip_wrap .tip_content p,
+		.tip2 .tip_wrap .tip_content p {padding: 0 1.5rem 0 1.5rem; font-size: .7rem; margin-top: .7rem; line-height: 1rem; margin-bottom: 1rem; text-align: center; line-height: 3rem; }
+		.tip .tip_wrap .tip_content,
+		.tip2 .tip_wrap .tip_content {border-bottom: 1px #eee solid;}
+		.tip .tip_wrap .tip_btn ul li,
+		.tip2 .tip_wrap .tip_btn ul li {text-align: center; font-size: .75rem; color: #006bfe; }
+		.tip .tip_wrap .tip_btn ul li a,
+		.tip2 .tip_wrap .tip_btn ul li a {display: block; text-align: center; font-size: .75rem; width: 100%; padding: .7rem 0; }
+		.noData {position: absolute; display: flex; top: 0; bottom: 0; left: 0; right: 0; justify-content: center; align-items: center; font-size: 0.24rem; width: 100%; text-align: center; }
+		.content1 .jingzhi img {transform: rotateX(180deg)}
+		.tablelist_1 {display: none}
+		.fund-tab-btn{display: flex; justify-content: center; } .red { color: #fe5a5b; }
+		.green{color: #009944; }
+		.fund-i{width: 0.75rem; height: 0.75rem; background: url(./img/warningIcon.png) no-repeat; background-size: 100% 100%; display: inline-block; vertical-align: middle; margin-left: 0.4rem; margin-top: -0.25rem; }
+		/*弹框*/
+		.layer{z-index: 9999999; display: none;  position: fixed;  top: 0;  left: 0;  background-color: rgba(0,0,0,0.7);  height: 100%;  width: 100%;  overflow: auto;}
+		.layer-wrap{margin: 40% 15% 5% 15%;background-color: #fff;border-radius: 8px;}
+		.layer-body{padding: 7% 8% 7% 8%;text-align: center;}
+		.layer-wrap .layer-body p{font-size:14px;line-height: 21px; color: #666;display: inline-block;text-align: justify}
+		.layer-wrap .layer-body span{font-size: 16px;display: block;  padding-top: 10px;color: #333;font-weight: 600;}
+		.layer-wrap button{font-size: 16px;color: #fb505f; background-color: #fff; border-top: solid 1px #eeeeee; width: 90%; height: 45px; display: block; margin: 0 auto; } .layer-wrap button:focus{outline: none;}
+		.content3 .legend{padding: 0 .4rem;}
+		.content3 .legend li span {flex-basis: 50%; /*padding-left:10px;*/ white-space: nowrap; /* overflow: hidden; */ font-size: .6rem; } .red { color: #f4333c; }
+		.green{color: #009944 }
+		.gray{color: #666666}
+		.content8 { margin: .2667rem 0; }
+		.content8 ul { padding: 0 10px; height: 2.5rem; line-height: 2.5rem; border-bottom: 1px solid #eee; margin-right: 10px }
+		.content8 ul li:first-child { font-size: .75rem; color: #000; }
+		.content8 ul li:first-child span { font-size: .32rem; color: #000; }
+		.content8 ul li:last-child span { color: #fb5c5f; }
+		.content8>p { color: #666; font-size: .346rem; line-height: 1.5; padding: 16px 15px; text-align: justify; }
+		.content0{/*display: none;*/margin-top: 1.5rem;}
+		.content0 .jingzhi {font-size: .65rem; /* font-weight: 900; */ height: 2.5rem; box-sizing: border-box; color: #000; padding: .75rem; margin-top: 1.4rem; display: flex; align-items: center; justify-content: space-between; }
+		.content0 .jingzhi img {width: .7rem;/* transform: rotateX(180deg) */display: inline-block;}
+		.content0 .jingzhi img.right_1 {transform: rotateZ(270deg);}
+		.content0 .wrap {overflow: hidden; position: relative; width: 100%; /* height: 2.5rem; */ }
+		/* 半透明提示窗 */
+		.sm_tip{position: absolute;top:8.5rem;left:35%;background: rgba(0, 0, 0, .5);border-radius:8px; display: none;}
+		.sm_tip p{padding:1rem 1.5rem;color:#fff;font-size: .75rem;}
+		.star-selected{content: url("./img/select_checked_star_big.png");margin-bottom: -2px;}
+		.star-unchecked-selected{content: url("./img/select_unchecked_star_big.png");margin-bottom: -2px;}
+		/* 2020.7.30新改CSS*/
+		.yieldList .jianyi{width:100%;background-color: #fff;border-radius: 0 0 6px 6px;}
+		.content1 .yieldList {box-shadow: 0 0 0rem #fff;border-radius:6px;}
+		.yieldList .jianyi .tupian{width:0.7rem;height:0.7rem;float:left;}
+		.yieldList .jianyi .text{margin-left:0.7rem;font-size:0.65rem;color:#666;text-indent:0.35rem;/* padding-bottom:0.25rem; */height:2.7rem;text-align:justify;overflow-y:auto;margin-top:0.75rem;margin-right:0.75rem;line-height: 0.9rem;}
+		.yieldList .jianyi .tupian img{margin-top:0.1rem;}
+		.yieldList .jianyi .fuwu{height:1.75rem;width:100%;}
+		.yieldList .jianyi .fuwu .startTime{line-height:1.75rem;font-size: 0.6rem;margin-left:0.75rem;float:left;}
+		.yieldList .jianyi .fuwu .chakan{line-height:1.75rem;font-size: 0.6rem;margin-left:0.75rem;color:#148ce6;float:right;margin-right:0.75rem;}
+		.yieldList .jianyi .fuwu2 {position: relative;height:2.5rem;padding-top: 0.5rem;padding-left: 0.75rem;padding-right: 0.75rem;}
+		.yieldList .jianyi .fuwu2 .title{display: flex;font-size: 0.6rem;color: #666;}
+		.yieldList .jianyi .fuwu2 .title>div{flex: 1;}
+		.yieldList .jianyi .fuwu2 .title>div:nth-child(1){text-align: left;}
+		.yieldList .jianyi .fuwu2 .title>div:nth-child(2){text-align: center;}
+		.yieldList .jianyi .fuwu2 .title>div:nth-child(3){text-align: right;}
+		.yieldList .jianyi .fuwu2 .data{display: flex;font-size: 0.6rem;color: #000;margin-top: 0.3rem;}
+		.yieldList .jianyi .fuwu2 .data>div{flex: 1;}
+		.yieldList .jianyi .fuwu2 .data>div:nth-child(1){text-align: left;}
+		.yieldList .jianyi .fuwu2 .data>div:nth-child(2){text-align: center;}
+		.yieldList .jianyi .fuwu2 .data>div:nth-child(3){text-align: right;}
+		.yieldList .jianyi .fuwu2 .chakan{position: absolute;top: -2rem;right: 0.78rem; line-height:1.75rem;font-size: 0.6rem;margin-left:0.75rem;color:#148ce6;}
+		.wrap .sixMonth{width:90%;height:1.5rem;margin:0 auto;margin-top: 0.5rem;}
+		.wrap .sixMonth .text{font-size:0.65rem;color:#666;float:left;line-height:1.5rem;margin-left:2rem;}
+		.wrap .sixMonth .text2{font-size:0.65rem;color:#666;float:right;line-height:1.5rem;vertical-align:middle}
+		.wrap .bili{width:90%;height:1.5rem;margin:0 auto;padding:0px;}
+		.wrap .bili .text{font-size:1.35rem;color:#f4333c;line-height:1.5rem;float:left;margin-left:1.5rem;}
+		.wrap .bili .text2{font-size:1.35rem;color:#f4333c;line-height:1.5rem;float:right;margin-right:1.5rem;}
+		.wrap .changqi{width:90%;height:1rem;margin:0 auto;margin-top:1rem;padding-bottom:0.75rem;border-bottom:1px solid #eee;}
+		.wrap .changqi .text{width:3.25rem;height:1.0rem;border:1px solid #999;
+			font-size:0.65rem;text-align:center;line-height:1rem;color:#999;border-radius:3px;float:left;}
+		.wrap .changqi .text2{width:3.25rem;height:1.0rem;border:1px solid #999;
+			font-size:0.65rem;text-align:center;line-height:1rem;color:#999;border-radius:3px;float:left;margin-left:0.5rem;}
+		/* 2020.8.5修改 6.1*/
+		/* .gundong{height:2.25rem;margin-top:0.5rem;font-size: 0.7rem;line-height:2.25rem;border-top:1px solid #eee;}
+        .gundong .first{width:17.25rem;height:2.25rem;margin:0 auto} */
+
+		.bili{width:93%;height:2rem;background:#fff;margin:0 auto;margin-top:0.5rem;border-radius: 6px 6px 0 0;}
+		.bili .text{height:2rem;font-size:0.8rem;margin:0 auto;line-height:2rem;color:#000;padding-top:0.25rem;}
+		.tedian{width:100%;height:2rem;margin-top:0.5rem;background:#fff;padding-top:0.25rem;}
+		.tedian .text{width:90%;height:2rem; line-height:2rem;margin:0 auto;font-size:0.8rem;color:#000;}
+		.tips_text{width:100%;height:1.5rem;position:fixed;bottom:0rem;right:0rem;font-size:0.8rem;background: #fff;margin-top:1rem;border-top: 1px #eee solid;}
+		.tips_text .text{width:11.5rem;height:1.5rem;margin:0 auto;border-radius:1rem;font-size:0.65rem;text-align: center;line-height: 1.5rem;color:#fb5c5f;position: absolute;top:0.05rem;left:50%;margin-left:-5.75rem; white-space: nowrap;
+			/* background: #E5F4FE; */
+		}
+		.invest_notice {margin-top: .5rem;background-color: #fff;padding-left: 0.75rem;}
+		.invest_notice .title{height: 2.25rem;line-height: 2.25rem;font-size: 0.75rem;font-weight: bold;text-align: left;color: #000;}
+		.invest_notice .list_item{line-height: 1.125rem;padding: 0.75rem 0.75rem 0.75rem 0;font-size: 0.75rem;border-bottom: 1px solid #eee;color: #000;}
+		.invest_notice .more{height: 2rem;line-height:2rem;text-align: center;font-size: 0.7rem;color: #148ce6;}
+
+		/* 20211119新加入css */
+		.yieldList .headTitle{font-size:0.95rem;font-weight: bold;color:#000;margin-left:0.5rem;margin-top:0.8rem;}
+		.yieldList .textList{width:100%;display: flex;justify-content:flex-start;}
+        .yieldList .textList .list{height:0.8rem;padding:0rem 0.25rem;margin-top:0.35rem;background: #ffefef;color:#fb5c5f;border-radius: 0.125rem;margin-left:0.25rem;font-size:0.6rem;line-height: 0.8rem;}
+        .yieldList .textList .list:nth-of-type(1){margin-left:0.75rem;}
+
+        .target{width:93%;margin:0 auto;padding:0.75rem 0rem;background:#fff;border-radius: 6px;}
+		.target .targetTitle{color:#000;font-size: 0.75rem;font-weight: bold;margin-left:0.5rem;}
+		.target .targetHead{width:100%;display: flex;justify-content: space-between;text-align: center;margin-top:1rem;} 
+		.target .targetHead div{width:33.33%;font-size: 0.65rem}
+		.target .targetHead div:nth-of-type(1){margin-left:0.5rem;text-align: left;}
+		.target .targetHead div:nth-of-type(3){margin-right:0.5rem;text-align: right;}
+		.target .targetList{width:100%;display: flex;justify-content: space-between;text-align: center;margin-top:0.25rem;} 
+		.target .targetList div{width:33.33%;font-size:1.0rem;color:#000;font-weight: bold}
+		/* .target .targetList div:nth-of-type(1){margin-left:0.5rem;text-align: left;color:#fb5c5f;font-size: 0.85rem;} */
+		.target .targetList div:nth-of-type(1){margin-left:0.5rem;text-align: left;font-size: 0.85rem;}
+		.target .targetList div:nth-of-type(3){margin-right:0.5rem;text-align: right;font-size: 0.85rem;}
+		.target .notes{margin-left:0.5rem;font-size: 0.6rem;margin-top:0.5rem;}
+		.deal > div:first-of-type {padding:0.5rem 0.5rem 0.75rem 0.5rem;}
+
+		.problem{width:93%;margin: 0 auto;padding:0.65rem 0rem;background: #fff;margin-top:0.5rem;border-radius: 6px;}
+	    .problem .proTitle{font-size: 0.75rem;color:#000;font-weight: bold;margin-left:0.5rem;}
+	    .problem .proList{ width: 100%; margin-top:1rem;}
+	    .problem .proList .proImg{padding: 0 0.5rem;}
+	    .problem .proList img{width:0.9rem;height:0.9rem;vertical-align: middle;margin-top:-0.2rem;}
+	    .problem .proList span{font-size:0.75rem;color:#000;font-weight: bold;margin-left:0.5rem;}
+	    .problem .proList .answer{font-size: 0.7rem;color:#000;padding: 0 0.5rem;text-align: justify;margin-left:1.35rem;margin-top:0.35rem;}
+
+	    /* 半透明提示窗 */
+		.sm_tip{position: absolute;top:12rem;left:35%;background: rgba(0, 0, 0, .5);border-radius:8px; display: none;}
+		.sm_tip p{padding:1rem 1.5rem;color:#fff;font-size: .75rem;}
+		.fee_text{
+			padding: 0 .5rem .75rem .5rem;
+			line-height: 1.5;
+			font-size: .65rem;
+			color: #666;
+		}
+	</style>
+</head>
+<body>
+<section class="content1" style="background: #f6f6f6">
+	<!-- <div class="blueBgc headerBar"></div> -->
+	<div class="headerBar" style="width: 100%;height: 4rem;"></div>
+	<div class="yieldList" style="padding:0rem 0 0 0 ;width:93%;margin-left:-46.5%;background:#fff url(./img/investProductHeadCard.png) 100% top no-repeat no-repeat;">
+		<!-- <div class="headTitle">汇添富跟我投</div> -->
+		<div class="headTitle">&nbsp;</div>
+		<div class="textList">
+			<div class="list">中风险(R3)</div>
+			<div class="list">精选牛基</div>
+			<div class="list">长期增值</div>
+		</div>
+		<div class="jianyi">
+			<div class="text">
+				<div class="tupian" id="fundgroupDesc"><img src="img/jianyi.png" alt="" align="left" hspace="5" vspace="5"></div>
+
+				<span style="font-weight:bold;font-size: 0.65rem;color:#000" >策略理念：</span><span class="textDetail"></span><span style="color:#148ce6;display: none" class="lookDetails">…查看详情</span>
+			</div>
+		
+			<!-- <div style="width:100%;border:1px solid #eee;margin-top:0.5rem;clear:both"></div> -->
+		</div>
+		<div class="target-content" style="word-break: break-word">
+			<!-- <div class="tags">
+				<span>目标盈投顾</span>
+				<span>投资省心省力</span>
+			</div>
+			<table class="tables">
+				<tbody>
+					<tr>
+						<td style="color: #f4333c;font-size:1.5rem">6.00<em style="color: #f95d1f;font-size: .8rem;">%</em></td>
+						<td style="color: #000;font-size: .9rem;">180天</td>
+						<td style="color: #000;font-size: .9rem;">2022.03.26</td>
+					</tr>
+					<tr>
+						<td>目标止盈年化收益率<i class="tips-icon"></i></td>
+						<td>最长运作天数</td>
+						<td>运作起始日</td>
+					</tr>
+				</tbody>
+			</table> 
+			<div class="desction">
+				<p>
+					<span>必读</span><em>开放参与日</em>为2022年03月23日15:00-2022年03月25日。<em>特别提示</em>：目标止盈年化收益率为客户的投资期望，非本策略承诺的收益率。
+				</p>
+			</div> -->
+		</div>
+		<!--	//分割线 显示隐藏-->
+
+		<div style="width:100%;border-bottom: 1px solid #eee;" id="fgx"></div>
+		<!-- 滚动 -->
+		<div class="content0" id="content0" style="height:2.25rem;margin:0;display:none;background: #fff;border-radius: 0 0 6px 6px;">
+			<ul class="wrap"></ul>
+		</div>
+	</div>
+
+	<div class="content0" style="margin-top:1.05rem" id="marginTop">
+		<div class="wrap" style="padding-top:2.25rem;">
+            <!--start 20211119修改-把它隐藏 -->
+
+				<!-- <div class="sixMonth">
+					<div class="text" >近6月收益率</div>
+					<div class="text2" style="position:relative">
+						<span style="margin-right:2.25rem">近1年收益率</span>
+						<img src="img/warningIcon.png" onclick="igd_showTips(11)" alt="" style="width:0.75rem;height:0.75rem;position:absolute;top:0.4rem;right:0px">
+					</div>
+				</div> -->
+				<!-- <div class="bili">
+					<div class="text" id="profit_six"></div>
+					<div class="text2" id="profit_year"></div>
+				</div> -->
+				
+				<!-- <div class="changqi">
+					<div class="text">长期绩优</div>
+					<div class="text2">股债均衡</div>
+				</div> -->
+
+			<!--end 20211119修改-把它隐藏 -->
+		</div>
+	</div>
+
+	<!--start 20211119修改-把它隐藏 -->
+	<!--	//分割线 显示隐藏-->
+		<!-- <div style="width:100%;border-bottom: 1px solid #eee;display: none;" id="fgx"></div> -->
+		<!-- 滚动 -->
+		<!-- <div class="content0 " id="content0" style="height:2.05rem;margin:0;"> -->
+			<!-- <ul class="wrap"></ul> -->
+		<!-- </div> -->
+    <!--end 20211119修改-把它隐藏 -->
+
+	<!-- 2020.08.05 滚动 -->
+	<!--  <div class="gundong">
+         <div class="first">
+             <div style="float:left"><img src="img/sound.png" alt="" style="width:0.65rem;height:0.6rem;margin-right:0.5rem">理性看待采购政策:投资周报抢先看</div>
+             <div style="float:right"><img style="transform: rotateZ(270deg);width: .7rem;" src="img/select_down.png"></div>
+         </div>
+     </div> -->
+</section>
+<!-- 目标盈相关 -->
+<div class="target-container-1">
+	<div class="container">
+		<h4>策略运作流程</h4>
+		<div class="work-line">
+			<!-- <div class="line-block">
+				<div class="line">
+					<img src="./img/qaq.png" alt="">
+					<div class="blue-line"></div>
+				</div>
+				<p class="line-title">开放参与日</p>
+				<p class="line-text">2022-03-21 15:00至2022-03-25 15:00为参与期，参与资金冻结在现金宝账户，享受货币收益</p>
+			</div>
+			<div class="line-block">
+				<div class="line">
+					<img src="./img/qaq.png" alt="">
+					<div class="blue-line"></div>
+				</div>
+				<p class="line-title">平稳运作期</p>
+				<p class="line-text">2022-03-26至2022-03-26平稳运作期，该阶段不触发止盈</p>
+			</div>
+			<div class="line-block">
+				<div class="line">
+					<img src="./img/qaq.png" alt="">
+					<div class="blue-line"></div>
+				</div>
+				<p class="line-title">止盈观察期</p>
+				<p class="line-text">2022-06-26起进入止盈观察期，该阶段若达到目标收益率，则触发止盈自动赎回到现金宝或转入销售中的同类策略</p>
+			</div>
+			<div class="line-block">
+				<div class="line">
+					<img src="./img/qaq.png" alt="">
+				</div>
+				<p class="line-title">运作到期日</p>
+				<p class="line-text">2022-09-30为运作到期日，如未触发止盈，到期后自动赎回到现金宝或转入销售中的同类策略</p>
+			</div> -->
+		</div>
+	</div>
+</div>
+<div class="target-container-2" style="display: none;">
+	<div class="container">
+		<div class="title">
+			<h4>往期策略运作情况</h4>
+			<a href="javascript:;" id="operatingStrategy"><span>详情</span><img src="./img/new.png" alt=""></a>
+		</div>
+		<div class="tables">
+			<div class="table-block">
+				<p>累计发车</p>
+				<p>18期</p>
+			</div>
+			<div class="table-block">
+				<p>运作中</p>
+				<p>12期</p>
+			</div>
+			<div class="table-block">
+				<p>已止盈</p>
+				<p>06期</p>
+			</div>
+		</div>
+	</div>
+</div>
+<!--statr 20211119新加入div块 -->
+<!-- 策略目标 -->
+<div class="target">
+	<!-- <div class="targetTitle">策略介绍</div> -->
+	<div style="display: flex;align-items: center;justify-content: space-between;padding:0rem .5rem;color: #000;font-size: .75rem;">
+		<p>
+			<span style="font-weight:bold;font-size: .75rem">策略介绍</span>
+		</p>
+		<p id="go_target_strategy" style="color:#666;font-size:0.75rem;display:none"><span style="display: inline-block">更多</span><img style="width:.4rem;vertical-align: middle;margin-left:0.25rem;height:0.75rem;margin-top:-0.15rem;display: inline-block" src="img/new.png"></p>
+	</div>
+	<div class="targetHead">
+		<div>投资目标</div>
+		<div>权益资产占比</div>
+		<div>建议持有时长</div>
+	</div>
+	<div class="targetList">
+		<div>10%-20%</div>
+		<div>5%</div>
+		<div>1年以上</div>
+	</div>
+	<!-- <div class="notes">注：投资目标和回撤控制不构成产品业绩承诺</div> -->
+</div>
+<!--end 20211119新加入div块 -->
+
+
+<!-- <section class="content2" id="profitChart" > -->
+	<!-- <div>
+		<ul class="clearfix border tab1">
+			<li style="text-align:left!important">
+				<!-- <img src="./img/round.png" alt="" style="margin-right: 1rem;"> -->
+				<!-- <span style="float:left;font-size:0.8rem;font-weight:bold" id="chartTitle" >收益走势</span>
+				<span style="float:right;margin-right:0.8rem" onclick="igd_showTips(11)"><img src="img/warningIcon.png" alt="" style="width:0.75rem;height:0.75rem;"></span>
+				<!-- <img style="transform: rotateY(180deg);margin-left: 1rem;" src="./img/round.png" alt=""> -->
+			<!-- </li> -->
+		<!-- </ul>
+		<div class="diagram" style="position: relative;">
+			<div>
+				<div id="pie1" style="width: 100%; height: 13rem;"></div>
+			</div> -->
+			<!-- <div class="noData" style="display: none;">
+				<p>没有足够的数据可展示</p>
+			</div>
+		</div>
+	</div> -->
+	<!-- <ul class="clearfix tab2"> -->
+		<!-- <li><a>近1月</a></li>
+		<li><a>近3月</a></li>
+		<li class="active"><a>近6月</a></li>
+		<li><a>近1年</a></li>
+		<li><a>成立以来</a></li>
+	</ul> -->
+<!-- </section> -->
+<div class="bili">
+	<div style="display: flex;align-items: center;justify-content: space-between;padding:0rem .5rem;padding-top:.65rem;color: #000;font-size: .75rem;">
+		<p>
+			<span style="font-weight:bold;font-size: .75rem">资产配置</span>
+			<span style="margin-left:0.25rem;font-size:0.65rem;color:#666" id="jiezhi">截至2020.08.01</span>
+		</p>
+		<p id="go_invest_fundgroup_detail" style="color:#666;font-size:0.75rem"><span style="display: inline-block">策略基金池</span><img style="width:.4rem;vertical-align: middle;margin-left:0.25rem;height:0.75rem;margin-top:-0.15rem;display: inline-block" src="img/new.png"></p>
+	</div>
+</div>
+<!-- 圆饼图	 -->
+<section class="content3 scrollBox" style="margin-top: 0rem;background: #f6f6f6">
+	<div style="width:93%;height:8rem;margin:0 auto;position: relative;background:#fff;">
+		<div id="pie2" style="width:100%; height:8rem;position: absolute; left:-3.75rem;"></div>
+		<ul class="legend fund-list" style="width:40%;position: absolute;right:.75rem;top:1.85rem">
+		</ul>
+
+	</div>
+	<!-- 20211119添加的文案 -->
+	<div style="width:93%;background: #fff;font-size:0.6rem;margin:0 auto;padding:0 0 0.75rem 0;border-radius: 0 0 6px 6px">
+		<div style="padding:0 0.5rem">资产配置比例仅显示截至时间组合持仓概况，不代表最新组合实际持仓，组合可能已调仓</div>
+	</div>
+</section>
+<!-- <div class="tedian">
+	<div class="text" style="font-weight:bold">组合投资特点</div>
+</div>
+<div style="width:100%;background:#fff;">
+	<div style="width:90%;margin:0 auto;padding:0.75rem;font-size:0.65rem;word-break:break-all;" id="tedian_text">本组合将通过主动管理和选择绩优的基金，在严格控制风险的前提下，以实现客户期望收益为目标，并力争将最大回撤控制在3%以内。</div>
+</div> -->
+
+<section class="content6" style="width:93%;margin:0 auto;margin-top: .45rem;border-radius: 6px">
+	<div style="display: flex;align-items: center;justify-content: space-between;padding:0rem .5rem;padding-top:.65rem;color: #000;font-size: .75rem;">
+		<p>
+			<span style="float:left;font-size:0.75rem;font-weight: bold">交易信息</span>
+		</p>
+		<p style="color:#666;font-size:0.75rem"><span style="display: inline-block">交易规则、费率</span><img style="width:0.4rem;margin-left:0.25rem;height:0.75rem;vertical-align: middle;margin-top:-0.15rem;display: inline-block" src="img/new.png"></p>
+	</div>
+	<div class="deal">
+		<div >
+			<div class="title">
+				<text >买入提交</text>
+				<text >确认份额</text>
+				<text >查看盈亏</text>
+			</div>
+			<div class="line" style="background:#148ce6">
+				<span class="round1" style="border: 0.15rem solid #148ce6;"></span>
+				<span class="round2" style="border: 0.15rem solid #148ce6;"></span>
+				<span class="round3" style="border: 0.15rem solid #148ce6;"></span>
+			</div>
+			<div class="time">
+				<span class="submit-time">2020.08.22</span>
+				<span class="confirm-time"></span>
+				<span class="view-profit-time"></span>
+			</div>
+		</div>
+	</div>
+	<div class="fee_text">
+
+	</div>
+</section>
+
+<!-- start 20211119隐藏 -->
+<!-- <div class="invest_notice" >
+	<div class="title">投顾公告</div>
+</div> -->
+<!--end 20211119隐藏 -->
+<!-- start 20211220打开显示 -->
+<section class="content" style="width:93%;margin:0 auto;margin-top: .45rem;border-radius: 6px">
+	<div class="invest_notice" style="margin-top: 0;padding-left: 0.5rem;">
+	<!-- <div class="title">投顾公告</div> -->
+	<div style="display: flex;align-items: center;justify-content: space-between;padding:.65rem .5rem .65rem 0;color: #000;font-size: .75rem;">
+		<p>
+			<span style="float:left;font-size:0.75rem;font-weight: bold">信息披露</span>
+		</p>
+		<p style="color:#666;font-size:0.75rem"><span style="display: inline-block;width: 1rem;"></span><img style="width:0.4rem;margin-left:0.25rem;height:0.75rem;vertical-align: middle;margin-top:-0.15rem;display: inline-block" src="img/new.png"></p>
+	</div>
+</div>
+</section>
+<!--end 20211220打开显示 -->
+
+
+<!-- 常见问题 -->
+<div class="problem">
+	<div class="proTitle">常见问题</div>
+	<div class="standard-qa">
+		<div class="proList">
+			<div class="proImg"><img src="img/problem.png" alt=""><span>投顾组合和历史组合服务有什么区别？</span></div>
+			<div class="answer">相对于历史组合服务（历史组合服务正在进行业务升级）来说，投顾组合服务以客户为中心，是由专业的投资管理团队在充分了解客户风险偏好与投资需求的基础上，提供一站式资产配置解决方案及全流程账户管理和客户陪伴服务。</div>
+		</div>
+		<div class="proList">
+			<div class="proImg"><img src="img/problem.png" alt=""><span>投顾组合调仓需要客户操作吗？</span></div>
+			<div class="answer">基金公司专业投顾团队会根据业务协议及规则要求，代客户执行调仓，无需客户主动操作。</div>
+		</div>
+		<div class="proList">
+			<div class="proImg"><img src="img/problem.png" alt=""><span>投顾服务收取哪些费用？是否有优惠？</span></div>
+			<div class="answer">投顾服务对投资者收取基金投顾服务费和投顾组合在转入、转出、调仓过程中成分基金产生的申购费、赎回费、转换费等费用。<br>
+				当前，我司对现金宝平台的投顾服务提供以下优惠：<br>
+			 投顾组合中对于本公司的基金不收取认购费、申购费、赎回费（按照相关法律、基金招募说明书约定应当收取，并计入基金财产的赎回费用除外）等费用；对管理人为其他基金公司的基金，代销机构有权根据其公布的费用标准收取各成分基金的认购费、申购费、赎回费等费用。</div>
+		</div>
+	</div>
+	<div class="target-qa" style="font-family: Arial; display: none;" >
+		<div class="proList">
+			<div class="proImg"><img src="img/problem.png" alt=""><span>什么是目标盈投顾服务？</span></div>
+			<div class="answer" >“目标盈投顾服务”是由投顾业务试点机构为用户提供的目标收益类投顾产品。每一期投顾服务在确定了目标收益后，投顾机构会以此为运作目标，按照既定策略和市场行情为用户买卖基金。若在运作周期内达成或超过目标收益，投顾服务将自动止盈，为用户锁定收益。</div>
+		</div>
+		<div class="proList">
+			<div class="proImg"><img src="img/problem.png" alt=""><span>购买后可随时赎回吗？</span></div>
+			<div class="answer">目标盈投顾服务在运作期内可以随时赎回部分或全部资金。温馨提示：若组合内配置有港股通基金，非港股通交易日会暂停赎回。</div>
+		</div>
+		<div class="proList">
+			<div class="proImg"><img src="img/problem.png" alt=""><span>达到止盈目标或到期后如何处理？</span></div>
+			<div class="answer">目标盈策略达到止盈目标后，将根据您的选择为您安排自动赎回到现金宝或者自动转入到当期正在销售的目标盈策略。</div>
+		</div>
+	</div>
+</div>
+<!-- 风险提示 -->
+<div class="risk-tip" style="padding: .5rem .75rem 0 .75rem;font-size:.6rem;line-height:1.5;font-family: Arial;">风险提示：市场有风险，投资需谨慎。汇添富基金承诺以诚实信用、勤勉尽责的原则提供基金投资顾问服务，但不保证投顾账户一定盈利，也不保证最低收益。投顾服务历史业绩不代表末来收益，为其他客户创造的收益，并不构成业绩表现的保证。汇添富基金提醒投资者接受基金投资顾问服务遵循“买者自负”原则，投资者应结合自身的投资经历、风险承受能力、资产配置需要作出投资决策，投顾账户的投资风险由投资者自行承担。该策略风险等级为中低风险R2，适合风险承受等级为C2及以上的客户。基金投资组合策略的风险特征与单只基金产品的风险特征存在差异。基金投顾业务尚处于试点阶段，存在因试点资格被取消不能继续提供服务的风险。投资者应自行阅读《基金投资顾问服务协议》、《风险揭示书》、《组合策略说明书》等法律文件，自行做出投资选择。</div>
+<div style="height:2rem;background:#f6f6f6 "></div>
+
+<div class="tips_text">
+	<!-- <div class="text" id = "stdRate">1000元起  投顾服务费率：1.5% </div> -->
+	<div class="text" id = "stdRate"></div>
+</div>
+
+<!-- <div style="padding: 0 .75rem;font-size: .6rem;padding-bottom: .5rem;">注：您可以通过截屏的方式存留相关信息</div> -->
+<!-- <section class="content7" id="regularReport" style="margin-top: .45rem;">
+    <div
+            style="border-bottom: 1px solid #eee;display: flex;align-items: center;justify-content: space-between;padding: .75rem;color: #000;font-size: .75rem;">
+        <p><span>定期报告</span></p>
+        <img style="transform: rotateZ(270deg);width: .7rem; margin-right: .2rem;margin-left:0.2rem" src="img/select_down.png">
+    </div>
+</section>
+<section class="content7" id="normalQuestion" style="margin-top: .45rem;">
+    <div
+            style="border-bottom: 1px solid #eee;display: flex;align-items: center;justify-content: space-between;padding: .75rem;color: #000;font-size: .75rem;">
+        <p><span>常见问题</span></p>
+        <img style="transform: rotateZ(270deg);width: .7rem;" src="img/select_down.png">
+    </div>
+</section> -->
+
+
+<!--<section style="background-color: #f6f6f6;padding: .5rem .6rem;font-size: .6rem;">
+    <span>温馨提示：跟我投服务适合中高风险承受能力的投资者，汇添富保留跟我投服务基金构成及比例调整的最终解释权。</span>
+</section>-->
+<style>
+.footer_area { position: fixed; bottom: 0; width: 100%;}
+.footer_area ul { display: flex; justify-content: center; align-items: center;}
+.footer_area ul li:first-of-type { border-left: none;}
+.footer_area ul li { height: 2.5rem; background-color: #4f423d; width: 100%; border-top: 1px #eee solid; border-left: 1px #eee solid;}
+.footer_area ul li a {display: flex; justify-content: center; align-items: center; flex-direction: column; width: 100%; height: 100%; text-align: center; color: #d2af55; font-size: .8rem; }
+.footer_area1 { position: fixed;left: 0;right: 0; bottom: 0; width: 100%;}
+.footer_area1 .footer_content{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	height: 2.5rem;
+	background-color: #fe7e01;
+	color: #fff;
+}
+.footer_area1 .footer_content .text{
+	margin-top: .35rem;
+	font-size: .85rem;
+}
+.footer_area1 .footer_content .time{
+	font-size: .6rem;
+	margin-bottom: .35rem;
+}
+</style>
+<div class="fgx" style="height:2.5rem;display: none;"></div>
+<div class="footer_area" style="display: none;">
+	<ul>
+		<li class="btn_out" ><a href="javascript:;"><span>定投</span></a></li>
+		<!-- <li class="btn_in" ><a href="javascript:;" ><span>一键购买<br><small>(1000.00元起购)</small></span></a></li> -->
+		<li class="btn_in" ><a href="javascript:;" ><span>一键购买</span></a></li>
+	</ul>
+</div>
+<div class="footer_area1" style="display: none;">
+	<div class="footer_content">
+		<a href="javascript:;" class="text"></a>
+		<a href="javascript:;" class="time"></a>
+	</div>
+</div>
+
+<div class="tip" style="display: none;">
+	<div class="tip_wrap">
+		<div class="tip_content">
+			<p>您尚未登陆，请先登录</span></p>
+		</div>
+		<div class="tip_btn">
+			<ul style="width: 100%;">
+				<li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid"
+					class="close_tip"><a href="javascript:;">取消</a></li>
+				<li style="float: left;width:50%;box-sizing: border-box;"><a href="login.html">去登录</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="tip2" style="display: none;">
+	<div class="tip_wrap">
+		<div class="tip_content">
+			<p>您还未绑卡，请先绑定银行卡</span></p>
+		</div>
+		<div class="tip_btn">
+			<ul style="width: 100%;">
+				<li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid"
+					class="close_tip"><a href="javascript:;">取消</a></li>
+				<li style="float: left;width:50%;box-sizing: border-box;"><a href="addBankCard_2.html">去绑卡</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="sm_tip">
+	<p>添加成功</p>
+</div>
+<!--弹框-->
+<!-- 这是新加的弹窗	 -->
+<div class="layer" style="display: none;">
+	<div class="layer-wrap">
+		<div class="layer-body">
+			<p>由于成分基金每日净值波动影响，客户实际下单时成分基金默认配比以页面展示的当前比例为准，可能与标准组合初始配置或调仓时的比例有微小偏离。</p>
+		</div>
+		<button style="color:#006bfe">确定</button>
+	</div>
+</div>
+<div class="layer" style="display: none;" id="tips11">
+	<div class="layer-wrap">
+		<div class="layer-body">
+			<p style="color:#000;padding-bottom:0.5rem">组合收益率</p>
+			<p>根据组合服务成立以来所有成分基金的占比和净值变化测算得到，作为组合服务的业绩参考。因模拟测算过程未考虑实际可能产生的交易费用，且客户实际投资存在投资时间偏差和成分基金占比偏差等情况，组合业绩与客户实际持仓的表现可能存在一定偏差。</p>
+		</div>
+		<button style="color:#006bfe">确定</button>
+	</div>
+</div>
+
+
+
+<div class="layer layer-1" style="display: none;">
+	<div class="layer-wrap">
+		<div class="layer-body">
+			<p id="display_yield_desc">“模拟历史年化业绩”是采用模拟历史数据的方法回测得出。本组合的过往业绩并不预示其未来表现，也不作为本组合业绩表现的保证。</p>
+		</div>
+		<button>我知道了</button>
+	</div>
+</div>
+<div class="layer layer-2" style="display: none;">
+	<div class="layer-wrap">
+		<div class="layer-body">
+			<p id="display_desc"></p>
+		</div>
+		<button>我知道了</button>
+	</div>
+</div>
+<div class="holdFloatIcon">
+    <a href="javascript:;"></a>
+</div>
+
+<!-- 2021添加半透明弹窗 -->
+<div class="sm_tip">
+	<p>添加成功</p>
+</div>
+<script>
+// 20211221 S 策略介绍加一个“更多”可跳转到介绍页H5（跳转地址通过UOP文案提示配置key实现，invest_intro），有值展示“更多”且可跳转，无值则不展示“更多”
+var queryKeys = { keys: 'invest_intro:' + utils.getUrlParam('groupId') };
+utils.ajax({
+		url: '/mobile-bff/v1/unification/query',
+		type: 'GET',
+		// data: { keys: 'invest_intro' },
+		data: queryKeys,
+		success: function (result) {
+				if (result.returnCode === 0) {
+						console.log("/mobile-bff/v1/unification/query", result.body);
+						var str = (result.body&&result.body[queryKeys.keys])?result.body[queryKeys.keys]['unificationValue']:'';
+						if(str){
+								$("#go_target_strategy").show().on('click', function () {
+									window.location.href = str;
+								});
+						}else{
+								$("#go_target_strategy").hide(); 
+						}
+
+				} else {
+						utils.showTips('请求超时，请稍后重试');
+				}
+		}.bind(this)
+})
+// 20211221 E 策略介绍加一个“更多”可跳转到介绍页H5（跳转地址通过UOP文案提示配置key实现，invest_intro），有值展示“更多”且可跳转，无值则不展示“更多”
+
+// 20210723新加代码功能-start	
+function getPosition(fundGroupType){
+	$.get('/res/v1/layout-switch/funcmod-switch?layoutIds=holdingFloatingEntrance', function(resultStr){
+		var result = typeof resultStr === 'string' ? JSON.parse(resultStr) : resultStr;
+		console.log('funcmod-switch result=', result);
+		if(result.returnCode == 0 && result.body && result.body.holdingFloatingEntrance==="1"){
+			// 我的持仓icon 显示开关已配置
+			var groupId = utils.getUrlParam("groupId");
+			var balanceSerialNo='';
+			$.get( "/assetcenter/v1/asset/product-hold-asset?productId=" + groupId+"&productType=3", function(resultStr){
+				var result = typeof resultStr === 'string' ? JSON.parse(resultStr) : resultStr;
+				if(result.returnCode == 0){
+					// 判断是否有持仓
+					if(result.body.isHold==true){
+						balanceSerialNo=result.body.balanceSerialNo;
+						// ios多笔持仓暂时注释掉20210928
+						if(isIosApp() && !balanceSerialNo){
+							$(".holdFloatIcon").hide();
+							return;
+						}
+						$(".holdFloatIcon").show();
+						setTimeout(function(){$(".holdFloatIcon").css("transition","1s").css('marginRight', '100px');}, 500);
+						$(".holdFloatIcon a").click(function(){
+							if(balanceSerialNo){
+								window.location.href="htffundxjb://action?type=fundGroup&subType=holdingDetail&groupId="+groupId
+													+"&fundGroupType="+fundGroupType+"&balanceSerialNo="+balanceSerialNo;
+							} else {
+								window.location.href="htffundxjb://action?type=asset&subType=shareDetail&productId="+groupId
+													+"&assetClassify=03&currencyType=156";
+							}
+						})
+						// 滑动效果
+						document.addEventListener('touchstart',touch,false);
+						document.addEventListener('touchmove',touch,false);
+						document.addEventListener('touchend',touch,false);     
+						function touch (event){
+							var event = event || window.event;
+							// var oInp = document.getElementById("inp");
+							var target = $(event.target);
+							if(target.parents('.holdFloatIcon').length > 0){
+								return;
+							}
+							switch(event.type){
+								case "touchstart":
+									$(".holdFloatIcon").css("transition","1s").css('marginRight', '-200px');
+									break;
+								case "touchend":
+									$(".holdFloatIcon").css("transition","1s").css('marginRight', '100px');
+									break;
+								case "touchmove":
+									// event.preventDefault();
+									break;
+							}
+						}
+					} else {
+						// 没有持仓
+						$('.holdFloatIcon').hide();
+					}
+				}else{
+					alert(result.returnMsg);
+				}
+			});
+		}
+	})
+
+}
+// 20210723新加代码功能-end		
+
+	/* 跳转投顾公告列表 */
+	function goToAnnouncementList(groupId){
+		// window.location.href=`/tradeh5/newWap/fundgroup/investNotice.html?groupId=${groupId}`
+		// var itemUrl = `/tradeh5/newWap/fundgroup/investNotice.html?groupId=${groupId}`;
+		var itemUrl = location.origin + `/tradeh5/newWap/fundgroup/investNotice.html?groupId=${groupId}`;
+		if(isApp()){
+			// window.location.href = 'htffundxjb://action?type=url&link='+btoa(location.origin+itemUrl);
+			window.location.href = 'htffundxjb://action?type=url&link='+btoa(itemUrl);
+		}else{
+			window.location.href = itemUrl;
+		}
+	}
+	/* 跳转投顾公告详情 */
+	function goToDetail(serialno) {
+		// window.location.href = `/tradeh5/newWap/fundgroup/noticeDetail.html?serialno=${serialno}`
+		var itemUrl = location.origin + `/tradeh5/newWap/fundgroup/noticeDetail.html?serialno=${serialno}`;
+		if(isApp()){
+			// window.location.href = 'htffundxjb://action?type=url&link='+btoa(location.origin+itemUrl);
+			window.location.href = 'htffundxjb://action?type=url&link='+btoa(itemUrl);
+		}else{
+			window.location.href = itemUrl;
+		}
+    }
+	/* 获取投顾公告 */
+	function getAnnouncementList(){
+		var groupId = utils.getUrlParam("groupId");
+		var url=`/productcenter/v1/new/compose/fundgroup/single/announcement/collections?groupId=${groupId}&pageNo=1&pageSize=2`
+		$.get(url, function(result){
+					if(result.returnCode == 0 && result.body != undefined && result.body != null){
+						if(result.body.resultTotalNum===0){
+							return	$('.invest_notice').hide();
+						}
+						var str='';
+						result.body.announcementVOList.forEach(item=>{
+							str+=`<div class="list_item" data-no='${item.serialno}'>${item.title}</div>`
+						})
+						if(result.body.resultTotalNum>2){
+							str+=`<div class="more" onclick='goToAnnouncementList("${groupId}")'>更多公告</div>`
+						}
+						$('.invest_notice').append(str)
+						$('.invest_notice .list_item').on('click',function(event){
+							goToDetail(event.target.dataset.no)
+						})
+					}
+				}
+		);
+	}
+
+	// 20211220投顾公告不在此页面获取，点击直接跳转到投顾公告页面（信息披露页面）
+	// getAnnouncementList()
+	$('.invest_notice p img').parent().on('click', function () {
+		var groupId = utils.getUrlParam("groupId");
+		goToAnnouncementList(groupId);
+	})
+
+
+	var establishDateStr = "";
+	queryGrouptradeDateInfo();
+	queryRecommendInfo();
+	var option_1 = {
+		color: ['#fb5c5f', '#89acd8', '#f11', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'],
+		tooltip: {
+			show: true, trigger: 'axis',
+			axisPointer: {
+				type: 'cross', label: { backgroundColor: 'rgba(0,0,0,0)', textStyle: { color: "red" } }, lineStyle: { color: "#1aa2e6" }
+			},
+			position: ["50%", "3%"], alwaysShowContent: true, backgroundColor: "rgba(0,0,0,0)", textStyle: { color: "#333" },
+			//    formatter: ' <div style="width: 100%;margin-left: -50%;font-size: 14px;">{a0}: <span style="color:#f4333c">{c0}%</span></div>'
+			formatter: function (item) {
+				// var itmedata1 = item[0].data + '%';
+				// return ' <div style="width: 100%;margin-left:-72%;color:#666666;font-size:.7rem">20'+item[0].axisValue.replace(/-/g,'.')+'&nbsp;&nbsp;组合收益率：</span><span style="font-size:.7rem">' + itmedata1 + '</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp</div>'
+				var arr = [];
+				arr.push(' <div style="width: 100%;margin-left:-50%;font-size: 0.65rem;">');
+				if(item[0].data != undefined && item[0].data != null && item[0].data != ''){
+					arr.push('<span style="display:inline-block;width:.75rem;height:.1rem;background:#148ce6;vertical-align: middle;"></span>');
+					arr.push('<span style="color: #666666;">&nbsp;&nbsp;组合收益率：</span><span style="color: #000000;font-weight: bold;">' + item[0].data + '%' +'&nbsp;&nbsp;&nbsp;&nbsp;</span>');
+				}
+				// console.log("item[1]---"+JSON.stringify(item[1]));
+				if(item[1] != null && item[1].data != undefined && item[1].data != null && item[1].data != ''){
+					arr.push('<span style="display:inline-block;width:.75rem;height:.1rem;background:#fb5c5f;vertical-align: middle;"></span>');
+					arr.push('<span style="color: #666666">&nbsp&nbsp业绩基准：</span><span style="color: #000000;font-weight: bold;">' + item[1].data + '%</span>');
+				}
+				arr.push("</div>");
+				return arr.join("");
+			}
+		},
+		grid: { left: '3%', right: '6%', bottom: '5%', top: "20%", containLabel: true },
+		xAxis: [
+			{
+				type: 'category', boundaryGap: false, axisTick: { show: false },
+				// splitLine: { show: true, lineStyle: { color: "#999999" } },
+				axisLine: { show: false, lineStyle: { color: "#999999" } },
+				axisLabel: { interval: 30 ,formatter: function(value, index){
+						if(index ==0){ return "   " + value; }
+						return value + "      ";
+					}},
+				data: [],
+			}
+		],
+		yAxis: [
+			{
+				type: 'value',
+				axisLine: { show: true, lineStyle: { color: "#f1f1f1" } },
+				axisTick: { show: false },
+				splitLine: { show: true, lineStyle: { color: "#f1f1f1" } },
+				axisLabel: { show: true, formatter: "{value}%", textStyle: { color: "#999999", fontFamily: "Arial" } },
+				axisPointer: { label: { show: false }, lineStyle: { type: "solid", color: "#1aa2e6" } }
+			}
+		],
+		series: [
+			{
+				symbol: "none", name: '组合收益', type: 'line', smooth: true,
+				// showSymbol: false,
+				// hoverAnimation: false,
+				areaStyle: {
+					normal: {
+						color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+							offset: 0, color: '#e8f4fd' // 0% 处的颜色
+						}, {
+							offset: 1, color: '#fff' // 100% 处的颜色
+						}], false)
+					}
+				},
+				lineStyle: {
+					normal: {
+						color: "#148ce6",
+						width: 1
+					}
+				},
+				data: []
+			},
+			{
+				symbol: "none", name: '业绩基准', type: 'line', smooth: true,
+				// showSymbol: false,
+				// hoverAnimation: false,
+				areaStyle: {
+					normal: {
+						color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+							offset: 0, color: '#e8f4fd' // 0% 处的颜色
+						}, {
+							offset: 1, color: '#fff' // 100% 处的颜色
+						}], false)
+					}
+				},
+				lineStyle: {
+					normal: {
+						color: "#fb5c5f",
+						width: 1
+					}
+				},
+				data: []
+			},
+		]
+	};
+
+	function setOption(option,incomes1,incomes2){
+		var result1 =  formattingIncomes(incomes1);
+		var result2 =  formattingIncomes(incomes2);
+		option.xAxis[0].data = result1.xArrs;
+		option.xAxis[0].axisLabel.interval = result1.xArrs.length-2;
+		option.series[0].data = result1.yArrs;
+		option.series[1].data = result2.yArrs;
+
+	}
+	function draw(myChart, option){
+		if( !((option.series[0].data && option.series[0].data.length>0) ||  (option.series[1].data && option.series[1].data.length>0))){
+			option.xAxis[0].data = ["",""];
+			option.xAxis[0].axisLabel.interval = ["",""].length-2;
+			$(".noData").show();
+		}else{
+			$(".noData").hide();
+		}
+		myChart.setOption(option);
+		/* setTimeout(function(){
+            myChart.dispatchAction({ type: 'showTip', seriesIndex: 0, dataIndex: 10 });
+        },0); */
+	}
+	function formattingIncomes(incomes){
+		var xArrs = [], yArrs = [];
+		var len = incomes.length;
+		// console.log("incomes------"+JSON.stringify(incomes));
+		for (var i = 0; i < len; i++) {
+			if(incomes[i] == null || App.isEmpty(incomes[i])){
+				// xArrs.push("2020-09-07".substr(2,2) + "-" + "2020-09-07".substr(-4,2) + "-" + "2020-09-07".substr(-2,2));
+				// yArrs.push("123");
+				continue;
+			}
+			var chartDt = incomes[i].chartDt;
+			xArrs.push(chartDt.substr(2,2) + "-" + chartDt.substr(-4,2) + "-" + chartDt.substr(-2,2));
+			yArrs.push(incomes[i].chartNum);
+		}
+		return {xArrs: xArrs, yArrs: yArrs};
+	}
+
+	//制保留2位小数，如：2，会在2后面补上00.即2.00
+	function toDecimal(x) {
+		var f = parseFloat(x);
+		if (isNaN(f)) {
+			return false;
+		}
+		var f = Math.round(x*100)/100;
+		var s = f.toString();
+		var rs = s.indexOf('.');
+		if (rs < 0) {
+			rs = s.length;
+			s += '.';
+		}
+		while (s.length <= rs + 2) {
+			s += '0';
+		}
+		return s;
+	}
+
+	// function getChartData(groupId, chartTp, queryTp, createDt){
+	// 	$.get("/mobileEC/services" + "/adviser/query_fund_group_yields?groupId=" + groupId + "&chartTp=" + chartTp + "&queryTp=" + queryTp + "&createDt=" + createDt + "&t=" + new Date().getTime(), function(resultStr){
+	// 		var result = typeof resultStr==='string'?  JSON.parse(resultStr) : resultStr ;
+	// 		if(result.returnCode == 0){
+	// 			var chartDatas = result.body;
+	// 			var syList = chartDatas.syList;
+	// 			var hs300List = chartDatas.hs300List;
+	// 			var mixList = chartDatas.mixList;
+	// 			hs300List.length = syList.length;
+	// 			mixList.length = syList.length;
+	// 			mychart_gp_1 = echarts.init(document.getElementById('pie1'));
+	// 			setOption(option_1, syList, mixList);
+	// 			draw(mychart_gp_1,option_1);
+	// 			setTimeout(function () {
+	// 				mychart_gp_1.dispatchAction({ type: 'showTip', seriesIndex: 0, dataIndex: syList.length - 1});
+	// 				mychart_gp_1.dispatchAction({ type: 'showTip', seriesIndex: 0, dataIndex: - 1});
+	// 			}, 0);
+
+	// 		}
+	// 	});
+	// }
+	//组合详情数据加载
+	groupId = App.getUrlParam("groupId");
+
+	// 添加固定文案逻辑
+	var contentList = [
+		// groups的第一个都是管理型M第二个都是G一般型
+		{
+			groups:['A6101','A6109'],
+			investTarget: '现金管理',
+			title2: '债券资产占比',
+			assetPostion: '0-60%',
+			targetYearYield:'2.5%-3.5%',
+			targetRetreat:'0.5%',
+			RecommendedHoldingTime:'1个月以上',
+			desc:'综合考虑短期灵活投资需求的风险收益特征，严控波动、兼顾申赎效率，在配置优质货币基金的基础上，阶段性配置一定比例的债券基金；力争获得相比货币基金同期回报较高的超额收益水平。',
+			label:['低风险(R1)','闲钱管理','短期理财']
+		},
+		{
+			groups:['A6102','A6110'],
+			investTarget: '理财升级',
+			title2: '权益资产占比',
+			assetPostion: '13%-23%',
+			targetYearYield:'7%-9%',
+			targetRetreat:'5%',
+			RecommendedHoldingTime:'6个月以上',
+			desc:'综合考虑稳健投资需求的风险收益特征，以债券型基金等资产为主要持仓品种，适时适度配置混合类及权益类基金，追求绝对收益理念适时配置，力争获得稳健收益。',
+			label:['中低风险（R2)','精选债基','追求稳健']
+		},
+		{
+			groups:['A6103','A6111'],
+			investTarget: '追求高收益',
+			title2: '权益资产占比',
+			assetPostion: '90%-98%',
+			targetYearYield:'18%-25%',
+			targetRetreat:'25%',
+			RecommendedHoldingTime:'2年以上',
+			desc:'综合考虑权益投资需求的风险收益特征，通过精选管理经验丰富，投资逻辑清晰，业绩良好的优秀基金经理和基金产品，运用均衡配置理念，力争获得长期稳健的权益投资回报。',
+			label:['中风险（R3)','精选权益','长期投资']
+		},
+		{
+			groups:['A6104','A6112'],
+			investTarget: '低波稳健',
+			title2: '权益资产占比',
+			assetPostion: '13%-23%',
+			targetYearYield:'7%-9%',
+			targetRetreat:'5%',
+			RecommendedHoldingTime:'长期持有',
+			desc:'综合考虑教育投资需求的风险收益特征，在严控投资组合下行风险的前提下，通过定量和定性的分析方法，精选优质基金形成策略组合，以期达到风险收益的优化平衡，实现基金资产的长期增值。',
+			label:['中低风险（R2）','教育主题','长期投资']
+		},
+		{
+			groups:['A6105','A6113'],
+			investTarget: '稳健增长',
+			title2: '权益资产占比',
+			assetPostion: '28%-38%',
+			targetYearYield:'10%-14%',
+			targetRetreat:'10%',
+			RecommendedHoldingTime:'长期持有',
+			desc:'综合考虑养老投资需求的风险收益特征，在严控投资组合下行风险的前提下，通过定量和定性的分析方法，精选优质基金形成策略组合，以期达到风险收益的优化平衡，实现基金资产的长期增值。',
+			label:['中低风险（R2）','养老主题','45岁以上']
+		},
+		{
+			groups:['A6106','A6114'],
+			investTarget: '稳健增长',
+			title2: '权益资产占比',
+			assetPostion: '53%-63%',
+			targetYearYield:'12%-18%',
+			targetRetreat:'12%',
+			RecommendedHoldingTime:'长期持有',
+			desc:'综合考虑养老投资需求的风险收益特征，在严控投资组合下行风险的前提下，通过定量和定性的分析方法，精选优质基金形成策略组合，以期达到风险收益的优化平衡，实现基金资产的长期增值。',
+			label:['中风险（R3)','养老主题','35-45岁']
+		},
+		{
+			groups:['A6107','A6115'],
+			investTarget: '稳健增长',
+			title2: '权益资产占比',
+			assetPostion: '68%-78%',
+			targetYearYield:'15%-20%',
+			targetRetreat:'18%',
+			RecommendedHoldingTime:'长期持有',
+			desc:'综合考虑养老投资需求的风险收益特征，在严控投资组合下行风险的前提下，通过定量和定性的分析方法，精选优质基金形成策略组合，以期达到风险收益的优化平衡，实现基金资产的长期增值。',
+			label:['中风险（R3)','养老主题','35岁以下']
+		},
+		{
+			groups:['A6108','A6116'],
+			investTarget: '理财升级',
+			title2: '权益资产占比',
+			assetPostion: '13%-23%',
+			targetYearYield:'7%-9%',
+			targetRetreat:'5%',
+			RecommendedHoldingTime:'6个月以上',
+			desc:'综合考虑稳健投资需求的风险收益特征，以债券型基金等资产为主要持仓品种，适时适度配置混合类及权益类基金，追求绝对收益理念适时配置，力争获得稳健收益。',
+			label:['中低风险（R2）','精选债基','追求稳健']
+		},
+		// 9734 未完成
+		{
+			groups:['A6119','A6128'],
+			investTarget: '理财升级',
+			title2: '权益资产占比',
+			assetPostion: '13%-23%',
+			// targetYearYield:'7%-9%',
+			// targetRetreat:'5%',
+			RecommendedHoldingTime:'6个月以上',
+			desc:'组合投资理念从争取基础收益出发，兼顾争取相对基准的超额收益，基于这一目标，通过相对基准较低的β控制组合风险敞口与回撤水平，通过精选全市场优秀基金产品争取获取稳健可持续的α',
+			label:['中低风险（R2）','稳健严选']
+		},
+		{
+			groups:['A6120','A6129'],
+			investTarget: '追求高收益',
+			title2: '权益资产占比',
+			assetPostion: '90%-98%',
+			// targetYearYield:'7%-9%',
+			// targetRetreat:'5%',
+			RecommendedHoldingTime:'2年以上',
+			desc:'选取全市场长期业绩优秀、风格稳定、基金经理投资逻辑清晰科学、选股能力突出的优秀产品，采取核心+卫星的组合构建思路，以投资风格稳健、均衡的全行业基金配置为主，并通过选择适当的卫星基金增强组合在行业、风格特征上的适时有限超配。',
+			label:['中风险（R3）','权益严选']
+		}
+
+	]
+	if(groupId){
+		var currentObj = contentList.find((item)=>{
+			return item.groups.includes(groupId);
+		})
+		if(!currentObj){
+			currentObj = {
+        targetYearYield:'x%-xx%',
+        targetRetreat:'xxx%',
+        RecommendedHoldingTime:'',
+        desc:'',
+        label:[]
+      };
+		}
+		var labStr = '';
+		currentObj.label.forEach((item)=>{
+			labStr+=`<div class="list">${item}</div>`
+		})
+		$('.textList').html(labStr)
+		// 策略建议
+		if(currentObj.desc.length>32){
+			$('.jianyi .textDetail').text(currentObj.desc.substr(0,32));
+			$(".lookDetails").show();
+		}else{
+			$('.jianyi .textDetail').text(currentObj.desc);
+			$(".lookDetails").hide();
+		}
+		// 点击查看详情---弹窗
+		$(".lookDetails").click(function(){
+				$(".layer-1").show();
+			$(".layer-1 .layer-body").text(currentObj.desc)
+		})
+		// 策略目标部分
+		// $('.targetList div').eq(0).text(currentObj.targetYearYield);
+		$('.targetList div').eq(0).text(currentObj.investTarget);   // 20211220 目标年化收益率 改为 投资目标
+		// $('.targetList div').eq(1).text(currentObj.targetRetreat);
+		$('.targetList div').eq(1).text(currentObj.assetPostion);	// 20211220 目标回撤控制 改为 权益资产占比/债券资产占比
+		$('.targetList div').eq(2).text(currentObj.RecommendedHoldingTime);
+		if(currentObj.title2 !== '权益资产占比'){
+			$('.targetHead div').eq(1).text(currentObj.title2);
+		}
+		// 常见问题部分
+		var answer_02;
+		if(currentObj.groups && currentObj.groups.indexOf(groupId)===0){
+			// 常见问题管理型话术
+			answer_02 = '对于管理型基金投顾（调仓模式为自动调仓），基金公司专业投顾团队会根据业务协议及规则要求，代客户执行调仓，无需客户主动操作。'
+		}else{
+			// 常见问题一般型话术
+			answer_02 = '该策略为一般型投顾策略，当标准策略发生调仓时，您将收到调仓提醒（短信等方式），您可根据自身意愿自行决策是否跟随标准组合调仓策略进行一键跟调。'
+		}
+		$('.standard-qa .proList').eq(1).find('.answer').text(answer_02);
+	}
+
+
+
+	$('#go_invest_fundgroup_detail').click(function(){
+		var targetUrl = window.location.origin + '/tradeh5/newWap/fundgroup/strategyFundDetail.html?groupId='+ groupId;
+		if(isApp()){
+			window.location.href = `htffundxjb://action?type=url&link=` + btoa(targetUrl);
+		}else{
+			// $('#go_invest_fundgroup_detail img').hide();
+			window.location.href = targetUrl;
+		}
+	});
+	requestGroupFundDetail(groupId);
+
+	// var incomes1 = [];
+	// var incomes2 = [];
+	// myChart_1 = echarts.init(document.getElementById('pie1'));
+	//曲线图6月
+	// getChartData(groupId, "0,1,4", 2, establishDateStr);
+	// setOption(option_1, incomes1);
+	// draw(myChart_1,option_1);
+
+	// 20211221 APP内头部为白色，修改为不跟主题颜色，展示从#fff到#f6f6f6渐变色
+	// var themeStyle = utils.getUrlParam("themeStyle");
+	// if(themeStyle == '1'){
+	// 	$(".headerBar").css("background-color", '#fe7e01');
+	// 	$(".theme_background").css("background-color", '#fe7e01');
+	// 	$(".theme_font_1").css("color", '#fe7e01');
+	// } else if (themeStyle == '3'){
+	// 	$(".headerBar").css("background-color", '#4f423d');
+	// 	$(".theme_background").css("background-color", '#4f423d');
+	// 	$(".theme_font_1").css("color", '#4f423d');
+	// 	$(".theme_background").css("color", '#d8b456');
+	// } else if (themeStyle == '4'){
+	// 	$(".headerBar").css("background-color", '#bf0012');
+	// 	$(".theme_background").css("background-color", '#bf0012');
+	// 	$(".theme_font_1").css("color", '#bf0012');
+	// } else {
+	// 	$(".headerBar").css("background-color", '#0757b2');
+	// 	$(".theme_background").css("background-color", '#00134b');
+	// 	$(".theme_font_1").css("color", '#0757b2');
+	// }
+	$(".headerBar").css("background", 'linear-gradient(to bottom, #fff,#f6f6f6)');
+
+	if(!isApp()){
+		$(".fgx").show();
+		$(".footer_area").show();
+		$(".footer_area1").show();
+		$(".tips_text").css('bottom', '2.5rem');
+	}
+    
+	/*关闭弹框*/
+	$('.layer .layer-wrap button').on("click",function () {
+		$('.layer').hide();
+		$(document.body).css({  "overflow":"auto"});
+	});
+	function layerShow(){
+		$(document.body).css({ "overflow-x":"hidden","overflow-y":"hidden"});
+		$('.layer-1').show();
+	}
+	function layerShow2(){
+		$(document.body).css({ "overflow-x":"hidden","overflow-y":"hidden"});
+		$('.layer-2').show();
+	}
+	function igd_showTips(tpnum){
+		$('#tips'+tpnum).show();
+	}
+
+	var option_2_color = ['#5c74cd', '#ee6f6f', '#fda985', '#feda77', '#76dde1', '#68b0ea'];
+	var option_2 = {
+		color: option_2_color,
+
+		tooltip: {
+			show: true, trigger: 'item',
+			position: ["22.5%", "41.5%"], alwaysShowContent: true, backgroundColor: "rgba(0,0,0,0)", textStyle: { color: "#333" },
+			//    formatter: ' <div style="width: 100%;margin-left: -50%;font-size: 14px;">{a0}: <span style="color:#f4333c">{c0}%</span></div>'
+			formatter: function (item) {
+
+			},
+		},
+		legend:{
+			selectedMode:false,
+		},
+		series: [
+			{
+				// name: '访问来源',
+				type: 'pie',
+				radius: ['39%', '59%'],
+				center: ['50%', '50%'],
+				hoverAnimation: false,
+				avoidLabelOverlap: false,
+				label: {
+					normal: {
+						show: false,
+						position: 'outside',
+						formatter: function (item) {
+							var strs = item.data.name + '\n ' + item.percent + '%'
+
+							return strs
+						}
+						// rotate:90,
+
+					}
+				},
+				labelLine: {
+					normal: {
+						length: 0,
+						length2: 0,
+					}
+				},
+				data: []
+			}
+		]
+	};
+	var colorList2 = new Array();
+	// 获取投顾风险等级的详情接口
+	// /productcenter/v1/new/uop/standard/fundgroup/query/info/detail/collections
+	function getInvestDetail(groupId){
+		$.get("/productcenter/v1/fundgroupQuery/query_fundgroup_detail_info?groupId=" + groupId,function(result){
+				console.log(result);
+				if(result.returnCode == 0){
+				
+					
+				}else{
+					alert(result.returnMsg);
+				}
+		})
+	}
+	// 目标盈日期format
+	function targetTimeFormat(val,flag,isAll){
+		try {
+			if(val){
+				if(val.length===8){//YYYYMMDD
+					if(flag){
+						return val.slice(0,4)+'.'+val.slice(4,6)+'.'+val.slice(6,8)
+					}else{
+						return val.slice(0,4)+'-'+val.slice(4,6)+'-'+val.slice(6,8)
+					}
+				}else{//YYYYMMDD HHmmss
+					if(flag){
+						return val.slice(0,4)+'年'+val.slice(4,6)+'月'+val.slice(6,8)+'日'+val.slice(8,11)+':'+val.slice(11,13)
+					}else{
+						if (isAll){
+							return val.slice(0,4)+'-'+val.slice(4,6)+'-'+val.slice(6,8)+val.slice(8,11)+':'+val.slice(11,13)+':'+val.slice(13,15)	
+						}else{
+							return val.slice(0,4)+'-'+val.slice(4,6)+'-'+val.slice(6,8)+val.slice(8,11)+':'+val.slice(11,13)	
+						}
+						
+					}
+				}
+			}else{
+				return ''
+			}	
+		} catch (error) {
+			return ''
+		}
+	}
+	function requestGroupFundDetail(groupId){
+		// $.get("/mobileEC/services" + "/adviser/query_fundgroup_detail_info?groupId=" + groupId, function(resultStr){
+		$.get( "/mobile-bff/v1/fund-group/detailInfo?groupId=" + groupId, function(resultStr){
+			// var result = JSON.parse(resultStr);
+			var result = typeof resultStr === 'string' ? JSON.parse(resultStr) : resultStr;
+			// console.log(JSON.stringify(resultStr));
+			if(result.returnCode == 0){
+				var detailInfo = result.body;
+				getPosition(result.body.grouptype);
+				if(detailInfo != undefined && detailInfo != ""){
+					var riskStr = '';
+					var riskStr1 = '';
+					var riskStr2 = '';
+					// console.log(detailInfo.investRiskLevel);
+					switch(detailInfo.investRiskLevel){
+						case '1' : 
+						riskStr = 'R0';
+						riskStr1 = '极低风险R0';
+						riskStr2 = 'C0';
+						break;
+						case '2' : 
+						riskStr = 'R1';
+						riskStr1 = '低风险R1';
+						riskStr2 = 'C1';
+						break;
+						case '3' : 
+						riskStr = 'R2';
+						riskStr1 = '较低风险R2';
+						riskStr2 = 'C2';
+						break;
+						case '4' : 
+						riskStr = 'R3';
+						riskStr1 = '中等风险R3';
+						riskStr2 = 'C3';
+						break;
+						case '5' : 
+						riskStr = 'R4';
+						riskStr1 = '较高风险R4';
+						riskStr2 = 'C4';
+						break;
+						case '6' : 
+						riskStr = 'R5';
+						riskStr1 = '高风险R5';
+						riskStr2 = 'C5';
+						break;
+					}
+					$('.risk-tip').text(`风险提示：市场有风险，投资需谨慎。汇添富基金承诺以诚实信用、勤勉尽责的原则提供基金投资顾问服务，但不保证投顾账户一定盈利，也不保证最低收益。投顾服务历史业绩不代表末来收益，为其他客户创造的收益，并不构成业绩表现的保证。汇添富基金提醒投资者接受基金投资顾问服务遵循“买者自负”原则，投资者应结合自身的投资经历、风险承受能力、资产配置需要作出投资决策，投顾账户的投资风险由投资者自行承担。该策略风险等级为${riskStr1}，适合风险承受等级为${riskStr2}及以上的客户。基金投资组合策略的风险特征与单只基金产品的风险特征存在差异。基金投顾业务尚处于试点阶段，存在因试点资格被取消不能继续提供服务的风险。投资者应自行阅读《基金投资顾问服务协议》、《风险揭示书》、《组合策略说明书》等法律文件，自行做出投资选择。`)
+					document.title = detailInfo.groupname;
+					// document.title = '投顾策略详情';
+					$(".headTitle").html(detailInfo.groupname);
+					// 展示目标盈内容20220606
+					if(detailInfo.isTargetProfit=='1'&&detailInfo.fundgroupTargetDetailVO){
+						getTargetInfo(detailInfo.investRiskLevel)
+						$(".yieldList .jianyi").hide();
+						$('.target-container-2').show();
+						$('.textList').hide()
+						$('.target').hide();
+						// 标准投顾和目标盈投顾的问答展示
+						$('.target-qa').show();
+						$('.standard-qa').hide();
+						// $('.tips_text').hide();
+						if(!isApp()){
+							$('.footer_area').hide();
+							$('.footer_area1').show();
+							
+						}
+						// targetTimeFormat
+						var currentTime = new Date().getTime();
+							// 参与开始日
+							var participationStartFormat =targetTimeFormat(detailInfo.fundgroupTargetDetailVO.participationStartFormat,false,true)
+							participationStartFormat = participationStartFormat.replace(/-/g,'/')
+							// 参与结束日
+							var participationEndFormat =targetTimeFormat(detailInfo.fundgroupTargetDetailVO.participationEndFormat,false,true)
+							participationEndFormat = participationEndFormat.replace(/-/g,'/')
+							// 参与开始日到参与结束日
+							var participationStartForEnd = targetTimeFormat(detailInfo.fundgroupTargetDetailVO.participationStartFormat,true)+' - '+targetTimeFormat(detailInfo.fundgroupTargetDetailVO.participationEndFormat,true)
+							$('.footer_area1 .time').text(participationStartForEnd);
+							// 当参与期还未开始
+							if(new Date(participationStartFormat).getTime()>currentTime){
+								$('.footer_area1 .text').text('开售提醒');
+								$(".footer_area1").click(function(){
+									// 调用接口设置提醒 设置预约
+									setAppointment(detailInfo);
+								})
+							}
+							// 参与期期间
+							else if(new Date(participationStartFormat).getTime()<= currentTime&&currentTime<=new Date(participationEndFormat).getTime()){
+								$('.footer_area1 .text').text('立即转入');
+								$(".footer_area1").click(function(){
+									var addUrl ="/tradeh5/newWap/investGroup/investEnter.html?groupId=" + groupId;
+									if(isApp()){
+									window.location.href = 'htffundxjb://action?type=url&link='+btoa(addUrl);
+									}else{
+									window.location.href = addUrl;
+									}
+								})
+							}
+							// 运作期开始参与期结束
+							else{
+								$('.footer_area1 .text').text('参与期已结束').css('margin-top','0');
+								$('.footer_area1 .time').remove();
+								$('.footer_area1 .footer_content').css({'background-color':'#666','justify-content':'center'});
+
+							}
+						// 运作天数计算
+						var caleDay = '';
+						if(detailInfo.fundgroupTargetDetailVO.operationStartDate&&detailInfo.fundgroupTargetDetailVO.operationEndDate){
+							caleDay = (new Date(targetTimeFormat(detailInfo.fundgroupTargetDetailVO.operationEndDate)).getTime()-new Date(targetTimeFormat(detailInfo.fundgroupTargetDetailVO.operationStartDate)).getTime())/(1000*60*60*24)+1;
+						}
+						var str = `<div class="tags">
+							<span>目标盈投顾</span>
+							<span>投资省心省力</span>
+						</div>
+						<table class="tables">
+							<tbody>
+								<tr>
+									<td style="color: #f4333c;font-size:1.5rem">${detailInfo.fundgroupTargetDetailVO.targetReturnPercent}<em style="color: #f95d1f;font-size: .8rem;">%</em></td>
+									<td style="color: #000;font-size: .9rem;">${caleDay}天</td>
+									<td style="color: #000;font-size: .9rem;">${targetTimeFormat(detailInfo.fundgroupTargetDetailVO.operationStartDate,true)}</td>
+								</tr>
+								<tr>
+									<td>目标止盈年化收益率<i class="tips-icon" style="margin-left:3px"></i></td>
+									<td>最长运作天数</td>
+									<td>运作起始日</td>
+								</tr>
+							</tbody>
+						</table> 
+						<div class="desction">
+							<p>
+								<span>必读</span><em style="color:#000;">开放参与日</em>为${targetTimeFormat(detailInfo.fundgroupTargetDetailVO.participationStartFormat,true).replace(' ','')}-${targetTimeFormat(detailInfo.fundgroupTargetDetailVO.participationEndFormat,true).replace(' ','')}。<em style="color:#000;">特别提示</em>：目标止盈年化收益率为客户的投资期望，非本策略承诺的收益率。
+							</p>
+						</div>`;
+						$('.target-content').html(str);
+						$('.target-content .tips-icon').click(function(){
+							utils.showTips('特别提示：目标止盈年化收益率为客户的投资期望，非本策略承诺的收益率。')
+						})
+						var height = ($('.yieldList').innerHeight());
+						$(".content1").css('height', height+'px'); 
+						// 策略运作流程
+						// 获取止盈观察期前一天的日期
+						var observationStartDateCalc =  detailInfo.fundgroupTargetDetailVO.observationStartDate;
+						var observationStartDateCalcFormat = observationStartDateCalc.slice(0,4)+"/"+observationStartDateCalc.slice(4,6)+"/"+observationStartDateCalc.slice(6,8)+" 00:00:00";
+						var calcTimeStamp = new Date(observationStartDateCalcFormat).getTime() - 24*60*60*1000;
+						var caleDay1 = formDate(calcTimeStamp);
+						var targetDom1=`<div class="line-block">
+						<div class="line">
+							<img src="./img/qaq.png" alt="">
+							<div class="blue-line"></div>
+						</div>
+						<p class="line-title">开放参与日</p>
+						<p class="line-text">${targetTimeFormat(detailInfo.fundgroupTargetDetailVO.participationStartFormat)}至${targetTimeFormat(detailInfo.fundgroupTargetDetailVO.participationEndFormat)}为参与期，参与资金冻结在现金宝账户，享受货币收益</p>
+						</div>
+						<div class="line-block">
+							<div class="line">
+								<img src="./img/qaq.png" alt="">
+								<div class="blue-line"></div>
+							</div>
+							<p class="line-title">平稳运作期</p>
+							<p class="line-text">${targetTimeFormat(detailInfo.fundgroupTargetDetailVO.operationStartDate)}至${caleDay1}平稳运作期，该阶段不触发止盈</p>
+						</div>
+						<div class="line-block">
+							<div class="line">
+								<img src="./img/qaq.png" alt="">
+								<div class="blue-line"></div>
+							</div>
+							<p class="line-title">止盈观察期</p>
+							<p class="line-text">${targetTimeFormat(detailInfo.fundgroupTargetDetailVO.observationStartDate)}起进入止盈观察期，该阶段若达到目标收益率，则触发止盈自动赎回到现金宝或转入销售中的同类策略</p>
+						</div>
+						<div class="line-block">
+							<div class="line">
+								<img src="./img/qaq.png" alt="">
+							</div>
+							<p class="line-title">运作到期日</p>
+							<p class="line-text">${targetTimeFormat(detailInfo.fundgroupTargetDetailVO.operationEndDate)}为运作到期日，如未触发止盈，到期后自动赎回到现金宝或转入销售中的同类策略</p>
+						</div>`
+						$('.work-line').html(targetDom1);
+					}else{
+						$('.target-content').hide();
+						$('.target-container-1').hide();
+						$('.target-container-2').hide();
+						if(!isApp()){
+							$('.footer_area').show();
+							$('.footer_area1').hide();
+						}
+					}
+					// $("#profit_year").html(detailInfo.nearYearProfit + "%");
+					// $("#profit_six").html(detailInfo.halfYearProfit + "%");
+					
+					//start- 20211122新加的代码
+				    // 策略理念：部分文字超出的-显示查看详情
+				    // detailInfo.fundgroupDesc='本组合主要投资于权益类资产，其中权益类资产中枢为为90%，固收类资产中枢为10%；加上'
+					// 理念暂时写死，在上方的currentObj里定义了 21/12/09
+			      //   if(detailInfo.fundgroupDesc){
+			      //   	if(detailInfo.fundgroupDesc.length>32){
+			      //   		$('.jianyi .textDetail').text(detailInfo.fundgroupDesc.substr(0,32));
+            //         	   $(".lookDetails").show();
+            //             }else{
+            //             	$('.jianyi .textDetail').text(detailInfo.fundgroupDesc);
+            //             	$(".lookDetails").hide();
+            //             }
+
+            //             // 点击查看详情---弹窗
+						// $(".lookDetails").click(function(){
+						// 	 $(".layer-1").show();
+						// 	$(".layer-1 .layer-body").text(detailInfo.fundgroupDesc)
+						// })
+
+			      //   }else{
+			      //   	$('.jianyi .textDetail').text('暂无策略理念：');
+			      //   }
+                   //end- 20211122新加的代码 
+				
+					// start-2021.11.19暂时隐藏
+					
+					// $("#profit_year").html("--%");
+					// $("#profit_six").html("--%");
+					// $("#fundgroupDesc").after('<span style="font-weight:bold" >配置简介：</span>'+detailInfo.fundgroupDesc);
+					// var newStr = detailInfo.createtimeStr.split('-');
+
+					// if(detailInfo.isInvestment === 'Y' && detailInfo.investType === 'G'){ // 一般型投顾展示名义本金和投资时长
+					// 	$('.jianyi').append('<div class="fuwu2">' +
+					// 		'<div class="title">' +
+					// 		'<div>服务起始日</div>' +
+					// 		'<div>名义本金</div>' +
+					// 		'<div>投资时长</div>' +
+					// 		'</div>' +
+					// 		'<div class="data">' +
+					// 		'<div>' + `${newStr[0]}.${newStr[1]}.${newStr[2]}` + '</div>' +
+					// 		'<div>' + detailInfo.investPrincipal + '元</div>' +
+					// 		'<div>' + detailInfo.investDuration + '年</div>' +
+					// 		'</div>' +
+					// 		'<div class="chakan"><a href="javascript:;" id="proPageUrl" >查看策略理念</a></div>' +
+					// 		'</div>');
+					// 	$('.wrap').css('paddingTop','3.25rem');
+					// }
+					// else {
+					// 	$('.jianyi').append('<div class="fuwu">' +
+					// 		'<div class="startTime" id="createtimeStr"></div>' +
+					// 		'<div class="chakan"><a href="javascript:;" id="proPageUrl" >查看策略理念</a></div>' +
+					// 		'</div>');
+					// 	$("#createtimeStr").html("策略风险等级："+riskStr);
+					// }
+					
+					// if(App.isEmpty(detailInfo.proPageUrl)){
+					// 	$(".chakan").hide();
+					// }else{
+					// 	$(".chakan").show();
+					// 	$("#proPageUrl").attr('href',detailInfo.proPageUrl);
+					// }
+					// $("#tedian_text").html(detailInfo.fundgroupFeature);
+					 
+					//end -2021.11.19暂时隐藏
+					
+					//处理费率
+					queryRateInfo(groupId,detailInfo.initLimitAmount,detailInfo.investmentServicePerc,detailInfo.discountRate);
+					//截至日期
+					var dayYieldDt = detailInfo.dayYieldDt;
+					if(dayYieldDt && dayYieldDt.length>0){
+						$("#jiezhi").html("截至"+dayYieldDt.replace(/-/g,"."));
+					}else{
+						var date = new Date();
+						$("#jiezhi").html("截至"+date.getFullYear()+"."+(date.getMonth()+1)+"."+date.getDate());
+					}
+					establishDateStr = detailInfo.establishDateStr;
+
+					if(detailInfo.halfYearProfit < 0){
+						// $("#profit_six").css("color","#009944");
+					} else if (detailInfo.halfYearProfit =='--'){
+						// $("#profit_six").html("--%");  //end -2021.11.19暂时隐藏
+						// $("#profit_year").html("--%"); //end -2021.11.19暂时隐藏
+					}else if(Number(detailInfo.halfYearProfit) == 0 ){
+						// $("#profit_year").html("--%"); //end -2021.11.19暂时隐藏
+					}
+					if(detailInfo.nearYearProfit < 0){
+						// $("#profit_year").css("color","#009944");
+					} else if (Number(detailInfo.nearYearProfit) == 0){
+						// $("#profit_year").html("--%"); //end -2021.11.19暂时隐藏
+					}
+					var dataList = new Array();
+					var groupDetails = detailInfo.groupDetails;
+					var colorList = new Array();
+					for(var i in groupDetails){
+						var subgroup = groupDetails[i];
+						if(subgroup.percent > 0){
+							if(subgroup.color.indexOf('#') == -1){
+								subgroup.color = '#68b0ea';
+							}
+
+							colorList.push(subgroup.color);
+							colorList2[subgroup.classifyType] = subgroup.color;
+							dataList.push({'name': subgroup.classifyName, 'value': subgroup.percent, 'fundId':subgroup.classifyName,'color':subgroup.color});
+						}
+					}
+
+					option_2.color = colorList;
+					var fund_list_html = "";
+					dataList.forEach(function(item, index){
+						var cls = "";
+						if(index == 0) cls = "";
+						fund_list_html += ' <li><span class="pieEle  '+cls+'" data-fundId="'+ item.fundId +'" data-fundNm = "'+ item.name +'"><i style="background-color: '+ item.color +'"></i>'
+								// + item.name+'</span><span  class="pieEle fontBold">占比'+item.value+'%</span></li>';
+								+ item.name+'</span><span  class="pieEle ">占比'+item.value+'%</span></li>';
+					});
+
+					$(".fund-list").html(fund_list_html);
+					var dl = dataList.length;//类别数量
+					if(dl<2){
+						$(".fund-list").css("top","3.5rem");
+					}else if(dl<3){
+						$(".fund-list").css("top","3rem");
+					}else if(dl<4){
+						$(".fund-list").css("top","2.35rem");
+					}else if(dl<5){
+						$(".fund-list").css("top","2rem");
+					}
+					var myChart_2 = echarts.init(document.getElementById('pie2'));
+					option_2.series[0].data = dataList;
+					myChart_2.setOption(option_2);
+					if(dataList.length > 0){
+						var fundInfo = dataList[0];
+						selectedFundName = fundInfo.name;
+					}
+					//高亮
+					myChart_2.dispatchAction({
+						type: 'highlight',
+						// dataIndex:0,
+						name: dataList[0]?dataList[0].name:'',
+					});
+					myChart_2.dispatchAction(
+							{
+								type: 'showTip',
+								name: dataList[0]?dataList[0].name:'',
+								seriesIndex: 0
+							}
+					);
+				}
+			}else{
+				alert(result.returnMsg);
+			}
+		});
+	}
+	function formDate(val){
+		var d = new Date(val);
+		var htm = d.getFullYear() + "-" + ('00'+(1+d.getMonth())).slice(-2) + '-' + ('00'+d.getDate()).slice(-2)
+		return htm
+	}
+	// 获取目标盈往期运作情况
+	function getTargetInfo(investRiskLevel){
+		utils.ajax({
+			url: "/ess/v1/fund/group/target-profit?pageNum=1&pageSize=1000",
+			type: 'GET',
+			success: function (result) {
+				if (result.returnCode === 0) {
+					var str = `<div class="table-block">
+						<p>累计发车</p>
+						<p>${result.body.allTotal}期</p>
+						</div>
+						<div class="table-block">
+							<p>运作中</p>
+							<p>${result.body.operatingTotal}期</p>
+						</div>
+						<div class="table-block">
+							<p>已止盈</p>
+							<p>${result.body.endWinTotal}期</p>
+						</div>`;
+					$('.target-container-2 .tables').html(str);
+					var targetUrl = "/tradeh5/newWap/investGroup/operatingStrategy.html?investRiskLevel="+investRiskLevel;
+					$('#operatingStrategy').click(function(){
+						if(isApp()){
+							window.location.href = "htffundxjb://action?type=url&link="+btoa(window.location.origin+targetUrl);
+						}else{
+							window.location.href = targetUrl
+						}
+					})
+				}
+			}.bind(this)
+		});
+	}
+	function selectedBtn(fundId){
+		$(".fund-tab-btn li").each(function () {
+			if ($(this).attr("data-fundId") == fundId){
+				$(this).addClass("active");
+			} else {
+				$(this).removeClass('active')
+			}
+		});
+	}
+	$(".tab2 li").click(function(){	//1个月、 3个月、 6个月 、1年、成立以来
+		if($(this).hasClass("active")) { return;}
+		$(this).parents("ul").find("li").eq($(this).index()).addClass("active").siblings().removeClass('active');
+		var index = $(this).index();
+		switch(index)
+		{
+			case 0:
+				getChartData(groupId, "0,1,4", 1, establishDateStr);
+				break;
+			case 1:
+				getChartData(groupId, "0,1,4", 9, establishDateStr);
+				break;
+			case 2:
+				getChartData(groupId, "0,1,4", 2, establishDateStr);
+				break;
+			case 3:
+				getChartData(groupId, "0,1,4", 3, establishDateStr);
+				break;
+			case 4:
+				getChartData(groupId, "0,1,4", 4, establishDateStr);
+				break;
+
+		}
+	});
+
+
+	$("#jygz").click(function () {
+		window.location.href = "htffundxjb://action?type=url&link="
+				+ $.base64.encode(window.location.origin+"/mobileEC/adviser/rule.html");
+	});
+	$(".Investment").click(function () {
+		window.location.href = "htffundxjb://action?type=fg&subType=mip&groupId=" + utils.getUrlParam("groupId");
+	});
+	$(".buy").click(function () {
+		window.location.href = "htffundxjb://action?type=fundGroup&subType=adjustPurchase&groupId=" + utils.getUrlParam("groupId") + "&fundIds=519066,519069,470009,001668,006113,006408&percents=20,20,15,15,15,15";
+	});
+	function queryGrouptradeDateInfo(){
+		$.get("/mobileEC/services" + "/adviser/query_group_trade_date_info?t=" + new Date().getTime(), function(resultStr){
+			var result = typeof resultStr==='string'?  JSON.parse(resultStr) : resultStr ;
+			if(result.returnCode == 0){
+				$(".submit-time").html(result.body.submitTime);
+				$(".confirm-time").html(result.body.confirmTime);
+				$(".view-profit-time").html(result.body.viewProfitTime);
+			}
+		});
+	}
+	// function queryRateInfo(groupId,initLimitAmount){
+	// 	// console.log("groupId----"+groupId+"------initLimitAmount----"+initLimitAmount);
+	// 	if(initLimitAmount.length<1||initLimitAmount==null || initLimitAmount ==""){
+	// 		initLimitAmount = "0";
+	// 	}
+	// 	var parm = "{\"product\":"+groupId+"}";
+	// 	App.post("/common-services/v1/rule/iaf-discount", parm, null, function(resultStr){
+	// 		var result = JSON.parse(resultStr);
+	// 		// console.log("resultStr-----"+resultStr);
+	// 		if(result.returnCode == 0){
+	// 			var st = parseInt(initLimitAmount,10)+'元起购  投顾服务费率：<s>'+result.body.stdRate+'%</s>  '+result.body.discountRate+'%';
+	// 			$("#stdRate").html(st);
+	// 		}
+	// 	});
+	// }
+	/**
+	 *
+	 * @param groupId
+	 * @param initLimitAmount 起购
+	 * @param investmentServicePerc 费率
+	 * @param discountRate 折扣费率
+	 */
+	function queryRateInfo(groupId,initLimitAmount,investmentServicePerc,discountRate){
+		console.log("groupId----"+groupId+"------initLimitAmount----"+initLimitAmount);
+		if(App.isEmpty(initLimitAmount)){
+			initLimitAmount = "0";
+		}
+		if(App.isEmpty(investmentServicePerc)){
+			investmentServicePerc = "0";
+		}
+		if(App.isEmpty(discountRate)){
+			// discountRate = "0";
+			discountRate = investmentServicePerc * 0.01;
+		}
+		// var st = parseInt(initLimitAmount,10)+'元起购  投顾费率：<s>' + investmentServicePerc + '%</s> ' + discountRate + '%';
+		var st = parseInt(initLimitAmount,10)+'元起购  投顾费率：' + investmentServicePerc + '%';
+		$("#stdRate").html(st);
+		var feeText = `投顾服务费率：${investmentServicePerc}%/年。按日计提,按季度或转出时收取。
+交易费用：组合内本公司基金交易费0折(赎回费归属基金资产部分除外)，非我司基金以代销机构折扣为准。`
+		$('.fee_text').html(feeText);
+		// $('#stdRate').click(function(){
+		// 	window.location.href = "htffundxjb://action?type=url&link="
+		// 			+ $.base64.encode("https://static.99fund.com/mobile/app_inner/rules/fundGroupInvestRule/index.html");
+		// });
+	}
+	function showTips(t){
+		$("#tip"+t).show();
+	}
+
+	/**
+	 * 获取对应标签
+	 */
+	$.get("/productcenter/v1/new/query/funds/"+utils.getUrlParam("groupId")+"/info/tag", function(result){
+		if(result.returnCode == 0 && result.body != undefined && result.body != null){
+			var body = result.body;
+			var htm = '';
+			var str = "";
+			for(var k in body){
+				var item = body[k];
+				var tagCategoryName = item.tagCategoryName;
+				str += tagCategoryName;
+				htm+='<div class="text">'+tagCategoryName+'</div>'
+			}
+			if(str.length<1||str==""|| str==null){
+				// $(".changqi").hide();
+				var wt = $("#content0 .wrap").html()
+				if(wt.length>1){
+					$("#fgx").show();
+				}
+			}else{
+				// $(".changqi").html(htm);
+			}
+		}
+	});
+	/**
+	 *
+	 * 陪伴位
+	 */
+	function queryRecommendInfo(){
+		var url = "/mobile-bff/v1/fund/getFundRecommendInfo?productType=1&fundIds="+utils.getUrlParam("groupId");
+		$.get(url, function(result){
+					if(result.returnCode == 0 && result.body != undefined && result.body != null){
+						var html = '';
+						result.body[utils.getUrlParam("groupId")].forEach(function(item){
+							var infoTitle = item.infoTitle.length > 20 ? item.infoTitle.substr(0,20) + '...' : item.infoTitle;
+							html += '<li class="jingzhi div-jump list" style=" margin-top: 0.01rem;" onclick="visit(\''+item.infoJumpUrl+'\')">'
+									+'	<p><img src="./img/sound.png" alt="" style="margin-right: .45rem;"><span >'+infoTitle+'</span></p>'
+									+'	<img class="right_1" src="./img/icon02.png">'
+									+'</li>';
+						});
+						$("#content0 .wrap").html(html);
+						console.log(html.length +"----"+html)
+						if(html.length > 0){
+							$("#marginTop").css('marginTop', '3.35rem');  //用来给滚动的div腾出空间-否则就会隐藏
+							$("#content0").show();
+							if($('#content0 .wrap .list').length>1){
+								scroll();
+							}
+						}else{
+							$("#content0").hide();
+						}
+					}
+				}
+		);
+
+	}
+	$(".content6").click(function () {
+		let targetUrl = "https://static.99fund.com/mobile/app_inner/rules/fundGroupInvestRule/index.html";
+		let targetUrl_test = "https://static.99fund.com/mobile/app_inner/rules/fundGroupInvestRule/index.html";
+		if(isApp()){ // 生产
+			if(utils.isProdEnv()){
+				window.location.href = "htffundxjb://action?type=url&link=" + btoa(targetUrl);
+			}else{ //测试
+				window.location.href = "htffundxjb://action?type=url&link=" + btoa(targetUrl_test);
+			}
+    }else{
+			// $(".content6 img").hide();
+			if(utils.isProdEnv()){
+				window.location.href = targetUrl;
+			}else{ //测试
+				window.location.href = targetUrl_test;
+			}
+    }
+	});
+	function scroll() {
+		$("#content0 .wrap .list:eq(0)").animate({ "margin-top": "-2.5rem" },1000, function () {
+			$("#content0 .wrap .list:eq(0)").appendTo($("#content0 .wrap"));
+			$("#content0 .wrap .list:last").css({ "margin-top": '0' });
+		})
+		setTimeout(scroll, 4000)
+    }
+
+	// 点击查看详情---暂时写死
+	$(".lookDetails").click(function(){
+		 $(".layer-1").show();
+	})
+
+	//20211119--- 加自选
+	var groupId = utils.getUrlParam("groupId");
+		var ssoCookie = App.getCookie("sso_cookie");
+		if (App.isNotEmpty(ssoCookie)) {
+			queryFollowInfo(groupId);
+		}else{
+			$(".addBtn").click(function(){
+				sessionExpireLogin();
+			});
+		}
+
+		function queryFollowInfo(productId){
+			var url = "/mobile-bff/v1/concern/queryConcernStatus?productId="+productId + '&productType=1';
+
+			$.get(url, function(result){
+						if(result.returnCode == 0 && result.body != undefined && result.body != null){
+							if(result.body.status == '0'){
+								//加自选
+								setFollowBtnIcon('0');
+								$(".addBtn").click(function (){addFollow(productId)});
+							} else {
+								//取消自选
+								setFollowBtnIcon('1');
+								$(".addBtn").click(function (){cancelFollow(productId)});
+							}
+						}
+					}
+			);
+
+	    }
+
+	    function addFollow(productId) {
+			$(".addBtn").unbind();
+			var url = "/mobile-bff/v1/concern/addConcern?productType=1&productIdGet="+productId;
+			$.get(url, function(result){
+						if(result.returnCode == 0 && result.body != undefined && result.body != null){
+							if(result.body){
+								showTip('添加成功');
+								setFollowBtnIcon('1');
+								$(".addBtn").click(function (){cancelFollow(productId)});
+							} else {
+								showTip('添加失败');
+								$(".addBtn").click(function (){addFollow(productId)});
+							}
+						} else {
+							showTip('添加失败');
+							$(".addBtn").click(function (){addFollow(productId)});
+						}
+					}
+			);
+	    }
+
+		function cancelFollow(productId) {
+			$(".addBtn").unbind();
+			var url = "/mobile-bff/v1/concern/cancelConcern?productType=1&productIdGet="+productId;
+			$.get(url, function(result){
+						if(result.returnCode == 0 && result.body != undefined && result.body != null){
+							if(result.body){
+								showTip('取消成功');
+								setFollowBtnIcon('0');
+								$(".addBtn").click(function (){addFollow(productId)});
+							} else {
+								showTip('取消失败');
+								$(".addBtn").click(function (){cancelFollow(productId)});
+							}
+						} else {
+							showTip('取消失败');
+							$(".addBtn").click(function (){cancelFollow(productId)});
+						}
+					}
+			);
+		}
+		function setFollowBtnIcon(isFollow) {
+			if(isFollow == '1'){
+				$("#btn-star-img").removeClass('star-unchecked-selected');
+				$("#btn-star-img").addClass('star-selected');
+				$(".addBtn_txt").html('取消自选');
+			} else {
+				$("#btn-star-img").removeClass('star-selected');
+				$("#btn-star-img").addClass('star-unchecked-selected');
+				$(".addBtn_txt").html('加自选');
+			}
+		}
+        // 半透明弹窗
+		function showTip(tip){
+			$(".sm_tip p").html(tip);
+			$(".sm_tip").show();
+			t1 = setTimeout(hideTip, 2000);
+	    }
+	    function hideTip(){
+			$(".sm_tip").hide();
+			if(t1  != undefined && t1 != null){
+				window.clearTimeout(t1);
+			}
+	    }
+
+	    var groupId = utils.getUrlParam("groupId");
+	    // var balanceSerialNo = utils.getUrlParam("balanceSerialNo");
+	// 点击定投按钮跳转
+		$(".footer_area .btn_out").click(function(){
+		    var investUrl ="/tradeh5/newWap/investGroup/investPurchaseMip.html?groupId=" + groupId 
+		    if(isApp()){
+		      window.location.href = 'htffundxjb://action?type=url&link='+btoa(investUrl);
+		    }else{
+		      window.location.href = investUrl;
+		    }
+		})
+		$(".footer_area .btn_in").click(function(){
+		    var addUrl ="/tradeh5/newWap/investGroup/investEnter.html?groupId=" + groupId;
+		    if(isApp()){
+		      window.location.href = 'htffundxjb://action?type=url&link='+btoa(addUrl);
+		    }else{
+		      window.location.href = addUrl;
+		    }
+		})
+        //  目标盈设置预约
+		function setAppointment(detailInfo){
+			// 先获取用户信息
+			utils.ajax({
+				url:'/mobileEC/services/account/query_user_info_wap',
+				success:function(result){
+					var username = result.body.invnm;
+					getRemindTypeAndSetting(username,detailInfo);
+				}.bind(this)
+			})
+		}
+		function getRemindTypeAndSetting(username,detailInfo){
+			utils.ajax({
+				url:'/mobile-bff/v1/financial-calendar/get-support-notify-channel',
+				success:function(res){
+					if(res.body&&res.body.result&&res.body.result.length>0){
+						// 消息中心查询到的用户可使用的推送方式
+						var remindType = res.body.result.map((item)=>{
+							return item.channelId
+						});
+						// 默认的推送方式 短信3 微信4 app推送2
+						var defaultRemindType = ['2','3','4'];
+						// 取消息中心返回数据和需求默认推送方式的交集，即为可用的推送方式
+						var remindTypes = remindType.filter(function(item){
+							return defaultRemindType.includes(String(item))
+						}).join(',');
+						console.log(detailInfo.fundgroupTargetDetailVO);
+						var targetParticipationStart = detailInfo.fundgroupTargetDetailVO.participationStartFormat;
+						var targetParticipationEnd = detailInfo.fundgroupTargetDetailVO.participationEndFormat;
+						var targetParticipationEndHour = detailInfo.fundgroupTargetDetailVO.participationEndTime;
+						var participationStartForEnd = `${targetParticipationStart.slice(0,4)}年${targetParticipationStart.slice(4,6)}月${targetParticipationStart.slice(6,8)}日至${targetParticipationEnd.slice(0,4)}年${targetParticipationEnd.slice(4,6)}月${targetParticipationEnd.slice(6,8)}日 ${targetParticipationEndHour.slice(0,2)}点`;
+						var params = {
+							"eventTime" : detailInfo.fundgroupTargetDetailVO.participationStartTime,
+							"customEventType" : "",
+							"remindTypes" : remindTypes,
+							"productId" : detailInfo.groupid,
+							"eventContent" : `您关注的投顾目标盈策略${detailInfo.groupname}已开放参与，参与时间为${participationStartForEnd}。您可立即前往现金宝App参与！`,
+							"eventDate" : detailInfo.fundgroupTargetDetailVO.participationStartDate,
+							"osCalendarId" : "",
+							"remindDate" : detailInfo.fundgroupTargetDetailVO.participationStartDate,
+							"eventTitle" : `尊敬的${username}`
+						}
+						utils.ajax({
+							url:'/mobile-bff/v1/financial-calendar/add-custom-event',
+							type:'POST',
+							data:params,
+							success:function(result){
+								if(result.returnCode=='0'){
+									utils.showTips('已订阅提醒服务，我们将在开售日通过短信或其他方式通知您。')
+								}
+							}.bind(this)
+						})
+					}
+				}.bind(this)
+			})
+		}
+        //加自选-- 2021只是展示点击作用
+   //      var isFollow=1;
+	  //   $(".addBtn").click(function(){
+	  //   	if(isFollow == '1'){
+			// 	$("#btn-star-img").removeClass('star-unchecked-selected');
+			// 	$("#btn-star-img").addClass('star-selected');
+			// 	$(".addBtn_txt").html('取消自选');
+			// 	isFollow=0;
+			// } else {
+			// 	$("#btn-star-img").removeClass('star-selected');
+			// 	$("#btn-star-img").addClass('star-unchecked-selected');
+			// 	$(".addBtn_txt").html('加自选');
+			// 	isFollow=1;
+			// }
+	  //   })
+</script>
+</body>
+
+</html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!-- <meta charset="gbk"> -->
+	<title>风险评测</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="css/base.css">
+	<script type="text/javascript" src="js/zepto.min.js"></script>
+	<script type="text/javascript" src="js/echarts.min.js"></script>
+	<script type="text/javascript" src="../basic/basic.js"> </script>
+	<style type="text/css">
+		body{ font: 16px/1em Microsoft YaHei,sans-serif;color: #666;}
+		@media only screen and (max-width: 320px) {
+			body{ font-size: 14px; }
+		}
+		img{ display: block;max-width: 100%;height: auto; border: 0;}
+		section{
+			background-color: #fff;
+		}
+		.content2{
+			padding-left: 15px;
+			margin-bottom: 5em;
+		}
+		.content2 input[type=radio]{
+			opacity: 0.5;
+			float: left;
+			margin-left: -9999px;
+
+		}
+		.content2 .qution{
+			padding-right: 15px;
+			padding-bottom: 5px;
+			border-bottom: 1px dashed #eeeeee;
+		}
+		.content2 .qution:last-child{
+			border-bottom: 0;
+		}
+		.content2 h3{
+			font-size: 16px;
+			/*color: #96d9f8;*/
+			padding: 24px 0;
+			line-height: 1.2;
+			/*text-shadow: 0 0 14px 4px #0f3564;*/
+		}
+		.content2 h3 span {
+			/*background-color: rgba(15,53,100,0.8);*/
+			/*box-shadow: 0 0 15px 5px rgba(15,53,100,0.8);*/
+			/*border-radius: 10px;*/
+		}
+		.content2 li{
+			font-size: 13px;
+			padding-bottom: 18px;
+		}
+		.content2 li label{
+			float: left;
+			width: 89%;
+			line-height: 20px;
+			text-align: justify;
+			vertical-align: middle;
+			/*color: #96d9f8;*/
+		}
+		.content2 li i{
+			float: left;
+			width: 15px;
+			height: 15px;
+			background:url(images/icon3.png) no-repeat;
+			-webkit-background-size: contain;
+			background-size: contain;
+			margin-right: 6px;
+			margin-top: 2px;
+		}
+		/*.content2 li.current label { color: #fe7e01; }*/
+		.content2 li.current i{
+			background-image: url(images/icon4.png);
+			/*background-color: rgba(120,64,35,0.6);*/
+			border-radius: 50%;
+			/*box-shadow: 0 0 6px 6px rgba(120,64,35,0.6);*/
+		}
+		.fixbottom{
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			background-color: #fff;
+			width: 100%;
+			border-top: 1px solid #eeeeee;
+		}
+		.fixbottom .btn{
+			display: block;
+			height: 3em;
+			line-height: 3em;
+			color: #fb5c5f;
+			font-size: 1.15em;
+			text-align: center;
+		}
+		.btnright{
+			line-height: 30px;
+		}
+		.divp{
+		    margin-top: 20px;
+		    margin-bottom: 20px;
+		}
+		
+		.modal-fade {
+		    width:80%;
+		    position: fixed;
+		    top: 50%;
+		    left:50%;
+		    -webkit-transform: translate(-50%,-50%);
+		    -ms-transform: translate(-50%,-50%);
+		    -o-transform: translate(-50%,-50%);
+		    transform: translate(-50%,-50%);
+		    z-index: 1060;
+		}
+		.modal-fade .modal-body .setnotice{
+		    padding: 1% 5%;
+		}
+		.modal-body{
+		    text-align:center;
+		    background-color: #f5f5f5;
+		    padding-bottom: .5em;
+		    border-radius: 5px;
+		}
+		.modal-body .notice{
+		    text-align: left;
+		    margin-top: 0;
+		    line-height: 1.3em;
+		    font-size: 1em;
+		}
+		
+		.modal-fade .settitle{
+		    padding-top: 1em;
+		}
+		.modal-title{
+		    height: 1em;
+		    line-height: 1em;
+		    padding-bottom: 1em;
+		    border-bottom: 1px solid #dddddd;
+		}
+		.modal-bottom{
+		    width: 100%;
+		    /* margin-top: 1.5em; */
+		    border-top: 1px solid #e5e5e5;
+		    overflow: hidden;
+		}
+
+	</style>
+	<script type="text/javascript" src="../basic/jquery.3.4.1.min.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		$('label').click(function(){
+		   $(this).siblings().removeAttr('class') && $(this).attr('class', 'checked');
+		});
+		$("#submit").click(function(){
+			var question1 = $("input[name='question1']:checked").val();
+			var question2 = $("input[name='question2']:checked").val();
+			var question3 = $("input[name='question3']:checked").val();
+			var question4 = $("input[name='question4']:checked").val();
+			var question5 = $("input[name='question5']:checked").val();
+			var question6 = $("input[name='question6']:checked").val();
+			var question7 = $("input[name='question7']:checked").val();
+			var question8 = $("input[name='question8']:checked").val();
+			var question9 = $("input[name='question9']:checked").val();
+			var question10 = $("input[name='question10']:checked").val();
+
+		if (question1 == undefined || question2 == undefined
+			|| question3 == undefined || question4 == undefined
+			|| question5 == undefined || question6 == undefined
+			|| question7 == undefined || question8 == undefined
+			|| question9 == undefined || question10 == undefined) {
+				alert("请完成所有测评后再提交答案！");
+				return;
+			} 
+			 
+		var data = JSON.stringify({
+				"answer1" : question1,
+				"answer2" : question2,
+				"answer3" : question3,
+				"answer4" : question4,
+				"answer5" : question5,
+				"answer6" : question6,
+				"answer7" : question7,
+				"answer8" : question8,
+				"answer9" : question9,
+				"answer10" : question10
+			});
+		$.post(WAP.requestAddr + "/common/evaluate_cust_risk_level", data, function(result){
+				var jsonRe = JSON.parse(result);
+				if(jsonRe.returnCode == 0){
+					var val = jsonRe.body.riskLevelName;
+					if(val != undefined && val != ""){
+		                $("#modal").css("display","block");
+		                $("body").css("overflow", "hidden");
+		                $("div.mask").show();
+		                $("#levelTxt").html(val);
+				 	} 
+				 }else{
+					alert(jsonRe.returnMsg);
+				}
+			});
+		});
+
+        /* 输入密码弹出框js */
+        $("#confirm_modal").on("click",function(){
+            $("#modal").css("display","none");
+            $("body").css("overflow", "auto");
+            $("div.mask").hide();
+
+			var u = navigator.userAgent;
+			var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+			if(isAndroid){
+				handler.goBack(true);
+			} else { 
+				window.location.href = "http://www.99fund.com?pageforward=1";
+			} 
+        });
+        
+	});
+	
+	</script>
+</head>
+<body>
+	<section class="content1"><img src="images/banner3.png" alt=""></section>
+	<section class="content2">
+		<div class="qution qution1">
+			<h3>1、<span>您投资股票、基金、外汇、商品期货等金融资产有多少年的经验？</span></h3>
+			<ul>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionA1" name="question1" value="A"><label for="fisrtQutionA1">A、1年以内</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionB1" name="question1" value="B"><label for="fisrtQutionB1">B、1-2年</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionC1" name="question1" value="C"><label for="fisrtQutionC1">C、2-5年</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionD1" name="question1" value="D"><label for="fisrtQutionD1">D、5年以上</label></li>
+				<label for=""></label>
+			</ul>
+		</div>
+		<div class="qution qution2">
+			<h3>2、<span>以下哪项最能说明您的投资理财知识情况？</span></h3>
+			<ul>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionA2" name="question2" value="A"><label for="fisrtQutionA2">A、零基础，完全不懂</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionB2" name="question2" value="B"><label for="fisrtQutionB2">B、入门级，略懂投资理财知识</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionC2" name="question2" value="C"><label for="fisrtQutionC2">C、专业级，接受过专业金融机构组织的投资理财知识培训</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionD2" name="question2" value="D"><label for="fisrtQutionD2">D、很精通，取得相关金融资质或牌照</label></li>
+				<label for=""></label>
+			</ul>
+		</div>
+		<div class="qution qution3">
+			<h3>3、<span>您的年收入是多少?</span></h3>
+			<ul>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionA3" name="question3" value="A"><label for="fisrtQutionA3">A、5万元以下</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionB3" name="question3" value="B"><label for="fisrtQutionB3">B、5万元至20万元</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionC3" name="question3" value="C"><label for="fisrtQutionC3">C、20万元至50万元</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionD3" name="question3" value="D"><label for="fisrtQutionD3">D、50万元以上</label></li>
+				<label for=""></label>
+			</ul>
+		</div>
+		<div class="qution qution4">
+			<h3>4、<span>您用于金融投资的金额（储蓄存款除外）占家庭净资产的比重是？</span></h3>
+			<ul>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionA4" name="question4" value="A"><label for="fisrtQutionA4">A、10%（含）以下</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionB4" name="question4" value="B"><label for="fisrtQutionB4">B、10%-30%（含）</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionC4" name="question4" value="C"><label for="fisrtQutionC4">C、30%-50%（含）</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionD4" name="question4" value="D"><label for="fisrtQutionD4">D、大于50%</label></li>
+				<label for=""></label>
+			</ul>
+		</div>
+		<div class="qution qution5">
+			<h3>5、<span>以下哪项最能说明您的投资经验？</span></h3>
+			<ul>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionA5" name="question5" value="A"><label for="fisrtQutionA5">A.除存款、国债外，我几乎不投资其他金融产品</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionB5" name="question5" value="B"><label for="fisrtQutionB5">B.大部分投资于存款、国债等，较少投资于股票、基金等风险产品</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionC5" name="question5" value="C"><label for="fisrtQutionC5">C.资产均衡地分布于存款、国债、银行理财产品、信托产品、股票、基金等</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionD5" name="question5" value="D"><label for="fisrtQutionD5">D.大部分投资于股票、基金、外汇等高风险产品，较少投资于存款、国债</label></li>
+				<label for=""></label>
+			</ul>
+		</div>
+		<div class="qution qution6">
+			<h3>6、<span>根据您目前的家庭状况及未来发展，以下答案中哪个更加符合您家庭未来5 年的支出情况？   </span></h3>
+			<ul>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionA6" name="question6" value="A"><label for="fisrtQutionA6">A、预计支出将大幅增加，增速超过收入增速</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionB6" name="question6" value="B"><label for="fisrtQutionB6">B、预计支出将增加，但增速低于收入增速</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionC6" name="question6" value="C"><label for="fisrtQutionC6">C、预计支出将维持现状</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionD6" name="question6" value="D"><label for="fisrtQutionD6">D、预计支出将减少</label></li>
+				<label for=""></label>
+			</ul>
+		</div>
+		<div class="qution qution7">
+			<h3>7、<span>您投资基金主要用于什么目的?</span></h3>
+			<ul>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionA7" name="question7" value="B"><label for="fisrtQutionA7">A 、养老</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionB7" name="question7" value="A"><label for="fisrtQutionB7">B 、日常生活保障</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionC7" name="question7" value="C"><label for="fisrtQutionC7">C 、子女教育</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionD7" name="question7" value="D"><label for="fisrtQutionD7">D、资产增值</label></li>
+				<label for=""></label>
+			</ul>
+		</div>
+		<div class="qution qution8">
+			<h3>8、<span>以下哪项描述最符合您的投资态度？</span></h3>
+			<ul>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionA8" name="question8" value="A"><label for="fisrtQutionA8">A.风险厌恶，不希望本金损失，希望获得稳定回报</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionB8" name="question8" value="B"><label for="fisrtQutionB8">B.保守投资，不希望本金损失，愿意承担一定幅度的收益波动</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionC8" name="question8" value="C"><label for="fisrtQutionC8">C.寻求资金的较高收益和成长性，愿意为此承担有限本金损失</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionD8" name="question8" value="D"><label for="fisrtQutionD8">D.希望赚取高回报，愿意为此承担较大本金损失</label></li>
+				<label for=""></label>
+			</ul>
+		</div>
+		<div class="qution qution9">
+			<h3>9、<span>您的投资出现何种程度的波动时，您会呈现明显的焦虑？</span></h3>
+			<ul>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionA9" name="question9" value="A"><label for="fisrtQutionA9">A、本金5%以内的损失</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionB9" name="question9" value="B"><label for="fisrtQutionB9">B、本金5%-15%的损失</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionC9" name="question9" value="C"><label for="fisrtQutionC9">C、本金15%-25%的损失</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionD9" name="question9" value="D"><label for="fisrtQutionD9">D、本金25%以上的损失</label></li>
+				<label for=""></label>
+			</ul>
+		</div>
+		<div class="qution qution1">
+			<h3>10、<span>以下四个均为为期1年的投资项目中哪一个是您比较能接受的？</span></h3>
+			<ul>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionA10" name="question10" value="A"><label for="fisrtQutionA10">A、预期收益4%，投资期间可能最大亏损1%</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionB10" name="question10" value="B"><label for="fisrtQutionB10">B、预期收益8%，投资期间可能最大亏损4.5%</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionC10" name="question10" value="C"><label for="fisrtQutionC10">C、预期收益16%，投资期间可能最大亏损12.5%</label></li>
+				<li class="clearfix"><i></i><input type="radio" id="fisrtQutionD10" name="question10" value="D"><label for="fisrtQutionD10">D、预期收益24%，投资期间可能最大亏损20%</label></li>
+				<label for=""></label>
+			</ul>
+		</div>
+
+	</section>
+	<div class="fixbottom"><a id="submit" class="btn">提交</a></div>
+	
+	<div class="modal-fade" id="modal" style="display:none;">
+          <div class="modal-body setpwd">
+              <h4 class="modal-title settitle">风险等级</h4>
+              <div class="divp">
+              	<p class="notice setnotice">您的风险承受能力为：<span id="levelTxt"></span></p>
+              </div>
+              <div class="modal-bottom">
+              	  <a class="btnright" id="confirm_modal" >确定</a>
+                  <!-- <button class="btnright" id="confirm_modal" type="button">确定</button> -->
+              </div>
+          </div>
+    </div>
+    <div class="mask"></div><!--透明背景层-->
+    
+	<script type="text/javascript">
+		$('.content2 ul li label').click(function(event) {
+			// event.preventDefault();
+			$(this).parents('li').addClass('current').siblings().removeClass('current');
+		});
+		$('.content2 ul li i').click(function(event) {
+			// event.preventDefault();
+			$(this).siblings('input').prop('checked', true);
+			$(this).parents('li').addClass('current').siblings().removeClass('current');
+		});
+	</script>
+</body>
+</html>

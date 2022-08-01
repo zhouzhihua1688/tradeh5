@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>往期策略运作情况</title>
+    <link rel="stylesheet" href="css/base.css">
+    <script src="../base/js/baseHead.js"></script>
+    <style>
+        * {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .flex {
+            display: flex;
+            align-items: center;
+        }
+
+        .flexB {
+            justify-content: space-between;
+        }
+
+        .span {
+            padding: 0.2rem 0.25rem;
+            background: #ffeeef;
+            color: #fb5c5f;
+            border-radius: 4px;
+        }
+
+        .header ul li {
+            /* display: flex; */
+            /* align-items: center; */
+            text-align: center;
+        }
+
+        .content {
+            margin: 0.6rem 0.75rem 0;
+            background: #fff;
+            color: #666;
+        }
+
+        .flex-grow1 {
+            flex-grow: 1;
+        }
+
+        .flex-grow2 {
+            flex-grow: 2;
+        }
+        .font-weight{
+            font-weight: bold;
+        }
+		.risk-tip{
+			color: #666;
+			font-size: .6rem;
+			padding: .5rem .75rem 1.5rem .75rem;
+			line-height: 1.5;
+		}
+    </style>
+</head>
+
+<body>
+    <div id='app'>
+        <div class="header" style="background: #fff;padding: 0.8rem 0.75rem;font-size: 0.75rem;">
+            <ul class="flex flexB">
+                <li>累计发行: <span class="span">{{targetInfo.allTotal}}期</span></li>
+                <li>运作中: <span class="span">{{targetInfo.operatingTotal}}期</span></li>
+                <li>已止盈: <span class="span">{{targetInfo.endWinTotal}}期</span></li>
+            </ul>
+        </div>
+        <div class="content">
+            <div style="padding: 0.55rem 0.75rem;border-bottom: 1px #eee solid;">
+                <div class="flex">
+                    <div style="width: 50%; text-align: left;">名称/状态</div>
+                    <div style="width: 50%; text-align: right;" class="flex flexB">
+                        <div style="width: 50%;">目标止盈年<br>化收益率</div>
+                        <div style="width: 50%;">已运作<br>天数</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div style="margin-top: 2px !important; background: #FFF; padding: 0.75rem 0.75rem;margin: 0 0.75rem;" v-for="item in targetList">
+            <div class="flex">
+                <div style="width: 50%; text-align: left;">
+                    <div>{{item.groupName}}</div>
+                    <div style="color: #8c8c8c;font-size: 0.6rem;">{{item.status}}</div>
+                </div>
+                <div style="width: 50%; text-align: right;" class="flex flexB">
+                    <div style="width: 50%;color: #f4333c;">{{item.targetReturnPercent}}%</div>
+                    <div style="width: 50%;">{{item.targetOperatedDays}}</div>
+                </div>
+            </div>
+        </div>
+		<p class="risk-tip" style="font-family: Arial;">{{riskTip}}</p>
+    </div>
+
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="../base/js/utils.js"></script>
+    <script src="../base/js/lib/vue.min.js"></script>
+    <script>
+		new Vue({
+			el:'#app',
+			data(){
+				return{
+					targetInfo:{},
+					targetList:[],
+					pageNum:1,
+					pageSize:1000,
+					flag:true,
+					riskTip:'风险提示：市场有风险，投资需谨慎。汇添富基金承诺以诚实信用、勤勉尽责的原则提供基金投资顾问服务，但不保证投顾账户一定盈利，也不保证最低收益。投顾服务历史业绩不代表末来收益，为其他客户创造的收益，并不构成业绩表现的保证。汇添富基金提醒投资者接受基金投资顾问服务遵循“买者自负”原则，投资者应结合自身的投资经历、风险承受能力、资产配置需要作出投资决策，投顾账户的投资风险由投资者自行承担。该策略风险等级为中低风险R2，适合风险承受等级为C2及以上的客户。基金投资组合策略的风险特征与单只基金产品的风险特征存在差异。基金投顾业务尚处于试点阶段，存在因试点资格被取消不能继续提供服务的风险。投资者应自行阅读《基金投资顾问服务协议》、《风险揭示书》、《组合策略说明书》等法律文件，自行做出投资选择。'
+				}
+			},
+			created() {
+				this.getTargetInfo();
+			},
+			mounted() {
+				// 暂时不分页了
+				// window.onscroll = this.throttle(()=>{
+				// 	let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+				// 	let clientHeight = document.documentElement.clientHeight;
+				// 	let scrollHeight = document.documentElement.scrollHeight;
+				// 	if (scrollTop + clientHeight >= scrollHeight) {
+				// 		this.pageNum++;
+				// 		this.getTargetInfo();
+				// 	}
+				// },500)
+				var investRiskLevel = utils.getUrlParam('investRiskLevel');
+				if(investRiskLevel){
+					var riskStr1 = '';
+					var riskStr2 = '';
+					switch(investRiskLevel){
+						case '1' : 
+						riskStr1 = '极低风险R0';
+						riskStr2 = 'C0';
+						break;
+						case '2' : 
+						riskStr1 = '低风险R1';
+						riskStr2 = 'C1';
+						break;
+						case '3' : 
+						riskStr1 = '较低风险R2';
+						riskStr2 = 'C2';
+						break;
+						case '4' : 
+						riskStr = 'R3';
+						riskStr1 = '中等风险R3';
+						riskStr2 = 'C3';
+						break;
+						case '5' : 
+						riskStr1 = '较高风险R4';
+						riskStr2 = 'C4';
+						break;
+						case '6' : 
+						riskStr1 = '高风险R5';
+						riskStr2 = 'C5';
+						break;
+					}
+					this.riskTip = `风险提示：市场有风险，投资需谨慎。汇添富基金承诺以诚实信用、勤勉尽责的原则提供基金投资顾问服务，但不保证投顾账户一定盈利，也不保证最低收益。投顾服务历史业绩不代表末来收益，为其他客户创造的收益，并不构成业绩表现的保证。汇添富基金提醒投资者接受基金投资顾问服务遵循“买者自负”原则，投资者应结合自身的投资经历、风险承受能力、资产配置需要作出投资决策，投顾账户的投资风险由投资者自行承担。该策略风险等级为${riskStr1}，适合风险承受等级为${riskStr2}及以上的客户。基金投资组合策略的风险特征与单只基金产品的风险特征存在差异。基金投顾业务尚处于试点阶段，存在因试点资格被取消不能继续提供服务的风险。投资者应自行阅读《基金投资顾问服务协议》、《风险揭示书》、《组合策略说明书》等法律文件，自行做出投资选择。`
+				}
+				
+			},
+			methods: {
+				getTargetInfo(){
+					// if(this.flag){
+					utils.ajax({
+						url: `/ess/v1/fund/group/target-profit?pageNum=${this.pageNum}&pageSize=${this.pageSize}`,
+						type: 'GET',
+						success: function (result) {
+							if (result.returnCode === 0) {
+								this.targetInfo = result.body;
+								this.targetList = this.targetList.concat(result.body.profitVos);
+								// if(result.body.profitVos.length<10){
+								// 	this.flag = false
+								// }
+							}
+						}.bind(this)
+					});
+					// }
+				},
+				throttle(fn,delay){
+					let flag = true;
+					return function(){
+						if(flag){
+							setTimeout(()=>{
+								fn.call(this);
+								flag = true;
+							},delay)
+						}
+						flag = false;
+					}
+				}
+			},
+		})
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,204 @@
+html,body{
+    margin: 0 auto;
+    max-width: 750px;
+    background-color: #fff;
+}
+.header{
+    position: relative;
+    height: 13.05rem;
+    background: url('../img/index/header.png') no-repeat no-repeat;
+    background-size: 100% 100%;
+}
+.header .buy-btn{
+    position: absolute;
+    left: 50%;
+    bottom: .5rem;
+    display: block;
+    width: 7.5rem;
+    height: 2rem;
+    margin-left: -3.75rem;
+    background: url('../img/index/btn.png') no-repeat no-repeat;
+    background-size: cover;
+}
+.family-member{
+    position: absolute;
+    right: 0;
+    top: .5rem;
+    display: block;
+    width: 4rem;
+    height: 1rem;
+    font-size: .65rem;
+    color: #fff;
+    background-color: #fb5c5f;
+    text-align: center;
+    border-radius: .5rem 0 0 .5rem;
+}
+.family-member img{
+    vertical-align: middle;
+}
+.family-member img{
+    width: .3rem;
+    margin-left: .25rem;
+}
+.banner{
+    display: block;
+    /* height: 4.875rem; */
+    border-radius: 0.2rem;
+    margin-top: .5rem;
+    padding: 0 .75rem;
+}
+.banner a{
+    display: block;
+    width: 100%;
+    height: 3.5rem;
+    border-radius: 0.2rem;
+    /* background: #666; */
+}
+.banner a img{
+    height: 100%;
+}
+.swiper-pagination-custom {
+    bottom: 0 !important;
+    left: 0;
+    width: 100%;
+    height: .75rem;
+    line-height: .75rem;
+}
+
+.swiper-pagination-customs {
+    width: .25rem;
+    height:.25rem;
+    border-radius: 50%;
+    display: inline-block;
+    background: #dddddd;
+    margin: 0 .25rem;
+}
+
+.swiper-pagination-customs-active {
+    width: .5rem;
+    height:.25rem;
+    border-radius: .125rem;
+    display: inline-block;
+    background-color: #f85d63;
+}
+
+.title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* height: 2.5rem; */
+    padding:0 .75rem;
+}
+.title span{
+    color: #000;
+    font-size: .75rem;
+}
+.title a{
+    color: #666666;
+    font-size: .6rem;
+}
+.video-list .title{
+    margin: .75rem 0;
+}
+.video-list .list{
+    padding:0 .75rem;
+    height: 6.25rem;
+}
+.video-list .list .swiper-slide{
+    margin-right: .75rem;
+    /* background-color: red; */
+    width: auto !important;
+   
+}
+.video-list .list .pic{
+    display: block;
+    position: relative;
+    overflow: hidden;
+}
+.video-list .list .pic img{ 
+    width: 8rem;
+    height: 5rem;
+}
+.video-list .list .pic span{
+    position: absolute;
+    left: -2.5rem;
+    top: -.6rem;
+    display: block;
+    height: 1.2rem;
+    line-height:1.2rem;
+    width: 5rem;
+    background-color:#f85d63;
+    color: #fff;
+    font-size: .75rem;
+    text-align: center;
+    transform: rotate(-45deg);
+    margin: 1rem 0 0 1rem;
+}
+.video-list .list .pic .img-box{
+    display: inline-block;
+    position: relative;
+}
+.video-list .list .pic .img-box i{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    background: url('../img/index/icon_play.png') no-repeat no-repeat;
+    background-size: 100% 100%;
+}
+.video-list .list>p{
+    font-size: .6rem;
+    color: #000;
+}
+.text-list{
+  
+    margin-bottom: 2.5rem;
+}
+.text-list .list{
+    display: block;
+    margin-top: .75rem;
+    margin-left: .75rem;
+    padding-bottom: .75rem;
+    border-bottom: 1px #eee solid;
+    color: #000;
+}
+.text-list .list .top,.text-list .list .text{
+    padding-right: .75rem;
+}
+.text-list .list .top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.text-list .list .top p{
+    width: 12rem;
+    height: 1.2rem;
+    overflow: hidden;    
+	text-overflow:ellipsis;    
+	white-space: nowrap;
+    font-size: .75rem;
+    box-shadow: 0px -0.6rem  #FEF4E6 inset;
+}
+.text-list .list .top span{
+    color: #666;
+    font-size: .65rem;
+}
+.text-list .list .text{
+    line-height: 1.5;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-top: .5rem;
+    font-size: .7rem;
+}
+.text-list .title{
+    margin-top: .75rem;
+}

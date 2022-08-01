@@ -1,0 +1,451 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>升级现金宝</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <script>
+        // 相对字体大小设置
+        let oHtml = document.documentElement;
+        getFont();
+        window.onresize = getFont;
+        function getFont() {
+            let screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = "17.06px";
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = "40px";
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + "px";
+            }
+        }
+    </script>
+    <style>
+        .content>div{
+            font-size: 0;
+        }
+        img{
+            display: block;
+            width: 100%;
+        }
+        .content div:nth-of-type(2){
+            position: relative;
+        }
+        .content div .profit{
+            position: absolute;
+            top: 5.5rem;
+            left: 2.875rem;
+            font-size:0.95rem;
+            color: #fe5a12;
+            font-weight:bold;
+        }
+        .content div .profitRight{
+            position: absolute;
+            top:4.1rem;
+            /* right:4.25rem; */
+            right: 2.95rem;
+            /* left: 9.25rem; */
+            font-size:2.5rem;
+            color: #ff3802;
+            font-weight:bold;
+        }
+        .content div .percent{
+            position: absolute;
+            top:5.5rem;
+            /* right:2.95rem; */
+            right:2rem;
+            /* left: 15.5rem; */
+            font-size:1rem;
+            color: #ff3802;
+            font-weight:bold;
+        }
+        .content div .textLeft{
+            position: absolute;
+            top: 6.9rem;
+            left: 2.875rem;
+            /* width: 5rem; */
+            height:0.8rem;
+            padding:0 0.25rem;
+            background: #ffffff;
+            color:#b42402;
+            font-size:0.55rem;
+            display:block;
+            text-align: center;
+            line-height:0.9rem;
+            border-radius: 0 50px 50px 2.5rem;
+        }
+        .content div .textRight{
+            position: absolute;
+            top: 6.9rem;
+            /* right: 2.95rem; */
+            right: 2.5rem;
+            /* width: 5rem; */
+            height:0.8rem;
+            padding:0 0.35rem;
+            background: #ffffff;
+            color:#b42402;
+            font-size:0.55rem;
+            display:block;
+            text-align: center;
+            line-height:0.9rem;
+            border-radius: 50px 0px 2.5rem 50px;
+        }
+        .content div .jump_text{
+            position: absolute;
+            /* right: 4.75rem; */
+            /* bottom: 1.8rem; */
+            /* bottom: 3.5rem;  // 20210716 添加 基金合同、招募说明、基金产品资料概要 */
+            /* top: 17.05rem; */
+            bottom: 2.8rem;
+            /* left: 50%; */
+            /* width:12.0rem; */
+            height: .75rem;
+            /* margin-left: -6rem; */
+            color: #fda59f;
+            display: block;
+            font-size:0.5rem;
+            text-align:center;
+            margin: auto 2.5rem;
+        }
+        
+        .content div .jump_text a{ color:#fda79f;font-weight: bold;text-decoration:underline; }
+
+        .content div .jump_text2{
+            position: absolute;
+            right: 4.75rem;
+            bottom: 1.8rem;
+            left: 50%;
+            width:12.0rem;
+            height: .75rem;
+            margin-left: -6rem;
+            color: #fda59f;
+            display: block;
+            font-size:0.6rem;
+            text-align:center;
+            display:none;
+        }
+
+        
+        .content div .update_xjb{
+            position: absolute;
+            right: 2.875rem;
+            /* bottom: 2.875rem; */
+            bottom: 4.6rem;
+            width: 13rem;
+            height: 2.5rem;
+        }
+        /*弹框1*/
+        /* tip弹窗 */
+        .Bomb-box {
+            z-index: 10000000000000000000000;
+            display: none;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            top: 0;
+            left: 0;
+            text-align: center;
+        }
+
+        .Bomb-box .Bomb-box-main {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 15rem;
+            background-color: #fff;
+            border-radius: 0.3rem;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        .Bomb-box .Bomb-box-content {
+            padding: 1.5rem;
+        }
+
+        .Bomb-box .Bomb-box-content p {
+            text-align: center;
+            line-height: 1rem;
+        }
+
+        .Bomb-box .Bomb-box-ok {
+            display: block;
+            width: 13.5rem;
+            height: 2rem;
+            line-height: 2rem;
+            text-align: center;
+            color: #0070fa;
+            font-size: 0.75rem;
+            border-top: solid 0.025rem #eee;
+            margin: 0 auto;
+        }
+        /* .footerText{width:16.75rem;font-size: 0.6rem;color:#999;text-align:justify;position: absolute;bottom:1rem;left:50%;margin-left:-8.375rem;} */
+        .footerText{padding: 0 1rem 1.5rem;font-size: 0.6rem;color:#999;text-align:justify;}
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div>
+            <img src="./images/bg_111.png" alt="">
+        </div>
+        <!-- <div>
+            <img src="./images/bg_022.png" alt="">
+            <span class="profit">2.111%</span>
+            <span class="profitRight">2.223</span><span class="percent">%</span>
+            <p class="textLeft">汇添富现金宝货币</p>
+            <p class="textRight">汇添富货币E</p>
+            <p href="javascript:;" class="jump_text">点击按钮即同意<a href="javascript:;" style="color:#fda79f;font-weight: bold;text-decoration:underline" class="jump_protocol">服务协议</a>，将您持有的<span class="name1">汇添富
+现金宝货币</span><span class="jump_number">23,965.00</span>份转换为<span class="name2">汇添富货币E</span></p>
+            <p href="javascript:;" class="jump_text2">点击按钮即同意<a href="javascript:;" style="color:#fda79f;font-weight: bold;text-decoration:underline" class="jump_protocol">服务协议</a></p>
+            <a href="javascript:;" class="update_xjb"></a>
+        </div> -->
+        <div style="position: relative;">
+            <img src="./images/bg_122.png" alt="">
+            <span class="profit"></span>
+            <span class="profitRight"></span><span class="percent">%</span>
+            <p class="textLeft">汇添富现金宝货币</p>
+            <p class="textRight"></p>
+            <div href="javascript:;" class="jump_text">
+                <span>点击按钮即阅读并同意</span>
+                <a href="javascript:;" class="jump_protocol">服务须知</a>
+                <span id='contractLinks'>、<a href='javascript:;'>基金合同</a>、<a href='javascript:;'>招募说明</a>、<a href='javascript:;'>基金产品资料概要</a></span>
+                <span>，将您持有的</span>
+                <span class="name1">汇添富现金宝货币</span>
+                <span class="jump_number"></span>
+                <span>份转换为</span>
+                <span class="name2"></span>
+            </div>
+            <a href="javascript:;" class="update_xjb"></a>
+        </div>
+        <div style="position:relative">
+            <img src="./images/bg_133.png" alt="">
+            <!-- <p class="footerText">基金有风险，投资需谨慎。基金费率优惠信息以基金管理人发布的公告为准。数据来源：汇添富基金官网，数据经托管行复核；统计截止<span class="dateText">2021/06/03</span>。</p> -->
+            <p class="footerText">基金投资有风险，投资者购买货币市场基金并不等于将资金作为存款存放在银行或存款类金融机构，基金管理公司不保证基金一定盈利，也不保证最低收益。现金宝快速取现是一种增值服务，每天可取现总额有一定上限，如达上限快速取现服务将临时暂停，投资者在使用快速取现服务前需充分了解该风险，尽量提前做好资金安排。<br />基金费率优惠信息以基金管理人发布的公告为准。数据来源：汇添富基金官网，数据经托管行复核；统计截止<span class="dateText">2021/07/15</span>。</p>
+        </div>
+    </div>
+    <div class="Bomb-box">
+        <div class="Bomb-box-main">
+            <p class="Bomb-box-tips"  style="padding-top: 0.75rem;"></p>
+            <div class="Bomb-box-content">
+                <p class="text-center"></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;">确定</a>
+        </div>
+    </div>
+    <script src="./js/jquery.3.4.1.min.js"></script>
+    <script src="./js/utils.js"></script>
+	<script src="./js/common.js"></script>
+    <script>
+        // 获取登录态cookieInfo
+        var custNo =utils.getCookie('sso_cookie_ext_dp');
+        console.log("custNo",custNo);
+        var fundContract = ""; //基金合同
+        var recruitment = ""; //招募说明
+        var fundSummary = ""; //资料概要
+        // 升级收益
+        function getFundDetails() {
+            utils.get('/smac/v1/asset/base-account/fund/info?branchCode=247', null, function (result) {
+                if (result.returnCode == 0) {  
+                    // teamId = result.body.teamId
+                    console.log("===",result)
+                    $(".profit").text(result.body.custBaseFundYieldDisplay+'%');
+                    $(".profitRight").text(result.body.targetBaseFundYieldDisplay);
+                    $(".textLeft").text(result.body.custBaseFundName);
+                    $(".textRight").text(result.body.targetBaseFundName); 
+                    $(".name1").text(result.body.custBaseFundName);
+                    $(".name2").text(result.body.targetBaseFundName);
+                    $(".dateText").text(result.body.navDate.replace(/^(\d{4})(\d{2})(\d{2})$/, "$1/$2/$3"));
+                    var targetFundId = result.body.targetBaseFundId;
+
+                    utils.post('/mobile-bff/v1/fund/detailInfo',JSON.stringify({"fundId": targetFundId}),function(result){
+                        if(result.returnCode == 0){
+                            var fundDetail = result.body;
+                            var fundContractList = fundDetail.fundContractList;
+                            fundContractList.forEach(function (item) {
+                                if(item.title.indexOf("基金合同") > -1 && item.title.indexOf("招募说明书") == -1 ){
+                                    fundContract = item.url;
+                                }
+                                if(item.title.indexOf("招募说明书") > -1){
+                                    recruitment = item.url;
+                                }                        
+                                if(item.title.indexOf("产品资料概要") > -1){
+                                    fundSummary = item.url;
+                                }
+                            })
+
+                        }
+                    });
+
+                    // // 20210716 添加 基金合同、招募说明、基金产品资料概要 S
+                    // if(result.body.targetBaseFundId){
+                    //     // result.body.targetBaseFundId = '005802';  // 测试用
+                    //     utils.post('/mobile-bff/v1/fund/detailInfo', {"fundId":result.body.targetBaseFundId}, function(result2){
+                    //         // console.log(result2);
+                    //         if (result2.returnCode == 0) {
+                    //             var fundContractList = result2.body.fundContractList;
+                    //             console.log('fundContractList=', fundContractList);
+                    //             var linkStr = '';
+                    //             fundContractList.forEach(function (item) {
+                    //                 // console.log(item);
+                    //                 // linkStr += '、<a href="javascript:;">基金合同</a>'
+                    //                 if(~item.title.indexOf('基金合同')){
+                    //                     linkStr = linkStr + '、<a href="'+ item.url +'">基金合同</a>';
+                    //                 } else if(~item.title.indexOf('招募说明')){
+                    //                     linkStr = linkStr + '、<a href="'+ item.url +'">招募说明</a>';
+                    //                 } else if(~item.title.indexOf('基金产品资料概要')){
+                    //                     linkStr = linkStr + '、<a href="'+ item.url +'">基金产品资料概要</a>';
+                    //                 } else {
+                    //                     linkStr += '';
+                    //                 }
+                    //             })
+                    //             // console.log(linkStr);
+                    //             $('#contractLinks').html(linkStr);
+                    //         }
+                    //     })
+                    // }
+                    // // 20210716 添加 基金合同、招募说明、基金产品资料概要 E
+                }
+            });
+        }
+        getFundDetails();
+        
+        //份额
+        function assetDetails() {
+            utils.get('/mobile-bff/v1/smac/assetDetail', null, function (result) {
+                if (result.returnCode == 0) {  
+                   console.log("===",result)
+                   if(result.body.availableBalance!=""){
+                      $(".jump_text").show();
+                      $(".jump_text2").hide();
+                      $(".jump_number").text(Number(result.body.availableBalance).toFixed(2));
+                   }else{
+                      $(".jump_text2").show();
+                      $(".jump_text").hide();
+                   }
+                }
+            });
+        }
+        assetDetails();
+
+
+		var params={
+			acceptMode: "M",
+			apkind: "985",
+			branchCode: "247",
+			subApkind: "MAC001"
+		};
+        $(".jump_protocol").click(function(){
+            if(utils.isProdEnv()){
+                window.location.href="https://app.99fund.com/tradeh5/newWap/tradeProcess/cash/xjb_upgrade_agreement.html"
+            }else{
+                window.location.href="http://appuat.99fund.com.cn:7081/tradeh5/newWap/tradeProcess/cash/xjb_upgrade_agreement.html"
+            }
+        })
+        $(".update_xjb").click(params,function(e){
+			utils.ajax({
+				url: '/mobile-bff/v1/smac/fund/convert',
+				type: 'POST',
+				data: e.data,
+				success: function (result) {console.log(result.returnCode);
+					if (result.returnCode === 0) {
+                        riskMark();
+						if(!isApp()){
+							alertTips3('升级成功','您的现金宝服务已升级！','去查看',jumpuri);
+							$(".Bomb-box-ok").css({"font-size":".75rem","color":"#006bfe","border-top":"none","margin":".25rem 0","width":"auto"});
+						}else{
+                            // // 20210726 去掉 去充值  按钮
+                            // alertTips3('升级成功','您的现金宝服务已升级，<br>可继续充值享收益！','我知道了',jumpuri2);
+                            
+							if(utils.getUrlParam('f') == 'rc'){
+								alertTips3('升级成功','您的现金宝服务已升级，<br>可继续充值享收益！','我知道了',jumpuri2);
+								$(".Bomb-box-ok").css({"font-size":".75rem","color":"#006bfe","border-top":"none","margin":".25rem 0","width":"auto"});
+							}else{
+								
+								alertTips4('升级成功','您的现金宝服务已升级，<br>可继续充值享收益！','去充值','我知道了',jumpuri1,jumpuri2);
+							}
+						}
+                        $(".Bomb-box-tips").css({"font-size":".75rem","color":"#000","padding-top":".9rem"});
+                        $(".Bomb-box-content").css({"font-size":".7rem","color":"#666","padding":".8rem","padding-top":".6rem","margin":"0 .75rem","border-bottom":"1px #eee solid"});
+                        $(".Bomb-box-ok").css({"font-size":".75rem","color":"#006bfe","border-top":"none","margin":".25rem 0"});
+					} 
+				}.bind(this)
+			})
+        })
+
+        $('#contractLinks a:nth-of-type(1)').click(function(){
+            openPdf(fundContract);
+        })
+
+        $('#contractLinks a:nth-of-type(2)').click(function(){
+            openPdf(recruitment);
+        })
+
+        $('#contractLinks a:nth-of-type(3)').click(function(){
+            openPdf(fundSummary);
+        })
+
+		function jumpuri(){
+			window.location.href="/tradeh5/newWap/myAssets/asset.html"
+		}
+        function jumpuri1(){
+            window.location.href = "htffundxjb://action?type=rc";
+        }
+		function jumpuri2(){
+            // 20210726 修改为跳转到  现金宝资产页面
+            window.location.href = "htffundxjb://action?type=as&subType=xjb";
+
+			// window.location.href = "htffundxjb://action?type=hm";
+            
+			// var u = navigator.userAgent;
+			// var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+			// if(isAndroid){
+			// handler.goBack(true);
+			// } else {
+			//  window.location.href = "http://www.99fund.com?pageforward=1";
+			// }
+		}
+        // 留痕
+        function riskMark(){
+            var params={
+                agrements: [
+                {
+                    agreement: "MAC_UPGRADE"
+                }
+                ]
+            }
+            if(isApp()){
+                params.accptMd="MOBILE"
+            }else{
+                params.accptMd="WAP"
+            }
+            utils.ajax({
+                url: '/icif/v1/agreements/add',
+                type: 'POST',
+                data: params,
+                success: function (result) {
+                    if (result.returnCode === 0) {
+                        console.log(result);
+                    } 
+                }.bind(this)
+            })
+        }
+
+        function openPdf(url) {
+            if (isApp()) {
+                window.location.href = 'htffundxjb://action?type=url&linkType=pdf&link=' + btoa(url);
+            } else {
+                window.location.href = url;
+            }
+        }
+    </script>
+<script src="https://static.99fund.com/js/lib/jquery-3.4.1.min.js"></script><script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script></body>
+
+</html>

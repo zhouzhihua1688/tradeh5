@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>投顾月报</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <style>
+        .main {font-size:0}
+        .main img {width: 100%;}
+    </style>
+</head>
+<body>
+<div id="app" v-cloak>
+    <div class="main">
+        <div class="top">
+            <img v-if="topImagePath" :src="topImagePath" alt="" />
+        </div>
+        <!-- <div class="groups" v-for="(value,key,index) in groupImagePaths" :key="key" >
+            <img v-if="value" :src="value" alt="" />
+        </div> -->
+        <div class="groups" v-for="(item, index) in groupImagePaths" :key="index" >
+            <img v-if="item" :src="item.imagePath" alt="" />
+        </div>
+        <div class="bottom">
+            <img v-if="bottomImagePath" :src="bottomImagePath" alt="" />
+        </div>
+    </div>
+</div>
+<script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script>
+<script>
+var vm = new Vue({
+    el: '#app',
+    data() {
+        return {
+            yearMonth: utils.getUrlParam('yearMonth')?utils.getUrlParam('yearMonth'):'',
+            // reportDate: "202202",
+            reportName: "test",
+            reportAbstract: "test",
+            // topImagePath: "./images/bg_01.png",
+            // bottomImagePath: "./images/bg_12.png",
+            topImagePath: "",
+            bottomImagePath: "",
+            groupImagePaths: []
+        };
+
+    },
+    created() {
+        utils.ajax({
+            url: '/ias/v1/reports/report/monthly/cust',
+            data: {reportDate: this.yearMonth},
+            type: 'GET',
+            success: function (result) {
+                console.log(result.returnCode);
+                if (result.returnCode === 0 && result.body && result.body.custNo) {
+                    // this.reportDate = result.body.reportDate;
+                    // this.reportName = result.body.reportName;
+                    // this.reportAbstract = result.body.reportAbstract;
+
+                    this.bottomImagePath = result.body.bottomImagePath;
+                    this.topImagePath = result.body.topImagePath;
+                    // this.groupImagePaths = result.body.groupImagePaths;
+
+                    let groupImagePaths = [];
+                    let tmpObj = {};
+                    let sortGroupImagePaths = [];
+                    sortGroupImagePaths = result.body.groupImagePaths.sort((a, b) => a.groupId.replace('A','') < b.groupId.replace('A','') ? -1 : a.groupId.replace('A','') > b.groupId.replace('A','') ? 1 : 0);
+                    sortGroupImagePaths.forEach((item)=>{
+                        console.log('item=', item);
+                        if (!tmpObj[item.groupName]) {
+                            tmpObj[item.groupName] = item.imagePath;
+                            groupImagePaths.push(item);
+                        }
+                    });
+                    this.groupImagePaths = groupImagePaths.sort((a,b)=>a.fundGroupType<b.fundGroupType?-1:a.fundGroupType > b.fundGroupType ? 1 : 0);
+                    console.log('this.groupImagePaths=',this.groupImagePaths);
+                } else {
+                    utils.showTips('暂无数据');
+                }
+            }.bind(this)
+        })
+    },
+    watch: {},
+    computed: {},
+    methods: {
+        // 根据groupId跳转到投顾详情页
+        jumpUrl: function (groupId) {
+            if (isApp()) {
+                window.location.href = "htffundxjb://action?type=adviserService&subType=detail&groupId=" + groupId;
+            } else {
+                window.location.href = "/mobileEC/adviser/investGroupDetails.html?groupId=" + groupId;
+            }
+        }
+    }
+})
+</script>
+</body>
+</html>

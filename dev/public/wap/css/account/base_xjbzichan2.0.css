@@ -1,0 +1,390 @@
+@charset "utf-8";
+
+/* 禁用iPhone中Safari的字号自动调整,如横屏时会重新计算 */
+html {  -webkit-text-size-adjust: 100%;  -ms-text-size-adjust: 100%;  }
+input{  border: none;  outline-style: none;  }
+/* 去除iPhone中默认的input样式 */
+input[type="submit"], input[type="reset"], input[type="button"], input {  -webkit-appearance: none;  resize: none;  }
+/* 取消链接高亮  */
+body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);  }
+/* 设置HTML5元素为块 */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  display: block;  }
+/* 图片自适应 */
+img {  width: 100%;  height: auto;  width: auto\9; /* ie8 */  -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/  border: none;  }
+/* 初始化 */
+body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  margin: 0;  padding: 0;  border: none;  }
+/*body {  font: 14px 'Microsoft YaHei', Tahoma, Arial, sans-serif;  color: #666666;  background-color: #f6f6f6;   margin: 0 auto;  }*/
+body {  font-size: 14px; color: #666666;  background-color: #f6f6f6;   margin: 0 auto;font-family: "PingFang SC","Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;   }
+em, i {  font-style: normal;  }
+.clearfix:after {  content: "";  display: block;  visibility: hidden;  height: 0;  clear: both;  }
+.clearfix {  zoom: 1;  }
+a {  text-decoration: none;  color: inherit;  }
+a:hover {  text-decoration: none;  }
+ul, ol {  list-style: none;  }
+h1, h2, h3, h4, h5, h6 {  font-size: 100%;  font-weight: normal;  }
+.fl{float: left;}
+.fr{float: right;}
+select:focus{outline: none;}
+/*多次使用*/
+html,body{
+    height: 100%;
+}
+.black{
+    color:#000;
+}
+.gray{
+    color:#666666;
+}
+.red{
+    color:#f4333c;
+}
+.green{
+    color: #009944;
+}
+.bold{
+    font-weight: bold;
+}
+
+/*banner*/
+.layer_content{
+    padding: 0 .75rem;
+}
+.banner{
+    margin: .5rem 0;
+    background: url(../../images/account/bg.png);
+    background-size: 100% 100%;
+    height: 6.7rem;
+    border-radius: 0.15rem;
+}
+.banner h4{
+    text-align: center;
+    line-height: 0.75rem;
+    font-size: .65rem;
+    padding-top: 0.9rem;
+}
+.banner h4 span,.banner h4 i{
+    display: inline-block;
+    vertical-align: middle;
+}
+.banner h4 span{
+    color:rgba(255,255,255,.7);
+    margin-right: .5rem;
+}
+.banner h4 i{
+    width: .75rem;
+    height: .75rem;
+    background: url("../../images/account/wenhao.png") no-repeat;
+    background-size: 100% 100%;
+}
+.banner h2{
+    text-align: center;
+    line-height:1.9rem;
+    font-size: 1.5rem;
+}
+.banner h2 span,.banner h2 i{
+    display: inline-block;
+    vertical-align: middle;
+}
+.banner h2 span{
+    color:#fff;
+}
+.banner h2 i{
+    width: 1rem;
+    height: 0.55rem;
+    background: url("../../images/account/openEyes.png")  no-repeat no-repeat ;
+    background-size: 100% 100%;
+}
+.banner .tables{
+    position: relative;
+    padding:.65rem 0 .75rem 0;
+    height: 1.65rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+    text-align: center;
+}
+.banner .tables .line {
+     position: absolute;
+     left: 0;
+     right: 0;
+     top: 0;
+     bottom: 0;
+     margin: auto;
+     width: 1px;
+     height: 1rem;
+     background: rgba(255,255,255,.3);
+ }
+.banner .tables p{
+    font-size: 0.6rem;
+    line-height: .6rem;
+    color:rgba(255,255,255,.7);
+}
+.banner .tables span{
+    font-size: 0.85rem;
+    line-height: .85rem;
+    color:#fff;
+}
+.banner .tables .table_left,.banner .tables .table_right{
+    display: flex;
+    -webkit-box-orient: vertical;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+}
+
+
+.product_card1,.product_card2{
+    background: #fff;
+    border-radius: 0.15rem;
+}
+.product_card1 .product_title{
+    height: 2.2rem;
+    line-height: 2.2rem;
+}
+.product_card2 .product_title{
+    height: 2.2rem;
+    line-height: 2.2rem;
+    border-bottom: 1px solid #eee;
+}
+.product_title i,.product_title span{
+    display: inline-block;
+    vertical-align: middle;
+}
+.product_card1 .product_title i{
+    width: 0.9rem;
+    height: 0.9rem;
+    margin-left: 0.75rem;
+    background:url("../../images/account/icon_01.jpg");
+    background-size: 100% 100%;
+}
+.product_card2{
+    margin-top: .5rem;
+}
+.product_card2 .product_title i{
+    width: 0.9rem;
+    height: 0.9rem;
+    margin-left: 0.75rem;
+    background:url("../../images/account/icon_02.jpg");
+    background-size: 100% 100%;
+}
+.product_title span{
+    margin-left: 0.375rem;
+    font-size: 0.7rem;
+    font-weight: bold;
+    color:#000;
+}
+.product_content .content_card{
+    border-top: #eee 1px solid;
+}
+.content_card{
+    position: relative;
+    padding: 1rem .5rem .75rem .75rem;
+}
+.content_card .up_text{
+    line-height: .75rem;
+}
+.content_card .up_text span{
+    display: inline-block;
+    vertical-align: middle;
+}
+.content_card .up_text .text1{
+    font-size: .75rem;
+    margin-right:0.6rem ;
+}
+.content_card .up_text .text2{
+    margin-right:0.25rem ;
+}
+.content_card .up_text .text2,.content_card .up_text .text3{
+    font-size: 0.65rem;
+}
+.content_card .down_text{
+    line-height: 0.7rem;
+    margin-top: .5rem;
+}
+.content_card .down_text span {
+    display: inline-block;
+    font-size: .7rem;
+}
+.content_card .down_text .down_text1{
+    margin-right: .5rem;
+}
+.content_card a{
+    position: absolute;
+    display: block;
+    width: 2.2rem;
+    height: 1.45rem;
+    border:1px #fb5c5f solid;
+    border-radius: 0.1rem;
+    font-size: 0.65rem;
+    line-height: 1.5rem;
+    text-align: center;
+}
+.content_card .btn1{
+    top:1rem;
+    right: 3.25rem;
+    color:#fb5c5f;
+}
+.content_card .btn2{
+    top: 1rem;
+    right: .5rem;
+    color:#fff;
+    background: #fb5c5f;
+}
+.content_card2{
+    /*background: url("../../images/account/icon_03.jpg") left top  no-repeat;*/
+    background-size: 1.75rem 0.65rem;
+}
+.product_list{
+    padding-left: .75rem;
+    overflow: hidden;
+}
+.product_list .list{
+    position: relative;
+    overflow: hidden;
+    display: block;
+    height: 3.5rem;
+    line-height: 3.5rem;
+    border-bottom: 1px #eee solid;
+    text-align: right;
+    background-image:url('../../images/account/arrow.png');
+    background-repeat:no-repeat;
+    background-position:95% center;
+    background-size: 0.4rem .75rem;
+}
+.product_list .list4{
+    border-bottom: none;
+}
+.product_list .list p{
+    position: absolute;
+    left: 0;
+    font-size: .75rem;
+}
+.product_list .list .middle{
+    position: absolute;
+    top: 0;
+    right: 14%;
+}
+.product_list .list .middle h4{
+    line-height: .7rem;
+    margin-top: .75rem;
+}
+.product_list .list .middle h4 span,.product_list .list .single span{
+    display: inline-block;
+    margin-left: .5rem;
+}
+.product_list .list .single{
+    position: absolute;
+    top: 0;
+    right: 14%;
+    line-height: 3.5rem;
+}
+.product_list .list .other{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3.5rem;
+    text-align: left;
+}
+.product_list .list .other .other_title{
+    line-height: .75rem;
+    margin-top: .75rem;
+    font-size: .75rem;
+}
+.product_list .list .other .other_text{
+    line-height: .7rem;
+    margin-top: .4rem;
+    font-size: .7rem;
+}
+.mask{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.7);
+    z-index: 10;
+}
+.answer{
+    position: absolute;
+    top: 50%;
+    margin-top: -3.125rem;
+    left: 50%;
+    margin-left: -7.5rem;
+    width: 15rem;
+    height: 6.25rem;
+    background: #fff;
+    border-radius: 0.15rem;
+    z-index: 20;
+}
+.answer .answer_text{
+    margin: 0 .75rem;
+    height: 3.75rem;
+    border-bottom: 1px #eee solid;
+    line-height: 3.75rem;
+    text-align: center;
+    color:#666666;
+}
+.answer .close{
+    display: block;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    color:#0070fa;
+    text-align: center;
+}
+.layers{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.7);
+}
+.layer-mask1 ,.layer-mask2 ,.layer-mask3{
+    height: 30.125rem;
+}
+.layer-mask1{
+    background: url("../../images/account/lay1.jpg") no-repeat;
+    background-size: 100% 100%;
+}
+.layer-mask1 a{
+    position: relative;
+    left: 6.3rem;
+    top: 18rem;
+    display: block;
+    width: 6.1rem;
+    height: 2.25rem;
+}
+.layer-mask2{
+    background: url("../../images/account/lay2.jpg") no-repeat;
+    background-size: 100% 100%;
+}
+.layer-mask2 a{
+    position: relative;
+    left: 6.3rem;
+    top: 19rem;
+    display: block;
+    width: 6.1rem;
+    height: 2.25rem;
+}
+.layer-mask3{
+    background: url("../../images/account/lay3.jpg") no-repeat;
+    background-size: 100% 100%;
+}
+.layer-mask3 a{
+    position: relative;
+    left: 11.7rem;
+    top: 15.7rem;
+    display: block;
+    width: 6.1rem;
+    height: 2.25rem;
+}
+
+
+
+

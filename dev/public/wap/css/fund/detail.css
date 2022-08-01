@@ -1,0 +1,145 @@
+body{
+    background-color: #ffffff;
+}
+.top-bar .left{
+    width: 33%;
+    text-align: left;
+}
+.top-bar .mid {
+    text-align:center;
+}
+.top-bar .right{
+    width: 33%;
+    text-align: right;
+}
+.topcontent{
+    margin-left: 5%;
+    width: 90%;
+    height: 215px;
+    padding: 10px;
+}
+.content{
+    margin-top: 5px;
+    margin-left: 10px;
+    font-size: 10px;
+    margin: 5px 0 10px 10px;
+}
+.topcontent .line{
+    width: 95%;
+    text-align: center;
+    border-bottom: 1px #d7d7d7 solid;
+    margin: 5px 0 5px 0;
+}
+.con-first{
+    margin-top: 5px;
+    height: 42px;
+    display:-webkit-box;
+    padding-left: 1%;
+}
+.title{
+    height: 20px;
+    padding-left: 1%;
+}
+ .in-left{
+    width: 47%;
+}
+.in-right{
+    width: 52%;
+}
+.in-left > div,.in-right > div{
+    margin-top: 3px;
+}
+.content .line{
+    width: 93%;
+    text-align: center;
+    border-bottom: 1px #d7d7d7 solid;
+    margin: 5px 0 5px 0;
+}
+.con-sec{
+    margin-top: 10px;
+    _height: 105px;
+    min-height: 105px;
+    display:-webkit-box;
+}
+.con-sec .in-left .con-f-1{
+    height: 105px;
+
+}
+.con-f2{
+    margin-top: 10px;
+    padding-top: 5px;
+    _height: 60px;
+    min-height: 60px;
+}
+.in{
+    text-align: center;
+}
+
+.in .con-f-2{
+    height: 128px;
+}
+
+.tu-type{
+    width: 100%;
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+
+.tu-type .button{
+    width: 25%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    margin-left: 10px;
+}
+.f-left,.f-mid,.f-right{
+    border-radius: 4px;
+}
+
+.bottom_bar{
+    height: 70px;
+    position: fixed;
+    display: -webkit-box;
+    width: 100%;
+    margin-top: 360px;
+    text-align: center;
+    margin-left: 10px;
+    bottom: 0%;
+}
+.leftbtn > div{
+    margin-left: 15px;
+}
+
+.rightbtn > div{
+    margin-left: 30px;
+}
+.button-width-mids{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 20px;
+}
+.bottom_bar > div{
+    width: 40%;
+}
+.con-sec >.in-right >.con-f-3 {
+    overflow: hidden;
+    height: 65px;
+}
+
+.con-thir{
+    margin-top: 10px;
+    height: 50px;
+    display:-webkit-box;
+    padding-left: 1%;
+}
+.f-grey {
+    background-color: #ebebeb;
+}
+.topcontents{
+    background-color: #ebebeb;
+}
+/**
+ * Created by sun on 15-03-18.
+ */
+

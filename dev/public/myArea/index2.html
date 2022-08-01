@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>我的自选</title>
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/swiper-4.2.2.min.css">
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <style>
+        .cell {
+            height: 4rem;
+            /* padding: 0 0.75rem; */
+            display: flex;
+            align-items: center;
+        }
+
+        .head-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .head-item .head-item-img {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+            overflow: hidden;
+        }
+
+        .head-item .head-item-content {
+            height: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+        }
+
+        .head-item .head-item-content .content-top,
+        .head-item .head-item-content .content-bottom {
+            display: flex;
+            align-items: center;
+        }
+
+        .head-item .head-item-content .content-name {
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #000000;
+            margin-right: 0.75rem;
+        }
+
+        .head-item .head-item-content .content-date {
+            font-size: 0.6rem;
+            color: #666666;
+        }
+
+        .head-item .head-item-content .content-state {
+            width: 1.5rem;
+            height: 0.75rem;
+            background: #FFEFEF;
+            border-radius: 0.1rem;
+            font-size: 0.6rem;
+            font-weight: 500;
+            color: #FB5C5F;
+            height: 0.75rem;
+            text-align: center;
+            margin-right: 0.55rem;
+        }
+
+        .head-item .head-item-content .content-language {
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: #000000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div class="content1">
+            <!-- tab选项 -->
+            <div class="tab">
+                <ul class="flex tab-left">
+                    <!-- .active为选中样式 -->
+                    <li class="active">基金</li>
+                    <p></p>
+                    <li>组合</li>
+                    <p></p>
+                    <li>投顾</li>
+                    <p></p>
+                    <li>基金经理</li>
+                </ul>
+                <div class="flex tab-right">
+                    <div class="flex marR">
+                        <img src="./img/consulticon.png" alt="" srcset="">
+                        <div>咨询</div>
+                    </div>
+                    <div class="flex">
+                        <img src="./img/talkicon.png" alt="" srcset="">
+                        <div>讨论</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 基金 -->
+            <div>
+                <div class="flex fund-name">
+                    <div class=" text-left width60">基金名称</div>
+                    <div class="flex width30 flexB">
+                        <div class="flex header">
+                            <div>
+                                <div>估值</div>
+                                <div class="color666">05.25</div>
+                            </div>
+                            <div class="flex-c" style="margin-left: .25rem;">
+                                <img src="./img/top3.png" alt="">
+                                <img src="./img/bottom.png" alt="">
+                            </div>
+                        </div>
+                        <div class="flex header" id="selectTime">
+                            <div class="flex flex-c">
+                                <div>净值</div>
+                                <div id="showTime" class="color666">近一月</div>
+                            </div>
+                            <img src="./img/bottom.png" alt="">
+                        </div>
+                    </div>
+
+                </div>
+                <ul class="switchtab clearfix" style="display: none;z-index: 999;">
+                    <li>近一月</li>
+                    <li>近三月</li>
+                    <li>近六月</li>
+                    <li>近一年</li>
+                    <li>成立以来</li>
+                </ul>
+                <!-- 基金类型 -->
+                <div class="tabContent">
+                    <!-- <div class="flex kinds">
+                        <div class=" text-left width60" style="line-height: 1rem;">
+                            <div class="hidden">汇添富优势精选混混合混合混合混合混合混合 </div>
+                            <div class="text-left font-size26 color666" style="margin-top: .15rem;">519066 <span
+                                    class="color-have">持有</span></div>
+                        </div>
+                        <div class="flex width30 flexB">
+                            <div class="  flex-c">
+                                <div>2.5501</div>
+                                <div class="color-green font-size26">-2.55%</div>
+                            </div>
+                            <div class=" flex-c">
+                                <div>2.2950 </div>
+                                <div class="color-red font-size26">+1.27% </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- 基金经理 模板-->
+                    <!-- <div class="cell">
+                        <div class="head-item">
+                            <img src="./img/manageicon.png" class="head-item-img" alt="">
+
+                            <div class="head-item-content">
+                                <div class="content-top">
+                                    <span class="content-name">劳杰男</span>
+                                    <span class="content-date">任职时间：2015.11.18-至今</span>
+                                </div>
+                                <div class="content-bottom">
+                                    <div class="content-state">动态</div>
+                                    <span class="content-language">劳杰男：短期的恐慌定会被抹平</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 底部上证指数 -->
+    <div class="footer">
+        <!-- 点击展开 -->
+        <div class="flex footer1" style="display: none;overflow: scroll;">
+            <div class="flex flex-c" style="width: 34%;border-right: 1px solid #ccc;padding: .75rem;">
+                <div>深证成指</div>
+                <div class="flex color-red">3084.28 <img style="width:0.35rem;height:.5rem;margin-left: .25rem;"
+                        src="./img/top2.png" alt=""></div>
+                <div class="flex">
+                    <div class="color-red">+29.29</div>
+                    <div class="color-red">+0.96%</div>
+                </div>
+            </div>
+        </div>
+        <!-- 初始底部 -->
+        <div class="flex flexB" style="padding: .5rem 0;overflow: scroll;">
+            <ul class="flex ">
+                <li class="color666">上证综指</li>
+                <li class="color-red" style="margin: 0 .25rem;">3589.64</li>
+                <img style="width:0.35rem;height:.5rem;" src="./img/top2.png" alt="">
+            </ul>
+            <div class="flex">
+                <div class="flex" style="margin-right: 1.5rem;">
+                    <div class="color-red">1.23%</div>
+                    <img style="width:0.35rem;height:.5rem;margin-left: .25rem;" src="./img/top2.png" alt="">
+                </div>
+                <img id="Composite" style="width:0.75rem;height:.5rem;" src="./img/top1.png" alt="">
+            </div>
+        </div>
+
+    </div>
+    <script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+    <script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script>
+    <script src="../base/js/lib/swiper-4.2.2.min.js"></script>
+    <script src="./index.js"></script>
+
+    <script>
+        var html = `
+                    <div class="flex kinds">
+                        <div class=" text-left width60" style="line-height: 1rem;">
+                            <div class="hidden">汇添富优势精选混混合混合混合混合混合混合 </div>
+                            <div class="text-left font-size26 color666" style="margin-top: .15rem;">519066 <span
+                                    class="color-have">持有</span></div>
+                        </div>
+                        <div class="flex width30 flexB">
+                            <div class="  flex-c">
+                                <div>2.5501</div>
+                                <div class="color-green font-size26">-2.55%</div>
+                            </div>
+                            <div class=" flex-c">
+                                <div>2.2950 </div>
+                                <div class="color-red font-size26">+1.27% </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+        var managerHtml = `<div class="cell">
+                        <div class="head-item">
+                            <img src="./img/consulticon@2x.png" class="head-item-img" alt="">
+
+                            <div class="head-item-content">
+                                <div class="content-top">
+                                    <span class="content-name">劳杰男</span>
+                                    <span class="content-date">任职时间：2015.11.18-至今</span>
+                                </div>
+                                <div class="content-bottom">
+                                    <div class="content-state">动态</div>
+                                    <span class="content-language">劳杰男：短期的恐慌定会被抹平</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="cell">
+                        <div class="head-item">
+                            <img src="./img/consulticon@2x.png" class="head-item-img" alt="">
+
+                            <div class="head-item-content">
+                                <div class="content-top">
+                                    <span class="content-name">劳杰男</span>
+                                    <span class="content-date">任职时间：2015.11.18-至今</span>
+                                </div>
+                                <div class="content-bottom">
+                                    <div class="content-state">动态</div>
+                                    <span class="content-language">暂无动态</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>`
+        $('.tab li').click(function () {
+            $(this).addClass('active').siblings('li').removeClass('active')
+            alert($(this).index())
+            if ($(this).index() == 0) { //基金  
+                $('.tabContent').html(html)
+            } else if ($(this).index() == 2) { //组合
+                $('.tabContent').html(html)
+            } else if ($(this).index() == 4) { //投顾
+                $('.tabContent').html(html)
+            } else if ($(this).index() == 6) { //基金经理
+                $('.tabContent').html(managerHtml)
+            }
+        })
+        $('#selectTime').click(function () {
+            $('.switchtab').slideToggle()
+        })
+        $('.switchtab li').click(function () {
+            if ($(this).index() == 0) { //01:一月
+                queryDt = "01";
+                queryDt_old = "1";
+                $('#showTime').html('近一月')
+                $('.switchtab').hide()
+            } else if ($(this).index() == 1) { //02：三月
+                queryDt = "02";
+                queryDt_old = "9";
+                $('#showTime').html('近三月')
+                $('.switchtab').hide()
+            } else if ($(this).index() == 2) { //03：六月
+                queryDt = "03";
+                queryDt_old = "2";
+                $('#showTime').html('近六月')
+                $('.switchtab').hide()
+            } else if ($(this).index() == 3) { //05：一年
+                queryDt = "05";
+                queryDt_old = "3";
+                $('#showTime').html('近一年')
+                $('.switchtab').hide()
+            } else if ($(this).index() == 4) { //08：成产以来
+                queryDt = "08";
+                queryDt_old = "4";
+                $('#showTime').html('成立以来')
+                $('.switchtab').hide()
+            }
+        });
+        $('#Composite').click(function () {
+            $('.footer1').slideToggle()
+        })
+    </script>
+</body>
+
+</html>

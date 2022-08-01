@@ -1,0 +1,386 @@
+/* Start reset */
+*{ margin: 0; padding: 0;}
+html {-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;min-height: 100%;position: relative;}
+body{ font: 16px/1em Microsoft YaHei,sans-serif;color: #999;}
+@media only screen and (max-width: 320px) {
+    body{ font-size: 14px; }
+}
+ul, ol, dl{ list-style: none;}
+em, i{ font-style: normal;}
+input{ border: 0;line-height: normal;}
+img{ display: block;max-width: 100%;height: auto; border: 0;}
+table {border-collapse: collapse;border-spacing: 0;}
+a{ text-decoration: none; }
+a:active,
+a:hover {
+    outline: 0;
+}
+/* End reset */
+
+/* actRule.html */
+.wrapper{
+    width: 100%;
+    margin: 0 auto;
+}
+.content{
+    padding: 5% 5%;
+}
+.content h3{
+    font-size: 1.17em;
+    margin-bottom: 1em;
+    line-height: 1em;
+    color: #666;
+}
+.content p{
+    font-size: 1em;
+    line-height: 1.5em;
+    margin-bottom: 1em;
+    text-align: justify;
+}
+.content p span{
+    color: #fe7e01;
+}
+.content .risk{
+    padding-top: 1em;
+    padding-bottom: 2em;
+}
+/* newClient.html */
+.getbox{
+    width: 100%;
+    max-width: 750px;
+    position: relative;
+}
+.getbox .rule{
+    position: absolute;
+    top: 2%;
+    right: 6%;
+    display: block;
+    width: 24%;
+}
+.getbox .getmoney{
+    position: absolute;
+    bottom: 9%;
+    left: 50%;
+    margin-left: -34%;
+    display: block;
+    width: 68%;
+}
+/* getResult.html */
+.getbox .result{
+    position: absolute;
+    bottom: 9%;
+    left: 50%;
+    margin-left: -41%;
+    display: block;
+    width: 82%;
+}
+.getbox .result a{
+    display: inline-block;
+    width: 49%;
+}
+.getbox .word{
+    position: absolute;
+    left: 50%;
+    margin-left: -30%;
+    width: 60%;
+    top: 43%;
+    color: #fff;
+    text-align: center;
+    font-family: "microsoft yahei",sans-serif;
+}
+.getbox .word p{
+    font-size: 1.2em;
+    line-height: 1.7em;
+}
+.getbox .word strong{
+    font-size: 2em;
+    color: #fee438;
+    font-style: italic;
+    font-family: arial, sans-serif;
+    margin-right: 5px;
+}
+.getbox .word em{
+    font-family: arial, sans-serif;
+}
+.getbox .word .p1{
+    font-size: 1.375em;
+}
+
+/* S modal of dialog */
+.modal-fade {
+    width:80%;
+    position: fixed;
+    top: 37%;
+    left:50%;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    z-index: 1000;
+}
+div.mask {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    overflow: hidden;
+    background-color:rgba(0,0,0,0.6);
+}
+.modal-fade .btn-close{
+    position: absolute;
+    top: 27%;
+    right: 4%;
+    display: block;
+    width: 10%;
+}
+.modal-fade .btn-iknow{
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    display: block;
+    width: 50%;
+    margin-left: -25%;
+}
+.modal-fade .sorry{
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    display: block;
+    width: 80%;
+    margin-left: -40%;
+    text-align: center;
+    line-height: 1.5em;
+    color: #666;
+    font-size: 1em;
+}
+/* E modal of dialog */
+/* registerNow.html */
+.getbox .state{
+    position: absolute;
+    left: 50%;
+    margin-left: -40%;
+    width: 80%;
+    top: 33%;
+    color: #333;
+    font-family: "microsoft yahei",sans-serif;
+}
+.getbox .state p{
+    font-size: 1.105em;
+    line-height: 1.5em;
+    margin-bottom: .2em;
+}
+.getbox .state em{
+    color: #ff7c02;
+}
+.getbox .dredge{
+    position: absolute;
+    bottom: 25%;
+    left: 50%;
+    margin-left: -20%;
+    display: block;
+    width: 40%;
+}
+.getbox .risktip{
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    margin-left: -45%;
+    display: block;
+    width: 90%;
+    font-size: 14px;
+    text-align: center;
+    line-height: 18px;
+    color: #666;
+}
+@media only screen and (max-width: 320px) {
+    .getbox .risktip{
+        font-size: 12px;
+    }
+}
+/* getSuccess.html */
+.title-success{
+    background-color: #fe7e01;
+    height: 2.5em;
+    line-height: 2.5em;
+    text-align: center;
+    color: #fff;
+    font-weight: normal;
+    margin: 0;
+}
+.wrap{
+    padding: 25% 5% 5%;
+}
+.wrap-top{
+    text-align: center;
+    margin-bottom: 1.5em;
+}
+.wrap-top img{
+    display: inline-block;
+    width: 14%;
+    vertical-align: bottom;
+}
+.wrap-top span{
+    display: inline-block;
+    font-size: 1.5em;
+    line-height: 1.8em;
+    color: #333;
+    margin-left: 5px;
+}
+.wrap p{
+    font-size: 1em;
+    line-height: 1.5em;
+    color: #666;
+}
+.wrap p span{
+    color: #fe7e01;
+}
+.wrap-bottom{
+    width: 100%;
+    margin: 3em auto;
+}
+.wrap-bottom a{
+    width: 48%;
+    height: 2.3em;
+    line-height: 2.3em;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1.2em;
+    outline: none;
+    -webkit-tap-highlight-color:transparent;
+}
+.wrap-bottom .btn-border{
+    border: 1px solid #fe7e01;
+    color: #fe7e01;
+    border-radius: 4px;
+    float: left;
+}
+.wrap-bottom .btn-background {
+    float: right;
+    border: 1px solid #fe7e01;
+    background-color:#fe7e01;
+    color: #fff;
+    border-radius: 4px;
+}
+/* earningDetail.html */
+.earning{
+    background-color: #fe7e01;
+    text-align: center;
+    color: #fff;
+    padding-top: 10px;
+    font-size: 0.8em;
+    line-height: normal;
+    height: 180px;
+}
+.earning .rule{
+    position: absolute;
+    right: 5px;
+    top: 10px;
+    display: block;
+    color: #fff;
+    font-size: 14px;
+}
+.earning h3{
+    font-size: 1.125em;
+    font-weight: normal;
+    line-height: normal;
+    margin-bottom: 30px;
+}
+.earning .yuan{
+    margin-bottom: 15px;
+    color: rgba(255,255,255,0.7);
+}
+.earning .sum{
+    font-family: arial, sans-serif;
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+.earning .asset{
+    font-family: arial, sans-serif;
+    font-size: 2em;
+    padding-bottom: 20px;
+}
+.detail{
+    width: 100%;
+    margin: 1em auto;
+    background-color: #fff;
+    border-top: 1px solid #eaeaea;
+}
+.detail li{
+    overflow: hidden;
+    border-bottom: 1px solid #eaeaea;
+    padding: 8px 15px;
+}
+.detail li p{
+    color: #666;
+    line-height: normal;
+    font-size: 1em;
+}
+.detail li .detail-left{
+    float: left;
+}
+.detail li .detail-right{
+    float: right;
+}
+.detail li .day{
+    color: #333;
+    font-size: 1em;
+    margin-bottom: 5px;
+}
+.detail li .date{
+	font-size: 0.85em;
+}
+.detail li .date, .detail li .add-money em,.detail li p span {
+    font-family: arial, sans-serif;
+}
+.detail li .add-money{
+    color: #fe7e01;
+    font-size: 1em;
+    text-align: right;
+    margin-bottom: 2px;
+}
+.detail li .per{
+    font-size: .85em;
+    text-align: right;
+}
+.earning-bottom{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+}
+.btn {
+    display: inline-block;
+    line-height: normal;
+    white-space: nowrap;
+    vertical-align: baseline;
+    text-align: center;
+    cursor: pointer;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 100%;
+    font-family: inherit;
+    font-size: 1em;
+    padding: .5em 0;
+    color: #fff;
+    border: none;
+    text-decoration: none;
+}
+.earning-bottom .btn-light{
+    background-color: #fe7e01;
+}
+.earning-bottom .btn-gray{
+    background-color: #ababab;
+    background-image: none;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+.earning-bottom .validity{
+    font-size: 12px;
+}

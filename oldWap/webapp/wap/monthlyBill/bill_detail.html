@@ -1,0 +1,3278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf8">
+	<title>月度账单</title>
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/swiper-4.2.2.min.css">
+	<link rel="stylesheet" href="css/main.css?a5">
+	<script>
+		// 相对字体大小设置
+		var oHtml = document.documentElement;
+		getFont();
+		window.onresize = function () {
+			getFont();
+		}
+
+		function getFont() {
+			var screenWidth = oHtml.clientWidth;
+			if (screenWidth <= 320) {
+				oHtml.style.fontSize = '17.06px';
+			} else if (screenWidth >= 750) {
+				oHtml.style.fontSize = '40px';
+			} else {
+				oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+			}
+		}
+	</script>
+	<style>
+		body {
+			overflow-x: hidden;
+			background: #fff;
+		}
+
+		.Profit-val {
+			color: #fb5c5f !important;
+		}
+
+		.main {
+			margin: 0px;
+			padding: 0px;
+			background-color: #f6f6f6;
+		}
+
+		/* 橙色 */
+		.orange .head {
+			width: 100%;
+			height: 13.625rem;
+			background: url('img/fund_orange.png') no-repeat;
+			background-size: 100% 100%;
+			position: relative;
+		}
+
+		/* 红色 */
+		.red .head {
+			width: 100%;
+			height: 13.625rem;
+			background: url('img/fund_red.png') no-repeat;
+			background-size: 100% 100%;
+			position: relative;
+		}
+
+		/* 金色 */
+		.gold .head {
+			width: 100%;
+			height: 13.625rem;
+			background: url('img/fund_gold.png') no-repeat;
+			background-size: 100% 100%;
+			position: relative;
+		}
+
+		/* 蓝色 */
+		.blue .head {
+			width: 100%;
+			height: 13.625rem;
+			background: url('img/fund_blue.png') no-repeat;
+			background-size: 100% 100%;
+			position: relative;
+		}
+
+		.head .icon {
+			width: 100%;
+			position: absolute;
+			top: 1rem;
+		}
+
+		.head .icon .img {
+			width: 1.45rem;
+			height: 1.45rem;
+			vertical-align: middle;
+			margin-left: 0.75rem;
+			background: url('img/fengmian.png') no-repeat;
+			background-size: 100% 100%;
+			display: inline-block;
+		}
+
+		.head .icon span {
+			color: #fff;
+			font-size: 0.75rem;
+			margin-left: 0.5rem;
+		}
+
+		.head .text1 {
+			width: 100%;
+			text-align: center;
+			color: #fff;
+			font-size: 0.75rem;
+			position: absolute;
+			top: 3.5rem;
+		}
+
+		.head .text2 {
+			width: 100%;
+			text-align: center;
+			color: #fff;
+			font-size: 1.75rem;
+			position: absolute;
+			top: 5rem;
+		}
+
+		.head .text3 {
+			width: 100%;
+			text-align: center;
+			color: #fff;
+			font-size: 0.6rem;
+			position: absolute;
+			top: 8.15rem;
+			text-indent: 1rem
+		}
+
+		.head .list {
+			width: 90%;
+			color: #fff;
+			font-size: 0.65rem;
+			position: absolute;
+			top: 10rem;
+			left: 50%;
+			margin-left: -45%;
+			display: flex;
+			justify-content: space-around;
+		}
+
+		.head .list div:nth-of-type(1) {
+			width: 30%;
+			float: left;
+			text-align: left;
+		}
+
+		.head .list div:nth-of-type(2) {
+			width: 30%;
+			float: left;
+			text-align: center;
+		}
+
+		.head .list div:nth-of-type(3) {
+			width: 30%;
+			float: left;
+			text-align: right;
+		}
+
+		.head .number {
+			width: 90%;
+			color: #fff;
+			font-size: 1.0rem;
+			position: absolute;
+			top: 11rem;
+			left: 50%;
+			margin-left: -45%;
+			display: flex;
+			justify-content: space-around;
+		}
+
+		.head .number div:nth-of-type(1) {
+			width: 30%;
+			float: left;
+			text-align: left;
+			line-height: 1.5rem;
+			text-indent: .2rem;
+		}
+
+		.head .number div:nth-of-type(2) {
+			width: 33%;
+			float: left;
+			text-align: center;
+			line-height: 1.5rem;
+			text-indent: .35rem;
+		}
+
+		.head .number div:nth-of-type(3) {
+			width: 33%;
+			float: left;
+			text-align: right;
+			line-height: 1.5rem;
+		}
+
+		/* 橙色 */
+		.orange .slide {
+			width: 100%;
+			height: 10.625rem;
+			background: url('img/fund_orange01.png') no-repeat;
+			background-size: 100% 100%;
+			display: block;
+			margin-top: -0.1rem;
+		}
+
+		/* 红色 */
+		.red .slide {
+			width: 100%;
+			height: 10.625rem;
+			background: url('img/fund_red01.png') no-repeat;
+			background-size: 100% 100%;
+			display: block;
+			margin-top: -0.1rem;
+		}
+
+		/* 金色 */
+		.gold .slide {
+			width: 100%;
+			height: 10.625rem;
+			background: url('img/fund_gold01.png') no-repeat;
+			background-size: 100% 100%;
+			display: block;
+			margin-top: -0.1rem;
+		}
+
+		/* 蓝色 */
+		.blue .slide {
+			width: 100%;
+			height: 10.625rem;
+			background: url('img/fund_blue01.png') no-repeat;
+			background-size: 100% 100%;
+			display: block;
+			margin-top: -0.1rem;
+		}
+
+
+		.slide .box {
+			width: 14.5rem;
+			height: 7.625rem;
+			border-radius: 0.25rem;
+			background: #fff;
+			margin: 0 auto;
+		}
+
+		.slide .box .text {
+			width: 3.125rem;
+			height: 1.0rem;
+			background: #fededf;
+			text-align: center;
+			line-height: 1rem;
+			border-radius: 0.25rem 0rem 0.25rem 0rem;
+			color: #fb5c5f;
+			font-size: 0.6rem
+		}
+
+		.slide .box .title {
+			text-align: center;
+			font-size: 0.7rem;
+			color: #0e4d95;
+			font-weight: bold;
+			margin-top: 0.25rem;
+		}
+
+		.slide .box .text1 {
+			width: 85%;
+			margin: 0 auto;
+			text-align: justify;
+			font-size: 0.6rem;
+			color: #0e4d95;
+			margin-top: 0.5rem;
+		}
+
+		.slide .box .check {
+			width: 7.0rem;
+			height: 1.5rem;
+			background: #fb5c5f;
+			margin: 0 auto;
+			color: #fff;
+			font-size: 0.65rem;
+			border-radius: 50px;
+			text-align: center;
+			line-height: 1.5rem;
+			margin-top: .5rem;
+		}
+
+		/* 橙色 */
+		.orange .shouyi {
+			width: 100%;
+			background: url('img/fund_orange02.png') no-repeat;
+			background-size: 100% 100%;
+			display: block;
+			margin-top: -0.1rem;
+			padding-bottom: 0.5rem;
+		}
+
+		/* 红色 */
+		.red .shouyi {
+			width: 100%;
+			background: url('img/fund_red02.png') no-repeat;
+			background-size: 100% 100%;
+			display: block;
+			margin-top: -0.1rem;
+			padding-bottom: 0.5rem;
+		}
+
+		/* 金色 */
+		.gold .shouyi {
+			width: 100%;
+			background: url('img/fund_gold02.png') no-repeat;
+			background-size: 100% 100%;
+			display: block;
+			margin-top: -0.1rem;
+			padding-bottom: 0.5rem;
+		}
+
+		/* 蓝色 */
+		.blue .shouyi {
+			width: 100%;
+			background: url('img/fund_blue02.png') no-repeat;
+			background-size: 100% 100%;
+			display: block;
+			margin-top: -0.1rem;
+			padding-bottom: 0.5rem;
+		}
+
+		.shouyi .title {
+			width: 92%;
+			height: 2.5rem;
+			background: #fff;
+			margin: 0 auto;
+			border-radius: .25rem .25rem 0 0;
+			font-size: 0.75rem;
+			font-weight: bold;
+			color: #000;
+			text-align: left;
+			line-height: 2.5rem;
+			position: relative;
+		}
+
+		.shouyi .title .tip {
+			width: 0.15rem;
+			height: 0.75rem;
+			background: #fb5c5f;
+			border-radius: 0 .25rem .25rem 0;
+			display: inline-block;
+			position: absolute;
+			top: 0.875rem;
+		}
+
+		.shouyi .title .img {
+			width: 0.75rem;
+			height: 0.75rem;
+			vertical-align: middle;
+			float: right;
+			margin-top: 0.875rem;
+			margin-right: 0.75rem;
+			background: url('img/warning.png') no-repeat;
+			background-size: 100% 100%;
+		}
+
+		.shouyi .chart {
+			width: 92%;
+			background: #fff;
+			margin: 0 auto;
+		}
+
+		.shouyi .profit {
+			width: 92%;
+			height: 2.5rem;
+			background: #fff;
+			margin: 0 auto;
+			font-size: 0.75rem;
+			font-weight: bold;
+			color: #000;
+			text-align: left;
+			line-height: 2.5rem;
+			position: relative;
+		}
+
+		.shouyi .profit .tip {
+			width: 0.15rem;
+			height: 0.75rem;
+			background: #fb5c5f;
+			border-radius: 0 .25rem .25rem 0;
+			display: inline-block;
+			position: absolute;
+			top: 0.875rem;
+		}
+
+		.shouyi .profit img {
+			width: 0.75rem;
+			height: 0.75rem;
+			vertical-align: middle;
+			float: right;
+			margin-top: 0.875rem;
+			margin-right: 0.75rem;
+		}
+
+		.shouyi .chart {
+			width: 92%;
+			background: #fff;
+			margin: 0 auto;
+			padding-bottom: 1rem;
+		}
+
+		.chart2 {
+			width: 92%;
+			background: #fff;
+			margin: 0 auto;
+			border-radius: 0 0 0.25rem 0.25rem;
+			padding-bottom: 2rem;
+		}
+
+		/* 种类样式*/
+		/* 橙色 */
+		.orange .fundList {
+			width: 100%;
+			padding-bottom: 0.5rem;
+			background: #ffd9b4;
+			margin-top: -0.1rem;
+		}
+
+		/* 红色 */
+		.red .fundList {
+			width: 100%;
+			padding-bottom: 0.5rem;
+			background: #fac5c7;
+			margin-top: -0.1rem;
+		}
+
+		/* 金色 */
+		.gold .fundList {
+			width: 100%;
+			padding-bottom: 0.5rem;
+			background: #f1dab5;
+			margin-top: -0.1rem;
+		}
+
+		/* 蓝色 */
+		.blue .fundList {
+			width: 100%;
+			padding-bottom: 0.5rem;
+			background: #c2dffe;
+			margin-top: -0.1rem;
+		}
+
+
+		.orange .video {
+			width: 100%;
+			height: 100%;
+			background: #ffd9b4;
+			padding-bottom: 0.5rem;
+			display: none;
+		}
+
+		.red .video {
+			width: 100%;
+			height: 100%;
+			background: #fac5c7;
+			padding-bottom: 0.5rem;
+			display: none;
+		}
+
+		.gold .video {
+			width: 100%;
+			height: 100%;
+			background: #f1dab5;
+			padding-bottom: 0.5rem;
+			display: none;
+		}
+
+		.blue .video {
+			width: 100%;
+			height: 100%;
+			background: #c2dffe;
+			padding-bottom: 0.5rem;
+			display: none;
+		}
+
+		.video .video_box {
+			width: 17.25rem;
+			border-radius: .2rem;
+			height: 10rem;
+			overflow: hidden;
+			margin: 0 auto;
+
+		}
+
+
+		.fundList .list {
+			width: 92%;
+			height: 2.5rem;
+			background: #fff;
+			border-radius: 0.25rem 0.25rem 0 0;
+			margin: 0 auto;
+			display: flex;
+			justify-content: space-around;
+		}
+
+		.fundList .list .text {
+			width: 25%;
+			text-align: center;
+			line-height: 2.5rem;
+			color: #000;
+			font-size: 0.75rem;
+			display: none;
+		}
+
+		.fundList .list .text.active {
+			border-bottom: 2px solid #fb5c5f;
+			color: #fb5c5f;
+		}
+
+		.fundList .top3 {
+			width: 92%;
+			height: 2rem;
+			background: #fff;
+			margin: 0 auto;
+			font-size: 0.75rem;
+			font-weight: bold;
+			color: #000;
+			text-align: left;
+			line-height: 2rem;
+			position: relative;
+		}
+
+		.fundList .top3 .tip {
+			width: 0.15rem;
+			height: 0.75rem;
+			background: #fb5c5f;
+			border-radius: 0 .25rem .25rem 0;
+			display: inline-block;
+			position: absolute;
+			top: 0.625rem;
+		}
+
+		.fundList .topList {
+			width: 92%;
+			background: #fff;
+			margin: 0 auto;
+			padding-top: 0.5rem;
+		}
+
+		.fundList .topList .topImg {
+			width: 15.95rem;
+			height: 7.25rem;
+			background: url('img/top.png') no-repeat;
+			background-size: 100% 100%;
+			margin: 0 auto;
+			position: relative;
+		}
+
+		.fundList .topList .topImg .first {
+			width: 85%;
+			position: absolute;
+			top: -0.2rem;
+			left: 2rem;
+			height: 2rem;
+		}
+
+		.fundList .topList .topImg .first span {
+			font-size: 0.7rem;
+			color: #000;
+		}
+
+		.fundList .topList .topImg .first span:nth-of-type(1) {
+			width: 60%;
+			display: inline-block;
+			float: left;
+			position: absolute;
+			bottom: 0.35rem;
+		}
+
+		.fundList .topList .topImg .first span:nth-of-type(2) {
+			width: 40%;
+			display: inline-block;
+			text-align: right;
+			float: right;
+			position: absolute;
+			bottom: 0.35rem;
+			right: 0;
+		}
+
+		.fundList .topList .topImg .second {
+			width: 85%;
+			position: absolute;
+			top: 2.25rem;
+			left: 2rem;
+			height: 2rem;
+		}
+
+		.fundList .topList .topImg .second span {
+			font-size: 0.7rem;
+			color: #000;
+		}
+
+		.fundList .topList .topImg .second span:nth-of-type(1) {
+			width: 60%;
+			display: inline-block;
+			float: left;
+			position: absolute;
+			bottom: 0.35rem;
+		}
+
+		.fundList .topList .topImg .second span:nth-of-type(2) {
+			width: 40%;
+			display: inline-block;
+			text-align: right;
+			float: right;
+			position: absolute;
+			bottom: 0.35rem;
+			right: 0;
+		}
+
+		.fundList .topList .topImg .third {
+			width: 85%;
+			position: absolute;
+			top: 4.65rem;
+			left: 2rem;
+			height: 2rem;
+		}
+
+		.fundList .topList .topImg .third span {
+			font-size: 0.7rem;
+			color: #000;
+		}
+
+		.fundList .topList .topImg .third span:nth-of-type(1) {
+			width: 60%;
+			display: inline-block;
+			float: left;
+			position: absolute;
+			bottom: 0.35rem;
+		}
+
+		.fundList .topList .topImg .third span:nth-of-type(2) {
+			width: 40%;
+			display: inline-block;
+			text-align: right;
+			float: right;
+			position: absolute;
+			bottom: 0.35rem;
+			right: 0;
+		}
+
+		.fundList .gupiao {
+			width: 92%;
+			height: 2rem;
+			background: #fff;
+			margin: 0 auto;
+			font-size: 0.75rem;
+			font-weight: bold;
+			color: #000;
+			text-align: left;
+			line-height: 2rem;
+			position: relative;
+		}
+
+		.fundList .gupiao .tip {
+			width: 0.5rem;
+			height: 0.5rem;
+			background: #6092df;
+			display: inline-block;
+			position: absolute;
+			top: 0.75rem;
+			left: 0.75rem;
+		}
+
+		.fundList .gupiao .text {
+			position: absolute;
+			left: 1.5rem;
+		}
+
+		.fundList .biaoti {
+			width: 92%;
+			background: #f7fcff;
+			margin: 0 auto;
+			clear: both;
+			display: flex;
+			justify-content: space-around
+		}
+
+		.fundList .biaoti div {
+			color: #000;
+			font-size: 0.6rem;
+
+		}
+
+		.fundList .biaoti div:nth-of-type(1) {
+			/* width:25%; */
+			text-align: left;
+			padding-left: 0.5rem;
+		}
+
+		.fundList .biaoti div:nth-of-type(2) {
+			/* width:25%; */
+			text-align: left;
+			padding-left: 1.8rem;
+		}
+
+		.fundList .biaoti div:nth-of-type(3) {
+			/* width:20%; */
+			text-align: right;
+			padding-left: 0.85rem;
+		}
+
+		.fundList .biaoti div:nth-of-type(4) {
+			/* width:20%; */
+			text-align: right;
+			padding-right: 0.5rem;
+
+		}
+
+
+		.fundList .muchFund {
+			width: 92%;
+			height: 3.0rem;
+			border-bottom: 1px solid #eee;
+			background: #fff;
+			margin: 0 auto;
+		}
+
+		.fundList .muchFund div {
+			color: #000;
+			font-size: 0.6rem;
+			float: left;
+		}
+
+		.fundList .muchFund div:nth-of-type(1) {
+			width: 30%;
+			height: 2.25rem;
+			margin-top: 0.75rem;
+			padding-left: 0.75rem;
+		}
+
+		.fundList .muchFund div:nth-of-type(2) {
+			width: 20%;
+			text-align: left;
+			line-height: 3rem
+		}
+
+		.fundList .muchFund div:nth-of-type(3) {
+			width: 20%;
+			text-align: right;
+			line-height: 3rem;
+			color: #fb5c5f;
+		}
+
+		.fundList .muchFund div:nth-of-type(4) {
+			width: 20%;
+			text-align: right;
+			line-height: 3rem;
+			color: #fb5c5f;
+		}
+
+		.fundList .zhankai {
+			width: 92%;
+			height: 2rem;
+			background: #fff;
+			margin: 0 auto;
+			font-size: 0.75rem;
+			color: #148ce6;
+			text-align: center;
+			line-height: 2rem;
+		}
+
+		.fundList .huobi {
+			width: 92%;
+			height: 2.01rem;
+			background: #fff;
+			margin: 0 auto;
+			font-size: 0.75rem;
+			font-weight: bold;
+			color: #000;
+			text-align: left;
+			line-height: 2rem;
+			position: relative;
+		}
+
+		.fundList .huobi .tip {
+			width: 0.5rem;
+			height: 0.5rem;
+			background: #ffd24c;
+			display: inline-block;
+			position: absolute;
+			top: 0.75rem;
+			left: 0.75rem;
+		}
+
+		.fundList .huobi .text {
+			position: absolute;
+			left: 1.5rem;
+		}
+
+		.fundList .qita {
+			width: 92%;
+			height: 2rem;
+			background: #fff;
+			margin: 0 auto;
+			font-size: 0.75rem;
+			font-weight: bold;
+			color: #000;
+			text-align: left;
+			line-height: 2rem;
+			position: relative;
+			margin-top: -0.1rem;
+		}
+
+		.fundList .qita .tip {
+			width: 0.5rem;
+			height: 0.5rem;
+			background: #fe9d74;
+			display: inline-block;
+			position: absolute;
+			top: 0.75rem;
+			left: 0.75rem;
+		}
+
+		.fundList .qita .text {
+			position: absolute;
+			left: 1.5rem;
+		}
+
+		.fundList .yuanjiao {
+			width: 92%;
+			height: 1rem;
+			background: #fff;
+			margin: 0 auto;
+			border-radius: 0 0 0.25rem 0.25rem;
+		}
+
+		/* 小确幸*/
+
+		/* 橙色 */
+		.orange .xiaoquexing {
+			width: 100%;
+			background: #ffd9b4;
+		}
+
+		/* 红色 */
+		.red .xiaoquexing {
+			width: 100%;
+			background: #fac5c7;
+		}
+
+		/* 金色 */
+		.gold .xiaoquexing {
+			width: 100%;
+			background: #f1dab5;
+		}
+
+		/* 蓝色 */
+		.blue .xiaoquexing {
+			width: 100%;
+			background: #c2dffe;
+		}
+
+		.xiaoquexing .box {
+			width: 92%;
+			background: #fff;
+			margin: 0 auto;
+			height: 10rem;
+			border-radius: 0.25rem 0.25rem 0.25rem 0.25rem
+		}
+
+		.xiaoquexing .box .text {
+			width: 6.0rem;
+			height: 1.0rem;
+			background: #fededf;
+			font-size: 0.6rem;
+			border-radius: 0.25rem 0 0.25rem 0;
+			color: #fb5c5f;
+			line-height: 1rem;
+			text-align: center
+		}
+
+		.xiaoquexing .box .text1 {
+			font-size: 0.85rem;
+			color: #000;
+			text-align: center;
+			margin-left: 1.5rem;
+		}
+
+		.xiaoquexing .box .text1 .icon {
+			width: 1.0rem;
+			height: 1.0rem;
+			display: inline-block;
+			background: url('img/xin.png') no-repeat;
+			background-size: 100% 100%;
+			vertical-align: middle;
+			margin-left: 0.35rem;
+			font-size: 0.6rem;
+			text-align: center;
+			line-height: 1rem;
+			color: #fff;
+		}
+
+		.xiaoquexing .box .text2 {
+			font-size: 0.65rem;
+			color: #666;
+			text-align: center;
+			margin-top: 0.35rem;
+		}
+
+		.xiaoquexing .box .text3 {
+			font-size: 1.5rem;
+			color: #fb5c5f;
+			text-align: center;
+			margin-top: 0.5rem;
+		}
+
+		.xiaoquexing .box .text4 {
+			font-size: 0.65rem;
+			color: #666;
+			text-align: center;
+			margin-top: 0.1rem;
+		}
+
+		.xiaoquexing .box .text5 {
+			width: 10.0rem;
+			height: 1.75rem;
+			background: #fb5c5f;
+			font-size: 0.65rem;
+			color: #666;
+			text-align: center;
+			margin: 0 auto;
+			border-radius: .875rem;
+			font-size: 0.8rem;
+			line-height: 1.75rem;
+			color: #fff;
+			margin-top: 0.5rem;
+		}
+
+		/* 橙色 */
+		.orange .footer {
+			width: 100%;
+			background: #ffd9b4;
+		}
+
+		/* 红色 */
+		.red .footer {
+			width: 100%;
+			background: #fac5c7;
+		}
+
+		/* 金色 */
+		.gold .footer {
+			width: 100%;
+			background: #f1dab5;
+		}
+
+		/* 蓝色 */
+		.blue .footer {
+			width: 100%;
+			background: #c2dffe;
+		}
+
+		/* 橙色 */
+		.orange .footer .text {
+			width: 92%;
+			text-align: justify;
+			font-size: 0.5rem;
+			color: #ff9f39;
+			margin: 0 auto;
+			padding-top: 0.75rem;
+			padding-bottom: 1rem;
+		}
+
+		/* 红色 */
+		.red .footer .text {
+			width: 92%;
+			text-align: justify;
+			font-size: 0.5rem;
+			color: #e07b7f;
+			margin: 0 auto;
+			padding-top: 0.75rem;
+			padding-bottom: 1rem;
+		}
+
+		/* 金色 */
+		.gold .footer .text {
+			width: 92%;
+			text-align: justify;
+			font-size: 0.5rem;
+			color: #d5a248;
+			margin: 0 auto;
+			padding-top: 0.75rem;
+			padding-bottom: 1rem;
+		}
+
+		/* 蓝色 */
+		.blue .footer .text {
+			width: 92%;
+			text-align: justify;
+			font-size: 0.5rem;
+			color: #7aa5d3;
+			margin: 0 auto;
+			padding-top: 0.75rem;
+			padding-bottom: 1rem;
+		}
+
+		/* 小浮标 */
+		.fubiao {
+			width: 2.75rem;
+			height: 3.0rem;
+			background: url('img/fubiao.png') no-repeat;
+			background-size: 100% 100%;
+			position: fixed;
+			top: 80%;
+			right: 0;
+			font-size: 0.55rem;
+			color: #fff;
+		}
+
+		.fubiao span {
+			position: absolute;
+			bottom: 0.15rem;
+			left: 0.3rem;
+		}
+
+		.swiper-pagination-bullet {
+			opacity: 1;
+			height: .25rem;
+			width: .25rem;
+			border-radius: 2.5rem;
+			background: #fff;
+		}
+
+		.swiper-pagination-bullet-active {
+			opacity: 1;
+			width: .5rem;
+			height: .25rem;
+			border-radius: 2.5rem;
+			background: #fb5c5f;
+		}
+
+		/* 点这里成长 */
+		.chengzhang {
+			width: 92%;
+			height: 2rem;
+			margin: 0 auto;
+			background: #fff;
+			padding-top: 0.85rem;
+		}
+
+		.chengzhang .text {
+			width: 7.875rem;
+			height: 1.5rem;
+			border: 1px solid #fb5c5f;
+			border-radius: 1.25rem;
+			margin: 0 auto;
+			text-align: center;
+			line-height: 1.5rem;
+			color: #fb5c5f;
+			font-size: 0.65rem;
+		}
+
+		.chengzhang .text img {
+			width: 1.0rem;
+			height: 0.85rem;
+			vertical-align: middle;
+			display: inline-block;
+		}
+
+		/* 风险测评过期提示*/
+		.guoqi {
+			width: 100%;
+			height: 2rem;
+			background: #fffac7;
+			line-height: 2rem;
+			color: #fb5c5f;
+			font-size: 0.55rem;
+			text-indent: 0.5rem;
+			display: none;
+		}
+
+		.guoqi a {
+			color: #148ce6;
+			text-decoration: underline;
+		}
+
+		/* 柱状图 */
+		.negative-bottom-green {
+			background: green !important;
+		}
+
+		.divhide {
+			display: none;
+		}
+
+		.green {
+			color: green !important;
+		}
+
+		.layer {
+			z-index: 9999999;
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			background-color: rgba(255, 255, 255, 0.6);
+			height: 100%;
+			width: 100%;
+			overflow: auto;
+		}
+
+		.layer-wrap {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			-webkit-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+			margin: 0;
+			width: 80%;
+			background: #fff;
+			-webkit-border-radius: 5px;
+			padding: 0 0.75rem 0.75rem 0.75rem;
+		}
+
+		.layer-body {
+			padding: 7% 8% 1% 8%;
+			text-align: center;
+		}
+
+		.layer-wrap .layer-body p {
+			font-size: 14px;
+			line-height: 21px;
+			color: #666;
+			display: inline-block;
+			text-align: justify
+		}
+
+		.layer-wrap .layer-body span {
+			font-size: 16px;
+			display: block;
+			padding-top: 10px;
+			color: #333;
+			font-weight: 600;
+		}
+
+		.layer-wrap .but {
+			width: 100%;
+			height: 2rem;
+			color: #148ce6;
+			text-align: center;
+			line-height: 2.5rem;
+			font-size: 0.75rem;
+			border-top: 1px solid #eee
+		}
+
+		.layer-wrap button:focus {
+			outline: none;
+		}
+
+		.chart canvas {
+			width: 16rem !important;
+		}
+		.orange .printHide {
+			width: 100%;
+			background: #ffd9b4;
+		}
+
+		/* 红色 */
+		.red .printHide {
+			width: 100%;
+			background: #fac5c7;
+		}
+
+		/* 金色 */
+		.gold .printHide {
+			width: 100%;
+			background: #f1dab5;
+		}
+
+		/* 蓝色 */
+		.blue .printHide {
+			width: 100%;
+			background: #c2dffe;
+		}
+		#cutDown {
+			display: none;
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			left: 0;
+			top: 0;
+			background-color: rgba(0, 0, 0, 0.7);
+			z-index: 9999999999999999;
+		}
+
+
+		.orange .thisMonth{
+        width:100%;
+        background:#ffd9b4;
+        padding:0rem 0rem 0.5rem 0rem;
+		padding-top: .5rem;
+      }
+
+	  .red .thisMonth{
+        width:100%;
+        background:#fac5c7;
+        padding:0rem 0rem 0.5rem 0rem;
+		padding-top: .5rem;
+      }
+
+	  .gold .thisMonth{
+        width:100%;
+        background:#f1dab5;
+        padding:0rem 0rem 0.5rem 0rem;
+		padding-top: .5rem;
+      }
+
+	  .blue .thisMonth{
+        width:100%;
+        background:#c2dffe;
+        padding:0rem 0rem 0.5rem 0rem;
+		padding-top: .5rem;
+      }
+
+
+      .thisMonth .top {
+        width:92%;
+        height:2.5rem;
+        background: #fff;
+        margin: 0 auto;
+        font-size: 0.75rem;
+        font-weight: bold;
+        color: #000;
+        text-align: left;
+        line-height: 2.5rem;
+        position: relative;
+		margin-left: .75rem;
+        border-radius: 0.25rem 0.25rem 0 0;
+      }
+      .thisMonth .top .tip {
+        width: 0.25rem;
+        height: 0.75rem;
+        background: #fb5c5f;
+        border-radius: 0 10px 10px 0;
+        display: inline-block;
+        position: absolute;
+        top: 0.9rem;
+      }
+      .thisFund{ width:92%;padding:0.5rem 0rem;background:#f7fcff;margin: 0 auto;display:flex;justify-content: space-around;color:#000;font-weight: bold;font-size:0.7rem}
+      .thisFund div:nth-of-type(1){width:30%;text-align:left;margin-left:0.65rem;}
+      .thisFund div:nth-of-type(2){width:60%;text-align:right;margin-right:0.65rem;}
+      .thisTitle{ width:92%;padding:0.75rem 0rem 0.25rem 0rem;background: #fff;margin: 0 auto;display:flex;justify-content: space-around;color:#666666;font-size:0.65rem}
+      .thisTitle div:nth-of-type(1){width:35%;text-align:left;margin-left:0.65rem;}
+      .thisTitle div:nth-of-type(2){width:35%;text-align:center;margin-right:0.65rem;}
+	  .thisTitle div:nth-of-type(3){width:30%;text-align:right;margin-right:0.65rem;}
+      .thisNumber{ width:92%;padding:0rem 0rem;background: #fff;margin: 0 auto;display:flex;justify-content: space-around;color:#f4333c;font-size:.8rem;border-radius:0 0 0.25rem 0.25rem;padding-bottom:1rem;font-weight: bold}
+      .thisNumber div:nth-of-type(1){width:35%;text-align:left;margin-left:0.65rem;color: #000;}
+      .thisNumber div:nth-of-type(2){width:35%;text-align:center;margin-right:0.65rem;}
+	  .thisNumber div:nth-of-type(3){width:30%;text-align:right;margin-right:0.65rem;}
+
+	  .fundList .biaoti div{color:#000;font-size:0.6rem;float:left;line-height:2rem}
+        .fundList .biaoti div:nth-of-type(1){text-align:left;padding-left:0.75rem;}
+        .fundList .biaoti div:nth-of-type(2){text-align:right}
+        .fundList .biaoti div:nth-of-type(3){text-align:center}
+        .fundList .biaoti div:nth-of-type(4){text-align:right}
+		.fundList .biaoti div:nth-of-type(3){text-align:center;}
+		.biaoti p{line-height: 0rem;display: inline-block;float:left;width:0.25rem;margin-top: 0.65rem;margin-left:0.25rem;}
+		.biaoti p .up{
+			width: 0;
+			height: 0;
+			border-top:0.25rem solid transparent; /*这行去掉也行*/
+			border-bottom:0.25rem solid #ccc;
+			border-right:0.25rem solid transparent;
+			border-left:0.25rem solid transparent;
+			display: inline-block;
+			margin-top: -0.5rem;
+			}
+			.biaoti p span.upColor{
+			width: 0;
+			height: 0;
+			border-top:0.25rem solid transparent; /*这行去掉也行*/
+			border-bottom:0.25rem solid #fb5c5f;
+			border-right:0.25rem solid transparent;
+			border-left:0.25rem solid transparent;
+			display: inline-block;
+			margin-top: -0.5rem;
+			}
+			.biaoti p .down{
+			width: 0;
+			border:0.25rem solid;
+			border-color: #ccc transparent transparent transparent;
+			display: inline-block;
+			margin-top: 0.25rem;
+			}
+			.biaoti p span.downColor{
+			width: 0;
+			border:0.25rem solid;
+			border-color: #fb5c5f transparent transparent transparent;
+			display: inline-block;
+			margin-top: 0.25rem;
+			}
+	</style>
+</head>
+
+<body class="orange">
+	<div id="cutDown">
+		<div class="wrapper" style="width:80%;height:90%;position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;overflow-y: auto;"></div>
+	</div>
+	<div class="main" style="display:none;">
+		<!-- 风险测评过期提示 -->
+		<div class="guoqi">您的风险测评已过期，建议及时重新测评！<a href="../common/riskTest.html" id="risk">立即测评</a></div>
+		<div class="head">
+			<div class="icon">
+				<div id="avatarImage" style="width:1.45rem;height:1.45rem;border-radius:2.5rem;" class="img"></div>
+				<span id="custName">
+				</span>
+			</div>
+			<div class="text1">当月总收益(<span class="currency-type-unit">元</span>)</div>
+			<div class="text2" id="totalProfit"></div>
+			<div class="text3" id="rank"></div>
+			<div class="list">
+				<div class="">当月收益率</div>
+				<div class="">月初市值</div>
+				<div class="">月末市值</div>
+			</div>
+			<div class="number">
+				<div class="" id="totalProfitRate"></div>
+				<div class="" id="balanceProfit">0.00</div>
+				<div class="" id="redeemedProfit">0.00</div>
+			</div>
+		</div>
+		<div class="slide" style="display:none;">
+			<div class="swiper-container banner" style="padding-bottom:1.5rem">
+				<div class="swiper-wrapper" id="swip">
+
+				</div>
+				<div class="swiper-pagination"></div>
+			</div>
+		</div>
+		<div class="shouyi">
+			<div class="title"><span class="tip"></span><span style="margin-left: 0.75rem">本月收益走势</span>
+				<div class="img" onclick="showTip()"></div>
+			</div>
+			<!-- 图表-->
+			<div class="chart">
+				<div>
+					<div id="pie1" style="width: 18rem; height: 260px;"></div>
+				</div>
+				<div class="noData" style="display: none;">
+					<p style="color: #999;font-size: .5rem;">暂无足够的数据展示</p>
+				</div>
+			</div>
+			<div class="profit"><span class="tip"></span><span style="margin-left: 0.75rem">收益构成</span></div>
+			<div class="benchmark-con">
+				<div class="benchmark">
+					<!-- <img src="img/spot_white.png" alt=""> -->
+					<style>
+
+					</style>
+					<div class="xjb clearfix ">
+
+						<div class="left">
+						</div>
+						<div class="right">
+						</div>
+						<div class="top-box">
+
+						</div>
+
+						<span class="Profit-val"></span>
+						<span class="Profit-name">现金宝</span>
+					</div>
+					<div class="fund clearfix">
+						<div class="left">
+						</div>
+						<div class="right">
+						</div>
+						<div class="top-box">
+
+						</div>
+						<span class="Profit-val"></span>
+						<span class="Profit-name">组合</span>
+					</div>
+					<div class="regular clearfix">
+						<div class="left">
+						</div>
+						<div class="right">
+						</div>
+						<div class="top-box">
+
+						</div>
+						<span class="Profit-val"></span>
+						<span class="Profit-name">基金</span>
+					</div>
+					<div class="high clearfix">
+						<div class="left">
+						</div>
+						<div class="right">
+						</div>
+						<div class="top-box">
+
+						</div>
+						<span class="Profit-val"></span>
+						<span class="Profit-name">资管</span>
+					</div>
+
+					<hr>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+		<!-- 基金种类-->
+		<div class="fundList">
+			<div class="list">
+				<div class="text" id="ptype0">现金宝</div>
+				<div class="text" id="ptype1">基金</div>
+				<div class="text" id="ptype3">组合</div>
+				<div class="text" id="ptype4">资管</div>
+			</div>
+			<!-- 现金宝的切换 -->
+			<div class="qiehuan xjb1" style="display:none;">
+				<!-- <div class="gupiao"><span class="tip"></span><span class="text">股票类</span></div> -->
+				<div class="biaoti">
+					<div>基金名称</div>
+					<div>持有金额</div>
+					<div>本月收益</div>
+					<div>本月收益率</div>
+				</div>
+
+
+				<!-- 点击这里让收益成长-->
+				<div class="chengzhang">
+					<div class="text" id="goto"><img src="img/chengzhang.png" alt="" onclick="return false;"> 点这里让收益成长
+					</div>
+				</div>
+
+				<div class="yuanjiao"></div>
+			</div>
+
+			<!-- 基金的切换 -->
+			<div class="qiehuan jijin" style="display:none">
+				<div class="top3" id="top_List10"><span class="tip"></span><span
+						style="margin-left: 0.75rem">收益率TOP3</span></div>
+				<div class="topList" id="top_List1">
+					<div class="topImg">
+						<div class="first" id="top0">
+
+						</div>
+						<div class="second" id="top1">
+
+						</div>
+						<div class="third" id="top2">
+
+						</div>
+					</div>
+				</div>
+				<!--股票-->
+				<div class="gpList" style="display:none">
+					<div class="gupiao"><span class="tip"></span><span class="text">股票类</span></div>
+					<div class="biaoti">
+						<div>基金名称</div>
+						<div>持有金额</div>
+						<div>
+							<span style="float:left">本月收益</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".gpList" data-order="asc" data-field="profit"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".gpList" data-order="desc" data-field="profit"></span>
+							</p>
+						  </div>
+						  <div>
+							<span style="float:left">本月收益率</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".gpList" data-order="asc" data-field="profitRate"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".gpList" data-order="desc" data-field="profitRate"></span>
+							</p>
+						  </div>
+					</div>
+					<div class="gpList_"></div>
+				</div>
+				<!-- 债券类-->
+				<div class="zqList" style="display:none">
+					<div class="huobi"><span class="tip"></span><span class="text">债券类</span></div>
+					<div class="biaoti">
+						<div>基金名称</div>
+						<div>持有金额</div>
+						<div>
+							<span style="float:left">本月收益</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".zqList" data-order="asc" data-field="profit"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".zqList" data-order="desc" data-field="profit"></span>
+							</p>
+						  </div>
+						  <div>
+							<span style="float:left">本月收益率</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".zqList" data-order="asc" data-field="profitRate"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".zqList" data-order="desc" data-field="profitRate"></span>
+							</p>
+						  </div>
+					</div>
+					<div class="zqList_"></div>
+
+				</div>
+				<!-- 股债混合-->
+				<div class="gzList" style="display:none">
+					<div class="huobi"><span class="tip"></span><span class="text">股债混合</span></div>
+					<div class="biaoti">
+						<div>基金名称</div>
+						<div>持有金额</div>
+						<div>
+							<span style="float:left">本月收益</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".gzList" data-order="asc" data-field="profit"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".gzList" data-order="desc" data-field="profit"></span>
+							</p>
+						  </div>
+						  <div>
+							<span style="float:left">本月收益率</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".gzList" data-order="asc" data-field="profitRate"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".gzList" data-order="desc" data-field="profitRate"></span>
+							</p>
+						  </div>
+					</div>
+					<div class="gzList_"></div>
+
+				</div>
+				<!-- 货币类-->
+				<div class="hbList" style="display:none">
+					<div class="huobi"><span class="tip"></span><span class="text">货币类</span></div>
+					<div class="biaoti">
+						<div>基金名称</div>
+						<div>持有金额</div>
+						<div>
+							<span style="float:left">本月收益</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".hbList" data-order="asc" data-field="profit"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".hbList" data-order="desc" data-field="profit"></span>
+							</p>
+						  </div>
+						  <div>
+							<span style="float:left">本月收益率</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".hbList" data-order="asc" data-field="profitRate"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".hbList" data-order="desc" data-field="profitRate"></span>
+							</p>
+						  </div>
+					</div>
+					<div class="hbList_"></div>
+
+				</div>
+				<!-- 其它类-->
+				<div class="qtList" style="display:none">
+					<div class="qita"><span class="tip"></span><span class="text">其它类</span></div>
+					<div class="biaoti">
+						<div>基金名称</div>
+						<div>持有金额</div>
+						<div>
+							<span style="float:left">本月收益</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".qtList" data-order="asc" data-field="profit"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".qtList" data-order="desc" data-field="profit"></span>
+							</p>
+						  </div>
+						  <div>
+							<span style="float:left">本月收益率</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".qtList" data-order="asc" data-field="profitRate"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".qtList" data-order="desc" data-field="profitRate"></span>
+							</p>
+						  </div>
+					</div>
+					<div class="qtList_"></div>
+					<!--
+        <div class="yuanjiao"></div>-->
+				</div>
+				<div class="yuanjiao"></div>
+
+			</div>
+
+			<!-- 组合的切换 -->
+			<div class="qiehuan zuhe" style="display:none">
+				<div class="top3" id="top_List20"><span class="tip"></span><span
+						style="margin-left: 0.75rem">收益率TOP3</span></div>
+				<div class="topList" id="top_List2">
+					<div class="topImg">
+						<div class="first" id="top_0">
+
+						</div>
+						<div class="second" id="top_1">
+
+						</div>
+						<div class="third" id="top_2">
+
+						</div>
+					</div>
+				</div>
+				<!-- 现金+-->
+				<div class="xjjList" style="display:none">
+					<div class="gupiao"><span class="tip"></span><span class="text">现金+</span></div>
+					<div class="biaoti">
+						<div>基金名称</div>
+						<div>持有金额</div>
+						<div>本月收益</div>
+						<div>本月收益率</div>
+					</div>
+					<div class="xjjList_"></div>
+				</div>
+				<!-- 定期组合-->
+				<div class="dqList" style="display:none">
+					<div class="gupiao"><span class="tip"></span><span class="text">定期组合</span></div>
+					<div class="biaoti">
+						<div>基金名称</div>
+						<div>持有金额</div>
+						<div>
+							<span style="float:left">本月收益</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".dqList" data-order="asc" data-field="profit"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".dqList" data-order="desc" data-field="profit"></span>
+							</p>
+						  </div>
+						  <div>
+							<span style="float:left">本月收益率</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".dqList" data-order="asc" data-field="profitRate"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".dqList" data-order="desc" data-field="profitRate"></span>
+							</p>
+						  </div>
+					</div>
+					<div class="dqList_"></div>
+				</div>
+				<!-- <div class="zhankai">展开</div> -->
+				<!-- 精选组合-->
+				<div class="clList" style="display:none">
+
+					<div class="huobi"><span class="tip"></span><span class="text">精选组合</span></div>
+					<div class="biaoti">
+						<div>基金名称</div>
+						<div>持有金额</div>
+						<div>
+							<span style="float:left">本月收益</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".clList" data-order="asc" data-field="profit"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".clList" data-order="desc" data-field="profit"></span>
+							</p>
+						  </div>
+						  <div>
+							<span style="float:left">本月收益率</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".clList" data-order="asc" data-field="profitRate"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".clList" data-order="desc" data-field="profitRate"></span>
+							</p>
+						  </div>
+					</div>
+					<div class="clList_"></div>
+				</div>
+				<!-- 指数宝-->
+				<div class="zsbList" style="display:none">
+
+					<div class="huobi"><span class="tip"></span><span class="text">指数宝</span></div>
+					<div class="biaoti">
+						<div>基金名称</div>
+						<div>持有金额</div>
+						<div>
+							<span style="float:left">本月收益</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".zsbList" data-order="asc" data-field="profit"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".zsbList" data-order="desc" data-field="profit"></span>
+							</p>
+						  </div>
+						  <div>
+							<span style="float:left">本月收益率</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".zsbList" data-order="asc" data-field="profitRate"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".zsbList" data-order="desc" data-field="profitRate"></span>
+							</p>
+						  </div>
+					</div>
+					<div class="zsbList_"></div>
+				</div>
+
+				<!-- 添富智投-->
+				<div class="tfztList" style="display:none">
+					<div class="huobi"><span class="tip"></span><span class="text">添富智投</span></div>
+					<div class="biaoti">
+						<div>基金名称</div>
+						<div>持有金额</div>
+						<div>
+							<span style="float:left">本月收益</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".tfztList" data-order="asc" data-field="profit"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".tfztList" data-order="desc" data-field="profit"></span>
+							</p>
+						  </div>
+						  <div>
+							<span style="float:left">本月收益率</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".tfztList" data-order="asc" data-field="profitRate"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".tfztList" data-order="desc" data-field="profitRate"></span>
+							</p>
+						  </div>
+					</div>
+					<div class="tfztList_"></div>
+				</div>
+				<!-- 添富养老-->
+				<div class="tfylList" style="display:none">
+					<div class="huobi"><span class="tip"></span><span class="text">添富养老</span></div>
+					<div class="biaoti">
+						<div>基金名称</div>
+						<div>持有金额</div>
+						<div>
+							<span style="float:left">本月收益</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".tfylList" data-order="asc" data-field="profit"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".tfylList" data-order="desc" data-field="profit"></span>
+							</p>
+						  </div>
+						  <div>
+							<span style="float:left">本月收益率</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".tfylList" data-order="asc" data-field="profitRate"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".tfylList" data-order="desc" data-field="profitRate"></span>
+							</p>
+						  </div>
+					</div>
+					<div class="tfylList_"></div>
+				</div>
+				<!-- 实盘组合-->
+				<div class="spList" style="display:none">
+					<div class="qita"><span class="tip"></span><span class="text">实盘组合</span></div>
+					<div class="biaoti">
+						<div>基金名称</div>
+						<div>持有金额</div>
+						<div>
+							<span style="float:left">本月收益</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".spList" data-order="asc" data-field="profit"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".spList" data-order="desc" data-field="profit"></span>
+							</p>
+						  </div>
+						  <div>
+							<span style="float:left">本月收益率</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".spList" data-order="asc" data-field="profitRate"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".spList" data-order="desc" data-field="profitRate"></span>
+							</p>
+						  </div>
+					</div>
+					<div class="spList_"></div>
+
+					<!--<div class="yuanjiao"></div>-->
+				</div>
+				<div class="yuanjiao"></div>
+
+			</div>
+			<!-- 资管的切换 -->
+			<div class="qiehuan ziguan" style="display:none">
+
+				<div class="top3" id="top_List30"><span class="tip"></span><span
+						style="margin-left: 0.75rem">收益率TOP3</span></div>
+				<div class="topList" id="top_List3">
+					<div class="topImg">
+						<div class="first" id="top20">
+
+						</div>
+						<div class="second" id="top21">
+
+						</div>
+						<div class="third" id="top22">
+
+						</div>
+					</div>
+				</div>
+
+				<div class="zgList" style="display:none">
+					<div class="biaoti">
+						<div>基金名称</div>
+						<div>持有金额</div>
+						<div>
+							<span style="float:left">本月收益</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".zgList" data-order="asc" data-field="profit"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".zgList" data-order="desc" data-field="profit"></span>
+							</p>
+						  </div>
+						  <div>
+							<span style="float:left">本月收益率</span>
+							<p>
+							  <span class="up" onclick="showOrderList(this)" data-cls=".zgList" data-order="asc" data-field="profitRate"></span>
+							  <span class="down" onclick="showOrderList(this)" data-cls=".zgList" data-order="desc" data-field="profitRate"></span>
+							</p>
+						  </div>
+					  </div>
+					  <div class="zgList_"></div>
+					</div>
+				</div>
+				<div class="yuanjiao"></div>
+
+
+			</div>
+
+		
+
+			<div class="thisMonth" id="thisMonth_" style="display: none;">
+				<div class="top">
+				  <span class="tip"></span>
+				  <span style="margin-left: 0.75rem">本月最成功投资</span>
+				</div>
+				<div class="thisFund">
+				  <div class="buyDate_"></div>
+				  <div class="fundName_"></div>
+				</div>
+				<div class="thisTitle">
+				  <div>买入</div>
+				  <div>盈利</div>
+				  <div>收益率</div>
+				</div>
+				<div class="thisNumber">
+				  <div class="buyAmt_"></div>
+				  <div class="profit_"></div>
+				  <div class="profitRate_"></div>
+				</div>
+			  </div>
+
+		<div class="video">
+			<div class="video_box">
+				<video height="100%" width="100%" id="video_self" controls src="" poster="">
+
+				</video>
+			</div>
+		</div>
+
+		<div class="xiaoquexing">
+			<div class="box" id="recommend_product" style="display:none;">
+
+			</div>
+			
+		</div>
+		<div id="printHide"  class="noselect printHide"
+				style="text-align: center;padding-top: .325rem;font-size: .6rem;">
+			<div data-html2canvas-ignore>
+				<span style="vertical-align: middle;" class="noselect">长按保存图片到手机</span>
+				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26px"
+					height="24px" style="vertical-align: middle; transform: scale(.65);">
+					<path fill-rule="evenodd" fill="rgb(255, 255, 255)"
+						d="M23.233,23.016 L2.830,23.016 C1.725,23.016 0.830,22.120 0.830,21.016 L0.830,20.161 L0.830,18.216 L0.830,11.278 C0.830,10.769 1.242,10.357 1.750,10.357 L1.845,10.357 C2.353,10.357 2.765,10.769 2.765,11.278 L2.765,16.223 C2.787,16.222 2.808,16.216 2.830,16.216 L23.233,16.216 C23.236,16.216 23.240,16.217 23.244,16.217 L23.244,11.278 C23.244,10.769 23.656,10.357 24.164,10.357 L24.312,10.357 C24.821,10.357 25.232,10.769 25.232,11.278 L25.232,18.216 L25.232,20.161 L25.232,21.016 C25.232,22.120 24.337,23.016 23.233,23.016 ZM13.018,17.667 C11.957,17.667 11.096,18.540 11.096,19.616 C11.096,20.692 11.957,21.564 13.018,21.564 C14.079,21.564 14.939,20.692 14.939,19.616 C14.939,18.540 14.079,17.667 13.018,17.667 ZM14.001,12.013 C13.681,12.333 13.163,12.333 12.844,12.013 L7.464,6.961 C7.145,6.642 7.145,6.124 7.464,5.804 C7.784,5.485 8.302,5.485 8.622,5.804 L12.413,9.365 L12.413,1.099 C12.413,0.587 12.828,0.172 13.340,0.172 L13.448,0.172 C13.960,0.172 14.375,0.587 14.375,1.099 L14.375,9.325 L17.896,5.804 C18.215,5.485 18.733,5.485 19.053,5.804 C19.372,6.124 19.372,6.642 19.053,6.961 L14.001,12.013 Z" />
+				</svg>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="text text_orange" id="monthlyBillTips">
+				风险提示：本账单展示的收益率情况仅供参考，不作为任何形式的资产证明文件，也不构成任何主张权利的依据。投资者持有基金份额及交易情况明细请以基金注册登记机构的记录为准，基金净值的变动情况请以基金管理人公布的基金净值为准。
+			</div>
+		</div>
+		<!-- 悬浮图标-->
+		<div class="fubiao" data-html2canvas-ignore>
+			<a href="javascript:;" id="shareAct"></a><span>去分享</span>
+		</div>
+		<div class="layer" id="layer" style="display: none;">
+			<div class="layer-wrap">
+				<div class="layer-body">
+					<p id="info"></p>
+				</div>
+				<div class="but">确定</div>
+			</div>
+		</div>
+	</div>
+	<!-- 弹窗-->
+	<div class="layer" id="load" style="display: none">
+		<div class="layer-wrap">
+			<div class="layer-body">
+				<p><img src="img/loading.png" alt=""></p>
+			</div>
+			<!-- <div class="but">确定</div> -->
+		</div>
+	</div>
+	<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+	<script type="text/javascript" src="../js/lib/phone-size.js"></script>
+	<script type="text/javascript" src="./js/swiper-5.4.5.min.js"></script>
+	<script type="text/javascript" src="../js/lib/echarts.min.js"></script>
+	<script type="text/javascript" src="../js/common.js?20210106"></script>
+	<script type="text/javascript" src="./js/html2canvas.js"></script>
+	<script>
+		var show_num = 3;
+		var yearMonth = App.getUrlParam("yearMonth");
+		var currencyType = App.getUrlParam("currencyType");
+		var themeStyle = App.getUrlParam("billStyle");
+		var year = yearMonth.substr(0, 4);
+		var month = Number(yearMonth.substr(4));
+		var cls = '';
+		if (currencyType != "156") {
+			$(".currency-type-unit").html("美元");
+		}
+		var version = App.getUrlParam("version");
+		$("#swip").html('');
+		$("#risk").attr("href", $("#risk").attr("href") + '?forwardUrl=' + window.location);
+		window.onload = function () {
+			$("#printHide").hide();
+			themeSkin().then((result) => {
+				getInfo(result).then((res) => {
+					Promise.all([getCustInfo(), checkRiskLevel(), queryRecommendProduct(), footerTip(),
+						topRecom(), getVideo()
+					]).then(function (results) {
+						var timeout = 0;
+						if(isIosApp()){
+							$("#printHide").show();
+						}
+						$("#printHide").on('touchstart', () => {
+							timeout = setTimeout(() => {
+								downloadFile()
+							}, 500); // 长按时间超过1000ms，则执行传入的方法 
+						});
+						$("#printHide").on('touchend', () => {
+							clearTimeout(timeout); // 长按时间少于1000ms，不会执行传入的方法
+						});
+					}).catch(error => {
+						console.log(error);
+					})
+				}).catch(error => {
+					console.log(error);
+				});
+			}).catch(error => {
+				console.log(error);
+			})
+
+		}
+		//换肤  
+		function themeSkin() {
+			return new Promise((resolve, reject) => {
+				if (App.isEmpty(themeStyle)) {
+					App.get("/assetcenter/v1/asset/monthly-bill/info?currencyType=" + currencyType + "&yearMonth=" +
+						yearMonth, null,
+						function (result) {
+							if (result.body != undefined && result.body != null) {
+
+								var body = result.body;
+								if (body != undefined && body != "") {
+									var rate = (body.profitRate * 100).toFixed(2);
+
+									var themeStyle = '';
+
+									if (String(rate).indexOf("-") == -1) { //正
+										preFix = '+';
+										if (Number(rate) >= 1) { //red
+											themeStyle = '4';
+										} else { //orange
+											themeStyle = '1';
+										}
+									} else { //负
+										preFix = '-';
+										if (Number(String(rate).replace("-", "")) >= 1) { //blue
+											themeStyle = '2';
+										} else { //gold
+											themeStyle = '3';
+										}
+									}
+									var cls = '';
+									if (themeStyle == '2') { //blue
+										$("body").removeClass().addClass("blue");
+										$('#printHide').css('color', '#2194ff').find('path').css('fill',
+											'#2194ff');
+										cls = 'blue';
+									} else if (themeStyle == '3') { //gold
+										$("body").removeClass().addClass("gold");
+										$('#printHide').css('color', '#ba9228').find('path').css('fill',
+											'#ba9228');
+										cls = 'gold';
+									} else if (themeStyle == '4') { //red
+										$("body").removeClass().addClass("red");
+										$('#printHide').css('color', '#e74134').find('path').css('fill',
+											'#e74134');
+										cls = 'red';
+									} else { //orange
+										$("body").removeClass().addClass("orange");
+										$('#printHide').css('color', '#ff7f01').find('path').css('fill',
+											'#ff7f01');
+										cls = 'orange';
+									}
+									if (App.isEmpty(body.rank)) {
+										$(".head").css({
+											"background": "url('img/fund_no" + cls + ".png')",
+											"background-size": "100% 100%"
+										});
+									}
+									$("#load").hide();
+									$(".main").show();
+								}
+							}
+							resolve(cls);
+						})
+				} else {
+					var cls = '';
+					if (themeStyle == '2') { //blue
+						$("body").removeClass().addClass("blue");
+						$('#printHide').css('color', '#2194ff').find('path').css('fill', '#2194ff');
+						cls = 'blue';
+					} else if (themeStyle == '3') { //gold
+						$("body").removeClass().addClass("gold");
+						$('#printHide').css('color', '#ba9228').find('path').css('fill', '#ba9228');
+						cls = 'gold';
+					} else if (themeStyle == '4') { //red
+						$("body").removeClass().addClass("red");
+						$('#printHide').css('color', '#e74134').find('path').css('fill', '#e74134');
+						cls = 'red';
+					} else { //orange
+						$("body").removeClass().addClass("orange");
+						$('#printHide').css('color', '#ff7f01').find('path').css('fill', '#ff7f01');
+						cls = 'orange';
+					}
+
+					$("#load").hide();
+					$(".main").show();
+					resolve(cls);
+				}
+			})
+		}
+
+		if (isApp()) {
+			if (Number(version) >= 5.82) {
+				$("#shareAct").attr("href", 'shareAct?eventCode=MONTHLY_BILL_FX&eventId=' + yearMonth + '-' +
+					currencyType);
+				$(".fubiao").click(function () {
+					window.location.href = 'shareAct?eventCode=MONTHLY_BILL_FX&eventId=' + yearMonth +
+						'-' + currencyType;
+				});
+			} else {
+				$(".fubiao").hide();
+			}
+		} else {
+			$(".fubiao").hide();
+		}
+
+		$("#goto").click(function () {
+			if (isApp()) {
+				window.location = 'htffundxjb://action?type=mip&subType=profitPlusNew';
+			} else {
+				window.location = 'https://99fund.com/m.htm';
+			}
+		});
+		//基金类型切换
+		$('.list .text').click(function () {
+			if ($(this).hasClass("active")) {
+				return;
+			}
+			$(this).addClass("active").siblings().removeClass('active');
+			// $(this).parent().next("qiehuan").hide().eq($(this).index()).show();
+			$(this).parent().siblings().hide().eq($(this).index()).show()
+		});
+
+
+
+		//用户数据展示
+
+		$("#risk_panel").click(function (e) {
+			e.stopPropagation();
+			window.location.href = "htffundxjb://action?type=as&subType=test";
+		});
+
+		// getCustInfo();
+		// topRecom();
+		// getInfo();
+		// getVideo()
+		// queryRecommendProduct();
+		// checkRiskLevel();
+		$('body').on('touchend', function () {
+			$('.benchmark').children().hide().show();
+		})
+
+		$(".but").click(function () {
+			$("#layer").hide();
+		});
+		// 截图
+		function downloadFile() {
+			$(".video").hide();
+	 		$('.swiper-pagination span').eq(0).trigger('click');
+			//截图目标div
+			const dom = $(".main");
+			// 创建一个新的canvas
+			const Canvas = document.createElement('canvas');
+			const width = document.body.clientWidth; // 可见屏幕的宽
+			const height = document.body.clientHeight; // 可见屏幕的高
+			const scale = window.devicePixelRatio; // 设备的devicePixelRatio
+			// 将Canvas画布放大scale倍，然后放在小的屏幕里，解决模糊问题
+			Canvas.width = width * scale;
+			Canvas.height = height * scale;
+			Canvas.getContext('2d').scale(scale, scale);
+			
+			setTimeout(function () {
+				window.pageYoffset = 0;
+				document.documentElement.scrollTop = 0;
+				document.body.scrollTop = 0;
+				html2canvas(dom, {
+					canvas: Canvas,
+					scale,
+					useCORS: true,
+					width: width + 'px',
+					hegiht: height + 'px'
+				}).then((canvas) => {
+					const context = canvas.getContext('2d');
+					// 关闭抗锯齿形
+					context.mozImageSmoothingEnabled = false;
+					context.webkitImageSmoothingEnabled = false;
+					context.msImageSmoothingEnabled = false;
+					context.imageSmoothingEnabled = false;
+					// var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+					// save_link.href = canvas.toDataURL('image/jpg');;
+					// save_link.download = picDate + '.jpg';
+
+					// var event = document.createEvent('MouseEvents');
+					// event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false,
+					// 	false, false, false, 0, null);
+					// save_link.dispatchEvent(event);
+					const img = Canvas2Image.convertToImage(canvas, canvas.width, canvas.height);
+					$('#cutDown .wrapper').html(img);
+            		img.style.cssText = "width:100%";
+					$('#cutDown').show();
+					$("#cutDown").click(function(){
+					      e = window.event || e;
+					      var obj = e.srcElement || e.target;
+					      if($(obj).is("img")) {
+					            return false;
+					      }
+					      else{
+					            $("#cutDown").hide();
+					      }
+					});
+					$(".video").show(); 
+				})
+			}, 100)
+
+		}
+
+
+
+		//视频信息
+		function getVideo() {
+			return new Promise((resolve, reject) => {
+				var strKeys = 'monthly_bill_vedio_' + yearMonth;
+				$.get('/mobile-bff/v1/unification/query?keys=' + strKeys, function (result) {
+					if (result.returnCode == 0 && result.body != undefined && result.body != null && result
+						.body[strKeys]) {
+						var str = result.body[strKeys]['unificationValue'];
+						var arr = str.split("|");
+						if (arr.length > 0) {
+							$("#video_self").attr("src", arr[0]);
+							$("#video_self").attr("poster", arr[1]);
+							$(".video").show();
+						}
+					}
+					resolve();
+				});
+			})
+
+		}
+
+		//头部推荐
+		function topRecom() {
+			return new Promise((resolve, reject) => {
+				var keys = 'monthly_bill_article_' + yearMonth;
+				$.get('/mobile-bff/v1/unification/query?keys=' + keys, function (result) {
+					if (result.returnCode == 0 && result.body != undefined && result.body != null && result
+						.body[keys]) {
+						var str = result.body[keys]['unificationValue'];
+						var arr = str.split("|");
+						var htm = '';
+						for (var k in arr) {
+							var item1 = arr[k];
+							var item2 = item1.split("#");
+							htm += '<div class="swiper-slide">' +
+								'' +
+								'  <div class="box">' +
+								'	<div class="text">' + item2[0] + '</div>' +
+								'	<div class="title">' + item2[1] + '</div>' +
+								'	<div class="text1">' + item2[2] + '</div>' +
+								'	<a href="' + item2[3] + '"><div class="check">查看更多市场解读</div></a>' +
+								'  </div>' +
+								'' +
+								'</div>';
+						}
+						$("#swip").append(htm);
+						if (htm != "") {
+							$(".slide").show();
+						} else {
+							$(".slide").hide();
+						}
+						setTimeout(function () {
+							var mySwiper = new Swiper('.swiper-container', {
+								direction: 'horizontal',
+								// loop: true,
+								// autoplay: 30000,
+								observer: true,
+								observerParents: true,
+								// autoplay: {
+								// 	disableOnInteraction: false
+								// },
+								// 如果需要分页器
+								pagination: {
+									el: '.swiper-pagination',
+									clickable :true
+								}
+							});
+						}, 800)
+
+					}
+					resolve();
+				});
+			})
+
+
+		}
+		function getBase64FromImageUrl(URL) {
+			var img = new Image();
+			var dataURL=null;
+			img.setAttribute('crossOrigin', 'anonymous');
+			img.src = URL;
+			img.onload = function() {
+				var canvas = document.createElement("canvas");
+				canvas.width = this.width;
+				canvas.height = this.height;
+
+				var ctx = canvas.getContext("2d");
+				ctx.drawImage(this, 0, 0);
+				dataURL = canvas.toDataURL("image/png");
+				$("#avatarImage").css({"background":"url('"+dataURL+"')","background-size":"100% 100%"});
+				// $("#avatarImage").attr('src',dataURL)
+			};
+		}
+		function getCustInfo() {
+			return new Promise((resolve, reject) => {
+				App.get("/icif/v1/custs/get-simple-by-cust-no", null, function (result) {
+					if (result.body != undefined && result.body != null) {
+						var body = result.body;
+						if (body != undefined && body != "") {
+							// $("#avatarImage").css({
+							// 	"background": "url('" + body.avatarImage + "')",
+							// 	"background-size": "100% 100%"
+							// });
+							getBase64FromImageUrl(body.avatarImage);
+							$("#custName").html(body.nickname + "&nbsp;&nbsp;" + month + '月投资表现');
+						}
+						resolve();
+					}
+				});
+			})
+
+		}
+
+		function checkRiskLevel() {
+			return new Promise((resolve, reject) => {
+				App.get("/mobile-bff/v1/common/check-union-risk-level", null, function (result) {
+					//alert(resultStr);
+					if (result.returnCode == 0) {
+						var code = result.body.code;
+						if (code == "9991") {
+							$(".guoqi").show();
+						}
+					}
+					resolve();
+				}, function () {
+
+				});
+			})
+
+		}
+		//资管数据展示
+		function showOther(ziguan) {
+
+			//top3
+			top3List = ziguan.top3List;
+			if (top3List.length == 0) {
+				$("#top_List3").hide();
+				$("#top_List30").hide();
+			} else {
+				for (var k in top3List) {
+					var item = top3List[k];
+					$("#top2" + k).html('<span>' + item.productName + '</span><span>'+(item.profitRate*100).toFixed(2)+'%</span>');
+				}
+			}
+
+			//资管
+			var List = ziguan.groupList;
+			for (var m in List) {
+				var item2 = List[m];
+				var itemClass = "";
+				if (item2.groupName == '资管') {
+
+					//资管--
+					itemClass = ".zgList";
+
+				}
+				showItems(item2.items, itemClass)
+
+			}
+		}
+
+		//公共方法 
+		function showItems(itemData, itemClass) {
+			if (itemData.length > 0) {
+				if(arguments[2] != 1){
+					listSortByField(itemData,"profit","desc");
+				}	
+				var htm = '';
+				for (var n in itemData) {
+					var item = itemData[n];
+					var styl = '';
+					if (String(item.profitRate).indexOf('-') != -1) {
+						styl = ' style="color:green;" ';
+					}
+					var sty2 = '';
+					if (String(item.profit).indexOf('-') != -1) {
+						sty2 = ' style="color:green;" ';
+					}
+					var cls = '';
+					if (n >= show_num) {
+						cls = 'divhide';
+					}
+					htm += '<div class="muchFund ' + cls + '">' +
+						'<div>' + String(item.productName).substr(0, 6) + "..." + "<br>" + item.productId + '</div>   ' +
+						'<div>' + App.formatMoney(item.totalAmt) + '</div>' +
+						'<div ' + sty2 + '>' + App.formatMoney(item.profit) + '</div>' +
+						' <div ' + styl + '>' + (item.profitRate * 100).toFixed(2) + '%</div>' +
+						'</div>';
+				}
+				if (itemData.length > show_num) {
+					htm += '<div class="zhankai">展开</div>';
+				}
+				$(itemClass+"_").html(htm);
+				$(itemClass + " .zhankai").click(function (e) {
+					$(itemClass + " .divhide").show()
+					$(itemClass + " .zhankai").hide();
+					e.stopPropagation();
+				});
+				$(itemClass).show();
+				//把数据存入缓存中
+				var custNo = App.getCookie("sso_cookie_ext_dp");
+				var sessionKey = custNo+itemClass;
+				App.setSession(sessionKey,itemData);
+			}
+		}
+
+		//基金数据展示
+		function showFund(jijin) {
+
+			//top3
+			top3List = jijin.top3List;
+			if (top3List.length == 0) {
+				$("#top_List1").hide();
+				$("#top_List10").hide();
+			} else {
+				for (var k in top3List) {
+					var item = top3List[k];
+					$("#top" + k).html('<span>' + item.productName + '</span><span>'+(item.profitRate*100).toFixed(2)+'%</span>');
+				}
+			}
+
+			//基金
+			var jijinList = jijin.groupList;
+			for (var m in jijinList) {
+				var item2 = jijinList[m];
+				var itemClass = "";
+				if (item2.groupName == '股债混合') {
+
+					//股债混合--
+					itemClass = ".gzList";
+
+				}
+				if (item2.groupName == '股票类') {
+
+					//股票--
+					itemClass = ".gpList";
+
+				}
+
+				if (item2.groupName == '债券类') {
+
+					//债券类--
+					itemClass = ".zqList";
+
+				}
+				if (item2.groupName == '货币类') {
+
+					//货币类--
+					itemClass = ".hbList";
+
+				}
+				if (item2.groupName == '其他类') {
+
+					//其他类--
+					itemClass = ".qtList";
+
+				}
+				showItems(item2.items, itemClass)
+			}
+		}
+		//现金宝
+		function showXjb(xjbData) {
+			var xjb = xjbData.groupList;
+			if (xjb.length == 0) {
+				$(".xjb1").hide();
+			} else {
+				//$(".xjb1").show();
+			}
+			for (var x in xjb) {
+				var itemx = xjb[x];
+
+				var htm = '';
+				if (itemx.groupName == '现金宝') {
+					//现金宝--
+					items = itemx.items;
+					if (items.length > 0) {
+						for (var n in items) {
+							var item3 = items[n];
+							htm += '<div class="muchFund">' +
+								'<div>' + itemx.groupName + "<br>" + item3.productId + '</div>   ' +
+								'<div>' + App.formatMoney(item3.totalAmt) + '</div>' +
+								'<div>' + App.formatMoney(item3.profit) + '</div>' +
+								' <div>' + (item3.profitRate * 100).toFixed(2) + '%</div>' +
+								'</div>';
+						}
+						$(htm).insertAfter(".xjb1 .biaoti");
+
+					}
+				}
+			}
+		}
+		//数据展示主函数
+		function getInfo(cls) {
+			return new Promise((resolve, reject) => {
+				App.get("/assetcenter/v1/asset/monthly-bill/detail?currencyType=" + currencyType + "&yearMonth=" +
+					yearMonth,
+					null,
+					function (result) {
+						if (result.body != undefined && result.body != null) {
+							var body = result.body;
+							if (body != undefined && body != "") {
+
+								$("#totalProfit").html(App.formatMoney(body.totalProfit, 2));
+								$("#totalProfitRate").html((body.totalProfitRate * 100).toFixed(2) + "%");
+
+								if (App.isNotEmpty(body.rank)) {
+									$("#rank").html('您击败了<span style="color:#ffea00">' + (body.rank * 100)
+										.toFixed(2) +
+										'%</span>的现金宝用户');
+								} else {
+									$(".head").css({
+										"background": "url('img/fund_no" + cls + ".png')",
+										"background-size": "100% 100%"
+									});
+								}
+
+								var productDetails = body.productDetails;
+								if (productDetails != undefined && productDetails != "" && productDetails.length >
+									0) {
+
+									//走势图
+									showChart(body.trendList);
+									var isFund = 0;
+									//柱状图放最后
+									var asset = new Array();
+									for (var a in productDetails) {
+										var itema = productDetails[a];
+										var name = '';
+										if (itema.productType == "0") {
+											name = '现金宝';
+											showXjb(itema);
+										} else if (itema.productType == "1") {
+											name = '基金';
+											showFund(itema)
+											isFund = a;
+										} else if (itema.productType == "3") {
+											name = '组合';
+											showGroup(itema);
+										} else if (itema.productType == "4") {
+											name = '资管';
+											showOther(itema);
+										}
+
+										$("#ptype" + itema.productType).show();
+										asset.push({
+											"name": name,
+											"value": itema.totalProfit
+										})
+									}
+
+									//展示最佳投资
+									if(App.isNotEmpty(body.bestInvest)){
+										var strName = String(body.bestInvest.fundName).length > 12 ? String(body.bestInvest.fundName).substr(0, 12)+"...":String(body.bestInvest.fundName);
+										$(".buyDate_").html(body.bestInvest.buyDate.substr(-4, 2) + "月" + body.bestInvest.buyDate.substr(-2, 2)+"日买入");
+										$(".fundName_").html(strName);
+										$(".buyAmt_").html(App.formatMoney(body.bestInvest.buyAmt));
+										$(".profit_").html(App.formatMoney(body.bestInvest.profit));
+										$(".profitRate_").html((body.bestInvest.profitRate*100).toFixed(2)+"%");
+										$("#thisMonth_").show();
+									}
+
+									$('.list .text').each(function () {
+										if ($(this).html() == asset[isFund].name) {
+											$(this).addClass("active").siblings().removeClass('active');
+											$(this).parent().siblings().hide().eq($(this).index()).show();
+										}
+									});
+
+									if (asset.length > 0) {
+										showPies(asset);
+									}
+								} else {
+									$(".list").hide()
+								}
+							}
+						}
+						resolve();
+					});
+			})
+
+		}
+		//组合数据
+		function showGroup(groups) {
+			//组合top3
+			top3_List = groups.top3List;
+			if (top3_List.length == 0) {
+				$("#top_List2").hide();
+				$("#top_List20").hide();
+			} else {
+				for (var q in top3_List) {
+					var item_ = top3_List[q];
+					$("#top_" + q).html('<span>' + item_.productName + '</span><span>'+(item_.profitRate*100).toFixed(2)+'%</span>');
+				}
+			}
+			//组合
+			var fundGroupList = groups.groupList;
+			for (var m in fundGroupList) {
+				var item2 = fundGroupList[m];
+				var itemClass = "";
+				if (item2.groupName == '定期组合') {
+
+					//定期组合--
+					itemClass = ".dqList";
+
+				}
+				if (item2.groupName == '精选组合') {
+
+					//策略--
+					itemClass = ".clList";
+
+				}
+
+				if (item2.groupName == '指数宝') {
+
+					//指数宝--
+					itemClass = ".zsbList";
+
+				}
+
+				if (item2.groupName == '添富智投') {
+					//添富智投--
+					itemClass = ".tfztList";
+
+				}
+
+				if (item2.groupName == '添富养老') {
+
+					//添富养老--	
+					itemClass = ".tfylList";
+
+				}
+
+				if (item2.groupName == '实盘组合') {
+
+					//实盘组合--
+					itemClass = ".spList";
+
+				}
+
+				if (item2.groupName == '现金+') {
+
+					//现金+--
+					itemClass = ".xjjList";
+
+				}
+				showItems(item2.items, itemClass)
+
+			}
+
+		}
+
+		function showChart(trendList) {
+			//走势图
+			if (trendList.length > 0) {
+				$("#balanceProfit").html(trendList[0].totalAmt);
+				$("#redeemedProfit").html(trendList[trendList.length - 1].totalAmt);
+				$("#balanceProfit").html(App.formatMoney(trendList[0].totalAmt, 2));
+				$("#redeemedProfit").html(App.formatMoney(trendList[trendList.length - 1].totalAmt, 2));
+				if (String(trendList[trendList.length - 1].totalAmt).length >= 9) {
+					$("#redeemedProfit").css({
+						"font-size": "0.8rem"
+					});
+				}
+				if (String(trendList[0].totalAmt).length >= 9) {
+					$("#balanceProfit").css({
+						"font-size": "0.8rem",
+						"text-align": "center"
+					});
+				}
+
+				var data1 = new Array();
+				var data2 = new Array();
+				for (var w in trendList) {
+					var itemw = trendList[w];
+					var date = itemw.date.substr(0, 4) + "." + itemw.date.substr(-4, 2) + "." + itemw.date.substr(-2, 2)
+					data1.push({
+						'chartDt': date,
+						'chartNum': itemw.profit
+					});
+					data2.push({
+						'chartDt': date,
+						'chartNum': itemw.profit
+					});
+				}
+				
+				var max = 0;
+				var barCount = []
+				var max2 = 0;
+				var barCount2 = []
+				var min = 0;
+				var min2 = 0;
+				data1.forEach(function (num) {
+					barCount.push(num.chartNum)
+				})
+
+				data2.forEach(function (num) {
+					barCount2.push(num.chartNum)
+				})
+				// var barCount =[372,465,167,288,400];
+
+				//计算最大值
+				max = Math.max(...barCount);
+				max2 = Math.max(...barCount2);
+				min = Math.min(...barCount);
+				min2 = Math.min(...barCount2);
+
+				var option_1 = {
+
+					color: ['#fb5c5f', '#89acd8', '#f11', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a',
+						'#6e7074', '#546570', '#c4ccd3'
+					],
+					tooltip: {
+						show: true,
+						trigger: 'axis',
+						axisPointer: {
+							type: 'cross',
+							label: {
+								backgroundColor: 'rgba(0,0,0,0)',
+								textStyle: {
+									color: "red"
+								}
+							},
+							lineStyle: {
+								type: "dashed",
+								color: "#1aa2e6"
+							}
+						},
+						position: ["20%", "2%"],
+						alwaysShowContent: true,
+						backgroundColor: "rgba(0,0,0,0)",
+						textStyle: {
+							color: "#333"
+						},
+						formatter: function (params) {
+
+							var arr = [];
+
+							var _date = params[0].axisValue.replace(/-/g, '.');
+							arr.push(
+								'<div style="width: 100%;position:relative;left:-50px;font-size: .6rem;top:-5px;">' +
+								_date.substr(5, 10))
+							for (var i = 0; i < params.length; i++) {
+								//console.log(params[i].seriesName);
+								switch (params[i].seriesName) {
+									case "总资产":
+										arr.push(
+											'<span style="display:inline-block;border-radius:2px;background:#fb5c5f;margin-right:0.25rem;padding-left:.85rem;"></span>'
+										);
+										if (String(params[i].data).length >= 7) {
+											arr.push(params[i].seriesName +
+												": <span style='color:#fb5c5f;font-size:0.6rem;'>" + App
+												.formatMoney(params[i].data, 2) + "</span>");
+										} else {
+											arr.push(params[i].seriesName + ": <span style='color:#fb5c5f;'>" + App
+												.formatMoney(params[i].data, 2) + "</span>");
+										}
+
+										break;
+									case "月收益":
+										arr.push('&nbsp; <span style="color:#f4333c;margin-right:.25rem"></span>');
+										if (String(params[i].data).indexOf('-') == -1) {
+											if (String(params[i].data).length >= 7) {
+												arr.push(params[i].seriesName +
+													": <span style='color:#fb5c5f;font-size:0.6rem;'>" + App
+													.formatMoney(params[i].data, 2) + "</span>");
+											} else {
+												arr.push(params[i].seriesName + ": <span style='color:#fb5c5f;'>" +
+													App.formatMoney(params[i].data, 2) + "</span>");
+											}
+										} else {
+											if (String(params[i].data).length >= 7) {
+												arr.push(params[i].seriesName +
+													": <span style='color:#009944;font-size:0.6rem;'>" + App
+													.formatMoney(params[i].data, 2) + "</span>");
+											} else {
+												arr.push(params[i].seriesName + ": <span style='color:#009944;'>" +
+													App.formatMoney(params[i].data, 2) + "</span>");
+											}
+
+										}
+										break;
+								}
+
+							}
+							arr.push("</div>");
+							//return arr.join("");
+							var itmeday = _date.substr(5, 10);
+							var itmedata = params[0].data;
+							var dataStr1 = '';
+							var dataStr2 = '';
+							if (String(itmedata).indexOf('-') == -1) {
+
+								if (String(itmedata).length >= 7) {
+									dataStr1 =
+										'<span style="color:#fb5c5f;margin-right:1rem;width:4rem;font-size:0.6rem;">' +
+										App.formatMoney(itmedata) + '</span>'
+								} else {
+									dataStr1 = '<span style="color:#fb5c5f;margin-right:1rem;width:4rem">' + App
+										.formatMoney(itmedata) + '</span>'
+								}
+							} else {
+								if (String(itmedata).length >= 7) {
+									dataStr1 =
+										'<span style="color:#009944;margin-right:1rem;width:4rem;font-size:0.6rem;">' +
+										App.formatMoney(itmedata) + '</span>'
+								} else {
+									dataStr1 = '<span style="color:#009944;margin-right:1rem;width:4rem">' + App
+										.formatMoney(itmedata) + '</span>'
+								}
+							}
+							var itmedata2 = params[1].data;
+							if (String(itmedata2).indexOf('-') == -1) {
+
+								if (String(itmedata2).length >= 12) {
+									dataStr2 =
+										'<span style="color:#fb5c5f;width:4rem;font-size:0.6rem;text-align:right">' +
+										App.formatMoney(itmedata2) + '</span>'
+								} else {
+									dataStr2 = '<span style="color:#fb5c5f;width:4rem;text-align:right">' + App
+										.formatMoney(itmedata2) + '</span>'
+								}
+							} else {
+								if (String(itmedata2).length >= 12) {
+									dataStr2 =
+										'<span style="color:#009944;width:4rem;font-size:0.6rem;text-align:right">' +
+										App.formatMoney(itmedata2) + '</span>'
+								} else {
+									dataStr2 = '<span style="color:#009944;width:4rem;text-align:right">' + App
+										.formatMoney(itmedata2) + '</span>'
+								}
+							}
+						//   return '<div style="width:14rem;height:0.5rem;display:flex;justify-content:space-between;align-items: center;position:relative;padding-bottom:0.2rem;left:-15%;top:-0.5rem"><div style="width:3rem">日期</div><div style="width:4rem"><span style="width:0.5rem;height:0.1rem;background:#fb5c5f;display:inline-block;vertical-align:middle"></span>&nbsp;总资产</div><div style="width:4rem;text-align:right"><span style="width:0.5rem;height:0.1rem;background:#148ce6;display:inline-block;vertical-align:middle"></span>&nbsp;月收益</div>'
+						//   +'</div>'
+						//    +'<div style="width:14rem;display:flex;justify-content:space-between;align-items: center;position:relative;font-size: 14px;left:-15%;top:-0.5rem">'+itmeday+'<span style="display:inline-block;border-radius:2px;background:#fb5c5f;margin-right:1.5rem"></span>'+dataStr1+dataStr2+'</div>'
+						
+						return '<div style="width:14rem;height:1.75rem;display:flex;justify-content:space-between;align-items: center;position:relative;padding-bottom:0.2rem;left:-15%;top:-0.75rem;background: #f7fcff;"><div style="width:6rem;padding-left:2rem;">日期&nbsp;'+itmeday+'</div><div style="width:8rem;">月收益&nbsp;'+dataStr1+'</div>'
+						+'</div>';
+
+						}
+						//' <div style="width: 100%;margin-left: -50%;font-size: 14px;"><span class="icon icon-1"></span> {a0}: {c0}% &nbsp;&nbsp; <span class="icon icon-3"> </span>{a1}: {c1}%</div>'
+					},
+					grid: {
+						left: '10%',
+						right: '5%',
+						bottom: '0%',
+						top: "20%",
+						containLabel: true
+					},
+					xAxis: [{
+						type: 'category',
+						boundaryGap: false,
+						axisTick: {
+							show: false
+						},
+						// splitLine: { show: true, lineStyle: { color: "#999999" } },
+						axisLine: {
+							show: false,
+							lineStyle: {
+								color: "#999999"
+							}
+						},
+						axisLabel: {
+							interval: 30,
+							formatter: function (value, index) {
+								if (index == 0) {
+									return "   " + value;
+								}
+								return value + "      ";
+							}
+						},
+						data: [],
+					}],
+					yAxis: [
+
+
+						{
+							type: 'value',
+							// name: '占比',
+							min: min2,
+							max: max2,
+							axisLine: {
+								show: true,
+								lineStyle: {
+									color: "f1f1f1"
+								}
+							},
+							axisTick: {
+								show: false
+							},
+							splitLine: {
+								show: false,
+								lineStyle: {
+									color: "#f1f1f1"
+								}
+							},
+							interval: Math.ceil(max2 - min2) / 6, //平均分为5份，和第一个y轴份数保持一致
+							axisLabel: {
+								show: true,
+								inside: false,
+								formatter: function(value){
+									return value ;
+								},
+								textStyle: {
+									color: "#999999",
+									fontFamily: "Arial"
+								}
+							},
+							axisPointer: {
+								show: false /*  , label: {show:false},lineStyle: {type: "solid",color: "#1aa2e6"} */
+							},
+						},
+						{
+							type: 'value',
+							// name: '数量',
+							axisLine: {
+								show: true,
+								lineStyle: {
+									color: "f1f1f1"
+								}
+							},
+							axisTick: {
+								show: false
+							},
+							splitLine: {
+								show: true,
+								lineStyle: {
+									color: "#f1f1f1"
+								}
+							},
+							min: min,
+							max: max, // 计算最大值
+							interval: Math.ceil(max - min) / 6, //  平均分为5份
+							axisLabel: {
+								show: false,
+								inside: true,
+								formatter: '{value}',
+								textStyle: {
+									color: "#999999",
+									fontFamily: "Arial"
+								}
+							},
+							axisPointer: {
+								show: false /*  , label: {show:false},lineStyle: {type: "solid",color: "#1aa2e6"} */
+							},
+						},
+					],
+					series: [{
+							symbol: "none",
+							name: '总资产',
+							type: 'line',
+							smooth: true,
+							areaStyle: {
+							normal: {
+								color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+									offset: 0, color: 'rgba(255,255,255,0)' // 0% 处的颜色
+								}, {
+									offset: 1, color: '#fff' // 100% 处的颜色
+								}], false)
+							}
+					},
+					lineStyle: {normal: {color: "#fff", width: 1}},
+							// data: []
+							data: barCount
+						},
+						{
+							symbol: "none",
+							name: '月收益',
+							type: 'line',
+							smooth: true,
+							yAxisIndex: 1,
+							areaStyle: {
+								normal: {
+									color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+										offset: 0, color: 'rgba(212,234,251,0.5)' // 0% 处的颜色
+									}, {
+										offset: 1, color: '#fff' // 100% 处的颜色
+									}], false)
+								}
+								},
+								lineStyle: {
+									normal: {
+										color: "#1aa2e6",
+										width:1
+									}
+								},
+							data: []
+							// data: barpre,
+						},
+					]
+				};
+
+				var myChart_1 = echarts.init(document.getElementById('pie1'));
+
+				setOption(option_1, data2, data1);
+				draw(myChart_1, option_1);
+
+				function setOption(option, incomes1, incomes2) {
+					var result1 = formattingIncomes(incomes1);
+					var result2 = formattingIncomes(incomes2);
+
+					option.xAxis[0].data = result1.xArr;
+					option.xAxis[0].axisLabel.interval = result1.xArr.length - 2;
+					option.series[0].data = result1.yArr;
+					option.series[1].data = result2.yArr;
+
+				}
+
+				function draw(myChart, option) {
+					if (!((option.series[0].data && option.series[0].data.length > 0) || (option.series[1].data && option
+							.series[1].data.length > 0))) {
+						option.xAxis[0].data = ["", ""];
+						option.xAxis[0].axisLabel.interval = ["", ""].length - 2;
+						// $(".noData").show();
+					} else {
+						// $(".noData").hide();
+					}
+					myChart.setOption(option);
+					setTimeout(function () {
+						myChart.dispatchAction({
+							type: 'showTip',
+							seriesIndex: 1,
+							dataIndex: option.series[0].data.length - 1
+						});
+					}, 0);
+
+				}
+
+				function formattingIncomes(incomes) {
+					var xArr = [],
+						yArr = [];
+					//        incomes.shift();
+					var len = incomes.length;
+					for (var i = 0; i < len; i++) {
+						var chartDt = incomes[i].chartDt;
+						//console.log(chartDt);
+						xArr.push(chartDt);
+						yArr.push(incomes[i].chartNum);
+					}
+					return {
+						xArr: xArr,
+						yArr: yArr
+					};
+				}
+			}
+
+		}
+
+
+		function showPies(assets) {
+			// 柱状图
+			var asset = [{
+					name: '现金宝',
+					value: "0.00"
+				},
+				{
+					name: '基金',
+					value: "0.00"
+				},
+				{
+					name: '组合',
+					value: "0.00"
+				},
+				{
+					name: '资管',
+					value: "0.00"
+				},
+			]
+			var newAsset = new Array();
+			for (var k in asset) {
+				var item1 = asset[k];
+				for (var m in assets) {
+					var item2 = assets[m];
+					if (item2.name == item1.name) {
+						item1.value = item2.value;
+					}
+				}
+			}
+			asset = calcAsset(asset);
+
+			asset.forEach(function (item, index, self) {
+
+				switch (index) {
+					case 0:
+						setHeight('.xjb', item.value, item.h)
+						break;
+					case 1:
+						setHeight('.regular', item.value, item.h)
+						break;
+					case 2:
+						setHeight('.fund', item.value, item.h)
+						break;
+					case 3:
+						setHeight('.high', item.value, item.h)
+						break;
+				}
+
+			});
+
+			calcuBenchmark();
+
+
+
+			function calcuBenchmark() {
+				var maxH = $('.benchmark-con').height() / 2 - 35;
+				var dif;
+
+
+				var $upH = $('.xjb,.regular,.fund,.high').filter('.negative-bottom');
+				var arr = [];
+				for (var i = 0; i < $upH.length; i++) {
+					arr[i] = $upH[i];
+				}
+				$upH = arr;
+				if ($upH.length > 0) {
+
+					var upHDom = $upH.reduce(function (pre, cur, index, self) {
+						if ($(pre).height() > $(cur).height()) {
+							return pre
+						}
+						return cur;
+					})
+					var dif = maxH - $(upHDom).height()
+				} else {
+					dif = maxH;
+				}
+
+				if (dif > 10) {
+					$('.benchmark').css('marginTop', maxH - dif + 35)
+				}
+
+				var $downH = $('.xjb,.regular,.fund,.high').filter('.negative-bottom')
+				var arr2 = [];
+				for (var j = 0; j < $downH.length; j++) {
+					arr2[j] = $downH[j];
+				}
+				$downH = arr2;
+				if ($downH.length > 0) {
+					var downHDom = $downH.reduce(function (pre, cur, index, self) {
+						if ($(pre).height() > $(cur).height()) {
+							return pre
+						}
+						return cur;
+					})
+					dif = maxH - $(downHDom).height()
+				} else {
+					dif = maxH;
+				}
+				if (dif > 10) {
+					$('.benchmark').css('marginBottom', maxH - dif + 35)
+				}
+
+			}
+
+
+
+			function setHeight(dom, value, heihgt) {
+				if (value < 0) {
+					$(dom).addClass('negative-bottom');
+					$(dom).children('div').addClass('negative-bottom-green');
+				}
+				$(dom).children('.left,.right').height(parseInt(Math.abs(heihgt)));
+				// value = Math.abs(value) > 100000 ? (parseInt(value / 10000) + '万元') : (value + '元');
+				value = Math.abs(value) > 100000 ? (value) : (value);
+				if (String(value).indexOf('-') != -1) {
+					$(dom).find('.Profit-val').addClass('green');
+				}
+				$(dom).find('.Profit-val').html(App.formatMoney(value, 2));
+
+			}
+
+
+			function calcAsset(arr) {
+				var asset = arr;
+				var values = asset.map(function (item, index, self) {
+					return Math.abs(item.value);
+				});
+				var min = Math.min.apply(null, values)
+				var max = Math.max.apply(null, values)
+				var maxH = $('.benchmark-con').height() / 2 - 35;
+				var minH = 12;
+
+				values.forEach(function (item, index, self) {
+					asset[index].h = item == 0 ? 0 : (maxH - minH) * item / max + minH
+				});
+				return asset;
+			}
+		}
+
+		function queryRecommendProduct() {
+			return new Promise((resolve, reject) => {
+				var url = App.projectNm + "/app_func/query_theme_infos_config?layoutId=monthlyBillProduct&date=" + (
+						new Date())
+					.getTime();
+				App.get(url, null, function (res) {
+					if (res.returnCode == 0 && res.body != undefined && res.body != null) {
+						var themeList = res.body.theme;
+						var htmlCode = "";
+						for (i in themeList) {
+							var themeDataList = themeList[i].object;
+							for (j in themeDataList) {
+								themeData = themeDataList[j];
+
+								var str = '';
+								if (App.isNotEmpty(themeData.remark)) {
+									str += '<div class="text">' + themeData.remark + '</div>';
+								} else {
+									str += '<div>&nbsp;</div>';
+								}
+
+								str += '<div class="text1">' + themeData.fundGroupTitle;
+								if (App.isNotEmpty(themeData.recomIdentify)) {
+									str += '<span class="icon">' + themeData.recomIdentify + '</span>';
+								}
+								str += '</div>' +
+									'<div class="text2">' + themeData.fundGroupSubtitle + '</div>' +
+									'<div class="text3">' + themeData.recomElementVal +
+									'<span style="font-size:0.8rem">' + themeData.recomElementUnit +
+									'</span></div>' +
+									'<div class="text4">' + themeData.recomElementNm + '</div>' +
+									'<a href="' + themeData.url + '" ><div class="text5" >' + themeData
+									.buttonRemark +
+									'</div></a>';
+
+								htmlCode += str;
+							}
+						}
+						if (htmlCode != "") {
+							$("#recommend_product").html(htmlCode);
+							$("#recommend_product").show();
+						} else {
+							$("#recommend_product").hide();
+						}
+					}
+					resolve();
+				})
+			})
+
+		};
+
+
+		//查询成成份业绩
+		function showTip() {
+			return new Promise((resolve, reject) => {
+				$.get('/mobile-bff/v1/unification/query?keys=monthBillDes', function (result) {
+					if (result.returnCode == 0 && result.body != undefined && result.body != null && result
+						.body[
+							"monthBillDes"]) {
+						$("#info").html(result.body["monthBillDes"]['unificationValue']);
+						$(document.body).css({
+							"overflow-x": "hidden",
+							"overflow-y": "hidden"
+						});
+						$('#layer').css({
+							"background-color": " rgba(0,0,0,0.7) "
+						}).show();
+					} else {
+						$("#layer").hide();
+					}
+					resolve();
+				});
+			})
+		}
+		//底部风险提示
+		function footerTip() {
+			return new Promise((resolve, reject) => {
+				$.get('/mobile-bff/v1/unification/query?keys=monthlyBillTips', function (result) {
+					if (result.returnCode == 0 && result.body != undefined && result.body != null && result
+						.body[
+							"monthlyBillTips"]) {
+						$("#monthlyBillTips").html(result.body["monthlyBillTips"]['unificationValue']);
+
+					};
+					resolve();
+				});
+			})
+
+		}
+
+	//排序函数
+	function listSortByField(myArray,field,order){
+		//冒泡排序
+		if(myArray.length>0){
+			for(var i=0; i<myArray.length; i++){
+				//在这要注意myArray.length-i-1，意思是第一次从数组第一个值开始，第二次从第二个值开始.....
+				for(var j=0; j<myArray.length-i-1; j++){
+					var str_i = myArray[j][field];
+					var str_j = myArray[j+1][field];
+					//判断值是否大于后面值，如果大于进行换位处理
+					if(order=='asc'){
+						if(parseFloat(str_i) > parseFloat(str_j)){
+							var tmp = myArray[j];
+							myArray[j] = myArray[j+1];
+							myArray[j+1] = tmp;
+						}
+					}else if(order=='desc'){
+						if(parseFloat(str_i) < parseFloat(str_j)){
+							var tmp = myArray[j];
+							myArray[j] = myArray[j+1];
+							myArray[j+1] = tmp;
+						}
+					}
+				}
+			}
+		}
+		return myArray;
+	}
+	//点击排序按钮触发
+	function showOrderList(obj){
+		//处理样式
+
+		$(obj).parent("p").parent("div").siblings().find("span").removeClass("downColor").removeClass("upColor");
+
+		if($(obj).attr("class").indexOf("up") > -1){
+
+			if ($(obj).hasClass("upColor")) {
+        		return;
+			}else{
+				$(obj).addClass("upColor").siblings().removeClass('downColor');
+			}
+		}else{
+			if ($(obj).hasClass("downColor")) {
+        		return;
+			}else{
+				$(obj).addClass("downColor").siblings().removeClass('upColor');
+			}
+		}
+
+		//以下是数据处理
+		var itemClass = $(obj).attr("data-cls");
+		var field = $(obj).attr("data-field");
+		var order = $(obj).attr("data-order");
+		//取出缓存中数据
+		var custNo = App.getCookie("sso_cookie_ext_dp");
+		var sessionKey = custNo+itemClass;
+		cacheData = App.getSession(sessionKey);	
+		listSortByField(cacheData,field,order);
+		showItems(cacheData,itemClass,1);
+	}
+	</script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+</body>
+
+</html>

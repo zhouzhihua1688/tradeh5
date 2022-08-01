@@ -1,0 +1,42 @@
+body {
+    background-color: #f6f6f6;
+}
+
+.content {
+    background-color: #fff;
+    color: #000;
+}
+
+.content .list {
+    border-bottom: 1px solid #eee;
+    padding: 0.625rem 0;
+}
+
+.content .list .text {
+    font-size: 0.7rem;
+    line-height: 1rem;
+    padding: 0 0.75rem;
+}
+
+.content .list .text .tag {
+    width: 0.7rem;
+    height: 0.725rem;
+    display: inline;
+    vertical-align: middle;
+    margin-left: 0.25rem;
+}
+
+.content .list .date {
+    font-size: 0.65rem;
+    margin-top: 0.25rem;
+    margin-left: 0.75rem;
+    color: #666;
+}
+
+.content .more {
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    font-size: 0.7rem;
+    color: #148ce6;
+}

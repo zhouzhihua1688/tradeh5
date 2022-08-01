@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<group>
+		<property name="mobile-ng.app.esb.wsdl" description="esb访问地址"
+			defaultValue="http://172.16.12.100:7001/ws/XService?wsdl" />
+		<property name="mobile-ng.app.develop" description="是否为开发环境"
+			defaultValue="0" />	
+		<property name="mobile-ng.dubbo.registry.address" description="注册中心地址"
+			defaultValue="zookeeper://172.16.12.143:2181?backup=172.16.12.142:2181,172.16.12.91:2181" />
+		<property name="mobile-ng.app.name" description="应用名"
+			defaultValue="MOBILE" />
+		<property name="mobile-ng.dubbo.owner" description="所有者"
+			defaultValue="liuzhengyan" />
+		<property name="mobile-ng.dubbo.protocol" description="所有者"
+			defaultValue="registry" />
+		<property name="mobile-ng.dubbo.version" description="提供接口的版本"
+			defaultValue="1.0.0" />		
+		
+		<property name="mobile-ng.dubbo.crm.messageInterface.version" description="messageInterface提供接口的版本"
+			defaultValue="ms1.0" />
+
+		<property name="mobile-ng.dubbo.timeout" description="超时时间"
+			defaultValue="15000" />
+
+		<property name="mobile-ng.dubbo.provider.threads" description="线程个数"
+			defaultValue="5" />
+		<property name="mobile-ng.dubbo.provider.delay" description="是否延迟"
+			defaultValue="-1" />
+		<property name="mobile-ng.dubbo.provider.port" description="dubbo提供者端口"
+			defaultValue="20892" />
+
+		<property name="mobile-ng.app.ctx.db.cms" description="cms数据库"
+			defaultValue="java:comp/env/cms" />
+		<property name="mobile-ng.app.ctx.db.ec" description="ec数据库"
+			defaultValue="java:comp/env/EC" />
+		<property name="mobile-ng.app.ctx.db.mobile" description="mobile数据库"
+			defaultValue="java:comp/env/MOBILE" />
+		<property name="mobile-ng.app.ctx.memcahed.namespace" description="memcahed命名空间"
+			defaultValue="ns.mobile" />
+			
+		<property name="mobile-ng.app.mq.zkConnect" description="zkConnect"
+			defaultValue="172.16.12.143:2181,172.16.12.142:2181,172.16.12.91:2181" />
+		<property name="mobile-ng.app.mq.zkSessionTimeoutMs"
+			description="zkSessionTimeoutMs" defaultValue="30000" />
+		<property name="mobile-ng.app.mq.zkConnectionTimeoutMs"
+			description="zkConnectionTimeoutMs" defaultValue="30000" />
+		<property name="mobile-ng.app.mq.zkSyncTimeMss" description="zkSyncTimeMs"
+			defaultValue="30000" />
+		<property name="mobile-ng.app.mq.privTopicName" description="topicName"
+			defaultValue="fts-finish-sync-topic" />
+		<property name="mobile-ng.app.mq.refreshTopic" description="topicName"
+			defaultValue="finish-sync-topic" />
+		<property name="mobile-ng.app.mq.prdnav.refreshTopic" description="topicName"
+				  defaultValue="productcenter-nav-update-completed-topic" />
+		<property name="mobile-ng.app.mq.fts.maxBufferSize" description="maxBufferSize"
+			defaultValue="16384" />
+		<property name="mobile-ng.app.mq.fts.groupName" description="groupName"
+			defaultValue="MOBILE-FTS2" />
+		<property name="mobile-ng.app.mq.bindCardPrivTopicName" description="topicName"
+				  defaultValue="bnkcmd-msg-topic-auth" />
+		<property name="mobile-ng.app.mq.bankengineBindCardTopicName" description="topicName"
+				  defaultValue="bankengine-auth-msg-topic" />
+		<property name="mobile-ng.app.mq.card.group" description="beGroupName"
+				  defaultValue="beGroup" />
+		<property name="mobile-ng.app.mq.mobileTopicName" description="mobileTopicName"
+			defaultValue="mobile-login-topic" />
+		<property name="mobile-ng.mq.SendMsgByApp" description="weixinTopicName"
+			defaultValue="weixin-sendmsg-byapp" />
+		
+		<property name="mobile-ng.uploadimage.userIdPicPath" description="用户身份证图片上传路径"
+			defaultValue="/opt/CustomerInformation/OpenAccounts/custno" />
+			
+		<property name="mobile-ng.calendar.iconurlprefix" description="金融日历图标URL地址前缀"
+			defaultValue="https://app.99fund.com/mobileEC" />
+
+		<property name="mobile-ng.zipkin.base-url" description="zipkin服务地址"
+				  defaultValue="http://10.50.115.186:9411" />
+		<property name="mobile-ng.sleuth.sampler.percentage" description="采样率"
+				  defaultValue="1" />
+
+		<property name="mobile-ng.dubbo.cts.version" description="cts提供接口的版本"
+			defaultValue="1.0.0" />
+		<property name="mobile-ng.dubbo.fts.version" description="fts提供接口的版本"
+			defaultValue="1.0.0" />
+		<property name="mobile-ng.dubbo.cif.version" description="cif提供接口的版本"
+			defaultValue="1.0.0" />
+		<property name="mobile-ng.dubbo.mac.version" description="mac提供接口的版本"
+			defaultValue="2.0.0" />
+		<property name="mobile-ng.dubbo.vip.version" description="vip提供接口的版本"
+			defaultValue="1.0.0" />
+		<property name="mobile-ng.dubbo.pss.version" description="pss提供接口的版本"
+			defaultValue="1.0.0" />
+		<property name="mobile-ng.dubbo.crm.version" description="crm提供接口的版本"
+			defaultValue="1.0.0" />
+		<property name="mobile-ng.dubbo.be.version" description="ce提供接口的版本"
+			defaultValue="1.0.0" />
+		<property name="mobile-ng.dubbo.mss.version" description="mss提供接口的版本"
+			defaultValue="1.0.0" />
+		<property name="mobile-ng.dubbo.message.version" description="message提供接口的版本"
+			defaultValue="ms1.0" />
+		<property name="mobile-ng.dubbo.cas.version" description="cas提供接口的版本"
+			defaultValue="1.0.0" />
+		<property name="mobile-ng.dubbo.cos.version" description="cos提供接口的版本"
+			defaultValue="1.0.0" />
+		<property name="mobile-ng.dubbo.credit.version" description="credit提供接口的版本"
+			defaultValue="1.0.0" />
+		<property name="mobile-ng.dubbo.weixin.version" description="weixin提供接口的版本"
+			defaultValue="1.0.0" />
+		<property name="mobile-ng.dubbo.mcp.version" description="mcp提供接口的版本"
+			defaultValue="1.0.0" />
+		<property name="mobile-ng.dubbo.hop.version" description="hop提供接口的版本"
+			defaultValue="1.0.0" />
+		<property name="mobile-ng.dubbo.htfweb.version" description="htfweb提供接口的版本"
+			defaultValue="1.0.0" />
+		<property name="mobile-ng.dubbo.ats.version" description="ats提供接口的版本"
+			defaultValue="1.0.0"/>
+		<property name="mobile-ng.dubbo.ess.version" description="ess提供接口的版本"
+				  defaultValue="1.0.0"/>
+		<property name="mobile-ng.dubbo.prd.version" description="prd提供接口的版本"
+				  defaultValue="1.0.0"/>
+		<property name="mobile-ng.dubbo.cis.version" description="cis提供接口的版本"
+				  defaultValue="1.0.0"/>
+		<property name="mobile-ng.dubbo.las.version" description="las提供接口的版本"
+				  defaultValue="1.0.0"/>
+		<property name="mobile-ng.dubbo.paas.acgw.fundGroup.version" description="fundGroup提供接口的版本"
+				  defaultValue="1.0.0" />
+		<property name="mobile-ng.dubbo.paas.acgw.product.version" description="product center提供接口的版本"
+				  defaultValue="1.0.0" />
+		<property name="mobile-ng.dubbo.paas.acgw.mac.version" description="paas mac提供接口的版本"
+				  defaultValue="2.0.0" />
+		<property name="mobile-ng.dubbo.paas.acgw.mss.version" description="paas mss提供接口的版本"
+				  defaultValue="1.0.0" />
+		<property name="mobile-ng.dubbo.paas.acgw.activitycenter.version" description="activity-center提供接口的版本"
+				  defaultValue="1.0.0" />
+		<property name="mobile-ng.dubbo.paas.acgw.res.version" description="res提供接口的版本"
+				  defaultValue="1.0.0" />
+
+		<property name="mobile-ng.dubbo.cts.timeout" description="cts超时时间"
+			defaultValue="15000" />
+		<property name="mobile-ng.dubbo.fts.timeout" description="fts超时时间"
+			defaultValue="15000" />
+		<property name="mobile-ng.dubbo.cif.timeout" description="vif超时时间"
+			defaultValue="15000" />
+		<property name="mobile-ng.dubbo.mac.timeout" description="mac超时时间"
+			defaultValue="15000" />
+		<property name="mobile-ng.dubbo.vip.timeout" description="vip超时时间"
+			defaultValue="15000" />
+		<property name="mobile-ng.dubbo.crm.timeout" description="crm超时时间"
+			defaultValue="15000" />
+		<property name="mobile-ng.dubbo.be.timeout" description="be超时时间"
+			defaultValue="15000" />
+		<property name="mobile-ng.dubbo.mss.timeout" description="mss超时时间"
+			defaultValue="15000" />
+		<property name="mobile-ng.dubbo.pss.timeout" description="pss超时时间"
+			defaultValue="15000" />
+		<property name="mobile-ng.dubbo.message.timeout" description="message超时时间"
+			defaultValue="15000" />
+		<property name="mobile-ng.dubbo.cas.timeout" description="cas超时时间"
+			defaultValue="15000" />
+		<property name="mobile-ng.dubbo.cos.timeout" description="cos超时时间"
+			defaultValue="15000" />
+		<property name="mobile-ng.dubbo.credit.timeout" description="credit超时时间"
+			defaultValue="15000" />
+		<property name="mobile-ng.dubbo.weixin.timeout" description="weixin超时时间"
+			defaultValue="15000" />
+		<property name="mobile-ng.dubbo.mcp.timeout" description="mcp超时时间"
+			defaultValue="15000" />
+		<property name="mobile-ng.dubbo.hop.timeout" description="hop超时时间"
+			defaultValue="15000" />
+		<property name="mobile-ng.dubbo.htfweb.timeout" description="htfweb超时时间"
+			defaultValue="15000" />
+		<property name="mobile-ng.dubbo.ats.timeout" description="ats超时时间"
+			defaultValue="15000" />
+		<property name="mobile-ng.dubbo.ess.timeout" description="ess超时时间"
+				  defaultValue="15000" />
+		<property name="mobile-ng.dubbo.prd.timeout" description="prd超时时间"
+				  defaultValue="15000" />
+		<property name="mobile-ng.dubbo.cis.timeout" description="cis超时时间"
+				  defaultValue="15000" />
+		<property name="mobile-ng.dubbo.las.timeout" description="las超时时间"
+				  defaultValue="15000" />
+		<property name="mobile-ng.dubbo.paas.acgw.fundGroup.timeout" description="fundGroup超时时间"
+				  defaultValue="15000" />
+		<property name="mobile-ng.dubbo.paas.acgw.product.timeout" description="product center超时时间"
+				  defaultValue="15000" />
+		<property name="mobile-ng.dubbo.paas.acgw.mac.timeout" description="paas mac超时时间"
+				  defaultValue="15000" />
+		<property name="mobile-ng.dubbo.paas.acgw.mss.timeout" description="paas mss超时时间"
+				  defaultValue="15000" />
+		<property name="mobile-ng.dubbo.paas.acgw.activitycenter.timeout" description="activity-center超时时间"
+				  defaultValue="15000" />
+
+		<property name="mobile-ng.dubbo.paas.acgw.res.timeout" description="res超时时间"
+				  defaultValue="15000" />
+
+		<property name="mobile-ng.htfweb.urlprefix" description="手机配置官网地址前缀"
+			defaultValue="http://www.99fund.com" />
+
+		<property name="mobile-ng.log.all.path" description="所有日志文件"
+				  defaultValue="/opt/logs/mobile/stdout.log" />
+		<property name="mobile-ng.log.error.path" description="错误日志文件"
+				  defaultValue="/opt/logs/mobile/stderr.log" />
+		<property name="mobile-ng.log.init.cache.path" description="日志文件"
+				  defaultValue="/opt/logs/mobile/initCache.log" />
+
+		<!-- obs相关配置 -->
+		<property name="mobile-ng.obs.cust.assetscert.container" description="mobile obs资产证明 contain"
+			defaultValue="assetsCert" />
+		<property name="mobile-ng.obs.cust.projectId" description="mobile obs projectID"
+			defaultValue="78d01aeaf69a4d7096f6547f0c734e71" />
+		<property name="mobile-ng.obs.domain" description="mobile obs 域"
+			defaultValue="default" />
+		<property name="mobile-ng.obs.keyStoneName" description="mobile obs keyStoneName"
+			defaultValue="mobile" />
+		<property name="mobile-ng.obs.keyStonePassword" description="mobile obs keyStonePassword"
+			defaultValue="mobile" />
+		<property name="mobile-ng.obs.keyStoneUrl" description="mobile url"
+			defaultValue="http://172.16.12.40:5000/v3/auth/tokens" />
+		<property name="mobile-ng.obs.swiftUrl" description="mobile obs swiftUrl"
+			defaultValue="http://172.16.12.40:8080/v1/" />
+		<property name="mobile-ng.obs.uploadIdPic.container" description="mobile obs 身份证上传container"
+			defaultValue="changeMobile" />
+		<property name="mobile-ng.obs.uploadCustCertPic.container" description="mobile obs 客户信息补充-身份证上传container"
+				  defaultValue="custImage" />
+
+		<property name="mobile-ng.obs.uploadCustAvatar.container" description="mobile obs 客户昵称头像上传container"
+				  defaultValue="custAvatar" />
+		<property name="mobile-ng.obs.adviserReport.container" description="mobile obs 定期报告container"
+			defaultValue="groupReport" />
+
+		<property name="mobile-ng.obs.uploadFacePic.container" description="mobile obs 人脸container"
+				  defaultValue="faceImages" />
+
+		<property name="mobile-ng.app.mq.automaticOperationTopic" description="自动化运营消息"
+			defaultValue="mobile-automatic-operation-topic" />
+		
+		<property name="mobile-ng.app.mq.mobileUserActionTopic" description="手机发送metaq消息给mcp"
+			defaultValue="mobile-mcp-useraction-topic" />
+
+		<property name = "mobile-ng.app.mq.mobileCosOperTradeTopic" description="手机上交易和操作类消息发送给COS"
+			defaultValue= "mobile-cos-oper-trade-topic" />
+
+		<property name = "mobile-ng.app.mq.mobileCosMsgIdentifySend" description="每次验证步骤结果消息发送给COS"
+				  defaultValue= "mobile-cos-msg-identify-topic" />
+
+		<property name = "mobile-ng.app.mq.mobileNcrmAddBankCardErroTopic" description="mobile入口绑卡失败消息发送给NCRM"
+				  defaultValue= "add-bank-card-err-notice-topic" />
+
+		<property name="mobile-ng.app.ssoWebCookieKey" description="mobile新加cookie配置：存custNo"
+			defaultValue="sso_cookie_ext_dp" />
+
+		<property name="mobile-ng.restfulapi.productcenter.url" description="productcenter的微服务地址"
+				  defaultValue="http://10.50.114.162:8089/productcenter/v1" />
+
+
+		<property name="mobile-ng.restfulapi.ags.url" description="ags系统的微服务地址"
+				  defaultValue="http://10.50.115.29:8086/ags/v1" />
+
+		<property name="mobile-ng.restfulapi.ats-ng.url" description="ats-ng系统的微服务地址"
+				  defaultValue="http://10.50.115.71:8098/ats-ng/v1" />
+
+		<property name="mobile-ng.restfulapi.icif.url" description="icif系统的微服务地址"
+				  defaultValue="http://10.50.115.36:8081/icif/v1" />
+
+		<property name="mobile-ng.restfulapi.ias.url" description="ias系统的微服务地址"
+				  defaultValue="http://10.50.16.232:8080/ias/v1" />
+
+		<property name="mobile-ng.restfulapi.ess.url" description="ess的微服务地址"
+				  defaultValue="http://10.50.115.105:8086/ess/v1" />
+
+		<property name="mobile-ng.restfulapi.fts.url" description="fts系统的微服务地址"
+				  defaultValue="http://10.50.16.82:8082/fts/v1" />
+
+		<property name="mobile-ng.restfulapi.pss.url" description="pss系统的微服务地址"
+				  defaultValue="http://10.50.115.57:8087/pss/v1" />
+
+		<property name="mobile-ng.restfulapi.commonservices.url" description="common系统的微服务地址"
+				  defaultValue="http://10.50.115.125:8083/common-services/v1" />
+
+		<property name="mobile-ng.restfulapi.assetcenter.url" description="assetcenter系统的微服务地址"
+				  defaultValue="http://10.50.115.105:8082/assetcenter/v1" />
+
+		<property name="mobile-ng.restfulapi.sfs.url" description="社交系统的微服务地址"
+			defaultValue="http://10.50.16.10:8082/sfs/api/v1" />
+
+		<property name="mobile-ng.restfulapi.smac.url" description="smac系统的微服务地址"
+				  defaultValue="http://10.50.115.71:8092/smac/v1" />
+
+		<property name="mobile-ng.restfulapi.fundgroup.url" description="fundgroup系统的微服务地址"
+				  defaultValue="http://10.50.16.116:8022/fundgroup/v1" />
+
+		<property name="mobile-ng.restfulapi.reward.url" description="reward系统的微服务地址"
+				  defaultValue="http://10.50.16.114:8065/reward/v1" />
+
+		<property name="mobile-ng.restfulapi.cos.url" description="cos系统的微服务地址"
+				  defaultValue="http://10.50.16.238:7254/cos/v1" />
+
+		<property name="mobile-ng.restfulapi.credit.url" description="credit系统的微服务地址"
+				  defaultValue="http://10.50.16.232:9101/credit/v1" />
+
+		<property name="mobile-ng.restfulapi.msg-api-ng.url" description="msg-api-ng系统的微服务地址"
+				  defaultValue="http://10.50.115.66:8047/message-center-api/v1" />
+
+		<property name="mobile-ng.restfulapi.vip.url" description="vip系统的微服务地址"
+				  defaultValue="http://10.50.16.232:8099/vip/v1" />
+
+		<property name="mobile-ng.restfulapi.msg-center-ng.url" description="msg-center-ng系统的微服务地址"
+				  defaultValue="http://10.50.115.66:8046/message-center/v1" />
+
+		<property name="mobile-ng.restfulapi.activity-center.url" description="activity-center系统的微服务地址"
+				  defaultValue="http://10.50.16.9:8051/activity-center/api/v1" />
+
+		<property name="mobile-ng.restfulapi.res.url" description="res系统的微服务地址"
+				  defaultValue="http://10.50.16.235:8076/res/v1" />
+
+		<property name="mobile-ng.restfulapi.bankengine-ng.url" description="bankengine-ng系统的微服务地址"
+				  defaultValue="http://10.50.115.26:8088/bankengine-ng/v1" />
+
+		<property name="mobile-ng.restfulapi.user-group.url" description="user-group系统的微服务地址"
+				  defaultValue="http://10.50.16.9:8057/user-group/v1" />
+
+</group>
+
+	<script>
+		<generate template="WEB-INF/classes/handler.xml" />
+		<generate template="WEB-INF/classes/mobile-dubbo-consumer.xml" />
+		<generate template="WEB-INF/classes/mobile-dubbo-provider.xml" />
+		<generate template="WEB-INF/classes/mobile-mq-consumer.xml" />
+		<generate template="WEB-INF/classes/mobile-mq-common.xml" />
+		<generate template="WEB-INF/classes/mobile-mq-sender.xml" />
+		<generate template="WEB-INF/classes/spring-dao.xml" />
+		<generate template="WEB-INF/classes/mybatis-mobile-dao.xml" />	
+		<generate template="WEB-INF/applicationContext.xml" />
+		<generate template="WEB-INF/classes/log4j2.xml" />
+        <generate template="WEB-INF/web.xml" />
+	</script>
+</config>

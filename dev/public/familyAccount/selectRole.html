@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>开启亲情宝</title>
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/common.css">
+    <link rel="stylesheet" href="css/inviteMemList.css">
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/needLogin.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="title">您在家庭中是？</div>
+    <div class="sub-title">请选择您在家庭中的角色</div>
+    <div class="content">
+
+    </div>
+</div>
+<div class="tip">
+    <div class="tip_wrap">
+        <div class="tip_content">
+            <p style="text-align:center;">自定义角色</p>
+            <div class="input-block">
+                <input id="nickNameInput" type="text" placeholder="不超过5个字">
+            </div>
+        </div>
+        <div class="tip_btn" >
+            <ul style="width: 100%;">
+                <li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid" class="close_tip">
+                    <a href="javascript:;" id="go_to_cancel">取消</a>
+                </li>
+                <li style="float: left;width:50%;box-sizing: border-box;">
+                    <a href="javascript:;" id="go_to_input">确定</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/tradeh5/newWap/base/js/utils.js"></script>
+<script>
+    $(function () {
+
+        $('#go_to_cancel').on('click', function(){
+            $('#nickNameInput').val('');
+            $('.tip').hide();
+        });
+        $('#go_to_input').on('click', function(){
+            var nickname = $('#nickNameInput').val();
+            openFamilyAcct('99',nickname);
+            // window.location.href = 'inviteMember.html?type=9&nickname=' + encodeURIComponent(nickname);
+        });
+        getRoles();
+    });
+    function getRoles(){
+        utils.get('/sfs/v1/accounts/member/roles',null,function(result){
+            if(result.returnCode == 0){
+                var list = result.body;
+				var htm = '';
+				list.forEach(function(item,index){
+                    htm+='<div data-type="'+item.roleId+'" data-item="'+encodeURIComponent(JSON.stringify(item))+'" class="list" >'+
+                            '<img class="mem-pic" src="'+item.iconUrl+'">'+
+                            '<div class="mem-desc">'+item.roleName+'</div>'+
+                        '</div>';
+                    
+                });
+                $(".content").html(htm);
+                $('.content .list').on('click', function (event) {
+                    var type = event.currentTarget.dataset.type;
+                    var item = decodeURIComponent(event.currentTarget.dataset.item);
+                    // utils.setSession("inviteMember",item);
+                    if(type != 99){
+                        openFamilyAcct(type);
+                        // window.location.href = 'inviteMember.html';
+                    }
+                    else {
+                        $('#nickNameInput').val('');
+                        $('.tip').show();
+                    }
+                });
+            }
+        
+        });
+    }
+    function openFamilyAcct(roleId,customRoleName){
+        var accptMd ="WAP";
+        if(isApp()){
+            accptMd="MOBILE";
+        }
+        var params={
+            teamMemberType:'ADMIN',
+            acceptMode: accptMd,
+            branchCode:'247',
+            teamMemberRole:roleId
+        }
+        customRoleName&&(roleId=='99')&&(params.customRoleName=customRoleName);
+        utils.ajax({
+            url:'/sfs/v1/accounts/open',
+            type:'POST',
+            data:params,
+            success: function (result) {
+                if(result.returnCode===0){
+                    window.location.href="/tradeh5/newWap/familyAccount/home.html"
+                }
+            }
+        })
+          
+    }
+</script>
+</body>
+</html>

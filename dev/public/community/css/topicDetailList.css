@@ -1,0 +1,85 @@
+
+.content{
+    background: #fff;
+    padding: 1rem .75rem;
+    padding-bottom: 0.75rem;
+    margin-bottom: .5rem;
+}
+      
+.topicItem{
+    display: inline-block; height: 24px; margin-right: 10px; margin-top: 10px; border-radius: 4px; background-color: rgb(243, 250, 255);
+    width:fit-content;
+    width:-webkit-fit-content;
+    width:-moz-fit-content;
+}
+.topicName{
+    padding: 10px; font-size: 12px; line-height: 24px; color: rgb(20, 140, 230);
+}
+.shareDiv{
+    float: right;
+    border: 1px rgb(251,92,95) solid;
+    border-radius: 1rem;
+    margin-top: .2rem;
+    height: 1.25rem;
+    width: 3rem;
+}
+.share{
+    color: rgb(251,92,95);
+    display: flex;
+    justify-content: center;
+    line-height: 1.25rem;
+}
+.item{
+    width:17.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin:0 auto;    
+}
+.item .itemLeft{
+    width: 3rem;
+    height: 2rem;
+    border-radius: 10px 10px 10px 0;
+    padding: .5rem;
+    color: #fff;
+}
+.item .itemRight{
+    padding-left: .5rem;
+    width: 70%;
+    text-align: left;
+}
+.uinfo-b{
+    color: #666 !important;
+}
+.leftRate{
+    font-size: .85rem;font-weight: bold;
+}
+.leftDate{
+    font-size: .5rem;
+    display: block;
+    opacity: .5;
+}
+.red{
+    background-image: linear-gradient(45deg, #ff4527, #ff7639);
+}
+.green{
+    background-image: linear-gradient(45deg, #07AA50, #00C256); 
+}
+/* .content .item{
+    padding: .5rem .75rem;
+} */
+.rightTitle{
+    font-size: .85rem;
+    font-weight: bold;
+    display: block;
+}
+.infoDesc{
+    padding-top: .5rem;
+    font-size: .6rem;
+    display: inline-block;
+    color: #8c8c8c;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+

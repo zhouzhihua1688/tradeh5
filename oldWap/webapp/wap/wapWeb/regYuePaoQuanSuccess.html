@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <meta charset="GBK"> -->
+    <meta charset="utf-8">
+    <title>【悦跑圈】红包</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <script type="text/javascript" src="js/zepto.min.js"></script>
+    <script>
+        setFont();
+        window.onresize = function () {
+            setFont();
+        };
+        function setFont() {
+            var windowWidth = $(window).width();
+            windowWidth = windowWidth > 750 ? 750 : windowWidth;
+            $("html").css({"fontSize": windowWidth / (750 / 40)});
+        }
+
+    </script>
+    <style type="text/css">
+        img{display: block}
+        section{
+            position: relative;
+        }
+        .section1 p{
+            position: absolute;
+            color: #fff;
+            font-weight: bold;
+            font-size: 0.7rem;
+            top:3rem;
+            width: 12rem;
+            text-align: center;
+            left: 50%;
+            margin-left: -6rem;
+        }
+        .section2 p{
+            position: absolute;
+            color: #dc110b;
+            font-weight: bold;
+            font-size: 1.3rem;
+            top:3rem;
+            width: 12rem;
+            text-align: center;
+            left: 50%;
+            margin-left: -6rem;
+        }
+        .section3 div{
+            width: 9.05rem;
+            height: 9.05rem;
+            position: absolute;
+            top:1.2rem;
+            left: 50%;
+            margin-left: -4.425rem;
+        }
+        .section4 p{
+            position: absolute;
+            color: #fff;
+            font-weight: bold;
+            font-size: 0.7rem;
+            top:0.9rem;
+            width: 12rem;
+            text-align: center;
+            left: 50%;
+            margin-left: -6rem;
+        }
+    </style>
+</head>
+<body>
+    <section class="section1">
+        <img src="img/ss_01.png" alt="">
+        <p>您可在现金宝app中查看提现</p>
+    </section>
+    <section class="section2">
+        <img src="img/ss_02.png" alt="">
+        <p>兑换成功</p>
+    </section>
+    <section class="section3">
+        <img src="img/ss_03.png" alt="">
+        <div>
+            <img src="img/ewm.png" alt="">
+        </div>
+    </section>
+    <section class="section4">
+        <img src="img/ss_04.png" alt="">
+        <p>长按二维码下载现金宝app</p>
+    </section>
+</body>
+</html>

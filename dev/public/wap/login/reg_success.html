@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <title>注册成功</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/weixin.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210302"></script>
+    <script type="text/javascript" src="../js/login/reg_success.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        }
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+                oHtml.style.fontSize = '17.06px';
+            }else if(screenWidth >= 750){
+                oHtml.style.fontSize = '40px';
+            }else{
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+            }
+        }
+    </script>
+    <style>
+        html,body{background:#fff}
+        .main{width:100%;background: #fff;}
+        .success{width:100%;height:1.25rem;text-align: center;margin-top:4.5rem;}
+        .success img{width:1.25rem;height:1.25rem;display:inline-block;vertical-align: middle;}
+        .success span{color:#000;display:inline-block;font-size:0.8rem;line-height:1.25rem;vertical-align: middle;margin-left:0.5rem;}
+        .add{width:100%;text-align: center;color:#666;font-size:0.65rem;margin-top:1.875rem;}
+        .button{width:100%;height:2.25rem;margin-top:1.125rem;color:#fe7e01;}
+        .button .xjb{background: #fe7e01;color:#fff;width:8.25rem;height:2.25rem;float:left;border:1px solid #fe7e01;text-align:center;line-height:2.25rem; font-size:0.85rem;margin-left:0.75rem;}
+        .button .card{width:8.25rem;height:2.25rem;float:right;text-align:center;line-height:2.25rem;font-size:0.85rem;border:1px solid #fe7e01;margin-right:0.75rem;}
+        .active{background: #fe7e01;color:#fff;}
+        .picture{width:375px;height:99px;margin-top:1.25rem;display: none}
+        .tuijian{width:100%;margin-top:2.25rem;display: none}
+        .tuijian .biaoti{color:#000;font-size:0.75rem;margin-left:0.75rem;}
+        .tuijian .biaoti span:nth-of-type(2){font-size:0.65rem;color:#666;margin-left:0.5rem;}
+        .content{width:100%;padding-bottom:2rem;padding-top:0.85rem;}
+        .content .box{width:90%;margin:0 auto;box-shadow:0px 0px 5px 6px #f4f4f4;padding-bottom:1rem;border-radius:3px;}
+        .content .box .title{width:100%;font-size:0.85rem;color:#000;text-align:center;padding-top:1rem;}
+        .content .box .title .text{font-size:0.85rem;font-weight: bold;vertical-align:middle}
+        .content .box .title .hot{width:1.05rem;height:1.05rem;display:inline-block; background: url('../images/Login/hot.png') no-repeat; background-size:cover;text-align:center;line-height:1.05rem;font-size:0.6rem;color:#fff;vertical-align:middle}
+        .content .box .text2{width:100%;font-size: 0.65rem;color:#666;text-align:center;margin-top:0.35rem;margin-left:-0.5rem;}
+        .content .box .text3{width:100%;font-size:1.5rem;color:#f4333c;text-align:center;margin-top:0.875rem;font-weight: bold}
+        .content .box .text3 .percent{font-size: 0.75rem}
+        .content .box .text4{width:100%;font-size:0.65rem;color:#666;text-align:center;margin-top:0.35rem;}
+        .content .box .buy{width:10.0rem;height:1.75rem;text-align:center;line-height:1.75rem;background:#fb5c5f;color:#fff;font-size:0.8rem;margin:0 auto;margin-top:0.75rem;border-radius:3px;}
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="success">
+        <img src="../images/Login/success.png" alt="">
+        <span>注册成功</span>
+    </div>
+    <div class="add">添加银行卡充值现金宝立即享受收益</div>
+    <div class="button">
+        <div class="xjb" >去首页逛逛</div>
+        <div class="card active" id="card">立即绑卡</div>
+    </div>
+
+
+
+<div id="panel">
+</div>
+<!-- 图片
+<div class="picture"><img src="../images/Login/picture.png" alt=""></div>
+&lt;!&ndash; 注册成功推荐位     &ndash;&gt;
+<div class="tuijian">
+    <div class="biaoti"><span style="font-weight: bold">产品推荐</span><span>臻选好基&nbsp &nbsp收益可期</span></div>
+</div>
+<div class="content">
+    <div class="box">
+        <div class="title">
+            <span class="text">稳稳小确幸</span>
+            <span class="hot">热</span>
+        </div>
+        <div class="text2">好债打底  好股添色</div>
+        <div class="text3">9.80<span class="percent">%</span></div>
+        <div class="text4">成立以来收益率</div>
+        <div class="buy">立即购买</div>
+    </div>
+</div>-->
+</body>
+
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>工资理财</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/bank.css">
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <style>
+        body {
+            background-color: #f6f6f6;
+            height: 100%;
+        }
+
+        .huge {
+            text-align: center;
+            background-color: #fe7e01;
+            color: #fff;
+            padding: .7rem .75rem 1.7rem;
+        }
+
+        .huge h2 {
+            width: 4.25rem;
+            height: 4.25rem;
+            border-radius: 50%;
+            background-color: #fff;
+            margin: 0 auto;
+        }
+
+        .huge h3 {
+            font-size: .85rem;
+            font-weight: bolder;
+            height: 1.7rem;
+        }
+
+        .huge h3 span {
+            position: relative;
+            line-height: 1.7rem;
+        }
+
+        .huge h3 a {
+            position: absolute;
+            font-size: .6rem;
+            font-weight: 100;
+            padding: .05rem .3rem;
+            border-radius: .45rem;
+            border: 1px solid #fff;
+            color: #fff;
+            line-height: normal;
+            top: 50%;
+            margin-top: -.4rem;
+            right: -2.5rem;
+        }
+
+        .content .logo {
+            width: 100%;
+            height: 100%;
+        }
+
+        .content .progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content .progress p {
+            display: block;
+            width: 33.33%;
+            text-align: center;
+            flex-grow: 1;
+            position: relative;
+            font-size: .6rem;
+            margin-top: .5rem;
+        }
+
+        .content .progress span {
+            display: inline-block;
+            border-radius: 50%;
+            border: .5px solid #fff;
+            line-height: .8rem;
+            width: .8rem;
+        }
+
+        .content .progress i {
+            position: absolute;
+            top: 50%;
+            right: -1.5rem;
+            width: 3.2rem;
+            height: 0;
+            border-top: 1px dashed #fff;
+        }
+
+
+        .content .money {
+            background: #fff;
+            padding: 0.75rem;
+            border-radius: .8rem .5rem 0 0;
+            margin-top: -1rem;
+            border-bottom: .5px solid #eeeeee;
+        }
+
+
+
+        .content .money .chineseText {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            font-size: .6rem;
+        }
+
+        .content .money .chineseText img {
+            width: .5rem;
+            height: .35rem;
+            margin-left: 4rem;
+            margin-right: .5rem;
+        }
+
+        .content .money .inputMoney {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #000;
+            font-weight: 900;
+            font-size: 1.5rem;
+        }
+
+        .content .ml15 {
+            margin-left: .75rem;
+        }
+
+        .content .money input {
+            outline: none;
+            /* border: none; */
+            color: #000;
+            /* font-weight: 900; */
+            font-size: 1.5rem;
+            width: 70%;
+            padding: 0;
+            height: 100%;
+        }
+
+        .content .money .chineseText img {
+            width: .5rem;
+            height: .35rem;
+            margin-left: 3.5rem;
+            margin-right: .5rem;
+        }
+
+        .content .money .inputMoney img {
+            height: .75rem;
+        }
+
+        .content .black {
+            /* font-size: 0.75rem; */
+            color: #000;
+        }
+
+        .content .high {
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content .dim {
+            font-size: 0.6rem;
+            color: #666666;
+            line-height: 1rem;
+            padding: .25rem .75rem;
+        }
+
+        .content .high {
+            padding: 0.75rem
+        }
+
+        .content .high .bank {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content .high .sign {
+            height: 1rem;
+        }
+
+        .content .high .bank span {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content .ml10 {
+            margin-left: .5rem;
+        }
+
+        .content img {
+            height: .75rem;
+        }
+
+        .content .red,
+        .fundList .red {
+            color: #fb5c5f;
+        }
+
+        .content .checkBox {
+            vertical-align: middle;
+            margin-top: -.1rem;
+            height: .75rem;
+            width: .75rem;
+            margin-right: .3rem;
+        }
+
+        .content .btn {
+            border: none;
+            outline: none;
+
+            color: #fff;
+            width: 100%;
+            /* padding: .6rem 0; */
+            margin: 0 auto;
+            font-size: .7rem;
+            border-radius: .1rem;
+        }
+
+        .fundList {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .fundList ul {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: #fff;
+            width: 100%;
+        }
+
+        .fundList ul li {
+            padding: .6rem 1.25rem;
+        }
+
+        .fundList ul li {
+            border-bottom: .5px solid #eeeeee;
+            color: #000;
+        }
+
+        .fundList .title {
+            padding-top: .75rem;
+            padding-bottom: .75rem;
+            font-size: .75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .fundList .fund {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .fundList .fund>div {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .fundList .fund img {
+            width: .75rem;
+            height: .75rem;
+            margin-right: .5rem;
+        }
+
+        .fundList .pt5 {
+            padding-top: 0.25rem;
+        }
+
+        .fundList .blue {
+            color: #148ce6;
+        }
+
+        .choose-time li.on .annulus,
+        .choose-time2 li.on .annulus {
+            float: right;
+            border-radius: 50%;
+            width: 0.75rem;
+            height: 0.75rem;
+            margin-top: 0.9rem;
+            display: block;
+            border: 1px solid #ff7e01;
+            position: relative;
+        }
+
+        .choose-time li.on .annulus:after,
+        .choose-time3 li.on .annulus:after {
+            display: block;
+            content: "";
+            width: .4rem;
+            height: .4rem;
+            background-color: #ff7e01;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 50%;
+            margin: -.2rem 0 0 -.2rem;
+        }
+		
+        .tip2{position: fixed;
+			top: 0;
+			left: 0;
+			background-color: rgba(0,0,0,0.7);
+			height: 100%;
+			width: 100%;
+			overflow: auto;
+			font-size: 0.6rem;
+			z-index: 999;
+		}
+		.tip2 .tip_wrap{
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			-webkit-transform: translate(-50%,-50%);
+			transform: translate(-50%,-50%);
+			margin: 0;
+			width:80%;
+			/*height:16rem;*/
+			background: #fff;
+			-webkit-border-radius: 5px;
+		}
+	    .tip2 .tip_wrap .tip_content p{font-size: .7rem;margin-top: .7rem;line-height: 1rem;margin-bottom: 1rem;text-align: center;line-height: 3rem;}
+	    .tip2 .tip_wrap .tip_content{border-bottom: 1px #eee solid;}
+	    .tip2 .tip_wrap .tip_btn ul li{text-align: center;font-size: .75rem;color:#006bfe;}
+	    .tip2 .tip_wrap .tip_btn ul li a{display:block;text-align: center;font-size: .75rem;width:100%;padding:.7rem 0;}
+		
+    </style>
+</head>
+<body>
+
+    <div class="content">
+        <section class="huge">
+            <h2><img class="logo" src="../images/wallet.png" alt=""></h2>
+            <h3><span>工资宝<a href="autoTopUpFaq.html">详情</a></span></h3>
+            <div class="progress">
+                <p><span>1</span><i></i></p>
+                <p><span>2</span><i></i></p>
+                <p><span>3</span></p>
+            </div>
+            <div class="progress">
+                <p>设置工资宝计划</p>
+                <p>每月等待发工资</p>
+                <p>自动转入享收益</p>
+            </div>
+        </section>
+        <section class="money">
+            <p class="black">转入金额</p>
+            <p class="chineseText"><img src="../images/triangle.png"><span></span></p>
+            <p class="inputMoney"><span class="ml15">￥</span><input type="number"><img src="../images/del.png"
+                    class="del"></p>
+        </section>
+        <section class="high funds">
+            <div>
+                <p class="black">转入产品</p>
+            </div>
+            <div class="bank"><span class="ml10 black" id="productName">现金宝</span><img class="ml10" src="../images/arr.png">
+            </div>
+        </section>
+        <p class="dim" id="dim" ></p>
+		<section class="high">
+            <div>
+                <p class="black">计划名称</p>
+            </div>
+            <div><input type="text" class="autoTopUpRemark" style="color:#000000;" placeholder="" data-rquire="false"></div>
+        </section>
+        <section class="high selectBankCard">
+            <div>
+                <p class="black">工资卡</p>
+            </div>
+            <div class="bank selectedBankCard"></div>
+        </section>
+        <p class="dim">单笔、日累计100万、月累计500万</p>
+        <section class="high" id="appDate">
+            <div>
+                <p class="black">转入日期</p>
+            </div>
+            <div class="bank"><span class="ml10 black date">每月1日</span><img class="ml10"
+                    src="../images/arr.png"></div>
+        </section>
+        <p class="dim" id="kkDate"></p>
+        <section class="section2" id="risk_list">
+            
+        </section>
+        <section style="padding: 0.75rem;">
+            <button class="btn" id="btn-submit">确认</button>
+        </section>
+
+    </div>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <p class="Bomb-box-tips"  style="padding-top: 0.75rem;"></p>
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;">确定</a>
+    </div>
+</div>
+<div class="layer animated slideInDown" id="bankCardList" style="display: none; z-index: 10;">
+    <ul class="grid-list">
+        
+    </ul>
+</div>
+
+    <div class="fundList">
+        <ul id="fund">
+            
+        </ul>
+    </div>
+
+<div class="layer animated slideInDown choose-time" style="display: none; z-index: 10;">
+    <ul class="list-group no-margin-top lh-100">
+        <li class="bottom-border font-28" data-choose-time="MM"><div>每月<span class="annulus"></span></div></li>
+        <li class="bottom-border font-28" data-choose-time="2W"><div>每双周<span class="annulus"></span></div></li>
+        <li class="bottom-border font-28" data-choose-time="WW"><div>每周<span class="annulus"></span></div></li>
+    </ul>
+</div>
+<div class="layer  choose-time2" style="display: none; z-index: 10;">
+    <ul class="list-group no-margin-top lh-100"></ul>
+</div>
+
+
+    <div class="tip2 bind_card_tip" style="display: none;">
+        <div class="tip_wrap">
+            <div class="tip_content">
+                <p id="bind_card_tip">您还未绑定银行卡，请先绑定银行卡</p>
+            </div>
+            <div class="tip_btn" >
+                <ul style="width: 100%;">
+                    <li style="float: left;width:100%;box-sizing: border-box;"><a href="../card/manage_card.html" id="go_to_bind_card">添加银行卡</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/lib/weixin.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script type="text/javascript" src="../js/common.js?20210302"></script>
+<script type="text/javascript" src="../js/account/autoTopUpCM.js?20210422"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script>
+    // 20210712 添加 回首页 圆形按钮 
+    addGoHomeCircle();
+</script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!--<meta charset="gbk">-->
+    <title>投顾测算</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/localStorage.js"></script>
+    <script type="text/javascript" src="js/common.js?20210106"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: #f6f6f6
+        }
+
+        .main {
+            width: 100%;
+            position: relative;
+        }
+
+        .head_icon {
+            width: 100%;
+            height: 7.5rem;
+            background: url('img/head.png') no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .head_icon .text {
+            width: 90%;
+            margin: 0 auto;
+            font-size: 1.0rem;
+            font-weight: bold;
+            padding-top: 1.875rem;
+        }
+
+        .head_icon .text1 {
+            width: 90%;
+            margin: 0 auto;
+            font-size: 0.75rem;
+            margin-top: 0.5rem
+        }
+
+        .tou_list {
+            width: 90%;
+            background: #fff;
+            position: absolute;
+            top: 5.75rem;
+            left: 50%;
+            margin-left: -45%;
+            border-radius: 0.25rem 0.25rem 0 0;
+        }
+
+        .tou_list .card1 {
+            margin-left: .75rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px #eee solid;
+        }
+
+        .tou_list .card1 .wenben {
+            width: 80%;
+            height: 1rem;
+        }
+
+        .tou_list .card1 .text1 {
+            width: 3rem;
+            height: 1.0rem;
+            border: 1px solid #148ce6;
+            text-align: center;
+            line-height: 1rem;
+            color: #148ce6;
+            border-radius: 3px;
+            float: left;
+            font-size: 0.6rem
+        }
+
+        .tou_list .card1 .text2 {
+            height: 1.0rem;
+            text-align: center;
+            line-height: 1rem;
+            color: #000;
+            float: left;
+            margin-left: .75rem;
+            font-size: .75rem;
+        }
+
+        .tou_list .card2 .title {
+            line-height: 3rem;
+            padding-bottom: .5rem;
+            padding-left: .75rem;
+            color: #000;
+            font-size: .8rem;
+            font-weight: bold;
+
+        }
+
+        .tou_list .card2 .opeart {
+            overflow: hidden;
+            margin-left: .75rem;
+            padding-bottom: .75rem;
+            border-bottom: #eee 1px solid;
+            padding-right: .75rem;
+        }
+
+        .tou_list .card2 .opeart .opeart_l {
+            width: .75rem;
+            float: left;
+        }
+
+        .tou_list .card2 .opeart .opeart_r {
+            width: 0.4rem;
+            float: right;
+            margin-top: .5rem;
+        }
+        .tou_list .card2 .opeart .opeart_c {
+            margin-left: .5rem;
+            float: left;
+        }
+
+        .tou_list .card2 .opeart .opeart_c h2 {
+            font-size: 0.75rem;
+            line-height: .75rem;
+            color: #000;
+            margin-bottom: .5rem;
+        }
+
+        .tou_list .card2 .opeart .opeart_c h4 {
+            font-size: 0.6rem;
+            line-height: .6rem;
+            color: #666;
+        }
+
+        .tou_list .card2 .content {
+            overflow: hidden;
+            margin-left: .75rem;
+            padding: .75rem .75rem .75rem 0;
+            border-bottom: #eee 1px solid;
+            color: #999;
+        }
+
+        .tou_list .card2 .content .content_l {
+            width: 0.4rem;
+            float: right;
+            margin-top: .5rem;
+            background: url(./img/icon_02.png) no-repeat no-repeat;
+        }
+
+        .active {
+            background: url(./img/choose_02.png) no-repeat no-repeat !important;
+            background-size: 100% 100% !important;
+        }
+
+        .tou_list .card2 .content .content_r {
+            float: left;
+            width: 90%;
+            margin-left: .5rem;
+            word-wrap: break-word
+        }
+
+        .tou_list .card2 .content .content_r h2 {
+            font-size: .75rem;
+            line-height: .75rem;
+            margin-bottom: 0.375rem;
+        }
+
+        .tou_list .card2 .content .content_r h4 {
+            font-size: .6rem;
+            line-height: 1.5;
+
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="main">
+    <div class="head_icon">
+        <div class="text">你的理财方案已生成</div>
+        <div class="text1">为达成生活中的目标，追求稳健收益</div>
+    </div>
+    <div class="tou_list">
+        <div class="card1">
+            <div class="wenben" id="planTarget" style="margin-top:1.25rem;">
+                <div class="text1">投资目标</div>
+                <div class="text2" id='target'></div>
+            </div>
+            <div class="wenben" id="productName" style="margin-top:0.75rem;">
+                <div class="text1">推荐产品</div>
+                <div class="text2" id="product"></div>
+            </div>
+            <div class="wenben" id="planDurationTime" style="margin-top:0.75rem;">
+                <div class="text1">投资期限</div>
+                <div class="text2" id="durationTime"></div>
+            </div>
+        </div>
+        <div class="card2">
+            <div class="title">操作指引</div>
+            <div class="opeart">
+                <a id="create" href="javascript:void(0);">
+                    <img src="./img/icon_01.png" alt="" class="opeart_l">
+                    <div class="opeart_c">
+                        <h2>创建管理这笔钱的方案账户</h2>
+                        <h4>专用账户，资金管理更清晰</h4>
+                    </div>
+                    <img src="./img/icon_02.png" alt="" class="opeart_r">
+                </a>
+            </div>
+            <!--<div class="content">-->
+            <!--<a id="initPurchaseAmt" href="javascript:void(0);">-->
+            <!--<i class="content_l"></i>-->
+            <!--<div class="content_r">-->
+            <!--<h2>一次性投入1,000.00元【稳稳小确幸】</h2>-->
+            <!--<h4>资金先充现金宝再买入稳稳小确幸可享申购费优惠，最低1折</h4>-->
+            <!--</div>-->
+            <!--</a>-->
+            <!--</div>-->
+            <!--<div class="content">-->
+            <!--<a id="mipBaseAmt" href="javascript:void(0);">-->
+            <!--<i class="content_l"></i>-->
+            <!--<div class="content_r">-->
+            <!--<h2>设置每月定投600.00元【稳稳小确幸】</h2>-->
+            <!--<h4>设置好定投金额和时间，系统会自动执行，省心省力</h4>-->
+            <!--</div>-->
+            <!--</a>-->
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    begin();
+
+    function begin() {
+        var planSerialNo = getQueryVariable('planSerialNo');
+        var mipGroupId = '';
+        var initPurchaseGroupId = '';
+        var planDetails;
+        if (planSerialNo != null && planSerialNo != undefined) {
+            var url = "/ias/v1/plans/plan?planSerialNo=" + planSerialNo;
+        }
+        App.get(url, null, function (result) {
+            if (result != null && result != '') {
+                var info = result.body;
+                if (info != null && info != '') {
+                    var arAcct = info.arAcct;
+                    var arAcctName = info.arAcctName;
+                    if (info.planTarget != null && info.planTarget != '') {
+                        $("#target").html(info.planTarget);
+                    } else {
+                        $('#planTarget').hide();
+                    }
+                    var arr=[];
+                    for (var key in info.rcmdProducts) {
+                        arr.push(info.rcmdProducts[key])
+                    }
+                    if (arr.length > 1) {
+                        var productName1 = arr[0];
+                        if (productName1 == "稳健小确幸") {
+                            $('#product').html(productName1 + "+ 跟我投")
+                        } else {
+                            $('#product').html("跟我投 +" + arr[1])
+                        }
+                    } else {
+                        $('#product').html(arr[0])
+                    }
+                    if (info.planDurationTime != null && info.planDurationTime != '') {
+                        var planDurationTime = info.planDurationTime
+                        if (planDurationTime != undefined && planDurationTime != '') {
+                            switch (planDurationTime) {
+                                case '6':
+                                    $("#durationTime").html('半年');
+                                    break;
+                                case '12':
+                                    $("#durationTime").html('一年');
+                                    break;
+                                case '18':
+                                    $("#durationTime").html('一年半');
+                                    break;
+                                case '24':
+                                    $("#durationTime").html('两年');
+                                    break;
+                                case '30':
+                                    $("#durationTime").html('两年半');
+                                    break;
+                                case '35':
+                                    $("#durationTime").html('两年以上');
+                                    break;
+                            }
+                        }
+                    } else {
+                        $("#planDurationTime").hide();
+                    }
+                    if (arAcctName != '' && arAcctName != undefined) {
+                        $('.opeart_c h2').html(arAcctName);
+                        $('.opeart_c h4').hide();
+                    }
+                    planDetails = info.planDetails;
+                    var html = '';
+                    planDetails.forEach(function (item) {
+                        if (item.investType == '1') {
+                            initPurchaseGroupId = item.productId;
+                            if (item.initPurchaseAmt == 0 || item.initPurchaseAmt == null) {
+                                html += '';
+                            } else {
+                                console.log(initPurchaseGroupId)
+                                html += '<div class="content">' +
+                                    '                <a id="initPurchaseAmt" href="htffundxjb://action?type=adviser&subType=purchase&groupId='+initPurchaseGroupId+'&arAcct='+arAcct+'&arAcctName='+ encodeURI(encodeURI(arAcctName)) +'">' +
+                                    '                    <div class="content_r">' +
+                                    '                        <h2>一次性投入' + item.initPurchaseAmt + '元【' + item.productName + '】</h2>' +
+                                    '                        <h4>资金先充现金宝再买入稳稳小确幸可享申购费优惠，最低1折</h4>' +
+                                    '                    </div>' +
+                                    '                 <i class="content_l"><img src="./img/icon_02.png" alt=""/></i>' +
+                                    '                </a>' +
+                                    '            </div>'
+                            }
+                        } else {
+                            mipGroupId = item.productId;
+                            if (item.mipBaseAmt == 0 || item.mipBaseAmt == null) {
+                                html += '';
+                            } else {
+                                //arAcctName = encodeURI(encodeURI(arAcctName));
+                                console.log(mipGroupId);
+                                html += '<div class="content">' +
+                                    '                <a id="mipBaseAmt" href="htffundxjb://action?type=adviser&subType=mip&groupId='+mipGroupId+'&arAcct='+arAcct+'&arAcctName='+ encodeURI(encodeURI(arAcctName)) +'">' +
+                                    '                    <div class="content_r">' +
+                                    '                        <h2>设置每月定投' + item.mipBaseAmt + '元【' + item.productName + '】</h2>' +
+                                    '                        <h4>设置好定投金额和时间，系统会自动执行，省心省力</h4>' +
+                                    '                    </div>' +
+                                    '                </a>' +
+                                    '                <i class="content_l"><img src="./img/icon_02.png" alt=""/></i>' +
+                                    '            </div>'
+                            }
+                        }
+                    })
+                    $('.card2').append(html);
+                    $('.content').css('pointer-events', 'none');
+                    if (arAcct != undefined && arAcct != null && arAcct != '') {
+                        $('.content').css('color', '#000');
+                        $('.tou_list .card2 .opeart .opeart_l').hide();
+                        $('.content').css('pointer-events', 'auto');
+                        $('.tou_list .card2 .opeart').css('pointer-events', 'none');
+                        $('.opeart .opeart_c h2').css('color', '#999');
+                        $('.opeart .opeart_c h4').css('color', '#999');
+                        $('.content').click(function () {
+                            $('.content').css('color', '#999');
+                            $(this).css('color', '#000')
+                        })
+                    }
+                }
+            }
+        });
+
+        //$("#create").attr("href", "htffundxjb://action?type=adviser&subType=createAccount&planSerialNo=" + planSerialNo);
+        $('.opeart').click(function () {
+            window.location.href = "htffundxjb://action?type=adviser&subType=createAccount&planSerialNo=" + planSerialNo;
+        })
+    }
+
+</script>
+</html>

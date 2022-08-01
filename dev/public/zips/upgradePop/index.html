@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>汇添富基金</title>
+    <style>
+        html, body {background-color: #DB1716; height: 100%; min-height: 100%;font-family:'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+        .init_box {position: fixed;top: 0;left: 0;width: 100%;}
+        .init_box .upInf .profit{font-size: 1.5rem; position: absolute; top:37%; left: 17%; color: #FB2329; font-weight:900;}
+        .init_box .upInf .textUp{position: absolute; width:4.2rem; left:62%; padding:0 0.25rem; color:#D23B02; font-size:0.6rem;letter-spacing: 1px;  font-weight: bold;display:block; text-align: left; }
+        .init_box .upInf .textDown{position: absolute; top:38%; left:62%; height:0.8rem; padding:0 0.25rem; color:#D23B02; letter-spacing: 1px;  font-weight: bold;display:block; text-align: center; line-height:0.9rem; }
+        .init_box .upInf .quickGetNumber{font-size: 1.5rem; position: absolute; left: 44%; color: #FB2329; font-weight:900;}
+        .init_box .contents .upInf .init_update{
+            position: absolute;
+    left: 17%;
+    top:48%;
+    width: 20rem;
+    height: 3rem;
+    margin-left: -2.5rem;
+}
+    </style>
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>    
+</head>
+
+<body style="height: 100%;width:100%;margin: 0;">
+
+    <div class="init_box">
+        <div class="contents">
+            <div style="position: relative; margin: 0;">
+                <img src="./images/img5.png?20220106" style="display:block;width: 100%; margin: 0;">
+            </div>
+            <div class='upInf'>
+            <span class="profit">--</span>
+            <p class="textUp" style="display: none;">--</p>
+            <p class="textDown" style="display: none;">七日年化收益</p>
+            <div style="position: relative; margin: 0;">
+                <img src="./images/img6.png?20220106" style="display:block; width:100%; margin: 0;">
+                <p class='quickGetNumber' style="display: none;">6</p>
+                <div class="init_update"></div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+<script type="text/javascript" src="/tradeh5/newWap/base/js/lib/jquery.3.4.1.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script>
+
+$(function (){
+    getTopHeight();
+    showImagePopup();
+});
+
+function getTargerFundId(){
+    $.get('/smac/v1/config/base-account/target-fund-info', function (result) {
+        if (result.returnCode == 0 && result.body) { 
+            var targetFundId = result.body.fundId;
+            var targetFundName =  result.body.fundName;
+            var fundYieldDisplay = result.body.fundYieldDisplay;
+            $(".textUp").text(targetFundName);
+            $(".profit").text(fundYieldDisplay + "%");
+
+            // $.ajax({
+            //     url: '/mobile-bff/v1/fund/detailInfo',
+            //     type: 'post',
+            //     contentType: 'application/json',
+            //     data: JSON.stringify({
+            //         fundId: targetFundId
+            //     }),
+            //     success: function (result) {
+            //         if (result.returnCode === 0) {
+            //             var fundDetail = result.body;
+            //             $(".profit").text(Number(fundDetail.yield * 100).toFixed(3) + "%");
+            //         } 
+            //     }.bind(this)
+            // })
+
+        }else if(result.returnCode == 1000){
+            var jumpUrl = "/tradeh5/newWap/auth/login_wap.html?referUrl=" + encodeURIComponent(document.URL);
+            if(isAndroidApp()) {
+                if(typeof handler != 'undefined' && handler.appLogin){
+                    handler.appLogin("");
+                } else {
+                    window.location = jumpUrl;
+                }
+            } else if(isIosApp()) {
+                if (typeof window.webkit != 'undefined'){
+                    window.webkit.messageHandlers.appLogin.postMessage("");
+                } else {
+                    window.location = jumpUrl;
+                }
+            } else {
+                window.location = jumpUrl;
+            }
+        }else{
+            console.log('codeLoginRequest result=', result);
+        }
+    });
+}
+
+// 20210621新加
+// 升级收益
+function getFundDetails() {
+    $.get('/smac/v1/asset/base-account/fund/info?branchCode=247', function (result) {
+        if (result.returnCode == 0) {  
+            console.log("===",result)
+            $(".profit").text(result.body.targetBaseFundYieldDisplay+'%');
+            $(".textUp").text(result.body.targetBaseFundName);
+        }else if(result.returnCode == 1000){
+            var jumpUrl = "/tradeh5/newWap/auth/login_wap.html?referUrl=" + encodeURIComponent(document.URL);
+            if(isAndroidApp()) {
+                if(typeof handler != 'undefined' && handler.appLogin){
+                    handler.appLogin("");
+                } else {
+                    window.location = jumpUrl;
+                }
+            } else if(isIosApp()) {
+                if (typeof window.webkit != 'undefined'){
+                    window.webkit.messageHandlers.appLogin.postMessage("");
+                } else {
+                    window.location = jumpUrl;
+                }
+            } else {
+                window.location = jumpUrl;
+            }
+        }else{
+            console.log('codeLoginRequest result=', result);
+        }
+    });
+}
+
+// 20210705 显示现金宝升级弹窗
+function showImagePopup(){
+    // getFundDetails();   // 升级收益
+    //20220301 通过底层切换uop配置
+    getTargerFundId();
+
+    $(".init_box").show();
+    $(".init_update").click(function(e){
+        //修改为跳到app页面
+        if(utils.isProdEnv()){
+            window.location.href = "htffundxjb://action?type=url&link=" + btoa("https://activity.99fund.com/activity-center/act-resources/pages/xjbupdate/index.html");    
+        } else {
+            window.location.href = "htffundxjb://action?type=url&link=" + btoa("http://appuat.99fund.com.cn:7081/activity-center/act-resources/pages/xjbupdate/index.html");    
+        }
+        //window.location.href ="https://activity.99fund.com/activity-center/act-resources/pages/xjbupdate/index.html";
+    })
+}
+
+function getTopHeight(){
+    var screenWidth = oHtml.clientWidth;
+    var topHeight = 0.8;
+    var textDownSize =  0.6;
+    var topPercent = 31;
+    if(screenWidth <= 320){
+        topHeight = screenWidth / 320 * 0.42;
+        textDownSize = 0.5;
+        topPercent = 29;
+    }
+
+    $(".textDown").css({"font-size": textDownSize+"rem"});
+    $(".quickGetNumber").css({"top":  topHeight+"rem"});
+    $(".textUp").css({"top": topPercent+"%"});
+    $(".textDown").show();
+    $(".quickGetNumber").show();
+    $(".textUp").show();
+
+}
+
+
+</script>
+<!-- <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script> -->
+</body>
+</html>

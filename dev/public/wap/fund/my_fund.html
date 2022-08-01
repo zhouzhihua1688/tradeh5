@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!--<meta charset="GBK">-->
+	 <meta charset="utf8">
+	<title>我的基金</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/base.css">
+	<link rel="stylesheet" href="../css/base_v1.css">
+	<!-- <script type="text/javascript" src="js/zepto.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="../css/fund/my_fund.css">
+    <style>
+
+        .tip2{position: fixed;
+            top: 0;
+            left: 0;
+            background-color: rgba(0,0,0,0.7);
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            font-size: 0.6rem;
+            z-index: 999;
+        }
+        .tip2 .tip_wrap{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+            margin: 0;
+            width:80%;
+            /*height:16rem;*/
+            background: #fff;
+            -webkit-border-radius: 5px;
+        }
+        .tip2 .tip_wrap .tip_content p{padding:0 1.5rem 0 1.5rem;font-size: .7rem;margin-top: .7rem;line-height: 1rem;margin-bottom: 1rem;text-align: center;line-height: 1rem;}
+        .tip2 .tip_wrap .tip_content{border-bottom: 1px #eee solid;}
+        .tip2 .tip_wrap .tip_btn ul li{text-align: center;font-size: .75rem;color:#006bfe;}
+        .tip2 .tip_wrap .tip_btn ul li a{display:block;text-align: center;font-size: .75rem;width:100%;padding:.7rem 0;}
+        /*新增加页面样式*/
+        #asset{width:100%;margin:0 auto;}
+        #asset #ul{width:9.0rem;height:2rem;margin:0 auto;
+            border-radius:1.25rem; border:1px solid #fe5a5b;
+            position:relative;top:0.5rem;
+        }
+        #asset #ul li{width:50%;height:2rem;line-height: 2rem;text-align: center;font-size: 0.7rem;color:#fe5a5b;}
+        #asset #ul li:nth-of-type(1){width:50%;float:left;border-radius:1.25rem 0 0 1.25rem;color:#fe5a5b;}
+        #asset #ul li.bg-color1{background:#fe5a5b;color:#fff;}
+        /*.bg-color2{background:#fe5a5b;border-radius:0rem 1.25rem 1.25rem 0rem;}*/
+        #asset #ul li:nth-of-type(2){width:50%;float:right;border-radius:0rem 1.25rem 1.25rem 0rem;}
+
+        .footer{width:100%;padding:.2rem 0 0 0;background: #f6f6f6;position:fixed;left: 0;bottom: 0;}
+        .footer p{/*height:1rem; line-height: 1rem;*/width:78%;margin-left:11%;font-size: .6rem;color:#fb5c5f;background: #fee5e5;border-radius: .5rem;text-align: center;}
+        /* 底部按钮 */
+        .footer_fiexd{position:fixed;left: 0;bottom: 0;height:2.5rem;width:100%;background: #fff;}
+        .footer_fiexd ul{display: flex; width: 100%;}
+        .footer_fiexd ul li{flex: 1;height:2.5rem;background:#fe7e01 ;}
+        /* .footer_fiexd ul li:nth-of-type(1){	} */
+        .footer_fiexd ul li{border-left:1px #fff solid;width: 50%;}
+        .footer_fiexd ul li:nth-of-type(1){background: #fff;}
+        .footer_fiexd ul li a{display:block;width:100%;height: 100%;text-align: center;color:#fff;font-size: .8rem;}
+        .footer_fiexd ul li:first-child a{color: #fe7e01; border-top: 1px #eee solid;}
+        .footer_fiexd ul li a:first-child img{width: 0.7rem;height: 0.7rem;padding-right: 0.2rem;padding-top: 0.2rem;}
+        /*弹框1*/
+        .Bomb-box{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+        .Bomb-box .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+        .Bomb-box .Bomb-box-tips{  text-align: center;  color: #333;  font-size: 0.75rem;  height: 2.5rem;  line-height: 2.5rem;  }
+        .Bomb-box .Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+        .Bomb-box .Bomb-box-content p{  line-height: 1rem;  }
+        .Bomb-box .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+        .Bomb-box .no-tips{font-size: 0.7rem;padding: 1.7rem 1.5rem 1.15rem 1.5rem;text-align: center;}
+        .Bomb-box .text-center{text-align: center;}
+    </style>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        }
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+                oHtml.style.fontSize = '17.06px';
+            }else if(screenWidth >= 750){
+                oHtml.style.fontSize = '40px';
+            }else{
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="fund_content">
+
+    <div id="asset" style="background:#fff">
+        <ul id="ul">
+            <li class="bg-color1">人民币资产</li>
+            <li>美元资产</li>
+        </ul>
+        <section class="content1">
+            <div class="money">
+                <p>基金总市值(元)</p>
+                <span class="font-arial" v-text="App.isEmpty(totalFundValue)? '0.00':totalFundValue" :style="'color:'+(totalFundValue.indexOf('-')>-1?'green':'red')"></span>
+            </div>
+            <ul style="text-align: center;">
+
+                <li>
+                    <h4 class="font26 historical-detail">持有盈亏(元)&nbsp;<i onclick="layerShow()"></i></h4>
+                    <p class="font-arial font40" v-text="App.isEmpty(totalHoldProfit)? '0.00':totalHoldProfit" :style="'color:'+(totalHoldProfit.indexOf('-')>-1?'green':'red')"></p>
+                </li>
+
+            </ul>
+        </section>
+        <section class="content1" style="display:none">
+            <div class="money">
+                <p>基金总市值(美元)</p>
+                <span class="font-arial" v-text="App.isEmpty(totalDollarFundValue)? '0.00':totalDollarFundValue" :style="'color:'+(totalDollarFundValue.indexOf('-')>-1?'green':'red')"></span>
+            </div>
+            <ul style="text-align: center;">
+                <li>
+                    <h4 class="font26 historical-detail">持有盈亏(美元)&nbsp;<i onclick="layerShow()"></i></h4>
+                    <p class="font-arial font40" v-text="App.isEmpty(totalDollarHoldProfit)? '0.00':totalDollarHoldProfit" :style="'color:'+(totalDollarHoldProfit.indexOf('-')>-1?'green':'red')"></p>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+     <section class="content1_1" >
+            <ul class="clearfix border tab3">
+                <li class="active"><a>我的基金</a></li>
+                <li><a>我的组合</a></li>
+            </ul>
+            <div class="qiehuan"> 
+               <div class="title_tip">
+                    <p class="text-left">基金市值: <span v-text="App.isEmpty(ownFund.totalMarketValueStr)? '-':ownFund.totalMarketValueStr" :class="ownFund.totalMarketValueStr.indexOf('-')>-1?'color-green':'color-red'"></span></p>
+                   <p class="text-right">持有盈亏: <span v-text="App.isEmpty(ownFund.totalBalanceProfitStr)? '-':ownFund.totalBalanceProfitStr" :class="ownFund.totalBalanceProfitStr.indexOf('-')>-1?'color-green':'color-red'"></span></p>
+               </div>
+               <div v-for="(item,index) in ownFund.myfunds" :key="index">
+                   <div class="qiehuan_content" @click="gotoFundDetailPage(item)">
+                       <table>
+                           <tr>
+                               <td>{{item.fund.fundNm}} <span style="color:#999999;font-size: .6rem">{{item.fund.fundId}}</span></td>
+                               <td class="color-red" v-if="item.isDirect === '1'"><span v-if="item.mipFlagNum>0">定投中</span></td>
+                               <td class="color-red" v-else><span v-text="item.seatName"></span></td>
+                           </tr>
+                           <tr>
+                               <td colspan="2" v-if="item.fund.fundTp === '1' && item.isDirect === '1'">万份收益/七日年化 <span style="color:#666666;">({{item.fund.navDt.substr(4,2)+'-'+item.fund.navDt.substr(6,2)}}) {{item.fund.incomeUnit}}(
+                                   <span>{{(item.fund.yield * 100).toFixed(3)}}</span>%)</span></td>
+                               <td colspan="2" v-else-if="item.fund.fundTp !== '1' && item.isDirect === '1'">基金净值 <span style="color:#666666;">{{item.fund.navDt === '' ? '' : ('(' + item.fund.navDt.substr(4,2)+'-'+item.fund.navDt.substr(6,2)) +')'}} {{item.fund.navStr}}(
+                                   <span>{{Number(item.fund.yield).toFixed(2)}}</span>%)</span></td>
+                               <td colspan="2" v-else></td>
+                           </tr>
+                       </table>
+                       <table>
+                            <tr>
+                                <td width="33%">{{item.isDirect === '1' ? '参考市值(元)' : '参考市值'}}</td>
+                                <td width="33%">{{item.isDirect === '1' ? (item.fund.fundTp === '1'? '累计盈亏(元)' : '持有盈亏(元)') : (item.fund.fundTp === '1'? '万份收益' : '持有盈亏')}}</td>
+                                <td width="33%">{{item.isDirect === '1' ? '昨日盈亏(元)' : (item.fund.fundTp === '1'? '七日年化' : ('单位净值' + (item.fund.navDt === '' ? '' : ('(' + item.fund.navDt.substr(4,2)+'-'+item.fund.navDt.substr(6,2) + ')')))) }}</td>
+                            </tr>
+                            <tr>
+                                <td style="color:#000" v-text="item.unionBalance === 0? '0.00':App.formatMoney(item.unionBalance+'')"></td>
+
+                                <td v-if="item.isDirect === '1' && item.fund.fundTp === '1'" v-text="item.totalProfitStr === ''? '0.00':item.totalProfitStr" :class="item.totalProfitStr.indexOf('-')>-1?'color-green':'color-red'"></td>
+                                <td v-else-if="item.isDirect !== '1' && item.fund.fundTp === '1'" v-text="item.fund.incomeUnit === 0? '0.00':Number(item.fund.incomeUnit).toFixed(4)" :class="item.fund.incomeUnit<0?'color-green':'color-red'"></td>
+                                <td v-else v-text="item.balanceProfit === 0? '0.00':App.formatMoney(Number(item.balanceProfit).toFixed(2))" :class="item.balanceProfit<0?'color-green':'color-red'"></td>
+
+                                <td v-if="item.isDirect === '1'" v-text="item.yesterdayProfitStr === ''? '0.00':App.formatMoney(item.yesterdayProfitStr)" :class="item.yesterdayProfitStr.indexOf('-')>-1?'color-green':'color-red'"></td>
+                                <td v-else-if="item.isDirect !== '1' && item.fund.fundTp === '1'" v-text="item.fund.yearYield === 0? '0.00%':(Number(item.fund.yearYield).toFixed(4) + '%')"></td>
+                                <td v-else>{{item.fund.navStr}}(<span>{{Number(item.fund.yield).toFixed(2)}}</span>%)</td>
+                            </tr>
+                        </table>
+                   </div>
+                   <div class="prompt" v-if="item.intransitNum > 0 || item.dividendCount > 0">
+                       <p style="margin-left:0.8rem; display: inline-block;" v-if="item.intransitNum > 0"><span style="color:#f4333c" v-text="item.intransitNum"></span>笔交易确认中</p>
+                       <p style="margin-left:0.8rem; display: inline-block;" v-if="item.dividendCount > 0"><span style="color:#f4333c" v-text="item.dividendCount"></span>笔分红确认中</p>
+                   </div>
+                   <div class="gary_bg"></div>
+               </div>
+                <div style="height: 4em;background: #f6f6f6;">
+                </div>
+
+            </div>
+
+             <!-- 第二个的切换 -->
+            <div class="qiehuan" style="display:none"> 
+                    <div class="title_tip">
+                            <p class="text-left">组合市值: <span v-text="App.isEmpty(ownFund.totalMarketValueStr)? '-':ownFundGroup.totalMarketValueStr" :class="ownFundGroup.totalMarketValueStr.indexOf('-')>-1?'color-green':'color-red'"></span></p>
+                        <p class="text-right">持有盈亏:  <span v-text="App.isEmpty(ownFund.totalBalanceProfitStr)? '-':ownFundGroup.totalBalanceProfitStr" :class="ownFundGroup.totalBalanceProfitStr.indexOf('-')>-1?'color-green':'color-red'"></span></p>
+                       </div>
+
+                <div v-for="(item,index) in ownFundGroup.fundgroupRes" :key="index">
+                    <div class="qiehuan_content" @click="gotoFundGroupAssetPage(item.fundGroupType)">
+                        <table>
+                            <tr>
+                                <td>我的{{item.fundGroupTypeName}} (共<span style="color:#fb5c5f;font-size: .8rem" v-text="item.myFundGroupCount"></span>个组合)</td>
+                                <td class="color-red"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td width="33%">参考市值(元)</td>
+                                <td width="33%">累计盈亏(元)</td>
+                                <td width="33%">昨日盈亏(元)</td>
+                            </tr>
+                            <tr>
+                                <td style="color:#000" v-text="item.totalBalanceStr === ''? '0.00':item.totalBalanceStr"></td>
+                                <td v-text="item.balanceProfitStr === ''? '0.00':item.balanceProfitStr" :class="item.balanceProfitStr.indexOf('-')>-1?'color-green':'color-red'"></td>
+                                <td v-text="item.yesterdayProfit === ''? '0.00':App.formatMoney(item.yesterdayProfit)" :class="item.yesterdayProfit.indexOf('-')>-1?'color-green':'color-red'"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="gary_bg"></div>
+                </div>
+                <div style="height: 4em;background: #f6f6f6;">
+                </div>
+            </div>
+    </section>
+
+    <!-- 美元模块 -->
+    <section class="content2_2" >
+        <div class="qiehuan">
+            <div v-for="(item,index) in ownDollarFund.myfunds" :key="index">
+                <div class="qiehuan_content">
+                    <table>
+                        <tr>
+                            <td>{{item.fund.fundNm}} <span style="color:#999999;font-size: .6rem">{{item.fund.fundId}}</span></td>
+                            <td class="color-red" v-if="item.isDirect === '1'"><span v-if="item.mipFlagNum>0">定投中</span></td>
+                            <td class="color-red" v-else><span v-text="item.seatName"></span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" v-if="item.fund.fundTp === '1' && item.isDirect === '1'">万份收益/七日年化 <span style="color:#666666;">({{item.fund.navDt.substr(4,2)+'-'+item.fund.navDt.substr(6,2)}}) {{item.fund.incomeUnit}}(
+                                   <span>{{(item.fund.yield * 100).toFixed(3)}}</span>%)</span></td>
+                            <td colspan="2" v-else-if="item.fund.fundTp !== '1' && item.isDirect === '1'">基金净值 <span style="color:#666666;">{{item.fund.navDt === '' ? '' : ('(' + item.fund.navDt.substr(4,2)+'-'+item.fund.navDt.substr(6,2)) +')'}} {{item.fund.navStr}}(
+                                   <span>{{Number(item.fund.yield).toFixed(2)}}</span>%)</span></td>
+                            <td colspan="2" v-else></td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td width="33%">参考市值(美元)</td>
+                            <td width="33%">{{item.isDirect === '1' ? (item.fund.fundTp === '1'? '累计盈亏(美元)' : '持有盈亏(美元)') : (item.fund.fundTp === '1'? '万份收益(美元)' : '持有盈亏(美元)')}}</td>
+                            <td width="33%">{{item.isDirect === '1' ? '昨日盈亏(美元)' : (item.fund.fundTp === '1'? '七日年化' : ('单位净值(美元)' + (item.fund.navDt === '' ? '' : ('(' + item.fund.navDt.substr(4,2)+'-'+item.fund.navDt.substr(6,2) + ')')))) }}</td>
+                        </tr>
+                        <tr>
+                            <td style="color:#000" v-text="item.unionBalance === 0? '0.00':App.formatMoney(item.unionBalance+'')"></td>
+
+                            <td v-if="item.isDirect === '1' && item.fund.fundTp === '1'" v-text="item.totalProfitStr === ''? '0.00':item.totalProfitStr" :class="item.totalProfitStr.indexOf('-')>-1?'color-green':'color-red'"></td>
+                            <td v-else-if="item.isDirect !== '1' && item.fund.fundTp === '1'" v-text="item.fund.incomeUnit === 0? '0.00':Number(item.fund.incomeUnit).toFixed(4)" :class="item.fund.incomeUnit<0?'color-green':'color-red'"></td>
+                            <td v-else v-text="item.balanceProfit === 0? '0.00':App.formatMoney(Number(item.balanceProfit).toFixed(2))" :class="item.balanceProfit<0?'color-green':'color-red'"></td>
+
+                            <td v-if="item.isDirect === '1'" v-text="item.yesterdayProfitStr === ''? '0.00':App.formatMoney(item.yesterdayProfitStr)" :class="item.yesterdayProfitStr.indexOf('-')>-1?'color-green':'color-red'"></td>
+                            <td v-else-if="item.isDirect !== '1' && item.fund.fundTp === '1'" v-text="item.fund.yearYield === 0? '0.00%':(Number(item.fund.yearYield).toFixed(4) + '%')"></td>
+                            <td v-else>{{item.fund.navStr}}(<span>{{Number(item.fund.yield).toFixed(2)}}</span>%)</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="prompt" v-if="item.intransitNum > 0 || item.dividendCount > 0">
+                    <p style="margin-left:0.8rem; display: inline-block;" v-if="item.intransitNum > 0"><span style="color:#f4333c" v-text="item.intransitNum"></span>笔交易确认中</p>
+                    <p style="margin-left:0.8rem; display: inline-block;" v-if="item.dividendCount > 0"><span style="color:#f4333c" v-text="item.dividendCount"></span>笔分红确认中</p>
+                </div>
+                <div class="gary_bg"></div>
+            </div>
+            <div style="height: 4em;background: #f6f6f6;">
+            </div>
+
+        </div>
+    </section>
+    <section class="footer">
+        <p id="view_feeRate"></p>
+        <div class="footer_fiexd buy-div">
+            <ul>
+                <li><a href="../fundgroup/my_mip.html" class="btn">我的定投</a></li>
+                <li><a href="all_funds.html" class="btn">查看更多产品</a></li>
+            </ul>
+        </div>
+    </section>
+
+</div>
+
+<div class="tip2" style="display: none;">
+    <div class="tip_wrap">
+        <div class="tip_content">
+            <p id="evaluation_tip">持有盈亏指当前持有的基金份额对应的盈亏，赎回和现金分红都将导致持有盈亏发生变化，但不影响总盈亏。</span></p>
+        </div>
+        <div class="tip_btn" >
+            <ul style="width: 100%;">
+                <li style="float: left;width:100%;box-sizing: border-box;"><a href="javascript:void(0);" id="got_it">我知道了</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <p class="Bomb-box-tips" style="padding-top: 0.75rem;"></p>
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;">确定</a>
+    </div>
+</div>
+
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210302"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/lib/vue.min.js"></script>
+    <script type="text/javascript" src="../js/fund/my_fund_v1.js"></script>
+</body>
+</html>

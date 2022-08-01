@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>社区</title>
+    <link rel="stylesheet" href="../base/css/base.css">
+    <link rel="stylesheet" href="../base/css/common.css">
+    <link rel="stylesheet" href="./css/mint.css">
+    <link rel="stylesheet" href="./css/neplayer.min.css">
+    <link rel="stylesheet" href="./css/swiper-4.2.2.min.css">
+    <link rel="stylesheet" href="./css/index.css?20210927_1">
+    <link rel="stylesheet" href="./css/vote.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <!-- <a href="javascript:;" onclick="setCookie('sso_cookie','')">清空</a>
+        <a href="javascript:;" onclick="setCookie('sso_cookie', getCookie('sso_cookie')+'123')">修改</a> -->
+        <div class="content">
+            <div :style="'overflow:' + (isHandleMore?'hidden':'scroll') + ';height:100vh'"
+                v-infinite-scroll="loadBottom" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
+                <mt-loadmore :auto-fill="false" :top-method="loadTop" :bottom-all-loaded="allLoaded" ref="loadmore">
+                    <div class="recommend" @touchmove.stop="recommondMove">
+                        <div v-show="recommendData[0].length>0" v-for="(item,index) in recommendData[0]">
+                            <img :src="item.imageUrl"
+                                :class="index==(recommendData[0].length-1)?'recommend-cover':'recommend-cover recommend-cover-active'"
+                                @click="gotoUrl(item)" :alt="item.imageName" />
+                        </div>
+                    </div>
+                    <!-- 推荐位banner -->
+                    <div class="swiper-banner swiper-container" v-if="recommendData[1]&&recommendData[1].length > 0">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide bannerSlide" v-for="(item,index) in recommendData[1]">
+                                <!-- 资讯类别为视频或者文章时，只展示配置文案即可 -->
+                                <div class="moduleBlock"
+                                    :style="item.imageUrl?'background:url('+item.imageUrl+');background-size: 100% 100%;':''"
+                                    v-if="(item.adviceCategory==2)||(item.adviceCategory==1)||(!item.adviceCategory)"
+                                    @click='gotoUrl(item)'>
+                                    <div class="blockHeight">
+                                        <div class="upBlock">
+                                            <span class="topicWord" v-if="item.tag" v-text="item.tag">热</span>
+                                            <span class="topicTitle" v-if="item.adviceTitle"
+                                                v-text="item.adviceTitle"></span>
+                                            <span class="topicTitle" v-else>此文案未配置</span>
+                                        </div>
+                                    </div>
+                                    <div class="commentList">
+                                        <span class="commentContent" v-if="item.adviceDesc"
+                                            v-text="item.adviceDesc"></span>
+                                        <span class="commentContent" v-else>此文案未配置</span>
+                                    </div>
+                                </div>
+                                <!-- 资讯类别为动态时，若无配置标题和描述，需要根据id取相关动态标题、动态下的最新三条评论（包括头像和评论内容）、跳转地址 -->
+                                <div class="moduleBlock"
+                                    :style="item.imageUrl?'background:url('+item.imageUrl+');background-size: 100% 100%;':''"
+                                    v-if="item.adviceCategory==4" @click='openPostDetail(item)'>
+                                    <div class="blockHeight">
+                                        <div class="upBlock">
+                                            <span class="topicWord" v-if="item.tag" v-text="item.tag">热</span>
+                                            <span class="topicTitle" v-if="item.adviceTitle"
+                                                v-text="item.adviceTitle"></span>
+                                            <span class="topicTitle" v-else>{{item.postTitle}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="commentList">
+                                        <span class="commentContent" v-if="item.adviceDesc"
+                                            v-text="item.adviceDesc"></span>
+                                        <div :class="'comment_inner roll' + (item.cList?item.cList.length:'')" v-else>
+                                            <div v-for="(atag,index) in item.cList" class="forList">
+                                                <img :src='atag.avatarImage' v-if='atag.avatarImage'
+                                                    class="commentImage">
+                                                <div class="contentDisplay">
+                                                    <span class="commentContent">{{atag.content}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 资讯类别为话题时，若无配置标题和描述，需要根据id取相关话题标题、话题下的最新三条动态（包括置顶的）、跳转地址 -->
+                                <div class="moduleBlock"
+                                    :style="item.imageUrl?'background:url('+item.imageUrl+');background-size: 100% 100%;':''"
+                                    v-if="item.adviceCategory==5" @click='gotoTopic(item.adviceRelateId)'>
+                                    <div class="blockHeight">
+                                        <div class="upBlock">
+                                            <span class="topicWord" v-if="item.tag" v-text="item.tag">热</span>
+                                            <span class="topicTitle" v-if="item.adviceTitle"
+                                                v-text="item.adviceTitle"></span>
+                                            <span class="topicTitle" v-else>{{item.topicTitle}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="commentList">
+                                        <span class="commentContent" v-if="item.adviceDesc"
+                                            v-text="item.adviceDesc"></span>
+                                        <div class="comment_inner" v-else>
+                                            <div v-for="(atag,index) in item.postList" class="forList">
+                                                <img :src='atag.userInfo.avatarImage' v-if="atag.userInfo.avatarImage"
+                                                    class="commentImage">
+                                                <div class="contentDisplay">
+                                                    <span class="commentContent">{{atag.title}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 资讯类别为直播时，若无配置标题和描述，根据id取直播标题、副标题、跳转地址、视频日期、视频时长 -->
+                                <div class="moduleBlock"
+                                    :style="item.imageUrl?'background:url('+item.imageUrl+');background-size: 100% 100%;':''"
+                                    v-if="item.adviceCategory==3" @click='gotoVideo(item)'>
+                                    <img src="./img/backVideo.png" class="backVideo" v-if="item.showStatus==1">
+                                    <img src="./img/preVideo.png" class="backVideo" v-if="item.showStatus==-1">
+                                    <img src="./img/live.gif" class="backVideo" v-if="item.showStatus==0">
+                                    <div class="timeBackground" v-if="item.showStatus!=0&&item.time">
+                                        <div class="timeConfig">{{item.time}}</div>
+                                    </div>
+                                    <div class="messageTitle" v-if="item.adviceTitle">{{item.adviceTitle}}</div>
+                                    <div class="messageTitle" v-else>{{item.videoTitle}}</div>
+                                    <div class="messageDescription" v-if="item.adviceDesc">{{item.adviceDesc}}</div>
+                                    <div class="messageDescription" v-else>{{item.videoDes}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 分页 -->
+                        <div class="bannerPage swiper-pagination"></div>
+                    </div>
+                    <div class="header">
+                        <span class="title">社区热帖</span>
+                        <div class="filter">
+                            <span @click="getMsgList(true,'','FOLLOW')" class="active">
+                                <i></i>
+                                关注
+                                <sup v-show="followNewFlag"></sup>
+                            </span>
+                            <em></em>
+                            <!-- <span @click="getMsgList(true,'','HOT')" class="active">
+                                <i></i>
+                                最热
+                            </span> -->   <!--20220606去掉最热tab-->
+                            <!-- <em></em> -->
+                            <span @click="getMsgList(true,'','NEW')">    <!--原参数值CREATE_TIME,  现参数改为NEW-->
+                                <i></i>
+                                最新
+                            </span>
+                        </div>
+
+                    </div>
+                    <ul class="content-list">
+                        <li class="sub-block" v-show="msgAllData.length>0" v-for="(item,index) in msgAllData"
+                            :key="index">
+                            <div class="sub-content">
+                                <div class="sub-header clearfix">
+                                    <img :src="item.userInfo.avatarImage" class="uicon fl"
+                                        @click="gotoUser(item.userInfo.userId)">
+                                    <div class="uinfo fl" @click="gotoUser(item.userInfo.userId)">
+                                        <h4 class="uinfo-t">
+                                            <span class="uname">{{item.userInfo.nickname}}</span>
+                                            <i class="uicon-s" v-show="item.userInfo.verified"></i>
+                                            <span class="utag"
+                                                v-show="item.userInfo.title">{{item.userInfo.title}}</span>
+                                        </h4>
+                                        <h4 class="uinfo-b">{{item.createTime | showTime(item.systemTime)}}</h4>
+
+                                    </div>
+                                    <!-- 徽章 -->
+                                    <div v-if='item.userInfo.badgeList&&item.userInfo.badgeList.length>0' v-for='(item2,index2) in item.userInfo.badgeList'>
+                                        <img :src="item2.iconImageLight" class="uicon fl badgeImg" :key='item2.badgeId'>
+                                    </div>
+                                    <!-- <span v-show="item.admin==true" class="close-icon fr" @click="delPost(item.postId)">
+                                        <img src="img/del.png" alt="del.png">
+                                    </span> -->
+                                    <a href="javascript:;" v-if="!item.admin"
+                                        :class="'relation fr '+((item.userInfo&&item.userInfo.followStatus==1)?'followed':'')"
+                                        @click="followUser(item)"
+                                        v-text="(item.userInfo&&item.userInfo.followStatus==1)?'已关注':'+关注'"></a>
+                                </div>
+                                <!-- <p class="sub-tag" v-if="item.topicName">
+                                    <a href="javascript:;" @click="gotoTopic(item.topicId)">#{{item.topicName}}</a>
+                                </p> -->
+                                <!-- 20220523新增多个话题 -->
+                                <p class="sub-tag" style="overflow-x: auto;white-space: nowrap;" v-if="item.topics&&item.topics.length>0">
+                                    <template  v-for="(itemTopics,indexTopics) in item.topics" :key="indexTopics">
+                                        <a href="javascript:;" @click="gotoTopic(itemTopics.id)" style="margin-right:0.65rem;">#{{itemTopics.name}}</a>
+                                    </template> 
+                                </p>
+                                <article>
+                                    <!-- <h2 class="article-t" v-html="item.title" @click="more(item.postId)"></h2> -->
+                                    <!-- 20220523新增置顶 -->
+                                    <h2 class="article-t"  @click="more(item.postId)">
+                                        <span v-show="item.level=='1'" v-text="'置顶'" style="display: inline-block;width:1.75rem;height:1rem;line-height:1rem;
+                                        text-align: center;background:#fb5c5f;color:#fff;border-radius:0.15rem;font-size:0.7rem;margin-right:0.35rem;vertical-align:middle" >
+                                        </span><span style="vertical-align:middle">{{item.title}}</span>
+                                    </h2>
+                                    <div class="article-c" v-show="item.summary" @click="more(item.postId)">
+                                        <p v-html="item.summary"></p>
+                                    </div>
+                                    <div class="article-img" v-show="(item.imagesList && item.imagesList.length > 0)">
+                                        <!-- 9534 -->
+                                        <!--如果是单张长图-->
+
+                                        <template v-if="item.imagesList&&item.imagesList.length<=3">
+                                            <div v-for="(bTag,bindex) in item.imagesList" :class="[item.imagesList.length==1?'singleDiv':'multipleDiv']"
+                                                @click.stop.prevent="fullScreen(item,$event,bindex)">
+                                               
+                                                <!-- 20211028 若是文章，则显示缩略图；若是动态，则显示原图 -->
+                                                <!-- <img v-if="item.postType == 1" :src="bTag.thumbnailUrl"  alt="">
+                                                <img v-else :src="bTag.imageUrl"  alt=""> -->
+                                                <img v-if="item.postType == 1" :src="bTag.thumbnailUrl" :class="[item.imagesList.length==1?'singleImg':'']" alt="">
+                                                <img v-else :src="bTag.imageUrl"  :class="[item.imagesList.length==1?'singleImg':'']" alt="">
+                                            </div>
+                                        </template>
+
+                                        <!-- 9534 -->
+                                        <!-- <template v-if="!item.imagesList||item.imagesList.length>3"> -->
+                                        <template v-else>
+                                            <div class="multipleDiv" v-for="(bTag,bindex) in item.imagesList" v-show="bindex<3"
+                                                :class="bindex==2?'active':''"
+                                                :data-content="'+'+(item.imagesList.length-3)"
+                                                @click.stop.prevent="fullScreen(item,$event,bindex)">
+                                                <!-- 20211028 若是文章，则显示缩略图；若是动态，则显示原图 -->
+                                                <img v-if="item.postType == 1" :src="bTag.thumbnailUrl" alt="" >
+                                                <img v-else :src="bTag.imageUrl" alt="">
+                                            </div>
+                                        </template>
+
+                                        <!-- 
+                                              <template v-else>
+                                            <div v-for="(bTag,bindex) in item.imagesList" v-show="bindex<3"
+                                                :class="bindex==2?'active':''"
+                                                :data-content="'+'+(item.imagesList.length-3)"
+                                                @click.stop.prevent="fullScreen(item,$event,bindex)">
+                                                <img :src="bTag.imageUrl" alt="">
+                                            </div>
+                                        </template>
+                                         -->
+                                    </div>
+                                    <!-- 视频 -->
+                                    <div v-if="item.videoInfo" class="video_box" style="width:100%;position:relative;"
+                                        :style="item.videoInfo.isLive==='0'?'padding-bottom:56.25%;height:0':'height:auto'">
+                                        <template v-if="item.videoInfo.isLive==='0'">
+                                            <!-- <video width="100%" height="100%" :id="'video_'+index" controls controlslist="nodownload"  :poster="item.videoInfo.picture" style="position: absolute;top:0;left: 0;width: 100%;height: 100%" :data-index="index"       >
+                                                <source :src="item.videoInfo.url" type="video/mp4">
+                                                <p>浏览器不支持视频</p>
+                                            </video> -->
+                                            <video :id="'my-video-'+currrentOrder+index"
+                                                class="video-js vjs-big-play-centered vjs-fluid"
+                                                x-webkit-airplay="allow" webkit-playsinline playsinline
+                                                x5-video-player-type="h5" fullscreen-toggle="false"
+                                                x5-video-orientation="landscape|portrait" controls
+                                                :poster="item.videoInfo.picture" :data-index="index">
+                                                <source :src="item.videoInfo.url" type="video/mp4" />
+                                            </video>
+                                        </template>
+                                        <template v-else-if="item.videoInfo.isLive==='2'">
+                                            <!-- 小鹅直播 -->
+                                            <a href="javascript:;" style="display: block;"
+                                                @click="openXEPage(item.videoInfo)">
+                                                <img :src="item.videoInfo.picture" alt=""
+                                                    style="display: block;width: 100%;">
+                                            </a>
+                                        </template>
+                                        <template v-else>
+                                            <!-- item.videoInfo.isLive==='4' 火山直播 -->
+                                            <a href="javascript:;" style="display: block;"
+                                                @click="openHuoShanPage(item.videoInfo)">
+                                                <img :src="item.videoInfo.picture" alt=""
+                                                    style="display: block;width: 100%;">
+                                            </a>
+                                        </template>
+                                    </div>
+                                    <div class="article-fundtag">
+                                        <a href="javascript:;" class=""
+                                            v-show="item.productsList&&item.productsList.length>0"
+                                            v-for="(aTag,index) in item.productsList">
+                                            <span
+                                                @click="gotoList(aTag)">{{aTag.productName}}&nbsp;{{aTag.productId}}</span>
+                                            <i @click="gotoList(aTag)"></i>
+                                        </a>
+                                    </div>
+
+                                    <div v-if="item.voteInfo && item.voteInfo.questions && item.voteInfo.questions.length>0">
+                                        <!-- 单选未选 -->
+
+                                        <div class="noChoice" v-if="item.voteInfo.complete==false">
+                                            <div style="margin-top:0.75rem"
+                                                v-if="item.voteInfo.questions[0].options && item.voteInfo.questions[0].options.length<3">
+                                                <span
+                                                    style="width:0.2rem;height:0.75rem;display: inline-block;background:#fb5c5f;margin:0;margin-left:-0.75rem;border-radius: 0 3px 3px 0;float:left"
+                                                    v-show="!!item.voteInfo.surveyTitle"></span>
+                                                <span
+                                                    style="margin-left:0.25rem;margin-top:-0.15rem;display: inline-block;float:left;font-size:0.75rem;font-weight: bold;color:#000;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical"
+                                                    v-text="item.voteInfo.surveyTitle?item.voteInfo.surveyTitle:''"></span>
+                                                <!-- 20220107增加摘要描述     -->
+                                                <div style="margin-left:0.25rem;margin-top:-0.15rem;display:block;clear:both;font-size:0.6rem;font-weight: bold;color:#666;padding-top:0.35rem;padding-right: 0.75rem;text-align:justify">
+
+                                                    <template v-if="item.voteInfo.surveyDesc&&activeIndex!==index">
+                                                        <span v-if="item.voteInfo.surveyDesc.length>70">  <!--这里用于70字差不多三行...产看全部-显示-->
+                                                            <span v-text="item.voteInfo.surveyDesc.substr(0,70)"></span>
+                                                            <span style="color:#148ce6" v-text="'...查看全部'" @click.stop="showText(index)"></span>
+                                                        </span>
+                                                        <span v-else v-text="item.voteInfo.surveyDesc"></span>
+                                                    </template>
+
+                                                    <template v-else>
+                                                        <span v-text="item.voteInfo.surveyDesc"></span>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                            <div v-else style="position: relative;margin-top: 1rem;padding:0.25rem 0rem;background:#f6f6f6">
+                                               
+                                                <span
+                                                    style="width:0.2rem;height:0.75rem;position: relative; top:0.65rem;left:0.75rem;display: inline-block;background:#fb5c5f;margin:0;margin-left:-0.75rem;border-radius: 0 3px 3px 0;float:left"
+                                                    v-show="!!item.voteInfo.surveyTitle"></span>
+                                                <span
+                                                    style="margin-left:0.65rem;margin-right: 0.5rem;position: relative; top:0.5rem;display: inline-block;font-size:0.75rem;font-weight: bold;color:#000;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical"
+                                                    v-text="item.voteInfo.surveyTitle?item.voteInfo.surveyTitle:''"></span><br>
+                                                <!-- 20220107增加摘要描述     -->
+                                                <div style="clear:both;font-size:0.6rem;font-weight: bold;color:#666;text-align:justify;position:relative;top:0.35rem;left:0.5rem;margin-right: 1rem;">
+                                                     <template v-if="item.voteInfo.surveyDesc&&activeIndex!==index">
+                                                        <span v-if="item.voteInfo.surveyDesc.length>70">  <!--这里用于70字差不多三行...产看全部-显示-->
+                                                            <span v-text="item.voteInfo.surveyDesc.substr(0,70)"></span>
+                                                            <span style="color:#148ce6" v-text="'...查看全部'" @click.stop="showText(index)"></span>
+                                                        </span>
+                                                        <span v-else v-text="item.voteInfo.surveyDesc"></span>
+                                                    </template>
+
+                                                    <template v-else>
+                                                        <span v-text="item.voteInfo.surveyDesc"></span>
+                                                    </template>
+                                                </div>    
+                                            </div>
+                                            <span v-for="(questionItem, questionIndex) in item.voteInfo.questions">
+                                                <!-- <template v-for="(item2, questionIndex) in questionItem.options"> -->
+                                                <!--只有A,B选项-->
+                                                <template v-if="questionItem.options && questionItem.options.length<3">
+                                                    <div class="vote" style="padding:0.5rem 0rem">
+                                                        <div class="first">
+                                                            <!-- <span class="buy"  v-text="questionItem.options[0].optionName"  @click="voteBuy(questionItem.options[0].optionId,item.voteInfo.surveyId,questionItem.questionId,item.voteInfo.surveySceneCode,1)"></span> -->
+                                                            <span class="buy"
+                                                                v-text="questionItem.options[0].optionName" v-if="questionItem.options[0] && questionItem.options[0].optionName"
+                                                                @click="voteBuy(questionItem, item, 0)"></span>
+                                                        </div>
+                                                        <div class="vs"></div>
+                                                        <div class="second">
+                                                            <!-- <span class="nobuy" v-text="questionItem.options[1].optionName" @click="voteBuy(questionItem.options[1].optionId,item.voteInfo.surveyId,questionItem.questionId,item.voteInfo.surveySceneCode,2)"></span> -->
+                                                            <span class="nobuy"
+                                                                v-text="questionItem.options[1].optionName" v-if="questionItem.options[1] && questionItem.options[1].optionName"
+                                                                @click="voteBuy(questionItem, item, 1)"></span>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                                <!--有多个选项选一个-->
+                                                <template v-else>
+                                                    <div class="moreSelect" style="padding:1.5rem 0rem">
+                                                        <!--判断是不是多选一单选questionType=='1' 未选-->
+                                                        <template v-if="item.voteInfo.questions[0].questionType=='1'">
+                                                            <span v-for="(itemOp,indexOp) in questionItem.options"
+                                                                @click="moreSelect(item,questionItem,itemOp,indexOp)">
+                                                                <!--<div class="list"    :class="{moreActive:i === indexOp}">-->
+                                                                <div class="list"
+                                                                    :class="{'moreActive':itemOp.active,'remoActive':!itemOp.active}">
+                                                                    <div class="tiao one red">
+                                                                    </div>
+                                                                    <div class="text" v-text="itemOp.optionName"
+                                                                        style="text-align: center;width: 100%;position:absolute;top:0;left:0;margin:0">
+                                                                    </div>
+                                                                    <!--<div class="tick">-->
+                                                                    <!--<span></span>-->
+                                                                    <!--<span></span>-->
+                                                                    <!--</div>-->
+                                                                </div>
+                                                            </span>
+                                                        </template>
+                                                        <!--多选questionType=='2'-->
+                                                        <template v-else>
+                                                            <span v-for="(itemOp,indexOp) in questionItem.options"
+                                                                @click="muchSelect(item,questionItem,itemOp,indexOp)"
+                                                                v-if="item.voteInfo&&item.voteInfo.complete==false">
+                                                                <!--:class="moreActiveIndex == indexOp ? 'moreActive' : ''" -->
+                                                                <!--:class="{'moreActive':spanIndex.indexOf(index)>-1}"-->
+                                                                <div class="list"
+                                                                    :class="{'moreActive':moreActiveIndex.indexOf(itemOp)!=-1}">
+                                                                    <div class="tiao one red">
+                                                                    </div>
+                                                                    <div class="text" v-text="itemOp.optionName"
+                                                                        style="text-align: center;width: 100%;position:absolute;top:0;left:0;margin:0">
+                                                                    </div>
+                                                                    <!--<div class="tick">-->
+                                                                    <!--<span></span>-->
+                                                                    <!--<span></span>-->
+                                                                    <!--</div>-->
+                                                                </div>
+                                                            </span>
+                                                            <div class="confirm" @click="confirm(item,questionItem)"
+                                                                :class="{confirmActive:item.active}">投票</div>
+                                                        </template>
+                                                    </div>
+                                                </template>
+                                                <!-- </template> -->
+
+
+                                                <!--<template v-if="questionItem.options.length<3">-->
+                                                <!--<div class="vote" style="padding:0.5rem 0rem">-->
+                                                <!--<div class="first">-->
+                                                <!--&lt;!&ndash; <span class="buy"  v-text="questionItem.options[0].optionName"  @click="voteBuy(questionItem.options[0].optionId,item.voteInfo.surveyId,questionItem.questionId,item.voteInfo.surveySceneCode,1)"></span> &ndash;&gt;-->
+                                                <!--<span class="buy"  v-text="questionItem.options[0].optionName"  @click="voteBuy(questionItem, item, 0)"></span>-->
+                                                <!--</div>-->
+                                                <!--<div class="vs"></div>-->
+                                                <!--<div class="second">-->
+                                                <!--&lt;!&ndash; <span class="nobuy" v-text="questionItem.options[1].optionName" @click="voteBuy(questionItem.options[1].optionId,item.voteInfo.surveyId,questionItem.questionId,item.voteInfo.surveySceneCode,2)"></span> &ndash;&gt;-->
+                                                <!--<span class="nobuy" v-text="questionItem.options[1].optionName" @click="voteBuy(questionItem, item, 1)"></span>-->
+                                                <!--</div>-->
+                                                <!--</div>-->
+                                                <!--</template>-->
+
+                                                <!--<template v-else>-->
+                                                <!--<div class="moreSelect">-->
+                                                <!--<span v-for="(itemOp,indexOp) in questionItem.options" @click="moreSelect(item,questionItem,indexOp)">-->
+                                                <!--&lt;!&ndash;<div class="list"    :class="{moreActive:i === indexOp}">&ndash;&gt;-->
+                                                <!--<div class="list" :class="{'moreActive':itemOp.active,'remoActive':!itemOp.active}" >-->
+                                                <!--<div class="tiao one red">-->
+                                                <!--</div>-->
+                                                <!--<div class="text" v-text="itemOp.optionName"></div>-->
+                                                <!--<div class="tick">-->
+                                                <!--<span>基金经理</span>-->
+                                                <!--<span>60%</span>-->
+                                                <!--</div>-->
+                                                <!--</div>-->
+                                                <!--</span>-->
+                                                <!--</div>-->
+                                                <!--</template>-->
+                                            </span>
+                                        </div>
+                                        <!-- 单选已选 -->
+                                        <!--<div class="choice" v-if="showPerent">-->
+                                        <!--&lt;!&ndash;<template v-for="(items,indexs) in item.voteInfo.optionStats">&ndash;&gt;-->
+                                        <!--<div class="choiceVote">-->
+                                        <!--<div class="selectTip">-->
+                                        <!--<div class="active">已选 [会] ✓</div>-->
+                                        <!--<div>不会</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="select">-->
+                                        <!--<div class="first" v-text="intoPercent(item.voteInfo.optionStats[0].optionCount,item.voteInfo.optionStats[1].optionCount,index)" :title='item.voteInfo.optionStats[0].optionCount'></div>-->
+                                        <!--<div class="second">-->
+                                        <!--<div class="left"></div>-->
+                                        <!--<div class="right"></div>-->
+                                        <!--</div>-->
+                                        <!--<div class="four" v-text="intoPercent(item.voteInfo.optionStats[1].optionCount,item.voteInfo.optionStats[0].optionCount,index)" :title='item.voteInfo.optionStats[1].optionCount'></div>-->
+                                        <!--</div>-->
+                                        <!--</div>-->
+                                        <!--&lt;!&ndash;</template>&ndash;&gt;-->
+                                        <!--</div>-->
+                                        <!--v-if="showPerent&&item.voteInfo.complete==true" -->
+
+                                        <div class="choice" v-if="item.voteInfo&&item.voteInfo.complete==true"
+                                            @click="choiceVote(item)">
+                                            <!--<template v-for="(items,indexs) in item.voteInfo.optionStats">-->
+                                            <template v-for="(questionItem, questionIndex) in item.voteInfo.questions">
+                                                <template v-if="questionItem.options.length<3">
+                                                    <div class="choiceVote">
+                                                        <!--单选标题-->
+                                                        <div>
+                                                            <span
+                                                                style="width:0.2rem;height:0.75rem;display: inline-block;background:#fb5c5f;margin:0;margin-left:-0.75rem;border-radius: 0 3px 3px 0;float:left"
+                                                                v-show="!!item.voteInfo.surveyTitle"></span>
+                                                            <span
+                                                                style="margin-left:0.25rem;margin-top:-0.15rem;display: inline-block;float:left;font-size:0.75rem;font-weight: bold;color:#000;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical"
+                                                                v-text="item.voteInfo.surveyTitle?item.voteInfo.surveyTitle:''"></span>
+                                                            <!-- 20220107增加摘要描述     -->
+                                                            <div style="margin-left:0.25rem;margin-top:-0.15rem;display:block;clear:both;font-size:0.6rem;font-weight: bold;color:#666;padding-top:0.35rem;padding-right: 0.75rem;text-align:justify">
+
+                                                                <template v-if="item.voteInfo.surveyDesc&&activeIndex!==index">
+                                                                    <span v-if="item.voteInfo.surveyDesc&&item.voteInfo.surveyDesc.length>70">  <!--这里用于70字差不多三行...产看全部-显示-->
+                                                                        <span v-text="item.voteInfo.surveyDesc.substr(0,70)"></span>
+                                                                        <span style="color:#148ce6" v-text="'...查看全部'" @click.stop="showText(index)"></span>
+                                                                    </span>
+                                                                    <span v-else v-text="item.voteInfo.surveyDesc"></span>
+                                                                </template>
+
+                                                                <template v-else>
+                                                                    <span v-text="item.voteInfo.surveyDesc"></span>
+                                                                </template>
+                                                            </div>    
+                                                        </div>
+                                                        <!--单选A,B选择文案-->
+                                                        <div class="selectTip" style="margin-top:1.25rem">
+                                                            <template
+                                                                v-if="item.voteInfo.answerDetails[0].optionId==item.voteInfo.optionStats[0].optionId">
+                                                                <div class="active"
+                                                                    v-text="'已选  '+item.voteInfo.optionStats[0].optionName+'  ✓'">
+                                                                </div>
+                                                                <div v-text="item.voteInfo.optionStats[1].optionName">
+                                                                </div>
+                                                            </template>
+                                                            <template v-else>
+                                                                <div class="active"
+                                                                    v-text="item.voteInfo.optionStats[0].optionName">
+                                                                </div>
+                                                                <div
+                                                                    v-text="'已选  '+item.voteInfo.optionStats[1].optionName+'  ✓'">
+                                                                </div>
+                                                            </template>
+
+                                                        </div>
+                                                        <!--单选A,B百分比数值-->
+                                                        <div class="select">
+                                                            <div class="first"
+                                                                v-text="intoPercent(item.voteInfo.optionStats[0].optionCount,item.voteInfo.optionStats[1].optionCount,index)"
+                                                                :title='item.voteInfo.optionStats[0].optionCount'></div>
+                                                            <div class="second">
+                                                                <template
+                                                                    v-if="item.voteInfo.optionStats[0].fenshu!=100">
+                                                                    <div class="left"
+                                                                        v-if="item.voteInfo.optionStats[0].optionCount!=0"
+                                                                        :style="{width: item.voteInfo.optionStats[0].fenshu + '%'}">
+                                                                    </div>
+                                                                </template>
+                                                                <template v-else>
+                                                                    <div class="left"
+                                                                        v-if="item.voteInfo.optionStats[0].optionCount!=0"
+                                                                        :style="{width: item.voteInfo.optionStats[0].fenshu + '%',borderRadius:'50px',borderRight:'none'}">
+                                                                    </div>
+                                                                </template>
+
+                                                                <template
+                                                                    v-if="item.voteInfo.optionStats[1].fenshu!=100">
+                                                                    <div class="right"
+                                                                        v-if="item.voteInfo.optionStats[1].optionCount!=0"
+                                                                        :style="{width: item.voteInfo.optionStats[1].fenshu + '%'}">
+                                                                    </div>
+                                                                </template>
+                                                                <template v-else>
+                                                                    <div class="right"
+                                                                        v-if="item.voteInfo.optionStats[1].optionCount!=0"
+                                                                        :style="{width: item.voteInfo.optionStats[1].fenshu + '%',borderRadius:'50px',borderRight:'none',marginLeft:'0.35rem'}">
+                                                                    </div>
+                                                                </template>
+
+                                                            </div>
+                                                            <!--<div class="four"></div>-->
+                                                            <div class="four"
+                                                                v-text="intoPercent(item.voteInfo.optionStats[1].optionCount,item.voteInfo.optionStats[0].optionCount,index)"
+                                                                :title='item.voteInfo.optionStats[1].optionCount'></div>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                                <template v-else>
+                                                    <div class="moreSelect" style="margin-top:0.75rem">
+                                                        <div>
+                                                            <span
+                                                                style="width:0.2rem;height:0.75rem;position: relative;top:0.1rem;left:0.75rem;display: inline-block;background:#fb5c5f;margin:0;margin-left:-0.75rem;border-radius: 0 3px 3px 0;float:left"
+                                                                v-show="!!item.voteInfo.surveyTitle"></span>
+
+                                                            <span
+                                                                style="margin-left:0.65rem;margin-right: 0.5rem;margin-top:-0.15rem;display: inline-block;font-size:0.75rem;font-weight: bold;color:#000;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical"
+                                                                v-text="item.voteInfo.surveyTitle?item.voteInfo.surveyTitle:''"></span>
+                                                            <!-- 20220107增加摘要描述     -->
+                                                            <div style="clear:both;font-size:0.6rem;font-weight: bold;color:#666;text-align:justify;position:relative;top:0.5rem;left:0.5rem;margin-right: 1rem;padding-bottom:0.85rem">
+                                                                 <template v-if="item.voteInfo.surveyDesc&&activeIndex!==index">
+                                                                    <span v-if="item.voteInfo.surveyDesc&&item.voteInfo.surveyDesc.length>70">  <!--这里用于70字差不多三行...产看全部-显示-->
+                                                                        <span v-text="item.voteInfo.surveyDesc.substr(0,70)"></span>
+                                                                        <span style="color:#148ce6" v-text="'...查看全部'" @click.stop="showText(index)"></span>
+                                                                    </span>
+                                                                    <span v-else v-text="item.voteInfo.surveyDesc"></span>
+                                                                </template>
+
+                                                                <template v-else>
+                                                                    <span v-text="item.voteInfo.surveyDesc"></span>
+                                                                </template>
+                                                            </div>     
+                                                        </div>
+                                                        <!--判断是不是多选一单选 questionType=='1' 已选结果-->
+                                                        <template v-if="item.voteInfo.questions[0].questionType=='1'">
+                                                            <span v-for="(itemOp,indexOp) in questionItem.options">
+                                                                <!--<div class="list"    :class="{moreActive:i === indexOp}">-->
+                                                                <!--:class="{'moreActive':itemOp.active,'remoActive':!itemOp.active}" -->
+
+                                                                <!--给选中的加class:moreActive-->
+                                                                <div class="list"
+                                                                    :class="{moreActive:item.voteInfo.optionStats[indexOp].optionId==item.voteInfo.answerDetails[0].optionId}">
+                                                                    <div class="tiao one grey"
+                                                                        :style="{width: item.voteInfo.optionStats[indexOp].fenshu + '%'}"
+                                                                        :class="{red:item.voteInfo.optionStats[indexOp].optionId==item.voteInfo.answerDetails[0].optionId}">
+                                                                    </div>
+                                                                    <div class="tick">
+                                                                        <span
+                                                                            v-text="item.voteInfo.optionStats[indexOp].optionId==item.voteInfo.answerDetails[0].optionId?item.voteInfo.optionStats[indexOp].optionName+'  ✓':item.voteInfo.optionStats[indexOp].optionName"></span>
+                                                                        <span
+                                                                            v-text="percent(item.voteInfo.optionStats[indexOp].fenshu)"></span>
+                                                                    </div>
+                                                                    <!--<div class="text" v-text="itemOp.optionName" v-if="item.voteInfo.answerDetails!=null"></div>-->
+
+                                                                </div>
+                                                            </span>
+                                                        </template>
+                                                        <!--是多选多已选结果-->
+                                                        <template v-else>
+                                                            <span v-for="(itemOp,indexOp) in questionItem.options"
+                                                                v-if="item.voteInfo&&item.voteInfo.complete==true">
+                                                                <!--给选中的加class:moreActive-->
+                                                                <div class="list"
+                                                                    :class="{moreActive:item.voteInfo.optionStats[indexOp].active}">
+                                                                    <div class="tiao one grey"
+                                                                        :style="{width: item.voteInfo.optionStats[indexOp].fenshu + '%'}"
+                                                                        :class="{red:item.voteInfo.optionStats[indexOp].active}">
+                                                                    </div>
+                                                                    <div class="tick">
+                                                                        <span
+                                                                            v-text="item.voteInfo.optionStats[indexOp].active?item.voteInfo.optionStats[indexOp].optionName+'  ✓':item.voteInfo.optionStats[indexOp].optionName"></span>
+                                                                        <span
+                                                                            v-text="percent(item.voteInfo.optionStats[indexOp].fenshu)"></span>
+                                                                    </div>
+                                                                    <!--<div class="text" v-text="itemOp.optionName" v-if="item.voteInfo.answerDetails!=null"></div>-->
+
+                                                                </div>
+                                                            </span>
+                                                            <div class="confirm confirmActive">已投票</div>
+                                                        </template>
+                                                    </div>
+                                                </template>
+                                            </template>
+                                            <!--</template>-->
+                                        </div>
+
+                                    </div>
+
+                                    <div class="article-attach">
+                                        <!-- 需求9153 新增swiper  附件和超链接的轮播图-->
+                                        <!-- attachments.length为0/1时不展示分页器 -->
+                                        <div class="swiper-container swiperUrl" v-if='item.attachments.length>0'>
+                                            <div class="swiper-wrapper">
+                                                <div class="attachList  swiper-slide"
+                                                    v-for="(aTag,id) in item.attachments" :key="id">
+                                                    <span class="image" style="margin-left: 5px;margin-top: 5px;">
+                                                        <img v-if='aTag.attachType==1' src="./img/attachImage.png"
+                                                            width="40px" height="40px" alt="附件" />
+                                                        <img v-if='aTag.attachType==5' src="./img/urlIcon.png" width="40px"
+                                                        height="40px" alt="链接" />
+                                                    </span>
+                                                    <a v-if='aTag.attachType==1' href='javascript:;' @click="gotoUrl(aTag,'pdf')"
+                                                        class="attachName" v-text="aTag.attachName"></a>
+                                                    <a v-if='aTag.attachType==5' href='javascript:;' @click="gotoUrl(aTag)"
+                                                        class="attachName" v-text="aTag.attachName"></a>
+                                                </div>
+                                            </div>
+                                            <!-- <div   class="swiper-pagination swiperurls-pagination" style="position: relative;"></div> -->
+                                            <div  v-if='item.attachments.length>1' class="swiper-pagination swiperurls-pagination" style="position: relative;"></div>
+                                          
+                                        </div>
+
+                                    </div>
+                                    <div class="article-handle">
+                                        <p @click="thumb(item,index)" :class="{active:item.thumb}">
+                                            <i></i>
+                                            <span>{{item.thumbCount}}</span>
+                                        </p>
+                                        <!-- 9534 -->
+                                        <p @click="commentJump(item.postId,item.commentCount)">
+                                            <i></i>
+                                            <span>{{item.commentCount}}</span>
+                                        </p>
+                                        <p @click="collectPost(item,index)" :class="{active:item.collect}">
+                                            <i></i>
+                                            <span>{{item.collect?'取消收藏':'收藏'}}</span>
+                                        </p>
+                                        <!-- <p v-show='isShare' @click="shareInfo(item)">
+                                            <i></i>
+                                            <span>分享</span>
+                                        </p> -->
+                                        <p @click="handleMore(item)">
+                                            <span><i></i><i></i><i></i></span>
+                                        </p>
+                                    </div>
+                                    <div class="pop-list" v-show="item.isHandleMore" :data-id="item.postId">
+                                        <div class="pop-triangle-up"></div>
+                                        <ul>
+                                            <!-- <li v-if='item.handleMore_collect' class="active"
+                                                @click="collectPost(item)"><i></i>取消收藏</li>
+                                            <li v-else @click="collectPost(item)"><i></i>收藏</li> -->
+                                            <!-- <li v-if='isApp()' @click="report(item.postId)"><i></i>投诉</li> -->
+                                            <li @click="reportPost(item.postId)"><i></i>投诉</li>
+                                            <li v-if='item.handleMore_admin' @click="delPost(item.postId)"><i></i>删除
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </article>
+                            </div>
+                            <div class="sub-comment" v-if='item.showComment'>
+                                <!-- 9534 .社区h5前端信息流：不展示近3条评论，不默认展示评论输入框，如果无评论时，点击评论按钮则弹出输入框，有评论数时跳转到帖子详情页定位到评论列表   -->
+                                <!-- <ol class="comment-list" v-if="item.commentsList&&item.commentsList.length>0">
+                                    <li v-for="comment in item.commentsList">
+                                        <span class="uname"
+                                            @click="gotoUser(comment.userId)">{{comment.nickname?comment.nickname:'admin'}}:</span>
+                                        <span class="ucomment" @click="reply(comment,index, item)"
+                                            v-html="comment.content"></span>
+                                    </li>
+                                </ol> -->
+                                <!-- <input type="text" placeholder="喜欢就评论"  v-show="isComment!==index"> -->
+
+                                <div  class="submit" @click.stop.prevent="focusComment(item,index)">
+                                    <input type="text" :placeholder="isComment==index?currentPreset:'喜欢就评论'"
+                                    autofocus='true' ref="focusbottom"   v-model="item.currentComment">
+                                    <span @click.stop.prevent="comment(currentMsgData,currentMsgIndex,item)"
+                                        v-show="isComment==index">发送</span>
+                                </div>
+                            </div>
+                        </li>
+                        <template v-if="msgAllData.length>9">
+                            <div class="reloading" v-show="showLoading">
+                                <mt-spinner type="fading-circle"></mt-spinner>
+                                <p>加载中...</p>
+                            </div>
+                        </template>
+                        <template v-if="msgAllData.length==0&&!loading&&recommendUserList.length==0">
+                            <div class="no-content" :style="'height:' + noContentHeight">
+                                <img src="./img/noContent.png" alt="">
+                                <p>暂无内容</p>
+                            </div>
+                        </template>
+                        <div class="recommend-area" v-if="msgAllData.length==0&&!loading&&recommendUserList.length>0">
+                            <div class="recommend-list-bg">
+                                <label for="">你还没有关注任何账号哦！</label>
+                                <p>为您推荐以下账号</p>
+                            </div>
+                            <div class="recommend-list">
+                                <div class="recommend-user" v-for="(item,index) in recommendUserListDisplay"
+                                    @click.stop.prevent="Vue.set(item,'selected',!item.selected)">
+                                    <!-- <img src="./img/details_06.png" alt="">
+                                    <div style="position: relative; width: 4.75rem; height: 100%;">
+                                        <label>策略书生</label>
+                                        <p>账号说明</p>
+                                        <i :class="item.selected?'active':''"></i>
+                                    </div> -->
+                                    <img :src="item.avatarImage" alt="">
+                                    <div style="position: relative; width: 4.75rem; height: 100%;">
+                                        <label v-text="item.nickname"></label>
+                                        <p v-text="item.nickname"></p>
+                                        <i :class="item.selected?'active':''"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="recommend-list-refresh">
+                                <span v-if="recommendUserList.length>6"
+                                    @click.stop.prevent="refreshRecommendUserList"><img src="./img/refresh.png"
+                                        alt="">换一换</span>
+                                <br>
+                                <button @click.stop.prevent="followRecommendUsers">一键关注</button>
+                            </div>
+                        </div>
+                    </ul>
+
+                </mt-loadmore>
+            </div>
+        </div>
+        <mt-popup v-model="popupVisible" position="bottom" class="recomment">
+            <h4 class="recomment-t">
+                <i @click="recommentVisible"></i> 全部回复
+            </h4>
+            <div class="recomment-c">
+                <div class="recomment-content">
+                    <div class="re-user">
+                        <img src="./img/normal.png" alt="" class="re-icon">
+                        <span>风轻云淡</span>
+                    </div>
+                    <p class="re-summery">
+                        一直在苦苦等待机会买入。
+                    </p>
+                    <p class="re-time">05-27 09:26</p>
+                </div>
+                <p class="recomment-count">回复 · <span>3</span>条</p>
+                <div class="recomment-list">
+
+                </div>
+                <div class="recomment-bottom"></div>
+            </div>
+            <div class="recomment-flex">
+                <input type="text" placeholder="回复楼主">
+            </div>
+        </mt-popup>
+        <div class="enlarge-img" v-show="isEnlarge" @click.stop.prevent="visbiliyImg">
+            <div class="swiper-image swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide img-silde" v-for="(item,index) in currentImgList"><img :src="item.imageUrl"
+                            alt="">
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+        <!-- 底部弹窗 -->
+        <div class="pop">
+            <div class="layer0 slideInUp" id="layer0" style="display: none">
+                <div style="position: fixed;bottom:0px;width:17.25rem;padding:0 0.75rem">
+                    <div class="giftlist giftlist0">
+                        <a href="javascript:;">
+                            <div class="noTips" @click="cancelVote()">取消投票</div>
+                        </a>
+                    </div>
+                    <div class="close" @click="closeHide()">
+                        <a href="javascript:;" style="color:#0070fa;font-size:0.75rem">取消</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pop-list-back" v-show="isHandleMore" @click.stop.prevent="hideHandleMore">
+
+        </div>
+    </div>
+    <script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+    <!-- <script src="./js/vote.js"></script> -->
+    <script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.base64.js"></script>
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+    <script src="./js/moment.min.js"></script>
+    <script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> -->
+    <script src="./js/mint.js"></script>
+    <script src="./js/neplayer.min.js"></script>
+    <script src="../base/js/lib/swiper-4.2.2.min.js"></script>
+    <!-- <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script> -->
+    <script type="text/javascript" src="./js/index.js"></script>
+    <script type="text/javascript" src="../base/js/lib/iscroll.js"></script>
+</body>
+
+</html>

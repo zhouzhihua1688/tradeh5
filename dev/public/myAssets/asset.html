@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资产管理</title>
+    <link rel="stylesheet" href="./css/base-a.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        };
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+    .combination-list .content-t { cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="top-select">
+        <div class="title-top">
+            <div class="title-btn">
+                <span>全部</span>
+                <img class="jiantou" src="./img/jiantou.png"></div>
+        </div>
+        <div class="title-select" style="display: none;">
+            <div class="select-btn1 active">全部</div>
+            <div class="select-btn1">现金宝直销</div>
+            <div class="select-btn1">第三方平台</div>
+        </div>
+    </div>
+    <section class="content1">
+        <ul class="clearfix border tab1">
+            <li class="active"><a>现金宝</a></li>
+            <li><a>基金</a></li>
+            <li><a>组合</a></li>
+            <li><a>投顾</a></li>
+            <li><a>资管</a></li>
+        </ul>
+        <!-- 现金宝 -->
+        <div class="cashCoin">
+            <div class="content">
+                
+            </div>
+            
+            <div class="echart-list" id="pie">
+
+            </div>
+            <ul class="translate-table text-center">
+                <li class="translate-active" data-day="7">7天</li>
+                <li data-day="30">1个月</li>
+                <li data-day="60">2个月</li>
+            </ul>
+        </div>
+        <!-- 基金 -->
+        <div class="fund" style="display:none">
+            
+        </div>
+        <!-- 组合 -->
+        <div class="combination" style="display:none">
+           
+        </div>
+         <!-- 投顾 -->
+         <div class="investment" style="display:none">
+           
+        </div>
+        <!-- 资产 -->
+        <div class="asset" style="display:none">
+           
+         </div>
+        
+    </section>
+    <footer class="footer0 clearfix text-center">
+        <a href="/mobileEC/wap/account/cash.html">取现</a>
+        <a href="/mobileEC/wap/account/autoTopUpCM.html?handTp=C">自动充值</a>
+        <a href="/mobileEC/wap/account/topup.html">充值</a>
+    </footer>
+    <footer class="footer1 clearfix text-center" style="display: none;">
+        <a href="/mobileEC/wap/fundgroup/my_mip.html">我的定投</a>
+        <a href="/mobileEC/wap/fund/all_funds.html">查看更多产品</a>
+    </footer>
+    <footer class="footer2 clearfix text-center" style="display: none;">
+        <a href="/mobileEC/wap/fundgroup/my_mip.html">我的定投</a>
+    </footer>
+    <footer class="footer4 clearfix text-center" style="display: none;">
+        <a href="/mobileEC/wap/fund/all_funds.html">查看更多产品</a>
+    </footer>
+    <div class="mask"></div>
+    <div class="select-box">
+        <div class="select-header">
+            <a href="javascript:;" class="select-cancel">取消</a>
+            <span>选择分类排序</span>
+            <a href="javascript:;" class="select-ok">完成</a>
+        </div>
+        <ul class="select-content">
+            <li data-choose="MARKETVALUE">
+                <span>按市值排序</span><i></i>
+            </li>
+            <li data-choose="FUNDTYPE">
+                <span>按类型排序</span><i class="choose-active"></i>
+            </li>
+            <li data-choose="LASTPROFIT">
+                <span>按最新收益排序</span><i></i>
+            </li>
+            <li data-choose="BALANCEPROFIT">
+                <span>按持有收益排序</span><i></i>
+            </li>
+        </ul>
+    </div>
+    <div class="Bomb-box">
+        <div class="Bomb-box-main">
+            <!-- <p class="Bomb-box-tips" style="padding-top: 0.75rem;"></p> -->
+            <div class="Bomb-box-content">
+                <p class="text-center"></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;">我知道啦</a>
+        </div>
+    </div>
+    <script src="./js/echart.min.js"></script>
+    <script src="./js/jquery-3.2.1.min.js"></script>
+    <script src="../base/js/utils.js"></script>
+    <script src="./js/asset.js"></script>
+    <script>
+        // 添加 回首页 圆形按钮 20210330
+        addGoHomeCircle();
+    </script>
+</body>
+
+</html>

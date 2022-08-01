@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!--<meta charset="GBK">-->
+	<meta charset="utf8">
+	<title>风险测评</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="/tradeh5/newWap/base/css/common.css">
+	<link rel="stylesheet" href="../css/riskbase.css">
+	<script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+	<script src="../js/zepto.min.js" type="text/javascript"></script>
+	<script>
+		// 相对字体大小设置
+		var oHtml = document.documentElement;
+		getFont();
+		window.onresize = function () {
+			getFont();
+		}
+
+		function getFont() {
+			var screenWidth = oHtml.clientWidth;
+			if (screenWidth <= 320) {
+				oHtml.style.fontSize = '17.06px';
+			} else if (screenWidth >= 750) {
+				oHtml.style.fontSize = '40px';
+			} else {
+				oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+			}
+		}
+	</script>
+	<style>
+		html{overflow-x: hidden;}
+		.main{width:100%;height:100%;}
+		html, body{ height:100%;}
+		body { margin:0; padding:0; font-family:sans-serif; text-align:center; color:#FFF;position:relative;overflow-x: hidden;}
+		article{ position: absolute; width:100%; height:100%;
+			/* padding:100px;  */
+			box-sizing:border-box;
+			transition:all 0.2s ease-in-out;
+			-o-transition:all 0.2s ease-in-out;
+			-ms-transition:all 0.2s ease-in-out;
+			-moz-transition:all 0.2s ease-in-out;
+			-webkit-transition:all 0.2s ease-in-out;
+			top:0;}
+		h1{ font-size:4em; border-bottom:1px solid rgba(255,255,255,.2); padding-bottom:30px;}
+		/* p{ color:rgba(255,255,255,.8);} */
+		/* p{ color:rgba(255,255,255,.8); margin-bottom:30px;} */
+		.main p,.Bomb-box p{ color:rgba(255,255,255,.8); margin-bottom:1.5rem;}
+
+		#third2,#third3,#third4,#third5,#third6,#third7,#third8,#third9,#third10,#third11{position: absolute; width:100%; height:100%;
+			box-sizing:border-box;
+			transition:all 0.2s ease-in-out;
+			-o-transition:all 0.2s ease-in-out;
+			-ms-transition:all 0.2s ease-in-out;
+			-moz-transition:all 0.2s ease-in-out;
+			-webkit-transition:all 0.2s ease-in-out;
+			top:0;
+		}
+
+		#third1{ background:#fff; left:0;}
+		#third2{ background:#fff; left:100%;}
+		#third1.move{ left:-100%;}
+		#third2.move{ left:0;}
+
+		#third2.left,#third3.left,#third4.left,#third5.left,#third6.left,#third7.left,#third8.left,#third9.left,#third10.left,#third11.left{background:#fff; left:-100%;}
+
+		#third3{left:100%;}
+		#third3.move3{ left:0;}
+
+		#third4{left:100%;}
+		#third4.move3{ left:0;}
+
+		#third5{left:100%;}
+		#third5.move3{ left:0;}
+
+		#third6{left:100%;}
+		#third6.move3{ left:0;}
+
+		#third7{left:100%;}
+		#third7.move3{ left:0;}
+
+		#third8{left:100%;}
+		#third8.move3{ left:0;}
+
+		#third9{left:100%;}
+		#third9.move3{ left:0;}
+
+		#third10{left:100%;}
+		#third10.move3{left:0;}
+
+		#third11{left:100%;}
+		#third11.move3{left:0;}
+
+		#third12{left:100%;}
+		#third12.move3{left:0;}
+
+		#third2.left,#third3.left,#third4.left,#third5.left,#third6.left,#third7.left,#third8.left,#third9.left,#third10.left,#third11.left{left:-100%}
+		/* 正文css*/
+		.number{width:90%;height:2.5rem;margin:0 auto;margin-top:1rem;padding:0.5rem 0;}
+		.number .text{font-size:0.75rem;color:#000;text-align:center;line-height:2.5rem;}
+		#third1 .question,#third2 .question,#third3 .question,#third4 .question,#third5 .question,#third6 .question,#third7 .question,#third8 .question,#third9 .question,#third10 .question,#third11 .question,#third12 .question{width:75%;margin:0 auto;font-size:0.75rem;color:#000;font-weight: bold;text-align: justify;margin-top:1rem;}
+		.answer{width:70%;margin:0 auto;margin-top:0.75rem;background:#f6f6f6;border-radius:5px;color:#b0b0b0;text-align: justify;padding:0.65rem;font-size:0.75rem}
+
+		#a1{width:6.5rem;height:2rem;font-size:0.75rem;border:1px solid #FFF; border-radius:50px; text-decoration:none;color:#fff;background:#fb5c5f;display:block;text-align:center;line-height:2rem;margin:0 auto;border:1px solid #fb5c5f;}
+
+		.butColor{width:5.8rem;height:2rem;font-size:0.75rem;border:1px solid #FFF; border-radius:50px; text-decoration:none;color:#fb5c5f;background:#fff;display:block;text-align:center;line-height:2rem;margin:0 auto;border:1px solid #fb5c5f;}
+		.answer.active{background:#ffefef;color:#fb5c5f;border:1px solid #fb5c5f}
+		a.active{background:#fb5c5f;color:#fff;}
+
+		/* 弹框         */
+
+
+		.tip{position: fixed;top: 0; left: 0; background-color: rgba(0,0,0,0.7); height: 100%; width: 100%; overflow: auto; font-size: 0.6rem; z-index: 999; }
+		.tip .tip_wrap{ position: absolute; left: 50%; top: 50%; -webkit-transform: translate(-50%,-50%); transform: translate(-50%,-50%); margin: 0; width:80%; background: #fff; -webkit-border-radius: 5px; padding:0 0.75rem 2.5rem 0.75rem; }
+		.tip .tip_wrap .tip_content p{font-size:0.65rem;color:#bcbcbc;text-align: left;margin-top: 1rem;}
+		.tip .tip_wrap .tip_content h4{margin-top: .5rem;text-align:left;font-size:1.4rem;color:#000;padding: 0 1.5rem 0 1.5rem;}
+		.tip .tip_wrap .tip_content h4:nth-of-type(2){color:#fb5c5f;margin-top: .4rem;}
+		.tip .tip_wrap .tip_content p{padding:0 1.5rem 0 1.5rem;font-size: .7rem;margin-top: .7rem;line-height: 1rem;margin-bottom: 0rem;}
+		/* .tip .tip_wrap .tip_content{border-bottom: 1px #eee solid;} */
+
+		.tip .tip_wrap .tip_btn #ul{width:85%;height:2.2rem;margin:0 auto;margin-top:1rem;}
+
+		.tip .tip_wrap .tip_btn #ul li{text-align: center;font-size: .75rem;color:#fb5c5f;width:100%;height:2.2rem;}
+
+		.tip .tip_wrap .tip_btn #ul li a{display:block;text-align: center;font-size: .75rem;width:6rem;color:#fb5c5f;height:2.2rem;background:#fff;border:1px solid #fb5c5f;line-height:2.2rem;border-radius:50px}
+
+		.tip .tip_wrap .tip_btn #ul li a.active{background:#fb5c5f;color:#fff;}
+
+		.layer{z-index: 9999999; display: none;  position: fixed;  top: 0;  left: 0;  background-color: rgba(0,0,0,0.7);  height: 100%;  width: 100%;  overflow: auto;}
+		.layer-wrap{margin: 40% 15% 5% 15%;background-color: #fff;border-radius: 8px;}
+		.layer-body{padding: 7% 8% 1% 8%;text-align: center;}
+		.layer-wrap .layer-body p{font-size:14px;line-height: 21px; color: #666;display: inline-block;text-align: justify}
+		.layer-wrap .layer-body span{font-size: 16px;display: block;  padding-top: 10px;color: #333;font-weight: 600;}
+		.layer-wrap button{font-size: 16px;
+			color: #fb5c5f;
+			background-color: #fff;
+			border-top: solid 1px #eeeeee;
+			width: 90%;
+			height: 45px;
+			display: block;
+			margin: 0 auto;
+		}
+		.layer-wrap button:focus{outline: none;}
+
+
+
+		/* 圆环进度样式*/
+		.circle{
+			width:50px;
+			height: 50px;
+			position: relative;
+			border-radius: 50%;
+			background:  rgba(251,92,95,0.8);
+			/* background:#fb5c5f; */
+			margin-left:1.5rem;
+		}
+		.circle .left,.circle .right{
+			width: 50px;
+			height: 50px;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		.left{
+			clip: rect(0,25px,auto,0);
+		}
+		.right{
+			clip: rect(0,auto,auto,25px);
+		}
+		.left_con,.right_con{
+			display: block;
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			/* background: rgb(0,120,200);  */
+			background:#eeeeee;
+			position: absolute;
+			top:0px;
+			left: 0;
+			border:0px solid #eeee;
+		}
+		.left_con{
+			clip: rect(0,25px,auto,0);
+		}
+		.right_con{
+			clip: rect(0,auto,auto,25px);
+		}
+		.mask {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			left: 5px;
+			top: 5px;
+			background: #FFF;
+			position: absolute;
+			text-align: center;
+			line-height: 40px;
+			font-size:12px;
+			color: #666666;
+		}
+	</style>
+</head>
+<body>
+<div class="main">
+	<article id="third1" style="background:#fff">
+		<div class="number">
+			<div class="circle" style="float:left">
+				<div class="left">
+					<div class="left_con"></div>
+				</div>
+				<div class="right">
+					<div class="right_con"></div>
+				</div>
+				<div class="mask">
+					<span class="span1">8.33</span>
+				</div>
+			</div>
+			<div class="text" style="float:left;margin-left:1rem">请完成测评查看个人风险报告</div>
+		</div>
+		<div class="question">1、您的主要收入来源是?</div>
+		<div class="answer">A.工资、劳务报酬</div>
+		<div class="answer">B.生产经营所得</div>
+		<div class="answer">C.利息、股息、转让等金融性资产收入</div>
+		<div class="answer">D.出租、出售房地产等非金融性资产收入</div>
+		<div class="answer">E.无固定收入</div>
+		<!--		<a href="javascript:;" id="a1" style="margin-top: 0.75rem">下一题</a>-->
+	</article>
+	<article id="third2" style="background:#fff">
+		<div class="number">
+			<div class="circle" style="float:left">
+				<div class="left">
+					<div class="left_con"></div>
+				</div>
+				<div class="right">
+					<div class="right_con"></div>
+				</div>
+				<div class="mask">
+					<span class="span2">16.67</span>
+				</div>
+			</div>
+			<div class="text" style="float:left;margin-left:1rem">请完成测评查看个人风险报告</div>
+		</div>
+		<div class="question">2、您的家庭可支配年收入为（折合人民币）?</div>
+		<div class="answer">A.50万元以下</div>
+		<div class="answer">B.50—100万元</div>
+		<div class="answer">C.100—500万元</div>
+		<div class="answer">D.500—1000万元</div>
+		<div class="answer">E.1000万元以上</div>
+		<div style="width:75%;margin:0 auto;height:2rem;margin-top:0.75rem">
+			<a href="javascript:;" id="up2" style="margin-top: 0.75rem" class="butColor">上一题</a>
+			<!--			<a href="javascript:;" id="a2" style="float:right" class="butColor active">下一题</a>-->
+		</div>
+	</article>
+	<article id="third3" style="background:#fff">
+		<div class="number">
+			<div class="circle" style="float:left">
+				<div class="left">
+					<div class="left_con"></div>
+				</div>
+				<div class="right">
+					<div class="right_con"></div>
+				</div>
+				<div class="mask">
+					<span class="span3">25</span>
+				</div>
+			</div>
+			<div class="text" style="float:left;margin-left:1rem">请完成测评查看个人风险报告</div>
+		</div>
+		<div class="question">3、在您每年的家庭可支配收入中，可用于金融投资（储蓄存款除外）的比例为?</div>
+		<div class="answer">A.小于10%</div>
+		<div class="answer">B.10%至25%</div>
+		<div class="answer">C.25%至50%</div>
+		<div class="answer">D.大于50%</div>
+		<div style="width:75%;margin:0 auto;height:2rem;margin-top:0.75rem">
+			<a href="javascript:;" id="up3" style="margin-top: 0.75rem" class="butColor">上一题</a>
+			<!--			<a href="javascript:;" id="a3" style="float:right" class="butColor active">下一题</a>-->
+		</div>
+	</article>
+	<article id="third4" style="background:#fff">
+		<div class="number">
+			<div class="circle" style="float:left">
+				<div class="left">
+					<div class="left_con"></div>
+				</div>
+				<div class="right">
+					<div class="right_con"></div>
+				</div>
+				<div class="mask">
+					<span class="span4">33.33</span>
+				</div>
+			</div>
+			<div class="text" style="float:left;margin-left:1rem">请完成测评查看个人风险报告</div>
+		</div>
+		<div class="question">4、您是否有尚未清偿的数额较大的债务，如有，其性质是</div>
+		<div class="answer">A.没有</div>
+		<div class="answer">B.有，住房抵押贷款等长期定额债务</div>
+		<div class="answer">C.有，信用卡欠款、消费信贷等短期信用债务</div>
+		<div class="answer">D.有，亲戚朋友借款</div>
+		<div class="answer">E.有，包含以上多项债务类型</div>
+		<div style="width:75%;margin:0 auto;height:2rem;margin-top:0.75rem">
+			<a href="javascript:;" id="up4" style="margin-top: 0.75rem" class="butColor">上一题</a>
+			<!--			<a href="javascript:;" id="a4" style="float:right" class="butColor active">下一题</a>-->
+		</div>
+	</article>
+	<article id="third5" style="background:#fff">
+		<div class="number">
+			<div class="circle" style="float:left">
+				<div class="left">
+					<div class="left_con"></div>
+				</div>
+				<div class="right">
+					<div class="right_con"></div>
+				</div>
+				<div class="mask">
+					<span class="span5">41.67</span>
+				</div>
+			</div>
+			<div class="text" style="float:left;margin-left:1rem">请完成测评查看个人风险报告</div>
+		</div>
+		<div class="question">5、您的投资知识可描述为：</div>
+		<div class="answer">A.有限：基本没有金融产品方面的知识</div>
+		<div class="answer">B.一般：对金融产品及其相关风险具有基本的知识和理解</div>
+		<div class="answer">C.丰富：对金融产品及其相关风险具有丰富的知识和理解</div>
+		<div style="width:75%;margin:0 auto;height:2rem;margin-top:0.75rem">
+			<a href="javascript:;" id="up5" style="margin-top: 0.75rem" class="butColor">上一题</a>
+			<!--			<a href="javascript:;" id="a5" style="float:right" class="butColor active">下一题</a>-->
+		</div>
+	</article>
+	<article id="third6" style="background:#fff">
+		<div class="number">
+			<div class="circle" style="float:left">
+				<div class="left">
+					<div class="left_con"></div>
+				</div>
+				<div class="right">
+					<div class="right_con"></div>
+				</div>
+				<div class="mask">
+					<span class="span6">50</span>
+				</div>
+			</div>
+			<div class="text" style="float:left;margin-left:1rem">请完成测评查看个人风险报告</div>
+		</div>
+		<div class="question">6、您的投资经验可描述为：</div>
+		<div class="answer">A.除银行储蓄外，基本没有其他投资经验</div>
+		<div class="answer">B.购买过债券、保险等理财产品</div>
+		<div class="answer">C.参与过股票、基金等产品的交易</div>
+		<div class="answer">D.参与过权证、期货、期权等产品的交易</div>
+		<div style="width:75%;margin:0 auto;height:2rem;margin-top:0.75rem">
+			<a href="javascript:;" id="up6" style="margin-top: 0.75rem" class="butColor">上一题</a>
+			<!--			<a href="javascript:;" id="a6" style="float:right" class="butColor active">下一题</a>-->
+		</div>
+	</article>
+	<article id="third7" style="background:#fff">
+		<div class="number">
+			<div class="circle" style="float:left">
+				<div class="left">
+					<div class="left_con"></div>
+				</div>
+				<div class="right">
+					<div class="right_con"></div>
+				</div>
+				<div class="mask">
+					<span class="span7">58.33</span>
+				</div>
+			</div>
+			<div class="text" style="float:left;margin-left:1rem">请完成测评查看个人风险报告</div>
+		</div>
+		<div class="question">7、您有多少年投资基金、股票、信托、私募证券或金融衍生产品等风险投资品的经验?</div>
+		<div class="answer">A.没有经验</div>
+		<div class="answer">B.少于2年</div>
+		<div class="answer">C.2至5年</div>
+		<div class="answer">D.5至10年</div>
+		<div class="answer">E.10年以上</div>
+		<div style="width:75%;margin:0 auto;height:2rem;margin-top:0.75rem">
+			<a href="javascript:;" id="up7" style="margin-top: 0.75rem" class="butColor">上一题</a>
+			<!--			<a href="javascript:;" id="a7" style="float:right" class="butColor active">下一题</a>-->
+		</div>
+	</article>
+	<article id="third8" style="background:#fff">
+		<div class="number">
+			<div class="circle" style="float:left">
+				<div class="left">
+					<div class="left_con"></div>
+				</div>
+				<div class="right">
+					<div class="right_con"></div>
+				</div>
+				<div class="mask">
+					<span class="span8">66.67</span>
+				</div>
+			</div>
+			<div class="text" style="float:left;margin-left:1rem">请完成测评查看个人风险报告</div>
+		</div>
+		<div class="question">8、您计划的投资期限是多久?</div>
+		<div class="answer">A.1年以下</div>
+		<div class="answer">B.1至3年</div>
+		<div class="answer">C.3至5年</div>
+		<div class="answer">D.5年以上</div>
+		<div style="width:75%;margin:0 auto;height:2rem;margin-top:0.75rem">
+			<a href="javascript:;" id="up8" style="margin-top: 0.75rem" class="butColor">上一题</a>
+			<!--			<a href="javascript:;" id="a8" style="float:right" class="butColor active">下一题</a>-->
+		</div>
+	</article>
+	<article id="third9" style="background:#fff">
+		<div class="number">
+			<div class="circle" style="float:left">
+				<div class="left">
+					<div class="left_con"></div>
+				</div>
+				<div class="right">
+					<div class="right_con"></div>
+				</div>
+				<div class="mask">
+					<span class="span9">75</span>
+				</div>
+			</div>
+			<div class="text" style="float:left;margin-left:1rem">请完成测评查看个人风险报告</div>
+		</div>
+		<div class="question">9、您打算重点投资于哪些种类的投资品种?</div>
+		<div class="answer">A.债券、货币市场基金、债券基金等固定收益类投资品种</div>
+		<div class="answer">B.股票、混合型基金、股票型基金等权益类投资品种</div>
+		<div class="answer">C.期货、期权等金融衍生品及B选项中的投资品种</div>
+		<div class="answer">D.C选项中的投资品种及其他产品或者服务</div>
+		<div style="width:75%;margin:0 auto;height:2rem;margin-top:0.75rem">
+			<a href="javascript:;" id="up9" style="margin-top: 0.75rem" class="butColor ">上一题</a>
+		</div>
+	</article>
+	<article id="third10" style="background:#fff">
+		<div class="number">
+			<div class="circle" style="float:left">
+				<div class="left">
+					<div class="left_con"></div>
+				</div>
+				<div class="right">
+					<div class="right_con"></div>
+				</div>
+				<div class="mask">
+					<span class="span10">83.33</span>
+				</div>
+			</div>
+			<div class="text" style="float:left;margin-left:1rem">请完成测评查看个人风险报告</div>
+		</div>
+		<div class="question">10、以下哪项描述最符合您的投资态度?</div>
+		<div class="answer">A.厌恶风险，不希望本金损失，希望获得稳定回报</div>
+		<div class="answer">B.保守投资，不希望本金损失，愿意承担一定幅度的收益波动</div>
+		<div class="answer">C.寻求资金的较高收益和成长性，愿意为此承担有限本金损失</div>
+		<div class="answer">D.希望赚取高回报，愿意为此承担较大本金损失</div>
+		<div style="width:75%;margin:0 auto;height:2rem;margin-top:1rem">
+			<a href="javascript:;" id="up10" style="margin-top: 0.75rem" class="butColor ">上一题</a>
+		</div>
+	</article>
+	<article id="third11" style="background:#fff">
+		<div class="number">
+			<div class="circle" style="float:left">
+				<div class="left">
+					<div class="left_con"></div>
+				</div>
+				<div class="right">
+					<div class="right_con"></div>
+				</div>
+				<div class="mask">
+					<span class="span11">91.67</span>
+				</div>
+			</div>
+			<div class="text" style="float:left;margin-left:1rem">请完成测评查看个人风险报告</div>
+		</div>
+		<div class="question">11、假设有两种投资：投资A预期获得10%的收益，可能承担的损失非常小；投资B预期获得30%的收益，但可能承担较大亏损。您会怎么支配您的投资：</div>
+		<div class="answer">A.全部投资于收益较小且风险较小的A</div>
+		<div class="answer">B.同时投资于A和B，但大部分资金投资于收益较小且风险较小的A</div>
+		<div class="answer">C.同时投资于A和B，但大部分资金投资于收益较大且风险较大的B</div>
+		<div class="answer">D.全部投资于收益较大且风险较大的B</div>
+		<div style="width:75%;margin:0 auto;height:2rem;margin-top:0.75rem">
+			<a href="javascript:;" id="up11" style="margin-top: 0.75rem" class="butColor ">上一题</a>
+		</div>
+	</article>
+	<article id="third12" style="background:#fff">
+		<div class="number">
+			<div class="circle" style="float:left">
+				<div class="left">
+					<div class="left_con"></div>
+				</div>
+				<div class="right">
+					<div class="right_con"></div>
+				</div>
+				<div class="mask">
+					<span class="span12">100</span>
+				</div>
+			</div>
+			<div class="text" style="float:left;margin-left:1rem">请完成测评查看个人风险报告</div>
+		</div>
+		<div class="question">12、您认为自己能承受的最大投资损失是多少?（本题不构成对实际投资损失比例的保证或承诺）</div>
+		<div class="answer">A. 10%以内</div>
+		<div class="answer">B. 10%-30%</div>
+		<div class="answer">C. 30%-50%</div>
+		<div class="answer">D. 超过50%</div>
+		<div style="width:75%;margin:0 auto;height:2rem;margin-top:0.75rem">
+			<a href="javascript:;" id="up12" style="float:left" class="butColor">上一题</a>
+			<a href="javascript:;" id="submit12" style="float:right" class="butColor active">提交</a>
+		</div>
+	</article>
+	<!-- 弹窗 -->
+	<div class="tip" style="display: none;" id="tip1">
+		<div class="tip_wrap">
+			<div class="tip_content">
+				<p>你的风险测评结果</p>
+				<!-- <h4>稳健型 <span style="font-size:0.7rem;color:#bcbcbc">(普通投资者)</span></h4> -->
+				<h4 id="levelTxt"></h4>
+
+				<!-- <p>根据适当性匹配规则，您适合投资风险等级为<span style="color:#fe5a5b;" >低风险、中低风险、中风险</span>的产品。该适当性匹配意见不表明我司对产品或服务的风险和收益作出任何实质性判断或保证。<br><span style="color:#fe5a5b;">您当前持有超出您风险承受等级的产品，请知晓相应的风险。</span></p> -->
+				<p id = "riskLevelMatchesDesc"></p>
+			</div>
+			<div class="tip_btn" >
+				<ul id="ul">
+					<li>
+						<a style="float: left;" href="matching_rule.html">了解匹配规则</a>
+						<a style="float:right;" href="javascript:;" class="active" id="again">重新测评</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="layer" style="display: none;" id="tip2">
+		<div class="layer-wrap">
+			<div class="layer-body">
+				<p style="color:#fb5c5f">请选择测评答案</p>
+			</div>
+			<button style="color:#fb5c5f" id="but">确定</button>
+		</div>
+	</div>
+
+	<div class="layer" style="display: none;" id="tip3">
+		<div class="layer-wrap">
+			<div class="layer-body" style="padding: 12% 8% 1% 8%;">
+				<p style="color:#fb5c5f">正在计算测评结果</p>
+			</div>
+		</div>
+	</div>
+
+</div>
+<div class="Bomb-box flex flex-align-center flex-pack-center hideBomb">
+	<div class="Bomb-box-main">
+			<p class="Bomb-box-tips" style="padding-top: 0.75rem; color: #000;"></p>
+			<div class="Bomb-box-content font-30" style="padding: 0 1.5rem;"><p class="text-center" style="color: #000;"></p></div>
+			<a class="Bomb-box-ok" href="javascript:;">我知道了</a>
+	</div>
+</div>
+<script src="../js/lib/jquery.3.4.1.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script type="text/javascript" src="../js/common.js?20210302"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script>
+    // start-20220114-需求9743 风险测评问卷增加实名客户判断
+    function realName(){
+        utils.ajax({
+            url: '/icif/v1/custs/get-simple-by-cust-no',
+            success: function (result) {
+                if(result.returnCode == 0){
+                    if(result.body && result.body.custTp === 'NRN'){ // 客户类型，RN-实名客户，NRN-非实名客户
+						showCardDlg();
+                    }
+                }
+            }.bind(this)
+        })
+    }
+    function showCardDlg(){   //弹窗提示
+        utils.showTips({
+            content: '您需要完成绑卡后方可进行风险测评。',
+            showCancel: false, //是否显示取消按钮，默认false
+            confirmText: '去绑定银行卡', //确认按钮文字，默认确定
+            complete: function () { //需使用bind()
+                setTimeout(()=>{
+                    showCardDlg();
+                    if (isApp()) {
+                        // window.location.href = "htffundxjb://action?type=accountSecurity&subType=bankCard";
+                        window.location.href = "htffundxjb://action?type=accountSecurity&subType=verifyIdentify&taskType=realName";
+                    } else {
+                        window.location.href = '/mobileEC/wap/card/bindCardInputCardInfo.html';
+                    }
+                }, 0)
+            }.bind(this)
+        });
+    }
+    realName();
+    // end-20220114-需求9743 风险测评问卷增加实名客户判断
+	document.body.addEventListener('touchmove',function (event) { event.preventDefault(); },true);
+	$(function(){
+		// // 检查是否为有投顾资产的用户
+		// getAsset(getRiseCount);
+		// function getAsset(cb) {
+		// 		let data = {
+		// 				classify: '05',
+		// 				currencyType: '156',
+		// 		}
+		// 		utils.ajax({
+		// 				url: '/assetcenter/v1/view/new/list/product',
+		// 				type: 'GET',
+		// 				data,
+		// 				success: function (result) {
+		// 						if (result.returnCode === 0) {
+		// 								// console.log("后端数据:", result.body);
+		// 								result.body.totalBalance&&cb();
+		// 						} else {
+		// 								utils.showTips('请求超时，请稍后重试');
+		// 						}
+		// 				}.bind(this)
+		// 		})
+		// }
+		getRiseCount();
+		// 检查投顾用户的风险测评的次数
+		function getRiseCount() {
+				utils.ajax({
+						// url: '/icif/v1/risks/risk-level',
+						url: '/icif/v1/risks/ia-cust-risk-eval-times',
+						success: function (result) {
+								if (result.returnCode === 0) {
+										if(result.body&&result.body.iaCust){
+											if(Number(result.body.iaCustEvalQuarterTimesRemained)===0){
+												utils.showTips({
+													title: '',
+													content: '根据适当性政策，每自然季度您最多可以进行两次风险测评，请谨慎测评。本季度您剩余的风险测评次数为0',
+													confirmText:'我知道了',
+													complete: function () {
+														if (isApp()) {
+															// window.location.href = 'htffundxjb://action?type=riskTest&subType=home';
+															window.location.href = 'htffundxjb://action?type=hm';
+														} else {
+															window.location.href = '/mobileEC/wap/wezhan/mine.html'; // h5页面跳转到微站首页
+														}
+													}.bind(this)
+												})
+											}else{
+												utils.showTips({
+													title: '',
+													content: '根据适当性政策，每自然季度您最多可以进行两次风险测评，请谨慎测评。本季度您剩余的风险测评次数为'+result.body.iaCustEvalQuarterTimesRemained,
+													confirmText:'我知道了'
+												})
+											}
+										}
+								} else {
+										utils.showTips('请求超时，请稍后重试');
+								}
+						}.bind(this)
+				})
+		}
+
+
+		// checkHasCompleteInfo();
+		// 重新测评
+		$("#again").click(function(){
+			window.location.reload();
+			$("#tip1").hide()
+		})
+		//设定全局数组，存储被选的答案；
+		var answers = [];
+// 下一题
+// 		$('#a1').click(function(a){
+// 			a.preventDefault();//阻止超链接的默认锚点跳转动作。
+// 			// $('#third1').toggleClass('move');
+// 			// $('#third2').toggleClass('move');
+//
+// 			if ($("#third1 .answer").hasClass("active")) {
+// 				// $('#third1').toggleClass('move');
+// 				$('#third2').toggleClass('move');
+// 			}else{
+// 				$("#tip2").show()
+// 			}
+// 		});
+// 		$('#a2').click(function(a){
+// 			a.preventDefault();//阻止超链接的默认锚点跳转动作。
+//
+// 			if ($("#third2 .answer").hasClass("active")) {
+// 				// $('#third2').toggleClass('left');
+// 				$('#third3').toggleClass('move3');
+// 			}else{
+// 				$("#tip2").show()
+// 			}
+// 		});
+// 		$('#a3').click(function(a){
+// 			a.preventDefault();//阻止超链接的默认锚点跳转动作。
+//
+// 			if ($("#third3 .answer").hasClass("active")) {
+// 				$('#third4').toggleClass('move3');
+// 				// $('#third3').toggleClass('left');
+// 			}else{
+// 				$("#tip2").show()
+// 			}
+// 		});
+// 		$('#a4').click(function(a){
+// 			a.preventDefault();//阻止超链接的默认锚点跳转动作。
+//
+// 			if ($("#third4 .answer").hasClass("active")) {
+// 				$('#third5').toggleClass('move3');
+// 				// $('#third4').toggleClass('left');
+// 			}else{
+// 				$("#tip2").show()
+// 			}
+// 		});
+// 		$('#a5').click(function(a){
+// 			a.preventDefault();//阻止超链接的默认锚点跳转动作。
+//
+// 			if ($("#third5 .answer").hasClass("active")) {
+// 				$('#third6').toggleClass('move3');
+// 				// $('#third5').toggleClass('left');
+// 			}else{
+// 				$("#tip2").show()
+// 			}
+// 		});
+// 		$('#a6').click(function(a){
+// 			a.preventDefault();//阻止超链接的默认锚点跳转动作。
+//
+//
+// 			if ($("#third6 .answer").hasClass("active")) {
+// 				$('#third7').toggleClass('move3');
+// 				// $('#third6').toggleClass('left');
+// 			}else{
+// 				$("#tip2").show()
+// 			}
+// 		});
+// 		$('#a7').click(function(a){
+// 			a.preventDefault();//阻止超链接的默认锚点跳转动作。
+//
+// 			if ($("#third7 .answer").hasClass("active")) {
+// 				$('#third8').toggleClass('move3');
+// 				// $('#third7').toggleClass('left');
+// 			}else{
+// 				$("#tip2").show()
+// 			}
+// 		});
+// 		$('#a8').click(function(a){
+// 			a.preventDefault();//阻止超链接的默认锚点跳转动作。
+//
+// 			if ($("#third8 .answer").hasClass("active")) {
+// 				$('#third9').toggleClass('move3');
+// 				// $('#third8').toggleClass('left');
+// 			}else{
+// 				$("#tip2").show()
+// 			}
+// 		});
+// 		$('#a9').click(function(a){
+// 			a.preventDefault();//阻止超链接的默认锚点跳转动作。
+//
+// 			if ($("#third9 .answer").hasClass("active")) {
+// 				$('#third10').toggleClass('move3');
+// 				// $('#third9').toggleClass('left');
+// 			}else{
+// 				$("#tip2").show()
+// 			}
+// 		});
+// 上一题
+		$('#up2').click(function(a){
+			a.preventDefault();//阻止超链接的默认锚点跳转动作。
+			// $('#third1').toggleClass('move');
+			$('#third2').toggleClass('move');
+			$('#third1').show();
+		});
+		$('#up3').click(function(a){
+			a.preventDefault();//阻止超链接的默认锚点跳转动作。
+			// $('#third2').toggleClass('left');
+			$('#third3').toggleClass('move3');
+			$('#third2').show();
+		});
+		$('#up4').click(function(a){
+			a.preventDefault();//阻止超链接的默认锚点跳转动作。
+			// $('#third3').toggleClass('left');
+			$('#third4').toggleClass('move3');
+			$('#third3').show();
+		});
+		$('#up5').click(function(a){
+			a.preventDefault();//阻止超链接的默认锚点跳转动作。
+			// $('#third4').toggleClass('left');
+			$('#third5').toggleClass('move3');
+			$('#third4').show();
+		});
+		$('#up6').click(function(a){
+			a.preventDefault();//阻止超链接的默认锚点跳转动作。
+			// $('#third5').toggleClass('left');
+			$('#third6').toggleClass('move3');
+			$('#third5').show();
+		});
+		$('#up7').click(function(a){
+			a.preventDefault();//阻止超链接的默认锚点跳转动作。
+			// $('#third6').toggleClass('left');
+			$('#third7').toggleClass('move3');
+			$('#third6').show();
+		});
+		$('#up8').click(function(a){
+			a.preventDefault();//阻止超链接的默认锚点跳转动作。
+			// $('#third7').toggleClass('left');
+			$('#third8').toggleClass('move3');
+			$('#third7').show();
+		});
+		$('#up9').click(function(a){
+			a.preventDefault();//阻止超链接的默认锚点跳转动作。
+			// $('#third8').toggleClass('left');
+			$('#third9').toggleClass('move3');
+			$('#third8').show();
+		});
+		$('#up10').click(function(a){
+			a.preventDefault();//阻止超链接的默认锚点跳转动作。
+			// $('#third9').toggleClass('left');
+			$('#third10').toggleClass('move3');
+			$('#third9').show();
+		});
+		$('#up11').click(function(a){
+			a.preventDefault();//阻止超链接的默认锚点跳转动作。
+			// $('#third10').toggleClass('left');
+			$('#third11').toggleClass('move3');
+			$('#third10').show();
+		});
+		$('#up12').click(function(a){
+			a.preventDefault();//阻止超链接的默认锚点跳转动作。
+			// $('#third11').toggleClass('left');
+			$('#third12').toggleClass('move3');
+			$('#third11').show();
+		});
+// 关闭测评提示
+		$("#but").click(function(){
+			$("#tip2").hide()
+		})
+// 切换选项 ---答题
+		$(".answer").click(function(){
+			var ind =  $(this).parent().attr("id").substring(5);
+			if(!$(this).hasClass("active")) {
+				$(this).addClass("active").siblings().removeClass('active');
+				var answer_index = $(this).siblings().index($(this).prev());
+				var ind = $(this).parent().attr("id").substring(5);
+				if(answers[(ind-1)] == '' || answers[(ind-1)] == null || answers[(ind-1)].length<1){
+					answers.push(answer_index);
+				}else{
+					answers[(ind-1)] = answer_index;
+				}
+			}
+
+			if(ind == 1){
+				$('#third'+(Number(ind)+1)).toggleClass('move');
+			}else{
+				$('#third'+(Number(ind)+1)).toggleClass('move3');
+			}
+			if(Number(ind)<12){
+				$('#third'+(Number(ind))).hide();
+			}
+			// <!-- alert(answer_index); -->
+			// <!-- alert(answers); -->
+			// <!-- alert($(this).siblings().index($(this).prev())); -->
+			// <!-- alert($(this).text()); -->
+		});
+// 切换按钮样式
+		$("#third2 a,#third3 a,#third4 a,#third5 a,#third6 a,#third7 a,#third8 a,#third9 a,#third10 a,#third11 a,#third12 a").click(function(){
+			if($(this).hasClass("active")) {
+				return;
+			}
+			$(this).addClass("active").siblings().removeClass('active');
+		});
+// 获取选择的答案
+		// $("#up10").click(function(){
+		//      $(".answer").each(function(){
+		//         if($(this).hasClass("active")){
+		//             alert($(this).text())
+		//         }
+		//     })
+		// })
+		$('#submit12').click(function(a){
+			a.preventDefault();//阻止超链接的默认锚点跳转动作。
+
+			if ($("#third12 .answer").hasClass("active")) {
+				// <!-- $(".answer").each(function(){ -->
+				// <!-- if($(this).hasClass("active")){ -->
+				// <!-- $("#tip1").show() -->
+				// <!-- } -->
+				// <!-- }) -->
+
+				submitAnswers(answers);
+			}else{
+				$("#tip2").show()
+			}
+		});
+
+		//判断用户是否登录
+		// 20220117注释掉这段代码-前面utils已经处理
+		// function checkHasCompleteInfo(){
+		// 	App.get('/icif/v1/custs/get-simple-by-cust-no' , null, function(result){
+		// 		if(result.returnCode == 0){
+		// 			return true;
+		// 		}
+		// 	});
+		// }
+		//提交答案到后台
+		function submitAnswers(answers){
+			var aa = new Array();
+			var str = "{";
+			var flag = "";
+			var answersLength = answers.length;
+			for(var i = 0;i<answersLength;i++){
+				var answer = transformationAnswer(answers[i]);
+				str = str + flag +"\"answer"+(i+1)+"\":\""+answer+"\"";
+				// <!-- aa.push(answer) -->
+				flag = ",";
+			}
+			str = str+"}";
+			// <!-- alert(answers+"----"+aa); -->
+			// <!-- alert(str); -->
+			$("#tip3").show();
+			utils.post("/mobile-bff/v1/common/evaluate-cust-risk", str, function(result){
+				$("#tip3").hide();
+				if(result.returnCode == 9998){
+					console.log(result.returnMsg);
+					utils.showTips({
+						title: '',
+						content: result.returnMsg?result.returnMsg:'当前服务或网络异常，请稍后重试',
+						complete: function() { //需使用bind()
+							if(isApp()){
+								window.location.href = 'htffundxjb://action?type=hm';
+							} else {
+								window.location.href = '/mobileEC/wap/wezhan/mine.html'; // h5页面跳转到微站首页
+							}
+            }.bind(this)
+					});
+					// alertTipsOne(result.returnMsg,function(){
+					// 	var u = navigator.userAgent;
+					// 	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+					// 	if(isAndroid){
+					// 			handler.goBack(true);
+					// 	} else {
+					// 			window.location.href = "http://www.99fund.com?pageforward=1";
+					// 	}
+					// })
+				}
+			}, function(result){
+				if(result.returnCode == 0){
+					// console.log(JSON.stringify(result));
+					// alert("riskName--"+riskName+"----investorTypeName--"+investorTypeName+"-----riskLevelMatchesDesc-----"+riskLevelMatchesDesc);
+					// var riskName = result.body.riskLevelZh;
+					// if(riskName != undefined && riskName != ""){
+					// 	App.setSession("riskTest",result);
+					// 	window.location = "./result.html?resultType=2";
+					// }
+					App.setSession("riskTest",result);
+					window.location = "./result.html?resultType=2&forwardUrl=" + App.getUrlParam('forwardUrl');
+				}else{
+					alert(jsonRe.returnMsg);
+				}
+			});
+
+		}
+		// 关闭当前页
+		function checkAdroid(){
+         var u = navigator.userAgent;
+         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+         if(isAndroid){
+            handler.goBack(true);
+         } else {
+             window.location.href = "http://www.99fund.com?pageforward=1";
+         }
+     };
+		//转换答案为ABCDE
+		function transformationAnswer(answerParma){
+
+			if(answerParma == '1'){
+				return 'A';
+			}else if(answerParma == '2'){
+				return 'B';
+			}else if(answerParma == '3'){
+				return 'C';
+			}else if(answerParma == '4'){
+				return 'D';
+			}else if(answerParma == '5'){
+				return 'E';
+			}
+		}
+// 弹框里按钮样式切换
+		$('.tip_btn li a').click(function () {
+			if ($(this).hasClass("active")) {
+				return;
+			}
+			$(this).addClass("active").siblings().removeClass('active');
+		});
+// 圆环进度条js
+		var annulus = function(speed){
+			var _this = this;
+			_this.speed = speed||12;
+			function init(){
+				circle();
+			}
+			function circle(){
+				$('.circle').each(function(index, el) {
+					var numStart = 0;
+					var num =$(this).find('span').text() * 3.6;
+					$(".span"+(index+1)).html((index+1)+"/"+12)
+					var timer = null;
+					var that = this;
+					timer = setInterval(function(){
+						if(numStart>num){
+							clearInterval(timer);
+							tiemr = null;
+						}
+						animateLoading(that,numStart);
+						numStart += 3.6;
+					},_this.speed);
+				});
+			}
+			function animateLoading(_this,num){
+				if (num <= 180) {
+					$(_this).find('.right_con').css({'transform':"rotate(" + num + "deg)"});
+
+				} else {
+					$(_this).find('.right_con').css({'transform': "rotate(180deg)"});
+					$(_this).find('.left_con').css({'transform': "rotate(" + (num - 180) + "deg)"});
+				};
+			};
+			return {
+				init:init
+			}
+		}
+
+		var a = new annulus(1);
+		a.init();
+
+	})
+</script>
+</body>
+
+</html>

@@ -1,0 +1,149 @@
+.top-bar .left{
+    width: 33%;
+    text-align: left;
+}
+.top-bar .mid {
+    text-align:center;
+}
+.top-bar .right{
+    width: 33%;
+    text-align: right;
+}
+.item{
+    _height: 73px;
+    min-height: 73px;
+    width: 85%;
+    margin-left: 2%;
+    margin-top: 10px;
+    display:-webkit-box;
+}
+.item .title{
+    margin-left: 10px;
+}
+.item .content{
+    margin-left: 10px;
+    line-height: 20px;
+}
+.item .leftbox{
+    width: 61%;
+}
+.rightbox{
+    width: 34%;
+}
+.search-box{
+    height: 40px;
+    display:-webkit-box;
+    border-radius: 4px;
+    position: fixed;
+    top: 50px;
+    width: 100%;
+    z-index: 9999;
+    background-color: #ebebeb;
+}
+.f-green{
+    color: green;
+}
+.search-box .search-type{
+    height: 30px;
+    margin-left: 15px;
+    margin-top: 5px;
+    width: 30%;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    background: #ffffff;
+}
+.search-box .search-bar{
+    height: 30px;
+    margin-top: 5px;
+    width: 60%;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-left: none;
+    border-right: 1px #bfbfbf solid;
+    background: #ffffff;
+}
+.input-left{
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    background: url("../../images/fund/icon20.png") 80px center no-repeat;
+    position: absolute;
+    padding-top: 5px;
+    padding-left: 18px;
+    width: 26%;
+}
+.down{
+    background: url("../../images/fund/icon19.png") 80px center no-repeat;
+}
+
+.search-hide{
+    border-top: 1px #bfbfbf solid;
+    height: 125px;
+    width: 100%;
+    background-color: #ffffff;
+    position: fixed;
+    top: 90px;
+    display: none;
+    z-index: 9988;
+}
+.div-list {
+    margin-top: 5px;
+    padding: 5px;
+    height: 20px;
+    margin-left: 17px;
+    border: 1px #bfbfbf solid;
+    display:-webkit-box;
+    width: 60px;
+    float: left;
+}
+.input-right{
+    width: 98%;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.date{
+    margin-right:10px;
+    margin-top: 5px;
+    text-align: right;
+}
+.fund_list .line{
+    width: 95%;
+    text-align: center;
+    border-bottom: 1px #d7d7d7 solid;
+    margin: 5px 0 5px 5px;
+}
+.content > span{
+    padding-left: 3px;
+}
+.content {
+    padding-top: 2px;
+}
+.fund_list{
+    padding-top: 40px;
+    background-color: #ffffff;
+}
+.ldate,.date{
+    bottom: 0;
+    position: absolute;
+}
+.chart_desc{
+    text-align: center;
+}
+.line-del{
+    text-decoration: line-through;
+}
+
+
+.search-box-background {
+    position: absolute;
+    background-image: url(../../images/common/background-70.png);
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 640px;
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+/**
+ * Created by sun on 15-03-18.
+ */

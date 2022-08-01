@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>资管产品资产</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/account/base_tfh.css">
+    <link rel="stylesheet" href="../css/account/main.css">
+    <script>
+        (function(){
+            // 相对字体大小设置
+            var oHtml = document.documentElement;
+            getFont();
+            window.onresize = function(){
+                getFont();
+            };
+            function getFont(){
+                var screenWidth = oHtml.clientWidth;
+                screenWidth = screenWidth> 640 ? 640 : screenWidth;
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+
+            }
+        })();
+    </script>
+    <style>
+    body { padding-bottom: 3rem;}
+    .header-huge { padding: 0 0.75rem; height:9.125rem; background-color: #ff7e00; text-align: center; color: #fff;position: relative;border-bottom: solid 2px #fd6d30}
+    .header-huge h1 { font-size: 0.7rem; padding-top: 1.375rem;}
+    .header-huge p { font-size: 1.75rem; line-height: 1.5; padding-bottom: 0.6rem;padding-top: 0.2rem}
+    .grid-list-item h3 { font-size: 0.75rem; color: #000; margin-top: 0.65rem; line-height: 1.5; height: 1.2rem;}
+    .grid-list-item p { font-size: 0.65rem; color: #666666; line-height: 1.5;}
+    .detailed-assets ul li p{
+        font-size: 0.65rem;
+        padding-bottom: 0.2rem;
+    }
+    .detailed-assets ul li span{
+        font-size: 1rem;
+    }
+    .detailed-assets ul{
+
+    }
+    .detailed-assets ul li{
+        float: left;
+        width: 49%;
+    }
+        .frist-li{
+            border-right: solid 1px rgba(255,255,255,0.5);
+        }
+
+    .title-type{
+        padding: 0.5rem 0.75rem;
+        border-bottom: solid 1px #f6f6f6;
+        background-color: #fff;
+    }
+    .title-type span{
+        display: inline-block;
+        float: left;
+    }
+    .title-type  .title-type-1{
+            font-size: 0.75rem;
+            color: #000;
+            line-height: 1.25rem;
+        }
+    .title-type  .title-type-2{
+            font-size: 0.55rem;
+            color: #fe5a5b;
+            background-color: #ffe6e7;
+            padding: 0.1rem 0.4rem;
+            border-radius: 16px;
+            margin-left: 0.5rem;
+            margin-top: 0.2rem;
+        }
+    .title-type .title-type-3{
+        font-size: 0.55rem;
+        color: #fe5a5b;
+        width: 3rem;
+        height: 1.25rem;text-align: center;line-height: 1.25rem;
+        border: solid 1px #fb5c5f;
+        border-radius: 3px;
+        float: right;
+    }
+    .section2 ul li ol li p{
+        font-size: 0.6rem;
+        color: #666666;
+    }
+    .section2 ul li ol li span{
+        font-size: 0.75rem;
+        color: #333;
+    }
+    .section2 ul li{
+        background-color: #fff;
+        margin-top: 0.5rem;
+    }
+    .section2 ul li ol li .color-red{
+        color: #fb5c5f;
+    }
+    .type-main{
+        padding: 0.5rem 0.75rem 0.5rem 0.75rem;
+        background-color: #fff;
+    }
+    .section2 ul li ol li{
+        margin: 0;
+        width: 50%;
+        float: left;
+        line-height: 1.5rem;
+        padding: 0;
+    }
+        .care-for{
+            width: 100%;
+            margin-top: -1rem;
+            position: relative;
+        }
+        .care-for p{
+            font-size: 0.55rem;
+            color: #666666;
+            position: absolute;
+            bottom: 0.0rem;
+            left: 0.8rem;
+        }
+    .care-for p span{
+        color: #fe5a5b;
+    }
+	.header-huge img{width: 4rem;}
+	.chaxun{
+		position: absolute;
+		right: 0;
+		top:0.5rem;
+	}
+    </style>
+</head>
+<body>
+<div class="content">
+    <header class="header-huge">
+        <div class="chaxun"><a id="querySwitchBtn" href="#"><img src="../images/account/cha-set.png" alt=""></a></div>
+        <div>
+            <h1>资管持有资产(元)</h1>
+            <p class="font-arial" id="totalAsset">0.00</p>
+        </div>
+        <div class="detailed-assets">
+            <ul class="clearfix">
+                <li class="frist-li"><p>可用资产(元)</p><span class="font-arial" id="availableAsset">0.00</span></li>
+                <li><p>已质押资产(元)</p><span class="font-arial" id="pledgeAsset">0.00</span></li>
+            </ul>
+        </div>
+    </header>
+    <div class="section2">
+        <ul>
+        </ul>
+    </div>
+
+</div>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/weixin.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script type="text/javascript" src="../js/account/gaoduan.js"></script>
+</body>
+</html>

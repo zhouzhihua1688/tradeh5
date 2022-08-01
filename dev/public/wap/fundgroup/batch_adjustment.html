@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <title>组合调仓</title>
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+
+    <style>
+        body {
+            min-width: 375px;
+            padding-bottom: 3.5rem;
+        }
+
+        #app {
+            box-sizing: border-box;
+            padding: 0 .75rem;
+            color: #666666;
+            font-size: .65rem;
+        }
+
+        #app h3 {
+            margin: .5rem 0;
+        }
+
+        #app>ul {
+            border-radius: .3rem;
+        }
+
+        #app>ul>li {
+            background: #fff;
+            padding-bottom: .25rem;
+            margin-bottom: .5rem;
+        }
+
+        #app header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: .75rem;
+            border-bottom: .5px solid #eee;
+        }
+
+        header img {
+            width: .75rem;
+            height: .75rem;
+            vertical-align: middle;
+        }
+
+        header>div {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        header>div:first-of-type span {
+            margin-left: .5rem;
+        }
+
+        header>div:last-of-type span {
+            white-space: nowrap;
+            margin-right: .4rem;
+        }
+
+        header .red {
+            color: #fb5c5f;
+        }
+
+        header .title {
+            font-size: .8rem;
+            color: #000;
+            /* font-weight: 900; */
+        }
+
+        header .more {
+            width: .375rem;
+        }
+
+        #app .content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: .75rem;
+        }
+
+        .content>div>P {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+        }
+
+        .content>div>P:first-of-type {
+            padding-bottom: .5rem;
+        }
+
+        .content>div>P:last-of-type {
+            padding-top: .5rem;
+        }
+
+        .content>div>P span:first-of-type {
+            font-size: .6rem;
+        }
+
+        .content>div>P span:last-of-type {
+            padding-top: .5rem;
+            font-size: .8rem;
+        }
+
+        .content .center {
+            text-align: center;
+        }
+
+        .content .right {
+            text-align: right;
+        }
+
+        .content .black {
+            color: black;
+            /* font-weight: 600; */
+        }
+
+        .content .red {
+            color: #f4333c;
+            /* font-weight: 600; */
+        }
+
+        #app .green {
+            color: green;
+        }
+
+        #app .info {
+            background-color: #ffefef;
+            color: #000;
+            border-radius: .2rem;
+            text-indent: 1rem;
+            padding: .35rem 0;
+            margin: 0 .75rem .5rem;
+        }
+
+        #app .btn {
+            min-width: 375px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+            background-color: #fe7e01;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            font-size: .85rem;
+            border: none;
+        }
+
+        #app .blackTips {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+            padding: .55rem .85rem;
+            background: #6d6d6d;
+            border-radius: .3rem;
+            color: #fff;
+            font-size: .65rem;
+            white-space: nowrap;
+            transition: all .5s linear;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h3>
+            您持有的{{groupName?groupName:groupId}}当前可发起调仓资产如下：
+        </h3>
+        <ul>
+            <li v-for='(item,index) in groupIdList' :key='item.serialNo'>
+                <header>
+                    <div class="title" @click='item.active=!item.active'>
+                        <img :src="item.active?'../images/fundgroup/opt_radio.png':'../images/fundgroup/icon3.png'"
+                            alt="">
+                        <span v-text='item.shareName'></span>
+                    </div>
+                    <div @click='goToDetail(groupId,item.serialNo)'>
+                        <!-- <span class="red">偏离度：{{item.irrelevance}}</span> -->
+                        <img src="../images/fundgroup/jiantou.png" class='more' alt="">
+                        <!-- <img src="../images/fundgroup/icon3.png" alt=""> -->
+                    </div>
+                </header>
+                <div class="content">
+                    <div class="left">
+                        <p>
+                            <span>持有金额(元)</span>
+                            <span class="black" v-text='numFormat(item.totalAmt)'></span>
+                        </p>
+                        <p>
+                            <span>持有收益</span>
+                            <span :class="item.balanceProfit.indexOf('-')===-1?'red':'green'"
+                                v-text='item.balanceProfit'></span>
+                        </p>
+                    </div>
+                    <div class="center">
+                        <p>
+                            <span v-text='item.statusText'></span>
+                            <span :class="item.lastProfit.indexOf('-')===-1?'red':'green'"
+                                v-text='item.lastProfit'></span>
+                        </p>
+                        <p>
+                            <span>已实现收益</span>
+                            <span :class="item.redeemedProfit.indexOf('-')===-1?'red':'green'"
+                                v-text='item.redeemedProfit'></span>
+                        </p>
+                    </div>
+                    <div class="right">
+                        <p>
+                            <span>累计收益</span>
+                            <span :class="item.totalProfit.indexOf('-')===-1?'red':'green'"
+                                v-text='item.totalProfit'></span>
+                        </p>
+                        <p>
+                            <span>持有收益率</span>
+                            <span :class="item.balanceYield.indexOf('-')===-1?'red':'green'"
+                                v-text='item.balanceYield+"%"'></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="info" v-if='item.fee'>
+                    <!-- 该笔资产调仓估算手续费{{item.fee}}元 -->
+                    {{item.fee}}
+                </div>
+                <div class="info" v-if='item.feeTips'>
+                    <!-- 该笔资产调仓估算手续费{{item.transferFeeTips}}元 -->
+                    {{item.feeTips}}
+                </div>
+            </li>
+        </ul>
+        <button class="btn" @click='transfer(groupIdList)'>一键调仓</button>
+
+        <div class="blackTips" :style="{opacity:tipsTextStatus?1:0 }">
+            <!-- 弹窗 -->
+            {{tipsText}}
+        </div>
+    </div>
+
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/lib/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/lib/vue.min.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    groupId: utils.getUrlParam('groupId'),
+                    groupName: unescape(utils.getUrlParam('groupName')),
+                    groupIdList: [],
+                    tipsText: '',
+                    tipsTextStatus: false,
+                    tipsTextStatusTime: null,
+                }
+            },
+            beforeCreate() {
+                Number.prototype.indexOf = function (targer) {
+                    return this.toString().indexOf(targer);
+                }
+                String.prototype.insert = function (targer, val) {
+                    var arr = this.split('');
+                    arr.splice(targer, 1, val, arr[targer])
+                    return arr.join('')
+                }
+            },
+            mounted() {
+                this.getGroupAdjust()
+            },
+            methods: {
+                showTips: function (params) {
+                    // var args = Array.prototype.slice.apply(arguments);
+                    var Profile = Vue.extend({
+                        template: `
+                            <div style="position: fixed;top: 0;left: 0;right: 0;bottom: 0;z-index: 1000;background: rgba(0, 0, 0, 0.7);display: flex;justify-content: center;align-items: center;font-size:calc(100vw/20);" v-show="show">
+                                <div style="width: 15em;background-color: #fff;border-radius: 0.3em;">
+                                    <header style="text-align: center;color: #333;font-size: 0.8em;padding: 1em 0;">{{ title }}</header>
+                                    <div style="text-align: center;color: #666;font-size: 0.7em;padding: 0 1.5em 2em;" v-html='content'></div>
+                                    <div style="display: flex;justify-content: space-evenly;padding:.5em 0; align-items: center; margin: 0 0.75em;border-top: solid 1px #eeeeee;">
+                                        <button  style="width: 100%;padding: .3em 0;font-size: 0.75em;color:#0070fa;border: none;background-color: transparent;outline: none;border-radius: 0;line-height: inherit;" @click="complete">
+                                            {{ confirmText }}
+                                        </button>
+                                        <button v-if="showCancel" @click="cancel" style="border-left: solid 1px #eeeeee;color:#0070fa;width: 100%;padding: .3em 0;font-size: 0.75em;background-color: transparent;outline: none;border-radius: 0;line-height: inherit;">{{cancelText}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                `,
+                        data: function () {
+                            return {
+                                show: false,
+                                title: "",
+                                content: "",
+                                confirmText: "确定",
+                                cancelText: "",
+                                showCancel: false
+                            }
+                        },
+                        methods: {
+                            plug(params) {
+                                this.title = params.title ? params.title : "";
+                                this.content = params.content ? params.content : "";
+                                this.cancelText = params.cancelText;
+                                this.confirmText = params.confirmText;
+                                this.showCancel = params.cancelText ? true : false;
+                                this.show = true;
+                                Object.prototype.toString.call(params.complete) ===
+                                    "[object Function]" && this.$once("completeEvent", params
+                                        .complete);
+                                Object.prototype.toString.call(params.cancel) ===
+                                    "[object Function]" && this.$once("cancelEvent", params.cancel);
+                            },
+                            complete(ele) {
+                                this.$emit("completeEvent", ele);
+                                this.show = false;
+                                this.$off("cancelEvent")
+                            },
+                            cancel(ele) {
+                                this.$emit("cancelEvent", ele);
+                                this.show = false;
+                                this.$off("completeEvent")
+                            },
+                        },
+                    })
+
+                    const init = new Profile()
+                    const element = init.$mount(document.createElement('div'))
+                    document.body.appendChild(element.$el)
+                    init.plug(params)
+                    this.showTips = init.plug.bind(init);
+
+                    // this.showTips({
+                    //     title: '信息', //标题
+                    //     content: '哈哈哈哈', //内容
+                    //     // cancelText: '取消', //取消按钮文字，默认不展示
+                    //     // confirmText: '确定', //确认按钮文字，默认确定
+                    //     // complete: function() { //需使用bind()
+                    //     // }.bind(this),
+                    //     // cancel: function() { //需使用bind()
+                    //     // }.bind(this)
+                    // })
+                },
+                numFormat(num, float) { //数字千分符
+                    float || (float = 2);
+                    if (!isNaN(parseFloat(num))) {
+                        if (typeof num === 'string') {
+                            num = parseFloat(num).toFixed(float)
+                        } else {
+                            num = num.toFixed(float)
+                        }
+                        var res = num.replace(/\d+/, function (n) { // 先提取整数部分
+                            return n.replace(/(\d)(?=(\d{3})+$)/g, function (a) {
+                                return a + ",";
+                            });
+                        })
+                        return res;
+                    }
+                },
+                showBlackTips(text) {
+                    this.tipsText = text;
+                    this.tipsTextStatus = true;
+                    clearTimeout(this.tipsTextStatusTime)
+                    this.tipsTextStatusTime = setTimeout(() => {
+                        this.tipsTextStatus = false;
+                    }, 2000)
+                },
+                goToDetail(groupId, serialNo) {
+                    window.location.href =
+                        `/mobileEC/wap/fundgroup/hold_group_fund_details.html?groupId=${groupId}&balanceSerialNo=${serialNo}`
+                },
+                transfer(groupIdList) {
+                    var params = {
+                        groupId: this.groupId,
+                        balanceSerialNos: groupIdList.filter(item => item.active).map(item => item.serialNo)
+                            .join(',')
+                    };
+                    if (params.balanceSerialNos.length === 0) {
+                        return this.showBlackTips('请选择需要调仓的产品');
+                    }
+                    utils.ajax({
+                        type: 'POST',
+                        url: `/mobile-bff/v1/fund-group/batch/transfer`,
+                        data: params,
+                        dataType: 'json',
+                        t: new Date(),
+                        success: function (result) {
+                            if (result.returnCode == 0) {
+                                // this.showTips({
+                                //     content: result.returnMsg, //内容
+                                //     confirmText: '确定', //取消按钮文字，默认不展示
+                                // })
+                                utils.setSession(utils.serialNo_info, result.body.info);
+                                utils.setSession(utils.serialNo, result.body.serialNo);
+                                utils.setSession(utils.serialNo_success_show_data, result);
+                                utils.setSession(utils.serialNo_forword_url,
+                                    "/mobileEC/wap/fundgroup/fund_group_adjustment_successfully.html"
+                                );
+                                utils.verifyTradeChain(result.body);
+                            } else {
+                                this.showTips({
+                                    content: result.returnMsg, //内容
+                                    confirmText: '确定', //取消按钮文字，默认不展示
+                                })
+                            }
+                        }.bind(this),
+                        error: function () {
+                            this.showBlackTips('系统异常，请稍后再试')
+                        }.bind(this)
+                    });
+                },
+                getFeeList(groupIdList) {
+                    var params = {
+                        groupId: this.groupId,
+                        balanceSerialNos: groupIdList.map(item => {
+                            return item.serialNo;
+                        }).join(',')
+                    };
+                    utils.ajax({
+                        type: 'POST',
+                        url: `/mobile-bff/v1/fund-group/batch/transfer-fee-tips`,
+                        data: params,
+                        dataType: 'json',
+                        t: new Date(),
+                        success: function (result) {
+                            if (result.returnCode == 0) {
+                                groupIdList.forEach(item => {
+                                    result.body.some(ele => {
+                                        if (ele.balanceSerialNo == item.serialNo) {
+                                            Vue.set(item, 'fee', ele.transferFee)
+                                            Vue.set(item, 'feeTips', ele
+                                                .transferFeeTips)
+                                            return true;
+                                        }
+                                    })
+                                })
+                                console.log(groupIdList)
+                            } else {
+                                this.showBlackTips(result.returnMsg)
+                            }
+                        }.bind(this),
+                        error: function () {
+                            this.showBlackTips('系统异常，请稍后再试')
+                        }.bind(this)
+                    });
+                },
+                getGroupAdjust() {
+                    utils.ajax({
+                        type: 'GET',
+                        url: `/assetcenter/v1/view/list/group-adjust`,
+                        data: {
+                            groupId: this.groupId
+                        },
+                        dataType: 'json',
+                        t: new Date(),
+                        success: function (result) {
+                            if (result.returnCode == 0) {
+                                this.groupIdList = result.body.map(item => {
+                                    // item.irrelevance = item.irrelevance?  item.irrelevance.toFixed(2) + '%' : '--' ;
+                                    switch (item.profitUpdateStatus) {
+                                        case 'I':
+                                            item.statusText = '收益更新中'
+                                            break;
+                                            // case 'Y':
+                                            //     item.statusText = '收益已更新'
+                                            //     break;
+                                            // case 'N':
+                                            //     item.statusText = '收益未更新'
+                                            //     break;
+                                        default:
+                                            item.statusText = '最新收益'
+                                    }
+                                    item.statusText +=
+                                        `(${item.yieldDate.insert(6, '.').substr(4)})`;
+                                    item.active = true;
+                                    return item;
+                                });
+                                this.getFeeList(this.groupIdList)
+                            } else {
+                                this.showBlackTips(result.returnMsg)
+                            }
+                        }.bind(this),
+                        error: function () {
+                            this.showBlackTips('系统异常，请稍后再试')
+                        }.bind(this)
+                    });
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

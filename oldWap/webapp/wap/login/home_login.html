@@ -1,0 +1,552 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>家庭成员验证</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/login/login.css">
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <style>
+        body { background-color: #fff; height: 100%;}
+        .huge{ text-align: center; padding: 2.5rem 0 2.6rem;}
+        .huge h2  {width: 2.8rem; margin: 0 auto;}
+        .huge div { font-size: .75rem; margin-top: .9rem; color: #fb5c5f;}
+        .logo { width: 100%; }
+
+        .main { padding:0 .75rem; color: #333; }
+        #login_main li { border-bottom: 1px solid #eeeeee; padding: 2px 0;}
+		#ok_main li{ padding: 2px 0;text-align:center;}
+        .main p { padding: .7rem 0 0 .75rem; font-size: .6rem; }
+        .main p span { width: .6rem; height: .6rem; vertical-align: middle; background: url("../images/chose1_y.png") no-repeat left center; display: inline-block;  background-size: contain; margin: -.2rem .25rem 0 -.75rem; }
+        .main p span.current { background-image: url("../images/chose1.png");}
+        .main p a { color: #3295e8; cursor: pointer;}
+		.input-group2{ padding:.5rem;}
+        .bottom{background: rgba(0,0,0,.6);width:100%;position: fixed;bottom: 0;left:0;padding:.47em 0;}
+        .bottom .logo,.bottom .text{float:left;}
+        .bottom .logo{background: url(../images/logo.png) no-repeat;background-size:contain;width:2.475em;height: 2.507em;margin-right: .379em;margin-left: 1.035em;}
+
+        .bottom .text .p1{font-size: .966em;color:#fff;}
+        .bottom .text .p2{font-size: .689em;color:#fff;}
+        .bottom a{display: block;float:right;background: #ff7e00;color:#fff;font-size: .896em;margin-right: 1.035em;height: 2.071em;width: 5.516em;line-height: 2.071em;text-align: center;border-radius: 3px;margin-top: .220em;}
+        .bottom .logo {padding: 0;}
+        .bottom .text p{margin: 0;}
+        .bottom a {text-decoration: none;}
+        .input-group .daojishi {
+            display: table-cell;
+            padding: 0 0.4rem;
+            line-height: 1.5rem;
+            vertical-align: middle;
+            font-size: .6rem;
+            color: #000;
+            text-align: center;
+        }
+		.input-group .in{
+			background-color: #fee7e7;
+			border-radius: 2rem;
+			padding:.4rem;
+		}
+       .mask {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .7);
+            z-index: 10;
+        }
+
+        .answer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 13.75rem;
+            background: #fff;
+            border-radius: 0.15rem;
+            padding: 0 0.625rem;
+            z-index: 20;
+        }
+
+        .answer .answer_text {
+            border-bottom: 1px #eee solid;
+            padding: .75rem .625rem;
+            line-height: 1.5;
+            color: #666666;
+        }
+
+        .answer .close {
+            display: block;
+            line-height: 2.5rem;
+            color: #0070fa;
+            text-align: center;
+
+        }
+
+        .mask_btn1, .mask_btn2 {
+            float: left;
+            width: 50%;
+            box-sizing: border-box;
+            margin: .25rem 0;
+        }
+
+        .mask_btn1 {
+            border-right: 1px #eee solid;
+        }
+        .bg_active {
+            background: rgb(255, 217, 177) !important;
+            pointer-events: none;
+			border-radius:2rem !important;
+        }
+        #stip {
+            max-width: 15rem;
+            position: absolute;
+            top: 72%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, .7);
+            font-size: 0.7rem;
+            color: #fff;
+            white-space: nowrap;
+            padding: .75rem 1rem;
+            line-height: 1.5;
+            border-radius: 0.2rem;
+            -webkit-animation-name: fadeInOut;
+            -webkit-animation-timing-function: ease-in-out;
+            -webkit-animation-iteration-count: 1;
+            -webkit-animation-duration: 5s;
+            -webkit-animation-direction: alternate;
+        }
+
+        @-webkit-keyframes fadeInOut {
+            0% {
+                opacity: 0;
+            }
+            25% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+        input {
+            outline: none;
+        }
+        .success{width:100%;height:1.25rem;text-align: center;}
+        .success img{width:1.25rem;height:1.25rem;display:inline-block;vertical-align: middle;}
+        .success span{color:#000;display:inline-block;font-size:0.75rem;line-height:1.25rem;vertical-align: middle;margin-left:0.5rem;}
+        .add{width:100%;text-align: center;color:#666;font-size:0.65rem;margin-top:1.75rem;}
+        .button{width:100%;height:2.25rem;margin-top:1.125rem;color:#fe7e01;}
+        .button .xjb{height:2.25rem;border:1px solid #fe7e01;text-align:center;line-height:2.25rem; font-size:0.85rem;margin-left:0.75rem;border-radius: 1.75rem;}
+        .btm a{color:#148CE6}
+		.linee{display: inline-block;
+    width: 1px;
+    height: 1rem;
+    font-size: 0;
+    background-color: #eee;}
+	#clear1 {display:none}
+	#clear2 {display:none}
+	.dim {
+            font-size: 0.6rem;
+            color: #666666;
+            line-height: 1rem;
+            padding: .25rem .75rem;
+        }
+ .checkBox {
+            vertical-align: middle;
+            margin-top: -.1rem;
+            height: .5rem;
+            width: .5rem;
+            margin-right: .3rem;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <section class="huge">
+        <h2><img class="logo" width="30" height="40" src="../images/logo.png" alt=""></h2>
+        <div style="color:#000;font-size:0.7rem"><!--<br>-->
+            <!--<span style="color:#fb5c5f;font-size:0.8rem">4.459%</span>-->
+        </div>
+    </section>
+    <section class="main" id="login_main" style="display:block;">
+        <ul>
+            <li style="border-bottom:none;">
+                <div class="input-group2" id="msg" style="background:#f3efeb;border-radius:.5rem">
+                    
+                </div>
+            </li>
+            <li>
+                <div class="input-group">
+                <input type="text" maxlength="11" class="form-control phone" placeholder="请输入手机号"
+                       data-rquire="data-rquire" data-rquire-msg="手机号码不能为空">
+                    <span class="input-group-addon clearInputTxt" id="clear1"><img src="../images/clear.png" alt=""></span>
+                </div>
+            </li>
+            <li>
+                <div class="input-group">
+                <input type="text" maxlength="6" class="form-control pwd" placeholder="请输入验证码" data-rquire="data-rquire"
+                       data-rquire-msg="验证码不能为空" style="width: 50%;">
+                <span class="input-group-addon clearInputTxt"  id="clear2"><img src="../images/clear.png" alt=""></span>
+                <span class="daojishi"><i class="in">获取验证码</i></span>
+                </div>
+            </li>
+            
+        </ul>
+		<p class="dim rules" ><img class="checkBox" id="isRead" src="../images/checkBox.png" alt="">同意 <a href="//static.99fund.com/mobile/agreement/family_account_agreement.html">《汇添富亲情账户服务协议》</a></p>
+        <a id="login_btn" class="btn btn-default bg_active next" style="background:#fe7e01">确认</a>
+        <div  class="btm" style="margin-top:1rem"> 
+		<span style="float:left;margin-left:3rem;margin-right:1rem;"><a href="https://activity.99fund.com/activity-center/act-resources/pages/qinqingzhanghujs20201028/share.html">什么是亲情账户</a></span><i class="linee"></i><span style="float:right;margin-right:3.5rem;"><a id="rej" onclick="reject()">拒绝此邀请</a></span>
+        </div>
+        <div style="margin-top:3rem; font-size:0.6rem;color:#959595;padding-bottom:2.5rem">
+            
+        </div>
+    </section>
+    <section class="main" id="ok_main" style="display:none;">
+        <ul>
+            <li>
+			<div class="success"><img src="../images/Login/success.png" alt=""><span>恭喜您成功加入亲情账户！</span></div>
+            </li>
+            <li style="margin-top:1.75rem;">
+			<div id="roleName"></div>
+            </li>
+            <li style="border-bottom:none;">
+			<div></div>
+			<div class="button">
+					<div class="xjb">登录现金宝App查看亲情账户信息</div>
+				</div>
+            </li>
+            
+        </ul>
+
+        <div class="register" style="margin-top:5rem"> 
+
+        </div>
+        <div style="margin-top:2rem; font-size:0.6rem;color:#959595;padding-bottom:2.5rem">
+            
+        </div>
+    </section>
+
+    <div><img src="../images/Login/dibu.png" alt="" ></div>
+    <!-- S footer 添加 -->
+    <div class="bottom">
+        <div class="logo"></div>
+        <div class="text">
+            <p class="p1">汇添富现金宝</p>
+            <p class="p2">添富现金宝，理财好账户！</p>
+        </div>
+        <a href="https://www.99fund.com/m.htm">下载App</a>
+    </div>
+    <!-- E footer 添加 -->
+
+</div>
+<div id="stip" style="display: none;" >您输入的验证码错误</div>
+ <div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <p class="Bomb-box-tips"  style="padding-top: 0.75rem;"></p>
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;">确定</a>
+    </div>
+</div>
+<div class="mask mask3">
+    <div class="answer">
+        <div class="answer_text"  id="answer3_text">您输入的验证码错误
+        </div>
+        <a href="javascript:;" class="close mask_btn1">账密登录</a>
+        <a href="javascript:;" class="close mask_btn3">取消</a>
+    </div>
+</div>
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/common.js?20210106"></script>
+<script>
+	$(".xjb").click(function(){
+		window.location = 'https://99fund.com/m.htm';
+	});
+	//请求接口查询邀请信息
+	var eventId = App.getUrlParam("inviteCode");
+	var event = eventId.split("-");
+	var inviteId = event[0];
+
+	var inviteCode = event[1];
+	var memberId = '';
+	var roleName = '';
+	if(App.isNotEmpty(inviteCode)){
+		getInviteInfo(inviteCode)
+	}
+	//获取邀请信息
+	function getInviteInfo(inviteCode){
+		var url = "/sfs/v1/accounts/member/invitation?inviteId="+inviteId;
+		
+		App.getNoJump(url,null,function(result){
+			if(result.returnCode == 0){
+				memberId = result.body.memberId;
+				roleName = result.body.inviteRoleName;
+				$("#roleName").html('接受邀请成功，您在家庭中的角色是'+roleName);
+				$("#msg").html('您的亲友('+result.body.custName+')邀请您加入他(她)的亲情账户，接受邀请时，需验证手机号<span style="color:red;">'+result.body.inviteMobile+'</span>');
+			}
+		});
+	}
+	//接受邀请
+	function accept(){
+		var url = "/sfs/v1/accounts/member/invitation/confirmed";
+		var data = {"acceptMode":"MOBILE","inviteCode":inviteCode,"branchCode":"247","memberId":memberId};
+		App.post(url,JSON.stringify(data),function(result){
+			if(result.returnCode == 0){
+				$("#login_main").hide();
+				$("#ok_main").show();
+			}
+		});
+	}
+	//拒绝邀请
+	function reject(){
+		var url = "/sfs/v1/accounts/member/invitation/refuse";
+		var data = {"acceptMode":"MOBILE","inviteCode":inviteCode,"branchCode":"247","memberId":memberId};
+		App.post(url,JSON.stringify(data),function(result){
+			$("#rej").removeAttr("onclick");
+			if(result.returnCode == 0){
+                alertTips("已拒绝,若想重新加入需您的亲友重新邀请。");
+			}
+		});
+	}
+	//以下是滑动验证码
+    var timeFlag = false;
+    var serialNo = "";
+    var phone = '';
+    var pwd = '';
+    var slideAuthCode = "";
+    $('.daojishi').click(function () {
+        if (timeFlag == true) {
+            return false;
+        } else {
+            var phone = $(".phone").val();
+            if(!(/^1[3456789]\d{9}/.test(phone))){
+                $("#stip").html("手机号错误，请重新输入");
+                $('#stip').show().css('opacity','0');
+                setTimeout(function(){
+                    $('#stip').hide();
+                },5000)
+                return ;
+            }
+            //获取滑动验证码开始
+            $.ajax({
+                type: 'GET',
+                url: '/cos/v1/identity/captcha/token?validateType=1',
+                data: {},
+                dataType: 'json',
+                t: new Date(),
+                success: function (result) {
+                    if(result.returnCode == 0){
+                        //渲染验证码
+                        _fmOpt.triggerCaptcha(result.body);
+                    }else {
+                        alert('系统异常，请稍后再试!');
+                    }
+                },
+                error: function () {
+                    alert('系统异常，请稍后再试!');
+                }
+            });
+            //获取滑动验证码结束
+            // 验证成功回调，有效token由此传入
+            _fmOpt.onSuccess = function (validateToken) {
+                slideAuthCode =   validateToken;
+                getVerificationCode(phone);
+            }
+        }
+
+    })
+    function timeOut(timFlag){
+        if (timFlag) {
+            return false;
+        } else {
+            timeFlag = true;
+            var count = 60;
+            var intervals = setInterval(function () {
+                count--;
+                if (count <= 0) {
+                    clearInterval(intervals);
+                    timeFlag = false;
+                    $(".daojishi .in").html('重新发送');
+                    return;
+                }
+                $(".daojishi .in").html(count + '秒重新发送')
+            }.bind(".daojishi .in"), 1000)
+        }
+
+    }
+    // 短信验证接口
+    function getVerificationCode(phone){
+        var url = App.projectNm + "/account/login_sms_check?mobileNo=" + phone;
+        var data = "{\"mobileNo\":\"" + phone + "\"}";
+        $.post(url, data, function (result) {
+            console.log("login_sms_check3----" + result);
+            var obj = JSON.parse(result);
+            if (obj.returnCode != "0") {
+                $("#answer2_text").html(obj.returnMsg);
+                $(".mask2").show();
+                return;
+            }else{
+                serialNo = obj.body.serialNo;
+                timeOut(timeFlag);
+            }
+        })
+    }
+
+
+
+    $(".phone").on('input', function () {
+        phone = $(this).val().trim();
+        if ($(this).val().trim() && pwd && $("#isRead").attr('src') == '../images/checked.png') {
+            $('.next').removeClass('bg_active')
+        } else {
+            $('.next').addClass('bg_active')
+        }
+        if ($(this).val().trim()) {
+            $('#clear1').css('visibility', 'visible')
+        } else {
+            $('#clear1').css('visibility', 'hidden')
+        }
+    })
+    $(".pwd").on('input', function () {
+        pwd = $(this).val().trim();
+        if ($(this).val().trim() && phone && $("#isRead").attr('src') == '../images/checked.png') {
+            $('.next').removeClass('bg_active')
+        } else {
+            $('.next').addClass('bg_active')
+        }
+        if ($(this).val().trim()) {
+            $('#clear2').css('visibility', 'visible')
+        } else {
+            $('#clear2').css('visibility', 'hidden')
+        }
+    })
+    $('#clear1').click(function () {
+        pwd = '';
+        $(".phone").val('');
+        $('#clear1').css('visibility', 'hidden');
+        $('.next').addClass('bg_active')
+    })
+    $('#clear2').click(function () {
+        pwd = '';
+        $(".pwd").val('');
+        $('#clear2').css('visibility', 'hidden');
+        $('.next').addClass('bg_active')
+    })
+    $("#question_clearfix").click(function () {
+        $('.mask1').show();
+    })
+    $(".answer1").click(function () {
+        $(".mask1").hide();
+    });
+    $(".mask_btn1").click(function () {
+
+        window.location = "login.html?referUrl="+encodeURIComponent(window.location.href);
+        
+    });
+    $(".mask_btn2").click(function () {
+        $(".mask2").hide();
+    });
+    $(".mask_btn3").click(function () {
+        $(".mask3").hide();
+    });
+
+
+    function subm(){
+        $(".next").unbind('click',subm);
+        var phone = $(".phone").val();
+        var pwd = $(".pwd").val();
+        if(!(/^\d{6}$/.test(pwd))){
+            $("#stip").html("验证格式错误，请重新输入");
+            $('#stip').show().css('opacity','0');
+            setTimeout(function(){
+                $('#stip').hide();
+            },5000)
+            return ;
+        }
+        var data = "{\"proccessNo\":\"" + serialNo + "\",\"authCode\":\"" + pwd + "\",\"certNum\":\"" + phone + "\",\"slideAuthCode\":\""+slideAuthCode+"\"}";
+        // console.log("data----" + data);
+        var url = App.projectNm + "/account/login_sms_confirm";
+        $.ajax({url:url, data:data,
+            type:"POST",
+            contentType: 'application/json',
+            beforeSend:function(req){
+                req.setRequestHeader("version", "5.99");
+                req.setRequestHeader("linksource", "WAP");
+            },
+            success:function(result){
+                var rescode = result.returnCode;
+                var resmsg = result.returnMsg;
+                if (rescode != "0") {
+                    $("#stip").html(resmsg);
+                    $("#stip").show();
+                } else if (rescode == "0") {
+                    accept()
+                }
+                $(".next").bind('click',function () {
+                    subm();
+                });
+
+            }, dataType:"json", error: function(e){
+                // alert("失败");
+                $(".next").bind('click',function () {
+                    subm();
+                });
+            },async:true});
+
+
+    }
+
+    $(".next").bind('click',function () {
+        subm();
+    });
+    $(function () {
+        //滑动验证码初始化
+        _fmOpt = {
+            display: 'popup',
+            partner: "huitianfu",
+            appName: "huitianfu_h5",
+            fmb: true,
+            initialTime: new Date().getTime(),
+            token: "huitianfu" + "-" + new Date().getTime() + "-" + Math.random().toString(16).substr(2),
+            getinfo: function () {
+                return "e3Y6ICIyLjUuMCIsIG9zOiAid2ViIiwgczogMTk5LCBlOiAianMgbm90IGRvd25sb2FkIn0=";
+            },
+            env:1
+        };
+        var fm = document.createElement('script');
+        fm.type = 'text/javascript';
+
+        fm.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'static.tongdun.net/captcha/main/tdc.js?ver=1.0&t=' + (new Date().getTime() / 600000).toFixed(0);
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(fm, s);
+        //滑动验证码初始化
+    })
+	
+	$("#isRead").click(function(){
+		if ($(this).attr('src') === '../images/checkBox.png') {
+			$(this).attr('src', '../images/checked.png')
+						
+			if (pwd && phone) {
+				$('.next').removeClass('bg_active')
+			} else {
+				$('.next').addClass('bg_active')
+			}
+		} else {
+			$(this).attr('src', '../images/checkBox.png')
+			$('.next').addClass('bg_active')
+		}
+	})
+</script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+</body>
+</html>

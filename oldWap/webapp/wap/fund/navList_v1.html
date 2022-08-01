@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!--<meta charset="GBK">-->
+	 <meta charset="utf8">
+	<title>更多净值</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/base.css">
+	<link rel="stylesheet" href="../css/base_v1.css">
+	<script src="../js/lib/phone-size.js"></script>
+	<style type="text/css">
+		.font-arial{ font-family: Arial; }
+		section{
+			background-color: #fff;
+			overflow: hidden;
+		}
+		.left{
+			float: left;
+		}
+		.right{
+			float: right;
+		}
+		.next{
+			/* display: inline-block;
+			width: 8px;
+			height: 16px;
+			background: url(img/icon01.png) no-repeat left top;
+			-webkit-background-size: contain;
+			background-size: contain;
+			vertical-align: middle;
+			margin-left: 7px; */
+		}
+		.content3{margin-top: .5rem;display: none;}
+		.content3 h3 {
+			color: #333333;
+			line-height: 35px;
+			padding-left: 15px;
+			background-color: #f6f6f6;
+		}
+		.content3 table{
+			font-size: 12px;
+			width: 100%;
+			border-collapse: collapse;
+			
+		}
+		.content3 table thead{border:#eeeeee 1px solid;}
+		.content3 table thead tr th{height:1.75rem;width:25%;font-weight: 100;color:#000;font-size:.7rem;}
+		.content3 table thead th:first-child{text-align: left;padding-left: .75rem;}
+		.content3 table thead th:last-child{text-align: right;padding-right: .75rem;}
+		.content3 table tbody tr td{height:2.5rem;font-size:.7rem;color:#666666;text-align: center}
+		.content3 table tbody tr:nth-of-type(odd){background: #fff;}
+		.content3 table tbody tr:nth-of-type(even){background: #f6f6f6;}
+		.content3 table tbody:nth-of-type(2) tr:nth-of-type(odd){background: #f6f6f6;}
+		.content3 table tbody:nth-of-type(2) tr:nth-of-type(even){background: #fff;}
+		.content3 table tbody tr td:first-child{text-align: left;padding-left: .75rem;}
+		.content3 table tbody tr td:last-child{text-align: right;padding-right: .75rem;}
+		.content3 .data_more{width:100%;height:1.75rem;border-top:1px#eee solid;text-align: center;line-height: 1.75rem;}
+		.content3 .data_more a{color:#148ce6;font-size: .65rem;}
+		.content3 .data_more img{width:20px;height:20px;vertical-align: middle;margin-top: -3px;display: none;}
+		.footer{width:100%;padding:.2rem 0 2.75rem 0;background: #f6f6f6;}
+		.footer p{height:1rem; line-height: 1rem;width:78%;margin-left:11%;font-size: .6rem;color:#fb5c5f;background: #fee5e5;border-radius: .5rem;text-align: center;} 
+		.footer_fiexd{position:fixed;left: 0;bottom: 0;height:2.5rem;width:100%;background: #fff;}
+		.footer_fiexd ul{display: flex;}
+		.footer_fiexd ul li{flex: 1;height:2.5rem;background:#fe7e01 ;}
+		/* .footer_fiexd ul li:nth-of-type(1){	} */
+		.footer_fiexd ul li:nth-of-type(1){border-right:1px #ffbf80 solid;background: #fff;}
+		.footer_fiexd ul li a{display:block;width:100%;height: 100%;line-height: 2.5rem;text-align: center;color:#fff;font-size: .8rem;}
+		.footer_fiexd ul li:first-child a{color: #000; border-top: 1px #eee solid;}
+		.footer_fiexd ul li a:first-child img{width: 0.7rem;height: 0.7rem;padding-right: 0.2rem;padding-top: 0.2rem;}
+
+		.tip,.tip2{position: fixed;
+			top: 0;
+			left: 0;
+			background-color: rgba(0,0,0,0.7);
+			height: 100%;
+			width: 100%;
+			overflow: auto;
+			font-size: 0.6rem;
+			z-index: 999;
+		}
+		.tip .tip_wrap,.tip2 .tip_wrap{
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			-webkit-transform: translate(-50%,-50%);
+			transform: translate(-50%,-50%);
+			margin: 0;
+			width:80%;
+			/*height:16rem;*/
+			background: #fff;
+			-webkit-border-radius: 5px;
+		}
+		.tip .tip_wrap .tip_content p,.tip2 .tip_wrap .tip_content p{padding:0 1.5rem 0 1.5rem;font-size: .7rem;margin-top: .7rem;line-height: 1rem;margin-bottom: 1rem;text-align: center;line-height: 3rem;}
+		.tip .tip_wrap .tip_content,.tip2 .tip_wrap .tip_content{border-bottom: 1px #eee solid;}
+		.tip .tip_wrap .tip_btn ul li,.tip2 .tip_wrap .tip_btn ul li{text-align: center;font-size: .75rem;color:#006bfe;}
+		.tip .tip_wrap .tip_btn ul li a,.tip2 .tip_wrap .tip_btn ul li a{display:block;text-align: center;font-size: .75rem;width:100%;padding:.7rem 0;}
+
+		.noData { position: absolute; top: 45%; right: 0; font-size: 0.24rem;width: 100%; text-align: center; }
+		
+	</style>
+</head>
+<body>
+	<section class="content3 nav_list">
+		<table>
+			<thead>
+				<tr>
+					<th>日期</th>
+					<th>单位净值</th>
+					<th>累计净值</th>
+					<th>日涨跌幅</th>
+				</tr>
+			</thead>
+			<tbody id="view_nav_list">
+			</tbody>
+		</table>
+		<div class="data_more">
+			<a href="javascript:;">加载更多</a><img src="../images/Rolling.gif" alt="">
+		</div>
+	</section>
+	<section class="content3 income_list">
+		<table>
+			<thead>
+			<tr>
+				<th width="33%">日期</th>
+				<th width="33%">每万份收益</th>
+				<th width="33%">七日年化收益率</th>
+			</tr>
+			</thead>
+			<tbody id="view_income_list">
+			</tbody>
+		</table>
+		<div class="data_more">
+			<a href="javascript:;">加载更多</a><img src="../images/Rolling.gif" alt="">
+		</div>
+	</section>
+	<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+	<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script type="text/javascript" src="../js/common.js?20210106"></script>
+<script>
+	var pageNo = 1;
+    var pageSize = 10;
+
+	$(function () {
+        queryFundNav();
+    });
+
+    function queryFundNav() {
+        var fundId = App.getUrlParam("fundId");
+        var fundTp = App.getUrlParam("fundTp");
+        var url = App.projectNm + "/fund/query_fund_yield_renew_page?r=" + (Math.random()*10000).toFixed(0);
+        if(App.isNotEmpty(fundId)){
+            url += "&fundId=" + fundId;
+        }
+        url += "&pageNo=" + pageNo;
+        url += "&pageSize=" + pageSize;
+
+        App.get(url,function () {
+            $(".data_more img").hide();
+        },function(result){
+            if (result.body != undefined && result.body != null){
+                // console.log(result);
+                var html = '';
+                if(fundTp == "1"){
+                    result.body.fundYieldList.forEach(function (item) {
+                        html += "<tr>" +
+                            "<td>" + item.navDate + "</td>" +
+                            "<td>" + item.incomeunit + "</td>" +
+                            "<td style='color: " + (Number(item.yield) >=0? "red" :"green") + "'>" + item.yield + "%</td>" +
+                            "</tr>";
+                    });
+                    $("#view_income_list").append(html);
+                    $(".income_list").show();
+                }else{
+                    result.body.fundYieldList.forEach(function (item) {
+                        html += "<tr>" +
+                            "<td>" + item.navDate + "</td>" +
+                            "<td>" + item.nav + "</td>" +
+                            "<td>" + item.sumOfNav + "</td>" +
+                            "<td style='color: " + (Number(item.dayGrouth) >=0? "red" :"green") + "'>" + item.dayGrouth + "%</td>" +
+                            "</tr>";
+                    });
+                    $("#view_nav_list").append(html);
+                    $(".nav_list").show();
+                }
+                if(result.body.fundYieldList.length == 0){
+                    $(".data_more").hide();
+				}
+            }
+        });
+    }
+
+	//更多加载
+    $(".data_more").click(function () {
+        $(this).find("img").show();
+        pageNo += 1;
+        queryFundNav();
+    });
+	
+</script>
+</body>
+</html>

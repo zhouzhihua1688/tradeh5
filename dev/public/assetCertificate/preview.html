@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>资产证明预览</title>
+    <link rel="stylesheet" href="../base/css/base.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+    <style>
+        .footer{
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            text-align: center;
+        }
+        .footer a{
+            height: 2.5rem;
+            line-height: 2.5rem;
+            font-size: .85rem;
+        }
+        .footer a:nth-child(1){
+            background-color: #fff;
+            color: #0757b2;
+        }
+        .footer a:nth-child(2){
+            background-color: #0757b2;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="preview"></div>
+        <div class="footer">
+            <a href="javascript:;" @click="applyPaperVersion">申请纸质版</a>
+            <a href="javascript:;" @click="sendToEmail">发送至邮箱</a>
+        </div>
+    </div>
+    <script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+    <script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data(){
+                return {
+                    successInfo:utils.getSession('__success_info')
+                }
+            },
+            computed:{
+                applyNo(){
+                    return successInfo.applyNo;
+                }
+            }
+            methods:{
+                //获取预览pdf 
+                getPdfInfo(){
+                    
+                },
+                applyPaperVersion(){
+                    utils.showTips({
+                        content:'纸质版寄送可能需由您承担相应的快递费，是否申请',
+                        confirmText: '确定', 
+                        showCancel: true, 
+                        complete: function() {
+                            window.location.href = "./fillIninfo.html"
+                        }.bind(this),
+                        nextText: '取消',
+                        cancelButtonFirst: true
+                    })
+                },
+                sendToEmail(){
+                    window.location.href = "./receiveEmail.html"
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>交易结果</title>
+  <link rel="stylesheet" href="css/base.css">
+  <script src="../base/js/baseHead.js"></script>
+  <style>
+  	body{background:#fff}
+  	.result{background:#fff;padding:2rem 0.75rem;text-align:center;}
+  	.result img{width:1.25rem;height:1.25rem;display: inline-block;vertical-align: middle;margin-top:-0.2rem;}
+  	.result .text{display: inline-block;font-size:0.75rem;color:#000;margin-left:0.35rem;}
+  	.confirm{width:17.25rem;height:2.5rem;background: #fe7e01;margin:0 auto;border-radius: 5px;text-align: center;line-height: 2.5rem;font-size:0.8rem;color:#fff;}
+	.success_info{margin-top: 2rem;}
+  </style>
+</head>
+<body>
+<div id='app'>
+	<div class="result">
+		<div class="img"><img src="images/ok_red.png" alt=""><span class="text"></span></div>
+		<div class="success_info" v-if="successInfo" >{{successInfo}}</div>
+	</div>
+	<div class="confirm" @click="confirm()">确认</div>
+</div>
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="../base/js/utils.js"></script>
+<script src="../base/js/lib/vue.min.js"></script>
+<script>
+	var vm =new Vue({
+    el: '#app',
+    data() {
+        return {
+            type:utils.getUrlParam('type'),        
+			successInfo:''
+        };
+
+    },
+    created() {
+        this.showResult();
+        if(utils.getSession('__success_info') && utils.getSession('__success_info') != 'null'){
+            this.successInfo = utils.getSession('__success_info');
+        }
+    },
+    mounted() {
+    },
+    computed: {
+      
+    },
+    watch: {
+     
+    },
+    methods: {
+	    showResult: function () {
+	        if(this.type){
+	            switch (this.type) {
+	            case 'so':
+	                //转出成功
+	                $(".result .text").text('转出申请提交成功！');
+	                break;
+	            case 'sg':
+	                //转入成功
+	                $(".result .text").text('转入申请提交成功！');
+	                break;
+	            case 'dt':
+	                //定投成功
+	                $(".result .text").text('定投计划设置成功！');
+	                break;
+	            default:
+	                //失败
+	                $(".result .text").text('申请操作失败');
+	                break;
+	            }
+	        } else {
+	            $(".result .text").text('申请操作失败');
+	        }
+        },
+        confirm:function(){
+        	// window.location.href='../myAssets/asset.html?index=3';
+        	var itemUrl ="../myAssets/asset.html?index=3";   //跳转到投顾资产页面
+			    if(isApp()){
+			      window.location.href = 'htffundxjb://action?type=url&link='+btoa(addUrl);
+			    }else{
+			      window.location.href = itemUrl;
+			    }
+        }
+    }
+})
+</script>
+</body>
+</html>

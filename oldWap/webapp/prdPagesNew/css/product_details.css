@@ -1,0 +1,163 @@
+@charset "utf-8";
+/* 头部 */
+.head{width:100%;height:14.625rem;}
+/* 背景颜色 */
+.background{background:#4f423d;}     
+
+.head .fund{padding-left:0.75rem;height:1rem;padding-top:1.25rem;}
+.fund .first{font-size:0.8rem;float:left;vertical-align: middle}
+.fund .icon{font-size:0.65rem;color:#4f423d;text-align: center;
+  padding:0.15rem;  background: url('../img/icon.png') no-repeat;background-size:100% 100%;float:left;vertical-align: middle;margin-left:0.5rem}
+/* 字体颜色 */
+.color{color:#d8b456;}
+
+.head .second{padding-left:0.75rem;font-size:0.65rem;clear: both;padding-top:0.75rem;vertical-align: middle}
+.head .second .icon2{width:0.75rem;height:0.75rem;display:inline-block;background: url('../img/icon1.png') no-repeat;background-size:100% 100%;vertical-align: middle;margin-left:0.25rem;}
+.head .second .down{font-size:0.65rem;margin-left:4.125rem;}
+.head .number{padding-left:0.75rem;font-size:1.35rem;padding-top:0.35rem;}
+.head .number .month{margin-left:3rem;}
+.head .third{padding-left:0.75rem;height:1.0rem;margin-top:0.5rem;}
+.head .third .left{width:4.25rem;height:1rem;float: left;border-radius: 0.125rem;}
+/* 边框线 */
+.border {border: 1px solid #d8b456;}
+
+.head .third .left .icon3{width:0.6rem;height:0.65rem;margin-top:0.175rem;margin-left:0.25rem;background: url('../img/icon2.png') no-repeat;background-size:100% 100%;vertical-align: middle;display: inline-block}
+.head .third .left .risk{font-size:0.65rem;display: inline-block;vertical-align: middle;text-align:center;}
+.head .third .right{width:3.875rem;height:1rem;float:left;margin-left:0.625rem;text-align: center;line-height:1rem;}
+.head .third .right .money{font-size: 0.65rem;}
+.head .solid{border-top:1px solid #af924f;clear: both;margin-top:0.75rem;margin-left:0.75rem;}
+.head .text{width:91%;font-size:0.6rem;clear:both;text-align: justify;margin:0 auto;line-height: 0.85rem}
+
+.fontColor{color:#af924f;padding-top:0.5rem;}
+
+/* 中间 */
+/* 投资亮点 */
+.part{width:100%;clear:both;height:100%;}
+.part .picture{width:17.25rem;height:17.175rem;background: url('../img/img.png') no-repeat;
+background-size:100% 100%;position: relative;top:-1.45rem;left:50%;margin-left:-8.625rem;}
+/* 基金经理 */
+.manager{width:100%;height:2.25rem;margin-top:-0.85rem;font-weight:bold}
+.manager .text{width:16.5rem;background:#fff;text-align:left;line-height:2.25rem;border-bottom: 1px solid #eee;
+    font-size:0.75rem;color:#000;margin:0 auto;border-radius:0.25rem 0.25rem 0 0;padding-left:0.75rem;}
+.fundManager{width:100%;}
+.fundManager .fundBox{width:96%;background: #fff;margin:0 auto;margin-left:5px;}
+.fundManager .fundBox .img{width:3.075rem;height:3.075rem;background: url('../img/img1.png') no-repeat;
+background-size:100% 100%;position: relative;top:0.775rem;left:0.75rem;float:left;}
+.fundManager .fundBox .right{width:70%;height:3.075rem;float:left;position: relative;top:0.775rem;left:1.35rem;}
+.fundManager .fundBox .right .text{font-size:0.75rem;color:#000;}
+.fundManager .fundBox .right .text span{font-size:0.65rem;color:#666;border-left:1px solid #dddddd;margin-left:0.35rem;padding-left:0.35rem;}
+.fundManager .fundBox .right .text2{width:12rem;font-size:0.65rem;color:#666;height:1.8rem;margin-top:0.25rem;overflow: hidden;
+    text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp:2;-webkit-box-orient: vertical;text-align: justify;float:left;line-height:0.995rem;}
+.fundManager .fundBox .right .text3{width:2.75rem;height:0.75rem;font-size:0.55rem;position: absolute;right:-0.15rem;bottom: -0.015rem;text-align: center;border-radius: 50px 50px;line-height:0.75rem;}
+
+.model{width:100%;height:9.7rem;}
+.model .first{width:17.325rem;height:9.7rem;margin:0 auto;background:#fff;border-radius:0 0 0.25rem 0.25rem;padding-top: 1rem;}
+.model .first .video{width:15.75rem;height:8.875rem;margin:0 auto;position: relative;}
+.model .first .video .play{font-size:0.6rem;position: absolute;bottom:0;left:0.75rem;bottom:0.25rem;}
+.model .first .video .time{font-size:0.6rem;position: absolute;bottom:0;right:0.75rem;bottom:0.25rem;}
+/* 业绩走势 */
+.achievement{width:100%;height:2.25rem;margin-top:0.6rem;font-weight:bold}
+.achievement .text{ font-size:0.75rem;color:#000;width:16.5rem;border-radius:0.25rem 0.25rem 0 0;height:100%;background:#fff;margin:0 auto;
+    text-align:left;line-height:2.25rem;padding-left:0.75rem;border-bottom:1px solid #ddd;}
+.chart{width:100%;height:11rem;}
+.chart .first{width:17.25rem;height:11rem;margin:0 auto;background:#fff;margin-top:0.015rem;}
+.history{width:100%;height:2rem;font-weight:bold}
+.history>div{width:16.5rem;padding-left:0.75rem;font-size:0.75rem;color:#fff;color:#000;background:#fff;margin:0 auto;text-align:left;line-height:2rem}
+
+/* 历史净值 */
+.datas{width:100%;}
+.datas .text{width:16.5rem;margin:0 auto;padding-left:0.75rem;color:#000;background:#fff;}
+
+.datas .list{height:1.75rem;color:#000;border-bottom:1px solid #efefef;}
+.datas .list div{height:1.75rem;float:left;text-align:center;line-height:1.75rem;font-size:0.7rem;}
+.datas .list div:nth-of-type(1){width:25%;text-align:left;}
+.datas .list div:nth-of-type(2),.datas .list div:nth-of-type(3){width:23%;}
+.datas .list div:nth-of-type(4){width:22%;text-align:right;float:right;padding-right:0.75rem;}
+ 
+.datas .title_tip{height:2.5rem;border-bottom:1px solid #efefef;clear:both;color:#000;}
+.datas .title_tip div{height:2.5rem;float:left;text-align:center;line-height:2.5rem;font-size:0.75rem;}
+.datas .title_tip div:nth-of-type(1){width:25%;text-align:left;}
+.datas .title_tip div:nth-of-type(2),.title_tip div:nth-of-type(3){width:22%;text-indent:1rem;}
+.datas .title_tip div:nth-of-type(4){text-align:right;float:right;padding-right:0.75rem;}
+.red{color:#fb5c5f;}
+.green{color:#009944;} 
+.much{width:100%;height:2rem;}
+.much>div{width:16.5rem;padding-left:0.75rem;font-size:0.75rem;color:#fff;color:#148ce6;background:#fff;margin:0 auto;text-align:center;line-height:2rem}
+
+.trade{width:100%;margin-top:0.65rem;}
+.trade>div{width:17.25rem;margin:0 auto;}
+
+/* 交易说明切换 */
+section{background: #f6f6f6;width:100%;margin-top:0.65rem;border-radius:0.25rem 0.25rem 0 0;}
+
+.content1_1 ul{width:16.5rem;height:2.25rem;background-color: #fff;margin:0 auto;padding-left:0.75rem;}
+.content1_1 ul li { font-size: .75rem;font-weight:bold; float: left; width: 50%; text-align: center; padding: 12px 0; border-bottom: 2px solid transparent; color: #000; }
+.content1_1 ul li.active { border-bottom-color: #d8b456; color: #d8b456; }
+
+/* 交易说明详情 */
+.qiehuan{width:16.5rem;height:100%;background-color: #fff;margin:0 auto;padding-left:0.75rem;}
+.qiehuan .out{width:100%;height:5rem;font-size:0.7rem;background-color: #fff;}
+.qiehuan .out .left{width:6rem;color:#000;float:left;margin-top:0.75rem;font-weight:bold}
+.qiehuan .out .right{width:10rem;color:#666;float:left;margin-top:0.75rem;}
+
+.qiehuan .textList{width:100%;height:2.5rem;font-size:0.7rem;clear:both;}
+.qiehuan .textList .left{width:6rem;color:#000;float:left;font-weight:bold}
+.qiehuan .textList .right{width:10rem;color:#666;float:left;} 
+
+.qiehuan .last{height:100%;height:3rem;font-size:0.7rem;background-color: #fff;clear:both;}
+.qiehuan .last .left{width:6rem;color:#000;float:left;font-weight:bold}
+.qiehuan .last .text{width:10rem;color:#666;float:left;}
+
+.qiehuan .second{width:100%;height:1.75rem;font-size:0.7rem;clear:both;}
+.qiehuan .second .left{width:6rem;color:#000;float:left;font-weight:bold}
+.qiehuan .second .right{width:10rem;color:#666;float:left;} 
+.qiehuan .range{width:100%;height:15rem;font-size:0.7rem;background-color: #fff;}
+.qiehuan .range .left{width:6rem;color:#000;float:left;margin-top:0.75rem;font-weight:bold}
+.qiehuan .range .right{width:10rem;color:#666;float:left;margin-top:0.75rem;}
+
+.product{width:100%;height:2.5rem;clear:both;font-weight:bold;margin-top:0.65rem;}
+.product>div{width:16.5rem;padding-left:0.75rem;font-size:0.75rem;color:#fff;color:#000;background:#fff;margin:0 auto;text-align:left;line-height:2.5rem}
+
+.notice{width:100%;height:2.5rem;clear:both;}
+.notice .first{width:16.5rem;height:2.5rem;margin:0 auto;background:#fff;padding-left:0.75rem;}
+.notice .text{height:2.5rem;float:left;color:#000;text-align: center;line-height: 2.5rem;font-size:0.75rem;}
+.notice .jiantou{width:0.5rem;height:0.75rem;float:right;background: url('../img/img4.png') no-repeat;
+background-size:100% 100%;margin-top:0.875rem;margin-right:0.75rem;}
+
+footer { position: fixed; width: 100%; left: 0; bottom: 0; background-color: #d8b456; font-size: .85rem; margin-top: 2.5rem}
+footer .buy{width:100%;height:2.5rem;font-size:0.85rem;text-align:center;line-height:2.5rem;color:#3f332e;}
+
+.layout {
+    display: none;
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    width: 70px;
+    height: 70px;
+    z-index: 1001;
+    text-align:center;
+    border-radius: 5px;
+    background: url("../images/common/background-70.png");
+}
+
+.layout div{
+    margin-top: 10px;
+}
+
+.loading-img{
+    margin-left: 20px;
+    width: 30px;
+    height: 30px;
+    -webkit-transform:rotate(0deg) translateZ(0);
+    -webkit-transition-duration:0ms;
+
+    -webkit-animation-name:loading;
+    -webkit-animation-duration:0.7s;
+    -webkit-animation-iteration-count:infinite;
+    -webkit-animation-timing-function:linear;
+}
+
+@-webkit-keyframes loading {
+    from { -webkit-transform:rotate(0deg) translateZ(0); }
+    to { -webkit-transform:rotate(360deg) translateZ(0); }
+}

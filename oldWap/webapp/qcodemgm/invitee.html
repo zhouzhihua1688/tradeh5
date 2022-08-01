@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	 <!-- <meta charset="GBK"> -->
+	<meta charset="utf8">
+	<title>活动</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="css/base.css">
+	<script type="text/javascript" src="js/zepto.min.js"></script>
+	<script type="text/javascript" src="../basic/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../basic/utf.js"></script>
+    <script type="text/javascript" src="../basic/jquery.qrcode.js"></script>
+    <script type="text/javascript" src="../basic/basic.js"> </script>
+	<script>
+		setFont();
+		window.onresize = function(){
+            setFont();
+		}
+		function setFont(){
+            var windowWidth =  $(window).width();
+            windowWidth = windowWidth> 750 ? 750 : windowWidth;
+            $("html").css({"fontSize": windowWidth/(750/40) });
+		}
+
+	</script>
+	<style type="text/css">
+		.font-arial{ font-family: Arial; }
+		button { outline: none; }
+		img { vertical-align: top; border: 0;outline: 0;width: 100%;height: auto;}
+		p { line-height: 1.5; word-wrap: break-word; text-align: justify; }
+		table { width: 100%;border-collapse:collapse; }
+		.hide { display: none !important; }
+
+		.blue { color: #1057a0;}
+		.left{ float: left; }
+		.right{ float: right; }
+		.hide { display: none; }
+		.text-center { text-align: center; }
+		.black { color: #333333; }
+		.bold { font-weight: bold;}
+		.margin-bottom-20 { margin-bottom: 20px;}
+		.font-24 { font-size: 0.6rem !important;}
+		.font-28 { font-size: 0.7rem !important;}
+		.font-20 { font-size: 0.5rem !important;}
+		.blank-20 { height: 1rem;}
+
+		.btn-gradient { width: 10.6rem; height: 1.7rem; line-height: 1.7rem;display:block;margin: 0 auto; font-size: 0.75rem;text-align: center;color: #fff;
+			border-radius: 0.85rem;margin-top: 0.75rem;
+		}
+		.btn-small { width: 80%; }
+		.btn-yellow { background-color: #fdf3b7;border: 2px solid #fc4e1e; color: #fc4e1e;}
+		.btn-KR { background-color: #fc4e1e; border: 2px solid #fdf3b7;}
+
+
+		.content {position: relative;}
+		.bg-groups{ position: relative; z-index: 1; }
+		.content .main{ position: absolute; top: 0; z-index: 2; }
+		.content footer{ z-index: 2; position: absolute; bottom: 0;  }
+
+		.section1 { width: 100%; height: 7.95rem; }
+		.section1 .btn-group { position: absolute; top: 0.625rem; right: 0.575rem; }
+		.section1 button { color: #fc4e1e;  font-size: 12px;  height: 28px; background: none; border: 1px solid #fc4e1e; border-radius: 14px; padding: 0 10px; }
+
+		.section2{ width: 100%; height: 9.5rem; }
+		.qr-code { width: 8.75rem; height: 8.75rem; margin: 0 auto; }
+
+		.section3 { width: 100%; height: 9.75rem; }
+		.section3 form { width: 63.2%; margin: 0 auto; color: #fff; }
+		.section3 form h4 { text-align: center;line-height: 1.8rem;height: 1.8rem; font-weight: bolder; font-size: 0.6rem; }
+		.section3 form p {font-size: 0.6rem; }
+
+		footer { position: absolute;bottom: 0;}
+		footer p {  width: 88%; font-size: 12px; color: #ffb391; margin: 0 auto; padding: 0.6rem 0; opacity: 1;}
+
+		.layer { display: none; position: fixed; top: 0;left: 0;  background-color: rgba(0,0,0,0.7) ; height: 100%; width: 100%; overflow: auto; font-size: 0.6rem; z-index: 999;}
+		.layer-wrap { width: 15.5rem; margin: 2.5rem auto;}
+		.layer-heading { background: #ffffff url(img/model_bg.png) no-repeat; height: 3rem; width: 15.5rem; border-radius: 5px 5px 0 0; background-size: contain;}
+		.layer-heading a { position: absolute; display: inline-block; width: 1.2rem; height: 1.125rem; padding-top: 0.375rem; font-size: 0.9375rem;  margin-left: 0.9375rem;
+			color: #333333;  border-radius: 0 0 0.6rem 0.6rem;  background-color: #fff; text-align: center;font-weight: bolder; }
+		.layer-heading h4 { text-align: center;line-height: 3rem; color: #c31628;font-size: 1rem; font-weight: bolder;}
+		.layer-body { background-color: #fff;  border-radius: 0 0 5px 5px ; min-height: 5rem;padding: 0.94rem}
+
+		#rules .layer-heading h4 { color: #fff;}
+		#rules ul li { padding-left: 5px; padding-bottom: 0.4rem;  }
+		#rules ul li:before{
+			content:"";
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			background-color: #fcdc70;
+			float: left;
+			margin-left: -0.7rem; margin-top: 0.18rem;
+		}
+		#rules ul table,
+		#rules ul li:last-child p:last-child { margin-top: 0.4rem;}
+
+		table { border-collapse: collapse; text-align: center; }
+		table td { border: 1px solid #666666; font-size: 0.36rem; padding: 5px 0px; }
+		.qr-code canvas{width:100%}
+	</style>
+</head>
+<body>
+	<div class="content">
+		<div class="bg-groups">
+			<img src="img/bg_02.png">
+			<img src="img/bg_03.png">
+			<img src="img/bg_04.png">
+			<img src="img/bg_05.png">
+			<img src="img/bg_05.png">
+		</div>
+		<div class="main">
+			<section class="section1">
+				<div class="btn-group">
+					<button class="rules-btn">活动规则</button>
+				</div>
+			</section>
+			<section class="section2">
+				<div class="qr-code">
+					<!-- <img src="img/qr-code.png" alt=""> -->
+				</div>
+			</section>
+			<section class="section3">
+				<form>
+					<h4>二维码有效期：<span id="qcodeValidDay"></span>天。</h4>
+					<p>您可通过截图或保存二维码进行分享，好友扫描二维码即可加入，活动奖励请点击右上角活动规则查看哦!</p>
+
+					<a type="button" class="btn-gradient btn-yellow" href="http://www.99fund.com/m_weixin.htm">马上投资</a>
+					<a type="button" class="btn-gradient btn-KR" href="../wap/wapWeb/submitSuccessDoubleProfit.html">我要收益翻倍</a>
+				</form>
+			</section>
+		</div>
+
+		<footer>
+			<p class="font-20">风险提示: 购买货币基金并不等于将资金作为存款存放在银行或存款类金融机构，不保证一定盈利，也不保证最低收益。基金投资需谨慎。</p>
+		</footer>
+	</div>
+
+	<!-- 活动规则 -->
+	<div class="layer" id="rules">
+		<div class="layer-wrap">
+			<div class="layer-heading">
+				<a class="close">×</a>
+				<h4></h4>
+			</div>
+			<div class="layer-body">
+			 	<ul>
+			 		<li><p class="font-24">1、活动时间：即日起</p></li>
+			 		<li><p class="font-24">2、活动期间，邀请者A成功邀请一位好友通过专属二维码开通现金宝、绑定银行卡，同时完成体验反馈，就能获得8.8元红包奖励，邀请者每天最多获得10次邀请奖励，累计可获得最多30次邀请奖励（仅自己邀请，不含好友邀请）。</p></li>
+			 		<li><p class="font-24">3、被邀请者B通过邀请者分享的专属链接（其他方式无效）进入界面后开通现金宝、绑定银行卡，同时完成体验反馈，就有机会赢取<strong>连续3天现金宝收益翻倍奖励</strong>，同时可再生成专属二维码再去邀请好友C。好友C同理可再邀请好友D。</p></li>
+			 		<li>
+						<p class="font-24">4、邀请者A可享累计邀请大红包，即邀请成功一人最多可获累计8.8+2.8+1.8+0.8=14.2元（关系网三层以外不再抽取好友奖励）：</p>
+						<table>
+							<tr>
+								<td>邀请者</td>
+								<td>被邀请者</td>
+								<td colspan="4">红包获得情况</td>
+							</tr>
+							<tr>
+								<td>A</td>
+								<td>B</td>
+								<td colspan="4">A获8.8元</td>
+							</tr>
+							<tr>
+								<td>B(第一层)</td>
+								<td>C</td>
+								<td>B获8.8元</td>
+								<td colspan="3">A获2.8元</td>
+							</tr>
+							<tr>
+								<td>C(第二层)</td>
+								<td>D</td>
+								<td>C获8.8元</td>
+								<td>B获2.8元</td>
+								<td colspan="2">A获1.8元</td>
+							</tr>
+							<tr>
+								<td>D(第二层)</td>
+								<td>E</td>
+								<td>D获8.8元</td>
+								<td>C获2.8元</td>
+								<td>B获1.8元</td>
+								<td>A获0.8元</td>
+							</tr>
+						</table>
+					</li>
+			 		<li><p class="font-24">5、生成的<strong>专属二维码有效期详见二维码页面</strong>，邀请者的红包在<strong>成功邀请后5个交易日内发到账户，</strong>用户可在现金宝APP“我的红包”页面查看可用红包详情，红包有效期为30天，逾期不领视为放弃。</p></li>
+			 		<li><p class="font-24">6、用户在本次活动中向本公司提供手机号码等个人信息的行为将视为同意本公司向其发送活动产品或者服务信息。本公司将对用户提供的手机号码等个人信息采取严格的保密措施。</p></li>
+			 		<li><p class="font-24">7、如果发现客户恶意作弊，汇添富基金有权利长期取消其活动及获奖资格。奖品不含个人所得税，获奖者需自行承担、申报、缴纳。</p></li>
+			 		<li>
+						<p class="font-24">8、在法律法规的范围内，以上活动最终解释权归汇添富基金所有，汇添富基金可根据活动情况修改规则。如有任何疑问，请致电400-888-9918，按0转人工服务（免长途）。</p>
+						<p>风险提示: 购买货币基金并不等于将资金作为存款存放在银行或存款类金融机构，不保证一定盈利，也不保证最低收益。基金投资需谨慎。</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+		<img class="img" src="img/logo.jpg" style="display:none;">
+<script>
+
+$(function(){
+	
+	getNewmgmUrl();
+	function getNewmgmUrl(){
+		$.get(WAP.requestAddr + "/activity/query_new_mgm_recom_url?dt="+new Date().getTime(),function(result){
+			if(result.returnCode == 0){
+				var qrCodeValidDay = result.body.qrCodeValidDay;
+				if(WAP.isNotEmpty(qrCodeValidDay)){
+			        $("#qcodeValidDay").html(qrCodeValidDay);
+			    }
+				var txt = result.body.shareUrl;
+	            $(".qr-code").qrcode({
+	                render : "canvas",    //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
+	                text : txt,    //扫描了二维码后的内容显示,在这里也可以直接填一个网址，扫描二维码后
+	                width : "1000",               //二维码的宽度
+	                height : "1000",              //二维码的高度
+	                background : "#ffffff",       //二维码的后景色
+	                foreground : "#000000" ,        //二维码的前景色
+	            });	
+	             
+	            var canvas = $(".qr-code").find('canvas').get(0);  
+	            var ctx = canvas.getContext("2d");
+	            ctx.drawImage( $(".img")[0] ,400,400, 200, 200);
+	            var imgData = ctx.getImageData(0,0,canvas.offsetWidth, canvas.offsetHeight);
+	            var imgObj = new Image();
+	            imgObj.src = canvas.toDataURL("imgae/jpg");
+	            $(".qr-code")[0].appendChild(imgObj);
+	           $(".qr-code").find('canvas').hide();
+			}
+		}, "json");
+	}
+});
+
+	//规则
+	$(".rules-btn").on("click",function(){
+		layerShow("#rules");
+	});
+
+	function layerShow(selector){
+		$(document.body).css({ "overflow-x":"hidden","overflow-y":"hidden"});
+		$(selector).show();
+	}
+
+	function layerClose(){
+		$(document.body).css({  "overflow":"auto"});
+		$(".layer").hide();
+	}
+
+	$(".close").click(function(e){
+		$(document.body).css({  "overflow":"auto"});
+		$(this).parents(".layer").hide();
+	});
+
+</script>
+</body>
+</html>

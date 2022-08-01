@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>亲情账户</title>
+    <link rel="stylesheet" href="../base/css/base.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/swiper-4.2.2.min.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+    <script type="text/javascript" src="../base/js/needLogin.js"></script>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script> -->
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+</head>
+
+<body>
+    <div id="app">
+        <div class="header">
+            <a href="/tradeh5/newWap/familyAccount/createPlan.html" class="buy-btn"></a>
+            <a href="/tradeh5/newWap/familyAccount/familyMember.html" class="family-member"><span>家庭成员</span><img src="./img/index/white.png"></a>
+        </div>
+        <div class="banner" v-if="bannerData&&bannerData.object&&bannerData.object.length>0">
+            <div class="swiper-container banner-list">
+                <div class="swiper-wrapper">
+                    <a v-for="(item,index) in bannerData.object" :href="item.url" :key="index"
+                        class="swiper_img swiper-slide" style=" padding-bottom: .65rem;">
+                        <img :src="item.imageUrl" alt="">
+                    </a>
+
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+        <div class="video-list" v-if="videoData">
+            <div class="title">
+                <span v-text="videoData.themeTitle">添财酱话家庭理财</span>
+                <a v-show="videoData.viewmoreTitle" :href="videoData.viewmoreUrl"
+                    v-text="videoData.viewmoreTitle">更多</a>
+            </div>
+            <div class="swiper-container list" v-if="videoData.object&&videoData.object.length>0">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" v-for="(item,index) in videoData.object" :key="index">
+                        <a :href="item.btnUrl" class="pic">
+                            <span v-show="item.picUpperLeftContext" v-text="item.picUpperLeftContext"></span>
+                            <div class="img-box">
+                                <img :src="item.imageUrl" alt="">
+                                <i></i>
+                            </div>
+                        </a>
+                        <p v-text="item.imageName">这里是描述</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="text-list" v-if="articleData&&articleData.object&&articleData.object.length>0">
+            <div class="title">
+                <span v-text="articleData.themeTitle">财商教育</span>
+                <a v-show="articleData.viewmoreTitle" :href="articleData.viewmoreUrl"
+                    v-text="articleData.viewmoreTitle">更多</a>
+            </div>
+            <a class="list" v-for="(item,index) in articleData.object" :key="index" :href="item.url">
+                <div class="top">
+                    <p v-text="item.adviceTitle">一眨眼又创新高，这类资产值得...</p>
+                    <span v-show="item.publicTimeStr" v-text="item.publicTimeStr">10-26</span>
+                </div>
+                <p class="text" v-text="item.adviceDesc">基金经理杨瑨重磅新品，在三到五年的纬度，还是很看好这两个板块。优质成长基金将按照四重标准123123sdad123123ad
+                </p>
+            </a>
+        </div>
+    </div>
+    <script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+    <script type="text/javascript" src="../base/js/lib/swiper-4.2.2.min.js"></script>
+    <script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    bannerData: null,
+                    videoData: null,
+                    articleData: null,
+                }
+            },
+            mounted() {
+                this.isOpen();
+                this.getLayoutData();
+            },
+            methods: {
+                isOpen:function(){
+                    utils.ajax({
+                        url: '/sfs/v1/accounts/is-open?version=6.6',
+                        success: function (result) {
+                            if (result.returnCode === 0) {
+                                (!result.body.isOpen)&&(window.location.href="/tradeh5/newWap/familyAccount/open.html");
+                                showPlans(result.body.teamId,'','','');
+                            } 
+                        }.bind(this)
+                    })
+                },
+                getLayoutData: function () {
+                    utils.ajax({
+                        url: '/res/v1/app-func-layout/location-info?layoutId=familyAccountHome',
+                        success: function (result) {
+                            if (result.returnCode === 0) {
+                                if(result.body&&result.body.appLayoutFuncInfoList&&result.body.appLayoutFuncInfoList.length>0){
+                                    result.body.appLayoutFuncInfoList.forEach(function(item){
+                                        this.getData(item.temId,item.layoutId,item.funcmodId);
+                                    }.bind(this))
+                                }
+                            } else {
+                                return false;
+                            }
+                        }.bind(this)
+                    })
+                },
+                getData: function (type, layoutId,funcModId) {
+                    utils.ajax({
+                        url:'/res/v1/app-func-layout/theme-infos-app?layoutId='+layoutId+'&funcModId='+funcModId,
+                        success: function (result) {
+                            console.log(result);
+                            if (result.returnCode === 0) {
+                                switch (type) {
+                                    case 'bannerList':
+                                        this.bannerData = result.body[0];
+                                        break;
+                                    case 'scrollVideoCard':
+                                        this.videoData = result.body[0];
+                                        break;
+                                    case 'infoList_simple':
+                                        this.articleData = result.body[0];
+                                        break;
+                                }
+                            } else {
+
+                            }
+                        }.bind(this)
+                    })
+                }
+            },
+            updated() {
+                var mySwiper = new Swiper('.banner-list', {
+                    direction: 'horizontal',
+                    loop: true,
+                    autoplay: {
+                        disableOnInteraction: false
+                    },
+                    observer: true,
+                    observeParents: true,
+                    onSlideChangeEnd: function (swiper) {
+                        swiper.update();
+                        mySwiper.startAutoplay();
+                        mySwiper.reLoop();
+                    },
+                    // 如果需要分页器
+                    pagination: {
+                        el: '.swiper-pagination',
+                        type: 'custom',
+                        renderCustom: function (swiper, current, total) {
+                            var _html = '';
+                            for (var i = 1; i <= total; i++) {
+                                if (current == i) {
+                                    _html +=
+                                        '<span style="width: .5rem;height:.25rem;display: inline-block;margin: 0 .25rem;border-radius: .125rem;background-color: #f85d63;"></span>';
+                                } else {
+                                    _html +=
+                                        '<span style="width: .25rem;height:.25rem;border-radius: 50%;display: inline-block;background: #dddddd;margin: 0 .25rem;"></span>';
+                                }
+                            }
+                            return _html; //返回所有的页码html
+                        }
+                    }
+                });
+                var mySwiper1 = new Swiper('.video-list .list', {
+                    freeMode: true,
+                    freeModeMomentum: false,
+                    slidesPerView: 'auto'
+                });
+            }
+        })
+
+	//计划信息
+	function showPlans(teamId,memberId,sortType,filterType){
+		var url = '/sfs/v1/accounts/assets/stat?teamId='+teamId; 
+		
+		utils.get(url,null,function(result){
+			var body = result.body;
+			if(result.returnCode == 0){
+				
+				var planList = body.plansList;
+				if(planList.length > 0){
+                    window.location.href = '/tradeh5/newWap/familyAccount/home.html';
+                }
+				
+			}
+		});
+	}
+    </script>
+</body>
+
+</html>

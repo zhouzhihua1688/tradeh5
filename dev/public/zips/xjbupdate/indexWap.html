@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>升级现金宝</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <script>
+        // 相对字体大小设置
+        let oHtml = document.documentElement;
+        getFont();
+        window.onresize = getFont;
+        function getFont() {
+            let screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = "17.06px";
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = "40px";
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + "px";
+            }
+        }
+    </script>
+    <style>
+        .content>div{
+            font-size: 0;
+        }
+        img{
+            display: block;
+            width: 100%;
+        }
+        .content div:nth-of-type(2){
+            position: relative;
+        }
+        .content div .jump_protocol{
+            position: absolute;
+            right: 4.75rem;
+            bottom: 1.5rem;
+            width: 2.5rem;
+            height: .75rem;
+        }
+        .content div .update_xjb{
+            position: absolute;
+            right: 2.875rem;
+            bottom: 2.875rem;
+            width: 13rem;
+            height: 2.5rem;
+        }
+        /* tip弹窗 */
+        .Bomb-box {
+            z-index: 10000000000000000000000;
+            display: none;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            top: 0;
+            left: 0;
+            text-align: center;
+        }
+
+        .Bomb-box .Bomb-box-main {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 15rem;
+            background-color: #fff;
+            border-radius: 0.3rem;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        .Bomb-box .Bomb-box-content {
+            padding: 1.5rem;
+        }
+
+        .Bomb-box .Bomb-box-content p {
+            text-align: center;
+            line-height: 1rem;
+        }
+
+        .Bomb-box .Bomb-box-ok {
+            display: block;
+            width: 13.5rem;
+            height: 2rem;
+            line-height: 2rem;
+            text-align: center;
+            color: #0070fa;
+            font-size: 0.75rem;
+            border-top: solid 0.025rem #eee;
+            margin: 0 auto;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div>
+            <img src="./images/bg_111.png" alt="">
+        </div>
+        <div>
+            <img src="./images/bg_02.png" alt="">
+            <a href="javascript:;" class="jump_protocol"></a>            
+            <a href="javascript:;" class="update_xjb"></a>
+        </div>
+        <div>
+            <img src="./images/bg_03.png" alt="">
+        </div>
+    </div>
+	
+    <div class="Bomb-box" style="display: block">
+        <div class="Bomb-box-main">
+            <p class="Bomb-box-tips"  style="padding-top: 0.75rem;"></p>
+            <div class="Bomb-box-content">
+                <p class="text-center"></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;">确定</a>
+        </div>
+    </div>
+    <script src="./js/jquery.3.4.1.min.js"></script>
+    <script src="./js/utils.js"></script>
+	<script src="./js/common.js"></script>
+    <script>
+
+		var params={
+			acceptMode: "M",
+			apkind: "985",
+			branchCode: "247",
+			subApkind: "MAC001"
+		};
+        $(".update_xjb").click(params,function(e){
+			utils.ajax({
+				url: '/mobile-bff/v1/smac/fund/convert',
+				type: 'POST',
+				data: e.data,
+				success: function (result) {console.log(result.returnCode);
+					if (result.returnCode === 0) {
+                        alertTips3('升级成功','您的现金宝钱包已升级！','去查看',jumpuri);
+                        $(".Bomb-box-tips").css({"font-size":".75rem","color":"#000","padding-top":".9rem"});
+                        $(".Bomb-box-content").css({"font-size":".7rem","color":"#666","padding":".8rem","padding-top":".6rem"});
+                        $(".Bomb-box-ok").css({"font-size":".75rem","color":"#006bfe"});
+					} 
+				}.bind(this)
+			})
+        })
+        $(".jump_protocol").click(function(){
+            if(utils.isProdEnv()){
+                window.location.href="https://app.99fund.com/tradeh5/newWap/tradeProcess/cash/xjb_upgrade_agreement.html"
+            }else{
+                window.location.href="http://appuat.99fund.com.cn:7081/tradeh5/newWap/tradeProcess/cash/xjb_upgrade_agreement.html"
+            }
+        })
+		function jumpuri(){
+			window.location.href="/tradeh5/newWap/myAssets/asset.html"
+		}
+    </script>
+</body>
+
+</html>

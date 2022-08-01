@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <title></title>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/fund/redeem.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+  <style type="text/css" media="screen">
+    .grid-list {
+      padding: 0rem;
+    }
+
+    .grid-list li {
+      margin-left: 0.75rem;
+    }
+
+    .grid-list .flex .text {
+      line-height: 2.25rem;
+    }
+
+    .shuhui {
+      display: inline-block;
+      font-size: 0.75rem;
+    }
+
+    .checkOrder {
+      width: 100%;
+      height: 2.25rem;
+      margin-top: 1.25rem;
+    }
+
+    .checkOrder a {
+      height: 2.25rem;
+      width: 92%;
+      background: #ff7e00;
+      display: block;
+      margin: 0 auto;
+      border-radius: 0.15rem;
+      text-align: center;
+      line-height: 2.25rem;
+      color: #fff;
+      font-size: 0.75rem;
+    }
+
+    .layer {
+      background-color: #ffffff;
+      height: 100%;
+      width: 100%;
+      position: fixed;
+      /*top: 0;*/
+      left: 0;
+      overflow: auto;
+      z-index: 10;
+    }
+
+    #myGift1,#myGift2{
+      background-color: #ffffff;
+      height: 27rem;
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      overflow: auto;
+      z-index: 10;
+    }
+
+    @keyframes slideInDown {
+      0% {
+        opacity: 0;
+        -webkit-transform: translateY(-000px);
+        -ms-transform: translateY(-2000px);
+        transform: translateY(-2000px)
+      }
+
+      100% {
+        -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+        transform: translateY(0)
+      }
+    }
+
+    @keyframes slideInUp {
+      0% {
+        opacity: 0;
+        -webkit-transform: translateY(100%);
+        -ms-transform: translateY(100%);
+        transform: translateY(100%)
+      }
+
+      100% {
+        -webkit-transform: translateY(65%);
+        -ms-transform: translateY(65%);
+        transform: translateY(65%)
+      }
+    }
+  </style>
+  <!-- 赎回样式 -->
+  <style>
+    html,
+    body {
+      /* font-family: 'SimHei'; */
+      background: #f6f6f6;
+    }
+
+    .content li {
+      padding: 0.75rem;
+    }
+
+    .content .high {
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .content .high .bank {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .content .high .bank span {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .content .black {
+      font-size: 0.75rem;
+      color: #000;
+    }
+
+    .content img {
+      height: .75rem;
+      width: auto;
+    }
+
+    .content .high .sign {
+      height: 1rem;
+    }
+
+    .content .dim {
+      font-size: 0.6rem;
+      color: #666666;
+      line-height: 1rem;
+      padding: .25rem .75rem;
+    }
+
+    .content .grey {
+      /* font-size: 0.6rem; */
+      color: #666666;
+    }
+
+    .content .red {
+      /* font-size: 0.6rem; */
+      color: #f4333c;
+    }
+
+    .fundList .red {
+      color: #f4333c;
+    }
+
+    .content .blue,
+    .fundList .blue {
+      color: #148ce6;
+    }
+
+    .content .pt5,
+    .fundList .pt5 {
+      padding-top: 0.25rem;
+    }
+
+    .content .ml15,
+    .fundList .ml15 {
+      margin-left: .75rem;
+    }
+
+    .content .ml10,
+    .fundList .ml10 {
+      margin-left: .5rem;
+      font-size: 0.65rem;
+      color: #40a7ef;
+    }
+
+    /* 参考市值 */
+    .high .reference {
+      display: block;
+      margin-top: 0.25rem;
+      font-size: 0.75rem;
+      color: #000;
+    }
+
+    .high .money {
+      width: 90%;
+      height: 2.5rem;
+      line-height: 2.5rem
+    }
+
+    .high .money input {
+      width: 90%;
+      height: 2.5rem;
+      color: #000;
+      border: none;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .bifen {
+      width: 100%;
+      height: 2.25rem;
+      background: #fff;
+      font-size: 0.75rem;
+      color: #000;
+      border-bottom: 1px solid #eee;
+    }
+
+    .bifen .third,
+    .bifen .third_quick,
+    .bifen .two_quick,
+    .bifen .two {
+      width: 3.0rem;
+      height: 1rem;
+      border: 1px solid #ccc;
+      float: left;
+      border-radius: 1.25rem;
+      text-align: center;
+      line-height: 1rem;
+      margin-left: 0.75rem;
+    }
+
+    .bifen .all,
+    .bifen .all_quick
+     {
+      border: 1px solid #ccc;
+      width: 3.0rem;
+      height: 1rem;
+      float: left;
+      border-radius: 1.25rem;
+      text-align: center;
+      line-height: 1rem;
+      margin-left: 0.75rem;
+    }
+
+    /* .active {
+      color: #fb5c5f;
+      border: 1px solid #fb5c5f !important;
+    } */
+
+    .first, .first_quick {
+      width: 100%;
+      height: 2.0rem;
+      background: #fff;
+    }
+
+    .first .left, .first_quick .left
+     {
+      width: 75%;
+      font-size: 0.65rem;
+      color: #666;
+      display: inline-block;
+      margin-left: 0.75rem;
+      text-align: left;
+      line-height: 2rem
+    }
+
+    .first .right, .first_quick .right {
+      width: 15%;
+      font-size: 0.65rem;
+      color: #40a7ef;
+      display: inline-block;
+      margin-right: 0.75rem;
+      text-align: center;
+      line-height: 2rem
+    }
+
+    .yugu {
+      width: 100%;
+      height: 1.75rem;
+    }
+
+    .yugu .text {
+      width: 95%;
+      font-size: 0.6rem;
+      color: #666;
+      margin-left: 0.75rem;
+      text-align: left;
+      line-height: 1.75rem
+    }
+
+    .shangxian {
+      width: 100%;
+      height: 2.5rem;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+    }
+
+    .shangxian .left {
+      width: 60%;
+      font-size: 0.75rem;
+      color: #000;
+      margin-left: 0.75rem;
+      text-align: left;
+      line-height: 2.5rem;
+      float: left;
+    }
+
+    .shangxian .right {
+      width: 20%;
+      font-size: 0.75rem;
+      margin-right: 0.75rem;
+      color: #000;
+      float: right;
+      text-align: right;
+      line-height: 2.5rem
+    }
+
+    .shangxian .right div:nth-of-type(1) {
+      text-align: left;
+      float: left;
+    }
+
+    .shangxian .right div:nth-of-type(2) {
+      text-align: right;
+      float: right;
+    }
+
+    .shuhui {
+      width: 100%;
+      height: 3.0rem;
+      background: #fff;
+    }
+
+    .shuhui .left {
+      width: 30%;
+      font-size: 0.75rem;
+      color: #000;
+      float: left;
+      text-align: left;
+      line-height: 3rem;
+      margin-left: 0.75rem;
+    }
+
+    .shuhui .right {
+      width: 55%;
+      height: 2.75rem;
+      color: #000;
+      float: left;
+      text-align: right;
+      margin-top: 0.25rem;
+      font-size: 0.75rem;
+      line-height: 1rem
+    }
+
+    .shuhui .pic {
+      width: 5%;
+      height: 2.75rem;
+      color: #000;
+      float: right;
+      text-align: right;
+      margin-top: 0.25rem;
+      font-size: 0.75rem;
+      line-height: 1rem;
+      margin-right: 0.75rem;
+    }
+
+    .shuhui .right div:nth-of-type(2) {
+      font-size: 0.6rem;
+      color: #666
+    }
+
+    .shuhui .icon {
+      width: 5%;
+      height: 2rem;
+      float: left;
+      margin-top: 1rem;
+      margin-left: 0.5rem;
+    }
+
+    .prompt {
+      width: 100%;
+    }
+
+    .prompt>div {
+      width: 90%;
+      margin: 0 auto;
+      font-size: 0.6rem;
+      color: #666;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .confirm {
+      width: 100%;
+      height: 2.25rem;
+    }
+
+    .confirm>a {
+      width: 90%;
+      height: 2.25rem;
+      display: block;
+      text-align: center;
+      line-height: 2.25rem;
+      margin: 0 auto;
+      font-size: 0.6rem;
+      color: #666;
+      margin-top: 0.75rem;
+      background: #fd7e23;
+      color: #fff;
+      font-size: 0.85rem;
+      border-radius: 2px;
+    }
+
+
+    .tips {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.507);
+      font-size: .7rem;
+    }
+
+    .tips>div {
+      background: #fff;
+      position: absolute;
+      left: 10%;
+      right: 10%;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: .5rem .75rem 0;
+      border-radius: .2rem;
+    }
+
+    .tips .tips_text {
+      padding: .75rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .tips .button {
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+
+    .tips .button span {
+      margin-top: .25rem;
+      padding: .625rem 0;
+      margin-bottom: .25rem;
+      width: 50%;
+      color: #1370fa;
+    }
+
+    .tips .button span:nth-of-type(1) {
+      border-right: 1px solid #eee;
+    }
+
+    .redeem_type{
+      padding: 0 0.3rem;
+      background-color: #fff;
+      margin-bottom: 0.2rem;
+    }
+
+    .c_type{
+      height: 1rem;
+      line-height: 1rem;
+      padding-left: 0.6rem;
+    }
+    #normalRedeemLabel{
+      background: url(../images/account/sel2.png) no-repeat left center;
+      background-size: 0.5rem;
+    }
+    #quickRedeemLabel{
+      background: url(../images/account/sel.png) no-repeat left center;
+      background-size: 0.5rem;
+    }
+    .c_type h4{
+      font-size:0.75rem;
+      font-family: PingFang-SC-Regular;
+      font-weight:400;
+      color:rgba(0,0,0,1);
+      line-height:1rem;
+      float: left;
+      margin-right: 0.2rem;
+    }
+    .c_type p{
+      float: left;
+      font-size: 0.6rem;
+      color: #666666;
+      font-family:PingFang-SC-Regular;
+    }
+    .c_type span{
+      color: #FB5C5F;
+    }
+    .c_type i{
+      font-style: normal;
+    }
+    /* .selected{
+      background: url(../images/account/sel2.png) no-repeat left center;
+      background-size: 0.5rem;
+    } */
+    .left{
+      float:left;
+    }
+    .bankpic{
+      height: 0.6rem;
+      width: 2.5rem;
+      padding: 0.1rem 0;
+      margin-right: 0.2rem;
+    }
+    .bankpic img{
+      width: 30px;
+      height: 30px;
+      margin-right: 17px;
+      margin-top: 20px;
+    }
+    .clearfix:after{
+      content:"";
+      display:block;
+      height:0;
+      visibility:hidden;
+        clear:both;
+    }
+    .clearfix {
+      zoom:1;
+    }
+    .c_bank_info{
+	    width: 10rem;
+      margin-top: 20px;
+    }
+    .c_bank_info h3{
+      font-size:0.60rem;
+      font-family:PingFang-SC-Regular;
+      font-weight:400;
+      color:rgba(0,0,0,1);
+      line-height:1;
+      margin-bottom: 0.22rem;
+    }
+    .c_bank_info p{
+      font-size:0.48rem;
+      font-family:PingFang-SC-Regular;
+      font-weight:400;
+      color:rgba(102,102,102,1);
+      line-height:1;
+    }
+    .bankitems{
+      position: relative;
+      min-height: 1.3rem;
+      padding-left: 1rem;
+    }
+    .bankitems span{
+      display: block;
+      font-size:0.22rem;
+      font-family:PingFang-SC-Regular;
+      font-weight:400;
+      color:rgba(153,153,153,1);
+      line-height:1;
+      margin-top: 0.1rem;
+    }
+    .banklist .active{
+      background-color: #FFF7F7;
+    }
+    .banklist .invalid{
+      background-color: #F6F6F6;
+    }
+    .bankcontent{
+      border-bottom: 0.02rem solid #eee;
+      padding: 0.3rem 0.3rem 0.3rem 0.12rem;
+      box-sizing: border-box;
+    }
+    .banklist .orange{
+      border-color: #FE7E01;
+      color: #FE7E01;
+    }
+    .banklist .blue{
+      border-color: #148CE6;
+      color: #148CE6;
+    }
+    .banklist .purple{
+      border-color: #A571FD;
+      color: #A571FD;
+    }
+    .agree {
+            color: #666666;
+            padding: .35rem .35rem;
+        }
+    .checkBox {
+        vertical-align: middle;
+        margin-top: -.1rem;
+        height: .5rem;
+        width: .5rem;
+        margin-right: .2rem;
+    }
+  </style>
+  <link rel="stylesheet" href="../css/fund/redeemAndConvert.css">
+
+</head>
+
+<body>
+  <div id="selected_card_panel" style="display: none;">
+    <div class="top-bar">
+        <div class="f-white f18"></div>
+    </div>
+    <div id="cards_panel" class="banklist"></div>
+  </div>
+  
+  <div id="app" v-cloak>
+    <ul class="rc-tab-bar" v-if="redeemShow">
+      <li v-for="(item,index) in tabbarText" :key="index" :class="index===tabCurrentIndex?'actives':''"
+        @click="tabClick(index)">{{item}}</li>
+    </ul>
+    <div class="rc-redeem" v-show="tabCurrentIndex===0&&redeemShow">
+      <ul class="content">
+        <li class="dim" v-show="!quickRedeem" style="background-color: #fffac7;"><span class="red">15点后赎回，交易申请将顺延至下一交易日发起</span></li>
+        <li class="high" style="border-bottom:1px solid #eee">
+          <div>
+            <p class="black" id="title"></p>
+          </div>
+        </li>
+        <input type="hidden" value="" id="fundId">
+        <input type="hidden" value="" id="shareType">
+        <input type="hidden" value="" id="currencyType">
+        <input type="hidden" value="0" id="largeRedeemFlag">
+        <input type="hidden" value="" id="balanceSerialNo">
+        <input type="hidden" value="" id="quickRedeem">
+        <input type="hidden" value="" id="quickAmt">
+        <input type="hidden" value="" id="quickRedeemQuty">
+        <input type="hidden" value="" id="fundQuickRedeemCalculateTips">
+        <input type="hidden" value="" id="quickRedeemTimes">
+        <input type="hidden" value="" id="estimateMsg">
+        <li class="high" style="height:2.25rem;font-size: 0.6rem">
+          <div>参考市值(元)<span class="reference" id="unionBalance"></span></div>
+          <div>基金份额(份)<span class="reference" style="margin-left:0.35rem" id="balance"></span></div>
+          <div>可用份额(份)<span class="reference" style="margin-left:0.35rem" id="avaliable"></span></div>
+        </li>
+
+        <li class="high" v-show="fundQuickRedeemSwitch&&canFastRedeem" @click="switchQuickRedeem(0)" style="margin-top: 10px;border-bottom: 0.02rem solid #eee;">
+            <div class="c_type" data="0" id="normalRedeemLabel">
+                <div><h4>普通赎回</h4><p id="normalRedeemTips"></p></div>
+            </div>
+        </li>
+
+        <li class="high" v-show="fundQuickRedeemSwitch&&canFastRedeem" @click="switchQuickRedeem(1)">
+            <div class="c_type" style="border: none;" data="1" id="quickRedeemLabel">
+              <div><h4>快速赎回</h4><p id="quickRedeemTips"></p></div>
+            </div>
+        </li>
+
+        <li class="high" style="margin-top:0.5rem" v-show="!quickRedeem">
+          <div>
+            <p class="black">赎回份额(份)</p>
+          </div>
+          <a href="javascript:;" id="tradeRule">
+            <div class="bank black"><span class="ml10">交易规则</span>
+            </div>
+          </a>
+        </li>
+        <li class="high" v-show="!quickRedeem">
+          <div class="money">
+            <input type="text" id="subQuty" name="subQuty" value="" placeholder="请输入赎回份额">
+          </div>
+          <div id="close"><img class="ml10" src="../images/del.png">
+          </div>
+        </li>
+
+        <!-- 快速赎回 -->
+        <li class="high" v-show="fundQuickRedeemSwitch&&canFastRedeem&&quickRedeem" style="margin-top:0.5rem">
+          <div>
+            <p class="black">快速赎回金额(元)</p>
+          </div>
+          <a href="javascript:;" id="quickRedeemtradeRule">
+            <div class="bank black"><span class="ml10">交易规则</span>
+            </div>
+          </a>
+        </li>
+        <li class="high" v-show="fundQuickRedeemSwitch&&canFastRedeem&&quickRedeem">
+          <div class="money">
+            <span style="font-size: 1rem;">￥</span>
+            <input type="text" id="quickRedeemAmt" name="quickRedeemAmt" value="" placeholder="请输入快速赎回金额" @input="queryRedeemFeeTips">
+          </div>
+          <div id="close_quick"><img class="ml10" src="../images/del.png">
+          </div>
+        </li>
+
+      </ul>
+    </ul>
+    <div v-show="!quickRedeem">
+      <div class="bifen">
+        <div class="third">1/3</div>
+        <div class="two">1/2</div>
+        <div class="all" id="all">全部</div>
+      </div>
+      <div class="first" style="display:none;">
+        <div class="left">留10.00份看看，第一时间抓住涨势机会。</div>
+        <a href="javascript:;">
+          <div class="right" id="fast">快速修改</div>
+        </a>
+      </div>
+      <div class="yugu" style="display:none;">
+        <div class="text">预估转换手续费 <span style="color:#fb5c5f">0.56</span>元(估算费用仅作参考，实际以交易确认为准)</div>
+      </div>
+    </div>
+
+      <!-- 快速赎回 -->
+      <div class="bifen" v-show="fundQuickRedeemSwitch&&canFastRedeem&&quickRedeem">
+        <div class="third_quick">1/3</div>
+        <div class="two_quick">1/2</div>
+        <div class="all_quick" id="all_quick">全部</div>
+      </div>
+      <div class="first_quick" v-show="fundQuickRedeemSwitch&&canFastRedeem&&quickRedeem" style="margin-bottom:10px">
+        <div class="left" id="quickRemark"></div>
+        <a href="javascript:;" id="quickRedeemRule">
+          <div class="right">业务规则</div>
+        </a>
+      </div>
+
+      <div class="shangxian" id="selectGift1" v-show="!quickRedeem">
+        <div class="left">如遇赎回上限</div>
+        <div class="right">
+          <div id="tl">放弃超额</div>
+          <div><img src="../images/arr.png" alt="" style="width:0.4rem;height:0.75rem;margin-top:0.95rem"></div>
+        </div>
+      </div>
+
+      <div class="shuhui" v-show="!quickRedeem">
+        <div class="left">赎回到</div>
+        <div class="right">
+          <div>现金宝</div>
+          <div id="date"></div>
+        </div>
+        <div class="icon"><img src="../images/point.png" alt="" style="width:0.7rem;height:0.7rem"></div>
+      </div>
+
+      <!-- 快速赎回 -->
+      <div class="shuhui" v-show="fundQuickRedeemSwitch&&canFastRedeem&&quickRedeem">
+        <div class="left">赎回到</div>
+        <div class="right" id="shuhuiBank">
+          <div><span id="bankGrpName"></span> <span id="bankAccoDisplay"></span></div>
+          <div id="quickRedeemRemark">预计实时到账</div>
+        </div>
+        <div class="pic"><img src="../images/arr.png" alt="" style="width:0.4rem;height:0.75rem;margin-top:0.95rem;"></div>
+      </div>
+
+      <div class="prompt" v-show="!quickRedeem">
+        <div>温馨提示：持有本基金不满7天赎回费不低于1.50%，费率详见基金合同。</div>
+      </div>
+
+      <div class="prompt" v-show="fundQuickRedeemSwitch&&canFastRedeem&&quickRedeem">
+        <div id="estimateRedeemFeeTip"></div>
+      </div>
+
+      <div class="agree" v-show="fundQuickRedeemSwitch&&canFastRedeem&&quickRedeem"><img class="checkBox" src="../images/checkBox.png" alt="">同意<a href="javascript:;" id="quickredeem_agreement" style="color: rgba(20,140,230,1);touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">《快速赎回业务协议》</a>
+        <a href="javascript:;" id="quickredeem_notice" style="color: rgba(20,140,230,1);touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">《快速赎回功能须知》</a>
+      </div>
+      <div class="confirm">
+        <a href="javascript:void(0)" id="submit_btn">确认</a>
+      </div>
+    </div>
+    <div class="rc-convert" v-show="tabCurrentIndex===1">
+      <div class="content">
+        <div class="dim" style="background-color: #fffac7;  " v-if="transferInfundDetail&&transferInfundDetail.canBePurchasedForCurrent==='Y'"><span class="red">{{topTip}}</span></div>
+        <div class="rc-transfund">
+          <div class="rc-outfund">
+            <div class="out">转出</div>
+            <div class="text">
+              <div class="fund_text">{{convertDetail.fundName}}</div>
+              <span>{{convertDetail.fundId}}</span>
+            </div>
+          </div>
+          <div class="rc-middle">
+            <div class="rc-first"></div>
+            <div class="rc-second">
+              <div class="icon"></div>
+              <div class="resale">转换为</div>
+            </div>
+            <div class="rc-third"></div>
+          </div>
+          <div class="rc-infund" @click="goSelectFund">
+            <a href="javascript:;" v-show="!transferInfundDetail">+选择转入基金</a>
+            <div class="infund-text" v-if="transferInfundDetail">
+              <span class="intext">转入</span><span class="fund-name">{{transferInfundDetail.fundName}}</span><span class="fund-code">{{transferInfundDetail.fundId}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="rc-tips" v-if="convertTips" v-html="convertTips">
+        </div>
+        <div class="rc-date" v-if="transferInfundDetail&&transferInfundDetail.canBePurchasedForCurrent==='Y'"></div>
+        <div class="rc-transNum">
+          <div class="transNum-title">
+            <span>转换份额(份)</span>
+            <a href="javascript:;" @click="tradeRule">交易规则</a>
+          </div>
+          <div class="high" style="padding: 0.75rem;">
+            <div class="money" style="width:100%">
+              <input type="text" id="" name=""  :placeholder="'最多可转换'+formatMoney(convertDetail.availableQuty)+'份'" :value="convertQuty" @input="convertQutyChange" style="width:100%">
+            </div>
+            <div ><img class="ml10" src="../images/del.png" @click="convertQuty='';percentValue='';finaConvertQuty=''" v-show="convertQuty||convertQuty===0"></div>
+          </div>
+          <div class="rc-percent">
+            <div class="third" @click="percentToggle('1')" :class="percentValue=='1'?'active':''">1/3</div>
+            <div class="two" @click="percentToggle('2')" :class="percentValue=='2'?'active':''">1/2</div>
+            <div class="all" @click="percentToggle('3')" :class="percentValue=='3'?'active':''">全部</div>
+          </div>
+          <div class="rc-desc">
+            当前持有份额<span>{{formatMoney(convertDetail.balanceQuty)}}</span>份，可用份额<span>{{formatMoney(convertDetail.availableQuty)}}</span>份
+          </div>
+        </div>
+        <div class="rc-reckon" >
+          <i v-html="this.feeTip.estimateRedeemFeeTip"></i><a
+            :href="this.feeTip.redeemDetailUrl">{{this.feeTip.redeemDetailTips}}</a>
+        </div>
+        <div class="rc-toggle" @click="largeRedeemFlagClick">
+          <span>如遇转换上限</span>
+          <div>{{largeRedeemFlag=='0'?'放弃超额':'继续赎回'}}<img src="../images/fundgroup/arr.png" /></div>
+        </div>
+        <div class="rc-xy agreement" v-if="fundContractList&&fundContractList.length>0">
+          <div class="styleFlex" v-for="(item,index) in fundContractList">
+            <label :for="'agt'+index" >
+              <input type="checkbox" :id="'agt'+index" v-model="agreementList"
+              :value="item.contractCategory">
+              <i></i>
+            </label>
+            <p>
+              <span>我已同意</span><a  style="color: #148ce6;" v-for="(citem,cindex) in item.List" :href="citem.url">《{{citem.title}}》<em style="font-style: normal;" v-if="(cindex+1) != item.List.length">、</em></a><span>。</span>
+            </p>
+          </div>
+        </div>
+        <div class="rc-confirm">
+          <a href="javascript:;" @click="confirmNext" :style="nextFlag?'backgroundColor:#fd7e23':''">下一步</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 弹窗 -->
+    <div class="tips">
+      <div>
+        <p class="tips_text"></p>
+        <a href="javascript:;">
+          <p class="button"><span>知道了</span><span id="viewMore">查看详情</span></p>
+        </a>
+      </div>
+    </div>
+    <div class="new-mask"></div>
+    <div class="mask">
+      <div class="Bomb-box">
+        <div class="Bomb-box-main">
+          <p class="Bomb-box-tips" style="padding-top: 0.75rem;"></p>
+          <div class="Bomb-box-content">
+            <p class="text-center"></p>
+          </div>
+          <a class="Bomb-box-ok" href="javascript:;">确定</a>
+        </div>
+      </div>
+    </div>
+    <div class="mask convert-box" style="position: fixed;">
+      <div class="Bomb-box" style="display: block;background: none !important;">
+        <div class="Bomb-box-main">
+          <p class="Bomb-box-tips" style="padding-top: 0.75rem;"></p>
+          <div class="Bomb-box-content">
+            <p class="text-center"></p>
+          </div>
+          <a class="Bomb-box-ok" href="javascript:;" onclick="$('.convert-box').hide()">确定</a>
+        </div>
+      </div>
+    </div>
+    <div class="rc-confirm-fina" style="display: block;" v-show="confirmTipShow">
+      <div class="Bomb-box" style="display: block;">
+        <div class="Bomb-box-main">
+          <div class="Bomb-box-content">
+            <p class="text-center">
+              <i v-html="confirmTipOption.text"></i>
+              <a :href="feeTip.redeemDetailUrl" v-if="feeTip.redeemInFirstFeeClassTips">{{feeTip.redeemDetailTips}}</a>
+            </p>
+              
+          </div>
+          <div class="Bomb-box-footer">
+            <a class="Bomb-box-ok" href="javascript:;" @click="confirmTipShow=false" v-text="confirmTipOption.btn1"></a>
+            <a class="Bomb-box-ok" href="javascript:;" @click="finaConfirm" v-text="confirmTipOption.btn2">确定</a>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <div class="layer animated slideInUp" id="myGift1" style="display:none;">
+      <div class="giftlist ">
+        <a href="javascript:;">
+          <div class="title" style="height:3rem;line-height:3rem;" data="0">放弃超额</div>
+        </a>
+        <a href="javascript:;">
+          <div class="title" style="height:3rem;line-height:3rem;border-top:1px solid #eee" data="1">继续赎回</div>
+        </a>
+        <div style="height:0.25rem;background:#f6f6f6"></div>
+        <div class="title" style="height:3rem;line-height:3rem;">
+          <a href="javascript:;" style="color:#008ae9;font-size:0.75rem" id="close1">取消</a>
+        </div>
+      </div>
+    </div>
+    <div class="layer animated slideInUp" id="myGift2" style="display:none;">
+      <div class="giftlist1" style="text-align: center; color: #000;">
+        <a href="javascript:;">
+          <div class="title" style="height:3rem;line-height:3rem;" data="0">放弃超额</div>
+        </a>
+        <a href="javascript:;">
+          <div class="title" style="height:3rem;line-height:3rem;border-top:1px solid #eee" data="1">继续赎回</div>
+        </a>
+        <div style="height:0.25rem;background:#f6f6f6"></div>
+        <div class="title" style="height:3rem;line-height:3rem;">
+          <a href="javascript:;" style="color:#008ae9;font-size:0.75rem;display: block;" id="close2">取消</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+  <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+  <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+  <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+  <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+  <script src="/tradeh5/newWap/base/js/utils.js"></script>
+  <script type="text/javascript" src="../js/common.js?20210302"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> -->
+  <script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script>
+  <script src="../js/fund/redeemAndConvert.js"></script>
+  <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+</body>
+
+</html>

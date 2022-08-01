@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <title>基金详情</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/fund/detail.css"/>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/weixin.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script type="text/javascript" src="../js/fund/detail.js"></script>
+</head>
+<body>
+<div class="top-bar">
+    <div class="f12 f-white left"></div>
+    <div class="f-white f18 mid">基金详情</div>
+    <div class="f-white f12 right"></div>
+</div>
+<div class="bottom_bar">
+    <div class="leftbtn"><div class="button-yellow button-width-mids f-white" id="invest">定投</div> </div>
+    <div class="rightbtn"><div class="button-orange button-width-mids f-white button"  style="width: 95%" id="purchase">申购</div></div>
+</div>
+<div class="topcontents">
+    <div class="topcontent">
+    <div class="title f-black f16" id="f_title">
+    </div>
+    <div class="con-first">
+        <div class="in-left">
+            <div class="con-f-1 f-orange f16" id="f_no">--</div>
+            <div class="con-f-2">成立时间:<span id="f_create">0</span></div>
+        </div>
+        <div class="in-right">
+            <div class="con-f-3 f-orange"></div>
+            <div class="con-f-4">申购费率:<span id="f_rate" class="f-orange">-</span></div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="con-thir">
+        <div class="in-left">
+            <div class="con-f-1">最新净值:<span class="f-orange" id="f_nav"></span></div>
+            <div class="con-f-2">最近一月:<span id="f_mon" class="f-orange">-</span></div>
+            <div class="con-f-2">最近三月:<span id="f_3mon" class="f-orange">-</span></div>
+        </div>
+        <div class="in-right">
+            <div class="con-f-3">净值日期:<span id="f_date" class="f-orange">-</span></div>
+            <div class="con-f-4">最近一年:<span id="f_year" class="f-orange">-</span></div>
+            <div class="con-f-4">成立以来:<span id="f_since" class="f-orange">-</span></div>
+        </div>
+    </div>
+
+        <div class="con-f2">
+            <div class="line"></div>
+        <div class="button-area" style="width: 90%;padding-top: 10px;margin-left: 2%">
+
+            <div id="chart_div" class="button-width-middle button-grey" id="index_takeback_btn" style="touch-action: pan-y; -webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">查看历史净值</div>
+        </div>
+        </div>
+
+    </div>
+</div>
+<div class="content">
+
+
+        <!--
+        <div class="in">
+            <div class="con-f-1" style="text-align: left;padding-left: 2%;">单位净值</div>
+            <div class="con-f-2" ><div style="width:68%;margin-left: 2%;" id="chart_div"><canvas id="chart"></canvas></div></div>
+            <div class="tu-type">
+                <div class="background-orange f-white button f-left b_chart" id="one" style="touch-action: pan-y; -webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">一个月</div>
+                <div class="f-grey button f-mid b_chart" id="two" style="touch-action: pan-y; -webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">三个月</div>
+                <div class="f-grey button f-right b_chart" id="three" style="touch-action: pan-y; -webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">一年</div>
+            </div>
+        </div>-->
+
+    <div class="con-sec">
+        <div class="in-left" style="width: 32%">
+            <div class="con-f-1" id="pic"></div>
+        </div>
+        <div class="in-right f12" style="width: 60%">
+            <div class="con-f-2">基金经理：<span id="m_name"></span><span style="padding-left: 22px;" class="cn_detail">查看详情</span></div>
+            <div class="con-f-4">任职时间:<span id="entranceDate"></span> 至今</div>
+            <div class="con-f-3" id="resume"></div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="con-f-4 f-orange f12" style="padding-top: 5px;line-height: 25px;font-weight: bold">★推荐理由：</div>
+    <div class="con-f-4 f12" id="f_ache"></div>
+    <div style="height: 10px;"></div>
+    <div class="con-f-7 f-orange f12" style="line-height: 25px;font-weight: bold">●产品详情：</div>
+    <div class="con-f-8 f12" id="f_detail"></div>
+
+</div>
+</body>
+</html>

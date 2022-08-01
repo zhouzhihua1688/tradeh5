@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的校招</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <script src="js/base.js"></script>
+   <!--  <script src="js/baseHead.js"></script>
+    <script src="js/needLogin.js"></script>  -->
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/needLogin.js"></script>
+<script>
+    // 相对字体大小设置
+    var oHtml = document.documentElement;
+    getFont();
+    window.onresize = function () {
+        getFont();
+    }
+
+    function getFont() {
+        var screenWidth = oHtml.clientWidth;
+        if (screenWidth <= 320) {
+            oHtml.style.fontSize = '17.06px';
+        } else if (screenWidth >= 750) {
+            oHtml.style.fontSize = '40px';
+        } else {
+            oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+        }
+    }
+</script>
+<style>
+    body,html{background: #f6f6f6;}
+    body {left: 0%; right: 0%;font:14px 'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+    button { outline: none;  }
+      /* 图片自适应 */
+    img {
+          width: 100%;
+          height: auto;
+          width: auto\9; /* ie8 */
+          -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/
+          border: none;
+          vertical-align: top;
+          outline: none;
+          display: block;
+        }
+    p { word-wrap: break-word; text-align: justify; }
+    table { width: 100%;border-collapse:collapse; }
+    .main{width:100%;background:#fff;}
+    .head{width:100%;height: 19.375rem;background: url('img/index_02.png') no-repeat;background-size:cover;}
+    .list{width:100%;height:2.75rem;background: url('img/index_03.png') no-repeat;background-size:cover;}
+    .list .textList{width:16.5rem;display: flex;justify-content: space-between;align-items: center;margin:0 auto;margin-top:2.5rem;}
+    .list .textList div{width:45%;text-align:center;padding-top:2rem;margin-top:-2rem;}
+    .list .textList div:nth-of-type(2){width:50%;text-align:center}
+    .trailer{width:100%;height:11.125rem;background: url('img/index_04.png') no-repeat;background-size:cover;}
+    .trailer .video_box {width:16.25rem; border-radius:0.25rem; height:8.0rem; overflow: hidden; margin: 0 auto;}
+    .htf{width:18.75rem;height:2.625rem;background:url('img/index_05.png') no-repeat;background-size:100% 100%;}
+    .about{background: #ff8724;}
+    .img05{width:100%;height:14.75rem;background:url('img/index_05.png') no-repeat;background-size:100% 100%;}
+    .img051{width:100%;height:18.25rem;background:url('img/index_051.png') no-repeat;background-size:100% 100%;}
+    .about .textAbout{width:17.25rem;background:#fff;margin:0 auto;text-align:justify;margin-top:-0.01rem;border-radius:0 0 0.25rem 0.25rem;padding:1rem 0rem;}
+    .about .textAbout p{font-size:0.65rem;color:#666;padding:0rem 0.75rem;}
+    .last{width:100%;height:7.125rem;background:url('img/index_06.png') no-repeat;background-size:100% 100%;}
+    .toudi{width:12rem;height: 2.25rem;display:block;margin: 0 auto;}
+</style>
+</head>
+<body>
+<div class="main">
+    <div class="head"></div>
+    <div class="list">
+        <a href="javascript:;" class="toudi get" data='1'></a>
+        <!-- <div class="textList">
+            <div class="get" data='2'>我的申请</div>
+            <div class="get" data='3'>宣讲会预约</div>
+            <div class="question">常见问题</div>
+        </div> -->
+    </div>
+    <div class="trailer">
+        <div style="height:2.5rem"></div>
+        <div class="video_box">
+            <video width="100%" height="100%" id="video_self" controls muted loop webkit-playsinline poster="img/video.png">
+                <source type="video/mp4" src="http://jdvodx9jhc6ce.vod.126.net/jdvodx9jhc6ce/50a00f27-e29d-4447-89df-f2c76b5be498.mp4">
+                <p>浏览器不支持视频</p>
+            </video>
+        </div>
+    </div>
+    <!--<div class="htf"></div>-->
+    <!--<div class="about">-->
+        <!--<div class="textAbout">-->
+            <!--<p class="listText">汇添富基金成立于2005年，是中国一流的综合性资产管理公司之一。公司总部设立于上海，在北京、上海、广州、成都等地设有分公司，在香港及上海设有子公司。截至2020年二季度，汇添富公募基金(非货币)月均管理规模达3364.88亿元。汇添富及旗下子公司-->
+            <!--</p>-->
+            <!--<span style="color:#148ce6;font-size: 0.6rem;text-align:center;display:block;margin-top:0.75rem" class="moreText">查看更多</span>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="img05"></div>
+    <div class="img051"></div>
+    <div class="last"></div>
+</div>
+<script src="js/jquery.3.4.1.min.js"></script>
+<!-- <script src="js/utils.js"></script> -->
+<!-- <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script> -->
+<script src="/tradeh5/newWap/base/js/utils.js"></script>  
+<script>
+    // var video = document.getElementById("video_self");
+    // video.play();
+    // document.addEventListener('WeixinJSBridgeReady',function(){
+    //     video.play();
+    // },false);
+$(function(){
+  
+    // 展开收缩
+    $(".listText").each(function () {
+        var targetEle = $(".listText");
+        var btnCtrl = $(".moreText");
+        var strAll = targetEle.text();
+        if (strAll.length >125) {
+            var sonStr = strAll.substr(0,125);
+            targetEle.text(sonStr + "......")
+            btnCtrl.click(function () {
+                if (btnCtrl.text() == "查看更多") {
+                    targetEle.html(strAll);
+                    btnCtrl.text("收起");
+                } else {
+                    targetEle.text(sonStr + "......")
+                    btnCtrl.text("查看更多");
+                }
+            });
+        } else {
+            btnCtrl.text("");
+        }
+    });
+
+})
+
+   var flag=false;
+   var dataStatus = utils.getSession("dataStatus");
+   var ssoCookie = utils.getCookie("sso_cookie");
+   if(dataStatus){
+           if(dataStatus==1){
+             window.location.href="https://htffund.m.zhiye.com/xiaoyuan.html?jc=2";
+             utils.removeSession('dataStatus');
+           }
+           if(dataStatus==2){
+            window.location.href="https://htffund.m.zhiye.com/xiaoyuan.html?jc=2";
+            utils.removeSession('dataStatus');
+           }
+           if(dataStatus==3){
+            window.location.href="https://htffund.m.zhiye.com/xiaoyuan.html?jc=2";
+            utils.removeSession('dataStatus');
+           }
+    }else{
+         $(".get").click(function(){
+            dataStatus=$(this).attr('data'); 
+            utils.setSession('dataStatus',dataStatus);
+            receiveWelfare(dataStatus);
+        })
+    }
+
+     // $(".get").click(function(){
+     //        dataStatus=$(this).attr('data'); 
+     //        alert(dataStatus)
+     //        utils.setSession('dataStatus',dataStatus);
+     //        receiveWelfare(dataStatus);
+     //    })
+
+    
+// 常见问题
+    $(".question").click(function(){
+        window.location.href="https://www.baidu.com/s?ie=UTF-8&wd=%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"; 
+    })
+
+// 调用活动验证接口
+    function receiveWelfare(dataStatus){
+            var that = this;
+           // var openid=localStorage.getItem("openId");
+            //alert(openid);
+            var url = "{{user-take-part}}?actId={{$actId}}";
+            var dataMap = {
+                //openid:openid
+            };
+            $.ajax({
+                url: url,
+                data: JSON.stringify(dataMap),
+                type: 'POST',
+                contentType: 'application/json;charset=utf-8',
+                success: function (result) {
+                    // alert(result.returnCode);
+
+                    var data2 = result;
+                    var code = data2.returnCode;
+                    // if(ssoCookie==""){
+                    //     alert(111)
+                    //    window.location.href='htffundxjb://action?type=login&subType=oneKey'; 
+                    // }
+                    if (result.returnCode == "1000") { //重定向到登录页面
+                        // var curUrl = window.location.href;
+                        // var baseUrl=curUrl.split('?')[0];
+                        // curUrl = curUrl.split('?')[1];
+                        // curUrl=encodeURIComponent(curUrl);
+                        // curUrl=btoa(curUrl);
+                        // loginUrl = "{{wap-user-login}}?referUrl="+baseUrl+'?'+ curUrl;
+                        // alert(loginUrl);
+                        // window.location = loginUrl;
+                        window.location.href='htffundxjb://action?type=login&subType=oneKey';
+                        // flag=true;
+                    } else if (result.returnCode == 0) {
+                        if(dataStatus=='1'){     //投递简历
+                            window.location.href="https://htffund.m.zhiye.com/xiaoyuan.html?jc=2";
+                            utils.removeSession('dataStatus');
+                            // removeCookie('sso_cookie');
+                            
+                        }else if(dataStatus=='2'){  //我的申请 
+                            window.location.href="https://htffund.m.zhiye.com/xiaoyuan.html?jc=2";
+                            utils.removeSession('dataStatus');
+                        }else{                   //宣讲会预约
+                            window.location.href="https://htffund.m.zhiye.com/xiaoyuan.html?jc=2";
+                            utils.removeSession('dataStatus');
+                        }
+
+                        // $(".toudi").css('href', 'https://www.baidu.com/s?ie=UTF-8&wd=%E6%8A%95%E9%80%92%E7%AE%80%E5%8E%86');
+
+
+                        // awardDesc = result.body[0].awardDesc;                            
+                    } else if (result.returnCode == '10003') {
+                       alert(result.returnMsg);
+                        
+                    } else {
+                       alert(result.returnMsg);
+                    }
+                },
+                error: function () {
+
+                }
+            });
+    }
+
+    // function removeCookie(key){
+    //   setCookie(key,"",-1);//把cookie设置为过期
+    // }
+</script>
+</body>
+</html>

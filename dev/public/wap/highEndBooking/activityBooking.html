@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>活动报名</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <!-- <link rel="stylesheet" href="css/mobileSelect.css"> -->
+    <script src="js/base.js"></script>
+    <script src="js/baseHead.js"></script>
+    <script src="js/needLogin.js"></script>
+    <style>
+        body, html {
+            background: #fff;
+        }
+
+        body {
+            left: 0%;
+            right: 0%;
+            font: 14px 'PingFang SC', 'Microsoft YaHei', Tahoma, Arial, sans-serif;
+        }
+
+        button {
+            outline: none;
+        }
+
+        /* 图片自适应 */
+        img {
+            width: 100%;
+            height: auto;
+            width: auto \9; /* ie8 */
+            -ms-interpolation-mode: bicubic; /*为了照顾ie图片缩放失真*/
+            border: none;
+            vertical-align: top;
+            outline: none;
+            display: block;
+        }
+
+        p {
+            word-wrap: break-word;
+            text-align: justify;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .main {
+            width: 100%;
+            background: #fff;
+            padding-bottom: 0.75rem;
+        }
+
+        .headImg {
+            width: 18.75rem;
+            height: 10.45rem;
+        }
+
+        .signUp {
+            width: 100%;
+            padding: 1rem 0 0rem 0rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+            position: relative;
+            top: -0.75rem;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .signUp div:nth-of-type(1) {
+            width: 0.2rem;
+        }
+
+        .signUp div:nth-of-type(2) {
+            width: 62%;
+            font-size: 0.75rem;
+            color: #000;
+            font-weight: bold;
+            margin-left: -0.2rem;
+        }
+
+        .signUp div:nth-of-type(3) {
+            width: 30%;
+            height: 1.25rem;
+            background: #fcdda8;
+            line-height: 1.25rem;
+            text-align: center;
+            font-size:0.65rem;
+            color: #693619;
+            /* font-weight: bold; */
+            border-radius: 1.25rem 0 0 1.25rem
+        }
+
+        .signUp .frame {
+            width: 0.2rem;
+            height: 0.75rem;
+            background: #D8A453;
+            border-radius: 0px 4px 4px 0px;
+        }
+
+        .signText {
+            width: 90%;
+            background: #fff;
+            /* padding: 0.25rem 0; */
+            font-size: 0.7rem;
+            margin-top: -0.45rem;
+            margin-left: 0.75rem;
+            color: #666666;
+            text-align: justify
+        }
+
+        .activeTime {
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #000;
+            text-indent: 0.75rem;
+            background: #fff;
+            padding: 0.5rem 0rem 0.5rem 0rem;
+        }
+
+        .timeText {
+            width: 90%;
+            background: #fff;
+            padding: 0.25rem 0 0 0;
+            font-size: 0.7rem;
+            margin-top: -0.75rem;
+            margin-left: 0.75rem;
+            color: #666666;
+            text-align: justify
+        }
+
+        .appointment {
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #000;
+            text-indent: 0.75rem;
+            background: #fff;
+            padding:1rem 0rem 0rem 0rem;
+        }
+
+        .appointText {
+            width: 100%;
+        }
+
+        .appointText .content {
+            width: 90%;
+            margin: 0 auto;
+            background: #fff;
+            padding-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .appointText .number {
+            width: 0.6rem;
+            height: 0.6rem;
+            background: #D8A453;
+            border-radius: 50%;
+            font-size: 0.5rem;
+            text-align: center;
+            line-height: 0.6rem;
+            color: #fff;
+            display: inline-block;
+            margin-right: 0.25rem;
+            margin-top:0.5rem;
+        }
+
+        .appointText .text {
+            width: 92%;
+            font-size: 0.7rem;
+            color: #666;
+            margin-left: 0.25rem;
+        }
+
+        .confirm {
+            width: 100%;
+            height: 2.5rem;
+            position: fixed;
+            display: flex;
+            text-align: center;
+            left: 0;
+            bottom: 0;
+            background-color: #ddb575;
+        }
+
+        .confirm > button {
+            flex: 1;
+            height: 2.5rem;
+            display: block;
+            line-height: 2.5rem;
+            /* margin: 0 auto; */
+            font-size: 0.85rem;
+            background: #fff2d9;
+            color: #693619;
+            border-radius: 2px;
+        }
+
+        .confirm > a {
+            flex: 1;
+            height: 2.5rem;
+            display: block;
+            text-align: center;
+            line-height: 2.5rem;
+            /* margin: 0 auto; */
+            font-size: 0.85rem;
+            background: #ddb575;
+            color: #693619;
+        }
+
+        .detailList {
+            width: 100%;
+            height: 2.5rem;
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .detailList div {
+            font-size: 0.75rem;
+            color: #000;
+        }
+
+        .detailList div img {
+            width: 0.4rem;
+            height: 0.75rem;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 0.75rem;
+        }
+
+        .detailList div:nth-of-type(1) {
+            width: 20%;
+            margin-left: 0.75rem;
+            text-align: center
+        }
+
+        .detailList div:nth-of-type(2) {
+            width: 66%;
+            margin-right: 0.75rem;
+            text-align: left
+        }
+
+        .tiaojian {
+            width: 90%;
+            background: #fff;
+            padding: 0.25rem 0 0 0;
+            font-size: 0.7rem;
+            margin-top: -0.75rem;
+            margin-left: 0.75rem;
+            color: #666666;
+            text-align: justify
+        }
+
+        input::-webkit-input-placeholder {
+            color: #000;
+        }
+
+        input::-moz-input-placeholder {
+            color: #000;
+        }
+
+        input::-ms-input-placeholder {
+            color: #000;
+        }
+
+        .to {
+            width: 1.0rem;
+            height: 1.0rem;
+            background: #fb5c5f;
+            color: #fff;
+            border-radius: 2.5rem;
+            margin-left: 0.75rem;
+            text-align: center;
+            line-height: 1rem;
+            font-size: 0.55rem
+        }
+
+        .tips {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.507);
+            font-size: .7rem;
+        }
+
+        .tips > div {
+            background: #fff;
+            position: absolute;
+            left: 10%;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: .5rem .75rem 0;
+            border-radius: .2rem;
+        }
+
+        .tips .tips_text {
+            padding: .75rem;
+            text-align: center;
+            color: #000;
+        }
+
+        .tips .button {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            border-top: 1px solid #eee;
+            margin-top: .75rem;
+        }
+
+        .tips .button span {
+            margin-top: .25rem;
+            padding: .625rem 0;
+            margin-bottom: .25rem;
+            width: 100%;
+            color: #1370fa;
+        }
+
+        .tips .button span:nth-of-type(1) {
+            /* border-right: 1px solid #eee; */
+        }
+
+        .tips .name {
+            width: 13.25rem;
+            height: 1.5rem;
+            border: 1px solid #eee;
+            margin: 0 auto;
+            border-radius: 0.125rem;
+        }
+
+        .tips .name input {
+            width: 13.25rem;
+            height: 1.5rem;
+        }
+
+        .share {
+            position: fixed;
+            right: 0;
+            top: 3rem;
+            background: #fcdda8;
+            z-index: 11;
+            height: 1.4rem;
+            line-height: 1.4rem;
+            border-radius: .7rem 0 0 .7rem;
+            color: #693619;
+            font-size: .8rem;
+            text-align: center;
+            padding: 0 .7rem;
+        }
+
+    </style>
+</head>
+<body>
+<div class="main">
+    <!-- <a href="shareAct?actId={{$actId}}" class="share">我要分享</a> -->
+    <div class="headImg"><img src="img/planNo.png" alt="" class="planImg" style="width:100%;height:10.5rem"></div>
+    <div class="signUp">
+        <div class="frame"></div>
+        <div class="jiaoliu"></div>
+        <div>已报名：<span class="already"></span><span class="numberAll"></span></div>
+    </div>
+    <div class="signText">胡昕炜：立足价值创造，寻找投资真善美</div>
+    <div class="activeTime" style="padding:1rem 0 0.75rem 0">活动时间</div>
+    <div class="timeText">2021年3月1号 10:30</div>
+    <div class="appointment">预约说明</div>
+    <div class="appointText" style="width:93%;margin-left:0.75rem;margin-top:0.15rem">
+        <div class="content">
+            <div class="number">1</div>
+            <div class="text">预约截止时间：<span class="jiezhi">2021年2月28日  21:00</span></div>
+        </div>
+        <div class="content">
+            <div class="number">2</div>
+            <div class="text">参与形式：在线(现金宝App-预约频道-我的预约)</div>
+        </div>
+        <div class="content">
+            <div class="number">3</div>
+            <div class="text">活动简介：3月1日 10:00起，金牛名将、汇添富消费
+                行业投资领军人胡昕炜与您话投资；
+            </div>
+        </div>
+        <div class="content">
+            <div class="number">4</div>
+            <div class="text">本次预约如在开播前24小时内取消，仍将扣减一次活
+                动权益，活动解释权归汇添富基金管理股份有限公司
+                所有
+            </div>
+        </div>
+    </div>
+
+
+    <div class="listMore">
+        <!-- <div>
+               <div class="appointment" style="padding:0.75rem 0 0.75rem 0">参与条件</div>
+               <div class="tiaojian" style="padding-bottom:2.5rem">截止2月27日 24:00现金宝平台资产保有量达到100万元市场上的城市市场的</div>
+        </div> -->
+    </div>
+
+    <!--    <div class="appointment">期望时间</div>
+       <div class="detailList">
+           <div>日期</div>
+           <div>
+               <span>
+                   <input value="" placeholder="选择日期" maxlength="5" style="border: none;width:13.0rem;font-size:0.75rem" id="Date1" onfocus="this.blur();">
+                   <span id="Date1"></span>
+               </span>
+           </div>
+           <div><img src="img/arr.png" alt=""></div>
+       </div>
+       <div class="to">至</div>
+       <div class="detailList" style="padding-bottom:3rem;height:1.75rem">
+           <div>日期</div>
+           <div>
+               <span>
+                   <input value="" placeholder="选择日期" maxlength="5" style="border: none;width:13.0rem;font-size:0.75rem" id="Date2" onfocus="this.blur();">
+                   <span id="Date2"></span>
+               </span>
+           </div>
+           <div><img src="img/arr.png" alt=""></div>
+       </div> -->
+    <div class="confirm">
+        <button class="quxiao" style="display: none;">取消报名</button>
+        <a href="javascript:;"></a>
+    </div>
+</div>
+<!-- 弹窗 -->
+<div class="tips" style="display:none">
+    <div>
+        <p class="tips_text"></p>
+        <a href="javascript:;"><p class="button close"><span>我知道了</span></p></a>
+    </div>
+</div>
+<script src="js/jquery.3.4.1.min.js"></script>
+<!-- <script src="js/mobileSelect.min.js"></script>
+<script src="js/selectDate.js"></script> -->
+<script src="js/utils.js"></script>
+<script>
+    var actId = utils.getUrlParam("actId");
+    var preorderActId = ""      //pre1619686190042
+
+    getAppointmentInfo(actId);
+    $(".close").click(function () {
+        $(".tips").hide();
+    });
+
+    function getAppointmentInfo(actId) {
+        utils.get('/activity-center/api/v1/preorder/query/preorder-act-by-custno?actId=' + actId, null, function (result) {
+            if (result.returnCode == 0 && result.body.actType == "01") {
+                preorderActId = result.body.actId;
+                $(".planImg").attr('src', result.body.picUrl);              //头部图片
+                $(".jiaoliu").text(result.body.actName);                    //线上交流会
+                $(".signText").text(result.body.actDesc);                   //交流文案
+                if (result.body.takepartTotalNum == -1) {                   //预约人数是否限制
+                    $(".already").text(result.body.reservedNum);
+                } else {
+                    $(".already").text(result.body.reservedNum);             //预约人数
+                    $(".numberAll").text('/' + result.body.takepartTotalNum);//预约总人数
+                }
+                console.log(result.body.reservedNum)
+                $(".timeText").text(result.body.actStartTime.replace(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/g, '$1年$2月$3日 $4:$5'));//报名活动时间
+                // $(".appointText").html(result.body.actRemark);                //报名预约说明
+                var htm=result.body.actRemark.replace(/(\d*?)\./g,'<div class="number">$1</div>');
+                $(".appointText").html(htm);                                    //报名预约说明
+
+
+
+                // $(".tiaojian").text(result.body.takepartConditionDesc);       //参与条件
+                var listHtml=""
+                var listArr=JSON.parse(result.body.takepartConditionDesc);        //参与条件  
+                    for(var i=0;i<listArr.length;i++){
+                        listHtml+= '<div>'+
+                                    '<div class="appointment" style="padding:1rem 0 0.75rem 0">'+listArr[i].title+'</div>'+
+                                    '<div class="tiaojian">'+listArr[i].text+'</div>'+
+                                '</div>'
+                    } 
+                $(".listMore").html(listHtml);
+
+                $(".listMore:last").css('paddingBottom', '3rem');
+
+                // ----------------------   底部按钮判断逻辑 ----------------------
+                // 已报名/已预约状态 1-已报名  0-未报名
+                if (!result.body.preorderStatus || result.body.preorderStatus == 0) { // 未报名，判断是否截止
+
+                    if (activityIsEnd(result.body.preorderEndTime)) {               //报名已截至，底部按钮置灰展示已截止
+                        $(".confirm a").text('已截止').css('backgroundColor', '#b2b2b1').css('color', '#fff');
+                    } else {
+                        if (result.body.takepartTotalNum != -1 && result.body.reservedNum >= result.body.takepartTotalNum) { // 预约人数已满
+                            $(".confirm a").text('名额已满').css('backgroundColor', '#b2b2b1').css('color', '#fff');
+                        } else { // 名额未满，置灰展示报名成功
+                            $(".confirm a").text('立即报名').css('backgroundColor', '#ddb575').css('color', '#693619');
+                        }
+                    }
+                } else { // 已报名
+                    $('.quxiao').show().css('backgroundColor', '#fff2d9').css('color', '#693619');
+                    if (result.body.entranceBtnName && result.body.entranceBtnUrl) { // 已配置底部按钮文案和跳转逻辑
+                        $(".confirm a").text(result.body.entranceBtnName).css('backgroundColor', '#ddb575').css('color', '#693619').attr('nextJumpUrl', result.body.entranceBtnUrl);
+                    } else { // 未配置底部按钮
+                        if (result.body.takepartTotalNum != -1 && result.body.reservedNum >= result.body.takepartTotalNum) { // 预约人数已满
+                            $(".confirm a").text('名额已满').css('backgroundColor', '#b2b2b1').css('color', '#fff');
+                        } else { // 名额未满，置灰展示报名成功
+                            $(".confirm a").text('报名成功').css('backgroundColor', '#b2b2b1').css('color', '#fff');
+                        }
+                    }
+                }
+                $(".confirm a").click(function () {
+                    if ($(this).css('backgroundColor') === 'rgb(178, 178, 177)') { // 按钮置灰状态
+                        return false;
+                    }
+                    if ($(this).attr('nextJumpUrl')) { // 已配置跳转链接
+                        var nextJumpUrl = $(this).attr('nextJumpUrl');
+                        utils.post('/activity-center/api/v1/preorder/update-takepart-status?takepartStatus=1' + '&preorderActId=' + preorderActId, null, function (result) {
+                            if (result.returnCode == 0) {
+                                window.location.href = nextJumpUrl;
+                            } else {
+                                $(".tips").show();
+                                $(".tips_text").text(result.returnMsg);
+                            }
+                        });
+                        return false;
+                    }
+                    if ($(this).css('backgroundColor') === 'rgb(221, 181, 117)') { // 可点击
+                        utils.post('/activity-center/api/v1/preorder/preorder-takepart?preorderActId=' + preorderActId, null, function (result) {
+                            if (result.returnCode == 0) {
+                                $(".tips").show();
+                                $(".tips_text").text("报名成功");
+                                $(".close").unbind('click').click(function () {
+                                    window.location.reload();
+                                });
+                            } else {
+                                $(".tips").show();
+                                $(".tips_text").text(result.returnMsg);
+                            }
+                        });
+                    }
+                });
+                $(".quxiao").click(function () {
+                    utils.post('/activity-center/api/v1/preorder/update-preorder-status?preorderStatus=0' + '&preorderActId=' + preorderActId, null, function (result) {
+                        if (result.returnCode == 0) {
+                            $(".tips").show();
+                            $(".tips_text").text("取消成功");
+                            $(".close").unbind('click').click(function () {
+                                window.location.reload();
+                            });
+                        } else {
+                            $(".tips").show();
+                            $(".tips_text").text(result.returnMsg);
+                        }
+                    });
+                });
+            }
+        });
+    }
+
+    function activityIsEnd(endTime) {
+        var nowDay = new Date().getTime()
+        var endDay = new Date(endTime.replace(/-/g,'/')).getTime();
+        return nowDay > endDay;
+    }
+
+    function isIn24HoursBeforeActivityStart(startTime) {
+        var nowDay = new Date().getTime()
+        var startTime = new Date(startTime);
+        startTime.setHours(startTime.getHours() - 24);
+        return nowDay > startTime.getTime();
+    }
+
+
+    // 期望日期
+    // var sel_date = '';
+    // var week="";
+    //     $("#Date1").val(sel_date);
+    //     $("#Date2").val(sel_date);
+    //     $('#Tips').val("微信、APP推送、系统日历");
+    //     /*设置全部参数*/
+    //     var select1 = $.selectDate("#Date1", {
+    //         start: 2021,
+    //         end: 2099,
+    //         select: [2021, 01, 21],
+    //         title: '&nbsp;'
+    //     }, function (data) {
+    //         // $("#Date").val(data.year + "-" + (data.month > 9 ? data.month : "0" + data.month) + "-" + (data.day > 9 ? data.day : "0" + data.day));
+    //         // sel_date = data.year + "-" + (data.month > 9 ? data.month : "0" + data.month) + "-" + (data.day > 9 ? data.day : "0" + data.day);
+
+    //         week = data.year + "-" +  data.month  + "-" +  data.day;
+    //             var dateArray = week.split("-");
+    //             date = new Date(dateArray[0], parseInt(dateArray[1] - 1), dateArray[2]);
+    //            return $("#Date1").val(data.year + "年" +  data.month + "月" +  data.day+"日"+'  '+"周" + "日一二三四五六".charAt(date.getDay()));
+    //         // $("#Date1").val(data.year + "年" +  data.month + "月" +  data.day+"日");
+    //         sel_date = data.year + "-" +  data.month  + "-" +  data.day;
+    //     });
+
+    //     var select2 = $.selectDate("#Date2", {
+    //         start: 2021,
+    //         end: 2099,
+    //         select: [2021, 01, 21],
+    //         title: '&nbsp;'
+    //     }, function (data) {
+    //         // $("#Date").val(data.year + "-" + (data.month > 9 ? data.month : "0" + data.month) + "-" + (data.day > 9 ? data.day : "0" + data.day));
+    //         // sel_date = data.year + "-" + (data.month > 9 ? data.month : "0" + data.month) + "-" + (data.day > 9 ? data.day : "0" + data.day);
+
+    //             week = data.year + "-" +  data.month  + "-" +  data.day;
+    //             var dateArray = week.split("-");
+    //             date = new Date(dateArray[0], parseInt(dateArray[1] - 1), dateArray[2]);
+    //            return $("#Date2").val(data.year + "年" +  data.month + "月" +  data.day+"日"+'  '+"周" + "日一二三四五六".charAt(date.getDay()));
+
+    //             // $("#Date2").val(data.year + "年" +  data.month + "月" +  data.day+"日");
+    //             sel_date = data.year + "-" +  data.month  + "-" +  data.day;
+    //     });
+
+</script>
+</body>
+</html>

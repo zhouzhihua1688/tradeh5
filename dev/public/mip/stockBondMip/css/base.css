@@ -1,0 +1,157 @@
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+pre,
+form,
+fieldset,
+legend,
+button,
+input,
+textarea,
+th,
+td {
+    margin: 0;
+    padding: 0
+}
+
+body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, dialog, figure, footer, header, hgroup, nav, section {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+}
+
+body {
+    font: 14px 'Microsoft YaHei', Tahoma, Arial, sans-serif;
+    margin: 0 auto;
+    background-color: #f6f6f6;
+}
+
+html {
+    overflow-y: scroll;
+    -webkit-text-size-adjust: none;
+    -webkit-user-select: none
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%
+}
+
+h3,
+h4,
+h5,
+h6 {
+    font-weight: normal
+}
+
+ul,
+ol {
+    list-style: none
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="email"],
+input[type="tel"],
+textarea {
+    border: none;
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    box-flex: 1;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: rgba(255,0,0,0);
+    line-height: 20px;
+    font-size: 14px;
+    height: 20px;
+    /* padding-top: 5px; */
+    /*padding-bottom: 5px;*/
+    /*padding-left: 5px;*/
+    color: #999999
+}
+
+input[type="checkbox"]{
+
+}
+
+textarea {
+    padding-bottom: 5px
+}
+
+a{
+    color: #148ce6;
+    text-decoration: none;
+}
+
+
+/* 浮层 */
+.layer0 { background-color: #ffffff; height: 100%; width: 100%; position: fixed;left:0; overflow: auto;z-index: 10;}
+.layer0{
+    /* background-color: #4c4c4c; */
+    background: rgba(0, 0, 0, 0);
+    height:auto;
+    width:17.75rem;
+    position: fixed;
+    bottom: 0;
+    left:50%;
+    overflow: auto;
+    z-index:99999999;
+    margin-left:-8.875rem;
+    border-radius:10px;
+   }
+
+.mask {
+    width: 100%;
+    height:2000%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .7);
+    display: none;
+    z-index:99999999;
+}
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@keyframes slideInDown{
+    0%{opacity:0;-webkit-transform:translateY(-2000px);-ms-transform:translateY(-2000px);transform:translateY(-2000px)}
+    100%{-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}}
+ 
+@keyframes slideInUp{
+    0%{opacity:0;-webkit-transform:translateY(60%);-ms-transform:translateY(60%);transform:translateY(60%)}
+    100%{-webkit-transform:translateY(0%);-ms-transform:translateY(0%);transform:translateY(0%)}}    
+.slideInDown{-webkit-animation-name:slideInDown;animation-name:slideInDown}
+.slideInUp{-webkit-animation-name:slideInUp;animation-name:slideInUp;}
+.slideInUp .giftlist .title{height:2rem;width:100%;text-align:center;line-height: 2rem;font-size:0.85rem;color:#148ce6;}
+.slideInUp .giftlist ul {overflow-y: auto;padding-bottom: 2.5rem;height:19rem;}
+.slideInUp .giftlist ul li{height:2.5rem;line-height: 2.5rem;text-align: center;padding: 0 .75rem;font-size: .6rem;overflow: hidden;}
+.slideInUp .giftlist ul li span{display: inline-block;color:#666;}
+.slideInUp .giftlist ul li .circle{width: .8rem; height: .8rem; vertical-align: middle; border-radius: 50%; margin-top: .8rem; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -o-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box;}
+.slideInUp .giftlist .title{height:3rem;line-height:3rem;border-bottom:1px solid #eee;background: #fff;}
+.slideInUp .giftlist :last-child .title{border-radius:0 0 10px 10px;}
+.layer0 .close{height:3rem;line-height:3rem;margin-top:0.5rem;text-align:center;background: #fff;border-radius: 10px;margin-bottom: 1rem;}
+
+.slideInUp .close_button{width:100%;height:2.5rem;border-top: 1px #fb5c5f solid;color:#fb5c5f;font-size: .75rem;text-align: center;line-height: 2.5rem;position: fixed;bottom:30%;z-index: 10;background: #fff;}

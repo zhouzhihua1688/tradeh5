@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>亲情宝</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../base/css/base.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+<script src="../base/js/lib/jquery.3.4.1.min.js"></script>
+<!-- <script src="js/jquery.base64.js"></script> -->
+    <style>
+        body,html{background: #fff;}
+        body {left: 0%; right: 0%;font:14px 'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+        button { outline: none;  }
+          /* 图片自适应 */
+        img {
+              width: 100%;
+              height: auto;
+              width: auto\9; /* ie8 */
+              -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/
+              border: none;
+              vertical-align: top;
+              outline: none;
+              display: block;
+            }
+        p { word-wrap: break-word; text-align: justify; }
+        table { width: 100%;border-collapse:collapse; }
+        .main{width:100%;height:100%;}
+        .section2{background: #fff;}   
+        .section2 p {padding: 0.35rem .75rem; font-size: 0.5rem; color: #666; line-height: 1rem; margin: 0; background: #fff; text-align:center; }
+        .rules span {width: .65rem; height: .65rem; vertical-align: middle; background: url(img/chose1_y.png) no-repeat left center; display: inline-block; background-size: contain; margin: -.2rem .25rem 0 -.75rem; }
+        .rules span.current { background-image: url("img/chose1.png");}
+        .kaiqi{width:13.75rem;height:2.25rem;border-radius:50px;background:#fb5c5f;margin: 0 auto;font-size: 0.85rem;
+            color:#fff;text-align: center;line-height:2.25rem}
+        .question{font-size: 0.7rem;color:#666;text-align:center;margin-top:1.75rem;}
+        .jiantou{vertical-align:middle;text-align: center;margin:0 auto;margin-top:0.75rem;}
+        .jiantou img{display: inline-block}
+		
+        /*弹框1*/
+        .Bomb-box,
+        .Bomb-box1,
+        .Bomb-box2{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+        .Bomb-box .Bomb-box-main,.Bomb-box1 .Bomb-box-main,.Bomb-box2 .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+        .Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+        .Bomb-box .Bomb-box-ok,.Bomb-box1 .Bomb-box-ok,.Bomb-box2 .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+        .Bomb-box .Bomb-box-content,
+        .Bomb-box1 .Bomb-box-content,
+        .Bomb-box2 .Bomb-box-content{ padding:.75rem 1.5rem; }
+    </style>
+</head>
+<body style="hight:10rem">
+<div class="main">
+    <div><img src="img/familyAccoun_02.png" alt=""></div>
+    <div><img src="img/familyAccoun_03.png" alt=""></div>
+    <section class="section2 contract-div" style="padding: 0 0 0.5rem 0;">
+        <!-- <p style="padding: .25rem 0.75rem;" class="kkDate"></p> -->
+        <p class="rules" style="font-size:0.65rem;margin-left: .75rem;"><span id="isRead" class="chose-icon current"></span>&nbsp已同意<a href="//static.99fund.com/mobile/agreement/family_account_agreement.html" style="color:#008ae9">《汇添富亲情宝服务协议》</a></p>
+    </section>
+    <div class="kaiqi">立即开启</div>
+    <!--2021-02-22新加一段话-->
+    <div style="text-align: center;font-size:0.6rem;color:#fb5c5f;margin-top:0.5rem">首次开通亲情宝，可获得添富币福袋哦</div>
+    <div class="question">什么是亲情宝？</div>
+    <div class="jiantou" style="height:20rem"><img src="img/down.png" alt="" style="width: 1.4rem;height: 0.75rem"></div>
+</div>
+    <!-- 问号弹窗 -->
+    <div class="Bomb-box1" style="display: none;">
+        <div class="Bomb-box-main">
+
+            <div class="Bomb-box-content">
+                <p style="text-align:center"></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;">确定</a>
+        </div>
+    </div>
+    <script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+<script>
+    //勾选
+        $(".rules").click(function () {
+            $(".chose-icon").toggleClass("current");
+        });
+		$(".kaiqi").click(function(){
+			if($(".chose-icon").attr("class").indexOf("current") > -1){
+				window.location.href = "/tradeh5/newWap/familyAccount/selectRole.html";
+			}else{
+				showTips("请勾选协议!","知道了")
+			}
+		})
+		var url = "https://activity.99fund.com/activity-center/act-resources/pages/qinqingzhanghujs20201028/share.html";
+        //  $(window).scroll(function () {
+        //     if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+		// 		window.location.href = "htffundxjb://action?type=url&link=" + url;
+        //     }
+        // })
+    // 20210224修改
+
+    movePage($('body'),true);
+    function movePage(dom,aa) {
+        var startY, moveY, moveSpave;
+        var flag;
+        flag=aa;
+        dom.on("touchstart", function(e) {
+            startY = e.originalEvent.touches[0].pageY; return startY;
+
+        });
+        dom.on("touchmove", function(e) {
+            moveY = e.originalEvent.touches[0].pageY;
+
+            moveSpave = startY - moveY;
+
+            if (moveSpave >15) {
+
+                // location.href = '1.html';              /* 跳转到main.html */
+                if(flag){
+                   window.location.href = url;
+                    flag=false;
+                    movePage($('body'),true);
+                }
+            }
+        });
+        // e.preventDefault();
+    }
+
+		$(".Bomb-box-ok").click(function () {
+			$(".Bomb-box1").hide();
+		});
+function showTips( content, btnTxt){
+//	console.log($(".Bomb-box").length);
+	if($(".Bomb-box1").length > 0){
+
+	    $(".Bomb-box-content p").html(content);
+	    $(".Bomb-box-content p").removeClass();
+	    $(".Bomb-box-content p").addClass("text-center");
+	    $(".Bomb-box-ok").html(btnTxt);
+	    $(".Bomb-box1").show();
+	}else{
+		alert(content);
+	}
+}
+
+$(function(){
+
+    getAccount();
+
+});
+//是否开启亲情宝
+function getAccount(){
+    utils.get('/sfs/v1/accounts/is-open?version=6.6',null,function(result){
+        if(result.returnCode == 0){
+            if(result.body.isOpen){
+                teamId = result.body.teamId
+                //渲染成员列表
+                showPlans(teamId,'','','');
+                
+            }
+        }
+    });
+}
+	//计划信息
+	function showPlans(teamId,memberId,sortType,filterType){
+		var url = '/sfs/v1/accounts/assets/stat?teamId='+teamId; 
+		
+		utils.get(url,null,function(result){
+			var body = result.body;
+			if(result.returnCode == 0){
+				
+				var planList = body.plansList;
+				if(planList.length > 0){
+                    window.location.href = '/tradeh5/newWap/familyAccount/home.html';
+                }else{
+                    window.location.href = '/tradeh5/newWap/familyAccount/index.html';
+                }
+				
+			}
+		});
+	}
+</script>
+</body>
+</html>

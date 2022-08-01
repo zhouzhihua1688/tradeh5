@@ -1,0 +1,382 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>基金详情</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="format-detection" content="telephone=no">
+
+        <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+
+        <link rel="stylesheet" href="css/pure-min.css">
+        <link rel="stylesheet" href="css/fundDetails.css">
+        <style type="text/css">
+
+        </style>
+    </head>
+    <body>
+        <div class="box">
+            <div class="section">
+                <div class="fund-type">
+                    <div class="fl fund-type-left">
+                       <div class="pure-control-group">
+                           <label>类型：</label>
+                           <p class="color-333">定期海外基金</p>
+                       </div>
+                        <div class="pure-control-group">
+                            <label>成立时间：</label>
+                            <p class="num-font">2015-08-09</p>
+                        </div>
+                        <div class="pure-control-group">
+                            <label>最新一月：</label>
+                            <p class="color-green num-font">-19.36%</p>
+                        </div>
+                        <div class="pure-control-group">
+                            <label>最新三月：</label>
+                            <p class="color-red num-font">28.02%</p>
+                        </div>
+                        <div class="pure-control-group">
+                            <label>申购起点：</label>
+                            <p class="color-red"><span class="num-font">100</span>起</p>
+                        </div>
+                    </div>
+                    <div class="fl fund-type-right">
+                        <div class="pure-control-group">
+                            <label>申购费率：</label>
+                            <p class="color-333 num-font"><del>1.50%</del><ins class="num-font num-rate">0.15%</ins></p>
+                        </div>
+                        <div class="pure-control-group">
+                            <label>单位净值：</label>
+                            <p class="num-font"><span class="color-red">3.345</span>(12-04)</p>
+                        </div>
+                        <div class="pure-control-group">
+                            <label>最近一年：</label>
+                            <p class="color-red num-font">9.34%</p>
+                        </div>
+                        <div class="pure-control-group">
+                            <label>成立以来：</label>
+                            <p class="color-red num-font">30.23%</p>
+                        </div>
+                        <div class="pure-control-group">
+                            <label>持有年限：</label>
+                            <p class="color-red"><span class="num-font">1</span>年</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+
+            <div class="section">
+                <div class="trend-chart">
+                    <div class="trend-chart-top">单位净值：<span class="num-font color-red mgr">2.258</span>净值日期：<span class="num-font">2015-09-07</span></div>
+
+                    <div class="trend-chart-body m1" id="main" style="height: 300px;width: 100%"></div>
+                    <div class="trend-chart-body m3" style="display: none"></div>
+                    <div class="trend-chart-body y1" style="display: none"></div>
+                    <div class="trend-chart-bottom">
+                        <ul>
+                            <li class="on"><em>一个月</em></li>
+                            <li><em>三个月</em></li>
+                            <li class="lastli"><em>半年</em></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="section">
+                <div class="section-title">基金经理</div>
+                <div class="manager-info">
+                    <div class="content-left pure-u-7-24">
+                        <img src="img/manager.png" class="pure-img" alt="基金经理"/>
+                    </div>
+                    <div class="content-right pure-u-16-24">
+                        <p class="manager-name">基金经理<span>雷鸣</span><a href="#" class="fr">查看详情</a></p>
+                        <p class="manager-time">任职时间<span class="num-font">2010-06-05</span></p>
+                        <p class="manager-intro">国籍：中国。学历：华中科技大学管理学硕士。相关业务资格：证券投资基金从业资格。从业经历：2007年6月加入汇添富基金管理股份有限公司，历任行业分析师、高级行业分析</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">交易规则</div>
+                <div class="trade-rule">
+                    <table class="pure-table">
+                        <tr class="tr1">
+                            <td class="td1">申购规则</td>
+                            <td class="td2"><p>1.交易日15点前下单,下 1 个交易日确认份额</p>
+                                <p>2.交易日15点后、周末及节假日下单,下 2 个交易日确认份额</p>
+                                <p>备注说明：持有超过500万将自动转为理财30天B，费率降低到0.01%</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td1">赎回规则</td>
+                            <td class="td2"><p>1.交易日15点前赎回,下 1 个交易日资金到达现金宝账户</p>
+                                <p>2.交易日15点后、周末及节假日赎回,下 2 个交易日确认份额</p>
+                                <!--<p>3.现在购买，XX年XX月XX日可赎回</p>-->
+                                <p>备注说明：到期日前进行赎回，否则产品将自动进入下一个运作期</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title" style="border-top: none;">赎回费率</div>
+                <div class="section-content">
+                    <ul>
+                        <li>
+                            <div class="pure-u-13-24">T&lt;<span class="num-font">7</span>天</div>
+                            <div class="fr"><span class="num-font color-orange">1.50%</span></div>
+                        </li>
+                        <li>
+                            <div class="pure-u-13-24"><span class="num-font">7</span>天≦T&lt;<span class="num-font">30</span>天</div>
+                            <div class="fr"><span class="num-font color-orange">0.75%</span></div>
+                        </li>
+                        <li>
+                            <div class="pure-u-13-24"><span class="num-font">30</span>天≦T&lt;<span class="num-font">6</span>个月</div>
+                            <div class="fr"><span class="num-font color-orange">0.50%</span></div>
+                        </li>
+                        <li>
+                            <div class="pure-u-13-24">T≧<span class="num-font">6</span>个月</div>
+                            <div class="fr"><span class="num-font color-orange">0%</span></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="btn-bottom" id="btn-bottom">
+            <a href="#" class="btn btn-light">申购</a>
+        </div>
+
+        <script src="../basic/jquery.3.4.1.min.js"></script>
+        <script>
+            $(".trend-chart-bottom ul li").on("click",function(){
+                var index = $(this).index();
+                $(this).addClass("on").siblings().removeClass("on");
+                $(".trend-chart-body").eq(index).show().siblings(".trend-chart-body").hide();
+            });
+        </script>
+
+        <!--<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>-->
+        <script src="js/echarts.js"></script>
+        <script type="text/javascript">
+            // 路径配置
+            require.config({
+                paths: {
+//                    echarts: 'http://echarts.baidu.com/build/dist'
+                    echarts: 'js/echarts-m-1.0.0'
+                }
+            });
+            // 使用
+            require(
+                    [
+                        'echarts',
+                        'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+                    ],
+                    function (ec) {
+                        // 基于准备好的dom，初始化echarts图表
+                        myChart = ec.init(document.getElementById('main'));
+
+
+// 过渡---------------------
+                        myChart.showLoading({
+                            text: '正在努力的读取数据中...',    //loading话术
+                            effect : "whirling"
+                        });
+
+// ajax getting data...............
+
+// ajax callback
+                        myChart.hideLoading();
+
+                        xmlString = '<?xml version="1.0" encoding="GBK"?>\
+\
+<data>\
+  <title>单位净值,累计净值</title>\
+  <date>2015-08-24,2015-08-25,2015-08-26,2015-08-27,2015-08-28,2015-08-31,2015-09-01,2015-09-02,2015-09-07,2015-09-08,2015-09-09,2015-09-10,2015-09-11,2015-09-14,2015-09-15,2015-09-16,2015-09-17,2015-09-18</date>\
+  <value>2.305,2.133,2.104,2.212,2.317,2.276,2.192,2.162,2.153,2.239,2.3,2.276,2.287,2.185,2.105,2.219,2.19,2.215|2.921,2.749,2.72,2.828,2.933,2.892,2.808,2.778,2.769,2.855,2.916,2.892,2.903,2.801,2.721,2.835,2.806,2.831</value>\
+</data>';
+
+
+
+                        var getXMLData = function (xml, label) {
+                            var length = String(label).length;
+                            var begin = xml.indexOf("<" + label + ">");
+                            var end = xml.indexOf("</" + label + ">");
+                            if(begin === -1 || end === -1){
+                                return "";
+                            }else{
+                                return xml.slice(begin + 2 + length, end);
+                            }
+                        }
+
+                        var date = getXMLData(xmlString, "date").split(",");
+                        var value = getXMLData(xmlString, "value");
+                        value = value.slice(0, value.indexOf("|")).split(",");
+
+
+                        var dates = [];
+                        for (var i = 0; i < date.length; i++) {
+                            dates.push(date[i].slice(5));
+                        };
+
+
+
+
+
+
+
+// 图表使用-------------------
+                        var option = {
+                            tooltip: {                                  // 气泡提示配置
+                                trigger: 'axis',                      // 触发类型，默认数据触发，可选为：'axis'
+                                show: false,
+                                axisPointer:{
+                                    type: 'cross',
+                                    crossStyle: {
+                                        color: '#00a0e9',
+                                        width: 1,
+                                        type: 'solid'
+                                    }
+                                }
+                            },
+                            grid:{
+                               x:50,
+                               y:10,
+                               x2:30,
+                               y2:30,
+                                // width:"70%",
+//                                height:"400px"
+                                // width: "80%",
+                                borderWidth: 1,
+                                borderColor: "#f4f4f4"
+
+
+
+
+                            },
+                            xAxis: [                                    // 直角坐标系中横轴数组
+                                {
+                                    type: 'category',                   // 坐标轴类型，横轴默认为类目轴，数值轴则参考yAxis说明
+                                    boundaryGap : false,
+                                    axisLine : {    // 轴线
+                                        show: true,
+                                        lineStyle: {
+                                            color: '#f4f4f4',
+                                            type: 'solid',
+                                            width: 1
+                                        }
+                                    },
+                                    axisTick : {    // 轴标记
+                                        show:false
+                                    },
+                                    axisLabel : {
+                                        show:true,
+                                        interval: 'auto',
+                                        textStyle: {
+                                            color: '#999',
+                                            fontFamily: 'arial',
+                                            fontSize: 12
+                                        }
+                                    },
+                                    splitLine : {
+                                        show:true,
+                                        lineStyle: {
+                                            color: '#f4f4f4',
+                                            type: 'solid',
+                                            width: 1
+                                        }
+                                    },
+                                    data : dates,
+                                    splitNumber: 5
+                                }
+                            ],
+                            yAxis: [                                    // 直角坐标系中纵轴数组
+                                {
+                                    type: 'value',                      // 坐标轴类型，纵轴默认为数值轴，类目轴则参考xAxis说明
+                                    //boundaryGap: [0, 0],            // 坐标轴两端空白策略，数组内数值代表百分比
+                                    //scale: true,
+                                    axisLine : {    // 轴线
+                                        show: true,
+                                        lineStyle: {
+                                            color: '#f4f4f4',
+                                            type: 'solid',
+                                            width: 1
+                                        }
+                                    },
+                                    axisLabel : {
+                                        show:true,
+                                        formatter: function(value) {
+                                            return value.toFixed(3);
+                                        },
+                                        interval: 'auto',
+                                        textStyle: {
+                                            color: '#999',
+                                            fontFamily: 'arial',
+                                            fontSize: 12
+                                        }
+                                    },
+                                    splitLine : {
+                                        show:true,
+                                        lineStyle: {
+                                            color: '#f4f4f4',
+                                            type: 'solid',
+                                            width: 1
+                                        }
+                                    },
+                                    //min: 2.006,
+                                    //max: 2.406,
+                                    min: Math.min.apply(null, value) - 0.058,
+                                    max: Math.max.apply(null, value) + 0.058,
+                                    splitNumber: 4                      // 数值轴用，分割段数，默认为5
+                                }
+                            ],
+                            animation: false,
+                            series: [
+                                {
+                                    symbol: "none",
+                                    name:'净值',
+                                    type:'line',
+                                    smooth: false,
+                                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                                    data:value
+
+                                }
+
+                            ]
+                        };
+                        myChart.setOption(option);
+
+
+
+                        // 增加些数据------------------
+                        /*  option.legend.data.push('win');
+                         option.series.push({
+                         name: 'win',                            // 系列名称
+                         type: 'line',                           // 图表类型，折线图line、散点图scatter、柱状图bar、饼图pie、雷达图radar
+                         data: [112, 23, 45, 56, 233, 343, 454, 89, 343, 123, 45, 123]
+                         });
+                         myChart.setOption(option);*/
+
+
+
+                    }
+            );
+
+
+
+            //boundaryGap，设置数值；
+
+        setTimeout(function (){
+            window.onresize = function () {
+                myChart.resize();
+            }
+        },200)
+        </script>
+    </body>
+</html>

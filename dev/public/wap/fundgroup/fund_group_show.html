@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>实盘名称</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/base.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        body,html{background: #f6f6f6;overflow-x: hidden}
+        body {left: 0%; right: 0%;font:14px 'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+        button { outline: none;  }
+          /* 图片自适应 */
+        img {
+              width: 100%;
+              height: auto;
+              width: auto\9; /* ie8 */
+              -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/
+              border: none;
+              vertical-align: top;
+              outline: none;
+              display: block;
+        }
+        p { word-wrap: break-word; text-align: justify; }
+        table { width: 100%;border-collapse:collapse; }
+        .main{width:100%;height:100%;}
+        .tips{width:100%;height:1.75rem;background:#fffac7;display:flex;justify-content:space-between;align-items: center;}
+        .tips div{width:10%;height:1.75rem;line-height:1.75rem;text-align:center;font-size:0.6rem;color:#fe5a5b;}
+        .tips div:nth-of-type(1){width:85%;text-align: left;text-indent:0.75rem;}
+        .tips img{width:0.4rem;height:0.75rem;margin-right:0.75rem;}
+        .fundText{width:100%;padding:1rem 0rem 0.5rem 0rem;background:#fff;display:flex;justify-content:space-between;align-items: center;}
+        .fundText div{width:50%;text-align:center;font-size:0.6rem;color:#666;}
+        .percent{width:100%;padding:0rem 0rem 0.5rem 0rem;background:#fff;display:flex;justify-content:space-between;align-items: center;}
+        .percent div{width:50%;text-align:center;font-size:1.35rem;color:#f4333c;}
+        .cesuan{width:100%;height:1.5rem;background: #fafafa;}
+        .cesuan div{height:1.5rem;line-height:1.5rem;display: inline-block;margin-left:1.25rem;color:#999;}
+        .cesuan img{width:0.7rem;height:0.7rem;display: inline-block;vertical-align: middle;margin-left:0.25rem;}
+        .yesterday{width:100%;height:2.0rem;color:#000;background:#fff;}
+        .yesterday div{line-height:2rem;margin-left:0.75rem;font-size:0.65rem}
+        .admin{width:100%;padding:0.75rem 0rem;margin-top:0.5rem;background:#fff;
+           display:flex;justify-content:space-between;align-items: center;
+        }
+        .admin .flex{width:50%;}
+        .admin .flex .img{width:1.5rem;height:1.5rem;
+        background-size: 100% 100%;border-radius:1.25rem;vertical-align: middle;
+        display: inline-block;margin-left: 0.75rem;
+        }
+        .admin .flex .text{display: inline-block;vertical-align: middle;margin-left: 0.25rem;font-size:0.75rem;color:#000;}
+        .admin .flex .text2{padding:0.25rem 0.25rem;background:#148ce6;display: inline-block;vertical-align: middle;color:#fff;font-size:0.5rem;text-align:center;line-height:0.5rem;border-radius:3px;margin-top:0.1rem;
+            margin-left: 0.25rem;
+        }
+        .admin .flex .right{color:#000;font-size:0.75rem;text-align:right;margin-right:0.75rem;}
+        .admin .flex .right img{width:0.4rem;height:0.75rem;display: inline-block;text-align:right;vertical-align: middle;margin-left:0.2rem;margin-top:-0.1rem;}
+        .linian{color:#000;width:100%;padding:0.75rem 0rem;font-size:0.7rem;background:#fff;border-top:1px solid #eee}
+        .linian .last{text-align: justify;padding:0rem 0.75rem}
+        .fabu{width:100%;height:1.75rem;background:#fff;
+           display:flex;justify-content:space-between;align-items: center;border-top: 1px solid #eee
+        }
+        .fabu div{width:50%;font-size:0.6rem;color:#666;}
+        .fabu div:nth-of-type(1){text-indent:0.75rem}
+        .fabu div:nth-of-type(2){text-align:right;margin-right:0.75rem;}
+        .person{width:100%;padding:0.5rem 0rem 0rem 0rem;background:#fff;
+           display:flex;justify-content:space-between;align-items: center;margin-top: 0.5rem;
+        }
+        .person div{width:50%;font-size:0.6rem;color:#666;text-align: center}
+        .number{width:100%;padding:0.25rem 0rem 0.5rem 0rem;background:#fff;
+           display:flex;justify-content:space-between;align-items: center;
+        }
+        .number div{width:50%;font-size:0.6rem;color:#000;text-align: center}
+        .shipan{width:100%;height:2.25rem;background:#fff;
+           display:flex;justify-content:space-between;align-items: center;margin-top: 0.5rem;
+        }
+        .shipan div{width:50%;height:2.25rem;line-height:2.25rem;font-size:0.75rem;color:#000;text-align: center}
+        .shipan div.active{color:#fb5c5f;border-bottom:2px solid #fb5c5f;}
+    /* 实盘明细     */
+        .biaoti{width:100%;height:1.75rem;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items: center;background: #fff;}
+        .biaoti div{width:22%;height:1.75rem;line-height:1.75rem;color:#000;font-size:0.7rem;text-align:right;font-weight: bold}
+        .biaoti div:nth-of-type(1){width:50%;text-align:left;text-indent:1.75rem}
+        .biaoti div:nth-of-type(3){margin-right:0.75rem;}
+        .fundType{width:100%;height:2.5rem;border-bottom: 1px solid #eee;background: #fff;}
+        .fundType .block{width:0.5rem;height:0.5rem;background: #ff8100;border-radius: 3px;display: inline-block;margin-left:0.75rem;}
+        .fundType .block2{width:0.5rem;height:0.5rem;background: #ffb415;border-radius: 3px;display: inline-block;margin-left:0.75rem;}
+        .fundType .text{font-size:0.7rem;color:#000;font-weight:bold;display: inline-block;line-height:2.5rem;margin-left:0.25rem;}
+        .fundType .text span{font-size:0.75rem;color:#f4333c;margin-left:0.5rem;display:inline-block;vertical-align:top}
+        .fundType .text span i{font-size:0.75rem;font-weight:400}
+        .fundList{width:100%;height:3.5rem;display:flex;justify-content:space-between;align-items: center;border-bottom:1px solid #eee;background:#fff;}
+        .fundList div{width:17%;height:3.5rem;color:#000;font-size:0.75rem;text-align:right;display:table-cell;vertical-align: middle;}
+        .fundList .juzhong{display: table;}
+        .fundList div .table{display:table-cell;vertical-align: middle;}
+        .fundList .table span{display:inline-block;text-indent:1rem;font-size: 0.65rem;color:#666;}
+        .fundList div:nth-of-type(1){width:57%;text-align:left;text-indent:1rem;}
+        .fundList div:nth-of-type(2){line-height:3.5rem;}
+        .fundList div:nth-of-type(3){margin-right:0.75rem;line-height:3.5rem;color:#f4333c}
+        .yeji{width:100%;padding:0.75rem 0rem;font-size:0.6rem;background:#fff;}
+        .yeji .last{text-align: justify;padding:0rem 0.75rem;}
+        .tiaocang{width:100%;height:1.75rem;background:#fff;margin-top: 0.5rem;
+           display:flex;justify-content:space-between;align-items: center;
+        }
+        .tiaocang div{width:50%;font-size:0.75rem;color:#000;font-weight:bold}
+        .tiaocang div:nth-of-type(1){text-indent:0.75rem}
+        .tiaocang div:nth-of-type(2){text-align:right;margin-right:0.75rem;}
+        .btn {position: fixed; width: 100%; bottom: 0; left: 0; display: flex; justify-content: space-between; align-items: center; text-align: center; border-top:1px solid #eee; }
+        .btn li {box-sizing: border-box; height: 2.5rem;width:50%; flex-grow: 1; background-color: #fff; font-size:0.85rem; color: #fff;line-height:2.5rem; }
+        .btn li img{width:0.85rem;height:0.75rem;display: inline-block;vertical-align: middle;margin-right:0.75rem;}
+        .btn li:nth-of-type(2){background: #0757b2;}
+    /* 成立以来 */
+        .content ul.tab2 {width: 100%; margin: 0 auto; }
+        .content ul.tab2 li {width: 20%; float: left; }
+        .content .tab2 li:first-child a {border-radius: 3px 0 0 3px; border-right: none; }
+
+        .content ul.tab2 li a {width: 100%; margin-left: 0%; color: #666; background: #fafafa; border: 1px #eee solid; }
+        .content ul li a {color: #666; display: block; width: 100%; height:1.75rem; line-height: 1.75rem; float: left; text-align: center; font-size:0.7rem; }
+        .content ul.tab2 li.active a {background-color: #fff; border:1px #eee solid; color: #000; }  
+
+        .zoushi{width:100%;background:#fff;padding:0.75rem 0rem;} 
+       .all{width:11.0rem;height:1.5rem;margin:0 auto;display: flex; justify-content: space-between; align-items: center; text-align: center;border:1px solid #148ce6;} 
+       .all span{width:50%;height:1.5rem;line-height:1.5rem;display:inline-block;text-align:center;color:#148ce6;font-size:0.7rem;}
+       .all span.hot{background:#148ce6;color:#fff;}
+       .dongtai{width:100%;height:2.25rem;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items: center;background: #fff;margin-top:0.5rem;}
+       .dongtai div{width:33%;height:2.25rem;line-height:2.25rem;color:#000;font-size:0.75rem;text-align:center;}
+       .dongtai div.hot{color:#fb5c5f;border-bottom:2px solid #fb5c5f;}
+       /* .dongtai div:nth-of-type(1){text-indent:1.5rem} */
+       /* .dongtai div:nth-of-type(3){margin-right:0.75rem;} */
+       .shijian{width:100%;height:1.65rem;}
+       .shijian div{font-size: 0.65rem;color:#000;height:1.65rem;line-height: 1.65rem;text-indent:0.75rem;}
+       .fundAll{width:100%;height:100%;}
+       .fundAll .fundBuy{width:17.25rem;height:4.0rem;margin:0 auto;background:#fff;}
+       .fundAll .fundBuy .top{height:2.5rem;display:flex;justify-content:space-between;align-items: center;background: #fff;}
+       .fundAll .fundBuy .top div{height:2.5rem;color:#000;font-size:0.65rem;text-align:center;}
+       .fundAll .fundBuy .top div:nth-of-type(2){width:63%;text-align:left;line-height:2.5rem;margin-left:0.35rem;}
+       .fundAll .fundBuy .top div:nth-of-type(3){width:35%;font-size:0.8rem;line-height:2.5rem;color:#fb5c5f}
+       .fundAll .fundBuy .time{height:1.5rem;line-height:1.5rem;font-size: 0.65rem;color:#666;margin-left:0.75rem;border-top:1px dashed #cccccc ;}
+       .fundAll .fundBuy .top .buy{border:1px solid #fb5c5f;width:1.5rem;height:0.875rem;font-size:0.6rem;border-radius: 3px;margin-left:0.75rem;line-height: 0.875rem;color:#fb5c5f;}
+       .fundAll .fundBuy .top .out{width:1.5rem;height:0.875rem;font-size:0.6rem;border-radius: 3px;margin-left:0.75rem;line-height: 0.875rem;color:#148ce6;border:1px solid #148ce6;}
+       .fundAll .fundBuy .top .only{line-height:2.5rem;margin-left:0.75rem; } 
+	   .more{padding-top:1rem;text-align:center;color:orange}
+	   
+	   .stat{
+	padding: 0 0.4rem;
+	background-color: #cccccc;
+	color: #f2f2f2!important;
+	border-radius: 1rem;
+	margin-left: 0.5rem;
+	font-style:normal;
+	
+	font-size:.6rem;
+	
+	   }
+    </style>
+</head>
+<body>
+<div class="main"><!--
+    <div class="tips">
+       <div>该组合当前有调仓正在处理中，快来看看吧</div>
+       <img src="../images/fundgroup/arr.png" alt="">
+    </div>-->
+    <div class="fundText">
+       <div>近6月收益率</div>
+       <div id="fabu">发布以来(-至今)</div>
+    </div>
+    <div class="percent">
+       <div id="half"></div>
+       <div id="sinceProfit"></div>
+    </div>
+    <div class="cesuan">
+        <div>按照组合的基金名单和投资占比测算</div>
+    </div>
+    <div class="yesterday">
+        <div>昨日市值：<span style="color:#f4333c;font-size:0.65rem" id="marketValue"></span></div>
+    </div>
+    <div class="admin">
+        <div class="flex">
+            <div class="img" id="avatarImage"></div> 
+            <span class="text" id="custName"></span>
+            <span class="text2">管理人</span>
+        </div>
+        <div class="flex" style="width:auto">
+            <div class="right">共<span style="color:#fb5c5f" id="publicCount"></span>个公开组合
+                <!--<img src="../images/fundgroup/arr2.png" alt="">-->
+            </div>
+        </div>
+    </div>
+    <div class="linian" style="display:none"> 
+        <div class="last"></div>
+    </div><!--
+    <div class="fabu">
+       <div>发布日期：<span>2018年2月22日</span></div>
+       <div>已运行<span style="color:#fb5c5f">686天</span></div>
+    </div>-->
+    <div class="person">
+       <div>关注人数</div>
+       <div>留言人数</div>
+    </div>
+    <div class="number">
+       <div id="followCount"></div>
+       <div id="commentCount"></div>
+    </div>
+<!-- 切换     -->
+    <div class="shipan">
+       <div class="active">收益走势</div>
+       <div>实盘明细</div>
+    </div>
+<!-- 收益走势     -->
+   <div class="qiehuan">
+        <div class="fund-chart" style="background: #fff;padding-bottom:1rem">
+            <div>
+                <div id="pie1" style="width: 100%; height: 13rem;"></div>
+            </div>
+            <div class="noData" style="display: none;">
+                <p>没有足够的数据可展示</p>
+            </div>
+        </div>
+        <div class="content">
+            <ul class="clearfix tab2">
+                <li  class="active"><a>近1月</a></li>
+                <li><a>近3月</a></li>
+                <li><a>近6月</a></li>
+                <li><a>近1年</a></li>
+                <li><a>成立以来</a></li>
+            </ul>
+        </div>
+
+        <style>
+            .liuyan{width:100%;padding:1rem 0rem;}
+            .liuyan{width:100%;background:#fff;
+                   display:flex;justify-content:space-between;align-items: center;
+                   position: relative;
+            }
+            .liuyan .left{width:80%;font-size:0.6rem;color:#000;}
+            .liuyan .right{width:20%;font-size:0.6rem;color:#000;text-align: center}
+            .liuyan .photo{width: 1.75rem; height: 1.75rem; background: url(img/touxiang.png) no-repeat; background-size: 100% 100%; border-radius: 1.25rem; vertical-align: middle; display: inline-block; margin-left: 0.75rem; float:left; margin-top: 0.15rem; }
+            .liuyan .left .wenzi{width:75%;float:left;margin-left:0.5rem;}
+            .liuyan .text,.liuyan .text2{width:75%;font-size:0.6rem;color:#666;}
+            .liuyan .text2{margin-top:0.25rem;}
+            .liuyan .right .zan img{width:0.75rem;height:0.75rem;display: inline-block;
+            }
+            .liuyan .right .zan span{display: inline-block;color:#666;margin-left:0.2rem;}
+        </style>
+    </div>
+    <div class="qiehuan">
+		<div id="groupDetails">
+        
+		</div><!--
+        <div class="yeji"> 
+            <div class="last"><span style="color:#666;font-weight:bold">成分基金业绩：</span><span class="text">汇添富绝对收益定开混合A成立于2017.03.15，业绩基准为一年期定期存款税后利率，成立以来各 ...</span></div>
+        </div>
+        <div class="tiaocang">
+           <div>历史调仓</div>
+           <div >
+		   <a style="color:#000">共<span style="color:#fb5c5f" id="transferCount">0</span>次</a>
+		   </div>
+        </div>
+		-->
+    </div>
+  
+       <div class="dongtai">
+            <div class="hot">动态<span id="total"></span></div><!--
+            <div>精选留言<span id="c_1"></span></div>
+            <div>我的留言<span id="c_2"></span></div>-->
+        </div>
+    <!-- 动态     -->
+        <div class="jilu" id="list">
+
+        </div> 
+		<div class="more" onclick="showMore()" style="display:none;">加载更多</div>
+    <!-- 精选留言--><!--
+        <div class="jilu" style="display:none" id="list1">
+   
+        </div>-->
+    <!-- 我的留言--><!--
+        <div class="jilu" style="display:none" id="list2">
+           
+        </div>-->
+  
+  
+    <div style="width:100%;height:0.5rem;background:#f6f6f6;padding-bottom:2.5rem"></div>
+</div>
+
+<!-- S footer 添加 -->
+<style type="text/css">
+	.bottom{background: rgba(0,0,0,.6);width:100%;position: fixed;bottom: 0;left:0;padding:.47em 0;}
+	.bottom .logo,.bottom .text{float:left;}
+	.bottom .logo{background: url(../images/logo.png) no-repeat;background-size:contain;width:2.475em;height: 2.507em;margin-right: .379em;margin-left: 1.035em;}
+
+	.bottom .text .p1{font-size: .966em;color:#fff;}
+	.bottom .text .p2{font-size: .689em;color:#fff;}
+	.bottom a{display: block;float:right;background: #ff7e00;color:#fff;font-size: .896em;margin-right: 1.035em;height: 2.071em;width: 5.516em;line-height: 2.071em;text-align: center;border-radius: 3px;margin-top: .220em;}
+	.bottom .logo {padding: 0;}
+	.bottom .text p{margin: 0;}
+	.bottom a {text-decoration: none;}
+    .bottom{display: none;}  /* 先隐藏，再在common.js控制显示，小米金融渠道不显示 */
+</style>
+<div class="bottom">
+	<div class="logo"></div>
+	<div class="text">
+		<p class="p1">汇添富现金宝</p>
+		<p class="p2">添富现金宝，理财好账户！</p>
+	</div>
+	<a href="https://www.99fund.com/m.htm">下载App</a>
+</div>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/echarts.min.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script type="text/javascript" src="../js/common.js?20210302"> </script>
+<script>
+var pageNo = 1;
+var pageSize = 5;
+var groupId = App.getUrlParam("groupId");
+var establishDateStr = "";
+function showMore(){
+	pageNo++;
+	requestActList(pageNo);
+}
+//实盘动态列表
+function requestActList(p){
+
+    App.get("/sfs/api/v1/activity/list?pageNo="+p+"&pageSize="+pageSize+"&groupId="+ groupId  , null, function(result){
+        if(result.body != undefined && result.body != null){
+        var info = result.body;
+        	$("#total").html("("+ Number(info.total)+")");
+        	item = info.rows;
+			
+        	var htm = '';
+        	for(var k in item){
+        		var item2 = item[k];
+        		var tag = '';
+				var styles = '';
+				if(String(item2.activityContent).length > 9){
+					styles = ' style="font-size:.55rem;" ';
+				}
+        		if(item2.activityTag == "买入" || item2.activityTag == "调仓" || item2.activityTag == "转入"){
+        			tag = '<div class="buy">'+item2.activityTag+'</div>'+
+ 							   '<div '+styles+'>'+item2.activityContent +'</div>'+
+							   '<div>'+(item2.activityValue == null ? "" : item2.activityValue)+'</div> ';
+        		}else if(item2.activityTag == "卖出"){
+        			tag = '<div class="out">'+item2.activityTag+'</div>'+
+ 							   '<div '+styles+'>'+item2.activityContent +'</div>'+
+							   '<div>'+(item2.activityValue == null ? "" : item2.activityValue)+'</div> ';
+        		}else{
+					tag = '<div class="only">'+item2.activityContent+'</div>';
+				}
+
+			
+        		htm+= '<div class="shijian"><div>'+item2.applyDate+'</div></div>'+
+					'<div class="fundAll">'+
+						'<div class="fundBuy">'+
+							'<div class="top">'+
+							   tag+
+							'</div>'+
+							'<div class="time">'+item2.applyTime+'</div>'+
+						'</div>'+
+					'</div>';
+				
+        	}
+
+			if(Number(item.length) >0 && Number(item.length) >= Number(pageSize)){
+				$(".more").show();
+			}else{
+				$(".more").hide();
+			}
+        	$("#list").append(htm);
+        }
+    });
+}
+$(function(){
+
+
+
+    requestGroupFundDetail();
+    requestSfsDetail();
+    
+    requestActList(pageNo);
+		//格式化输出日期
+	function fmtDate(dd,t){
+		var a = new Date();
+		if(dd!=''){
+			a = new Date(dd);
+		}
+		var m = (a.getMonth()+1)>10 ?(a.getMonth()+1) : '0'+(a.getMonth()+1);
+		var d = (a.getDate()+1)>10 ?(a.getDate()) : '0'+(a.getDate());
+		if(t==1){
+			return a.getFullYear()+m+d;
+		}else{
+			return a.getFullYear()+"-"+m+"-"+d;
+		}
+	};
+   //计算天数差的函数，通用
+   function  dateDiff(sDate1,  sDate2){    //sDate1和sDate2是2006-12-18格式
+       var  aDate,  oDate1,  oDate2,  iDays  ;
+       aDate  =  sDate1.split("-")  ;
+       oDate1  =  new  Date(aDate[0] , aDate[1]-1 , aDate[2],'0','0','0');
+       aDate  =  sDate2.split("-")  ;
+       oDate2  =  new  Date(aDate[0] , aDate[1]-1 , aDate[2],'0','0','0');
+       iDays  =  parseInt(Math.abs(oDate1  -  oDate2)  /  1000  /  60  /  60  /24) ;   //把相差的毫秒数转换为天数
+       return  iDays;
+	};
+   //组合详情
+function requestGroupFundDetail(){
+    App.get("/mobile-bff/v1/fund-group/detailInfo?groupId=" + groupId, null, function(result){
+
+        if(result.body != undefined && result.body != null){
+        	var info = result.body;
+        	establishDateStr = info.establishDateStr;
+        	$("#establishDateStr").html(info.establishDateStr);
+			$("#fabu").html("发布以来("+establishDateStr+"-至今)");
+            $("#half").html(info.halfYearProfit + "%");
+            if(info.halfYearProfit >= 0){$("#half").css({"color":"red"})}else{$("#half").css({"color":"green"})}
+            $("#sinceProfit").html(info.sinceProfit + "%");
+            if(info.sinceProfit >= 0){$("#sinceProfit").css({"color":"red"})}else{$("#sinceProfit").css({"color":"green"})}
+			
+			if(App.isNotEmpty(info.fundgroupDesc)){
+				$(".linian .last").html("投资理念："+info.fundgroupDesc);
+				$(".linian .last").each(function(){
+					var maxwidth=70;//设置最多显示的字数
+					var text=$(this).text();
+					if($(this).text().length>maxwidth){
+						$(this).text($(this).text().substring(0,maxwidth));
+						$(this).html($(this).html()+"..."+"<a href='###'style='color:#148ce6;margin-left:0.5rem'>全部</a>");//如果字数超过最大字数，超出部分用...代替，并且在后面加上点击展开的链接；
+					};
+					$(this).find("a").click(function(){
+						$(this).parent().text(text);//点击“点击展开”，展开全文
+					})
+				})
+				$(".linian").show();
+			}
+			document.title = info.groupname;
+        	var groupDetails = info.groupDetails;
+
+
+            //展示全部
+            var text = $('#fundgroupDesc').text();
+            var text_length = text.length;
+            $('#fundgroupDesc').text(text.slice(0, 71) + '...')
+            $('.show_all').on('click', function () {
+                if(  $('.show_all').text()==='收起'){
+                    $('#fundgroupDesc').text(text.slice(0, 71) + '...')
+                $('.show_all').text('展开全部')
+                    return;
+                }
+                $('#fundgroupDesc').text(text)
+                $('.show_all').text('收起')
+            })
+            $(".show_all").hide();
+        	if(text_length > 71){
+        		$(".show_all").show();
+        	}
+        	if(info.fundgroupDesc == ""){
+        		$("#fundgroupDesc").html("");
+
+        	}else{
+        		document.title = info.groupname;
+        		$("#fundgroupDesc").html("投资理念:"+info.fundgroupDesc+"<br/><br/>");
+        	}
+        	var htm = '<div class="biaoti">'+
+                            '<div>基金明细</div>'+
+                            '<div>持仓占比</div>'+
+                            '<div>日收益率</div>'+
+                        '</div>';
+        
+        	for(var k in groupDetails){
+        		var item = groupDetails[k];
+        		if(item.percent > 0){
+	        		htm+= '<div class="fundType">'+
+	                            '<div class="block"></div><div class="text"> '+item.classifyName+' <span>'+item.percent+'<i>%</i></span></div>'+
+	                        '</div>';
+	                var subList = item.subList;
+	                if(subList.length > 0){
+	                    for(var k in subList){
+	                    var item2 = subList[k];
+						
+	                    var stat = '';
+						if(item2.fundStName != null){
+							stat = item2.fundStName == "正常" ? "": "<i class='stat'>"+item2.fundStName+"</i>";
+						}else{
+							stat = '<i class="stat">正常发行</i>';
+						}
+						var styles = '';
+						if(String(item2.fundNm).length > 9){
+							styles = ' style="font-size:.6rem;" ';
+						}
+	                    htm+='        <div class="fundList">            <div class="juzhong">                <div class="table" '+styles+'>'+item2.fundNm+'<br/>'+
+	                           '<span>'+ item2.fundId +'</span>' + stat+
+	                            '</div></div><div>'+item2.percent+'%</div><div>'+Number(item2.dayYield)+'%</div></div>';
+	                    }
+	                }
+                }
+        	}
+        	$("#groupDetails").html(htm);
+	    //曲线图1月
+	    getChartData(groupId, "0,1,4", 1, establishDateStr);
+        }
+    });
+}
+	//getTransferTimes(groupId)
+	function getTransferTimes(groupId){
+		$.get("/productcenter/v1/fund-group/cust-groups/" + groupId + "/investments?pageNo=1" , function(result){
+			//console.log(resultStr);
+			if(result.returnCode == 0){
+
+				$("#transferCount").html(result.body.chCount);
+
+				
+			} else {
+				alert(result.returnMsg);
+			}
+		});
+	}
+    //组合收益曲线
+function getChartData(groupId, chartTp, queryTp, createDt){
+    App.get("/mobile-bff/v1/fund-group/fundgroup-yields?chartTp="+chartTp+"&createDt="+createDt+"&groupId=" + groupId+"&queryTp="+ queryTp, null, function(result){
+
+        if(result.body != undefined && result.body != null){
+            if(result.returnCode == 0){
+                var chartDatas = result.body;
+                var syList = chartDatas.syList;
+                var hs300List = chartDatas.hs300List;
+                var mixList = chartDatas.mixList;
+                hs300List.length = syList.length;
+                mixList.length = syList.length;
+
+                mychart_gp_1 = echarts.init(document.getElementById('pie1'));
+				setOption(option_2, syList, mixList);
+				draw(mychart_gp_1,option_2);
+
+                var indexx = syList.length - 1 ;
+                mychart_gp_1.dispatchAction({ type: 'showTip', seriesIndex: 0, dataIndex: indexx});
+                //mychart_gp_1.dispatchAction({ type: 'showTip', seriesIndex: 0, dataIndex: -1});
+                
+				$("#tip_content").html("<div style='text-align: center;padding-top: 0.2rem;width: 80%;padding-left: 10%;'>"+chartDatas.mixListDesc+"</div>");
+                
+        	}
+        }
+    });
+}
+
+//实盘社交详情
+function requestSfsDetail(){
+    App.get("/sfs/api/v1/firm-offers/detail?groupId=" + groupId, null, function(result){
+
+        if(result.body != undefined && result.body != null){
+        	var info = result.body;
+        	$("#commentCount").html(info.commentCount);
+        	$("#followCount").html(info.followCount);
+        	$("#followInvestCount").html(info.followInvestCount);
+        	$("#publicCount").html(info.publicCount);
+        	$("#avatarImage").css({"background":"url("+info.custInfo.avatarImage+") no-repeat","background-size":"cover"});
+        	$("#custName").html(info.custInfo.nickname);
+        	var marketValue = "--";
+        	if(info.marketValueDisplay != undefined && info.marketValueDisplay != null){
+        		marketValue = App.formatMoney(info.marketValueDisplay,2) + "元";
+        	}
+        	$("#marketValue").html(marketValue);
+        }
+    });
+}
+//requestSfsComment()
+//requestSfsMyComment()
+//实盘社交详情
+/*
+function requestSfsComment(){
+    var data = {
+        'itemId': groupId,
+        'pageSize': 10,
+        'pageNo': 1,
+		'itemType':5
+    };
+    App.post("/sfs/api/v1/message-board/query-comment-info" ,JSON.stringify(data),  null, function(result){
+
+        if(result.body != undefined && result.body != null){
+        	var item = result.body.rows;
+        	var htm = '';
+        	for(var k in item){
+        		var item2 = item[k];
+            htm+= '<div class="liuyan">'+
+					'<div class="left">'+
+						'<div class="photo" style="background:url(\''+item2.avatarImg+'\') no-repeat;background-size:cover"></div>'+
+						
+						'<div class="wenzi">'+
+						   '<div class="text">'+item2.nickname+'</div>'+
+						   '<div class="text2">'+item2.commentContent+'</div>'+
+						'</div>'+
+					'</div>'+
+					'<div class="right">'+
+						'<div class="zan"><img src="../images/wezhan/zan.png" alt="" onclick="custLike()" data-id="'+item2.commentId+'"><span>'+item2.likeCountDisplay+'</span></div>'+
+					'</div>'+
+				'</div>';			
+				
+        	}
+        	$("#list1").html(htm);
+			$("#c_1").html("("+ Number(item.length)+")");
+        }
+    });
+}
+    // 留言点赞
+     function custLike(){
+        $(this).click(function(){
+            if($(this).attr("src")==='../images/wezhan/zan.png'){
+            $(this).attr("src","../images/wezhan/zan2.png");
+            }else{
+              $(this).attr("src","../images/wezhan/zan2.png");
+              $(this).attr("src",'../images/wezhan/zan.png')
+            }
+        })
+		var url = '/sfs/api/v1/item/comment-like';
+		var data = {"commentId":$(event.target).attr("data-id")};
+		App.post(url, JSON.stringify(data), null, function (result) {
+			var info = result.body;
+			// if(info != undefined && info != null){
+			//     $(event.target).children("sup").html(info.likeCountDisplay);
+			// }
+		});   
+    }
+//实盘社交详情
+function requestSfsMyComment(){
+    var data = {
+        'itemId': groupId,
+        'pageSize': 10,
+        'pageNo': 1,
+		'itemType':5
+    };
+    App.post("/sfs/api/v1/message-board/my-comment-info" ,JSON.stringify(data),  null, function(result){
+
+        if(result.body != undefined && result.body != null){
+        	var item = result.body.rows;
+        	var htm = '';
+        	for(var k in item){
+        		var item2 = item[k];
+            htm+= '<div class="liuyan">'+
+					'<div class="left">'+
+						'<div class="photo" style="background:url(\''+item2.avatarImg+'\') no-repeat;background-size:cover"></div>'+
+					
+						'<div class="wenzi">'+
+						   '<div class="text">'+item2.nickname+'</div>'+
+						   '<div class="text2">'+item2.commentContent+'</div>'+
+						'</div>'+
+					'</div>'+
+					'<div class="right">'+
+						'<div class="zan"><img src="../images/wezhan/zan.png" alt="" onclick="custLike()" data-id="'+item2.commentId+'"><span>'+item2.likeCountDisplay+'</span></div>'+
+					'</div>'+
+				'</div>';			
+				
+        	}
+        	$("#list2").html(htm);
+			$("#c_2").html("("+ Number(item.length)+")");
+        }
+    });
+}*/
+
+    // 全部文字显示
+
+         $(".yeji .text").each(function(){
+            var maxwidth=50;//设置最多显示的字数
+            var text=$(this).text();
+            if($(this).text().length>maxwidth){
+                $(this).text($(this).text().substring(0,maxwidth));
+                $(this).html($(this).html()+"..."+"<a href='###'style='color:#148ce6;margin-left:0.5rem'>查看全部</a>");//如果字数超过最大字数，超出部分用...代替，并且在后面加上点击展开的链接；
+            };
+            $(this).find("a").click(function(){
+                $(this).parent().text(text);//点击“点击展开”，展开全文
+            })
+        })
+// 切换
+    //实盘与收益切换
+    $(".qiehuan").eq(1).hide()
+    $('.shipan div').click(function () {
+        if ($(this).hasClass("active")) {
+            return;
+        }
+        $(this).addClass("active").siblings().removeClass('active');
+        // $(this).parent().next(".qiehuan").hide().eq($(this).index()).show();
+        // $(this).parent().siblings().hide().eq($(this).index()).show()
+        $(this).parent().find($(".qiehuan").hide().eq($(this).index()).show());
+    });
+
+    // 留言
+    $('.all span').click(function () {
+        if ($(this).hasClass("hot")) {
+            return;
+        }
+        $(this).addClass("hot").siblings().removeClass('hot');
+        // $(this).parent().next("qiehuan").hide().eq($(this).index()).show();
+        // $(this).parent().siblings().hide().eq($(this).index()).show()
+        
+    });
+   // 留言
+    $('.dongtai div').click(function () {
+        if ($(this).hasClass("hot")) {
+            return;
+        }
+        $(this).addClass("hot").siblings().removeClass('hot');
+        // $(this).parent().next("qiehuan").hide().eq($(this).index()).show();
+        // $(this).parent().siblings().hide().eq($(this).index()).show()
+        $(this).parent().find($(".jilu").hide().eq($(this).index()).show());
+    });
+
+
+
+		$(".tab2 li").click(function () {
+			if ($(this).hasClass("active")) { return; }
+			$(this).parents("ul").find("li").eq($(this).index()).addClass("active").siblings().removeClass('active');
+
+			var index = $(this).index();
+			switch(index)
+			{
+				case 0:
+					getChartData(groupId, "0,4", 1, establishDateStr);
+					break;
+				case 1:
+					getChartData(groupId, "0,4", 9, establishDateStr);
+					break;
+				case 2:
+					getChartData(groupId, "0,4", 2, establishDateStr);
+					break;
+				case 3:
+					getChartData(groupId, "0,4", 3, establishDateStr);
+					break;
+				case 4:
+					getChartData(groupId, "0,4", 4, establishDateStr);
+					break;
+
+			}
+
+		});
+
+
+
+        var option_2 = {
+            color: ['#fb5c5f', '#fe7e01', '#f11', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'],
+            tooltip: {
+                show: true, trigger: 'axis',
+                axisPointer: {
+                    type: 'cross', label: { backgroundColor: 'rgba(0,0,0,0)', textStyle: { color: "red" } }, lineStyle: { color: "#1aa2e6" }
+                },
+                position: ["10%", "3%"], alwaysShowContent: true, backgroundColor: "rgba(0,0,0,0)", textStyle: { color: "#333" },
+
+                formatter: function (itme) {
+                    var itmedata1 = itme[0].data + '%';
+                    var itmedata2 = itme[1].data + '%';
+                    var color1 = ""; var color2 = "";
+                    if(itme[0].data >= 0.00){color1 = "red";}else{color1 = "green";}
+                    if(itme[1].data >= 0.00){color2 = "red";}else{color2 = "green";}
+                    return ' <div style="width: 100%;font-size: 14px;color:#666"><span style="display:inline-block;width:0.65rem;height:0.15rem;background:#148ce6;vertical-align: middle;"></span>&nbsp;&nbsp;组合收益率：<span style ="color:'+color1+'" >'+itmedata1+'</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="display:inline-block;width:0.65rem;height:0.15rem;background:#fb5c5f;vertical-align: middle;"></span>&nbsp&nbsp参考标的：<sapn style ="color:'+color2+'">'+itmedata2+'</sapn><img onclick="showPoint()" src="../images/fundgroup/warningIcon.png" class="point1" alt="" style="width:0.7rem;height:0.7rem;margin-left:0.2rem;display:inline-block;vertical-align: middle;"></div>'
+                }
+            },
+            grid: { left: '3%', right: '4%', bottom: '5%', top: "20%", containLabel: true },
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: false,
+                    axisTick: { show: false },
+                    splitLine: { show: true, lineStyle: { color: "#f1f1f1" } },
+                    axisLine: { show: true, lineStyle: { color: "f1f1f1" } },
+                    axisLabel: { interval: 30 },
+                    data: []
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    axisLine: { show: true, lineStyle: { color: "f1f1f1" } },
+                    axisTick: { show: false },
+                    splitLine: { show: true, lineStyle: { color: "#f1f1f1" } },
+                    axisLabel: { show: true, formatter:  function (value, index) {
+                            return value.toFixed(2)+"%";
+                        }, textStyle: { color: "#999999", fontWeight: "bolder", fontFamily: "Arial" } },
+                    axisPointer: { label: { show: false }, lineStyle: { type: "solid", color: "#1aa2e6" } }
+                }
+            ],
+            series: [
+                {
+                    symbol: "none", name: '组合收益', type: 'line', smooth: true,
+                    showSymbol: false,
+                    hoverAnimation: false,
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0, color: '#e8f4fd' // 0% 处的颜色
+                            }, {
+                                offset: 1, color: '#fff' // 100% 处的颜色
+                            }], false)
+                        }
+                    },
+                    lineStyle: {
+                        normal: {
+                            color: "#148ce6",
+                            width: 1
+                        }
+                    },
+                    data: []
+                },
+                {
+                    symbol: "none", name: '沪深300', type: 'line', smooth: true,
+                    showSymbol: false,
+                    hoverAnimation: false,
+                    lineStyle: {
+                        normal: {
+                            color: "#fb5c5f",
+                            width: 1
+                        }
+                    },
+                    data: []
+                },
+            ]
+        };
+        function setOption(option, incomes1, incomes2) {
+            var result1 = formattingIncomes(incomes1);
+            var result2 = formattingIncomes(incomes2);
+
+            option.xAxis[0].data = result1.xArr;
+            option.xAxis[0].axisLabel.interval = result1.xArr.length - 2;
+            option.series[0].data = result1.yArr;
+            option.series[1].data = result2.yArr;
+
+        }
+        function draw(myChart, option) {
+            if (!((option.series[0].data && option.series[0].data.length > 0) || (option.series[1].data && option.series[1].data.length > 0))) {
+                option.xAxis[0].data = ["", ""];
+                option.xAxis[0].axisLabel.interval = ["", ""].length - 2;
+                // $(".noData").show();
+            } else {
+                // $(".noData").hide();
+            }
+            myChart.setOption(option);
+            setTimeout(function () {
+                //myChart.dispatchAction({ type: 'showTip', seriesIndex: 1, dataIndex: 10 });
+            }, 0);
+        }
+
+        function formattingIncomes(incomes) {
+            var xArr = [], yArr = [];
+            var len = incomes.length;
+            for (var i = 0; i < len; i++) {
+                var chartDt = incomes[i].chartDt;
+                xArr.push(chartDt.substr(-4, 2) + "-" + chartDt.substr(-2, 2));
+                yArr.push((incomes[i].chartNum-0).toFixed(2));
+            }
+            return { xArr: xArr, yArr: yArr };
+        }
+})
+
+		function showPoint(){
+			$("#point1").show();
+		}
+		$(".question").on("click",function(){
+			$("#question").show();
+		});
+</script>
+</body>
+</html>

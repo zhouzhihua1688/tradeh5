@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>取出零花钱</title>
+    <!-- <link rel="stylesheet" href="css/base.css"> -->
+    <link rel="stylesheet" href="../base/css/base.css">
+    <link rel="stylesheet" href="css/pocketMoneyOut.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+</head>
+
+<body>
+<div id="app" v-cloak>
+    <div class="main">
+        <div class="head-tips">温馨提示：由于同卡进出原则，仅可取出本人存入的零花钱</div>
+        <div class="payment" @click="showCard=true" style="margin-bottom:0.5rem">
+            <div class="payment-title"><img :src="'/mobileEC/images/bank/'+currentPayInfo.bankNo+'.png'" alt=""></div>
+            <div class="payment-mode">
+                <div>{{currentPayInfo.bankGrpName}}</div>
+                <div class="balance">{{currentPayInfo.bankAccoDisplay}}</div>
+            </div>
+            <div class="payment-img"><img src="img/arr.png" alt=""></div>
+        </div>
+        <div class="cash-type">
+            <div class="cash-radio" :class="{cashActive:cashIndex==1}" @click="cashRadio('1')"></div>
+            <div>
+                <span class="fast-cash">快速取现</span>
+                <span class="fast-notes" style="font-size: 0.65rem"></span>
+                <!-- <span class="fast-money">50,000.00</span>元，<span class="fast-num">5</span>次 -->
+            </div>
+        </div>
+        <div class="cash-type">
+            <div class="cash-radio" :class="{cashActive:cashIndex==0}" @click="cashRadio('0')"></div>
+            <div>
+                <span class="fast-cash">普通取现</span>
+                <span class="cash-notes" style="font-size: 0.65rem"></span>
+                <!-- <span class="fast-money">当日有收益</span> -->
+            </div>
+        </div>
+
+        <!-- 选择已有账户浮层 -->
+        <!--  <div class="layer animated slideInDown" style="z-index:100;" v-if="showAccount" @click="closeAccount()">
+             <div class="account">
+                 <div class="account-title">已有账户</div>
+                 <div class="account-List" v-if="arAcctList.length>0" v-for="(item,index) in arAcctList" @click.stop="selectArAcct(index)">
+                     <div class="account-name" v-text="item.arAcctName"></div>
+                     <div><img src="img/arr.png" alt=""></div>
+                 </div>
+                 <div class="newAccount" @click.stop="selectArAcct('create')">
+                   <div class="addAccount">+使用新账户</div>
+                 </div>
+             </div>
+         </div> -->
+
+        <div class="roll-enter" @click="ruleBtn()">
+            <div class="roll-money">取现金额</div>
+            <!-- <div class="roll-rule">交易规则</div> -->
+        </div>
+        <div class="enter-amount">
+            <div class="mark">￥</div>
+            <div class="enter-money">
+                <div class="turn-chinese"><img src="img/triangle.png"><span v-text="chinese"></span></div>
+                <div class="input-number"><input type="number" v-model="inputValue" placeholder="请输入取现金额"></div>
+            </div>
+            <!-- <div class="close" @click="close"><img src="img/close.png"></div>  -->
+            <div style="width:20%;font-size:0.65rem;color:#148CE6" @click="putAll()">全部取出</div>
+        </div>
+        <div class="cash-rule">
+            <div class="cash-left">
+                <p>本卡可取金额<span style="color:#FB5C5F" v-text="numFormat(totalTakeBackInfo)"></span>元</p>
+                <p>本账户总可取金额<span v-text="numFormat(totalTakeBackInfo)"></span>元</p>
+            </div>
+            <!-- <div class="cash-right">取现规则</div> -->
+        </div>
+
+        <div class="for-whom" style="margin-top:0.5rem" @click=forOut()>
+            <div class="for-title">取出谁的</div>
+            <div class="for-name"><span v-text="forName"></span>
+                <!-- <img src="img/arr.png" alt=""> -->
+            </div>
+        </div>
+        <div class="fgx"></div>
+        <div class="this-children" @click="showLayer()">
+            <div class="this-title">支取原因</div>
+            <div class="this-type"><span v-text="planTypeName"></span><img src="img/arr.png" alt=""></div>
+        </div>
+
+        <!--  <div class="choose-money">
+              <div class="two-thousand" v-for="(item,index) in amount" @click="changeMoney(index,item)" :class="{active:(index===number&&inputValue)}"><span v-text="item.value"></span><span>元</span></div>
+         </div> -->
+        <!-- <div class="rate">年投顾服务费率：<s>{{groupInfo.investmentServicePerc}}%</s>
+             <span class="rate-red">{{groupInfo.discountRate?groupInfo.discountRate:groupInfo.investmentServicePerc*0.01}}%</span>
+         </div>  -->
+
+        <!-- 选择支付方式浮层 -->
+        <div class="choose-pay animated slideInDown" style="z-index:100;" v-if="showCard" @click="showCard=false">
+            <div class="bank-card">
+                <div v-for="(item,index) in bankList" @click.stop="choosePay(index)">
+                    <template v-if="item.cashFrom=='V'">
+                        <div class="xjb">
+                            <div class="xjb-img"><img :src="img/xjb.png" alt=""></div>
+                            <div class="xjb-title">
+                                <div class="xjb-name">{{item.bankGrpName}}</div>
+                                <div class="xjb-balance">{{item.limitRemark}}</div>
+                            </div>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <div class="card">
+                            <div class="card-img"><img :src="'/mobileEC/images/bank/'+item.bankNo+'.png'" alt=""></div>
+                            <div class="card-title">
+                                <div class="card-name">{{item.bankGrpName}} [{{item.bankAccoDisplay}}]</div>
+                                <div class="card-balance">{{item.limitRemark}}</div>
+                            </div>
+                            <div class="card-btn">
+                                <div class="card-text" :class="signWayTransfer(item.signWay).class">
+                                    {{signWayTransfer(item.signWay).text}}
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+        <div class="check-box" v-if="cashIndex==1">
+            <div class="check-radio" :class="{checkActive:checkIndex==='0'}" @click="checkRadio('0')"></div>
+            <div @click="jumpAgreement()">同意<span>《快速取现服务协议》</span></div>
+        </div>
+        <div class="buy-btn" :class="{opacity:checkIndex==='0'}" @click="pocketMoneyOut()">确认</div>
+
+    </div>
+    <!-- 这是零花钱类型弹窗   -->
+    <div class="layer">
+        <div class="layer-wrap">
+            <div class="layer-body">
+                <div class="money-title">
+                    <div @click="closeLayer()">取消</div>
+                    <div>支取原因</div>
+                    <div @click="confirmPocketType()">确认</div>
+                </div>
+                <div class="money-type" v-for="(item,index) in pocketTypeList" :key="index">
+                    <div v-text="item.planTypeName"></div>
+                    <div class="input" v-if="item.orderNum=='99'"><input type="text" placeholder="不超过六个字"
+                                                                           maxlength="6" v-model="customName"></div>
+                    <div class="checkRadio" :class="{radioActive:index===radioIndex}"
+                         @click="checkMoneyOut(index,item)"></div>
+                </div>
+                <!--           <div class="money-type">
+                            <div>压岁钱</div>
+                            <div class="checkRadio"></div>
+                          </div>
+                          <div class="money-type">
+                            <div>生日红包</div>
+                            <div class="checkRadio"></div>
+                          </div>
+                          <div class="money-type">
+                            <div>奖励红包</div>
+                            <div class="checkRadio"></div>
+                          </div> -->
+                <!--
+                          <div class="custom-title">
+                            <div>自定义</div>
+                            <div><input type="text" placeholder="不超过六个字"></div>
+                            <div class="checkRadio" @click="checkCustom()"></div>
+                          </div> -->
+            </div>
+        </div>
+    </div>
+    <!--  <footer class="footer_fiexd" :class="{active:footerActvie}" @click="buy">
+         <div>确认转入</div>
+     </footer> -->
+    <!-- <div class="mask-protocol" style="display: none;" v-show="protocolShow">
+        <div class="protocol-wraper">
+          <div class="protocol-pdf">
+            
+          </div>
+          <p class="fixed-top">{{pdfInfo.agreementName}}</p>
+            <button class="fixed-btn" disabled @click="pdfConfirm">我知道了{{pdfInfo.countDown}}s</button>
+        </div>
+    </div> -->
+
+</div>
+<script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../base/js/utils.js"></script>
+<script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+<!-- <script src="js/jquery-3.2.1.min.js"></script>
+<script src="./js/utils.js"></script>
+<script src="./js/vue.js"></script> -->
+<!-- <script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script> -->
+<!-- <script src="./js/pdf.js"></script> -->
+<script src="./js/pocketMoneyOut.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>自选讨论</title>
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="../base/css/common.css">
+    <link rel="stylesheet" href="./css/mint.css">
+    <link rel="stylesheet" href="./css/neplayer.min.css">
+    <link rel="stylesheet" href="css/freeToDiscuss.css">
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script> 
+    <style>
+        .clearfix {
+                zoom: 1;
+            }
+    </style>  
+</head>
+
+<body>
+    <div id="app" v-cloak>
+   
+        <div class="content">
+            <div :style="'overflow:' + (isHandleMore?'hidden':'scroll') + ';height:100vh'"
+                v-infinite-scroll="loadBottom" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
+                <mt-loadmore :auto-fill="false" :top-method="loadTop" :bottom-all-loaded="allLoaded" ref="loadmore">
+                    <!-- <div class="recommend" @touchmove.stop="recommondMove">
+                        <div v-show="recommendData[0].length>0" v-for="(item,index) in recommendData[0]">
+                            <img :src="item.imageUrl"
+                                :class="index==(recommendData[0].length-1)?'recommend-cover':'recommend-cover recommend-cover-active'"
+                                @click="gotoUrl(item)" :alt="item.imageName" />
+                        </div>
+                    </div> -->
+               
+                 
+                    <ul class="content-list">
+                        <li class="sub-block" v-show="msgAllData.length>0" v-for="(item,index) in msgAllData"
+                            :key="index">
+                            <div class="sub-content">
+                                <div class="sub-header clearfix">
+                                    <img :src="item.userInfo.avatarImage" class="uicon fl"
+                                        @click="gotoUser(item.userInfo.userId)">
+                                    <div class="uinfo fl" @click="gotoUser(item.userInfo.userId)">
+                                        <h4 class="uinfo-t">
+                                            <span class="uname">{{item.userInfo.nickname}}</span>
+                                            <i class="uicon-s" v-show="item.userInfo.verified"></i>
+                                            <!-- <span class="utag"
+                                                v-show="item.userInfo.title">{{item.userInfo.title}}
+                                            </span> -->
+                                        </h4>
+                                        <h4 class="uinfo-b">{{item.createTime | showTime(item.systemTime)}}</h4>
+
+                                    </div>
+                                    <!-- 徽章 -->
+                                    <!-- <div v-if='item.userInfo.badgeList&&item.userInfo.badgeList.length>0' v-for='(item2,index2) in item.userInfo.badgeList'>
+                                        <img :src="item2.iconImageLight" class="uicon fl badgeImg" :key='item2.badgeId'>
+                                    </div> -->
+                                
+                                    <!-- <a href="javascript:;" v-if="!item.admin"
+                                        :class="'relation fr '+((item.userInfo&&item.userInfo.followStatus==1)?'followed':'')"
+                                        @click="followUser(item)"
+                                        v-text="(item.userInfo&&item.userInfo.followStatus==1)?'已关注':'+关注'"></a> -->
+                                </div>
+                                <!-- <p class="sub-tag" v-if="item.topicName">
+                                    <a href="javascript:;" @click="gotoTopic(item.topicId)">#{{item.topicName}}</a>
+                                </p> -->
+                                <!-- 20220523新增多个话题 -->
+                                <p class="sub-tag" style="overflow-x: auto;white-space: nowrap;" v-if="item.topics&&item.topics.length>0">
+                                    <template  v-for="(itemTopics,indexTopics) in item.topics" :key="indexTopics">
+                                        <a href="javascript:;" @click="gotoTopic(itemTopics.id)" style="margin-right:0.65rem;">#{{itemTopics.name}}</a>
+                                    </template> 
+                                </p>
+                                <article>
+                                    <!-- <h2 class="article-t" v-html="item.title" @click="more(item.postId)"></h2> -->
+                                    <!-- 20220523新增置顶 -->
+                                    <h2 class="article-t"  @click="more(item.postId)">
+                                        <span v-show="item.level=='1'" v-text="'置顶'" style="display: inline-block;width:2rem;height:1rem;line-height:0.95rem;padding:0.05rem 0.1rem;
+                                        text-align: center;background:#fb5c5f;color:#fff;border-radius:0.15rem;font-size:0.8rem;margin-right:0.35rem">
+                                        </span>{{item.title}}
+                                    </h2>
+                                    <div class="article-c" v-show="item.summary" @click="more(item.postId)">
+                                        <p v-html="item.summary"></p>
+                                    </div>
+            
+                                    <div class="article-handle">
+                                        <p @click="thumb(item,index)" :class="{active:item.thumb}">
+                                            <i></i>
+                                            <span>{{item.thumbCount}}</span>
+                                        </p>
+                                        <!-- 9534 -->
+                                        <p @click="commentJump(item.postId,item.commentCount)">
+                                            <i></i>
+                                            <span>{{item.commentCount}}</span>
+                                        </p>
+                                        <p @click="collectPost(item,index)" :class="{active:item.collect}">
+                                            <i></i>
+                                            <span>{{item.collect?'取消收藏':'收藏'}}</span>
+                                        </p>
+                                        <p @click="handleMore(item)">
+                                            <span><i></i><i></i><i></i></span>
+                                        </p>
+                                    </div>
+                                    <div class="pop-list" v-show="item.isHandleMore" :data-id="item.postId">
+                                        <div class="pop-triangle-up"></div>
+                                        <ul>
+                                            <li @click="reportPost(item.postId)"><i></i>投诉</li>
+                                            <li v-if='item.handleMore_admin' @click="delPost(item.postId)"><i></i>删除
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </article>
+                            </div>
+                            <!-- <div class="sub-comment" v-if='item.showComment'>
+                                <div  class="submit" @click.stop.prevent="focusComment(item,index)">
+                                    <input type="text" :placeholder="isComment==index?currentPreset:'喜欢就评论'"
+                                    autofocus='true' ref="focusbottom"   v-model="item.currentComment">
+                                    <span @click.stop.prevent="comment(currentMsgData,currentMsgIndex,item)"
+                                        v-show="isComment==index">发送</span>
+                                </div>
+                            </div> -->
+                        </li>
+                        <!-- <template v-if="msgAllData.length>9">
+                            <div class="reloading" v-show="showLoading">
+                                <mt-spinner type="fading-circle"></mt-spinner>
+                                <p>加载中...</p>
+                            </div>
+                        </template>
+                        <template v-if="msgAllData.length==0&&!loading&&recommendUserList.length==0">
+                            <div class="no-content" :style="'height:' + noContentHeight">
+                                <img src="./img/noContent.png" alt="">
+                                <p>暂无内容</p>
+                            </div>
+                        </template> -->
+                        
+                    </ul>
+
+                </mt-loadmore>
+            </div>
+        </div>
+        <mt-popup v-model="popupVisible" position="bottom" class="recomment">
+            <h4 class="recomment-t">
+                <i @click="recommentVisible"></i> 全部回复
+            </h4>
+            <div class="recomment-c">
+                <div class="recomment-content">
+                    <div class="re-user">
+                        <img src="./img/normal.png" alt="" class="re-icon">
+                        <span>风轻云淡</span>
+                    </div>
+                    <p class="re-summery">
+                        一直在苦苦等待机会买入。
+                    </p>
+                    <p class="re-time">05-27 09:26</p>
+                </div>
+                <p class="recomment-count">回复 · <span>3</span>条</p>
+                <div class="recomment-list">
+
+                </div>
+                <div class="recomment-bottom"></div>
+            </div>
+            <div class="recomment-flex">
+                <input type="text" placeholder="回复楼主">
+            </div>
+        </mt-popup>
+      
+     
+        <div class="pop-list-back" v-show="isHandleMore" @click.stop.prevent="hideHandleMore">
+
+        </div>
+    </div>
+    <script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+
+    <script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.base64.js"></script>
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+    <script src="./js/moment.min.js"></script>
+    <script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+
+    <script src="./js/mint.js"></script>
+    <script src="./js/neplayer.min.js"></script>
+    <script src="../base/js/lib/swiper-4.2.2.min.js"></script>
+
+    <script type="text/javascript" src="js/freeToDiscuss.js"></script>
+    <script type="text/javascript" src="../base/js/lib/iscroll.js"></script>
+</body>
+
+</html>

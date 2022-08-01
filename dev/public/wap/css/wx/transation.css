@@ -1,0 +1,317 @@
+/*设置资产s*/
+img{
+    width: 100%;
+    display: block;
+}
+.transaction-set{
+    padding: 0 0.75rem;
+}
+.transaction-set .title{
+    font-size: 1rem;
+    color: #000;
+    text-align: center;
+    padding-top: 2.5rem;
+    padding-bottom: 1.75rem;
+}
+.transaction-set .input-box{
+    border-bottom: solid 1px #efefef;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    padding-bottom: 1px;
+}
+.transaction-set .input-box label{
+    font-size: 0.7rem;
+    color: #000;
+}
+.transaction-set .input-box input{
+    /*            height: 2.5rem;
+                line-height: 2.5rem;*/
+    font-size: 0.7rem;
+    color: #333;
+    padding-left: 0.6rem;
+    width: 12rem;
+    /*border-bottom: solid 1px #efefef;*/
+}
+.transaction-set .input-box .my-yzm{
+    width: 10rem;
+}
+.input-box .yzm-position{
+    display: inline-block;
+    width: 2.5rem;
+    height: 1rem;
+    float: right;
+    margin-top: 0.75rem;
+    margin-right: 0.2rem;
+}
+.input-box .transaction-on-off{
+    display: inline-block;
+    width: 1.5rem;
+    height: 0.92rem;
+    float: right;
+    margin-top: 0.825rem;
+    margin-right: 0.2rem;
+    overflow: hidden;
+    position: relative;
+    /*          background: url(img/icon-on.png) no-repeat;
+              background-size: 100% 100%;*/
+}
+.input-box .transaction-on-off img{
+    position: absolute;
+    bottom: 0;
+}
+.input-box .cur img{
+    position: absolute;
+    top: 0;
+}
+.transaction-set .btn-big{
+    margin-top: 2.5rem;
+}
+.download-type{
+    padding: 1.6rem 0.75rem 0 0.75rem;
+}
+.download-type p{
+    background-color: #f6f6f6;
+    color: #000;
+    font-size: 0.7rem;
+    text-align: center;
+    height: 1.8rem;
+    line-height: 1.8rem;
+    border-radius: 0.3rem;
+    width: 100%;
+}
+.download-type .two-size{
+    margin-top: 5px;
+}
+.download-type .two-size p{
+    width: 8.55rem;
+    text-align: left;
+    text-indent: 1em;
+}
+.download-type .two-size p i{
+    display: inline-block;
+    width: 0.825rem;
+    height: 0.975rem;
+    vertical-align: sub;
+    margin-right: 5px;
+}
+/*设置资产e*/
+
+/*设置资产s*/
+.activity-nav{
+    color: #666;
+    font-size: 0.75rem;
+}
+.activity-nav ul{
+    width: 100%;
+    background-color: #fff;
+}
+.activity-nav ul li{
+    width: 50%;
+    text-align: center;
+    height: 2.2rem;
+    line-height: 2.2rem;
+}
+.activity-nav ul li.current{
+    color: #fb5c5f;
+    position: relative;
+}
+.current:after{
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    background-color: #fb5c5f;
+    bottom: 0;
+    left: 0;
+    color: #000;
+}
+.activity-content{
+
+}
+.activity-ing{
+    padding: 1rem 0.75rem 0 0.75rem;
+}
+.activity-content{
+    color: #666;
+    font-size: 0.45rem;
+}
+.activity-content ul li{
+    background-color: #fff;
+    margin-bottom: 0.45rem;
+}
+.activity-title{
+    padding: 0.25rem 0 0.25rem 0.45rem;
+    margin-top: 2px;
+}
+.activity-content ul li h4{
+    font-size: 0.55rem;
+    color: #000;
+    line-height: 0.8rem;
+}
+.activity-content ul li p{
+    line-height: 0.8rem;
+}
+.activity-end{
+    display: none;
+}
+.activity-end ul li{
+    position: relative;
+}
+.activity-end ul li .end-lable{
+    position: absolute;
+    display: block;
+    width: 2.625rem;
+    height: 0.9rem;
+    line-height: 0.9rem;
+    text-align: center;
+    background-color: rgba(0,0,0,0.6);
+    color: #fff;
+    left: 0;
+    top: 0;
+    font-size: 0.5rem;
+}
+/*设置资产e*/
+
+/*资产证明s*/
+.assets-prove .content { margin:0 .75rem 3rem; padding: .75rem; background-color: #fff; font-size: .6rem; color: #000; line-height: 1.5; }
+.assets-prove .content h1 { text-align: center; height: 1.9rem;}
+.assets-prove .print-date { text-align: right; height: 2.1rem; padding-top: .2rem;}
+.assets-prove table { border-collapse: collapse; margin-top: .4rem; width: 100%; }
+.assets-prove table td { border: 1px solid #666; padding: .3rem .45rem; width: 33% }
+.assets-prove table:last-of-type td { width: auto;}
+.assets-prove p:last-of-type { text-align: right;}
+.assets-prove footer { width: 100%; position: fixed; bottom: 0; left: 0;  }
+.assets-prove footer ul { display: flex; display: -webkit-flex;background-color: #fff;}
+.assets-prove footer ul li { flex: 1; -webkit-flex: 1; border-top: 1px solid #ffcece; border-left:  1px solid #ffcece;}
+.assets-prove footer ul li:first-child {border-left: none;}
+.assets-prove footer ul li a { display: block; width: 100%; height: 2.5rem;text-align: center; line-height: 2.5rem; color: #fe5a5b; font-size: .85rem;}
+/*资产证明e*/
+
+/*总资产s*/
+.header-huge { padding: 0 0.75rem; height: 7.25rem; background-color: #fe7e01; text-align: center; color: #fff;position: relative}
+.header-huge h1 { line-height: 2.25rem; font-size: 0.7rem; padding-top: 1.1rem;}
+.header-huge p { font-size: 1.75rem; line-height: 1.5; }
+
+.image-box { width: 1.7rem; margin: 0.85rem 0.9rem 0.775rem  0.75rem;}
+.grid-list-item h3 { font-size: 0.75rem; color: #000; margin-top: 0.65rem; line-height: 1.5; height: 1.2rem;}
+.grid-list-item p { font-size: 0.65rem; color: #666666; line-height: 1.5;}
+.five-g { padding: 1.85rem .75rem;}
+.header-huge img{width: 4rem;}
+.chaxun{
+    position: absolute;
+    right: 0;
+    top:0.5rem;
+}
+/*总资产e*/
+
+/*交易查询s*/
+.query-list{
+    font-size: 0.7rem;
+    color: #666;
+    text-align: center;
+    background-color: #fff;
+    height: 2rem;
+    line-height: 2rem;
+    margin-bottom: 0.5rem;
+    z-index: 999;
+}
+.query-list i{
+    display: inline-block;
+    width: 0.7rem;
+    height: 0.4rem;
+    background: url(../img/icon_down.png) no-repeat center center;
+    background-size: contain;
+    vertical-align: middle;
+    margin: -2px 0px 0 0;
+    margin-left: 0.1rem;
+}
+.content ul li .fl{
+    max-width: 60%;
+}
+.content ul{
+    padding: 0 0.65rem 0 0.65rem;
+    background-color: #fff;
+}
+.content ul li .fl p{
+    font-size: 0.7rem;
+    color: #000000;
+    text-align: left;
+    padding-bottom: 0.2rem;
+}
+.content ul li{
+    background-color: #fff;
+    padding: 0.65rem 0rem 0.65rem 0rem;
+    border-bottom: solid 2px #f8f8f8;
+}
+.content ul li{
+    position: relative;
+}
+.content ul li .fr{
+    text-align: right;
+    height: 1.7rem;
+    position: absolute;
+    right: 0;
+    top:50%;
+    margin-top: -0.85rem;
+}
+.content ul li .fl span{
+    font-size: 0.6rem;
+    color: #979797;
+}
+.content ul li .fr p{
+    font-size: 0.6rem;
+    color: #979797;
+    /*padding-top: 0.5rem;*/
+    padding-bottom: 0.2rem;
+}
+.content ul li .fr span{
+    font-size: 0.6rem;
+    color: #979797;
+    padding-top: 1rem;
+}
+.content ul li .fr span.leave{
+    color: #f93135;
+}
+.grid-list li.current i{
+    display: inline-block;
+    width: 0.825rem;
+    height: 0.825rem;
+    background: url(../img/xuan.png) no-repeat;
+    background-size: cover;
+    margin-top: 0.6rem;
+}
+.frist-li{
+    border-top: solid 1px #eeeeee;
+}
+.query-cur i{
+    background: url(../img/icon_top.png) no-repeat center center;
+    background-size: contain;
+}
+.query-cur{
+    position: fixed;
+    left: 0;
+    top:0;
+    width: 100%;
+}
+.stop-scro{
+    height: 100%;
+    overflow: hidden;
+}
+/*交易查询e*/
+
+/*设置资产s*/
+
+/*设置资产e*/
+
+/*设置资产s*/
+
+/*设置资产e*/
+
+/*设置资产s*/
+
+/*设置资产e*/
+
+/*设置资产s*/
+
+/*设置资产e*/

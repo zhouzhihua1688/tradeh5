@@ -1,0 +1,139 @@
+body {
+    background-color: #f6f6f6;
+}
+
+.question {
+    height: 5rem;
+    line-height: 5rem;
+    font-size: 0.75rem;
+    background-color: #fff;
+    text-align: center;
+}
+
+.question .phone_number {
+    margin: 0 0.25rem /* 10/40 */;
+    font-size: 0.8rem /* 34/40 */;
+}
+
+.bottom {
+    margin-top: 1rem /* 20/40 */;
+    display: flex;
+    padding: 0 0.75rem /* 30/40 */;
+    justify-content: space-between;
+}
+
+.bottom .btn1 {
+    width: 8.25rem /* 330/40 */;
+    height: 1.95rem /* 78/40 */;
+    line-height: 2rem;
+    text-align: center;
+    border-radius: 0.075rem /* 3/40 */;
+    color: #fe7e01;
+    border: 0.025rem /* 1/40 */ solid #fe7e01;
+    background-color: #fff;
+    font-size: 0.8rem /* 34/40 */;
+}
+
+.bottom .btn2 {
+    width: 8.25rem /* 330/40 */;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    border-radius: 0.075rem /* 3/40 */;
+    color: #fff;
+    background-color: #fe7e01;
+    font-size: 0.8rem /* 34/40 */;
+}
+
+/* tip弹窗 */
+.Bomb-box {
+    z-index: 10000000000000000000000;
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    top: 0;
+    left: 0;
+}
+
+.Bomb-box .Bomb-box-main {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 15rem;
+    background-color: #fff;
+    border-radius: 0.3rem;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.Bomb-box .Bomb-box-content {
+    padding: 1.5rem;
+}
+
+.Bomb-box .Bomb-box-content p {
+    text-align: center;
+    line-height: 1rem;
+}
+
+.Bomb-box .Bomb-box-ok {
+    display: block;
+    width: 13.5rem;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    color: #0070fa;
+    font-size: 0.75rem;
+    border-top: solid 0.025rem #eee;
+    margin: 0 auto;
+}
+
+.Bomb-box-download {
+    z-index: 10000000000000000000000;
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    top: 0;
+    left: 0;
+}
+
+.Bomb-box-download .Bomb-box-main {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 15rem;
+    background-color: #fff;
+    border-radius: 0.3rem;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.Bomb-box-download .Bomb-box-content {
+    padding: 1.5rem;
+}
+
+.Bomb-box-download .Bomb-box-content p {
+    text-align: center;
+    line-height: 1rem;
+}
+
+.Bomb-box-download .Bomb-box-ok {
+    display: block;
+    width: 13.5rem;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    color: #0070fa;
+    font-size: 0.75rem;
+    border-top: solid 0.025rem #eee;
+    margin: 0 auto;
+}

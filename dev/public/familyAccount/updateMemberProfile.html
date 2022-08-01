@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>修改成员档案</title>
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../base/css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/mobileSelect.css">
+    <link rel="stylesheet" type="text/css" href="../base/css/common.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+    <script type="text/javascript" src="../base/js/needLogin.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        body,
+        html {
+            background: #f6f6f6;
+        }
+
+        body {
+            left: 0%;
+            right: 0%;
+            font: 14px 'PingFang SC', 'Microsoft YaHei', Tahoma, Arial, sans-serif;
+        }
+
+        button {
+            outline: none;
+        }
+
+        /* 图片自适应 */
+        img {
+            width: 100%;
+            height: auto;
+            width: auto \9;
+            /* ie8 */
+            -ms-interpolation-mode: bicubic;
+            /*为了照顾ie图片缩放失真*/
+            border: none;
+            vertical-align: top;
+            outline: none;
+            display: block;
+        }
+
+        .main {
+            width: 100%;
+            height: 100%;
+        }
+
+        .tipText {
+            font-size: 0.6rem;
+            color: #fb5c5f;
+            padding: 0.75rem;
+            text-align: justify;
+            background: #fff7f7;
+        }
+
+        .photo {
+            width: 100%;
+            height: 8.0rem;
+            background: #fff url('img/addMemberProfile.png') no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .photo .img {
+            width: 100%;
+            padding-top:1rem;
+        }
+
+        .photo .img img {
+            width: 3.0rem;
+            height: 3.0rem;
+            margin: 0 auto;
+            border-radius: 50%;
+            /* padding-top: 1rem; */
+        }
+
+        .photo .modify {
+            width: 5.0rem;
+            height: 1.25rem;
+            background: #fff7f7;
+            border-radius: 1.25rem;
+            margin: 0 auto;
+            margin-top: 0.75rem;
+        }
+
+        .photo .modify div {
+            color: #fb5c5f;
+            font-size: 0.65rem
+        }
+
+        .photo .modify img {
+            width: 0.75rem;
+            height: 0.65rem;
+            vertical-align: top;
+            display: inline-block;
+            margin-left: 0.75rem;
+            margin-top: 0.3rem;
+        }
+
+        .photo .modify span {
+            display: inline-block;
+            text-align: center;
+            margin-left: 0.45rem;
+            margin-top: 0.2rem;
+        }
+
+        .detailList {
+            width: 100%;
+            height: 2.5rem;
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .detailList div {
+            width: 50%;
+            font-size: 0.75rem
+        }
+
+        .detailList div img {
+            width: 0.4rem;
+            height: 0.75rem;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 0.35rem;
+        }
+
+        .detailList div:nth-of-type(1) {
+            margin-left: 0.75rem;
+        }
+
+        .detailList div:nth-of-type(2) {
+            text-align: right;
+            margin-right: 0.75rem;
+        }
+
+        .add {
+            width: 17.25rem;
+            height: 2.25rem;
+            background: #0757b2;
+            border-radius: 0.25rem;
+            color: #fff;
+            font-size: 0.85rem;
+            text-align: center;
+            line-height: 2.25rem;
+            margin: 0 auto;
+            margin-top: 1.25rem;
+        }
+
+        input {
+            border: none;
+            outline: none;
+        }
+
+        .layer1 {
+            background-color: #fff;
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            left: 0;
+            overflow: auto;
+            z-index: 10;
+        }
+
+        .layer1 {
+            /* background-color: #4c4c4c; */
+            /* background: rgba(0, 0, 0, 0); */
+            height: auto;
+            width: 17.75rem;
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            overflow: auto;
+            z-index: 99999999;
+            margin-left: -8.875rem;
+            border-radius: 10px;
+        }
+
+        .gender .title {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 2.5rem !important;
+            line-height: 2.5rem !important;
+            border-bottom: 1px solid #eee;
+        }
+
+        .gender .title .cancel {
+            text-indent: 0.75rem;
+            font-size: 0.7rem;
+        }
+
+        .gender .choose {
+            text-indent: 0.75rem;
+            font-size: 0.7rem;
+            color: #000;
+            text-align: center;
+            height: 2.5rem;
+            border-bottom: 1px solid #eee;
+            line-height: 2.5rem
+        }
+
+        .gender .title .finish {
+            margin-right: 0.75rem;
+            font-size: 0.7rem
+        }
+
+        .gender .choose.active {
+            color: #148ce6;
+        }
+
+        .layer1 {
+            bottom: 0.5rem;
+        }
+
+        /*自定义角色*/
+        .customRoles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.507);
+            font-size: .7rem;
+        }
+
+        .customRoles>div {
+            background: #fff;
+            position: absolute;
+            left: 10%;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: .5rem .75rem 0;
+            border-radius: .2rem;
+        }
+
+        .customRoles .tips_text {
+            padding: .75rem;
+            text-align: center;
+            color: #000;
+        }
+
+        .customRoles .button {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            border-top: 1px solid #eee;
+            margin-top: .75rem;
+			font-size:.75rem !important;
+			width:100% !important;
+        }
+
+        .customRoles .button span {
+            margin-top: .25rem;
+            padding: .625rem 0;
+            margin-bottom: .25rem;
+            width: 100%;
+            color: #1370fa;
+        }
+
+        .customRoles .button span:nth-of-type(1) {
+            border-right: 1px solid #eee;
+        }
+
+        .customRoles .name {
+            width: 13.25rem;
+            height: 1.5rem;
+            border: 1px solid #eee;
+            margin: 0 auto;
+            border-radius: 0.125rem;
+        }
+
+        .customRoles .name input {
+            width: 13.25rem;
+            height: 1.5rem;
+        }
+    </style>
+     <!-- 上传图片css -->
+     <style>
+         input[type=button], input[type=submit], input[type=file], button { cursor: pointer; -webkit-appearance: none; }
+        .clip-container {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0,1);
+            overflow: hidden;
+            z-index: 100;
+        }
+        .foot-use{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+        .foot-use .uploader1 .button,.foot-use #clipBtn{
+            display: block;
+            float: left;
+            width: 50%;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            background-color: #148ce6;
+            font-size: .75rem;
+            color: #fff;
+            text-align: center;
+            outline: none;
+            border: none;
+            box-sizing: border-box;
+        } 
+        .foot-use .uploader1 .button{
+            
+            
+            border-right: 1px #fff solid;
+        }
+        .cropper-container{
+            position: absolute !important;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    </style>
+    <!-- <link rel="stylesheet" type="text/css" href="css/style.css" /> -->
+    <link rel="stylesheet" type="text/css" href="css/cropper.min.css">
+</head>
+
+<body>
+    <div class="main">
+        <!--<div class="tipText">档案建立后，您可选择为TA投资。当TA注册现金宝后，您可将档案关联至TA的现金宝账户，TA登录现金宝即可查看您为TA创建的投资计划。</div>-->
+        <div class="photo">
+            <div class="img"><img src="" alt="" class="iconUrl" style="display: none;"></div>
+            <div class="modify">
+                <div><img src="img/camera.png" alt=""><span>修改头像</span></div>
+            </div>
+        </div>
+        <article class="clip-container" style="display: none;">
+            <div id="clipArea">
+                <img src="" alt="" id="previewImg">
+            </div>
+            <div class="foot-use">
+                <div class="uploader1 blue">
+                    <input type="button" name="file" class="button" value="打开">
+                    <input type="file" accept="image/*" multiple class="js_upFile" style="display: none;">
+                    <!-- <input type="file" accept="image/*" capture="camera" class="js_upFile" style="display: none;"> -->
+                </div>
+                <button id="clipBtn">截取</button>
+            </div>
+        </article>
+        <div class="detailList">
+            <div>TA的昵称</div>
+            <!--<div><span><input id="nickName" value="" maxlength="5" style="text-align: end;border: none;"></span></div>-->
+            <div><span><input value="" placeholder="请填昵称" maxlength="5"
+                        style="text-align: end;border: none;width:5rem;font-size:0.75rem" id="nickName"></span></div>
+        </div>
+        <div class="detailList">
+            <div>TA的性别</div>
+            <!--<div><span id="gender" class="sex"></span><img src="img/arr.png" alt=""></div>-->
+            <div><span><input value="" placeholder="选择性别" maxlength="5"
+                        style="text-align:end;border: none;width:5rem;font-size:0.75rem" class="sex" id="gender"
+                        onfocus="this.blur();"></span><img src="img/arr.png" alt="" class="jiantou"></div>
+        </div>
+        <div class="detailList">
+            <div>TA的生日</div>
+            <!--<div>-->
+            <!--<span id="birthday"></span>-->
+            <!--<img src="img/arr.png" alt="">-->
+            <!--</div>-->
+            <div>
+                <span>
+                    <input value="" placeholder="选择日期" maxlength="5"
+                        style="text-align:end;border: none;width:5rem;font-size:0.75rem" id="birthday"
+                        onfocus="this.blur();">
+                    <span id="Date1"></span>
+                </span>
+                <img src="img/arr.png" alt="" class="jiantou">
+            </div>
+        </div>
+        <div class="detailList">
+            <div>TA在家庭中是</div>
+            <div><span id="roleName"></span><img src="img/arr.png" alt=""></div>
+        </div>
+        <div class="add">确认修改</div>
+        <!-- 弹窗 -->
+        <div class="tips" style="display:none">
+            <div>
+                <p class="tips_text"></p>
+                <a href="javascript:;">
+                    <p class="button close"><span>我知道了</span></p>
+                </a>
+            </div>
+        </div>
+        <!--自定义角色弹窗-->
+        <div class="customRoles" style="display: none">
+            <div>
+                <p class="tips_text">自定义角色</p>
+                <p class="name"><input type="text" placeholder="不超过5个字" maxlength="5"></p>
+                <a href="javascript:;">
+                    <p class="button"><span class="close">取消</span><span class="define">确定</span></p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="mask" style="display:none"></div>
+    <div class="layer0 animated slideInUp" id="layer0" style="display: none;">
+        <div class="giftlist giftlist0" style="height:16rem;overflow-y:auto">
+            <a href="javascript:;">
+                <div class="title" data="CREATE_TIME">按创建时间排序</div>
+            </a>
+            <a href="javascript:;">
+                <div class="title" data="BALANCE_PROFIT">按持有收益排序</div>
+            </a>
+            <a href="javascript:;">
+                <div class="title" data="TOTAL_ASSET">按计划总资产排序</div>
+            </a>
+        </div>
+        <div class="close">
+            <a href="javascript:;" style="color:#0070fa;font-size:0.75rem">取消</a>
+        </div>
+    </div>
+    <div class="layer1 animated slideInUp" style="display:none;">
+        <div class="gender">
+            <div class="title">
+                <span class="cancel" style="color:#148ce6">取消</span>
+                <span class="finish" style="color:#148ce6">完成</span>
+            </div>
+            <div class="choose active">男</div>
+            <div class="choose">女</div>
+        </div>
+    </div>
+    <div class="Bomb-box">
+        <div class="Bomb-box-main">
+            <div class="Bomb-box-content">
+                <p class="text-center"></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;"
+               onclick="this.parentElement.parentElement.style='display:none'">确定</a>
+        </div>
+    </div>
+    <script type="text/javascript" src="../base/js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/cropper.min.js"></script>
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+    <script type="text/javascript" src="js/mobileSelect.min.js"></script>
+    <script type="text/javascript" src="js/selectDate.js"></script>
+    <script>
+        var clipImgPath='';
+        var orignPath='';
+        // 图片截图上传
+        function get_File_Url(file) {
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function (e) {
+                $("#previewImg").attr("src", e.target.result);
+                $("#previewImg").data('cropper') && $("#previewImg").cropper('destroy');
+                $("#previewImg").cropper({
+                    dragMode: 'move', //拖拽模式
+                    aspectRatio: 1, //设置剪裁容器的比例
+                    viewMode: 1 //视图模式
+                });
+            }
+        }
+        // 检测图片格式
+        function check_Image_Format(value) {
+            var regexp = new RegExp("(.JPEG|.jpeg|.JPG|.jpg|.PNG|.png|.svg|.gif|.bmp)$", 'g');
+            return regexp.test(value);
+        }
+        $(".modify").click(() => {
+            $(".clip-container").show();
+        })
+        $(".uploader1 .button").click(() => {
+            $(".js_upFile").click();
+        })
+        $('.js_upFile').change(function () {
+            if (!check_Image_Format(this.value)) {
+                alert('格式错误！');
+                return;
+            }
+            get_File_Url(this.files[0]);
+        })
+        // 裁切并上传
+        $("#clipBtn").click(() => {
+            if (!$("#previewImg").data('cropper')) {
+                // alert('请先打开图片');
+                $('.text-center').text('请选择图片');
+                $('.Bomb-box').show();
+                return;
+            }
+            var cropper = $("#previewImg").data('cropper').getCroppedCanvas().toDataURL();
+            console.log(cropper);
+            var base64String = cropper; /*base64图片串*/
+
+            //这里对base64串进行操作，去掉url头，并转换为byte
+            var bytes = window.atob(base64String.split(',')[1]);
+            //处理异常，将ASCII码小于0的转换为大于0，这里有两种写法
+            // 第一种：
+            var ab = new ArrayBuffer(bytes.length);
+            var ia = new Uint8Array(ab);
+            for (var i = 0; i < bytes.length; i++) {
+                ia[i] = bytes.charCodeAt(i);
+            }
+            // Blob对象
+            var blob = new Blob([ab], {
+                type: 'image/jpeg'
+            }); //type为图片的格式
+            // FormData对象
+            var fd = new FormData();
+            fd.append('files', blob);
+            
+            var fileSize = Array.from(fd.entries(), ([key, prop]) => (
+                {[key]: {
+                "ContentLength": 
+                typeof prop === "string" 
+                ? prop.length 
+                : prop.size
+                }
+            }));
+            console.log(fileSize[0].files.ContentLength);
+            if(fileSize[0].files.ContentLength>5000000){
+                $(".Bomb-box p").html('文件不能超过5MB');
+                $(".Bomb-box").show();
+                return false;
+            }
+            utils.loadingShow();
+            $.ajax({
+                url: '/mobile-bff/v1/account/upload-picture?pictureType=1',
+                type: "POST",
+                processData: false, // 使用formData传参很重要的配置
+                contentType: false, // 使用formData传参很重要的配置
+                data: fd,
+                dataType: "json",
+                beforeSend: function (req) {
+                    req.setRequestHeader("version", "6.1");
+                },
+                success: function (res) {
+                    utils.loadingHide();
+                    if (res.returnCode === 0) {
+                        clipImgPath = res.body.picturePaths[0];
+                        $('.iconUrl').attr('src', cropper);
+                        $(".clip-container").hide();
+                    } else if (res.returnCode === 1000) {
+                        return utils.jumpLoginByChannelCode();
+                    } else {
+                        $(".Bomb-box p").html('文件过大，请重新上传');
+                        $(".Bomb-box").show();
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    utils.loadingHide();
+                    $(".Bomb-box p").html('文件过大，请重新上传');
+                    $(".Bomb-box").show();
+                },
+            })
+        })
+
+        var teamId = '';
+        //是否开启亲情宝 获取teamId
+        function getAccount() {
+            utils.get('/sfs/v1/accounts/is-open?version=6.6', null, function (result) {
+                if (result.returnCode == 0) {
+                    if (result.body.isOpen) {
+                        teamId = result.body.teamId
+                    }
+                }
+            });
+        }
+        //start 当前用户的custno
+        var userInfo = utils.getSession(utils.userInfo);
+        var custNo = userInfo.custNo;
+        //end  当前用户的custno
+
+        var memberId = utils.getUrlParam("memberId");
+        if (memberId) { //编辑信息
+            getMemberInfo();
+        }
+
+        function getMemberInfo() {
+            utils.get('/sfs/v1/accounts/member?memberId=' + memberId, null, function (result) {
+                if (result.returnCode == 0) {
+                    var body = result.body;
+
+                    if(result.body.custNo==custNo){
+                        $(".jiantou").hide();
+                    }else{
+                        $(".sex").click(function () {
+                            document.activeElement.blur();
+                            $(".mask,.layer1").show() //开启浮层
+                        })
+                        $("#birthday").click(function () { //弹出时间浮层
+                            $(".mobileSelect").addClass('mobileSelect-show');
+                        })
+                    }
+
+                    orignPath=body.avatarImage;
+                    $(".iconUrl").attr('src', body.avatarImage).show();
+                    $("#roleName").html(body.memberRoleName);
+                    $("#roleName").attr("data-flag", body.memberRole);
+                    $("#nickName").val(body.nickName);
+                    $("#gender").val(body.gender ? (body.gender == "1" ? "男" : "女") : '');
+                    // 修改初始化性别
+                    $(".choose").each(function (index, el) {
+                        if ($(el).text() == $("#gender").val()) {
+                            $(el).addClass('active').attr('data-flag', '0').siblings().removeClass(
+                                'active').attr('data-flag', '1')
+                        }
+                    });
+
+                    $("#birthday").val(body.birthday ? body.birthday.substring(0, 4) + '-' + body.birthday
+                        .substring(4, 6) + '-' + body.birthday.substring(6, 8) : '');
+                }
+            });
+        }
+        //
+        function addMember() {
+            if ($("#roleName").attr("data-flag") == "99") {
+                var customRoleName = $("#roleName").text();
+            } else {
+                var customRoleName = "";
+            }
+            var accptMd ="WAP";
+            if(isApp()){
+                accptMd="MOBILE";
+            }
+            var data = {
+                'teamId': teamId,
+                'teamMemberRole': $("#roleName").attr("data-flag"),
+                "acceptMode": accptMd,
+                "avatarImage": clipImgPath?clipImgPath:orignPath,
+                "birthday": $("#birthday").val().replace(/(\d{4})-(\d{2})-(\d{2})/, '$1$2$3'), //生日
+                "branchCode": "247",
+                "customRoleName": customRoleName, //自定义角色名称（当成员角色为自定义时填） ,
+                "gender": $(".active").text() == "男" ? "1" : "0", //性别
+                "memberId": memberId,
+                "memberType": "CHILD",
+                "nickName": $("#nickName").val() //昵称
+            };
+            console.log(data)
+            if (data.nickName == "") {
+                $(".Bomb-box p").html('昵称不能为空');
+                $(".Bomb-box").show();
+                return false;
+            }
+            if (data.birthday == "") {
+                $(".Bomb-box p").html('生日不能为空');
+                $(".Bomb-box").show();
+                return false;
+            }
+            // utils.put('/sfs/v1/accounts/plans',JSON.stringify(data), null,function (result) {
+            //
+            //      });
+
+            utils.ajax({
+                url: '/sfs/v1/accounts/member',
+                type: 'PUT',
+                data: JSON.stringify(data),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (result) {
+                    if (result.returnCode == 0) {
+                        window.location.href = "familyMember.html"
+                    }
+                },
+                error: function () {
+
+                }
+            });
+
+        }
+        $(".add").click(function () {
+            addMember();
+        });
+        $("#roleName").click(function () {
+            $(".mask,#layer0").show()
+        });
+
+        // 选择性别
+        var gender = "";
+
+        $(".choose").click(function () {
+            $(this).addClass('active').attr('data-flag', '0').siblings().removeClass('active').attr('data-flag',
+                '1');
+        })
+        $(".finish").click(function () {
+            $(".choose").each(function (index, el) {
+                if ($(el).attr("data-flag") == "0") {
+                    gender = $(el).text();
+                }
+            });
+            $(".sex").val(gender) //给性别赋值
+            $(".mask,.layer1").hide() //关闭浮层
+        })
+        // 选择日期
+        // $.selectYY_MM_DD("#birthday");
+        var sel_date = '';
+        $("#birthday").val(sel_date);
+        $('#Tips').val("微信、APP推送、系统日历");
+        /*设置全部参数*/
+        var select1 = $.selectDate("#Date1", {
+            start: 2021,
+            end: 2099,
+            select: [2021, 01, 21],
+            title: '&nbsp;'
+        }, function (data) {
+            // $("#Date").val(data.year + "-" + (data.month > 9 ? data.month : "0" + data.month) + "-" + (data.day > 9 ? data.day : "0" + data.day));
+            // sel_date = data.year + "-" + (data.month > 9 ? data.month : "0" + data.month) + "-" + (data.day > 9 ? data.day : "0" + data.day);
+            $("#birthday").val(data.year + "-" + data.month + "-" + data.day);
+            sel_date = data.year + "-" + data.month + "-" + data.day;
+        });
+
+        // 关闭浮层
+        $(".close,.cancel").click(function () {
+            $(".mask,.layer0,.layer1").hide()
+            $(".customRoles").hide()
+        })
+        $(function () {
+            getRoles();
+            getAccount();
+        })
+
+        function getRoles() {
+            utils.get('/sfs/v1/accounts/member/roles', null, function (result) {
+                if (result.returnCode == 0) {
+                    var list = result.body;
+                    var htm = '';
+                    list.forEach(function (item, index) {
+                        htm += '		<a href="javascript:;"><div class="title" data-roleId="' + item
+                            .roleId + '" data-roleName="' + item.roleName + '">' + item.roleName +
+                            '</div></a>';
+
+                    });
+                    htm += '</div>';
+                    $(".giftlist0").html(htm);
+                    $('.giftlist0 div').on('click', function (event) {
+                        console.log(event.currentTarget.dataset);
+                        var roleId = event.currentTarget.dataset.roleid;
+                        var roleName = event.currentTarget.dataset.rolename;
+                        if (roleName == "自定义") {
+                            $(".customRoles").show();
+                            $(".define").click(function () {
+                                $("#roleName").html($(".customRoles input").val());
+                                $(".customRoles").hide();
+                            })
+                        } else {
+                            $("#roleName").html(roleName);
+                        }
+                        $("#roleName").attr("data-flag", roleId);
+                        if (roleId != 99) {
+
+                        } else {
+                            $('#nickNameInput').val('');
+                            $('.tip').show();
+                        }
+                        $(".mask,.layer0").hide()
+                    });
+                }
+
+            });
+        }
+    </script>
+
+</body>
+
+</html>

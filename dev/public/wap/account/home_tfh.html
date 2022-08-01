@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>总资产</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/account/base_tfh.css">
+    <link rel="stylesheet" href="../css/account/main.css">
+    <link rel="stylesheet" href="../css/account/transation.css">
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/weixin.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210302"></script>
+    <script type="text/javascript" src="../js/account/home_tfh.js"></script>
+    <script>
+        (function(){
+            // 相对字体大小设置
+            var oHtml = document.documentElement;
+            getFont();
+            window.onresize = function(){
+                getFont();
+            };
+            function getFont(){
+                var screenWidth = oHtml.clientWidth;
+                screenWidth = screenWidth> 640 ? 640 : screenWidth;
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+
+            }
+        })();
+    </script>
+    <style>
+    body { padding-bottom: 3rem;}
+    </style>
+</head>
+<body>
+<div class="content">
+    <header class="header-huge">
+        <!--<div class="chaxun"><a id="querySwitchBtn" href="#"><img src="../images/account/cha-set.png" alt=""></a></div>-->
+        <div>
+            <h1>总资产（元）</h1>
+            <p class="font-arial" id="panel_totalVal">0.00</p>
+        </div>
+    </header>
+    <div class="section2">
+        <ul class="grid-list no-padding">
+            <li class="grid-list-item bottom-border heigth-130">
+                <a href="javascript: void(0);">
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="image-box fl"><img src="../images/account/myAssets/assert_01.png" alt=""></div>
+                            <h3>现金宝资产</h3>
+                            <p class="font-arial" id="panel_balance">0.00</p>
+                        </div>
+                        <div class="col-1 lh-130">
+                            <!--<i class="icon icon-arrow-right"></i>-->
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="grid-list-item bottom-border heigth-130  ">
+                <a  href="javascript: void(0);">
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="image-box fl "><img src="../images/account/myAssets/assert_02.png" alt=""></div>
+                            <h3>我的定期</h3>
+                            <p class="font-arial" id="panel_regularVal">0.00</p>
+                        </div>
+                        <div class="col-1 lh-130">
+                            <!--<i class="icon icon-arrow-right"></i>-->
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="grid-list-item bottom-border heigth-130">
+                <a  href="javascript: void(0);">
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="image-box fl"><img src="../images/account/myAssets/assert_03.png" alt=""></div>
+                            <h3>我的基金</h3>
+                            <p class="font-arial" id="panel_fundVal">0.00</p>
+                        </div>
+                        <div class="col-1 lh-130">
+                            <!--<i class="icon icon-arrow-right"></i>-->
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="grid-list-item bottom-border heigth-130 my_top_asstes">
+                <a href="javascript: void(0);">
+                    <div class="row">
+                        <div class="col-10 ">
+                            <div class="image-box fl"><img src="../images/account/myAssets/assert_04.png" alt=""></div>
+                            <h3>我的资管</h3>
+                            <p id="panel_vipVal">0.00</p>
+                        </div>
+                        <div class="col-1 lh-130">
+                            <!--<i class="icon icon-arrow-right"></i>-->
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="five-g">
+        <!-- <img src="../images/account/five_g_1.png" alt=""> -->
+    </div>
+</div>
+
+</body>
+</html>

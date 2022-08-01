@@ -1,0 +1,111 @@
+.card-list{
+    height: 40px;
+}
+
+.card-list .left{
+    width: 25%; text-align: left;
+}
+
+.card-list .right{
+    width: 65%; text-align: left;
+}
+
+.card-list1 .right .number{
+    width: 100%;
+}
+
+.card-list2 .card-detail{
+    width: 100%;
+    padding-left: 8px;
+    line-height: 18px;
+}
+
+.alert-password-background {
+    position: absolute;
+    background-image: url(../images/common/background-70.png);
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 640px;
+
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+
+.alert-dialog{
+    width: 240px;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+.alert-dialog .alert-title{
+    width: 100%;
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.alert-dialog .alert-subtitle{
+    width: 90%;
+    padding-bottom: 8px;
+    margin-left: 5%;
+}
+
+.alert-dialog .alert-input {
+    width: 88%;
+    margin-left: 5%;
+    border: 1px #ebebeb solid;
+}
+
+.alert-dialog .alert-button {
+    width: 100%;
+    margin-top: 9px;
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+
+.alert-dialog .alert-button .button-left{
+    width: 50%;
+    text-align: center;
+    border-top: 1px #ebebeb solid;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.alert-dialog .alert-button .button-right{
+    width: 50%;
+    text-align: center;
+    border-top: 1px #ebebeb solid;
+    border-left: 1px #ebebeb solid;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    box-sizing:border-box;
+}
+
+.button-style{
+    border: none;
+    background: none;
+    color: #2d6590;
+    width: 90%;
+    height: 100%;
+}
+
+.dialog-agreement{
+            padding-left: 8px;
+            padding-top: 5px;
+            text-decoration:underline;
+}
+
+.dialog-agreement a{
+    color: #999999;
+    font-size: 12px;
+}
+
+.takeCashNextDate{
+    font-size: 12px;
+    /* color: #ff8203; */
+}

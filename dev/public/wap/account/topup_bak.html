@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>充值</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/base_wx.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <style>
+        body { background-color: #f6f6f6; height: 100%;}
+
+        .main { color: #000; font-size: .7rem;}
+        .main .choose-card .tail-number { color: #666; margin-left: .4rem;}
+        .main .choose-card .arrow-box { width: .5rem; padding-left: .4rem; line-height: 1; }
+        .main .choose-card .arrow-box img { height: .75rem; margin-top: .875rem;  }
+
+        .grid { padding: 0 .75rem; background-color: #fff;}
+        .grid li { position: relative;}
+        .grid h3 { font-size: .7rem; color: #000; padding: .75rem 0 0 0; }
+        .grid p { font-size: .6rem; color: #666666; padding: .2rem 0 .75rem 0;}
+        .grid img { position: absolute; right: 0; top: 50%; height: .75rem; width: auto; margin-top: -.375rem;}
+
+        .main .remark input { font-size: .7rem; width: 80%; padding: .5rem 1rem; border-radius: 4px; }
+        .main .explain { font-size: .55rem; color: #666; padding: .6rem .75rem;}
+        .main .explain a{ color: #148ce6; float: right;}
+        .main .money { background-color: #fff; padding: .75rem; margin-bottom: .6rem;}
+        .main .money .input-group-addon {  width: 2.5rem;}
+        .main .money .form-control { font-size: .9rem; color: #000;}
+
+        .main-bottom { padding:0 .75rem;}
+        .main-bottom p { padding-left: 1rem ; font-size: .6rem; line-height: .9rem; }
+        .main-bottom p span { width: .6rem; height: .6rem; vertical-align: middle; background: url("../images/chose.png") no-repeat left top; display:block;  background-size: cover; float: left; margin: .15rem 0 0 -1rem; }
+        .main-bottom p span.current { background-position: left bottom;}
+        .main-bottom p a { color: #3295e8; cursor: pointer;}
+
+
+        .font-arial {
+            font-family: Arial;
+        }
+        body { font-size: 14px;}
+        @media only screen and (max-width: 320px) {
+            body { font-size: 12px;}
+        }
+        button { outline: none; }
+        img {  vertical-align: top;  border: 0;  outline: 0;  width: 100%;  height: auto; }
+        p { line-height: 1.5;  word-wrap: break-word;  text-align: justify; font-size: 1em;}
+        .left { float: left;}
+        .right { float: right;}
+        .section1{
+            background-color: #fff;
+        }
+        .section1 .chose-tit{
+            font-size: 0.65rem;
+            color: #000;
+            line-height: 1.75rem;
+            padding-left: 0.75rem;padding-right: 0.75rem;
+        }
+        .section1 ul li i{
+            display: inline-block;
+            width: 0.75rem;
+            height: 0.75rem;
+            background: none;
+            background-size: contain;
+            float: left;
+            margin-right: 0.8rem;
+            margin-top: 0.7rem;
+            border-radius: 50%;
+            border: 1px solid #a3a3a3;
+            box-sizing: border-box;
+        }
+        .section1 ul li{
+            padding: 0.85rem 0.75rem 0.85rem 0.75rem;
+            border-top: solid 1px #eeeeee;
+        }
+        .section1 ul li div{
+            float: left;
+        }
+        .section1 ul li.current i{
+            background: url(../images/icon01.png) no-repeat left center;
+            background-size: contain;
+            background-color: #fe5a5b;
+            border-color: transparent;
+        }
+        .section1 ul li p{
+            color: #000;
+            font-size: 0.75rem;
+        }
+        .section1 ul li span{
+            font-size: 0.65rem;
+        }
+        .section1 ul li span.gray{
+            color: #666666;
+            padding-right: 0.4rem;
+        }
+        .section1 ul li span.red{
+            color: #fb5c5f;
+        }
+        .section1 p {  padding: .25rem 0.75rem; font-size: 0.55rem; color: #999; line-height: 1.4;background-color: #ffffff;}
+        .ok{
+            margin: 0 auto;
+            margin-top: 1.1rem;
+            display: block;
+            width: 92%;
+            height: 2.25rem;
+            background-color: #fe7e01;
+            text-align: center;
+            line-height: 2.25rem;
+            color: #fff;
+            border-radius: 3px;
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="content">
+    <section class="main">
+        <ul class="grid selectRechargeProduct">
+            <li>
+                <a href="javascript:void(0);">
+                    <div>
+                        <h3><font id="proFundNm"></font><font id="proFundId"></font></h3>
+                        <p id="proNavStr"></p>
+                       <!--  <img src="../images/arrow.png" alt=""> -->
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <ul class="list-group choose-card no-margin-bottom selectBankCard ">
+            <li class="list-group-item lh-100">
+                <div class="row">
+                    <div>支付方式</div>
+                    <div class="col-10 text-right bank_selected"></div>
+                    <div class="arrow-box"><img src="../images/arrow.png"  alt=""></div>
+                </div>
+            </li>
+        </ul>
+        <div class="explain" id="topup_txt" >
+        </div>
+        <div class="explain" id="rechargeRemark" style="display: none;">
+        </div>
+        <div class="money">
+            <h3>充值金额</h3>
+            <ul>
+                <li>
+                    <div class="input-group">
+                        <span class="input-group-addon"><img style="width: .8rem;" src="../images/icon08.png" alt=""></span>
+                        <input id="rechargeAmount" type="number" class="form-control" placeholder="请输入金额" data-rquire-msg="充值金额不能为空">
+                        <span class="input-group-addon clearInput"><img class="right" src="../images/clear.png" alt=""></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+	    <section class="section1"><p>您的充值预计<font id="revenueDate" class="red" ></font>开始计息，<font id="arrivalDate" class="red"></font>开始收益</p></section>
+        <div class="main-bottom">
+            <div class="next-box">
+                <a id="btn-submit" class="btn btn-default">确认</a>
+            </div>
+        </div>
+
+    </section>
+</div>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <p class="Bomb-box-tips"  style="padding-top: 0.75rem;"></p>
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;">确定</a>
+    </div>
+</div>
+
+<div class="layer animated slideInDown" id="bankCardList" style="display: none;">
+    <ul class="grid-list">
+        <!-- <li class="grid-list-item heigth-130 bottom-border">
+            <div class="row">
+                <div class="lh-130">
+                    <i class="bank ico_705 no-margin-left"></i>
+                </div>
+                <div class="col-1">
+                    <div class="list-title">
+                        <p class="bank-name">招商银行</p>
+                        <p class="bank-id">尾号2462</p>
+                    </div>
+                </div>
+                <div class="lh-130 union">
+                    <a class="icon icon-union">银联通</a>
+                    <a class="icon icon-E-bank">网银</a>
+                    <a class="icon icon-shorcut">快捷</a>
+                </div>
+            </div>
+        </li>
+        -->
+    </ul>
+</div>
+
+<div class="layer animated slideInDown" id="rechargeProduct" style="display: none;">
+    <section class="section1">
+        <p class="chose-tit">选择充值产品</p>
+        <ul>
+            <!-- <li class="clearfix current">
+                <i></i>
+                <div>
+                    <p>汇添富现金宝货币000330</p>
+                    <span class="gray">七日年化(08-16)</span><span class="red">4.246%</span>
+                </div>
+            </li> -->
+        </ul>
+    </section>
+    <button class="ok">确认</button>
+</div>
+
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/lib/weixin.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script type="text/javascript" src="../js/common.js?20210302"></script>
+<script type="text/javascript" src="../js/account/topup_bak.js"></script>
+</body>
+</html>

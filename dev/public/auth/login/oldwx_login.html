@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>现金宝用户绑定</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="css/login/login.css">
+    <script type="text/javascript" src="js/phone-size.js"></script>
+    <style>
+        body {
+            background-color: #fff;
+            height: 100%;
+        }
+
+        .huge {
+            text-align: center;
+            padding: 2rem 0 1.75rem;
+        }
+
+        .huge h2 {
+            width: 2.8rem;
+            margin: 0 auto;
+        }
+
+        .huge div {
+            font-size: .75rem;
+            margin-top: .9rem;
+            color: #fb5c5f;
+        }
+
+        .logo {
+            width: 100%;
+        }
+
+        .main {
+            padding: 0 .75rem;
+            color: #333;
+        }
+
+        .main li {
+            border-bottom: 1px solid #eeeeee;
+            padding: 2px 0;
+        }
+
+        .main p {
+            padding: .7rem 0 0 .75rem;
+            font-size: .6rem;
+        }
+
+        .main p span {
+            width: .6rem;
+            height: .6rem;
+            vertical-align: middle;
+            background: url("images/chose1_y.png") no-repeat left center;
+            display: inline-block;
+            background-size: contain;
+            margin: -.2rem .25rem 0 -.75rem;
+        }
+
+        .main p span.current {
+            background-image: url("images/chose1.png");
+        }
+
+        .main p a {
+            color: #3295e8;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<div class="content">
+    <section class="huge">
+        <h2><img class="logo" width="30" height="40" src="images/logo.png" alt=""></h2>
+        <!--<div style="color:#000;font-size:0.7rem">截止至<span id="date"></span>现金宝最新七日年化收益率<br>
+            <span style="color:#fb5c5f;font-size:0.8rem" id="yield"></span>
+        </div>-->
+    </section>
+    <section class="main">
+        <ul>
+            <li>
+                <div class="input-group">
+                        <span class="input-group-addon"><img style="width: .62rem;" src="images/phone.png"
+                                                             alt=""></span>
+                    <input type="text" class="form-control phone" placeholder="手机/身份证/邮箱" data-rquire="data-rquire"
+                           data-rquire-msg="手机号码不能为空">
+                    <span class="input-group-addon clearInput"><img src="images/clear.png" alt=""></span>
+                </div>
+            </li>
+            <li>
+                <div class="input-group">
+                        <span class="input-group-addon"><img style="width: .62rem;" src="images/clock.png"
+                                                             alt=""></span>
+                    <input type="password" class="form-control pwd" placeholder="请输入密码" data-rquire="data-rquire"
+                           data-rquire-msg="密码不能为空">
+                    <span class="input-group-addon clearInput"><img src="images/clear.png" alt=""></span>
+                </div>
+            </li>
+            <li id="pic_code" style="display:none;">
+                <div class="input-group">
+                        <span class="input-group-addon">
+                            <img style="width: .65rem;" src="images/yanzheng.png" alt="">
+                        </span>
+                    <input type="text" maxlength="4" disabled="disabled" class="form-control code"
+                           placeholder="点击验证码可刷新">
+                    <span class="input-group-btn" style="width:5rem;height:auto">
+                            <img src="" alt="icon-veri" class="auth-code-pic">
+                        </span>
+                </div>
+            </li>
+        </ul>
+        <p class="rules" style="font-size:0.65rem"><span class="chose-icon current"></span>同意<a
+                href="https://static.99fund.com/mobile/agreement/wechat_agreement.html">《汇添富基金微信服务平台身份验证协议》</a></p>
+        <a id="login_btn" class="btn btn-default" style="background:#fe7e01;border-radius: 1.125rem;">绑定</a>
+        <a id="register_btn" class="btn btn-default" href="javascript:void(0);" style="background:#fff;border-radius: 1.125rem;border: 1px #fe7e01 solid;color: #fe7e01;margin-top: .5rem;">注册</a>
+       <!-- <div class="register" style="margin-top:5rem">-->
+            <!--<a id="register_btn" href="javascript:void(0);">快速注册</a>-->
+            <!-- <a href="">若已有账户，请您进行“绑定”；若未开通账户，请您进行“注册”，注册成功后将自动绑定</a> -->
+      <!--  </div>-->
+        <div class="register_text" style="margin-top:2rem; font-size:0.6rem;color:#959595;padding-bottom:2.5rem">
+            若已有账户，请您进行“绑定”；若未开通账户，请您进行“注册”，注册成功后将自动绑定
+        </div>
+    </section>
+    <!-- <footer class="footer-tips"> -->
+    <!-- <div>
+    <a href="">注册</a>
+    <a href="">若已有账户，请您进行“绑定”；若未开通账户，请您进行“注册”，注册成功后将自动绑定</a>
+</div> -->
+    <!-- </footer> -->
+
+</div>
+
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <p class="Bomb-box-tips" style="padding-top: 0.75rem; padding-left: 1rem; padding-right: 1rem;"></p>
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;">确定</a>
+    </div>
+</div>
+<script type="text/javascript" src="js/lib/jquery.min.js"></script>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+<script>
+    var ua = navigator.userAgent.toLowerCase();
+    $(function () {
+        console.log('referUrl:', getUrlParam("referUrl"))
+        console.log('channelCode:', getUrlParam("channelCode"))
+        console.log('openId:', getUrlParam("openId"))
+        console.log('openUid:', getUrlParam("openUid"))
+        $(".phone").val(getUrlParam("aid"));
+        $(".rules").click(function () {
+            $(".chose-icon").toggleClass("current");
+        });
+        $("#login_btn").on("click", login);
+        if (ua.match(/MicroMessenger/i) == "micromessenger") { //ios的ua中无miniProgram，但都有MicroMessenger
+            wx.miniProgram.getEnv(function (res) {
+                if (res.miniprogram) {
+                    $(".register").hide();
+                    $(".register_text").hide();
+                } else {
+                    $("#register_btn").on("click", registerHandler);
+                }
+            })
+        } else if (window.__wxjs_environment === 'miniprogram') { // 微信兼容性处理
+            $(".register").hide();
+            $(".register_text").hide();
+        } else {
+            $("#register_btn").on("click", registerHandler);
+        }
+        $(".auth-code-pic").on("click", getAuthCode);
+
+        queryProfit();
+    });
+
+    function getAuthCode() {
+        $(".auth-code-pic").attr("src", "../servlet/ValidateImage?openId=" + getUrlParam("openId") + "&r=" + (Math
+            .random() * 10000).toFixed(0));
+    }
+
+    function valide(isAlert) {
+        var inputs = $("input");
+        for (var i = 0; i < inputs.size(); i++) {
+            var input = inputs.eq(i);
+            if (input.val() == "") {
+                var msg = input.attr("data-rquire-msg");
+                if (msg == undefined) {
+                    continue;
+                }
+                isAlert == "needless" || alertTips(input.attr("data-rquire-msg"));
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function alertTips(text) {
+        $(".Bomb-box-tips").html(text);
+        $(".Bomb-box-content p").html("");
+        $(".Bomb-box").show();
+    }
+
+    $(".close_button").click(function () {
+        $("#myGift").hide();
+        $(".mask").hide();
+    });
+    // 清楚input框
+    $(".clearInput").click(function () {
+        $(this).siblings("input").val("").trigger("input");
+    });
+
+    $(".Bomb-box-ok").click(function () {
+        $(".Bomb-box").hide();
+    });
+
+    function getUrlParam(key) {
+        var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return "";
+    }
+
+    function queryProfit() {
+        var requestUrl = "../resource/weixin-load/profit";
+
+        $.ajax({
+            type: "GET",
+            url: requestUrl,
+            success: function (result) {
+                // console.log(result);
+                if (result.body != undefined && result.body != null) {
+                    $("#date").html(result.body.date);
+                    $("#yield").html(result.body.yield);
+                }
+            }
+        });
+    }
+
+    function registerHandler() {
+        var wapUrl = getUrlParam("wapValidateUrl");
+        var requestUrl = "../servlet/NewUserRegister";
+        var openId = getUrlParam("openId");
+        if (openId == undefined || openId == null || openId == "") {
+            //openId = getUrlParam("openId");
+            alertTips("微信号格式不正确，请重新从微信点击“立即验证”链接进入!");
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: requestUrl,
+            data: {
+                openId: openId,
+                time: (new Date()).getTime()
+            },
+            success: function (result) {
+                console.log(result);
+                var data = JSON.parse(result);
+                if (isNotEmpty(data.code) && data.code != '9999' && isNotEmpty(data.openKey)) {
+                    // console.log(result);
+                    //window.location = wapUrl + "?oid=" + data.openKey + "&d=" + (new Date()).getTime();
+                    window.location = data.wapValidateUrl + "&d=" + (new Date()).getTime();
+                } else if (isNotEmpty(data.info)) {
+                    alertTips(data.info);
+                }
+            }
+        });
+    }
+
+    function login() {
+        if (valide()) {
+            /*if(! /^0?1[0-9][0-9]{9}$/.test($(".phone").val())){
+                alertTips("请输入正确的手机号码");
+                return false;
+            }*/
+
+            if ($(".code").attr("disabled") != "disabled" && $(".code").val().length < 4) {
+                alertTips("请输入正确的四位验证码");
+                return false;
+            }
+
+            if (!$(".chose-icon").hasClass("current")) {
+                alertTips('<div style="padding: 1rem 1rem;line-height: 1.5;">请同意《汇添富基金微信服务平台身份验证协议》</div>');
+                return;
+            }
+
+            //重定向url
+            var referUrl = getUrlParam("referUrl");
+            var phone = $(".phone").val();
+            var pwd = $(".pwd").val();
+            var channelCode = getUrlParam("channelCode");
+            var openUid = getUrlParam("openUid");
+            var url = "../servlet/NewLoginBindServlet";
+            var data = {
+                "openId": getUrlParam("openId"),
+                "idNo": phone,
+                "idType": "0",
+                "password": pwd,
+                "channelCode": channelCode,
+                "openUid": openUid
+            };
+
+            if ($(".code").attr("disabled") != "disabled") {
+                data.check = $(".code").val();
+            }
+            // console.log(data);
+            $.post(url, JSON.stringify(data), function (result) {
+                var data = JSON.parse(result);
+                // console.log(result);
+                if (isNotEmpty(data.url)) {
+                    var forwardUrl = data.url;
+                    if (ua.match(/MicroMessenger/i) ==
+                        "micromessenger") { //ios的ua中无miniProgram，但都有MicroMessenger
+                        wx.miniProgram.getEnv(function (res) {
+                            if (res.miniprogram) {
+                                wx.miniProgram.navigateTo({
+                                    url: '/pages/index/index?cookie=' + escape(document
+                                        .cookie) + '&referUrl=' + encodeURIComponent(
+                                        referUrl)
+                                });
+                            } else {
+                                if (isNotEmpty(referUrl)) {
+                                    forwardUrl = forwardUrl + "&referUrl=" + referUrl;
+                                }
+                                window.location.href = forwardUrl;
+                            }
+                        })
+                    } else if (window.__wxjs_environment === 'miniprogram') { // 微信兼容性处理
+                        wx.miniProgram.navigateTo({
+                            url: '/pages/index/index?cookie=' + escape(document
+                                .cookie) + '&referUrl=' + encodeURIComponent(
+                                referUrl)
+                        });
+                    } else {
+                        if (isNotEmpty(referUrl)) {
+                            forwardUrl = forwardUrl + "&referUrl=" + referUrl;
+                        }
+                        window.location.href = forwardUrl;
+                    }
+                }
+                if (isNotEmpty(data.info)) {
+                    alertTips(data.info);
+                }
+                if (data.errorTimes != undefined && data.errorTimes != null && Number(data.errorTimes) >
+                    2) {
+                    $(".code").removeAttr("disabled");
+                    $(".auth-code-pic").attr("src", "../servlet/ValidateImage?openId=" + getUrlParam(
+                        "openId") + "&r=" + (Math.random() * 10000).toFixed(0));
+                    $("#pic_code").show();
+                }
+            });
+        }
+    }
+
+    function isNotEmpty(str) {
+        if (str == null || str == undefined || str == "" || str.trim() == "") {
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,378 @@
+i.selectedBank{ height:24px;background: url(../img/bank_logos.png) no-repeat left center; width:24px; display: inline-block;}
+i.selectedBank.ico_002{ background-position:-4px -8px;}
+i.selectedBank.ico_2{ background-position:-4px -8px;}
+i.selectedBank.ico_102{ background-position:-4px -8px;}
+i.selectedBank.ico_202{ background-position:-4px -8px;}
+i.selectedBank.ico_802{ background-position:-4px -8px;}
+i.selectedBank.ico_104{ background-position:-36px -8px;}
+i.selectedBank.ico_604{ background-position:-36px -8px;}
+i.selectedBank.ico_005{ background-position:-73px -8px;}
+i.selectedBank.ico_605{ background-position:-73px -8px;}
+i.selectedBank.ico_705{ background-position:-73px -8px;}
+i.selectedBank.ico_006{ background-position:-111px -8px;}
+i.selectedBank.ico_106{ background-position:-111px -8px;}
+i.selectedBank.ico_806{ background-position:-111px -8px;}
+i.selectedBank.ico_007{ background-position:-4px -45px;}
+i.selectedBank.ico_607{ background-position:-4px -45px;}
+i.selectedBank.ico_008{ background-position:-37px -45px;}
+i.selectedBank.ico_108{ background-position:-37px -45px;}
+i.selectedBank.ico_608{ background-position:-37px -45px;}
+i.selectedBank.ico_808{ background-position:-37px -45px;}
+i.selectedBank.ico_009{ background-position:-74px -45px;}
+i.selectedBank.ico_109{ background-position:-74px -45px;}
+i.selectedBank.ico_609{ background-position:-74px -45px;}
+i.selectedBank.ico8{ background-position:-111px -45px;}
+i.selectedBank.ico_019{ background-position:-2px -79px;}
+i.selectedBank.ico_619{ background-position:-2px -79px;}
+i.selectedBank.ico_819{ background-position:-2px -79px;}
+i.selectedBank.ico10{ background-position:-37px -79px;}
+i.selectedBank.ico_103{ background-position:-74px -79px;}
+i.selectedBank.ico_613,
+i.selectedBank.ico_813{ background-position:-74px -79px;}
+i.selectedBank.ico_014{ background-position:-111px -79px;}
+i.selectedBank.ico_614{ background-position:-111px -79px;}
+i.selectedBank.ico_814{ background-position:-111px -79px;}
+i.selectedBank.ico_011{ background-position:-3px -112px;}
+i.selectedBank.ico_112{ background-position:-37px -112px;}
+i.selectedBank.ico_012{ background-position:-37px -112px;}
+i.selectedBank.ico_812{ background-position:-37px -112px;}
+i.selectedBank.ico_018{ background-position:-74px -112px;}
+i.selectedBank.ico_618{ background-position:-74px -112px;}
+i.selectedBank.ico16{ background-position:-111px -112px;}
+i.selectedBank.ico_015{ background-position:-4px -145px;}
+i.selectedBank.ico_815{ background-position:-4px -145px;}
+i.selectedBank.ico18{ background-position:-37px -147px;}
+i.selectedBank.ico19{ background-position:-74px -145px;}
+i.selectedBank.ico20{ background-position:-111px -145px;}
+i.selectedBank.ico21{ background-position:-4px -181px;}
+i.selectedBank.ico22{ background-position:-37px -181px;}
+i.selectedBank.ico23{ background-position:-74px -181px;}
+i.selectedBank.ico24{ background-position:-105px -177px;}
+i.selectedBank.ico25{ background-position:-4px -210px;}
+i.selectedBank.ico26{ background-position:-37px -207px;}
+i.selectedBank.ico27{ background-position:-74px -210px;}
+i.selectedBank.ico28{ background-position:-111px -211px;}
+i.selectedBank.ico29{ background-position:-4px -242px;}
+i.selectedBank.ico30{ background-position:-39px -239px;}
+i.selectedBank.ico31{ background-position:-74px -239px;}
+i.selectedBank.ico32{ background-position:-111px -240px;}
+i.selectedBank.ico33{ background-position:-3px -272px;}
+i.selectedBank.ico34{ background-position:-40px -271px;}
+i.selectedBank.ico35{ background-position:-74px -271px;}
+i.selectedBank.ico36{ background-position:-105px -267px;}
+i.selectedBank.ico37{ background-position:-1px -303px;}
+i.selectedBank.ico_003{ background-position:-39px -303px;}
+i.selectedBank.ico_603{ background-position:-39px -303px;}
+i.selectedBank.ico_803{ background-position:-39px -303px;}
+i.selectedBank.ico_110{ background-position:-73px -303px;}
+i.selectedBank.ico_101{ background-position:-112px -303px;}
+i.selectedBank.ico_107{ background-position:-1px -340px;}
+i.selectedBank.ico_013{ background-position:-38px -340px;}
+i.selectedBank.ico_621{ background-position:-110px -340px;}
+i.selectedBank.ico_617{ background-position:-38px -146px;}
+i.selectedBank.icons{ background-position:-72px -340px;}
+i.bank{ height:30px;background: url(../img/bank_logos.png) no-repeat left center; width:30px; margin-right: 17px;display: inline-block;vertical-align: middle;}
+i.bank.ico_002{ background-position:2px -4px;}
+i.bank.ico_2{ background-position:2px -4px;}
+i.bank.ico_102{ background-position:2px -4px;}
+i.bank.ico_202{ background-position:2px -4px;}
+i.bank.ico_802{ background-position:2px -4px;}
+i.bank.ico_104{ background-position:-31px -4px;}
+i.bank.ico_604{ background-position:-31px -4px;}
+i.bank.ico_005{ background-position:-68px -4px;}
+i.bank.ico_605{ background-position:-68px -4px;}
+i.bank.ico_705{ background-position:-68px -4px;}
+i.bank.ico_006{ background-position:-105px -4px;}
+i.bank.ico_106{ background-position:-105px -4px;}
+i.bank.ico_806{ background-position:-105px -4px;}
+i.bank.ico_007{ background-position:2px -41px;}
+i.bank.ico_707{ background-position:2px -41px;}
+i.bank.ico_Y07{ background-position:2px -41px;}
+i.bank.ico_607{ background-position:2px -41px;}
+i.bank.ico_008{ background-position:-31px -41px;}
+i.bank.ico_108{ background-position:-31px -41px;}
+i.bank.ico_608{ background-position:-31px -41px;}
+i.bank.ico_808{ background-position:-31px -41px;}
+i.bank.ico_009{ background-position:-68px -41px;}
+i.bank.ico_109{ background-position:-68px -41px;}
+i.bank.ico_609{ background-position:-68px -41px;}
+i.bank.ico8{ background-position:-105px -41px;}
+i.bank.ico_019{ background-position:4px -75px;}
+i.bank.ico_619{ background-position:4px -75px;}
+i.bank.ico_819{ background-position:4px -75px;}
+i.bank.ico10{ background-position:-31px -75px;}
+i.bank.ico_103{ background-position:-68px -75px;}
+i.bank.ico_613,
+i.bank.ico_813{ background-position:-68px -75px;}
+i.bank.ico_014{ background-position:-105px -75px;}
+i.bank.ico_614{ background-position:-105px -75px;}
+i.bank.ico_814{ background-position:-105px -75px;}
+i.bank.ico_011{ background-position:3px -108px;}
+i.bank.ico_112{ background-position:-31px -108px;}
+i.bank.ico_012{ background-position:-31px -108px;}
+i.bank.ico_812{ background-position:-31px -108px;}
+i.bank.ico_018{ background-position:-68px -108px;}
+i.bank.ico_618{ background-position:-68px -108px;}
+i.bank.ico16{ background-position:-105px -108px;}
+i.bank.ico_015{ background-position:2px -141px;}
+i.bank.ico_815{ background-position:2px -141px;}
+i.bank.ico18{ background-position:-31px -143px;}
+i.bank.ico19{ background-position:-68px -141px;}
+i.bank.ico20{ background-position:-105px -141px;}
+i.bank.ico21{ background-position:2px -177px;}
+i.bank.ico22{ background-position:-31px -177px;}
+i.bank.ico23{ background-position:-68px -177px;}
+i.bank.ico24{ background-position:-105px -177px;}
+i.bank.ico25{ background-position:2px -206px;}
+i.bank.ico26{ background-position:-31px -203px;}
+i.bank.ico27{ background-position:-68px -206px;}
+i.bank.ico28{ background-position:-105px -207px;}
+i.bank.ico29{ background-position:2px -238px;}
+i.bank.ico30{ background-position:-33px -235px;}
+i.bank.ico31{ background-position:-68px -235px;}
+i.bank.ico32{ background-position:-105px -236px;}
+i.bank.ico33{ background-position:3px -268px;}
+i.bank.ico34{ background-position:-34px -267px;}
+i.bank.ico35{ background-position:-68px -267px;}
+i.bank.ico36{ background-position:-105px -267px;}
+i.bank.ico37{ background-position:5px -299px;}
+i.bank.ico_003{ background-position:-33px -299px;}
+i.bank.ico_603{ background-position:-33px -299px;}
+i.bank.ico_803{ background-position:-33px -299px;}
+i.bank.ico_110{ background-position:-67px -299px;}
+i.bank.ico_101{ background-position:-106px -299px;}
+i.bank.ico_107{ background-position:5px -336px;}
+i.bank.ico_013{ background-position:-32px -336px;}
+i.bank.ico_621{ background-position:-104px -336px;}
+i.bank.ico_617{ background-position:-32px -142px;}
+i.bank.icons{ background-position:-66px -336px;}
+.ico_007{
+    display: inline-block;
+    background: url(../../images/bank_icon.png) no-repeat;
+    background-size: 100%;
+    width: 2rem;
+    height: 2rem;
+    margin-left: 0.75rem;
+    margin-top: 0.65rem;
+    margin-right: 0.7rem;
+}
+/* S cardManage.html */
+ul.bankcards{
+    list-style: none;
+    overflow: hidden;
+    background-color: #fff;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+}
+.bankcards li{
+    width: 100%;
+    overflow: hidden;
+}
+.bankcards li .li-left{
+    width: 16%;
+    float: left;
+}
+
+.bankcards li .li-right{
+    width: 78%;
+    float: right;
+    position: relative;
+    border-bottom: 1px solid #e7e7e7;
+    text-decoration: none;
+}
+.bankcards li:last-child .li-right{
+    border-bottom: none;
+}
+.bankcards li .li-right .bankname{
+    color: #333;
+    font-weight: bold;
+    margin: 11px 0;
+}
+.bankcards li .li-right .banknum{
+    color: #666;
+    margin: 11px 0;
+}
+.bankcards li .li-right .person{
+    margin-left: 2rem;
+}
+.bankcards li .li-right .arrow {
+    background: transparent url(../../images/fund/arrow.png) center center no-repeat;
+    width:15px;
+    height: 25px;
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    margin-top: -12px;
+    background-size: 10px 15px;
+}
+.card-add{
+    margin-top: 1rem;
+    background-color: #fff;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+    text-align: center;
+    padding: 8px;
+    margin-bottom: 1rem;
+    display: block;
+    color: #666;
+    text-decoration: none;
+}
+.grid-list { padding: 0 0.75rem; height: auto; box-sizing: border-box;width: 100%; background-color: #fff;  }
+.grid-list-item {  height: 3.25rem;}
+
+.grid-list .bank-name{ font-size: 0.7rem; color: #000; }
+.grid-list .bank-id{ color: #666; font-size: 0.6rem; }
+.grid-list .list-title{ margin-top: 0.72rem; }
+.grid-list .list-title p{ margin-bottom: 0.2rem; }
+
+/*  快捷 */
+.icon-shorcut {  border: 1px solid #488bc7; color: #488bc7;}
+/* 网银*/
+.icon-E-bank {   border: 1px solid #ee8837; color: #ee8837;}
+/*  银联通 */
+.icon-union {    border: 1px solid #eb6561; color: #eb6561;}
+.icon-shorcut,
+.icon-E-bank,
+.icon-union {  width: 3.1rem; text-align: center;height: 1rem;line-height: 1rem;border-radius: 0.5rem; font-size: 0.6rem;-webkit-box-sizing: border-box; box-sizing: border-box; }
+
+.union .icon-union ,
+.shorcut .icon-shorcut,
+.E-bank .icon-E-bank { display: inline-block;}
+
+.union .icon-shorcut , .union .icon-E-bank,
+.shorcut .icon-union , .shorcut .icon-E-bank,
+.E-bank .icon-shorcut , .E-bank .icon-union { display: none;}
+.font-26 { font-size: 0.65rem !important; }
+.font-28 { font-size: .7rem !important; }
+.font-30 { font-size: .75rem !important; }
+.font-32 { font-size: .8rem !important; }
+.font-34 { font-size: .85rem !important; }
+.font-40 { font-size: 1rem !important;}
+.border-top-red { border-top: 1px solid #fb5c5f;}
+.blue-link{
+    color:#148ce6;
+}
+.grid-list .bank-icon { margin-left: 0;}
+
+.list-group { margin: 0.5rem 0; background-color: #fff;padding: 0 0.75rem; }
+.list-group .list-group-item { min-height: 1.725rem; line-height: 1.725rem; }
+
+.list-group2 { margin: 0.5rem 0; background-color: #f6f6f6;padding: 0 0.75rem; }
+.list-group2 .list-group-item2 { min-height: .5rem; line-height: .5rem; }
+.row { display: -webkit-flex; display: flex;}
+.col-1 { -webkit-flex: 1; flex: 1; }
+.col-2 { -webkit-flex: 2; flex: 2; }
+.col-3 { -webkit-flex: 3; flex: 3; }
+.col-4 { -webkit-flex: 4; flex: 4; }
+.col-5 { -webkit-flex: 5; flex: 5; }
+.col-6 { -webkit-flex: 6; flex: 6; }
+.col-7 { -webkit-flex: 7; flex: 7; }
+.col-8 { -webkit-flex: 8; flex: 8; }
+.col-9 { -webkit-flex: 9; flex: 9; }
+.col-10 { -webkit-flex: 10;flex: 10; }
+.col-11 { -webkit-flex: 11;flex: 11; }
+.col-12 { -webkit-flex: 12;flex: 12; }
+
+
+.btn { display: inline-block; outline: none; width: 92%; height: 2.25rem; background-color: #fff; font-size: 0.75rem; text-align: center; line-height: 2.25rem; border-radius: 0.2rem; margin: 0 auto; }
+.btn-default { color: #666; border: 1px solid #eeeeee;}
+.btn-orange-2 { background-color: #fe7e01; color: #fff;}
+.btn-red{ background-color: #fb5c5f; color: #fff;}
+.btn-gray{ background-color: #cccccc; color: #eeeeee;}
+.btn-middle {  width: 80%; height: 1.4rem;  font-size: 0.65rem; line-height: 1.4rem;}
+
+.bg-white { background-color: #fff;}
+.lh-70 { line-height: 1.75rem !important; }
+.lh-100 { line-height: 2.5rem !important; }
+.lh-130 { line-height: 3.5rem !important; }
+.heigth-70 { height: 1.75rem !important; }
+.heigth-100 { height: 2.5rem !important; }
+.heigth-130 { height: 3.5rem !important; }
+.text-center { text-align: center;}
+.red { color: #fb5c5f !important;}
+.c666 {color: #666;  }
+.white {color: #fff;  }
+.orange {color: #fe7e01;}
+.text-right { text-align: right;}
+.border-orange { border-color: #fe7e01;}
+.bottom-border{ border-bottom: solid 1px #eeeeee; }
+
+.no-padding { padding: 0;}
+.no-padding-top { padding-top: 0;}
+.no-padding-bottom { padding-bottom: 0;}
+.no-padding-left { padding-left: 0;}
+.no-padding-rigth { padding-right: 0;}
+.no-margin-left {   margin-left: 0;}
+.no-margin-top { margin-top: 0;}
+.no-margin { margin: 0;}
+
+footer.fixed-bottom { position: fixed; bottom: 0; width: 100%; left: 0;}
+footer  li a { display: block;}
+
+.layer { background-color: #ffffff; height: 100%; width: 100%; position: fixed; top: 0;
+    left:0; overflow: auto;z-index: 10;}
+
+
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@keyframes slideInDown{
+    0%{opacity:0;-webkit-transform:translateY(-2000px);-ms-transform:translateY(-2000px);transform:translateY(-2000px)}
+    100%{-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}}
+@keyframes slideInUp{
+    0%{opacity:0;-webkit-transform:translateY(100%);-ms-transform:translateY(100%);transform:translateY(100%)}
+    100%{-webkit-transform:translateY(30%);-ms-transform:translateY(30%);transform:translateY(30%)}}
+.slideInDown{-webkit-animation-name:slideInDown;animation-name:slideInDown}
+.slideInUp{-webkit-animation-name:slideInUp;animation-name:slideInUp;}
+.slideInUp .giftlist .title{height:2rem;width:100%;text-align:center;line-height: 2rem;font-size: .7rem;color:#000;}
+.slideInUp .giftlist ul {overflow-y: auto;padding-bottom: 2.5rem;height:19rem;}
+.slideInUp .giftlist ul li{height:2.5rem;line-height: 2.5rem;text-align: center;padding: 0 .75rem;font-size: .6rem;overflow: hidden;}
+.slideInUp .giftlist ul li span{display: inline-block;color:#666;}
+.slideInUp .giftlist ul li .circle{
+    width: .8rem;
+    height: .8rem;
+    vertical-align: middle;
+    border-radius: 50%;
+    margin-top: .8rem;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.slideInUp .close_button{width:100%;height:2.5rem;border-top: 1px #fb5c5f solid;color:#fb5c5f;font-size: .75rem;text-align: center;line-height: 2.5rem;position: fixed;bottom:30%;z-index: 10;background: #fff;}
+
+
+.slideInUp1{-webkit-animation-name:slideInUp;animation-name:slideInUp;}
+.slideInUp1 .giftlist .title{height:2rem;width:100%;text-align:center;line-height: 2rem;font-size: .7rem;color:#000;}
+.slideInUp1 .giftlist ul {overflow-y: auto;padding-bottom: 2.5rem;height:19rem;}
+.slideInUp1 .giftlist ul li{height:2.5rem;line-height: 2.5rem;text-align: center;padding: 0 .75rem;font-size: .6rem;overflow: hidden;}
+.slideInUp1 .giftlist ul li span{display: inline-block;color:#666;}
+.slideInUp1 .giftlist ul li .circle{
+    width: .8rem;
+    height: .8rem;
+    vertical-align: middle;
+    border-radius: 50%;
+    margin-top: .8rem;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.slideInUp1 .close_button{width:100%;height:2.5rem;border-top: 1px #fb5c5f solid;color:#fb5c5f;font-size: .75rem;text-align: center;line-height: 2.5rem;position: fixed;bottom:30%;z-index: 10;background: #fff;}
+
+.heigth-100 input { height: 1rem; line-height: 1rem; margin-top: 0.75rem;}
+
+.bank-logo-new{
+    width:30px;
+    height:30px;
+    margin-right: 17px;
+    margin-top: 20px;
+}

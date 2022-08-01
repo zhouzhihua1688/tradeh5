@@ -1,0 +1,72 @@
+body{
+    background-color: #ffffff;
+}
+.top-bar .left{
+    width: 33%;
+    text-align: left;
+}
+.top-bar .mid {
+    text-align:center;
+}
+.top-bar .right{
+    width: 33%;
+    text-align: right;
+}
+.item{
+    _height: 73px;
+    min-height: 73px;
+    width: 90%;
+    margin-left: 2%;
+    margin-top: 10px;
+    display:-webkit-box;
+}
+.item .title{
+    margin-left: 10px;
+}
+.item .content{
+    margin-left: 10px;
+    line-height: 20px;
+}
+.item .leftbox{
+    width: 61%;
+}
+.rightbox{
+    width: 35%;
+}
+.more{
+    text-align: center;
+    width: 70%;
+}
+.date{
+    margin-right:10px;
+    margin-top: 5px;
+    text-align: right;
+}
+.fund_list .line{
+    width: 95%;
+    text-align: center;
+    border-bottom: 1px #d7d7d7 solid;
+    margin: 5px 0 5px 5px;
+}
+.content > span{
+    padding-left: 3px;
+}
+.content {
+    padding-top: 2px;
+}
+.btm_bar {
+    text-align: right;
+    padding-right: 10px;
+}
+.f-green{
+    color: green;
+}
+.chart_desc{
+    text-align: center;
+}
+.line-del{
+    text-decoration: line-through;
+}
+/**
+ * Created by sun on 15-03-18.
+ */

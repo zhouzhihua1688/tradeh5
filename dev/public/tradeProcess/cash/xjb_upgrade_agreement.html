@@ -1,0 +1,48 @@
+
+<!doctype html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>现金宝升级服务须知</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=2.0,user-scalable=yes">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <link rel="stylesheet" href="css/agreement.css" media="all" charset="utf-8" />
+</head>
+
+<body>
+<div>
+    <h1>现金宝升级服务须知</h1>
+    <p id="fund_agreement"></p>
+    <p id="tip"></p>
+</div>
+</body>
+
+<script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script>
+    getTargetFundId();
+
+    //20220302 uop配置现金宝底层基金
+    function getTargetFundId(){
+        utils.get('/smac/v1/config/base-account/target-fund-info',null,function(result){
+            if (result.returnCode == 0 && result.body) { 
+                var targetFundId = result.body.fundId;
+                var targetFundName = result.body.fundName;
+
+                var p1 = document.getElementById("fund_agreement");
+                var p2 = document.getElementById("tip");
+
+                p1.innerHTML = "您同意升级现金宝钱包即表示您确认将持有的现金宝钱包份额转换为"+ targetFundName + "（" + targetFundId 
+                                            +  "）份额。如您已持有"+ targetFundName + "（" + targetFundId + "）份额，资产将进行合并。升级后，您充值现金宝钱包即代表申购" 
+                                            + targetFundName + "（" + targetFundId +
+                                            "）。原现金宝钱包功能不受影响。现金宝钱包每日结转收益，7*24随时取现，普通取现无限额，快速取现额度6万，最快1秒到账，申购基金0.1折起。";
+                p2.innerHTML = "现金宝钱包升级服务为我公司提供的增值、辅助性服务，我公司有权根据业务情况调整服务时间和服务内容；特殊情况下，我公司有权暂停本服务。现金宝钱包升级后不能撤回。您选升级服务表明您已经仔细阅读并了解本服务各项内容。"
+
+            }
+        });
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>信息填写</title>
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <meta http-equiv="pragma" content="no-cache">  
+		<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">  
+		<meta http-equiv="expires" content="0">  
+        <link rel="stylesheet" href="css/common.css">
+        <style>
+            /* S modal of dialog */
+            .modal{
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                display: none;
+                z-index: 100;
+            }
+            .modal-bg{
+                position: fixed;
+                left: 0;
+                top: 0;
+                z-index: 1;
+                width: 100%;
+                height: 100%;
+                background-color: #333;
+                -webkit-opacity: 0.7;
+                -moz-opacity: 0.7;
+                -ms-opacity: 0.7;
+                opacity: 0.7;
+                filter: alpha(opacity=70);
+            }
+            .modal-content{
+                width: 70%;
+                background-color: #f5f5f5;
+                position: absolute;
+                top: 25%;
+                left: 50%;
+                margin-left: -35%;
+                z-index: 10;
+                border-radius: 3px;
+                overflow: hidden;
+                font-family: 'microsoft yahei';
+                font-size: 16px;
+                color: #666;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                -ms-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+            .modal-header{
+                overflow: hidden;
+            }
+            .modal-header .modal-title{
+                float: left;
+                color: #333;
+                line-height: 32px;
+            }
+            .modal-header .close{
+                float: right;
+                color: #fb6809;
+                font-size: 30px;
+                background-color: #fff;
+                border: 0;
+                outline: 0;
+                cursor: pointer;
+                width: auto;
+                height: auto;
+                line-height: normal;
+            }
+            .modal-body{
+                text-align: center;
+                margin: 2em 0;
+                padding: 5px 10px;
+            }
+            .modal-footer{
+                border-top: 1px solid #dddddd;
+                text-align: center;
+            }
+            .btn-orange{
+                color: #2181f7;
+                font-size: 18px;
+                height: 2.5em;
+                line-height: 2.5em;
+                border-radius: 5px;
+                text-align: center;
+                display: inline-block;
+                font-family: 'microsoft yahei';
+                text-decoration: none;
+                outline: 0;
+                display: block;
+                width: 100%;
+            }
+            /* E modal of dialog */
+            .infor label select {
+                width: 65%;
+                height: 2rem;
+                line-height: 2rem;
+                border: none;
+                background: transparent;
+                color: #232323;
+                font-size: 1.2rem;
+                margin-top: 1rem;
+            }
+        </style>
+    </head>
+    <body style="background-color:#f3f3f3;">
+    <header>
+        <div class="back_icon"></div>
+        <a href="rule.html" class="right">规则</a>
+    </header>
+    <div class="infor">
+        <div class="in_infor blank">
+            <label for="invnm">
+                <span>姓名</span>
+                <input type="text" id="invnm" readonly="readonly" maxlength="60" placeholder="请填写姓名">
+                <i class="clear_btn"></i>
+            </label>
+            <label for="invpy">
+                <span>姓名拼音</span>
+                <input type="text" id="invpy" maxlength="120" placeholder="请填写姓名拼音">
+                <i class="clear_btn"></i>
+            </label>
+            <label for="idno">
+                <span>证件号码</span>
+                <input type="text" id="idno" readonly="readonly" maxlength="20" placeholder="请填写证件号码">
+                <i class="clear_btn"></i>
+            </label>
+            <label for="mobileno">
+                <span>联系电话</span>
+                <input type="tel" id="mobileno" maxlength="20" placeholder="请填写常用的联系电话">
+                <i class="clear_btn"></i>
+            </label>
+        </div>
+        <div class="in_infor blank">
+            <label for="reason">
+                <span>申请事由</span>
+                <input type="text" id="reason" maxlength="150" placeholder="请填写申请事由">
+                <i class="clear_btn"></i>
+            </label>
+        </div>
+        <div class="in_infor blank">
+            <label for="purpose">
+                <span>申请用途</span>
+                <input type="text" id="purpose" maxlength="150" placeholder="请填写申请用途">
+                <i class="clear_btn"></i>
+            </label>
+            <label for="deliveryway">
+                <span>寄送方式</span>
+                <!--<input type="text" id="input7" placeholder="请填写寄送方式">-->
+                <select id="deliveryway">
+                    <option value="0">邮件</option>
+                    <option value="1" selected>快递</option>
+                    <option value="2">邮件+快递</option>
+                </select>
+            </label>
+            <label for="email" id="label_0" style="display: none;">
+                <span>邮箱地址</span>
+                <input type="text" id="email" maxlength="40" placeholder="请填写邮箱地址">
+                <i class="clear_btn"></i>
+            </label>
+            <label for="province" id="label_3" style="display: none;">
+                <span>请选择省份</span>
+                <select id="province">
+                    <option value="">请选择省份</option>
+                </select>
+            </label>
+            <label for="city" id="label_4" style="display: none;">
+                <span>请选择城市</span>
+                <select id="city">
+                    <option value="">请选择城市</option>
+                </select>
+            </label>
+            <label for="addr" id="label_1">
+                <span>快递地址</span>
+                <input type="text" id="addr" maxlength="120" placeholder="请填写快递地址">
+                <i class="clear_btn"></i>
+            </label>
+            <label for="postCode" id="label_2">
+                <span>邮编</span>
+                <input type="text" id="postCode" maxlength="6" placeholder="请填写邮编">
+                <i class="clear_btn"></i>
+            </label>
+        </div>
+        <div class="submit">
+            <button id="btn_submit">提交</button>
+        </div>
+    </div>
+    
+    <!--请先登录弹窗-->
+    <div class="modal" id="dialog">
+        <div class="modal-bg"></div>
+        <div class="modal-content">
+      <!--      <div class="modal-header">
+                <button class="close" type="button">&times;</button>
+            </div>-->
+            <div class="modal-body">
+                <p id="modal_msg">身份证输入错误，请重新输入</p>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:;" class="btn-orange">知道了</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../js/lib/jquery.min.js"></script>
+    <script src="js/rem.js"></script>
+    <script src="js/addressList.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script type="text/javascript">
+
+	
+    $(function(){
+        $(".back_icon").on("click", closePage);
+
+        var addressList = getAddressList();
+        var cityHintProv = addressList.cityHintProv;
+        var cityHintCity = addressList.cityHintCity;
+
+        setBasicInfo();
+
+        function setBasicInfo() {
+            App.get("/icif/v1/custs/get-simple-by-cust-no" , null, function(result){
+
+                if(result.body != undefined && result.body != null){
+                    var body = result.body;
+                    if(body != undefined && body != ""){
+                        $("#invnm").attr("value", body.invNm);
+                        var idtp = body.idTp;
+                        var idtpname = getIdtpName(idtp);
+                        var idno = body.idNo;
+                        var idnoDisplay = idno.substr(0,3) + "****" + idno.substr(idno.length-2) + "(" + idtpname + ")";
+                        $("#idno").attr("value", idnoDisplay);
+                        $("#mobileno").attr("value", body.mobileno);
+                    }
+                }
+            });
+        }
+
+        setAddress();
+
+        function setAddress(){
+            var setSelectOptions = function(element, options, district) {
+                element.html('<option value="">请选择'+ district +'</option>');
+                if(!options){  return ;}
+                if(options.length == 0) {
+                    element.attr("isCityFlag",0); // 省下面没有城市  
+                    $("#label_4").hide();
+                   
+                }else{
+                    element.attr("isCityFlag",1);   
+                     $("#label_4").show(); 
+                }
+                for (var i = 0; i < options.length; i++) {
+                    element.append('<option value="' + options[i] + '">' + options[i] + '</option>');
+                };
+            };
+
+            var onSelectChange =function onSelectChange(event){
+                var value = $(this).val();
+                var areas = event.data;
+                 var options = areas[value] || areas[value.slice(0, value.length-1)];
+                 setSelectOptions($("#city"), options, "城市");
+            };
+
+            // 设置国家和地区select
+            var options = [];
+            for (var a in cityHintProv) {
+                options = options.concat(a);
+            };
+            setSelectOptions($("#province"),options , "省份");
+
+            $("#province").bind("change", cityHintProv, onSelectChange);
+
+        }
+        
+        function closePage(){
+    		if (typeof WeixinJSBridge != "undefined"){
+    		    WeixinJSBridge.invoke('closeWindow',{},function(res){
+    		        //alert(res.err_msg);
+    		    });	
+    		}
+        }
+    	/*检查清空控件*/
+        checkCloseBtn();
+        function checkCloseBtn(){
+        	var fieldList = $("input[type='text'],input[type='tel']").each(function (){
+        		var field = $(this);
+                if(field.val() != ''){
+                	var nextField = field.next()[0];
+            		$(nextField).show();
+            		$(nextField).on("click", function(){
+            			field.val("");
+            			$(nextField).hide();
+                    });
+                }
+        	});
+        };
+    	/*清空控件*/
+        $("input[type='text'],input[type='tel']").each(function(){
+        	$(this).on("keyup", function(){
+        	var field = $(this);
+        	if(field.val().length > 0){
+        		field.next().show();
+        		field.next().on("click", function(){
+        			field.val("");
+        			field.next().hide();
+                });
+        	}else{
+        		field.next().hide();
+        	}
+        	})
+        });
+        /*弹窗关闭*/
+        $(".modal .close").on("click",function(){
+            $(this).parents(".modal").hide();
+        });
+        $(".btn-orange").on("click",function(){
+            $(this).parents(".modal").hide();
+        	$("#btn_submit").attr("disabled", false);
+        });
+        function deliverywayFun(){
+            if($("#deliveryway").val() == "0"){
+                $("#label_0").show();
+                $("#label_1").hide();
+                $("#label_2").hide();
+                $("#label_3").hide();
+                $("#label_4").hide();
+            }
+            else if($("#deliveryway").val() == "1"){
+                $("#label_0").hide();
+                $("#label_1").show();
+                $("#label_2").show();
+                $("#label_3").show();
+                $("#label_4").show();
+            }
+            else if($("#deliveryway").val() == "2"){
+                $("#label_0").show();
+                $("#label_1").show();
+                $("#label_2").show();
+                $("#label_3").show();
+                $("#label_4").show();
+            }
+            else{
+                $("#label_0").hide();
+                $("#label_1").hide();
+                $("#label_2").hide();
+                $("#label_3").hide();
+                $("#label_4").hide();
+            }
+        }
+        deliverywayFun();
+        /*提交校验*/
+        $("#deliveryway").change(deliverywayFun);
+        function showDialog(txt){
+            $("#modal_msg").text(txt);
+            $("#dialog").show();
+            isValidOk=false;
+        };
+        $("#btn_submit").on("click",function(){
+            var isValidOk=true;
+        	$("#btn_submit").attr("disabled", true);
+            
+            if($("#invnm").val() == ""){
+                showDialog("请填写姓名");
+                return false;
+            }
+            if($("#invpy").val() == ""){
+                showDialog("请填写姓名拼音");
+                return false;
+            }
+            if(validInvmPy($("#invpy").val()) == false){
+                showDialog("拼音输入错误，请重新输入");
+                return false;
+            }
+            if($("#idno").val() == ""){
+                showDialog("请填写证件号码");
+                return false;
+            }
+         /*   if(checkIsIdno($("#idno").val()) != "SUCCESS"){
+                showDialog("身份证输入错误，请重新输入");
+                return false;
+            }*/
+            if($("#mobileno").val() == ""){
+                showDialog("请填写常用的联系电话");
+                return false;
+            }
+            if(validMobileNo($("#mobileno").val()) == false){
+                showDialog("电话输入错误，请重新输入");
+                return false;
+            }
+            if($("#reason").val() == ""){
+                showDialog("请填写申请事由");
+                return false;
+            }
+            if($("#purpose").val() == ""){
+                showDialog("请填写申请用途");
+                return false;
+            }
+            if($("#deliveryway").val() == ""){
+                showDialog("请选择寄送方式");
+                return false;
+            }else if($("#deliveryway").val() == "0"){
+                if($("#email").val() == ""){
+                    showDialog("请填写邮箱地址");
+                    return false;
+                }
+                if(validEmail($("#email").val()) == false){
+                    showDialog("邮箱地址输入错误，请重新输入");
+                    return false;
+                }
+            }else if($("#deliveryway").val() == "1"){
+                if($("#province").val() == ""){
+                    showDialog("请选择省份");
+                    return false;
+                }
+                if($("#city").val() == "" && $("#city").attr("isCityFlag") == "1" ){
+                    showDialog("请选择城市");
+                    return false;
+                }
+                if($("#addr").val() == ""){
+                    showDialog("请填写快递地址");
+                    return false;
+                }
+                if($("#postCode").val() == ""){
+                    showDialog("请填写邮编");
+                    return false;
+                }
+                if($("#postCode").val() !="" && validPostCode($("#postCode").val()) == false){
+                    showDialog("邮编输入错误，请重新输入");
+                    return false;
+                }
+            }else{
+                if($("#province").val() == ""){
+                    showDialog("请选择省份");
+                    return false;
+                }
+                if($("#city").val() == "" && $("#city").attr("isCityFlag") == "1" ){
+                    showDialog("请选择城市");
+                    return false;
+                }
+                if($("#email").val() == ""){
+                    showDialog("请填写邮箱地址");
+                    return false;
+                }
+                if(validEmail($("#email").val()) == false){
+                    showDialog("邮箱地址输入错误，请重新输入");
+                    return false;
+                }
+                if($("#addr").val() == ""){
+                    showDialog("请填写快递地址");
+                    return false;
+                }
+                if($("#postCode").val() == ""){
+                    showDialog("请填写邮编");
+                    return false;
+                }
+                if($("#postCode").val() !="" && validPostCode($("#postCode").val()) == false){
+                    showDialog("邮编输入错误，请重新输入");
+                    return false;
+                }
+            }
+
+            if(isValidOk  == false){
+                /*校验失败弹窗*/
+                $("#dialog").show();
+            }
+            else{
+                /*校验成功跳转*/
+                submitApply();
+            }
+
+        })
+
+        function getIdtpName(idtp) {
+            var idtpNames = {"0":"身份证","1":"护照","2":"军官证","3":"士兵证","4":"港澳居民来往内地通行证","5":"户口本","6":"外籍护照","7":"其他","8":"文职证","9":"警官证","A":"台胞证","B":"外国人永久居住证"}
+            if (idtpNames[idtp]==null) return "未知";
+            return idtpNames[idtp];
+        }
+
+        /* S 身份证号验证 function*/
+        // var Wi = [ 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1 ];    // 加权因子
+        // var ValideCode = [ 1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2 ];            // 身份证验证位值.10代表X
+
+        function checkIsIdno(idcard){
+
+            var Errors=new Array( "SUCCESS",
+                    "身份证号码位数不对！",
+                    "身份证号码出生日期超出范围或含有非法字符！",
+                    "身份证号码校验错误！",
+                    "身份证地区非法！" );
+
+            var area={11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",21:"辽宁",22:"吉林",23:"黑龙江",31:"上海",32:"江苏",33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",42:"湖北",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",51:"四川",52:"贵州",53:"云南",54:"西藏",61:"陕西",62:"甘肃",63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外"}
+            var idcard,Y,JYM;
+            var S,M;
+            var idcard_array = new Array();
+            idcard_array = idcard.split("");
+
+            //地区检验
+            if(area[parseInt(idcard.substr(0,2))]==null) return Errors[4];
+            //身份号码位数及格式检验
+            switch(idcard.length)
+            {
+
+                case 15:
+                    if ( (parseInt(idcard.substr(6,2))+1900) % 4 == 0 || ((parseInt(idcard.substr(6,2))+1900) % 100 == 0 && (parseInt(idcard.substr(6,2))+1900) % 4 == 0 )){
+                        ereg=/^[1-9][0-9]{5}[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))[0-9]{3}$/;//测试出生日期的合法性
+                    } else {
+                        ereg=/^[1-9][0-9]{5}[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|1[0-9]|2[0-8]))[0-9]{3}$/;//测试出生日期的合法性
+                    }
+                    if(ereg.test(idcard)){
+                        return Errors[0];
+                    }else{
+                        return Errors[2];
+                    }
+                    break;
+                case 18:
+                    //18位身份号码检测
+                    //出生日期的合法性检查
+                    //闰年月日:((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))
+                    //平年月日:((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|1[0-9]|2[0-8]))
+                    if ( parseInt(idcard.substr(6,4)) % 4 == 0 || (parseInt(idcard.substr(6,4)) % 100 == 0 && parseInt(idcard.substr(6,4))%4 == 0 )){
+                        ereg=/^[1-9][0-9]{5}(19|20)[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))[0-9]{3}[0-9Xx]$/;//闰年出生日期的合法性正则表达式
+                    } else {
+                        ereg=/^[1-9][0-9]{5}(19|20)[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|1[0-9]|2[0-8]))[0-9]{3}[0-9Xx]$/;//平年出生日期的合法性正则表达式
+                    }
+                    if(ereg.test(idcard)){//测试出生日期的合法性
+                        //计算校验位
+                        S = (parseInt(idcard_array[0]) + parseInt(idcard_array[10])) * 7
+                                + (parseInt(idcard_array[1]) + parseInt(idcard_array[11])) * 9
+                                + (parseInt(idcard_array[2]) + parseInt(idcard_array[12])) * 10
+                                + (parseInt(idcard_array[3]) + parseInt(idcard_array[13])) * 5
+                                + (parseInt(idcard_array[4]) + parseInt(idcard_array[14])) * 8
+                                + (parseInt(idcard_array[5]) + parseInt(idcard_array[15])) * 4
+                                + (parseInt(idcard_array[6]) + parseInt(idcard_array[16])) * 2
+                                + parseInt(idcard_array[7]) * 1
+                                + parseInt(idcard_array[8]) * 6
+                                + parseInt(idcard_array[9]) * 3 ;
+                        Y = S % 11;
+                        M = "F";
+                        JYM = "10X98765432";
+                        M = JYM.substr(Y,1);//判断校验位
+
+                        if(M == 'X' && (idcard_array[17] == 'X' || idcard_array[17] == 'x')){
+                            return Errors[0];
+                        }
+                        if(M == idcard_array[17]){
+                            return Errors[0]; //检测ID的校验位
+                        }else{
+                            return Errors[3];
+                        }
+                    }else{
+                        return Errors[2];
+                    }
+                    break;
+                default:
+                    return Errors[1];
+                    break;
+            }
+            return 'SUCCESS';
+        }
+        /* E 身份证号验证 function*/
+        /* S 手机号码 function*/
+        function validMobileNo(value){
+            var re = /^0?(13[0-9]|15[012356789]|18[0-9]|14[57]|17[0-9])[0-9]{8}$/;
+            return  re.test(value);
+        } 
+        /* E 手机号码 function*/
+        /* S 电子邮箱 function*/
+        function validEmail(value){
+            var re = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+            return  re.test(value);
+        }
+        /* E 电子邮箱 function*/
+        /* S 邮编 function*/
+        function validPostCode(value){
+            var re = /^[1-9]\d{5}$/;
+            return  re.test(value);
+        }
+        /* E 邮编 function*/
+        /* S 检查拼音 function*/
+        function validInvmPy(value){
+            var re = /^[a-z A-Z]*$/;
+            return  re.test(value);
+        }
+        /* E 检查拼音 function*/
+        
+    	function submitApply(){
+    		var url = App.projectNm + "/asset_certification/apply_asset_certification_wap";
+
+            var data = JSON.stringify({
+                "invnm": $("#invnm").val(),
+                "invpy": $("#invpy").val(),
+                "idno": $("#idno").val(),
+                "mobileno": $("#mobileno").val(),
+                "reason": $("#reason").val(),
+                "purpose": $("#purpose").val(),
+                "deliveryway": $("#deliveryway").val(),
+                "email": $("#email").val(),
+                "addr": $("#addr").val(),
+                "postCode": $("#postCode").val(),
+                "province": $("#province").val(),
+                "city": $("#city").val()
+            });
+            App.post(url, data, function() {}, function(result) {
+                if(result.body.applyCode == "0"){
+                    window.location = './complete.html';
+                }else{
+                    showDialog("创建资产证明申请失败!");
+                }
+            });
+    	}
+    	
+    });
+    </script>
+    </body>
+</html>

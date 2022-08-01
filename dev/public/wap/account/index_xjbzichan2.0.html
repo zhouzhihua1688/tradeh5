@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>现金管理</title>
+    <link rel="stylesheet" href="https://static.99fund.com/mobile/wap-lib/wap/css/base.css">
+    <link rel="stylesheet" href="https://static.99fund.com/mobile/wap-lib/wap/css/account/base_xjbzichan2.0.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        };
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+                oHtml.style.fontSize = '17.06px';
+            }else if(screenWidth >= 750){
+                oHtml.style.fontSize = '40px';
+            }else{
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="layers" style="display: none">
+    <div class="layer-mask1" >
+        <!--<a href="javascript:;"></a>-->
+    </div>
+    <div class="layer-mask2" style="display: none">
+        <!--<a href="javascript:;"></a>-->
+    </div>
+    <div class="layer-mask3" style="display: none">
+        <!--<a href="javascript:;"></a>-->
+    </div>
+</div>
+
+<div class="active_content" style="display: none">
+    <div class="layer_content">
+        <div class="banner">
+            <h4>
+                <span>现金管理总资产(元)</span>
+                <i class="question"></i>
+            </h4>
+            <h2>
+                <span class="figure isshow total_balance">0.00</span>
+                <span class="figure enshow" style="display: none">****</span>
+                <i class="eyes"></i>
+            </h2>
+            <div class="tables">
+                <div class="line"></div>
+                <div class="table_left">
+                    <p>昨日收益(元)</p>
+                    <span class="isshow total_income">0.00</span>
+                    <span class="enshow" style="display: none">****</span>
+                </div>
+                <div class="table_right">
+                    <p>累计收益(元)</p>
+                    <span class="isshow total_profit">0.00</span>
+                    <span class="enshow" style="display: none">****</span>
+                </div>
+            </div>
+        </div>
+        <div class="product_card1">
+            <div class="product_title">
+                <i></i><span>活期随充随用，快取额度6万</span>
+            </div>
+            <div class="product_content">
+                <div class="content_card content_card1">
+                    <div class="content_card_div_1" style="width: 70%;">
+                        <p class="up_text">
+                            <span class="text1 black">现金宝</span><span class="text2 gray xjb_profit_title">七日年化</span><span class="text3 red bold xjb_income">0.0000</span>
+                        </p>
+                        <p class="down_text xjb_remark">
+                            <span class="down_text1 black bold xjb_balance">0.00</span><span class="down_text2 red bold xjb_day_yield">+0.00</span>
+                        </p>
+                    </div>
+                    <a href="javascript:;" class="btn1 xjb_take_back">取现</a>
+                    <a href="javascript:;" class="btn2 xjb_recharge">充值</a>
+                </div>
+                <div class="content_card content_card2">
+                    <div class="content_card_div_2" style="width: 70%;">
+                        <p class="up_text">
+                            <span class="text1 black">现金+</span><span class="text2 gray xjj_profit_title">近一年收益率</span><span class="text3 red bold xjj_income">0.0000</span>
+                        </p>
+                        <p class="down_text xjj_remark">
+                            <span class="down_text1 black bold xjj_balance">0.00</span><span class="down_text2 red bold xjj_day_yield">+0.00</span>
+                        </p>
+                    </div>
+                    <a href="javascript:;" class="btn1 xjj_take_back">取出</a>
+                    <a href="javascript:;" class="btn2 xjj_recharge">存入</a>
+                </div>
+            </div>
+        </div>
+
+		
+        <div class="product_card2">
+            <div class="product_title">
+                <i></i><span>用活期管家，过省心生活</span>
+            </div>
+            <div class="product_list func_list">
+                <div class="func_list_1"></div>
+                <div class="func_list_2"></div>
+                <!--<a href="javascript:;" class="list list1">
+                    <p class="black">工资宝</p>
+                    <div class="middle">
+                        <h4 class="black"><span>07-25</span><span>2,000.00元</span><span>已转</span></h4>
+                        <h4 class="gray"><span>08-15</span><span>600.00元</span><span>将转</span></h4>
+                    </div>
+                </a>
+                <a href="javascript:;" class="list list4">
+                    <div class="other">
+                        <div class="other_title black">预约还款</div>
+                        <div class="other_text gray">预约还款预约还款预约还款预约还款预约还款</div>
+                    </div>
+                </a>
+                <a href="javascript:;" class="list list2">
+                    <p class="black">预约还款</p>
+                    <div class="single black">
+                        <span>07-25</span><span>2,000.00元</span><span>已转</span>
+                        <span>07-25</span><span>2,000.00元</span><span>已转</span>
+                    </div>
+                </a>
+                <a href="javascript:;" class="list list3">
+                    <p class="black">预约还款</p>
+                    <div class="single black">
+                        <span>07-25</span><span>2,000.00元</span><span>已转</span>
+                    </div>
+                </a>-->
+            </div>
+        </div>
+    </div>
+    <div style="height: .5rem;"></div>
+    
+</div>
+<div class="mask">
+    <div class="answer">
+        <div class="answer_text">包括您的现金宝资产和现金+组合资产</div>
+        <a href="javascript:;" class="close">确定</a>
+    </div>
+</div>
+
+<div></div>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/wap/js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/wap/js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script type="text/javascript" src="../js/common.js?20210302"></script>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/wap/js/account/index_xjbzichan2.0.js"></script>
+</body>
+</html>

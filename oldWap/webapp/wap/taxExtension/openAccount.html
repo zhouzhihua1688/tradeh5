@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>养老开户申请</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base_v1.css">
+    <link rel="stylesheet" href="../css/taxExtension/payment.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <style>
+        .list-group-item  input{margin-left: .75rem;text-align: left;}
+        .footer{
+            position: fixed;
+            left:0;
+            bottom:0;
+            width: 100%;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            background: #fe7e01;
+            font-size: 0.85rem;
+            color:#fff;
+            text-align: center;
+        }
+
+        .tip2{position: fixed;top: 0;left: 0;background-color: rgba(0,0,0,0.7);height: 100%;width: 100%;overflow: auto;font-size: 0.6rem;z-index: 999;}
+        .tip2 .tip_wrap{position: absolute;left: 50%;top: 50%;-webkit-transform: translate(-50%,-50%);transform: translate(-50%,-50%);margin: 0;width:80%;/*height:16rem;*/background: #fff;-webkit-border-radius: 5px;}
+        .tip2 .tip_wrap .tip_content p{padding:0 1.5rem 0 1.5rem;font-size: .7rem;margin-top: .7rem;line-height: 1rem;margin-bottom: 1rem;text-align: center;line-height: 1rem;}
+        .tip2 .tip_wrap .tip_content{border-bottom: 1px #eee solid;}
+        .tip2 .tip_wrap .tip_btn ul li{text-align: center;font-size: .75rem;color:#006bfe;}
+        .tip2 .tip_wrap .tip_btn ul li a{display:block;text-align: center;font-size: .75rem;width:100%;padding:.7rem 0;}
+
+        .rules {font-size: 0.65rem; padding: .7rem 0 0 1.5rem;}
+        .rules .chose-icon {position: static; left: 0.75rem; top: 0.2rem; }
+        .rules span {  width: .6rem; height: .6rem; vertical-align: middle; background: url("../images/chose1_y.png") no-repeat left center; display: inline-block;  background-size: contain; margin: -.2rem .25rem 0 -.75rem; }
+        .rules a { color: #3295e8; cursor: pointer;}
+        .current {background: url(../images/chose1.png) no-repeat !important;background-size: 100% 100% !important;}
+    </style>
+</head>
+<body>
+<div class="content">
+    <div>
+        <div class="user-info">个人信息</div>
+        <ul class="grid-list" style="padding:0 0 0 .75rem ">
+            <li class="grid-list-item heigth-100 BankCard">
+                <div class="row">
+                    <div class="flex">
+                        <p>姓名</p>
+                        <p id="name"></p>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 BankCard">
+                <div class="row">
+                    <div class="flex">
+                        <p>证件号码</p>
+                        <p id="idno"><!--310****9876(身份证)--></p>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 BankCard">
+                <div class="row">
+                    <div class="flex">
+                        <p>证件有效期</p>
+                        <p id="idnoValidDate" class="red">请填写身份证有效期</p>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 BankCard">
+                <div class="row">
+                    <div class="flex">
+                        <p>绑定手机</p>
+                        <p id="mobile"></p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<section class="section2">
+    <p class="rules">
+        <span class="chose-icon current"></span>我已阅读并同意
+        <a href="https://static.99fund.com/mobile/agreement/tdp_agreement.html">《风险揭示书》&nbsp;</a>
+    </p>
+</section>
+<a href="javascript:;" class="footer open-btn">一键开户</a>
+
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <p class="Bomb-box-tips" style="padding-top: 0.75rem;"></p>
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;">确定</a>
+    </div>
+</div>
+<div class="tip2 bind_card_tip" style="display: none;">
+    <div class="tip_wrap">
+        <div class="tip_content">
+            <p id="bind_card_tip">您还未绑定银行卡，请先绑定银行卡</p>
+        </div>
+        <div class="tip_btn" >
+            <ul style="width: 100%;">
+                <li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid" class="close_tip"><a
+                        href="javascript:;">取消</a></li>
+                <li style="float: left;width:50%;box-sizing: border-box;"><a href="../card/manage_card.html" id="go_to_bind_card">添加银行卡</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script type="text/javascript" src="../js/common.js?20210106"></script>
+<script type="text/javascript" src="../js/taxExtension/openAccount.js?20210106"></script>
+
+</body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!--<meta charset="GBK">-->
+	 <meta charset="utf8">
+	<title>基金详情</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../css/base.css">
+	<link rel="stylesheet" href="../css/base_v1.css">
+	<script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+	<style type="text/css">
+		.font-arial{ font-family: Arial; }
+		section{
+			background-color: #fff;
+			overflow: hidden;
+		}
+		.left{
+			float: left;
+		}
+		.right_v1{
+			float: right;
+		}
+		.next{
+			/* display: inline-block;
+			width: 8px;
+			height: 16px;
+			background: url(img/icon01.png) no-repeat left top;
+			-webkit-background-size: contain;
+			background-size: contain;
+			vertical-align: middle;
+			margin-left: 7px; */
+		}
+		.content1{border-top:1px solid #dddddd;margin-bottom: .5rem;}
+		.content1 h2 {
+			text-align: center;font-size: .75rem;color:#000;margin-top:.75rem;
+		}
+		.content1 h2 span{font-size: .6rem;color:#666;}
+		.content1 p{text-align: center;height:.75rem; line-height: .75rem;margin-top: .4rem;color:#fb5c5f;}
+		.content1 p span{display: inline-block;padding:.1rem .5rem;-webkit-border-radius:1.4rem;background: #fee5e5; margin-left: .25rem;}
+		.content1 .jingzhi{padding:1.25rem 0rem .2rem 0rem;}
+		.content1 .jingzhi table{border:0 ;cellspacing:0;cellpadding:0;border-collapse:collapse;}
+		.content1 .jingzhi table td{width:16%;text-align: center;}
+		.content1 .jingzhi table tr:first-child td{font-size:.65rem;color:#666;}
+		.content1 .jingzhi table tr:last-child td{font-size: 1rem;padding-top: .2rem;}
+		.content1 .jingzhi table tr td:first-child{border-right: 1px #eee solid;}
+		.content1 .jingzhi table tr:first-child td:last-child img{width:.75rem;}
+		.content1 .tablelist_1{height:6rem;background: url(../images/fund/echart_table.png) no-repeat ;background-size:100% 100%;font-size: .6rem; }
+		.content1 .tablelist_1 table{width:100%;padding:1rem 1.2rem 0rem 1.2rem;}
+		.content1 .tablelist_1 table tr td{text-align: center;}
+		.content1 .tablelist_1 table tr:nth-of-type(2){color:#f4333c;}
+
+		.content1 .typelist{padding:.6rem .75rem;text-align: left;}
+		.content1 .typelist span{display: inline-block;height:1rem;line-height: 1rem;padding:0 .25rem;border:1px #999999 solid;-webkit-border-radius:3px;margin-right: .3rem;}
+		.content2{
+			height: 370px;
+            position: relative;
+		}
+		.content2 h3{
+			color: #333333;
+			line-height: 35px;
+			padding-left: 15px;
+			background-color: #f6f6f6;
+		}
+		.content2 ul{ width:  100%; margin: 0 auto; overflow: hidden; }
+		.content2 ul li{ width: 50%; font-size: 12px;text-align: center; }
+		.content2 ul li:first-child{ float: left; }
+		.content2 ul li:last-child{ float: right; }
+		.content2 ul li a{ color: #000; display: block; width: 100%; height: 40px; line-height: 40px;  float: left; text-align: center;font-size: 14px;}
+		.content2 ul li.active a {  color: #fb5c5f;border-bottom: 1px solid #ffadae;}
+		.content2 ul.tab2 { width: 92%;margin: 0 auto;}
+		.content2 ul.tab2 li { width: 20%; float: left; }
+		.content2 ul.tab2 li a{ width: 100%; background-color: #fff; margin-left: 0%; color: #fb5c5f; border:1px #fe5a5b solid;box-sizing: border-box; }
+		.content2 ul.tab2 li:first-child a{border-radius:3px 0 0 3px;border-right: none;}
+		.content2 ul.tab2 li:nth-child(2) a{border-right: none;}
+		.content2 ul.tab2 li:nth-child(3) a{border-right: none;}
+		.content2 ul.tab2 li:last-child a{border-radius:0 3px 3px 0;border-left: none;}
+		.content2 ul.tab2 li.active a{  background-color: #fb5c5f; color: #ffffff; }
+		.content3{margin-top: .5rem;display: none;}
+		.content3 h3 {
+			color: #333333;
+			line-height: 35px;
+			padding-left: 15px;
+			background-color: #f6f6f6;
+		}
+		.content3 table{
+			font-size: 12px;
+			width: 100%;
+			border-collapse: collapse;
+			
+		}
+		.content3 table thead{border:#eeeeee 1px solid;}
+		.content3 table thead tr th{height:1.75rem;width:25%;font-weight: 100;color:#000;font-size:.7rem;}
+		.content3 table thead th:first-child{text-align: left;padding-left: .75rem;}
+		.content3 table thead th:last-child{text-align: right;padding-right: .75rem;}
+		.content3 table tbody tr td{height:2.5rem;font-size:.7rem;color:#666666;text-align: center}
+		.content3 table tbody tr:nth-of-type(odd){background: #fff;}
+		.content3 table tbody tr:nth-of-type(even){background: #f6f6f6;}
+		.content3 table tbody:nth-of-type(2) tr:nth-of-type(odd){background: #f6f6f6;}
+		.content3 table tbody:nth-of-type(2) tr:nth-of-type(even){background: #fff;}
+		.content3 table tbody tr td:first-child{text-align: left;padding-left: .75rem;}
+		.content3 table tbody tr td:last-child{text-align: right;padding-right: .75rem;}
+		.content3 .data_more{width:100%;height:1.75rem;border-top:1px#eee solid;}
+		.content3 .data_more a{display:block;width:100%;height:100%;text-align: center;line-height: 1.75rem;color:#148ce6;font-size: .65rem;}
+		.content4{
+			margin-top:.5rem;
+			padding-left: .75rem;
+		}
+		.content4 table{
+			width: 100%;
+			border-collapse: collapse;
+			font-size:.75rem;
+		}
+		.content4 table tr{height:2.5rem;border-bottom: 1px #eee solid;}
+		.content4 table tr td img{width:.4rem;height:.75rem;position: relative;top:2px;}
+		.content4 table tr td:nth-of-type(1){color:#000;}
+		.content4 table tr td:nth-of-type(2){text-align: right;padding-right:.75rem;}
+		.content5 {margin-top: .5rem;}
+		.content5 .content5_title{padding:0 .75rem;overflow: hidden;height:2.5rem;border-bottom:1px #eee solid;}
+		.content5 .content5_title p{line-height: 2.5rem;font-size: .75rem;}
+		.content5 .content5_title p:first-child{color:#000;}
+		.content5 .content5_title p>img{width:.4rem;height:.75rem;position: relative;top:2px;}
+		.content5 .slide_content{padding: 1rem .75rem;}
+		.content5 .slide_content .slide_top{display: flex;justify-content:space-between;}
+		.content5 .slide_content .slide_bottom{overflow: hidden;}
+		.content5 .slide_content .slide_bottom p{float: left;width:33.3%;}
+		.content5 .slide_content .slide_bottom p:nth-of-type(1){text-align: left;}
+		.content5 .slide_content .slide_bottom p:nth-of-type(2){text-align: center;}
+		.content5 .slide_content .slide_bottom p:nth-of-type(3){text-align: right;}
+
+		.footer{width:100%;padding:.2rem 0 0 0;background: #f6f6f6;position:fixed;left: 0;bottom: 0;height: 3.5rem;}
+		.footer p{width:78%;margin-left:11%;font-size: .6rem;color:#fb5c5f;background: #fee5e5;border-radius: .5rem;text-align: center; margin-top: -1rem;}
+		.footer_fiexd{height:2.5rem;width:100%;background: #fe7e01;}
+		.footer_fiexd ul{display: flex;}
+		.footer_fiexd ul li{flex: 1;height:2.5rem;background:#fe7e01 ;}
+
+		.footer_fiexd ul li a{display:block;width:100%;height: 100%;line-height: 2.5rem;text-align: center;color:#fff;font-size: .8rem;}
+
+		.tip,.tip2,.tip3{position: fixed;
+			top: 0;
+			left: 0;
+			background-color: rgba(0,0,0,0.7);
+			height: 100%;
+			width: 100%;
+			overflow: auto;
+			font-size: 0.6rem;
+			z-index: 9999999;
+		}
+		.tip .tip_wrap,.tip2 .tip_wrap,.tip3 .tip_wrap{
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			-webkit-transform: translate(-50%,-50%);
+			transform: translate(-50%,-50%);
+			margin: 0;
+			width:80%;
+			/*height:16rem;*/
+			background: #fff;
+			-webkit-border-radius: 5px;
+		}
+		.tip .tip_wrap .tip_content p,.tip2 .tip_wrap .tip_content p{padding:0 1.5rem 0 1.5rem;font-size: .7rem;margin-top: .7rem;line-height: 1rem;margin-bottom: 1rem;text-align: center;line-height: 1rem;}
+		.tip3 .tip_wrap .tip_content p{padding:0 1.5rem 0 1.5rem;font-size: .7rem;margin-top: .7rem;line-height: 1rem;margin-bottom: 1rem;text-align: center;}
+		.tip .tip_wrap .tip_content,.tip2 .tip_wrap .tip_content,.tip3 .tip_wrap .tip_content{border-bottom: 1px #eee solid;}
+		.tip .tip_wrap .tip_btn ul li,.tip2 .tip_wrap .tip_btn ul li,.tip3 .tip_wrap .tip_btn ul li{text-align: center;font-size: .75rem;color:#006bfe;}
+		.tip .tip_wrap .tip_btn ul li a,.tip2 .tip_wrap .tip_btn ul li a,.tip3 .tip_wrap .tip_btn ul li a{display:block;text-align: center;font-size: .75rem;width:100%;padding:.7rem 0;}
+
+		.noData { position: absolute; top: 45%; right: 0; font-size: 24px;width: 100%; text-align: center; }
+
+		.chart_tag{width: 100%;margin-left: -50%;font-size: 14px;}
+		.chart_sub_tag{display:inline-block;width:14px;height:14px;border-radius:50%;background:#fb5c5f;position:relative;top:2px;}
+		.fund_detail_tip{display: none;line-height: 1.8rem;height: 1.8rem;background-color: #fffac7;color: #fb5c5f;margin-top: 0.8rem;padding: 0rem .6rem 0rem .6rem;}
+		.fund_detail_tip span{white-space: nowrap;display: inline-block;width: 90%;overflow: hidden;text-overflow: ellipsis;}
+		.fund_detail_tip img{float: right;position: relative;top: .5rem;height: .75rem;width: .4rem;}
+		/* 底部按钮 */
+		.footer_fiexd{position:fixed;left: 0;bottom: 0;width:100%;background: #f6f6f6;}
+		.footer_fiexd ul{display: flex;}
+		.footer_fiexd ul li{flex: 1;height:2.5rem;background:#fe7e01 ;}
+		/* .footer_fiexd ul li:nth-of-type(1){	} */
+		.footer_fiexd ul li{border-left:1px #fff solid;}
+		.footer_fiexd ul li:nth-of-type(1){background: #fff;}
+		.footer_fiexd ul li a{display:block;width:100%;height: 100%;line-height: 2.5rem;text-align: center;color:#fff;font-size: .8rem;}
+		.footer_fiexd ul li:first-child a{color: #fe7e01; border-top: 1px #eee solid;}
+		.footer_fiexd ul li a:first-child img{width: 0.7rem;height: 0.7rem;padding-right: 0.2rem;padding-top: 0.2rem;}
+
+        .bottom{background: rgba(0,0,0,.6);width:100%;position: fixed;bottom: 3.7rem;left:0;padding:.47em 0;z-index:99999}
+        .bottom .logo,.bottom .text{float:left;}
+        .bottom .logo{background: url(../images/logo.png) no-repeat;background-size:contain;width:2.475em;height: 2.507em;margin-right: .379em;margin-left: 1.035em;}
+
+        .bottom .text .p1{font-size: .966em;color:#fff;}
+        .bottom .text .p2{font-size: .689em;color:#fff;}
+        .bottom a{display: block;float:right;background: #ff7e00;color:#fff;font-size: .896em;margin-right: 1.035em;height: 2.071em;width: 5.516em;line-height: 2.071em;text-align: center;border-radius: 3px;margin-top: .220em;}
+        .bottom .logo {padding: 0;}
+        .bottom .text p{margin: 0;width:auto !important;background:none !important;border-radius:none !important;text-align:left !important;}
+        .bottom a {text-decoration: none;}
+		.bottom{display: none;}  /* 先隐藏，再在common.js控制显示，小米金融渠道不显示 */
+
+        .video{
+            width:100%;
+            height:100%;
+            background: #fff;
+            /* padding-bottom: 0.5rem; */
+            position: relative;
+            margin: 0rem;
+            padding: 0rem;
+        }
+        .video .video_box {
+            width:18.75rem;
+            /* border-radius: .2rem; */
+            height:10.5rem;
+            overflow: hidden;
+            margin: 0 auto;
+            z-index:10;
+            background-color: rgba(0,0,0,0.3);
+            margin: 0rem;
+            padding: 0rem;
+         /*    background: url('../images/fund/shiping.png') no-repeat;
+            background-size: 100% 100%;  */
+        }
+        /* .video .mask{height:8.75rem;width:18.75rem;position:absolute;bottom:0;font-size:0.6rem;
+            background-color: rgba(0,0,0,0.3);z-index:9;
+        } */
+        .video img{width:1.575rem;height:1.575rem;position: absolute;left:50%;margin-left:-0.8rem;top:50%;margin-top:-1rem;}
+        .video .title{position:absolute;top:0.5rem;left:0.75rem;font-size:0.7rem;color:#fff;}
+        .video .play{position:absolute;bottom:0.5rem;left:0.75rem;font-size:0.6rem;color:#fff;}
+        .video .hidden{height:1.0rem;width:2.375rem;border: 1px solid #fff;position:absolute;bottom:5rem;right:0rem;
+        	color: #fff;font-size: 0.7rem;text-align:center;height:1rem;border-radius:1.25rem 0rem 0rem 1.25rem;border-right: 0px;
+        }
+        .bofangqi{width:1.95rem;height:1.95rem;background: url('../images/fund/bofangqi.png') no-repeat;background-size:100% 100%;position: absolute;top:1.5rem;right:0rem;}
+        body{margin:0rem;}
+        video{
+　　       object-fit: fill!important;
+        }
+
+        /*弹框1*/
+        .Bomb-box,.Bomb-box1,.Bomb-box2{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+        .Bomb-box .Bomb-box-main,.Bomb-box1 .Bomb-box-main,.Bomb-box2 .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+        .Bomb-box .Bomb-box-tips,.Bomb-box1 .Bomb-box-tips{  text-align: center;  color: #333;  font-size: 0.75rem;  height: 2.5rem;  line-height: 2.5rem;  }
+        .Bomb-box .Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+        .Bomb-box .Bomb-box-content p,.Bomb-box1 .Bomb-box-content p,.Bomb-box2 .Bomb-box-content p{  line-height: 1rem;  }
+        .Bomb-box .Bomb-box-ok,.Bomb-box1 .Bomb-box-ok,.Bomb-box2 .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+        .Bomb-box .no-tips,.Bomb-box1 .no-tips,.Bomb-box2 .no-tips{font-size: 0.7rem;padding: 1.7rem 1.5rem 1.15rem 1.5rem;text-align: center;}
+        .Bomb-box .text-center,.Bomb-box1 .text-center,.Bomb-box2 .text-center{text-align: center;}
+        .Bomb-box .Bomb-box-content,
+        .Bomb-box1 .Bomb-box-content,
+        .Bomb-box2 .Bomb-box-content{ padding:.75rem 1.5rem; }
+
+	</style>
+</head>
+<body>
+	<section class="content1">
+		<span id="fastRedeem" style="display:none;position: absolute; top:0rem; right:0rem;border: 1px solid #DDBE6C; border-radius: 0.1rem;background-color: #FBF7EE; color: #DDBE6C; padding:0 .25rem; font-size: .6rem;">支持快速赎回</span>
+		<div class="bofangqi" style="display: none"></div>
+        <div class="video" id="video" style="display: none">
+	        <div class="video_box">
+	            <video height="100%" width="100%" id="video_self" src="" poster="" style="object-fit:fill!important;">
+                </video>
+	        </div>
+	        <!-- <div class="mask"></div> -->
+	        <img src="../images/fund/anniu.png" alt="" id="play_img">
+	        <div class="title">文体娱乐有哪些投资机会？</div>
+	        <div class="play"></div>
+	        <div class="hidden">收起</div>
+        </div>
+
+		<h2 id="view_fundNmId"></h2>
+		<p id="view_type_risk"></p>
+		<div class="fund_detail_tip"><span class="fund_detail_tip_txt"></span><img src="../images/fund/tip_arrow_normal.png" alt=""></div>
+		<div class="jingzhi"> 
+		<table>
+			<tr>
+				<td><span id="title_1">最新净值</span>(<span id="view_nav_dt">--</span>)</td><td class="show_profit"><span id="title_2">日涨跌幅</span>&nbsp;<img id="show_profit_btn" src="../images/select_down.png"/></td>
+			</tr>
+			<tr>
+				<td style="color:#000" id="view_nav"></td><td class="show_profit" style="color:#f4333c;" id="view_yield"></td>
+			</tr>
+		</table>
+		</div>
+		
+		<div class="tablelist_1" style="display: none;">
+			<table>
+				<tr>
+					<td width="25%">近1个月</td>
+					<td width="25%">近3个月</td>
+					<td width="25%">近6个月</td>
+					<td width="25%">近1年</td>
+				</tr>
+				<tr>
+					<td id="view_monthProfit"></td>
+					<td id="view_thrMonthProfit"></td>
+					<td id="view_halfYearProfit"></td>
+					<td id="view_yearProfit"></td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td width="25%">近2年</td>
+					<td width="25%">近3年</td>
+					<td width="25%">今年以来</td>
+					<td width="25%">成立以来</td>
+				</tr>
+				<tr>
+					<td id="view_twoYearProfit"></td>
+					<td id="view_thrYearProfit"></td>
+					<td id="view_fromYearProfit"></td>
+					<td id="view_sinceProfit"></td>
+				</tr>
+			</table>
+		</div>
+		<div class="typelist" style="border-top: 1px #eee solid;" id="view_labels">
+		</div>
+	</section>
+	<section class="content2">
+		<div>
+	        <ul class="clearfix border tab1">
+	            <li class="active" id="tab1_1"><a>收益率走势</a></li>
+	            <li id="tab1_2"><a>净值走势</a></li>
+	        </ul>
+	    	<div class="diagram">
+	    		<div>
+	    			<div id="pie1" style="width: 100%; height: 260px;"></div>
+	    		</div>
+	    		 <div class="noData" style="display: none;">
+                    <p>暂无数据</p>
+                </div>
+	    	</div>
+		</div>
+		<ul class="clearfix tab2 tab2_0">
+			<li class="active" value="30"><a>1个月</a></li>
+			<li value="90"><a>3个月</a></li>
+			<li value="180"><a>6个月</a></li>
+			<li value="365"><a>近1年</a></li>
+			<li value="NY"><a>今年以来</a></li>
+		</ul>
+		<ul class="clearfix tab2 tab2_1" style="display: none;">
+			<li class="active" value="30"><a>1个月</a></li>
+			<li value="90"><a>3个月</a></li>
+			<li value="180"><a>6个月</a></li>
+			<li value="365"><a>近1年</a></li>
+			<li value="NY"><a>今年以来</a></li>
+		</ul>
+	</section>
+	<section class="content3 nav_list">
+		<table>
+			<thead>
+				<tr>
+					<th width="25%">日期</th>
+					<th width="25%">单位净值</th>
+					<th width="25%">累计净值</th>
+					<th width="25%">日涨跌幅</th>
+				</tr>
+			</thead>
+			<tbody id="view_nav_list">
+			</tbody>
+		</table>
+		<div class="data_more">
+			<a href="" id="more_nav">查看更多基金净值</a>
+		</div>
+	</section>
+    <section class="content3 income_list">
+        <table>
+            <thead>
+            <tr>
+                <th width="33%">日期</th>
+                <th width="33%">每万份收益</th>
+                <th width="33%">七日年化收益率</th>
+            </tr>
+            </thead>
+            <tbody id="view_income_list">
+            </tbody>
+        </table>
+        <div class="data_more">
+            <a href="" id="more_income">查看更多基金净值</a>
+        </div>
+    </section>
+	<section class="content4">
+		<table>
+			<tbody>
+				<tr>
+					<td style="margin-left: .75rem">基金档案</td>
+					<td id="view_jump_fundArchivesRemark"><span id="view_fundArchivesRemark"></span>&nbsp;<img src="../images/fund/arrow.png"></td>
+				</tr>
+				<tr>
+					<td>基金经理</td>
+					<td id="view_jump_manage"><span id="view_manage"></span>&nbsp;<img src="../images/fund/arrow.png"></td>
+				</tr>
+				<tr id="investmentRemark_tr">
+					<td>投资组合</td>
+					<td id="view_jump_investmentRemark"><span id="view_investmentRemark"></span>&nbsp;<img src="../images/fund/arrow.png"></td>
+				</tr>
+				<tr id="netValue_tr">
+					<td>规模份额</td>
+					<td id="view_jump_fundScaleQutyUrl"><span id="view_netValue"></span>&nbsp;<img src="../images/fund/arrow.png"></td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+	<section class="content5">
+		<div class="content5_title">
+			<p class="left">交易规则</p>
+			<p class="right_v1" id="view_jump_fundTradeRuleRemark"><span id="view_fundTradeRuleRemark"></span>&nbsp;<img src="../images/fund/arrow.png" alt=""></p>
+		</div>
+		<div class="slide_content">
+			<div class="slide_top">
+				<p id="view_1_up"></p>
+				<p id="view_2_up"></p>
+				<p id="view_3_up"></p>
+			</div>
+			<img src="../images/fund/slidebar.png" alt="">
+			<div class="slide_bottom">
+				<p id="view_1_down"></p>
+				<p id="view_2_down"></p>
+				<p id="view_3_down"></p>
+			</div>
+		</div>
+	</section>
+	<section id="div_" style="height: 7rem;"></section>
+    <!-- S footer 添加 -->
+
+    <div class="bottom">
+        <div class="logo"></div>
+        <div class="text">
+            <p class="p1">汇添富现金宝</p>
+            <p class="p2">添富现金宝，理财好账户！</p>
+        </div>
+        <a href="https://www.99fund.com/m.htm">下载App</a>
+    </div>
+    <!-- E footer 添加 -->
+	<section class="footer">
+
+	
+	
+		<div class="footer_fiexd buy-div" style="display: none;">
+			<p id="view_feeRate"></p>
+		</div>
+		<div class="footer_fiexd buy-div" style="display: none;">
+			<ul style="width: 100%;">
+				<li class="btn_mip" style="width: 33%;"><a href="javascript:;" class="fund_mip">定投</a></li>
+				<li class="buy_btn_li" style="width: 33%;"><a href="javascript:;" class="buy">申购</a></li>
+			<!--	<li class="redeem_btn_li" style="width: 33%;"><a href="javascript:;" class="redeem">赎回</a></li>-->
+			</ul>
+		</div>
+		<div class="footer_fiexd view-div" id="xjb_show" style="display: none;">
+			<ul style="width: 100%;">
+				<li class="btn" style="width: 100%;background-color:#fe7e01"><a href="javascript:;" style="color:#fff" class="xjb_index">查看现金宝资产</a></li>
+			</ul>
+		</div>
+        
+        <div class="footer_fiexd view-div" id="kaishou" style="display: none;">
+			<ul style="width: 100%;">
+				<li class="buy_btn_li" style="width: 33%;"><a href="javascript:;" class="buy" style="color:#fff"> 暂停交易</a></li>
+				<li class="btn" id="kaishou_li" style="width: 100%;background-color:#fe7e01"><a href="javascript:;" style="color:#fff" >开售提醒</a></li>
+			</ul>
+		</div>
+	</section>
+
+	<div class="tip login_tip" style="display: none;">
+		<div class="tip_wrap">
+			<div class="tip_content">
+				<p>您尚未登陆，请先登录</span></p>
+			</div>
+			<div class="tip_btn" >
+				<ul style="width: 100%;">
+					<li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid" class="close_tip"><a
+							href="javascript:;">取消</a></li>
+					<li style="float: left;width:50%;box-sizing: border-box;"><a class="goto_login" href="javascript:;">去登录</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="tip go_to_open_account_tip" style="display: none;">
+		<div class="tip_wrap">
+			<div class="tip_content">
+				<p>该产品为税延养老指定产品，关联税延养老账户购买可享受国家税优政策，普通购买无法享受国家税优政策。</span></p>
+			</div>
+			<div class="tip_btn" >
+				<ul style="width: 100%;">
+					<li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid" class="close_tip"><a
+							href="javascript:;">取消</a></li>
+					<li style="float: left;width:50%;box-sizing: border-box;"><a class="goto_open_account" href="../taxExtension/openAccount.html">开通养老账户</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="tip2" style="display: none;">
+		<div class="tip_wrap">
+			<div class="tip_content">
+				<p id="bind_card_tip">您还未绑定银行卡，请先绑定银行卡</span></p>
+			</div>
+			<div class="tip_btn" >
+				<ul style="width: 100%;">
+					<li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid" class="close_tip"><a
+							href="javascript:;">取消</a></li>
+					<li style="float: left;width:50%;box-sizing: border-box;"><a href="../card/manage_card.html" id="add_bind_card">去绑卡</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="tip3" style="display: none;">
+		<div class="tip_wrap">
+			<div class="tip_content">
+				<p class="fund_detail_tip_txt"></span></p>
+			</div>
+			<div class="tip_btn" >
+				<ul style="width: 100%;">
+					<li style="float: left;width:100%;box-sizing: border-box;border-right: 1px #eee solid" class="close_tip"><a href="javascript:;">知道了</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+    <!-- 提示弹窗 -->
+    <div class="Bomb-box" style="display: none;">
+        <div class="Bomb-box-main">
+            <div class="Bomb-box-content">
+                <p class="text-center"></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;">确定</a>
+        </div>
+    </div>
+	<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+	<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../js/lib/echarts.min.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>	
+	<script type="text/javascript" src="../js/common.js?20210302"></script>
+	<script type="text/javascript" src="../js/fund/steadyConbination.js?20211210"></script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+</body>
+</html>

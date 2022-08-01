@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>财富课堂</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <!-- <script src="js/base.js"></script> -->
+    <!-- <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script> -->
+    <script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script>
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+<script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+</script>
+<style>
+    body,html{background: #ffffff;}
+    body {left: 0%; right: 0%;font:14px 'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+    button { outline: none;  }
+    /* 图片自适应 */
+    img {width: 100%; height: auto; width: auto\9; /* ie8 */ -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/ border: none; vertical-align: top; outline: none; display: block; }
+    p { word-wrap: break-word; text-align: justify; }
+    table { width: 100%;border-collapse:collapse; }
+    .main{width:100%;background: #fff;}
+    .wealth-title{width:100%;display: flex; justify-content: space-between; align-items: center;height:2.5rem;}
+    .wealth-title div{width:50%;height:2.5rem;text-align: center;font-size:0.75rem;color:#000;line-height:2.5rem;} 
+    .wealth-title div.active{color:#fb5c5f;border-bottom:2px solid #fb5c5f;}
+
+    .storyList{width:100%;}
+    .storyList .bgImg{width:17.25rem;height:4.65rem;margin:0 auto;border-radius:5px;position: relative;margin-top:0.75rem;}
+    .storyList .bgImg img{width:17.25rem;height:4.65rem;border-radius:5px;position:absolute;top:0;}
+    .storyList .bgImg .right-tips{padding:0rem 0.25rem;height:0.875rem;position:absolute;right:0rem;text-align:center;line-height:0.875rem;font-size:0.5rem;color:#fff;}
+    .storyList .bgImg .right-text{position:absolute;top:1.8rem;right:0.75rem;font-size: 0.75rem}
+    .storyList .bgImg .right-text .right-icon{margin-left:0.15rem;}
+
+    .videoList{width:100%;padding-top:0.75rem;}
+    .videoList .videoImg{width:17.25rem;margin:0 auto;margin-bottom:0.75rem;position:relative;border-radius:5px;}
+    .videoList .videoImg .bigImg{width:17.25rem;height:8.625rem;border-radius: 0.45rem;border-radius:5px;}
+    .videoList .videoImg .play{position:absolute; bottom:3.81rem;left:8.125rem; width:30px;height:30px;}
+    .videoList .videoImg .left{position:absolute;bottom:0.3rem;left:0.75rem;font-size: 0.65rem;color:#fff;}
+    .videoList .videoImg .right{position:absolute;bottom:0.3rem;right:0.8rem;font-size: 0.65rem;color:#fff;}
+
+</style>
+</head>
+<body>
+<div id="app" v-cloak>
+	<div class="main">
+	    <div class="wealth-title">
+	       <div v-for="(item,index) in title" :key="index" v-text="item" :class="number==index ? 'active' : '  ' " @click="changeTitle(index)"></div>
+	    </div>
+        <!-- 财富故事 -->
+	    <div class="storyList" v-if="number==0">
+            <div v-if="storyList.length>0">
+    	       <div class="bgImg" v-for="(item,index) in storyList" :key="index" @click="jumpUrl(item.url)">
+    	       	  <img :src='item.picture' alt="">
+    	       	  <div class="right-tips"></div>  <!--漫画人生-->
+    	       	  <div class="right-text"><span></span><span class="right-icon"></span></div>  <!--蜜蜂采蜜为将来-->
+    	       </div>
+            </div>
+            <div v-else style="text-align: center">暂无数据</div>
+	    </div>
+        <!-- 财商视频 -->
+	    <div class="videoList" v-else>
+            <div v-if="videoList.length>0">
+    	      <div class="videoImg" v-for="(item,index) in videoList" :key="index"  @click="jumpVideoUrl(item.videoId, item.detailUrl)">
+    	        <img class='bigImg' :src="item.picture" alt="">
+    	        <img class='play' src="img/play.png" alt="">
+    	        <span class="left" v-text="item.hits+'次播放'"></span>  <!--120000次播放-->
+    	        <span class="right" v-text="item.mins < 10 ? '0' + item.mins +':00' :  item.mins+':00'"></span>
+    	      </div>
+            </div>
+            <div v-else style="text-align: center">暂无数据</div>  
+	    </div>
+	</div>
+</div>
+<script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script src="js/wealthClassroom.js"></script>
+</body>
+</html>

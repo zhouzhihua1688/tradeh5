@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!--<meta charset="utf8"> -->
+	<title>汇添富稳进组合</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="css/base.css">
+	<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/zepto.min.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/echarts.min.js"></script>
+	<script type="text/javascript" src = "https://static.99fund.com/mobile/wap-lib/js/basic.js"></script>
+
+	<style type="text/css">
+		body { font-size: 12px; }
+		img { display: block; max-width: 100%; height: auto; border: 0; }
+		section { background-color: #fff; overflow: hidden; }
+		small { font-size: 12px; }
+		p { text-align: justify; }
+		i.next { display: inline-block; width: 8px; height: 16px; background: url(img/icon01.png) no-repeat left top; -webkit-background-size: contain; background-size: contain; vertical-align: middle; margin-left: 7px; }
+		.hide { display: none !important; }
+		.icon { display: inline-block; width: 10px; height: 10px; background-size: contain; vertical-align: middle; margin-right: 5px; margin-top: -4px; }
+		.icon-1 { background-image: url("img/react_01.png") }
+		.icon-2 { background-image: url("img/react_02.png") }
+		.icon-3 { background-image: url("img/react_03.png") }
+		.icon-4 { background-image: url("img/react_04.png") }
+		.font-arial { font-family: Arial; }
+		.font24 { font-size: 0.32rem; }
+		.font26 { font-size: 0.346rem; }
+		.font28 { font-size: 0.3733rem; }
+		.font30 { font-size: 0.4rem; }
+		.font40 { font-size: 0.5333rem; }
+		.left { float: left; }
+		.right { float: right; }
+		.down,
+		.up,
+		.next { display: inline-block; width: 0.107rem; height: 0.213rem; background: url(img/icon01.png) no-repeat left top; -webkit-background-size: contain; background-size: contain; vertical-align: middle; margin-left: 0.933rem; }
+		.up,
+		.down { width: 20px; height: 8px; background-image: url(img/icon02.png); margin-left: 4px;margin-right: 4px; vertical-align: inherit; }
+		.up { -webkit-transform: rotate(180deg); transform: rotate(180deg); }
+		.red { color: #fe5a5b; }
+        .green{color: #009944; }
+		table { width: 100%; text-align: center; border-collapse: collapse; }
+		.content1 ul { height: 1.067rem; padding: 0.667rem 0.4rem; }
+		.content1 ul li { float: left; width: 50%; color: #666666; text-align: center; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+		.content1 ul li:last-child { border: 0; }
+		.content1 ul li p { padding-top: 0.107rem; text-align: center; }
+		.content1>p { line-height: 1.5; padding: 0.4rem; text-align: justify; }
+		.content1 ul li:first-child h4 i { display: inline-block; width: 0.4rem; height: 0.4rem; margin-left: 0.1rem; background: url(img/icon6.png) no-repeat; background-size: 100%; vertical-align: middle; }
+		.content1 table { width: 100%; text-align: center; background-color: #fff7f7; color: #666666; position: relative; font-size: 12px; }
+		.content1 table td { padding: .3rem 0; font-size: .32rem; }
+		.content1 table td span { color: #fe5a5b; }
+		.content1 table:before { content: ''; display: block; position: absolute; left: 72%; top: -20px; margin-left: -10px; border: 10px solid transparent; border-bottom-color: #fff7f7; }
+		.content1_1 { margin-top: .26667rem; }
+		.content1_1 ul li { font-size: .4rem; float: left; width: 50%; text-align: center; padding: 12px 0; border-bottom: 2px solid transparent; color: #000; }
+		.content1_1 ul li.active { border-bottom-color: #ffadae; color: #fb5c5f; }
+		.content1_1 ul li p { padding-top: 0.107rem; }
+		.content1_1 .explain { font-size: 0.346rem; color: #000; }
+		.content1_1 .explain p { line-height: 1.5;padding: 16px;  }
+		.content1_1 .explain p.ellipsis:after { content: '.....'; }
+		.content1_1 .explain p.ellipsis span { display: none; }
+		.content1_1 .upfold { width: 80px; margin: 0 auto; padding: .15rem 0 .45rem; color: #148ce6; text-align: center; line-height: 14px; font-size: .3467rem; }
+		.content1_1 .upfold:before { content: '展开'; }
+		.content1_1 .upfold.pack-up:before { content: '收起'; }
+		.content1_1 .upfold.pack-up .down { -webkit-transform: rotate(180deg); transform: rotate(180deg); }
+		.content2 { padding-bottom: 0.333rem; }
+		.content2 h3 { color: #666666; background-color: #f6f6f6; padding: 0.267rem 0.4rem; }
+		.content2 ul { padding: 0.48rem 0.267rem; }
+		.content2 ul li { float: left; margin-left: 0.293rem; background-color: #eeeeee; border-radius: 0.04rem; }
+		.content2 ul li:first-child { margin-left: 0.42rem; }
+		.content2 ul li a { display: block; width: 1.92rem; height: 0.8rem; line-height: 0.8rem; text-align: center; font-size: .36rem; }
+		.content2 ul.tab2 { margin: 0.48rem auto; padding: 0; width: 7.68rem; border-radius: 0.04rem; }
+		.content2 ul.tab2 li { margin: 0; background-color: #fff; border-radius: 0; }
+		.content2 ul.tab2 li a { border: 1px solid #fb5c5f; margin-left: -1px; -webkit-box-sizing: border-box; box-sizing: border-box; }
+		.content2 ul li.active { background-color: #fb5c5f; color: #fff; }
+		.content2 ul.border { margin-left: 28%; }
+		.content2 ul.border li { border: 1px solid #fb5c5f; background-color: #fff; margin-left: 0%; border-radius: 0; }
+		.content2 ul.border li a { height: 0.8rem; line-height: 0.8rem; font-size: .36rem; }
+		.content2 ul.border li.active { background-color: #fb5c5f; color: #fff; }
+		.content2 .diagram { position: relative; }
+		.content3 h3 { color: #666666; font-size: 0.3733rem; background-color: #f6f6f6; padding: 0.267rem 0.4rem; }
+		.content3 table { color: #666; font-size: 0.4rem; width: 100%; border-collapse: collapse; }
+		.content3 table tr { border-bottom: 1px solid #eeeeee; text-align: right; }
+		.content3 table th { color: #333333; background-color: #f6f6f6; font-weight: normal; padding: 0.267rem 0 0.267rem 0.4rem; }
+		.content3 table th:last-child { padding-left: 0; padding-right: 0.4rem; }
+		.content3 table tr td { padding: 0.453rem 0 0.453rem 0.4rem; }
+		.content3 table tr td:first-child { text-align: left; padding-left: 0.933rem; }
+		.content3 table tr td:last-child { padding-right: 0.4rem; padding-left: 0; }
+		.content3 table tbody:last-child tr:last-child { border-bottom: 0; }
+		.content3 table tbody tr:first-child td:first-child { padding: 0.4rem; color: #000; }
+		.content3 table tbody tr:first-child td:last-child { font-size: 0.533rem; }
+		.content3 table tbody .sign { font-size: 0.4rem; }
+		.content3 table tbody i { display: inline-block; width: 0.267rem; height: 0.267rem; border-radius: 30%; vert-align: middle; margin-right: 0.24rem; }
+		.content3 table tbody .square1 { background-color: #ffb415; }
+		.content3 table tbody .square2 { background-color: #ffdc7f; }
+		.content3 table tbody .square3 { background-color: #ff8100; }
+		.content3 table tbody .square4 { background-color: #e93f1a; }
+		.content3 table tbody .deal { width: auto; height: auto; background-color: #fee7e7; color: #fb5c5f; padding: 0 0.35rem; border-radius: 0.4rem; font-size: 0.32rem; display: inline-block; }
+		.content4 { margin: .2667rem 0; }
+		.content4 ul { padding: 0 10px; height: 1.2rem; line-height: 1.2rem; border-bottom: 1px solid #eee; }
+		.content4 ul li:first-child { font-size: .4rem; color: #000; }
+		.content4 ul li:first-child span { font-size: .32rem; color: #000; }
+		.content4 ul li:last-child span { color: #fb5c5f; }
+		.content4>p { color: #666; font-size: .346rem; line-height: 1.5; padding: 16px 15px; text-align: justify; }
+		.content5 {background-color: #f6f6f6; padding: 0 16px 16px;}
+		.content5 .tab-con {padding: 0 16px 16px;background-color: #fff; }
+		.content5 table{  font-size: 0.373rem; width: 100%; border-collapse: collapse; text-align: left;}
+		.content5 table tr td {height: 1.333rem; border-bottom: 1px solid #eee; color: #000;}
+		.content5 table tr td:last-child{  text-align: right;}
+		.content5 .no-data { width: 1.84rem; margin: 1.92rem auto; }
+		.content5 .no-data p { text-align: center; font-size: .34rem; color: #999; margin-top: .5rem;}
+		.noData { position: absolute; top: 45%; right: 0; font-size: 0.24rem; width: 100%; text-align: center; }
+		body { padding-bottom: 1.25rem; }
+		footer { position: fixed; bottom: 0; left: 0; width: 100%; z-index: 199; }
+		footer ul { display: -webkit-flex; display: -ms-flex; display: -moz-flex; display: -o-flex; display: flex; border-top: 1px solid #fececf; width: 100%; background-color: #fff; }
+		footer li { -webkit-flex: 1; -ms-flex: 1; -moz-flex: 1; -o-flex: 1; flex: 1; }
+		footer li { display: block; height: 1.25rem; line-height: 1.25rem; text-align: center; font-size: .35rem; }
+		footer li:first-child { border-right: 1px solid  #fececf; }
+		footer li a { display: block; color: #fe5a5b; font-size: 0.4rem }
+		footer li:last-child { background-color: #fe5a5b; }
+		footer li:last-child a { color: #fff; }
+
+		/*弹框*/
+		.layer{z-index: 9999999; display: none;  position: fixed;  top: 0;  left: 0;  background-color: rgba(0,0,0,0.7);  height: 100%;  width: 100%;  overflow: auto;}
+		.layer-wrap{margin: 40% 15% 5% 15%;background-color: #fff;border-radius: 8px;}
+		.layer-body{padding: 7% 8% 7% 8%;text-align: center;}
+		.layer-wrap .layer-body p{font-size:14px;line-height: 21px; color: #666;display: inline-block;text-align: justify}
+		.layer-wrap .layer-body span{font-size: 16px;display: block;  padding-top: 10px;color: #333;font-weight: 600;}
+		.layer-wrap button{font-size: 16px;
+			color: #fb505f;
+			background-color: #fff;
+			border-top: solid 1px #eeeeee;
+			width: 90%;
+			height: 45px;
+			display: block;
+			margin: 0 auto;
+		}
+		.layer-wrap button:focus{outline: none;}
+	</style>
+</head>
+<body>
+<div class="panel_default">
+	<section class="content3">
+		<h3 class="font26">组合明细</h3>
+		<table class="subGroupFundList">
+			<!-- <tbody>
+                    <tr>
+                        <td> <i class="square1"></i>股票类产品 </td>
+                        <td class="font-arial red">20<span class="sign">%</span></td>
+                    </tr>
+                    <tr>
+                        <td> 汇添富移动互联 <span class="font-arial">000697</span> </td>
+                        <td class="font-arial">10<span class="sign">%</span></td>
+                    </tr>
+                    <tr>
+                        <td> 汇添富环保行业 <span class="font-arial">000696</span> </td>
+                        <td  class="font-arial">10<span class="sign">%</span></td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td> <i class="square2"></i>固收类产品 </td>
+                        <td class="font-arial red">50<span class="sign">%</span></td>
+                    </tr>
+                    <tr>
+                        <td> 汇添富增强收益A <span class="font-arial">519078</span> </td>
+                        <td class="font-arial">50<span class="sign">%</span></td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td> <i class="square3"></i>现金类产品 </td>
+                        <td class="font-arial red">20<span class="sign">%</span></td>
+                    </tr>
+                    <tr>
+                        <td> 汇添富货币A <span class="font-arial">519518</span> </td>
+                        <td>20<span class="sign">%</span></td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td> <i class="square4"></i>其他产品 </td>
+                        <td class="font-arial red">10<span class="sign">%</span></td>
+                    </tr>
+                    <tr>
+                        <td> 汇添富货币A <span class="font-arial">519518</span></td>
+                        <td>10<span class="sign">%</span></td>
+                    </tr>
+                </tbody> -->
+		</table>
+	</section>
+</div>
+
+<!--弹框-->
+<div class="layer" style="display: none;">
+	<div class="layer-wrap">
+		<div class="layer-body">
+			<p id="display_yield_desc">“模拟历史年化业绩”是采用模拟历史数据的方法回测得出。本组合的过往业绩并不预示其未来表现，也不作为本组合业绩表现的保证。</p>
+		</div>
+		<button>我知道了</button>
+	</div>
+</div>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src = "https://static.99fund.com/mobile/wap-lib/js/basic.js"></script>
+<script>
+    // rem 布局
+    var windowWidth = $(window).width() > 750 ? 750 : $(window).width();
+    $("html").css({"fontSize":  windowWidth/10});
+
+    var groupId = "";
+    $(function(){
+        //组合详情数据加载
+        groupId = WAP.getUrlParam("groupId");
+        requestGroupFundDetail(groupId);
+
+    });
+
+    function requestGroupFundDetail(groupId){
+        $.get("/mobile-bff/v1/fund-group/detailInfo?groupId=" + groupId, function(resultStr){
+            //alert(resultStr);
+			var result = typeof resultStr === 'string' ? JSON.parse(resultStr) : resultStr;
+            if(result.returnCode == 0){
+                var detailInfo = result.body;
+                if(detailInfo != undefined && detailInfo != ""){
+
+                    var groupDetails = detailInfo.groupDetails;
+                    $("title").html(detailInfo.groupname);
+                    $(".subGroupFundList").empty();
+                    var subListHtml = "";
+                    for(var i in groupDetails){
+                        var subgroup = groupDetails[i];
+                        var percent = subgroup.percent;
+                        var classifyName = subgroup.classifyName;
+                        var subFunds = subgroup.subList;
+                        var color = subgroup.color;
+                        if(subFunds.length == 0)
+                            continue;
+                        subListHtml = subListHtml + "<tbody><tr>"
+                            + "<td><i style='background-color: "+ color +"'></i>" + classifyName
+                            + "</td><td class='font-arial red'>"+ percent + "<span class='sign'>%</span>"
+                            + "</td></tr>";
+
+                        for(var j in subFunds){
+                            var fund = subFunds[j];
+                            var fundId = fund.fundId;
+                            var fundNm = fund.fundNm;
+                            var fundPercent = fund.percent;
+                            var canApply = fund.canApply;
+                            var stopTrade = fund.stopTrade;
+                            var canRedeem = fund.canRedeem;
+                            var fundStName = fund.fundStName;
+                            subListHtml = subListHtml + "<tr onclick='javascript: window.location.href = \""+ fund.jumpUrl +"\"'><td>" + fundNm
+                                + "<span class='font-arial'>"+ fundId + "</span>";
+                            if(canApply == "0" || stopTrade == "1" || canRedeem == "0"){
+                                subListHtml = subListHtml + "<br><i class='deal'>" + fundStName + "</i>";
+                            }
+                            subListHtml = subListHtml + "</td><td class='font-arial'>" + fundPercent + "<span class='sign'>%</span>"
+                                +"</td></tr>";
+                        }
+                        subListHtml = subListHtml + "</tbody>";
+                    }
+                    $(".subGroupFundList").html(subListHtml);
+                    /* //设置缓存
+                    WAP.setSession("__groupDetailInfo", detailInfo); */
+                }
+            }else{
+                alert(result.returnMsg);
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

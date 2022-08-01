@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义购买</title>
+    <link rel="stylesheet" href="../base/css/base.css">
+    <link rel="stylesheet" href="./css/allFund.css">
+    <script>
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+    <script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <div class="search">
+                <span>
+                    <img src="./img/allFund/search.png" alt="">
+                </span>
+                <input type="text" placeholder="基金代码/名称/拼音首字母"  v-model.trim.lazy='keyword'>
+                <span><img v-show='keyword' src="./img/allFund/close.png" alt="close" @click='keyword=""'></span>
+                <span><img src="./img/allFund/microphone.png" alt=""></span>
+            </div>
+        </header>
+        <nav>
+            <div class="title">
+                <div>
+                    <h3 :class="{active:item.active}" v-for='item of titleText' :key='item.name' v-text='item.name'
+                        @click='toggleTitle($event,item.type)'></h3>
+                </div>
+                <span class="rod" :style="{marginLeft:rodOffsetLeft}"></span>
+            </div>
+            <div class="label" v-for='item of titleText' :key='item.name' v-show='item.active'>
+                <span :class="{active:tag.active}" v-for='tag of item.labels' :key='tag.name' v-text='tag.name'
+                    @click='toggleTag(item,tag)'></span>
+            </div>
+        </nav>
+        <div class="content">
+            <table :class="item.class" cellpadding="0" cellspacing="0" v-for='item of titleText' :key='item.name'
+                v-show='item.active'>
+                <thead v-if='item.type=="1"'>
+                    <tr>
+                        <th>基金名称</th>
+                        <th>最新净值</th>
+                        <th class="yieldType" @click='item.yieldTypeShow=!item.yieldTypeShow'>
+                            <div>{{item.yieldTypeList.filter(ele=>ele.key==item.yieldType)[0].name}}</div>
+                            <img src="./img/allFund/triangle.png"
+                                :style='{transform:item.yieldTypeShow?"rotateZ(180deg)":""}' alt="">
+                            <div class="yieldTypeList" v-show='!item.yieldTypeShow'>
+                                <div v-for='yield of item.yieldTypeList' @click='changeYieldType(item,yield.key)'
+                                    :key='yield.key'>
+                                    <span>{{yield.name}}</span>
+                                    <input type="radio" name='yield' :value='yield.key' v-model='item.yieldType'>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody v-if='item.type=="1"' @scroll='nextPage($event,item)'>
+                    <!-- 基金 -->
+                    <tr v-for='prod of item.productList' :key='prod.fundId' @click="referCreate(prod,1)">
+                        <td>
+                            <span>{{prod.fundName}}</span>
+                            <span>{{prod.fundId}}</span>
+                        </td>
+                        <td>
+                            <span style="font-size: .7rem;">{{prod.navDisplay}}</span>
+                            <span style="color: #666;font-size: .6rem;">{{prod.navDate | formatFundDate}}</span>
+                        </td>
+                        <td  v-html='formatYield(item.yieldType,prod.fundReturn)'></td>
+                    </tr>
+                    <!-- <tr v-show='item.pageNo>=item.total'>
+                        <td style="text-align: center;">没有更多了</td>
+                    </tr> -->
+                </tbody>
+                <tbody v-else @scroll='nextPage($event,item)'>
+                    <!-- 组合 -->
+                    <tr v-for='prod of item.productList' :key='prod.groupId'  @click="referCreate(prod,2)">
+                        <td>
+                            <p class="groupNm">{{prod.groupName}}</p>
+                            <div>
+                                <p class="gYield">
+                                    <span v-html='formatGroupDayYield(prod.yearReturnRate)'></span>
+                                    <span>近一年收益率</span>
+                                </p>
+                                <p class="gYield">
+                                    <span v-html='formatGroupDayYield(prod.dailyGrowthRate)'></span>
+                                    <span>日涨跌幅({{prod.returnDate | formatGroupDate}})</span>
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- <tr v-show='item.pageNo>=item.total'>
+                        <td style="text-align: center;">没有更多了</td>
+                    </tr> -->
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <script type="text/javascript" src='./js/allFund.js'></script>
+</body>
+
+</html>

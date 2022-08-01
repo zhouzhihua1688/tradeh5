@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投顾公告</title>
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        [v-cloak] {display:none;}
+        .expressList {
+            padding: 0 .75rem;
+            font-size: .75rem;
+            /* line-height: 1rem; */
+        }
+        p {
+            padding: .75rem 0;
+            border-bottom: 1px solid #ddd;
+        }
+        small {font-size: .75rem; color: #666; float: right; line-height: 1rem;}
+    </style>
+</head>
+<body>
+  <div class="expressList" id="app" v-cloak>
+    <!-- <p><a href="javascript:;">汇添富民营超级基金产品成分基金相关协议或文件</a></p> -->
+    <!-- <p><a href="javascript:;">汇添富上证综合定期开放基金产品成分基金相关协议或文件</a></p> -->
+    <p v-if="expressList.length>0" v-for="(item,index) in expressList">
+        <a href="javascript:;" @click="openExpress(item)">{{item.expressName}}</a>
+        <small>{{item.expressDate}}</small>
+    </p>
+    <p v-if="expressList.length==0" style="text-align: center;">暂无投顾公告</p>
+  </div>
+  <script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+  <script src="/tradeh5/newWap/base/js/utils.js"></script>
+  <script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script>
+  <script>
+    var vm = new Vue({
+        el: '#app',
+        data() {
+            return {
+                expressList: [],   // 协议列表
+            }
+        },
+        computed: {
+            
+        },
+        created() {
+            this.getExpressList();
+        },
+        methods: {
+            // 打开协议链接
+            openExpress: function(item){
+                if(isApp()){
+                    if(item.linkType == 'pdf'){
+                        window.location.href = 'htffundxjb://action?type=url&linkType=pdf&link=' + btoa(item.linkUrl);
+                    }else{
+                        window.location.href = 'htffundxjb://action?type=url&link=' + btoa(item.linkUrl);
+                    }
+                } else {
+                    window.location.href=item.linkUrl;
+                }
+            },
+            getExpressList: function() {
+                let data = { keys: 'investAdviserExpress' };
+                utils.ajax({
+                    url: '/mobile-bff/v1/unification/query',
+                    type: 'GET',
+                    data,
+                    success: function (result) {
+                        if (result.returnCode === 0) {
+                            // {
+                            //     "returnCode":0,"returnMsg":"调用成功",
+                            //     "body":{
+                            //         "investAdviserExpress":{
+                            //             "unificationKey":"investAdviserExpress",
+                            //             "unificationValue":"20211221|汇添富基金关于旗下基金投顾业务投顾管理服务费率优惠的公告|http://www.99fund.com/upload/20211220/202112201639988449409.pdf",
+                            //             "unificationStatus":"1"
+                            //         }
+                            //     }
+                            // }
+
+                            // unificationValue多个日期用英文分号 ; 隔开
+
+                            console.log("/mobile-bff/v1/unification/query", result.body);
+                            let valueStr = (result.body&&result.body[data.keys])?result.body[data.keys]['unificationValue']:'';
+                            if(valueStr){
+                                let valueList = valueStr.split(';');
+                                valueList.forEach((item, index)=>{
+                                    let tmp = item?item.split('|'):[];
+                                    let expressObj = {
+                                        linkType: (tmp[2]&&tmp[2].slice(-4)=='.pdf')?'pdf':'',
+                                        expressDate: tmp[0]?tmp[0]:'',
+                                        expressName: tmp[1]?tmp[1]:'',
+                                        linkUrl: tmp[2]?tmp[2]:'',
+                                    }
+                                    this.expressList.push(expressObj);
+                                })
+                            }else{
+                                // utils.showTips({
+                                //     content: '暂无投顾公告',
+                                // });
+                            }
+                        } else {
+                            utils.showTips('请求超时，请稍后重试');
+                        }
+                    }.bind(this)
+                })
+                return;
+               
+                // let detailList = groupIdList.map((groupId)=>{
+                //     return new Promise((resolve, reject) => {
+                //         // 详情接口不需要登录态
+                //         $.ajax({
+                //             url: "/mobile-bff/v1/fund-group/detailInfo?groupId=" + groupId,
+                //             type: 'GET',
+                //             success: function (result) {
+                //                 if(result.returnCode === 0 && Array.isArray(result.body.adviserexpressList)){
+                //                     resolve(result.body.adviserexpressList);
+                //                 } else {
+                //                     console.log('getExpressListByGroupId error', result);
+                //                     resolve('');
+                //                 }
+                //             }.bind(this)
+                //         })
+                //     })
+                // });
+                
+                // Promise.all(detailList).then((items)=>{
+                //     // console.log('items=', items);
+                //     items.forEach(item=>{
+                //         // 每个item为具体groupId对应的expressList
+                //         console.log(item);
+                //         this.expressList = this.expressList.concat(item);
+                //     })
+                //     if(this.expressList.length==0){
+                //         utils.showTips({
+                //             content: '没有对应的组合协议',
+                //             // complete: function(){
+                //             //     window.location.href = './index.html';
+                //             // }
+                //         });
+                //     }
+                // });
+            },
+            
+        }
+    })
+  </script>
+</body>
+</html>

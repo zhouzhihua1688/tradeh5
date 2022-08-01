@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>资产清单</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/assetList.css?20220224">
+    <link rel="stylesheet" href="css/mobileSelect.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+    <style>
+        /* #select{
+            height:2.5rem;display: inline-block;float:left;width:100%;font-size: 0.75rem;text-align:center;font-weight:400;
+            position: fixed;left: 0;width: 50%;
+        } */
+        input::-webkit-input-placeholder { 
+        /* WebKit browsers */ 
+        color: #0757b2; 
+        } 
+        input:-moz-placeholder { 
+        /* Mozilla Firefox 4 to 18 */ 
+        color: #0757b2; 
+        } 
+        input::-moz-placeholder { 
+        /* Mozilla Firefox 19+ */ 
+        color: #0757b2; 
+        } 
+        input:-ms-input-placeholder { 
+        /* Internet Explorer 10+ */ 
+        color: #0757b2; 
+        }
+         .footer{position: fixed; left: 0; bottom: 0; width: 100%; border-top: 1px solid #eee; text-align: center; zoom: 1; }
+        .footer a:nth-of-type(1) {background-color: #fff;color: #0757b2;
+        }
+        .footer a {float: left; width: 50%; height: 2.5rem; line-height: 2.5rem; background-color:#0757b2; font-size: 0.85rem; color: #fff; box-sizing: border-box; }
+        .annualIncome {
+            padding: 1rem 0.75rem 6.5rem 0.75rem;
+        }
+        .layer0 {background-color: #fff; height: 100%; width: 100%; position: fixed; left: 0; overflow: auto; z-index: 10; }
+
+        .layer0 {height: auto; width:18.75rem; position: fixed; bottom: 0; left: 50%; overflow: auto; z-index: 99999999; margin-left: -9.375rem;}
+        .gender .title {width: 100%; display: flex; justify-content: space-between; align-items: center; height: 2.5rem !important; line-height: 2.5rem !important; border-bottom: 1px solid #eee; }
+
+        .gender .title .cancel {
+            text-indent: 0.75rem;
+            font-size: 0.7rem;
+        }
+
+        .gender .choose {text-indent: 0.75rem; font-size: 0.7rem;text-align: center; height: 2.5rem; border-bottom: 1px solid #eee; line-height: 2.5rem }
+
+        .gender .title .finish {
+            margin-right: 0.75rem;
+            font-size: 0.7rem
+        }
+
+        .gender .choose.active {
+            color: #148ce6;
+        }
+        .addclass{
+		 color:#000;
+		}
+
+        .layer0 {
+            /* bottom: 0.5rem; */
+        }
+        .mask {width: 100%; height:2000%; position: absolute; top: 0; left: 0; background: rgba(0, 0, 0, .7); display: none; z-index:99999999; }
+        .animated {
+            -webkit-animation-duration: 0.2s;
+            animation-duration: 0.2s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        @keyframes slideInDown{
+            0%{opacity:0;-webkit-transform:translateY(-2000px);-ms-transform:translateY(-2000px);transform:translateY(-2000px)}
+            100%{-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}}
+
+        @keyframes slideInUp{
+            0%{opacity:0;-webkit-transform:translateY(60%);-ms-transform:translateY(60%);transform:translateY(60%)}
+            100%{-webkit-transform:translateY(0%);-ms-transform:translateY(0%);transform:translateY(0%)}}
+        .slideInDown{-webkit-animation-name:slideInDown;animation-name:slideInDown}
+        .slideInUp{-webkit-animation-name:slideInUp;animation-name:slideInUp;}
+    </style>
+</head>
+
+<body>
+    <div id="main" v-cloak>
+        <div class="tab-bar">
+            <a href="javascript:;" v-for="(item,index) in tabBar" :key="index" :class="item.active?'active':''"
+                v-text="item.barText" @click="tabToggle(index)"></a>
+        </div>
+        <div class="all" v-show="currentIndex===0">
+            <div class="header">
+                <p class="title"><span>汇总市值</span><span v-if="allData.date">统计日期：<i style="font-style: normal;" v-text="timeFormat(allData.date)"></i></span></p>
+                <p class="rmb" v-if="allData.rmbMarketValue">
+                    <span>人民币(￥)</span>
+                    <span v-if="allData.rmbMarketValue==0" style='color:#666;' v-text="allData.rmbMarketValue"></span>
+                    <span v-else :style="'color:'+(allData.rmbMarketValue>0?'':'#159848')+';'" v-text="numFormat(allData.rmbMarketValue)"></span>
+                </p>
+                <p class="usd" v-if="allData.dollarMarketValue">
+                    <span>美&nbsp;&nbsp;&nbsp;元($)</span>
+                    <span v-if="allData.dollarMarketValue==0" style='color:#666;' v-text="allData.dollarMarketValue"></span>
+                    <span v-else :style="'color:'+(allData.dollarMarketValue>0?'':'#159848')+';'" v-text="numFormat(allData.dollarMarketValue)">62.97</span>
+                </p>
+            </div>
+            <div class="table-box" v-if="allData.assets&&allData.assets.length>0">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>基金名称</th>
+                            <th>基金份额</th>
+                            <th>基金市值(元)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item,index) in allData.assets" :key="index">
+                            <td >{{item.fundName}}&nbsp;{{item.fundId}}</td>
+                            <td class="num" v-text="numFormat(item.quty)"></td>
+                            <td class="num" v-text="item.currency=='840'?'$'+numFormat(item.marketValue):numFormat(item.marketValue)"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="channel" v-show="currentIndex===1">
+            <div v-for="(item,index) in channelData" :key="index">
+                <div class="list" >
+                    <div class="header" style="padding-top: 1rem;">
+                        <p class="title"><span v-text="item.branchName"></span><span>共持有<i style="font-style: normal;" v-text="item.holdNum"></i>只产品</span></p>
+                        <p class="rmb" v-if="item.rmbMarketValue">
+                            <span>人民币(￥)</span>
+                            <span v-if="item.rmbMarketValue==0" style='color:#666;' v-text="item.rmbMarketValue"></span>
+                            <span v-else :style="'color:'+(item.rmbMarketValue>0?'':'#159848')+';'" v-text="numFormat(item.rmbMarketValue)"></span>
+                        </p>
+                        <p class="usd" v-if="item.dollarMarketValue">
+                            <span>美&nbsp;&nbsp;&nbsp;元($)</span>
+                            <span v-if="item.dollarMarketValue==0" style='color:#666;' v-text="item.dollarMarketValue"></span>
+                            <span v-else :style="'color:'+(item.dollarMarketValue>0?'':'#159848')+';'" v-text="numFormat(item.dollarMarketValue)"></span>
+                        </p>
+                    </div>
+                    <div class="table-box" v-if="item.assets&&item.assets.length>0" style="padding-bottom: .75rem;">
+                        <table >
+                            <thead>
+                                <tr>
+                                    <th>基金名称</th>
+                                    <th>基金份额</th>
+                                    <th>基金市值(元)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(subItem,subIndex) in item.assets">
+                                    <td >{{subItem.fundName}}&nbsp;{{subItem.fundId}}</td>
+                                    <td class="num" v-text="numFormat(subItem.quty)"></td>
+                                    <td class="num" v-text="subItem.currency=='840'?'$'+numFormat(subItem.marketValue):numFormat(subItem.marketValue)"></td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="jgt" v-show="index!=(channelData.length-1)"></div>
+            </div>
+            
+        </div>
+        <!--20220215增加年度收益-->
+        <div class="annualIncome" v-show="currentIndex===2">
+            <div class="header">
+                <p class="title"><span>年度收益</span><span v-if="getYear">统计年度：<i style="font-style: normal;" v-text="getYear"></i></span></p>
+                <p class="rmb" v-if="getRmb||getRmb==0">
+                    <span>人民币(￥)</span>
+                    <span v-if="getRmb==0" style='color:#666;' v-text="getRmb"></span>
+                    <span v-else :style="'color:'+(getRmb>0?'':'#159848')+';'" v-text="numFormat(getRmb)"></span>
+                </p>
+                <p class="usd" v-if="getDollar">
+                    <span>美&nbsp;&nbsp;&nbsp;元($)</span>
+                    <span v-if="getDollar==0" style='color:#666;' v-text="getDollar"></span>
+                    <span v-else :style="'color:'+(getDollar>0?'':'#159848')+';'" v-text="numFormat(getDollar)"></span>
+                </p>
+            </div>
+            <div class="table-box" v-if="allData.assets&&allData.assets.length>0">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>基金名称</th>
+                        <th>年度收益</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(item,index) in yearDetail.assets" :key="index">
+                        <td >{{item.fundName}}&nbsp;<br>{{item.fundId}}</td>
+                        <!--<td class="num" v-text="numFormat(item.quty)"></td>-->
+                        <td class="num" v-text="item.currency=='840'?'$'+numFormat(item.totalProfit):numFormat(item.totalProfit)"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- 查询历史资产 -->
+        <div class="footer">
+            <template v-if="currentIndex!=2">
+            <a href="javascript:;" id="select" @click="showSelect">查询历史资产
+                <!-- <input type="text" id="select" placeholder="查询历史资产"/>  -->
+            </a>
+            </template>
+            <template v-else>
+            <a href="javascript:;" @click="showLayer()">查询历史资产
+            </a>
+            </template>
+            <a href="javascript:;" @click="toSend()">发送至邮箱</a>
+        </div>
+        <!-- 设置年份-->
+        <div class="mask" style="display:none"></div>
+        <div class="layer0 animated slideInUp" style="display:none;">
+            <div class="gender" >
+                <div class="title">
+                    <span class="cancel" style="color:#148ce6" @click="cancel">取消</span>
+                    <span class="finish" style="color:#148ce6" @click="finish">完成</span>
+                </div>
+                <div style="height:7.5rem;overflow-y: auto" >
+                	<div class="choose" v-for="(item,index) in dataYear" :key="index" :class= "isactive == index ? 'addclass' : '' " @click='onclick(index,item)'>{{item}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../base/js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+    <script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+    <script src="js/mobileSelect.js"></script>
+    <script src="js/selectDate.js"></script>
+    <script>
+       var vm= new Vue({
+            el: '#main',
+            data() {
+                return {
+                    tabBar: [{
+                        barText: '全部汇总',
+                        active: true
+                    }, {
+                        barText: '分渠道汇总',
+                        active: false
+                    // }, {
+                    //     barText: '年度收益',
+                    //     active: false
+                    }],
+                    currentIndex: 0,
+                    allData: '',
+                    channelData: [],
+                    data:'',
+                    dataYear:[],  //年份数据
+                    getYear:'',
+                    getRmb:'',
+                    getDollar:'',
+                    defaultYear:'',
+                    isactive:0,
+                    chooseData:'',
+                    yearDetail:[]
+                }
+            },
+            mounted() {
+                this.getDataList();
+                this.getYearList();
+                //选择 YYYY-MM-dd 格式的调用： 获取时间
+                    // $.selectYY_MM_DD("#select");
+                var _this=this;
+                _this.date='';
+                var select1 = $.selectYY_MM_DD("#select", {
+                        // start: 2018,
+                        // end: 2099,
+                        // select: [2018, 01, 21],
+                        // title: '&nbsp;'
+                    }, function (data) {
+                    console.log(data);
+                        // $("#select").val(data.year + "年" +  data.month + "月" +  data.day +"日");
+                        // sel_date = data.year + "-" +  data.month  + "-" +  data.day;
+                         // console.log($("#select").val())
+                        _this.date=$("#select").val().replace(/(\d{4})-(\d{2})-(\d{2})/g, '$1$2$3');
+                        console.log("_this.date",_this.date);
+                        _this.getDataList(_this.date);
+                });
+            },
+           // watch: {
+           //     currentIndex: function () {
+           //         console.log("currentIndex",this.currentIndex);
+           //         if(this.currentIndex==2){
+           //             $(".mobileSelect").hide();
+           //         }
+           //     },
+           // },
+            methods: {
+                onclick(index,item){
+					this.isactive = index;
+					this.chooseData=item;
+				},
+                showSelect(){
+                    if( this.currentIndex!=2){
+                        $(".mask").hide();
+                        $(".layer0").hide();
+                        $(".mobileSelect").show();
+                    }
+                },
+				showLayer(){
+                    if( this.currentIndex==2){
+                        $(".mask").show();
+                        $(".layer0").show();
+                        $(".mobileSelect").hide();
+                    }
+				},
+				cancel(){
+					$(".mask").hide();
+                    $(".layer0").hide();
+				},
+				finish(){
+					$(".mask").hide();
+                    $(".layer0").hide();
+                    this.getYearDetail(this.chooseData);  //选择年份后调取接口
+				},
+                // 获取年份列表
+                getYearList() {
+                    utils.ajax({
+                        url:'/assetcenter/v1/asset/asset-export/year-list',
+                        success: function (result) {
+                            if (result.returnCode === 0) {
+                                this.dataYear=result.body.sort(function(a,b){
+                                    return b-a;
+                                });
+                                this.defaultYear=this.dataYear[0];  //默认取第一个年份
+                            } 
+                        }.bind(this)
+                    })
+                },
+                // 获取年度收益数据列表
+                getYearDetail(defaultYear) {
+                    utils.ajax({
+                        url:'/assetcenter/v1/asset/asset-export/online-year?year='+defaultYear,
+                        success: function (result) {
+                            if (result.returnCode === 0) {
+                                this.yearDetail=result.body;
+                                this.getYear=result.body.year;
+                                this.getRmb=result.body.rmbTotalProfit;
+                                this.getDollar=result.body.dollarTotalProfit;
+                            }
+                        }.bind(this)
+                    })
+                },
+                // tab切换
+                tabToggle(index) {
+                    this.currentIndex = index;
+                    this.tabBar.forEach((item) => {
+                        item.active = false;
+                    })
+                    this.tabBar[index].active = true;
+                    if(this.currentIndex==2){
+                        this.getYearDetail(this.defaultYear);  //切换到年度收益调取接口
+                    }
+                },
+                // 获取列表
+                getDataList(date) {
+                    console.log(date);
+                    let url='';
+                    if(!date){
+                        url='/assetcenter/v1/asset/asset-export/online';
+                    }else{
+                        url='/assetcenter/v1/asset/asset-export/online?date='+date;
+                    }
+                    utils.ajax({
+                        url:url,
+                        success: function (result) {
+                            console.log(result);
+                            if (result.returnCode === 0) {
+                                if(!date){                      //20211203做判断修改统计日期的时间:当选择查询历史时间的资产，页面则显示选择的历史时间否则取字段时间
+                                    this.allData=result.body.allAssets;
+                                }else{
+                                    result.body.allAssets['date']=date;
+                                    this.allData=result.body.allAssets;
+                                }
+                                this.channelData=result.body.assetsByBranch;
+                            } 
+                        }.bind(this)
+                    })
+                },
+                numFormat(val){
+                    if(val||val===0){
+                        val=val.toFixed(2);
+                        return val.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    }else{
+                        return '';
+                    }
+                },
+                timeFormat(val){
+                    if(val){
+                        return val.slice(0,4)+'.'+val.slice(4,6)+'.'+val.slice(6,8)
+                    }else{
+                        return val
+                    }
+                },
+                toSend:function(){
+                    var _this=this;
+                    if(this.currentIndex==2){
+                        window.location.href="index.html?year="+_this.getYear;
+                    }else{
+                        window.location.href="index.html?date="+_this.date;
+                    }
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

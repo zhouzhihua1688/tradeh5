@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>订阅管理</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/base.css">
+    <link rel="stylesheet" type="text/css" href="../css/wezhan/base_wezhan.css">
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <style>
+        body,html{background: #fff;}
+        body {left: 0%; right: 0%;font:14px 'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+        button { outline: none;  }
+          /* 图片自适应 */
+        img {
+              width: 100%;
+              height: auto;
+              width: auto\9; /* ie8 */
+              -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/
+              border: none;
+              vertical-align: top;
+              outline: none;
+              display: block;
+            }
+        p { word-wrap: break-word; text-align: justify; }
+        table { width: 100%;border-collapse:collapse; }
+        .main{width:100%;height:100%;}
+        .content{width:17.25rem;padding:0.5rem 0rem;margin:0 auto;
+            border:1px solid #f1e1b8;background: #fffcf4;border-radius:10px ;
+            margin-top: 0.5rem;position: relative;
+            /* display:flex;justify-content:space-between;align-items: center; */
+        }
+        .content .first{width:100%;}
+        .content .first .tubiao{text-indent: 0.75rem}
+        .content .first .icon{width:0.975rem;height:0.925rem;vertical-align: middle;display: inline-block;margin-top: 0.1rem;}
+        .content .first span{vertical-align: middle;display: inline-block;font-size:0.9rem;color:#000;font-weight: bold;margin-left:-0.2rem;}
+        /* .content div{width:50%;} */
+        .content .first .title{font-size:0.65rem;margin-top:0.5rem;color:#4d4d4d;text-indent: 0.75rem}
+        .content .first .text{font-size:0.55rem;margin:0 auto;margin-top:0.5rem;color:#999999;width:15.75rem;text-align: justify;}
+        .dingyue{position: absolute;right:0.75rem;top:1.625rem;}
+        .dingyue img{width:3.625rem;height:1.5rem;}
+    </style>
+</head>
+<body>
+<div class="main">
+    <div><img src="../images/wezhan/dinyue.png" alt=""></div>
+    <div id="contents"></div>
+    <div><img src="../images/wezhan/diinyue01.png" alt=""></div>
+</div>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+	<script type="text/javascript" src="../js/common.js?20210302"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script>
+//点击订阅
+     $(".dingyue img").each(function(){
+        $(this).click(function(){
+            if($(this).attr("src")==='../images/wezhan/dinyue_no.png'){
+               $(this).attr("src","../images/wezhan/dinyue_yes.png");
+            }
+            // else{
+            //   $(this).attr("src","img/zan2.png");
+            //   $(this).attr("src",'img/zan.png')
+            // }
+        })             
+    })
+	querySubCategory();
+function querySubCategory() {
+    var url = "/message-center-api/v1/app/services/sub-category";
+
+    App.get(url,null,function(result){
+        var categoryList = result.body;
+        if(categoryList  != undefined &&categoryList != null) {
+            var html = '';
+            categoryList.forEach(function (item) {
+                html += "<div class=\"content\">" +
+                    "        <div class='first'>" +
+                    "            <div class='tubiao'><img src='"+item.imageUrl+"' alt='' class='icon'><span>"+ item.categorySubName +"</div>" +
+                    "            <div class='title'>"+ item.categoryRemark +"</div>" +
+                    "            <div class='text'></div>" +
+                    "        </div>" +
+                    "        <div class='dingyue' onclick=\"handerCategorySwitch(this,'"+ item.categorySubId +"')\">" +
+                    "            <img src='"+ (item.status == '1' ? '../images/wezhan/dinyue_yes.png' : '../images/wezhan/dinyue_no.png') +"'>" +
+                    "        </div>" +
+                    "</div>";
+            });
+            $("#contents").html(html);
+
+        }
+    });
+}
+function handerCategorySwitch(obj,categorySubId){
+    var eventTarget = $(obj);
+    var openSt = "1";
+
+    if(eventTarget.children("img").attr("src") == "../images/wezhan/dinyue_yes.png"){
+        eventTarget.children("img").attr("src","../images/wezhan/dinyue_no.png");
+        openSt = 0;
+    } else {
+		eventTarget.children("img").attr("src","../images/wezhan/dinyue_yes.png");
+		openSt = 1;
+    }
+    var url = "/message-center-api/v1/app/services/sub-category/subscribe";
+    var data = {"categorySubId":categorySubId,"openStatus":openSt};
+    App.post(url, JSON.stringify(data), null, function (result) {
+        // console.log("result:" + result);
+    });
+}
+</script>
+</body>
+</html>

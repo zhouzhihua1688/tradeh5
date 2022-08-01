@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!--<meta charset="GBK">-->
+	<meta charset="utf8">
+	<title></title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../css/base_v2.css">
+	<script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+	</script>
+	<style>
+		body{background: #f6f6f6;}
+		.main{margin:0px ;padding:0px;background: #fff;}
+		.head{width:100%;height:1.75rem;background:#fffac7;line-height:1.75rem;}
+		.head .left{width:75%;font-size:0.6rem;color:#fe5a5b;text-align:center;float:left;margin-left:0.75rem;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+		.head .right{width:15%;float:right;color:#4fa8de;margin-right:0.75rem;font-size:0.6rem;}
+		.fund{width:100%;height:6.625rem;position:relative;}
+
+		.fund .first{height:3.25rem;z-index:0}
+		.fund .first .out{width:1.5rem;height:0.7rem;background:#148ce6;font-size:0.6rem;text-align: center;
+			line-height: 0.7rem;border-radius:2px;margin-top:0.7rem;margin-left:0.75rem;float:left;}
+		.fund .first .text{width:80%;height:100%;float:left;margin-left:0.35rem;}
+		.fund .first .text .fund_text{font-size: 0.75rem;margin-top:0.5rem;color:#000}
+		.fund .first .text .fund_text span{font-size: 0.65rem;margin-top:0.5rem;color:#666;margin-left:0.5rem;}
+		.fund .first .text .fund_text2{font-size:0.6rem;margin-top:0.35rem;color:#666;}
+		.fund .first .text .fund_text2 span{color:#fb5c5f;}
+
+		.fund .middle{width:100%;height:0.75rem;z-index:99;position: absolute;left:0;top:2.9rem;}
+		.fund .middle .first{height:1px;width:39%;background:#efefef;margin-left:0.75rem;float:left;margin-top:0.4rem;}
+		.fund .middle .second{width:3.0rem;height:0.75rem;line-height: .75rem;border:1px solid #ccc;float:left;text-align:center; border-radius:50px;}
+		.fund .middle .second .icon{width:0.5rem;height:0.45rem;background: url('../images/fund/fund_icon2.png') no-repeat;background-size:100% 100%;display:inline-block;margin-top:0.1rem;}
+		.fund .middle .second .resale{font-size: 0.5rem;color: #666;display:inline-block;
+		}
+		.fund .middle .third{height:1px;width:40%;background:#efefef;float:left;display: inline-block;margin-top:0.4rem;}
+
+		.fund .second{height:3.25rem;z-index:0;}
+		.fund .second .out{width:1.5rem;height:0.7rem;background:#fb5c5f;font-size:0.6rem;text-align: center;
+			line-height: 0.7rem;border-radius:2px;margin-top:0.85rem;margin-left:0.75rem;float:left;}
+		.fund .second .text{width:80%;height:100%;float:left;margin-left:0.35rem;margin-top:0.65rem;}
+		.fund .second .text .fund_text{font-size: 0.75rem;color:#000}
+		.fund .second .text .fund_text span{font-size: 0.65rem;margin-top:0.5rem;color:#666;margin-left:0.5rem;}
+		.fund .second .text .fund_text2{font-size:0.6rem;margin-top:0.35rem;color:#666;}
+		.fund .second .text .fund_text2 span{color:#fb5c5f;}
+		.xian{height:0.625rem;width:100%;background: #f6f6f6;}
+		.share{height:2.5rem;width:100%;line-height: 2.5rem;}
+		.share .text{color:#000;font-size:0.75rem;float:left;margin-left:0.75rem;}
+		.share .text1{color:#40a7ef;font-size:0.75rem;float:right;margin-right:0.75rem;}
+		.amount{height:2.5rem;width:100%;}
+		.amount .text{width:80%;color:#000;font-size:1.5rem;margin-left:0.75rem;float:left;}
+
+		.amount input{width:80%;height:2.5rem;font-size:1.5rem;}
+		.amount .icon{width:0.75rem;height:0.75rem;background: url('../images/fund/fund_icon3.png')no-repeat;
+			background-size:100% 100%;
+			float:right;margin-right:0.75rem;margin-top:0.87rem;}
+		.solid{width:100%;border-top:1px solid #efefef;}
+		.current{height:1.75rem;width:100%;}
+		.current div{margin-left:0.75rem;color:#666666;line-height:1.75rem;text-align:left;}
+		.button{width:92%;height:2.25rem;margin:0 auto;background:#fd7e23;border-radius:2px;line-height:2.25rem;text-align:center;font-size:0.85rem;margin-top:1.25rem;}
+
+		.mask{width:100%;height:100%;position: absolute;top:0;left: 0;bottom:0;background: rgba(0, 0, 0, .7);display: none;z-index: 5;}
+		/*弹框1*/
+		.Bomb-box,.Bomb-box1,.Bomb-box2{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+		.Bomb-box .Bomb-box-main,.Bomb-box1 .Bomb-box-main,.Bomb-box2 .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+		.Bomb-box .Bomb-box-tips,.Bomb-box1 .Bomb-box-tips{  text-align: center;  color: #333;  font-size: 0.75rem;  height: 2.5rem;  line-height: 2.5rem;  }
+		.Bomb-box .Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+		.Bomb-box .Bomb-box-content p,.Bomb-box1 .Bomb-box-content p,.Bomb-box2 .Bomb-box-content p{  line-height: 1rem;  }
+		.Bomb-box .Bomb-box-ok,.Bomb-box1 .Bomb-box-ok,.Bomb-box2 .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+		.Bomb-box .no-tips,.Bomb-box1 .no-tips,.Bomb-box2 .no-tips{font-size: 0.7rem;padding: 1.7rem 1.5rem 1.15rem 1.5rem;text-align: center;}
+		.Bomb-box .text-center,.Bomb-box1 .text-center,.Bomb-box2 .text-center{text-align: center;}
+		.Bomb-box .Bomb-box-content,
+		.Bomb-box1 .Bomb-box-content,
+		.Bomb-box2 .Bomb-box-content{ padding:.75rem 1.5rem; }
+	</style>
+</head>
+
+<body>
+<div class="main">
+	<div class="head">
+		<div class="left" id="dialogMessage"></div>
+		<div class="right"><a href="javascript:;" id="dialogMessageJumpUrl">查看详情</a></div>
+	</div>
+	<div class="fund">
+		<div class="first">
+			<div class="out">转出</div>
+			<div class="text">
+				<div class="fund_text"><span class="holdingProductName"></span> <span class="holdingProductId"></span></div>
+				<div class="fund_text2 holdingProductDesc"><!--近七日年化 <span>3.52%</span>，起购0.01元--></div>
+			</div>
+		</div>
+
+		<div class="middle">
+			<div class="first"></div>
+			<div class="second">
+				<div class="icon"></div>
+
+				<div class="resale">转购为</div>
+			</div>
+			<div class="third"></div>
+		</div>
+
+		<div class="second">
+			<div class="out">转入</div>
+			<div class="text">
+				<div class="fund_text"><span class="targetProductName"></span> <span class="targetProductId"></span></div>
+				<div class="fund_text2 targetProductDesc"><!--近七日年化 <span>3.82%</span>，起购50万元，追加0.01元--></div>
+			</div>
+		</div>
+	</div>
+	<div class="xian"></div>
+	<div class="share">
+		<div class="text">转换份额(份)</div>
+		<div class="text1"><a href="https://static.99fund.com/mobile/app_inner/rules/transferTradeRule.html">交易规则</a></div>
+	</div>
+	<div class="amount">
+		<div class="text"><input type="text" disabled="disabled" id="repurchaseAmt" placeholder="0.00"></div>
+		<div class="icon" id="icon"></div>
+	</div>
+	<div class="solid"></div>
+	<div class="current">
+		<div class="holdingProductRemark"><!--当前持有A类份额 <span style="color:#fb5c5f">12000份</span>--></div>
+	</div>
+</div>
+<div class="button">
+	<a href="javascript:;" id="buttonName">下一步</a>
+</div>
+
+
+<div class="mask"></div>
+<!-- 提示弹窗 -->
+<div class="Bomb-box" style="display: none;">
+	<div class="Bomb-box-main">
+		<div class="Bomb-box-content">
+			<p class="text-center"></p>
+		</div>
+		<a class="Bomb-box-ok" href="javascript:;">确定</a>
+	</div>
+</div>
+
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/wap/js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/wap/js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script type="text/javascript" src="../js/common.js?20210302"></script>
+<script type="text/javascript" src="../js/fund/convert.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,114 @@
+body {
+    background-color: #fff;
+}
+
+.set-title {
+    margin-top: 5.25rem;
+    font-size: .8rem;
+    text-align: center;
+}
+
+.pwd-area {
+    margin-top: 1rem;
+}
+
+.pwd-area ul {
+    width: 100%;
+    margin: 1rem auto;
+    text-align: center;
+}
+
+.pwd-area li {
+    list-style-type: none;
+    display: inline-block;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid #666;
+    border-right: none;
+    line-height: 2.5em;
+    vertical-align: top;
+    outline: none;
+    background-color: #fff;
+}
+
+.pwd-area li i {
+    display: block;
+    border-radius: 5px;
+    width: 0px;
+    height: 0px;
+    border: 5px solid #666;
+    margin: 1rem auto;
+    visibility: visible;
+}
+
+.pwd-area li i {
+    display: none;
+}
+
+.pwd-area input {
+    display: block;
+    border: none;
+    outline: none;
+    opacity: 0;
+    margin: -2.5em 0 2.5em -9999px;
+}
+
+.pwd-area .first {
+    border-radius: 0.15rem 0 0 0.15rem;
+}
+
+.pwd-area .last {
+    border-radius: 0 0.15rem 0.15rem 0;
+}
+
+.pwd-area li {
+    border: 1px solid #999;
+    border-right: none;
+}
+
+.pwd-area li.last {
+    border-right: 1px solid #666;
+}
+
+.pwd-area-set ul {
+    font-size: 0;
+    margin-top: 0;
+}
+
+.pwd-area .forget {
+    position: absolute;
+    font-size: 0.55rem;
+    color: #148ce6;
+    right: 0.8rem;
+    top: 3rem;
+}
+
+.next-btn {
+    height: 2.25rem /* 90/40 */;
+    line-height: 2.25rem /* 90/40 */;
+    text-align: center;
+    background-color: #ffd9b3;
+    color: #fff;
+    margin: 1.25rem 0.75rem 0 .75rem /* 30/40 */;
+    font-size: 0.85rem /* 34/40 */;
+    border-radius: 0.075rem /* 3/40 */;
+}
+
+.next-btn.active {
+    background-color: #fe7e01;
+}
+
+.forget-pwd {
+    padding: 0 0.75rem  /* 30/40 */;
+    margin-top: 1rem;
+    text-align: right;
+    font-size: .7rem;
+}
+
+#change {
+    display: none;
+    margin-top: .8rem;
+    padding: 0 0.75rem /* 30/40 */;
+    font-size: .7rem;
+    text-align: right;
+}

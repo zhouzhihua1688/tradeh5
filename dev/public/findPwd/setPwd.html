@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>设置登录密码</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/findPwd/css/setPwd.css">
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+<body>
+<div class="title">
+    为了您下次能够顺利安全登录现金宝，请为您现金宝账号设置一个登录密码
+</div>
+<div class="content">
+    <div class="pwd">
+        <input type="password" placeholder="设置登录密码">
+    </div>
+    <div class="pwd">
+        <input type="password" placeholder="请再次填写确认">
+    </div>
+</div>
+<div class="desc">1、请设置6-14位登录密码，需包含英文字母(区分大小写)，数字、符号(除空格)的任意两种。</div>
+<div class="desc">2、请不要设置与常用软件(如社交软件)、网站(如社交平台、论坛)等相同或相似的密码。</div>
+<div class="show-pwd">
+    <div class="show-pwd-img-no"></div>
+    <span>显示密码</span>
+</div>
+<div class="next-btn">下一步</div>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;"
+           onclick="this.parentElement.parentElement.style='display:none'">我知道啦</a>
+    </div>
+</div>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script src="/tradeh5/newWap/findPwd/js/crypto-js.js"></script>
+<script src="/tradeh5/newWap/findPwd/js/sm2.js"></script>
+<script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+<script>
+    $(function () {
+        var serialNo = utils.getUrlParam('serialNo');
+        $('.next-btn').on('click', function () {
+            if (!serialNo || !$(this).hasClass('active')) {
+                return false;
+            }
+            if (!$('.pwd>input').eq(0).val()) {
+                $('.text-center').text('请输入新的登录密码');
+                $('.Bomb-box').show();
+                return false;
+            }
+            if (!$('.pwd>input').eq(1).val()) {
+                $('.text-center').text('请确认新的登录密码');
+                $('.Bomb-box').show();
+                return false;
+            }
+            if ($('.pwd>input').eq(0).val() !== $('.pwd>input').eq(1).val()) {
+                $('.text-center').text('两次输入密码不一致，请重新输入。');
+                $('.Bomb-box').show();
+                return false;
+            }
+            utils.ajax({
+                url: '/cos/v1/config/dictionary/encryption',
+                success: function (result) {
+                    if (result.returnCode == 0) {
+                        if(result.body && result.body.switchOn){  // 开关打开，需要加密
+                            setNewPwd(sm2Encrypt($('.pwd>input').eq(0).val(), result.body.publicKey, 0), result.body.publicKey);
+                        } else {
+                            setNewPwd($('.pwd>input').eq(0).val());
+                        }
+                    } else if (result.returnCode != 0 && result.returnCode != 9999) {
+                        $('.text-center').text(result.returnMsg);
+                        $('.Bomb-box').show();
+                    } else {
+                        $('.text-center').text('系统异常，请稍后再试!');
+                        $('.Bomb-box').show();
+                    }
+                },
+                error: function () {
+                    $('.text-center').text('系统异常，请稍后再试!');
+                    $('.Bomb-box').show();
+                }
+            });
+        });
+
+        function setNewPwd(password, publicKey){
+            var params = {
+                serialNo: serialNo,
+                password: password,
+                loginFrom: 'W'
+            };
+            publicKey && (params.certificateConst = publicKey);
+            utils.ajax({
+                url: '/mobile-bff/v1/account/getback-login-pwd-save-new-pwd',
+                type: 'POST',
+                data: params,
+                success: function (result) {
+                    if (result.returnCode == 0) {
+                        window.location.href = '/tradeh5/newWap/findPwd/success.html';
+                    } else if (result.returnCode != 0 && result.returnCode != 9999) {
+                        $('.text-center').text(result.returnMsg);
+                        $('.Bomb-box').show();
+                    } else {
+                        $('.text-center').text('系统异常，请稍后再试!');
+                        $('.Bomb-box').show();
+                    }
+                },
+                error: function () {
+                    $('.text-center').text('系统异常，请稍后再试!');
+                    $('.Bomb-box').show();
+                }
+            });
+        }
+
+        $('.show-pwd').on('click', function () {
+            if ($('.show-pwd>div').hasClass('show-pwd-img-no')) {
+                $('.pwd>input').attr('type', 'text');
+                $('.show-pwd>div').removeClass('show-pwd-img-no');
+                $('.show-pwd>div').addClass('show-pwd-img');
+            } else {
+                $('.pwd>input').attr('type', 'password');
+                $('.show-pwd>div').removeClass('show-pwd-img');
+                $('.show-pwd>div').addClass('show-pwd-img-no');
+            }
+        });
+        $('.pwd>input').on('input', function () {
+            var flag = true;
+            $('.pwd>input').each(function (index, item) {
+                !$(item).val() && (flag = false);
+            });
+            if (flag) {
+                $('.next-btn').addClass('active');
+            } else {
+                $('.next-btn').removeClass('active');
+            }
+        });
+    });
+</script>
+</body>
+</html>

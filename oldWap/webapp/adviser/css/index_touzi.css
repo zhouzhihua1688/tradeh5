@@ -1,0 +1,90 @@
+body {
+	background-color: #f6f6f6;
+}
+header {
+	margin-top: 0.1rem;
+	display: flex;
+	font-size: 0.12rem;
+	align-items: center;
+	justify-content: space-between;
+	background-color: #fff;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0.15rem;
+}
+header img {
+	width: 0.5rem;
+	height: 0.45rem;
+	vertical-align: middle;
+	margin-right: 0.1rem;
+}
+
+header .left > div {
+	display: inline-block;
+	vertical-align: middle;
+}
+.btn {
+	color: #fb5c5f;
+	font-size: 0.14rem;
+	border-radius: 1rem;
+	border: 1px solid #fb5c5f;
+	padding: 0.05rem 0.1rem;
+}
+header h2 {
+	color: #148ce6;
+	font-size: 0.16rem;
+	font-weight: 900;
+	margin-bottom: 0.05rem;
+}
+
+ul {
+	background-color: #fff;
+	padding-left: 0.15rem;
+}
+ul li {
+    border-bottom: 1px solid #eeeeee;
+    overflow: hidden;
+    padding-right:  0.15rem;
+}
+ul li .title {
+    margin-top: .15rem;
+	color: #000;
+	font-size: 0.16rem;
+	font-weight: 900;
+}
+ul li .subtitle {
+    margin-top: .1rem;
+    font-size: .14rem;
+    margin-bottom: .1rem;
+}
+ul li .content {
+    margin-bottom: .2rem;
+    display: flex;
+    justify-content: space-between;
+	align-items: center;
+}
+ul li .content>div:first-of-type{
+    padding-right: .3rem;
+    border-right: 1px #eee solid;
+}
+ul li .content div p:last-of-type{
+    font-size: .14rem;
+}
+ul li .content div p:first-of-type{
+   margin-bottom: .05rem;
+}
+section{
+    padding:.1rem .15rem;
+    font-size: .14rem;
+    font-weight: 900;
+}
+.red{
+    color: #f4333c;
+    font-weight: 900;
+    font-size: .17rem;
+}
+.green{
+    color: #009944;
+    font-size: .17rem;
+    font-weight: 900;
+}

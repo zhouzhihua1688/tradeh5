@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>组合申购</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/fundgroup/group.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+        .section1 p {  padding: 0 .75rem; font-size: 0.6rem; color: #666; line-height: 1.75rem;height: 1.75rem;}
+        /*.section1 P:first-child~p { padding-top: 0;}*/
+    
+        .gift {height:  2.5rem; padding:0 .75rem;background: #fff;overflow: hidden;}
+        .gift p{line-height: 2.5rem}
+        .gift p img{
+            width: .4rem;
+            height: .75rem;
+            position: relative;
+            top: 2px;
+        }
+      
+        .gift p:first-child{color:#000;}
+        .left{float: left; width: 65%;}
+        .right{float: right; width: 35%;}
+        .list-group-item  input{margin-left: .75rem;text-align: left;}
+        .img-style{
+            text-align: center;
+            margin: 0 4% 0 4%;
+            border-radius: 0.2rem;
+            margin-top: 1.25rem;
+
+        }
+
+        /*勾选样式*/
+        .section2 p {  padding: 0 .75rem; font-size: 0.4rem; color: #666; line-height: 1rem;margin: 0;}
+        .section2 { position: relative;margin-top: .8rem;}
+
+
+        .rules span.current { background-image: url("../images/fundgroup/chose1.png");}
+        .rules a { color: #3295e8; cursor: pointer;}
+
+        /*弹框1*/
+        .Bomb-box,.Bomb-box1,.Bomb-box2{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+        .Bomb-box .Bomb-box-main,.Bomb-box1 .Bomb-box-main,.Bomb-box2 .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+        .Bomb-box .Bomb-box-tips,.Bomb-box1 .Bomb-box-tips{  text-align: center;  color: #333;  font-size: 0.75rem;  height: 2.5rem;  line-height: 2.5rem;  }
+        .Bomb-box .Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+        .Bomb-box .Bomb-box-content p,.Bomb-box1 .Bomb-box-content p,.Bomb-box2 .Bomb-box-content p{  line-height: 1rem;  }
+        .Bomb-box .Bomb-box-ok,.Bomb-box1 .Bomb-box-ok,.Bomb-box2 .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+        .Bomb-box .no-tips,.Bomb-box1 .no-tips,.Bomb-box2 .no-tips{font-size: 0.7rem;padding: 1.7rem 1.5rem 1.15rem 1.5rem;text-align: center;}
+        .Bomb-box .text-center,.Bomb-box1 .text-center,.Bomb-box2 .text-center{text-align: center;}
+        .Bomb-box .Bomb-box-content,
+        .Bomb-box1 .Bomb-box-content,
+        .Bomb-box2 .Bomb-box-content{ padding:.75rem 1.5rem; }
+
+        .transfer_type_list li.on .annulus{  float: right; border-radius: 50%;  width: 0.8rem;  height: 0.79rem;  margin-top: 0.9rem; display: block; border: 1px solid #ff7e01; position: relative;}
+        .transfer_type_list li.on  .annulus:after { display: block; content: ""; width: .4rem; height: .4rem; background-color: #ff7e01; position: absolute;top: 50%;left: 50%;  border-radius: 50%; margin: -.2rem 0 0 -.2rem;}
+
+        /* 弹窗 */
+        .tip{position: fixed;
+            top: 0;
+            left: 0;
+            background-color: rgba(0,0,0,0.7);
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            font-size: 0.6rem;
+            z-index: 999;
+        }
+        .tip .tip_wrap{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+            margin: 0;
+            width:80%;
+            /*height:16rem;*/
+            background: #fff;
+            -webkit-border-radius: 5px;
+        }
+        .tip .tip_wrap .tip_content h3{font-size:.75rem;font-weight: bold;color:#000;text-align: center;margin-top: 1rem;}
+        .tip .tip_wrap .tip_content h4{margin-top: .5rem;text-align: center;font-size: .7rem;}
+        .tip .tip_wrap .tip_content h4:nth-of-type(2){color:#fb5c5f;margin-top: .4rem;}
+        .tip .tip_wrap .tip_content p{font-size: .7rem;margin-top: .7rem;line-height: 1rem;margin-bottom: 1rem;}
+        .tip .tip_wrap .tip_content{border-bottom: 1px #eee solid;}
+        .tip .tip_wrap .tip_btn ul li{text-align: center;font-size: .75rem;color:#006bfe;}
+        .tip .tip_wrap .tip_btn ul li a{display:block;text-align: center;font-size: .75rem;width:100%;padding:1rem 0;}
+
+        .tip2{position: fixed;
+            top: 0;
+            left: 0;
+            background-color: rgba(0,0,0,0.7);
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            font-size: 0.6rem;
+            z-index: 999;
+        }
+        .tip2 .tip_wrap{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+            margin: 0;
+            width:80%;
+            /*height:16rem;*/
+            background: #fff;
+            -webkit-border-radius: 5px;
+        }
+        .tip2 .tip_wrap .tip_content p{padding:0 1.5rem 0 1.5rem;font-size: .7rem;margin-top: .7rem;line-height: 1rem;margin-bottom: 1rem;text-align: center;line-height: 1rem;}
+        .tip2 .tip_wrap .tip_content{border-bottom: 1px #eee solid;}
+        .tip2 .tip_wrap .tip_btn ul li{text-align: center;font-size: .75rem;color:#006bfe;}
+        .tip2 .tip_wrap .tip_btn ul li a{display:block;text-align: center;font-size: .75rem;width:100%;padding:.7rem 0;}
+
+        .trading_instructions_line{display: inline-block;width: 100%;text-align: center;color: #c1c1c1;font-size: 0.5rem;font-weight: lighter;margin-top: 1rem;}
+        .trading_instructions_line_left{display: inline-block;position: relative;text-align:center;width: 37%;height: 1px;vertical-align: middle;background-color: #c1c1c1;right: .5rem;}
+        .trading_instructions_line_right{height: 1px;display: inline-block;position: relative;text-align:center;width: 37%;height: 1px;background-color: #c1c1c1;vertical-align: middle;left: .5rem;}
+        .trading_instructions_remark{text-align: left;color: #c1c1c1;font-size: .5rem;margin-left: .75rem;margin-right: .75rem;font-weight: lighter;margin-top: .5rem;}
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div>
+
+            <ul class="grid-list" style="padding:0 0 0 .75rem ">
+                <li class="grid-list-item heigth-100 ">
+                    <div class="row">
+                        <div class=" flex">
+                            <p>组合名称</p>
+                            <p class="group-name" style="margin:0;"></p>
+                        </div>
+                        <div class="lh-100 payMethod">
+
+                        </div>
+                        <div class="lh-100 margin-r75">
+                            <a class=" iconi icon-arrow-right"></a>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid-list-item heigth-100 select-bank-card">
+                    <div class="row">
+                        <div class="flex">
+                            <p>支付方式</p>
+                            <p class="" style="margin:0;" id="payWay">现金宝</p>
+                        </div>
+                        <div class="lh-100 payMethod">
+                        </div>
+                        <div class="lh-100 margin-r75" >
+                            <a class=" iconi icon-arrow-right"></a>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+        <section class="section1 remark_tip">
+            <!--<p class="red" style="display: none;">该银行系统维护，8月1日00:00-8月2日00:00服务将暂停，请重新选择</p>-->
+            <p> </p>
+        </section>
+        <ul class="grid-list" style="padding:0 0 0 .75rem ">
+            <li class="grid-list-item heigth-100">
+                <div class="row">
+                    <div class=" flex">
+                        <p>调仓方式<i class="icon icon-question icon-question-transfer"></i></p>
+                        <p class="select-transfer-type" style="margin:0;" data-flag="M">手动调仓</p>
+                    </div>
+                    <div class="lh-100 payMethod">
+
+                    </div>
+                    <div class="lh-100 margin-r75">
+                        <a class=" iconi icon-arrow-right"></a>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 BankCard">
+                <div class="row">
+                    <div class="flex" style="position: relative;">
+                        <p style="width: 52%;">购买金额(元) </p>
+                        <p style="margin-right: 2rem; width: 35%;"><input id="purchaseAmt" type="number" />
+                        <span class="input-group-addon clearInputTxt"><img src="../images/clear.png" style="width: 1rem;position: absolute;right: .8rem;top: .8rem;" alt=""></span>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 BankCard" id="fee_view" style="display: none;">
+                <div class="row">
+                    <div class="flex">
+                        <p>费用：<span id="display_fee">0.00</span>元 省了<span id="discount_fee">0.00</span>元</p>
+                        <p><a href="group_fee_intrduction.html" style="color: #148ce6;">费率说明</a></p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <section class="section1" style="margin-top:.5rem "></section>
+
+        <div class="gift my-coupon">
+            <p class="left font-28">我的礼券<i class="icon icon-question icon-question-coupon"></i></p>
+            <p class="right font-28"><span id="my_selected_coupon">无可用礼券</span>&nbsp;<img src="../images/fundgroup/arrow.png"></p>
+        </div>
+        <section class="section2">
+            <p class="rules" style="font-size:0.65rem;margin-left: .75rem;"><span id="isAgree" class="chose-icon current" ></span><span style="margin-left: .5rem;">同意</span><a
+                    href="http://static.99fund.com/mobile/agreement/funds_group_agreement.html">《汇添富组合产品服务协议》</a></p>
+
+        </section>
+        <section>
+            <div>
+                <button class="btn-orange" id="btn-submit">下一步</button>
+            </div>
+        </section>
+
+        <section>
+            <div class="trading_instructions_line">
+                <i class="trading_instructions_line_left"></i>交易须知<i class="trading_instructions_line_right"></i>
+            </div>
+            <div class="trading_instructions_remark">
+                .请避免临近15点下单，以免网路延迟造成交易日顺延<br>.预计将于XX月XX日根据XX月XX日的单位净值确认金额<br>.份额确认后下一个交易日可赎回
+            </div>
+        </section>
+        <!--<img src="../images/fundgroup/jiaoyi.png" alt="" class="img-style" style="width: 92%;">-->
+    </div>
+    <div class="layer animated slideInDown" id="bankCardList" style="display: none">
+        <ul class="grid-list">
+            <li class="grid-list-item heigth-130 bottom-border" onclick="selectedCard('','','','')">
+                <div class="row">
+                    <div class="lh-130">
+                        <img src="../images/fund/icon_05.png" alt="" style="width:1rem;height:1rem;margin-left: 0.3rem;margin-right: 17px;">
+                    </div>
+                    <div class="col-1">
+                        <div class="list-title" style="margin-top:0.3rem">
+                            <p class="bank-name">现金宝</p>
+                            <p class="bank-id" id="xjb_remark">限额0.00元</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <!--<li class="grid-list-item heigth-130 bottom-border">
+                <div class="row">
+                    <div class="lh-130">
+                        <i class="bank ico_621 no-margin-left"></i>
+                    </div>
+                    <div class="col-1">
+                        <div class="list-title">
+                            <p class="bank-name">农业银行[尾号6888]</p>
+                            <p class="bank-id">限额10.000.00元</p>
+                        </div>
+                    </div>
+                    <div class="lh-130 shorcut">
+                        <a class="icon icon-union">银联通</a>
+                        <a class="icon icon-E-bank">网银</a>
+                        <a class="icon icon-shorcut">快捷</a>
+                    </div>
+                </div>
+            </li>-->
+        </ul>
+    </div>
+
+    <div class="layer animated slideInDown transfer_type_list" style="display: none; z-index: 10;">
+        <ul class="list-group no-margin-top lh-100">
+            <li class="bottom-border font-28" data-flag="M"><div>手动调仓<span class="annulus"></span></div></li>
+            <li class="bottom-border font-28" data-flag="A"><div>自动调仓<span class="annulus"></span></div></li>
+        </ul>
+    </div>
+
+    <div class="layer animated slideInUp" id="couponList" style="display:none;">
+        <div class="giftlist">
+            <div class="title">
+                可用礼券详情
+            </div>
+            <ul class="coupon-ul">
+                <!--<li><span class="left">满50000返200，无上限下限500（50天后失效）</span><span class="right circle leaveChose"></span></li>
+                <li><span class="left">满50000返200，无上限下限500（50天后失效）</span><span class="right circle leaveChose"></span></li>
+                <li><span class="left red">不使用礼券</span><span class="right circle activeChose"></span></li>-->
+            </ul>
+        </div>
+        <div class="close_button">
+            关闭
+        </div>
+    </div>
+    <div class="mask"></div>
+    <!-- 提示弹窗 -->
+    <div class="Bomb-box" style="display: none;">
+        <div class="Bomb-box-main">
+            <div class="Bomb-box-content">
+                <p class="text-center"></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;">确定</a>
+        </div>
+    </div>
+    <!-- 问号弹窗 -->
+    <div class="Bomb-box1" style="display: none;">
+        <div class="Bomb-box-main">
+            <div class="Bomb-box-content">
+                <p class="text-center"></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;">确定</a>
+        </div>
+    </div>
+    <div class="Bomb-box2" style="display: none;">
+        <div class="Bomb-box-main">
+            <div class="Bomb-box-content">
+                <p class="text-center">如何获得礼券</p>
+                <p class="text-center">-参与活动有机会赢取礼券</p>
+                <p class="text-center">-通过好友转赠获得礼券</p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;">知道了</a>
+        </div>
+    </div>
+
+    <div class="sm_tip" style="display: none;">
+        <p> 该产品风险等级（高）超过您的风险承受承受等级（保守型）。</p>
+    </div>
+
+    <div class="tip" style="display: none;">
+        <div class="tip_wrap">
+            <div class="tip_content">
+                <h3>风险警示及确认</h3>
+                <div id="risk_tip" style="padding: 0rem 1rem 0rem 1rem;">
+                    <p>该产品风险等级<span style="color:#fb7678;">（高）</span>超过您的风险承受等级<span style="color:#fb7678;">（保守型）</span>。购买该产品可能导致您承担超出您承受能力的损失及不利后果。</p>
+                    <p><span style="color:#fb7678;">以上为风险警示，点击“继续购买”视为您承诺以下内容：</span><br>本人已阅读上述风险警示内容，已知悉该产品风险等级高于本人风险承受能力，并已充分了解该产品风险特征及可能产生的不利后果。经审慎考虑，本人仍坚持申请购买，并自愿承担由此可能产生的一切不利后果。贵司及销售人员不存在主动向本人推介该产品的行为。</p>
+                </div>
+            </div>
+            <div class="tip_btn" >
+                <ul style="width: 100%;">
+                    <li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid"><a
+                            href="javascript:;" class="close_tip">放弃购买</a></li>
+                    <li style="float: left;width:50%;box-sizing: border-box;"><a href="javascript:void(0);" id="continue_pur">继续购买</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="tip2 evaluation_risk_tip" style="display: none;">
+        <div class="tip_wrap">
+            <div class="tip_content">
+                <p id="evaluation_tip">您还未做风险测评，请先做测评</p>
+            </div>
+            <div class="tip_btn" >
+                <ul style="width: 100%;">
+                    <li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid" class="close_tip"><a
+                            href="javascript:;">取消</a></li>
+                    <li style="float: left;width:50%;box-sizing: border-box;"><a href="../common/riskTest.html" id="go_to_risk_test">去测评</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="tip2 bind_card_tip" style="display: none;">
+        <div class="tip_wrap">
+            <div class="tip_content">
+                <p id="bind_card_tip">您还未绑定银行卡，请先绑定银行卡</p>
+            </div>
+            <div class="tip_btn" >
+                <ul style="width: 100%;">
+                    <li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid" class="close_tip"><a
+                            href="javascript:;">取消</a></li>
+                    <li style="float: left;width:50%;box-sizing: border-box;"><a href="../card/manage_card.html" id="go_to_bind_card">添加银行卡</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="tip2 recharge_tip" style="display: none;">
+        <div class="tip_wrap">
+            <div class="tip_content">
+                <p id="recharge_tip">现金宝余额不足，请立即充值</p>
+            </div>
+            <div class="tip_btn" >
+                <ul style="width: 100%;">
+                    <li style="float: left;width:50%;box-sizing: border-box;border-right: 1px #eee solid" class="close_tip"><a
+                            href="javascript:;">取消</a></li>
+                    <li style="float: left;width:50%;box-sizing: border-box;"><a href="../account/topup.html" id="go_to_recharge">去充值</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script type="text/javascript" src="../js/fundgroup/payment.js?20210106"></script>
+</body>
+
+</html>

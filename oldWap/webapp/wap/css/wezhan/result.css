@@ -1,0 +1,65 @@
+@charset "utf-8";
+.main{
+	width:100%;
+	height:100%;
+	margin:0px;
+	padding:0px;
+	/* padding-bottom: 2.5rem; */
+	background:#fff;
+}
+.head{
+	width:100%;
+	height:18.375rem;
+	/* border:1px solid red; */
+}
+.head .icon{
+	width:14.25rem;
+	height:12.625rem;
+	background: url(../../images/wezhan/xiangqing.png) no-repeat;
+	background-size: 100% 100%;
+	margin:0 auto;
+	position:relative;
+	top:4.25rem;
+}
+.head .icon .number{
+	font-size: 2.15rem;
+	color:#f4333c;
+	text-align: center;
+	position:absolute;
+	top:2.5rem;
+	left:4.5rem;
+	font-weight: bold;
+}
+.head .icon .text{
+	font-size: 0.8rem;
+	text-align: center;
+	position:absolute;
+	top:5.5rem;
+	left:3.65rem;
+	color:#000;
+	font-weight: bold;
+}
+.head .icon .text2{
+	font-size: 0.55rem;
+	text-align: center;
+	position:absolute;
+	top:6.75rem;
+	left:4.625rem;
+	color:#666;
+}
+.finish{
+	width:100%;
+	height:2.25rem;
+}
+.finish a{
+	width:90%;
+	height:2.25rem;
+	background:#FE7E01;
+	display: block;
+	margin:0 auto;
+	font-size: 0.85rem;
+	text-align: center;
+	line-height: 2.25rem;
+	border-radius:3px;
+	color:#fff;
+}

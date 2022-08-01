@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--<meta charset="GBK">-->
+    <meta charset="utf8">
+    <title>历史定投</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/base_v1.css">
+    <link rel="stylesheet" href="../css/fundgroup/my_dingtou.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+        /*弹框1*/
+        .Bomb-box{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+        .Bomb-box .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+        .Bomb-box .Bomb-box-tips{  text-align: center;  color: #333;  font-size: 0.75rem;  height: 2.5rem;  line-height: 2.5rem;  }
+        .Bomb-box .Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+        .Bomb-box .Bomb-box-content p{  line-height: 1rem;  }
+        .Bomb-box .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+        .Bomb-box .no-tips{font-size: 0.7rem;padding: 1.7rem 1.5rem 1.15rem 1.5rem;text-align: center;}
+        .Bomb-box .text-center{text-align: center;}
+        .Bomb-box .Bomb-box-content{ padding:.75rem 1.5rem; }
+    </style>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <section class="content1_1">
+        <ul class="clearfix border tab3">
+            <li class="active"><a>基金定投</a></li>
+            <li><a>组合定投</a></li>
+        </ul>
+        <div class="qiehuan">
+            <div class="fund-mip-body">
+                <!--<div class="qiehuan_content">
+                    <table>
+                        <thead class="thead">
+                        <tr>
+                            <td>定投计划20171106<span>智投</span><span>目标盈</span></td>
+                            <td>正常</td>
+                        </tr>
+                        </thead>
+
+                    </table>
+                    <table class="tbody">
+                        <tr>
+                            <td>基金名称</td>
+                            <td >每期基础金额(元)</td>
+                        </tr>
+                        <tr>
+                            <td >汇添富中证主要消费ETF联...</td>
+                            <td>1,073.29</td>
+                        </tr>
+                        <tr>
+                            <td>扣款时间</td>
+                            <td>下次扣款日期</td>
+                        </tr>
+                        <tr>
+                            <td >每日</td>
+                            <td>-&#45;&#45;</td>
+                        </tr>
+                        <tr>
+                            <td>目标收益率</td>
+                            <td>当前收益率</td>
+                        </tr>
+                        <tr>
+                            <td >6%</td>
+                            <td class="color-red">1.45%</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="title_tip"></div>
+                <div class="qiehuan_content">
+                    <table>
+                        <thead class="thead">
+                        <tr>
+                            <td>定投计划20171106<span>智投</span><span>目标盈</span></td>
+                            <td>正常</td>
+                        </tr>
+                        </thead>
+
+                    </table>
+                    <table class="tbody">
+                        <tr>
+                            <td>基金名称</td>
+                            <td >每期基础金额(元)</td>
+                        </tr>
+                        <tr>
+                            <td >汇添富中证主要消费ETF联...</td>
+                            <td>1,073.29</td>
+                        </tr>
+                        <tr>
+                            <td>扣款时间</td>
+                            <td>下次扣款日期</td>
+                        </tr>
+                        <tr>
+                            <td >每日</td>
+                            <td>-&#45;&#45;</td>
+                        </tr>
+                        <tr>
+                            <td>目标收益率</td>
+                            <td>当前收益率</td>
+                        </tr>
+                        <tr>
+                            <td >6%</td>
+                            <td class="color-red">1.45%</td>
+                        </tr>
+                    </table>
+                </div>-->
+            </div>
+        </div>
+
+        <!-- 第二个的切换 -->
+            <div class="qiehuan_2" style="display:none">
+                <div class="fund-group-mip-body">
+                    <!--<div class="title_tip">
+                    </div>
+                    <div class="qiehuan_content">
+                        <table>
+                            <thead class="thead">
+                            <tr>
+                                <td>添富中港专注价值</td>
+                                <td class="color-red">定投中</td>
+                            </tr>
+                            </thead>
+
+                        </table>
+                        <table class="tbody">
+                            <tr>
+                                <td >每期定投金额(元)</td>
+                                <td >扣款日期</td>
+                                <td >下次扣款日期</td>
+                            </tr>
+                            <tr>
+                                <td >1.000.00</td>
+                                <td>每月01日</td>
+                                <td>1,073.29</td>
+                            </tr>
+                        </table>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="footer_fiexd" style="display: none;">
+        <ul>
+            <li class="more" onclick="more()"><a href="javascript:;">加载更多...</a></li>
+        </ul>
+    </div>
+    <!-- 提示弹窗 -->
+    <div class="Bomb-box" style="display: none;">
+        <div class="Bomb-box-main">
+            <div class="Bomb-box-content">
+                <p class="text-center"></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;">确定</a>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script type="text/javascript" src="../js/fundgroup/my_mip_history.js"></script>
+</body>
+
+</html>

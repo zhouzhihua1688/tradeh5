@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>观点</title>
+
+    <link rel="stylesheet" type="text/css" href="../css/base.css">
+    <link rel="stylesheet" type="text/css" href="../css/wezhan/base_wezhan.css">
+    <link rel="stylesheet" type="text/css" href="../css/wezhan/viewPoint.css">
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css">
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <style>
+        .side-right { position: fixed; right: 0;  bottom:20%;z-index:99;display:none;}
+		.click_hide{height:.8rem;width:100%;bottom:.25rem;position:absolute}
+		.textAndImg{width:100%;display:flex;justify-content:space-between;align-items: center;padding:0.75rem 0rem;}
+		.textAndImg .one{width:60%;}
+		.textAndImg .one .zhuan{width:100%;height:0.75rem;font-size:0.6rem;margin:0.2rem 0rem 0.2rem 0.75rem;color:#666;}
+		.textAndImg .one  img{width:1.325rem;height:0.65rem;display: inline-block;vertical-align: middle;margin-top:-0.1rem;}
+		.textAndImg .one  img.hide{display:none;}
+		.textAndImg .one  img.show{display:inline-block;}
+		.f_title img{width:1.325rem;height:0.65rem;display: inline-block;vertical-align: middle;margin-top:-0.1rem;}
+		.f_title img.hide{display:none;}
+		.f_title img.show{display:inline-block;}
+		.f_title{color:#000;font-size:0.8rem;padding-bottom:0.25rem;padding-top:.75rem}
+		.group1_content p{font-size: 0.7rem;color:#666;line-height:1rem;}
+		.textAndImg .one div:nth-of-type(1){color:#000;font-size:0.8rem;padding-bottom:0.1rem;}
+		.textAndImg .one div:nth-of-type(2){font-size: 0.7rem;color:#666;}
+		.textAndImg .one div:nth-of-type(3){color:#666;font-size:0.6rem;padding-top: 0.45rem}
+		.textAndImg .two{width:35%;text-align:right;padding-right:0.75rem;}
+		.textAndImg .two img{width:5.5rem;height:3.75rem;}
+    </style>
+</head>
+
+<body>
+	<div class="side-right" id="side-right">
+    </div>
+    <section class="content1">
+
+        <ul class="clearfix border tab1 title_tab">
+            <li><a>市场解读</a></li>
+            <li><a>添财创造营</a></li>
+            <li><a>有问必答</a></li>
+        </ul>
+
+        <!-- 市场解读 -->
+        <div class="for_unscramble">
+           <div class="top_titles">
+
+           </div>
+           <div class="group1">
+               <div  class="group1_content_panel">
+
+               </div>
+           </div>
+            <div class="show_more">查看更多</div>
+            <div style="height:2.5rem;"></div>
+        </div>
+        <!-- 添财创造营 -->
+        <div class="for_creativecamp" style="display:none">
+            <div  class="creativecamp_container">
+                <div  id="panel">
+                    <!--<div class="group2">
+                        <h2><span>添添向上</span></h2>
+                        <div class="group2_content">
+                            <img src="../images/wezhan/chuangzhao.jpg" alt="">
+                            <p>胡昕炜谈投资：消费降级可能是被误解的焦虑asdasd</p>
+                        </div>
+                    </div>
+                    <div class="group2">
+                        <h2><span class="fl">添添向上</span><a class="fr">查看更多</a></h2>
+                        <div class="group2_content">
+                            <img src="../images/wezhan/chuangzhao.jpg" alt="">
+                            <p>胡昕炜谈投资：消费降级可能是被误解的焦虑asdasd</p>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+            <div style="height:2.5rem;"></div>
+        </div>
+        <!-- 有问必答 -->
+        <div class="for_question" style="display:none">
+       	 	<div  id="panel2">
+        	</div>
+            <div class="question_content_panel" style="padding-bottom:0.75rem">
+                <!--<div class="group3">
+                    <div class="group3_content_l fl">
+                        <img src="../images/wezhan/user.png" alt="">
+                    </div>
+                    <div class="group3_content_r fr">
+                        <div class="user">
+                            <p class="fl"><span class="blue">这个是昵称</span><span>回答了问题</span></p> <i class="fr"></i>
+                        </div>
+                        <p class="user_q">今天买，是不是今天的价格买入</p>
+                        <p class="user_a">回答：今天买，估价就是今天深夜十点开盘凌晨结束，明天早上才能看到估值。</p>
+                        <div class="content_r_footer">
+                            <span class="fl">56分钟前</span>
+                            <a href="javascript:;" class="fr" onclick="custLike()">
+                                <i class="is_like"></i> <sup>10</sup>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="group3">
+                    <div class="group3_content_l fl">
+                        <img src="../images/wezhan/user.png" alt="">
+                    </div>
+                    <div class="group3_content_r fr">
+                        <div class="user">
+                            <p class="fl"><span class="blue">这个是昵称</span><span>回答了问题</span></p> <i class="fr"></i>
+                        </div>
+                        <p class="user_q">今天买，是不是今天的价格买入</p>
+                        <p class="user_a">回答：今天买，估价就是今天深夜十点开盘凌晨结束，明天早上才能看到估值。，明天早上才能看到估值。，明天早上才能看到估值。，明天早上才能看到估值</p>
+                        <div class="content_r_footer">
+                            <span class="fl">56分钟前</span>
+                            <a href="javascript:;" class="fr"  onclick="custLike()">
+                                <i class="not_like"></i> <sup>0</sup>
+                            </a>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+            <div style="height:2.5rem;"></div>
+        </div>
+       <div style="height: 4rem;" class="footer_h"></div>
+        <div class="mask">
+            <div class="answer">
+                <div class="answer_text"></div>
+                <a href="javascript:;" class="close"></a>
+            </div>
+        </div>
+    </section>
+    <div class="footer_btn">
+        <a href="./service.html">
+            <img src="../images/wezhan/footer_01.png" alt="" >
+            <span>服务</span>
+        </a>
+        <a href="#">
+            <img src="../images/wezhan/footer2.png" alt="">
+            <span class="active_color">观点</span>
+        </a>
+        <!-- <a href="./welfare.html">
+            <img src="../images/wezhan/footer_03.png" alt="">
+            <span>福利</span>
+        </a> -->
+<!-- 20210824添加我的页面 start-->        
+        <a href="./mine.html">
+            <img src="../images/wezhan/footer_04.png" alt="">
+            <span>我的</span>
+        </a>
+<!-- 20210824添加我的页面 end-->         
+    </div>
+    <a href="#" style="display: none;" class="i_ask"><span>我要</span><br><span>提问</span></a>
+    <!--<a href="#" class="go_home" style="bottom:3.25rem">回首页</a>-->
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/swiper-4.2.2.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210302"></script>
+    <script type="text/javascript" src="../js/layout.js?t=1"></script>
+    <script type="text/javascript" src="../js/wezhan/viewPoint.js?20201124"></script>
+</body>
+
+</html>

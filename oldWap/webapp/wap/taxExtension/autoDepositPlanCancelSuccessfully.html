@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>成功</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base_v1.css">
+    <link rel="stylesheet" href="../css/taxExtension/payment.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <style>
+        body { background-color: #fff;}
+        .wrap {
+            padding: 4.5rem 0.75rem 0 0.75rem;
+        }
+        .wrap-top {
+            height: 1.25rem;
+            line-height: 1.25rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color:#333333;
+        }
+        .wrap-top i {
+            width: 1.25rem;
+            height: 1.25rem;
+            font-size: 0.8rem;
+        }
+        .wrap-middle {
+            padding-top: 2rem;
+        }
+        .wrap-middle p {
+            color:#333333;
+            font-size: 0.65rem;
+            text-align: center;
+            padding-bottom: 1.25rem;
+        }
+        .wrap-middle p span{
+            color:#fb5c5f;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="wrap-top">
+        <i class="icon icon-ok-red"></i>您的养老投资计划已终止
+    </div>
+    <div class="wrap-middle">
+    </div>
+    <div>
+        <button class="btn-lg-orange" id="btn-submit">确认</button>
+    </div>
+</div>
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/lib/phone-size.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script>
+        $("#btn-submit").click(function () {
+            window.location.href = "../fund/my_tax_extension.html"
+        });
+        // console.log("successInfo:", App.getSession(App.successInfo));
+        var si = App.getSession(App.successInfo).replace("size=14", "class='f16'");
+        si = si.replace("size=6", "class='f12'");
+        si = si.replace("size=12", "class='f11'");
+        $("#successInfo").html(si);
+    </script>
+</body>
+</html>

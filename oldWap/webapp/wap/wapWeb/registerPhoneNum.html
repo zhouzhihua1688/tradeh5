@@ -1,0 +1,136 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>注册</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta name="format-detection" content="telephone=no">
+
+        <link rel="stylesheet" href="css/pure-min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <style type="text/css">
+            .pure-form .pure-group input.phone-viri {
+                background: url(img/phone_03.png) no-repeat 7% 50% #fff;
+                background-size: 14px 16px;
+                border: 0;
+                top: 0;
+                padding-left: 12%;
+            }
+
+            /*弹框1*/
+            .Bomb-box{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+            .Bomb-box .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+            .Bomb-box .Bomb-box-tips{  text-align: center;  color: #333;  font-size: 0.75rem;  min-height: 2.5rem;  line-height: 2.5rem;  }
+            .Bomb-box .Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+            .Bomb-box .Bomb-box-content p{  line-height: 1rem;  }
+            .Bomb-box .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+            .Bomb-box .no-tips{font-size: 0.7rem;padding: 1.7rem 1.5rem 1.15rem 1.5rem;text-align: center;}
+            .Bomb-box .text-center{text-align: center;}
+        </style>
+    </head>
+    <body>
+        <h3 class="title">30秒极速注册</h3>
+        <div class="nav">
+            <img src="img/nav1.png" alt="nav1" class="pure-img"/>
+        </div>
+        <form action="" class="pure-form pure-form-stacked">
+
+                <fieldset  class="pure-group veri">
+                    <div class="group-box phone">
+                        <input type="tel" name="telephone" id="phonenum" class="phonenum phone-viri" placeholder="请输入手机号" maxlength="11">
+                        <span class="error">X</span>
+                    </div><!--
+                    <hr class="line"/>
+                    <div class="veri-left" style="width: 68%;">
+                        <input type="text" class="login-viri" style="width: 90%" maxlength="6" placeholder="请输入图片验证码">
+                        <span class="error">X</span>
+                    </div>
+                    <div class="veri-right">
+                        <img src="img/icon6.png" id="pure-img-authcode" alt="icon-veri" class="pure-img">
+                    </div>-->
+                </fieldset>
+
+                <br/>
+                <div class="section">
+
+                    <!--<button class="pure-button pure-input-1 btn-bind" id="register" type="button">注册</button>-->
+                    <a href="javascript:void(0)" class="pure-button pure-input-1 btn-bind" id="register">注册</a>
+                </div>
+            <p class="remark">点击“注册”按钮, 即表示您已同意<br/><a href="http://static.99fund.com/mobile/agreement/online_agreement.html" class="agreement" target="_self">《汇添富手机开户协议》</a></p>
+
+            <div class="section-bottom" style="display: none;">
+                <!--<button class="pure-button pure-input-1-4 btn-register" id="" type="button">登录</button>-->
+                <a href="login.html" class="pure-button pure-input-1-4 btn-register" id="">登录</a>
+                <p class="remark" style="color: #999;">如果您已有汇添富现金宝账户请点击“登录”按钮</p>
+            </div>
+        </form>
+
+        <!-- S footer 添加 -->
+        <style type="text/css">
+            .bottom{background: rgba(0,0,0,.6);width:100%;position: fixed;bottom: 0;left:0;padding:.47em 0;}
+            .bottom .logo,.bottom .text{float:left;}
+            .bottom .logo{background: url(../images/logo.png) no-repeat;background-size:contain;width:2.475em;height: 2.507em;margin-right: .379em;margin-left: 1.035em;}
+
+            .bottom .text .p1{font-size: .966em;color:#fff;}
+            .bottom .text .p2{font-size: .689em;color:#fff;}
+            .bottom a{display: block;float:right;background: #ff7e00;color:#fff;font-size: .896em;margin-right: 1.035em;height: 2.071em;width: 5.516em;line-height: 2.071em;text-align: center;border-radius: 3px;margin-top: .220em;}
+            .bottom .logo {padding: 0;}
+            .bottom .text p{margin: 0;}
+            .bottom a {text-decoration: none;}
+        </style>
+        <div id="downloadBtn" class="bottom">
+            <div class="logo"></div>
+            <div class="text">
+                <p class="p1">汇添富现金宝</p>
+                <p class="p2">添富现金宝，理财好账户！</p>
+            </div>
+            <a href="https://www.99fund.com/m.htm">下载App</a>
+        </div>
+        <!-- E footer 添加 -->
+        <div class="Bomb-box">
+            <div class="Bomb-box-main" style="margin-top: 50%;"><!--
+                <p class="Bomb-box-tips"  style="padding-top: 0.75rem;"></p>-->
+                <div class="Bomb-box-content" style="padding-top: 0.75rem;font-size: 0.8em;color: #878787">
+                    <p class="text-center"></p>
+                </div>
+                <a class="Bomb-box-ok" href="javascript:;" style="text-decoration: none;">确定</a>
+            </div>
+        </div>
+
+        <!-- <script src="js/zepto.js"></script> -->
+        <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+        <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+        <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+        <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+        <script type="text/javascript" src="../js/lib/weixin.js"></script>
+        <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+        <script type="text/javascript" src="../js/common.js?20210106"></script>
+        <script type="text/javascript" src="js/reg_1.js"></script>
+        <script type="text/javascript" src="../../basic/basic.js?20210128"> </script>
+         <script type="text/javascript">
+             $(function(){
+                 var downloadFlag = WAP.getUrlParam("xjbDownloadFlag");
+                 console.log(downloadFlag);
+                 if(downloadFlag != undefined  && downloadFlag !=''  && downloadFlag == 0 ){
+                     $("#downloadBtn").hide();
+                 }else {
+                     $("#downloadBtn").show();
+                 }
+                /*var bind_name="input";//定义所要绑定的事件名称
+                if(navigator.userAgent.indexOf("MSIE")!=-1){
+                    bind_name="propertychange";//判断是否为IE内核 IE内核的事件名称要改为propertychange
+                }
+                $(".pure-form .pure-group input").on(bind_name,function(){
+                    $(this).siblings('.error').css("display","block");
+                    if($(this).val() == ""){
+                        $(this).next().css("display","none");
+                    }
+                });
+                $(".pure-form .pure-group .error").on("click",function(){
+                    $(this).css("display","none").siblings('input').val('').focus();
+                });*/
+            })
+        </script>
+    </body>
+</html>

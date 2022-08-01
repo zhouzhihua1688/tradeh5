@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>成功</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <style>
+        body {
+            background-color: #fff;
+        }
+
+        .content {
+            padding: 0 0.75rem /* 30/40 */;
+        }
+
+        .content .title {
+            margin-top: 4.375rem;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .content .title > img {
+            display: inline;
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-right: 0.2rem;
+            vertical-align: middle;
+        }
+
+        .content .desc {
+            margin-top: 1.6rem;
+            text-align: center;
+            font-size: 0.65rem;
+            color: #666;
+        }
+
+        .content .btn {
+            margin-top: 1.125rem;
+            height: 2.25rem;
+            line-height: 2.25rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #fff;
+            background-color: #fe7e01;
+            border-radius: 0.075rem;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <div class="title">
+        <img src="/tradeh5/newWap/findPwd/img/success.png">
+        <span>设置成功!</span>
+    </div>
+    <div class="desc">登陆密码设置成功</div>
+    <div class="btn">确认</div>
+</div>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+<script>
+    $(function(){
+        $('.btn').on('click', function () {
+            utils.jumpLoginPage();
+        });
+    });
+</script>
+</body>
+</html>

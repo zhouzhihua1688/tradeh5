@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>策略备选库</title>
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="css/strategyFundDetail.css">
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+
+<body>
+    <div class="top">汇添富专家通过四维定性，三维定量，从全市场6000+只公募基金中筛选出优质基金。同时全程跟踪、动态更新基金清单，持续为你提供全天候服务，让你实现省心理财!</div>
+    <div class="content"></div>
+    <script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+    <script>
+        $(function () {
+            var groupId = utils.getUrlParam('groupId');
+            // /productcenter/v1/new/uop/standard/query/invest/fundgroup/backup/collection
+            if (groupId) {
+                
+                utils.ajax({
+                    url: '/productcenter/v1/new/uop/standard/query/invest/fundgroup/backup/collection?groupid=' +
+                        groupId,
+                    success: function (result) {
+                        if (result.returnCode == 0) {
+                            console.log(result);
+                            var groupList = result.body;
+                            var newObj = groupList.reduce((pre, item) => {
+                                switch (item.fundType) {
+                                    case '权益类':
+                                        pre.R.push(item);
+                                        break;
+                                    case '固收类':
+                                        pre.F.push(item);
+                                        break;
+                                    case '货币类':
+                                        pre.V.push(item);
+                                        break;
+                                    case '其他':
+                                        pre.O.push(item);
+                                        break;
+                                }
+                                return pre;
+                            }, {
+                                R: [],
+                                F: [],
+                                V: [],
+                                O: []
+                            });
+                            var str = '';
+                            for (const key in newObj) {
+                                if (newObj[key].length > 0) {
+                                    str += '<div class="title">' +
+                                        '<i class="' + translateClass(key) + '-block"></i>' +
+                                        '<span>' + translateProductType(key) + '产品</span>' +
+                                        '</div>';
+                                    str += '<div class="list">' +
+                                        '        <div class="head">' +
+                                        '            <div>基金名称</div>' +
+                                        '            <div>基金代码</div>' +
+                                        '        </div>' +
+                                        '        <div class="body">';
+                                    newObj[key].forEach(function (blockItem) {
+                                        str += '<div class="body-item"><div>' + blockItem
+                                            .fundName + '</div><div>' + blockItem.fundid +
+                                            '</div></div>';
+                                    });
+                                    str += '</div></div>';
+                                }
+                                $('.content').html(str);
+                            }
+
+                        }
+                    }
+                });
+                // utils.ajax({
+                //     url: '/productcenter/v1/old/info/fundgroup/detail-backup/collections?groupId=' + groupId,
+                //     success: function (result) {
+                //         if (result.returnCode == 0) {
+                //             var str = '';
+                //             result.body.categorySingleVOList.filter(function(item){
+                //                 return item.fundInfoList.length > 0;
+                //             }).forEach(function (blockItem) {
+                //                 str += '<div class="title">' +
+                //                     '<i class="' + translateClass(blockItem.groupKind) + '-block"></i>' +
+                //                     '<span>' + translateProductType(blockItem.groupKind) + '产品</span>' +
+                //                     '</div>';
+                //                 str += '<div class="list">' +
+                //                     '        <div class="head">' +
+                //                     '            <div>基金名称</div>' +
+                //                     '            <div>基金代码</div>' +
+                //                     '        </div>' +
+                //                     '        <div class="body">';
+                //                 blockItem.fundInfoList.forEach(function (listItem) {
+                //                     str += '<div class="body-item"><div>' + listItem.fundName + '</div><div>' + listItem.fundId + '</div></div>';
+                //                 });
+                //                 str += '</div></div>';
+                //             });
+                //             $('.content').html(str);
+                //         }
+                //     }
+                // });
+            }
+
+            function translateProductType(groupKind) {
+                var obj = {
+                    'R': '权益类',
+                    'F': '固收类',
+                    'V': '货币类',
+                    'O': '其他'
+                };
+                return obj[groupKind] || groupKind;
+            }
+
+            function translateClass(groupKind) {
+                var obj = {
+                    'R': 'blue',
+                    'F': 'blue',
+                    'V': 'yellow',
+                    'O': 'yellow'
+                };
+                return obj[groupKind] || 'yellow';
+            }
+        });
+    </script>
+</body>
+
+</html>

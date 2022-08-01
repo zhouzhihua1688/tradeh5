@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	 <!--<meta charset="GBK">-->
+	<meta charset="utf-8">
+	<title>智汇定投</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<style>
+		/* 取消链接高亮  */
+		body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		/* 图片自适应 */
+		img {
+			width: 100%;
+			height: auto;
+			width: auto\9; /* ie8 */
+			-ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/
+			border: none;
+		}
+		/* 初始化 */
+		body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+			margin: 0;
+			padding: 0;
+			border: none;
+		}
+		body {
+			color: #666666;
+			max-width: 750px;
+			margin: 0 auto;
+			background-color: #f5f5f9;
+		}
+		img{
+			display: block;
+			 width: 100%;
+			}
+		div{
+			position:relative;
+
+		}	
+		.superLinkA{display:block;position: absolute;width:80%;margin-left:10%;height: 2.25rem;z-index: 10; top: 7.8rem;}
+		.superLinkB{display:block;position: absolute;width:80%;margin-left:10%;height: 2.25rem;z-index: 10; top: 16.5rem;}
+	</style>
+</head>
+<body>
+  
+    <div><img src="img/bg_02.png" alt=""></div>
+    <div><img src="img/bg_03.png" alt=""></div>
+    <div><img src="img/bg_04.png" alt=""></div>
+    <div><img src="img/bg_05.png" alt=""></div>
+    <div>
+        <img src="img/bg_06.png" alt="">
+    </div>
+    <div>
+         <img src="img/bg_07.png" alt="" class="img">
+    </div>
+    <div>
+        <img src="img/bg_08.png" alt="">
+    </div>
+    <div>
+		<img src="img/bg_09.png" alt="">
+		<a href="javascript:;" class="superLinkA"></a>
+		<a href="javascript:;" class="superLinkB"></a>
+	</div>
+	<div>
+        <img src="img/bg_10.png" alt="">
+    </div>
+    <script type="text/javascript" src="../../js/lib/jquery.min.js"></script>
+    <script>
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            screenWidth = screenWidth > 640 ? 640 : screenWidth;
+            oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+
+        }
+
+        var IS_APP_OPEN = false;
+        var from = getUrlParam("from");
+        if(from != undefined && from != null && from != "" && from == "htfxjb"){
+            IS_APP_OPEN = true;
+        }
+        $(".superLinkA").click(function () {
+            // console.log("A",u);
+            var fundId = "519008";
+            if(IS_APP_OPEN){
+                window.location.href = "htffundxjb://action?type=fd&fundId=" + fundId;
+            }else{
+                window.location.href = "../../fund/steadyCombination.html?fundId=" + fundId;
+            }
+        });
+
+        $(".superLinkB").click(function () {
+            // console.log("B",u);
+            var fundId = "519069";
+            if(IS_APP_OPEN){
+                window.location.href = "htffundxjb://action?type=fd&fundId=" + fundId;
+            }else{
+                window.location.href = "../../fund/steadyCombination.html?fundId=" + fundId;
+            }
+        });
+        function getUrlParam (key) {
+            var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return "";
+        }
+
+    </script>
+</body>
+</html>
+
+

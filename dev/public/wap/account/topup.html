@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>充值</title>
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/base_bank.css">
+    <style>
+        html,
+        body {
+            font-family: 'SimHei';
+            background: #f6f6f6;
+        }
+
+        .content li {
+            padding: 0.75rem;
+        }
+
+        .content .high {
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content .high .bank {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content .high .bank span {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content .black {
+            font-size: 0.75rem;
+            color: #000;
+        }
+
+        .content img {
+            height: .75rem;
+        }
+
+        .content .high .sign {
+            height: 1rem;
+        }
+
+        .content .dim {
+            font-size: 0.6rem;
+            color: #666666;
+            line-height: 1rem;
+            padding: .25rem .75rem;
+        }
+
+        .content .grey {
+            font-size: 0.6rem;
+            color: #666666;
+        }
+
+        .content .red {
+            font-size: 0.6rem;
+            color: #f4333c;
+        }
+
+        .fundList .red {
+            color: #f4333c;
+        }
+
+        .content .blue,
+        .fundList .blue {
+            color: #148ce6;
+        }
+
+        .content .pt5,
+        .fundList .pt5 {
+            padding-top: 0.25rem;
+        }
+
+        .content .ml15,
+        .fundList .ml15 {
+            margin-left: .75rem;
+        }
+
+        .content .ml10,
+        .fundList .ml10 {
+            margin-left: .5rem;
+        }
+
+        .content input {
+            outline: none;
+            /* border: none; */
+            color: #000;
+            /* font-weight: 900; */
+            font-size: 1.5rem;
+            width: 70%;
+            padding: 0;
+            height: 100%;
+        }
+
+        .content .money {
+            background: #fff;
+        }
+
+        .content .money .chineseText {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            font-size: .6rem;
+        }
+
+        .content .money .chineseText img {
+            width: .5rem;
+            height: .35rem;
+            margin-left: 3.5rem;
+            margin-right: .5rem;
+        }
+
+        .content .money .inputMoney {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #000;
+            font-weight: 900;
+            font-size: 1.5rem;
+        }
+        .content .checkBox {
+            vertical-align: middle;
+            margin-top: -.1rem;
+            height: .75rem;
+            width: .75rem;
+            margin-right: .3rem;
+        }
+        .content .btn {
+            border: none;
+            outline: none;
+            color: #fff;
+            width: 100%;
+            padding: .6rem 0;
+            margin: 0 auto;
+            font-size: .7rem;
+            border-radius: .1rem;
+        }
+
+        .content .center {
+            text-align: center;
+        }
+
+        .fundList {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .fundList ul {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: #fff;
+            width: 100%;
+        }
+
+        .fundList ul li {
+            padding: .6rem 1.25rem;
+        }
+
+        .fundList ul li {
+            border-bottom: .5px solid #eeeeee;
+            color: #000;
+        }
+
+        .fundList .title {
+            padding-top: .75rem;
+            padding-bottom: .75rem;
+            font-size: .75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .fundList .fund {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+        }
+
+        .fundList .fund img {
+            width: .75rem;
+            height: .75rem;
+            margin-right: .5rem;
+        }
+
+        .layer { background-color: #ffffff; height: 100%; width: 100%; position: fixed; top: 0;
+            left:0; overflow: auto;z-index: 10;}
+
+
+        .animated {
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        @keyframes slideInDown{
+            0%{opacity:0;-webkit-transform:translateY(-2000px);-ms-transform:translateY(-2000px);transform:translateY(-2000px)}
+            100%{-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}}
+        @keyframes slideInUp{
+            0%{opacity:0;-webkit-transform:translateY(100%);-ms-transform:translateY(100%);transform:translateY(100%)}
+            100%{-webkit-transform:translateY(60%);-ms-transform:translateY(60%);transform:translateY(60%)}}
+        .slideInDown{-webkit-animation-name:slideInDown;animation-name:slideInDown}
+        .slideInUp{-webkit-animation-name:slideInUp;animation-name:slideInUp;}
+        .mask{width:100%;height:100%;position: absolute;top:0;left: 0;background: rgba(0, 0, 0, 0.5);display: none;z-index: 5;}
+        .slideInUp .grid-list{overflow-y: scroll;  background-color: #eee;height: 12rem;}
+        .slideInUp .grid-list .list-title{display: block;}
+        .slideInUp .grid-list .list-title .left{float: left; width: 100%; font-size: .7rem; color: #000;}
+        .slideInUp .grid-list .list-title .right{width: 100%;}
+        .slideInUp .grid-list .grid-list-item{background-color: #fff; padding: 0 .75rem;}
+        .slideInUp .grid-list .grid-list-item .rowDiv {display: flex; border-bottom: 1px solid #eee;padding: .5rem 0;height: 2rem;}
+        .slideInUp .grid-list .grid-list-item .col1 {width: 20%; text-align: right; line-height: 2rem;}
+        .slideInUp .grid-list .grid-list-item .col2 {width: 60%;}
+        .slideInUp .grid-list .grid-list-item .col3 {width: 20%; text-align: left; line-height: 2rem;}
+        .icon{
+            display: inline-block;
+            width: 3.1rem;
+            text-align: center;
+            height: 1rem;
+            line-height: 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.6rem;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        .icon-union{
+            border: 1px solid #eb6561;
+            color: #eb6561;
+        }
+        .icon-E-bank{
+            border: 1px solid #ee8837;
+            color: #ee8837;
+        }
+        .icon-shorcut{
+            border: 1px solid #488bc7;
+            color: #488bc7;
+        }
+        .Bomb-box{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+        .Bomb-box .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+        .Bomb-box .Bomb-box-tips{ display:none;  text-align: center;  color: #333;  font-size: 0.75rem;  height: 2.5rem;  line-height: 2.5rem;  }
+        .Bomb-box .Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem; padding-top: 0.75rem; font-size: 0.7rem; }
+        .Bomb-box .Bomb-box-content p{  line-height: 1.2rem;  }
+        .Bomb-box .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+        .Bomb-box .no-tips{font-size: 0.7rem;padding: 1.7rem 1.5rem 1.15rem 1.5rem;text-align: center;}
+        .Bomb-box .text-center{text-align: center;}
+        .Bomb-box .text-left{text-align: left;}
+        .tip2{position: fixed;
+            top: 0;
+            left: 0;
+            background-color: rgba(0,0,0,0.7);
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            font-size: 0.6rem;
+            z-index: 999;
+        }
+        .tip2 .tip_wrap{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+            margin: 0;
+            width:80%;
+            /*height:16rem;*/
+            background: #fff;
+            -webkit-border-radius: 5px;
+        }
+        .tip2 .tip_wrap .tip_content p{padding:0 1.5rem 0 1.5rem;font-size: .7rem;margin-top: .7rem;line-height: 1rem;margin-bottom: 1rem;text-align: center;line-height: 1rem;}
+        .tip2 .tip_wrap .tip_content{border-bottom: 1px #eee solid;}
+        .tip2 .tip_wrap .tip_btn ul li{text-align: center;font-size: .75rem;color:#006bfe;}
+        .tip2 .tip_wrap .tip_btn ul li a{display:block;text-align: center;font-size: .75rem;width:100%;padding:.7rem 0;}
+    </style>
+</head>
+
+<body>
+    <ul class="content">
+        <li class="high funds">
+            <div>
+                <p class="black"><span class="sProductName"></span> <span class="sProductId"></span></p>
+                <p class="grey pt5">七日年化(<span class="sProductNavDt"></span>)<span class="red ml15 sProductYield"></span></p>
+            </div>
+            <div id="list_tip" style="display:none;"><img src="../images/account/arr.png"></div>
+        </li>
+        <li class="dim" id="other_tip" style="display:none;">想要现金宝更高收益？确认份额超过50万元立享更高收益，<a href="javascript:;" class="blue">查看更多</a></li>
+        <li class="high paymentMethod">
+            <div>
+                <p class="black">支付方式</p>
+            </div>
+            <div class="bank"><img class="selectedBank " /><span class="ml10 sBankName"></span><span
+                    class="ml10 sBankCardNumber"></span><img class="ml10" src="../images/account/arr.png"></div>
+        </li>
+		<input type="hidden" value="" id="singleMax">
+        <li class="dim" id="limitRemark"></li>
+        <li class="money">
+            <p class="black">充值金额</p>
+            <p class="chineseText"><img src="../images/account/triangle.png"><span></span></p>
+            <p class="inputMoney"><span class="ml15">￥</span><input type="number" id="rechargeAmount" data-rquire-msg="充值金额不能为空"><img src="../images/account/del.png"
+                    class="del"></p>
+        </li>
+		<li class="dim" id="big" style="display:none;"><span class="red">输入金额超单日累计限额，大额存入请使用</span><span style="color:#148ce6"><a href="recharge.html">大额汇款充值</a></span></li>
+        <li class="dim" id="small">您的充值预计<span class="red revenueDate"></span>开始计息，<span class="red arrivalDate"></span>查看收益</li>
+        <section class="section2" id="risk_list">
+            
+        </section>
+        
+        
+        <li>
+            <button class="btn">确认</button>
+        </li>
+        <li class="dim center">大额存入，请使用<span class="blue"><a href="recharge.html">大额汇款充值</a></span></li>
+        <!--<li class="dim center blue" style="position: relative;top: 10rem;">在线客服</li>-->
+    </ul>
+
+    <div class="fundList">
+        <ul class="">
+            <li class="title">
+                <span class="blue cancel">取消</span>
+                <span>选择产品</span>
+                <span class="blue done">完成</span>
+            </li>
+            <!--<li class="fund active">
+                <img src="../images/account/active.png" alt="">
+                <div>
+                    <p>汇添富现金货币A <span>000330</span></p>
+                    <p class="pt5" style="color: #666;">七日年化(05.06)<span class="red">4.146%</span>，起购0.01元</p>
+                </div>
+            </li>
+            <li class="fund">
+                <img src="../images/account/radio.png" alt="">
+                <div>
+                    <p>汇添富现金宝货币B <span>333001</span></p>
+                    <p class="pt5" style="color: #666;">七日年化(05.06)<span class="red">4.146%</span>，起购0.01元</p>
+                </div>
+            </li>
+            <li class="fund">
+                <img src="../images/account/radio.png" alt="">
+                <div>
+                    <p>汇添富现金货币A <span>000330</span></p>
+                    <p class="pt5" style="color: #666;">七日年化(05.06)<span class="red">4.146%</span>，起购0.01元</p>
+                </div>
+            </li>-->
+        </ul>
+    </div>
+
+    <div class="mask"></div>
+    <div class="layer animated slideInUp" id="bankCardList" style="display: none;">
+        <ul class="grid-list">
+            <!--<li class="grid-list-item">
+                <div class="rowDiv">
+                    <div class="col1">
+                        <i class="bank ico_814 no-margin-left"></i>
+                    </div>
+                    <div class="col2">
+                        <div class="list-title">
+                            <span class="left">招商银行</span><span class="right">尾号2462</span>
+                        </div>
+                    </div>
+                    <div class="col3">
+                        <a class="icon icon-E-bank">网银</a>
+                    </div>
+                </div>
+            </li>-->
+        </ul>
+    </div>
+    <div class="Bomb-box">
+        <div class="Bomb-box-main">
+            <p class="Bomb-box-tips"  style="padding-top: 0.75rem;"></p>
+            <div class="Bomb-box-content">
+                <p class="text-center"></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;">确定</a>
+        </div>
+    </div>
+    <div class="tip2 bind_card_tip" style="display: none;">
+        <div class="tip_wrap">
+            <div class="tip_content">
+                <p id="bind_card_tip">您还未绑定银行卡，请先绑定银行卡</p>
+            </div>
+            <div class="tip_btn" >
+                <ul style="width: 100%;">
+                    <li style="float: left;width:100%;box-sizing: border-box;"><a href="../card/manage_card.html" id="go_to_bind_card">添加银行卡</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210302"></script>
+    <script type="text/javascript" src="../js/account/topup.js?20210408"></script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>投顾服务</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/subService.css">
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        [v-cloak] {display: none;}
+		html,body{
+			background-color: #f6f6f6;
+		}
+    </style>
+</head>
+<body>
+<div id="app" v-cloak>
+	<div class="header">
+		<img src="./img/subService/header.png" alt="">
+	</div>
+	<div class="container">
+		<div class="label-bar">
+			<span v-for="item in label" :class="currentCategory == item.category?'active':''" @click="changeLab(item.category)" v-if="item.contentList.length>0">{{item.name}}</span>
+		</div>
+		<div class="content-list">
+			<div class="list1" v-show="currentCategory=='2'">
+				<div class="content" v-if="currentList.length>0" v-for="item in currentList" @click="jumpPage(item)">
+					<div class="content-l">
+						<div class="lab">
+							<span v-if="item.tag.split(',')[0]" :style="item.remark&&item.remark.split('|')[1]?'background-color:'+item.remark.split('|')[1]:''">{{item.tag.split(',')[0]}}</span>
+							<span v-if="item.tag.split(',')[1]">{{item.tag.split(',')[1]}}</span>
+						</div>
+						<p class="desc">{{item.adviceTitle}}</p>
+						<p class="text">{{item.adviceDesc}}</p>
+					</div>
+					<div class="content-r">
+						<img :src="item.imageUrl" alt="">
+					</div>
+				</div>
+				<div class="nodata" v-else>暂无数据</div>
+			</div>
+			<div class="list2" v-show="currentCategory=='3'">
+				<div class="content" v-if="currentList.length>0" v-for="item in currentList" @click="jumpPage(item)">
+					<div class="content-l">
+						<!-- <div class="corner">
+							<span><i></i><em>直播中</em></span>
+							<span>5.2W热度</span>
+						</div> -->
+						<img :src="item.imageUrl" alt="">
+					</div>
+					<div class="content-r">
+						<p class="title">{{item.adviceTitle}}</p>
+						<p class="person">{{item.adviceDesc}}</p>
+						<p class="gift"><span>{{item.tag.split(',')[0]}}</span>{{item.tag.split(',')[1]}}</p>
+					</div>
+				</div>
+				<div class="nodata" v-else>暂无数据</div>
+			</div>
+			<div class="list3" v-show="currentCategory==='1'">
+				<div class="content" v-if="currentList.length>0" v-for="(item,index) in currentList">
+					<div class="videos">
+						<!-- <img :src="item.imageUrl" alt=""> -->
+						<video height="100%" width="100%"  controls="" :src="item.url" :poster="item.imageUrl" style="border-radius: .2rem;display: block;" @play="playHandle(index)">
+						</video>
+					</div>
+				</div>
+				<div class="nodata" v-else>暂无数据</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script>
+<script src="./js/subService.js"></script>
+</body>
+</html>

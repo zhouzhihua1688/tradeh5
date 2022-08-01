@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>零花钱</title>
+    <link rel="stylesheet" href="../base/css/base.css">
+    <link rel="stylesheet" href="../base/css/common.css">
+    <link rel="stylesheet" href="../base/css/base_bank.css">
+    <!-- <link rel="stylesheet" href="./css/swiper-4.2.2.min.css"> -->
+    <!-- <link rel="stylesheet" href="../base/css/mobileSelect.css"> -->
+    <link rel="stylesheet" href="./css/pinMoney.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+    <!-- <script type="text/javascript" src="../base/js/lib/swiper-4.2.2.min.js"></script> -->
+    <script type="text/javascript" src="../base/js/needLogin.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="header container flex-between">
+            <div class='header-left flex-between' v-cloak>
+                <div>
+                    <img   onerror="this.onerror=null;this.src='./img/home/avatar-default.png'" :src="memberInfo.avatarImage" style="border-radius: 50%;"  width="45"  height='45' alt="" sizes="" srcset="">
+                </div>
+                <div style="margin-left: .75rem;">{{memberInfo.memberRoleName}}</div>
+            </div>
+            <div class='header-right flex-between'>
+                <!-- 总资产为0时不展示取出按钮 -->
+                <div v-if='arAcct&&baseInfoData.totalAssetAmount>0' class='header-button' @click='access(`take`)'  :class="[takeBtn?'header-active-btn': '']">取出</div>
+                <div class='header-button' style="margin-left: .5rem;" @click='access(`save`)'
+                    :class="[saveBtn?'header-active-btn': '']">存入</div>
+            </div>
+        </div>
+        <div class='cards-content'>
+            <div class='card-header' v-cloak>
+                <div class='header-item' style='text-align:left;'>
+                    <div class='item-top'>总资产（{{baseInfoData.currencyTypeUnit}}）</div>
+                    <!-- <div class='item-bottom text-red'>{{baseInfoData.totalAssetAmount}}</div> -->
+                    <div class='item-bottom text-red' v-if='baseInfoData.totalAssetAmount'>{{formatMoneyNew(baseInfoData.totalAssetAmount, "", 2)}}</div>
+                </div>
+                <div class='header-item'>
+                    <div class='item-top'>最新收益</div>
+                    <!-- <div class='item-bottom text-red'>{{baseInfoData.lastYieldAmount}}</div> -->
+                    <div class='item-bottom text-red' v-if='baseInfoData.lastYieldAmount'>{{formatMoneyNew(baseInfoData.lastYieldAmount, "", 2)}}</div>
+
+                </div>
+                <div class='header-item' style='text-align:right'>
+                    <div class='item-top'>累计收益</div>
+                    <!-- <div class='item-bottom'>{{baseInfoData.totalYield}}</div> -->
+                    <div class='item-bottom ' v-if='baseInfoData.totalYield'>{{formatMoneyNew(baseInfoData.totalYield, "", 2)}}</div>
+                    
+                </div>
+            </div>
+            <div class='card-middle'>
+                <div class='middle-title'>存取分布</div>
+                <div class='middle-content'>
+                    <div class='change-Tab'>
+                        <span class='middle-button' @click='distribution(`1`)'
+                            :class="[distSaveBtn?'middle-button-active': '']">存入分布</span>
+                        <span class='middle-button' @click='distribution(`2`)'
+                            :class="[!distSaveBtn?'middle-button-active': '']" style="margin-left: .25rem;">取出分布</span>
+                    </div>
+                    <div class='tab-content' v-cloak>
+                        <!-- 存入分布 -->
+                        <!-- <div v-show='distSaveBtn' class='tab-pane'> -->
+                        <div class='tab-pane'>
+                            <div class='tab-pane-item' v-for='(disItem,index) in distInfoData'>
+                                <div class='money-type-icon'>
+                                    <img  width='35px' height='35px' style='border-radius:50%;object-position: center center;'
+                                        :src='disItem.icon'>
+                                </div>
+
+                                <div class='flex-column money-type-info'>
+                                    <div class='flex-between'>
+                                        <span>{{disItem.planTypeName}}</span>
+                                        <!-- <span>{{disItem.amount}}</span> -->
+                                        <span >{{formatMoneyNew(disItem.amount, "", 2)}}</span>
+                                    </div>
+                                    <!-- 占比条 -->
+                                    <div class="g-container">
+                                        <!-- <div class="g-progress" :style="{width: (250/2500) *100 + '%'}"></div> -->
+                                        <div class="g-progress" :style="{width: disItem.percent+ '%'}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 取出分布
+                        <div v-show='!distSaveBtn' class='tab-pane'>
+                            取出分布
+                        </div> -->
+                    </div>
+
+                </div>
+            </div>
+            <div class='card-bottom'>
+                <div class='middle-title'>资金贡献</div>
+
+                <div class="tip-text" v-if='baseInfoData.investCustTips'>
+                  {{baseInfoData.investCustTips}}
+                </div>
+                <div class="tip-text" v-else>
+                    支持多家长向孩子存钱罐存入，每一份存入都是爱的鼓励
+                  </div>
+                <div class='family-member' v-cloak    v-for='(pItem,index) in plansList' v-if='plansList.length>0'>
+                    <div class='member-info'>
+                        <div class='member-info-png'>
+                            <img  onerror="this.onerror=null;this.src='./img/home/avatar-default.png'" style="border-radius: 50%;" :src="pItem.investMember.avatarImage"   width="35"  height='35' alt="" srcset="">
+                        </div>
+                        <span class='text-padding'>{{pItem.investMember.memberRoleName}}</span>
+                        <span class='assets-contribution'>资产贡献 {{pItem.assetPercent}}%</span>
+                    </div>
+                    <div class='member-assets'>
+                        <div class='assets-item' style='text-align:left;'>
+                            <div class='item-top'>存入金额（元）</div>
+                            <!-- <div class='item-bottom'>{{pItem.holdAmount}}</div> -->
+                            <div class='item-bottom' v-if='pItem.holdAmount'>{{formatMoneyNew(pItem.holdAmount, "", 2)}}</div>
+                            <!-- {{formatMoneyNew(, "", 2)}} -->
+                        </div>
+
+
+                        <div class='assets-item' style='text-align:center;'>
+                            <div class='item-top'>最新收益</div>
+                            <!-- <div class='item-bottom text-red'>{{pItem.lastYield}}</div> -->
+                            <div class='item-bottom text-red' v-if='pItem.lastYield'>{{formatMoneyNew(pItem.lastYield, "", 2)}}</div>
+
+                        </div>
+                        <div class='assets-item' style='text-align:right'>
+                            <div class='item-top'>累计收益</div>
+                            <!-- <div class='item-bottom'>{{pItem.totalYield}}</div> -->
+                            <div class='item-bottom ' v-if='pItem.totalYield'>{{formatMoneyNew(pItem.totalYield, "", 2)}}</div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class='invitation-family' @click='jumpTo(`inviteMemList.html`)'>
+                    <img src="./img/pin-icon01.png" width='20'  alt="" sizes="" srcset="">
+                    <span style="padding: .25rem ;">邀请其他家人加入投资</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+    <!-- <script type="text/javascript" src="../base/js/lib/swiper-4.2.2.min.js"></script> -->
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+    <!-- <script src="../base/js/lib/mobileSelect.min.js"></script> -->
+    <script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+    <script src="./js/pinMoney.js"></script>
+</body>
+
+</html>

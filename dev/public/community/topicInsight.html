@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="../base/css/base.css">
+    <link rel="stylesheet" href="../base/css/common.css">
+    <link rel="stylesheet" href="./css/mint.css">
+    <link rel="stylesheet" href="./css/swiper-4.2.2.min.css">
+    <link rel="stylesheet" href="./css/neplayer.min.css">
+    <link rel="stylesheet" href="./css/topicInsight.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>    
+    <script>document.title = '\u200D';  //页面title为空</script>
+</head>
+
+<body>
+    <div id="app" style="overflow:scroll;height:100vh;position:relative" >
+        <div class="topBanner" >
+            <div class="shareDiv" v-if='isShare'>
+                <a :href="'shareAct?eventCode=COMMUNITY_TOPIC_CATEGORY_FX&eventId=' + categoryId " class="share">分享</a>
+            </div>
+            <div id="menu" v-show="topicAllData.length>0" v-cloak>     
+                    <!-- <img :src="item.imageUrl" class="recommend-cover" @click="gotoUrl(item)" :alt="item.imageName" /> -->
+                    <!-- <div :class="'topItem' index==0?'current':'' " :data-index="index">#{{item.name}}</div> -->
+                    <div v-for="(item,index) in topicAllData" @click="changeTopic(item,index)" :key= "index" 
+                    :class="(index==showTopicIndex)?'current':'topItem' " :data-index="index">#{{item.name}}</div>
+                <!-- <div class="topItem current" data-index="1">#TMT</div>
+                <div class="topItem" data-index="2">#消费</div>
+                <div class="topItem" data-index="3">#新能源</div>
+                <div class="topItem" data-index="4"> #环保</div>
+                <div class="topItem" data-index="5">#医药</div>
+                <div class="topItem" data-index="2">#消费</div>
+                <div class="topItem" data-index="3">#新能源</div>
+                <div class="topItem" data-index="4"> #环保</div>
+                <div class="topItem" data-index="5">#医药</div> -->
+            </div>
+        </div>
+        <div class="info">
+            <!-- <div v-show="index===showTopicIndex" v-cloak v-for="(item,index) in topicAllData" :key= "index" 
+                    :class="(index==showTopicIndex)?'content current':'content' " :data-index="index">{{item.content}}</div> -->
+
+            <div v-show="index===showTopicIndex" v-for="(item,index) in topicAllData" :key= "index" v-cloak>
+                <div class="content">
+                    <span>{{item | ellipsis()}}</span>
+                    <span class="viewMore" v-if="item.content.length > 72" @click="viewMore(index)">{{item.showFlag?'收起':'展开全部'}}</span>
+                    <!-- <span  v-if="showMore(item.summary) == true" @click="more(item.postId)">查看更多</span> -->
+                </div>
+                <div class="infoFoot">
+                    <div class="footLeft">浏览{{item.viewCount>10000?Number(item.viewCount/10000).fixed(2)+'万':item.viewCount}} · 讨论{{item.postCount}}</div>
+                    <div class="footRight" @click="followTopic(item,index)">{{item.follow?'已关注':'+关注'}}</div>
+                </div>
+                <!-- <div class="content">
+                我是的内容我是的内容我是的内容我是的内容我是的内容我是的内容
+                </div>
+                <div class="infoFoot">
+                    <div class="footLeft">浏览1.5万 讨论125</div>
+                    <div class="footRight" id="follow">+关注</div>
+                </div> -->
+            </div>
+        </div>
+        <div style="height: .5rem;"></div>
+        <!-- <post :list='msgAllData'></post> -->
+        <div style="background-color: #fff;padding: .65rem;font-weight: bold;">全部动态</div>
+        <post :url='postUrl' ref="post"></post>
+    </div>
+    <script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+    <script src="./js/moment.min.js"></script>
+    <script src="./js/mint.js"></script>
+    <script type="text/javascript" src="../base/js/lib/swiper-4.2.2.min.js"></script>
+    <script src="./js/neplayer.min.js"></script>
+    <script src="./components/post2.js"></script>
+    <script src="./js/wxShare.js"></script>
+
+    <script>   
+        //app调用 获取发帖管理话题信息
+        function toAppItemInfo(){
+            // itemType:{topic:{type:'1',name:'话题'},post:{type:'2',name:'动态'},fund:{type:'3',name:'基金'},comment:{type:'4',name:'留言'},reply:{type:'5',name:'回复'},user:{type:'6',name:'用户'},activity:{type:'8',name:'活动'}},
+            var itemInfo={
+                itemType: '1',  //话题
+                itemId: vm.$data.currentTopicId,
+                itemName: vm.$data.currentTopicName
+            };
+            console.log('toAppInfo itemInfo', itemInfo);
+            return itemInfo;
+        }
+
+        if(utils.getUrlParam('categoryId') && utils.isWeixin()){
+            wxShare('COMMUNITY_TOPIC_CATEGORY_FX', utils.getUrlParam('categoryId'));
+        }
+
+        var vm = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    msgAllData: [],
+                    userInfo: '',
+                    allLoaded: false,
+                    popupVisible: false,
+                    userAgent: navigator.userAgent,
+                    categoryId: '',
+                    topicAllData: [],
+                    showTopicIndex: '',  // 默认0，等接口返回topicAllData
+                    currentTopicId: '',
+                    currentTopicName: '',
+                    // 上拉加载
+                    pageSize: 10,
+                    pageNum: 1,
+                    // share
+                    isShare: false,
+
+                    postUrl: ''
+                }
+            },
+            mounted: function () {
+                this.isShare=isApp()?true:false;                
+            },
+            watch: {
+                // showTopicIndex: function(newVal, oldVal) {
+                //     if(newVal !== oldVal) {
+                //         this.getMsgList(true, '', topicAllData[showTopicIndex].id);
+                //     }
+                // },
+                topicAllData: {
+                    handler: function(newVal, oldVal){
+                        console.log('topicAllData newVal=', newVal)
+                        console.log('topicAllData oldVal=', oldVal)
+
+                    },
+                    deep: true
+                },
+            },
+            created() {
+                let categoryId = utils.getUrlParam('categoryId');
+                // !categoryId && (categoryId='21062814142GM3XD');  //测试环境，行业洞察categoryId
+                // categoryId = '21060718032B003N';
+                this.categoryId = categoryId;
+                this.getCategoryInfo(categoryId);
+                // this.getMsgList(true);
+            },
+            
+            filters: {
+                ellipsis (item) {
+                    console.log('ellipsis item=', item);
+                    if(!item || !item.content) return ''
+                    let value = String(item.content);
+                    if(!item.showFlag){
+                        if (value.length > 72) {
+                            item.showFlag = false;
+                            return value.slice(0,72) + '...'
+                        } else {
+                            item.showFlag = true;
+                            return value
+                        }
+                    } else {
+                        return value
+                    }
+                    
+                }
+            },
+
+            methods: {
+                getCategoryInfo(categoryId){
+                    utils.get({
+                        url: "/sfs/api/v1/category/info",
+                        data: { categoryId: categoryId },
+                        success: function (result) {
+                            document.title=result.body.categoryName;
+                            console.log('getCategoryInfo result=', result);
+                            if(result && result.body && result.body.topics){
+                                this.topicAllData = result.body.topics;
+                                if(result.body.icon){
+                                    $('.topBanner').css({"background":"url("+result.body.icon+") no-repeat","backgroundSize":'100% 100%'})
+                                }
+                                // this.topicAllData.forEach(function(item, index){
+                                //     item.showFlag = false;
+                                // })
+                                if(this.topicAllData.length>0){
+                                    this.showTopicIndex = 0;
+                                    this.currentTopicId = this.topicAllData[0].id;
+                                    this.currentTopicName = this.topicAllData[0].name;
+                                    // this.getMsgList(true, '', this.topicAllData[0].id)
+                                    this.postUrl = '/sfs/api/v1/post/topic?topicId=' + this.topicAllData[0].id
+                                }
+                            }
+                            
+                        }.bind(this)
+                    });
+                },
+                getMsgList(flag, flag2, topicId) {
+                    utils.ajax({
+                        url: "/sfs/api/v1/post",
+                        data: { pageNum: this.pageNum, pageSize: this.pageSize, topicId: topicId },
+                        success: function (result) {
+                            if (flag) {
+                                this.msgAllData = result.body;
+                                // this.$refs.loadmore.onTopLoaded();
+                                this.allLoaded = false;
+                            }
+                            if (flag2) {
+                                if (result.body.length === 0) {
+                                    this.allLoaded = true;// 若数据已全部获取完毕
+                                    this.$refs.loadmore.onBottomLoaded();
+                                }
+                                this.msgAllData = this.msgAllData.concat(result.body);
+                            }
+                            this.msgAllData.forEach((item) => {
+                                item.currentComment = '';
+                            })
+                        }.bind(this)
+                    });
+                },
+
+                changeTopic(item,index){
+                    console.log('changeTopic item=', item)
+                    if(this.showTopicIndex==index){
+                        return;
+                    }
+                    this.showTopicIndex=index;
+                    this.currentTopicId = item.id;
+                    this.currentTopicName = item.name;
+                    // if(item.id){
+                    //     this.getMsgList(true, '', item.id)
+                    // }
+                    this.postUrl = '/sfs/api/v1/post/topic?topicId=' + item.id
+                },
+
+                //添加/取消 关注
+                followTopic(item,index){
+                    let topicId = item.id;
+                    let followStatus = item.follow?'0':'1';
+
+                    var data = {};
+                    data.itemId = topicId;
+                    data.status = followStatus;
+                    utils.post('/sfs/api/v1/follow/topic',JSON.stringify(data),function(res){
+                        if(res.returnCode == 0){
+                            // $("#follow").html('已关注');
+                            this.topicAllData[index].follow = !this.topicAllData[index].follow
+                        }
+                    }.bind(this));
+
+                },
+
+                // 显示更多
+                viewMore(index){
+                    // console.log('viewMore item=', item);
+                    // console.log('viewMore item.showFlag=', item.showFlag);
+                    // item.showFlag = !item.showFlag;
+
+                    console.log('viewMore index=', index);
+                    this.topicAllData[index].showFlag = !this.topicAllData[index].showFlag;
+                    this.$set(this.topicAllData, index, this.topicAllData[index])
+                },
+                
+            }
+        })
+    </script>
+</body>
+
+
+</html>

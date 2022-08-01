@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf8">
+	<title>存钱罐</title>
+    <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+
+<style type="text/css">
+    @-webkit-keyframes downMove{
+        99% {opacity: 1;}
+        100% { top:150%; left:45%; display: none; opacity: 0; }
+    }
+    html, body{
+        background-color: #fff;
+        height:100%;
+        width: 100%;
+    }
+    body {left: 0%; right: 0%;font:14px 'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+    .wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff;
+    overflow-y: scroll;
+    }    
+    .share {
+        position: fixed;
+        display: none;
+        top:1.4rem;
+        right:0;
+        width: 3rem;
+        line-height: 1.3rem;
+        background-image: linear-gradient(#ffdc69,#ffa407);
+        border-radius: 0.685rem 0 0 0.685rem;
+        z-index:30;
+        color: #662815;
+        font-size: 0.7rem;
+        text-align: center;
+    }
+    .profit{
+        position: absolute; 
+        font-size: .8rem;
+        font-weight: bold;
+        color: white;
+    }
+    .date{
+        position: absolute; 
+        font-size: .6rem;
+        color: white;
+    }
+    #showTips{
+        position: fixed;
+        top: 0; 
+        right: 0; 
+        bottom: 0; 
+        left: 0;
+        z-index:40;
+        background:rgba(0, 0, 0, .7);
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        font-size: .3rem;
+        flex-direction: column;
+    }
+    #pop{
+        width:13.2rem;
+        position: relative;
+        margin: 0;
+        padding: 0;
+    }
+    #abstract{
+        width:11.6rem;
+        background-color: #fff;
+        padding:.8rem;
+        color:#000;
+        margin: 0;
+        font-size:.7rem;
+    }
+    .button{
+        width: 11.6rem;
+        background-color:#fff;
+        padding:.2rem .8rem .8rem .8rem;
+        border-radius: 0 0 .4rem .4rem;
+    }
+    .bannerMsg{
+        float: right;
+        text-align: center; 
+        font-size:.65rem;
+        font-weight: bold;
+        color:#fe7e01;
+        padding-right: .1rem;
+        padding-top:.3rem;
+        line-height: 1rem;
+    }
+    .incomeId{
+        display: none;
+    }
+    .money{
+        display: none;
+    }
+  
+</style>
+</head>
+
+<body style="margin: 0;">
+        <div class="wrapper">
+            <!-- 理财文章摘要 -->
+            <div id="showTips" style="display: none;">
+                <div id="pop">
+                    <div style="position: absolute; top:30%; left:8%; font-size: 1.15rem; color: white; font-weight: bold;">理财小知识！</div>
+                    <img style="width: 100%; height:100%; display: block;" src="img/pop.png"> 
+                </div><div id='abstract'>又小赚了一笔！投资就像堆金字塔，除了要持之以恒，更重要的是要有合理的规划和方向。金字塔如果建到一半想改摩天大楼，那结构很有可能就不稳了哦！</div>
+                <div class='button'>
+                    <span id='iKnow' style="float: left;width:4.3rem; height:1.2rem;text-align: center; line-height: 1.2rem; color:#fff;margin-left:.2rem; padding:.2rem .4rem;
+                    border-radius: 0.785rem ;background-image: linear-gradient(to right,#ffbc1d, #ff7901);font-size: .75rem;">我知道了</span>
+                    <span id='gotoUrl' style="float: right; width:4.3rem; height:1.2rem;text-align: center; line-height: 1.2rem;color:#fff;margin-right:.2rem ;  padding:.2rem .4rem;
+                    border-radius: 0.785rem;background-image: linear-gradient(to right,#ffbc1d, #ff7901);font-size: .75rem;">查看详情</span>
+                </div>
+            </div>
+
+            <div class="share"  onclick="shareUrl()">分享</div>
+            <div style="position: relative; margin:0 auto">
+                <img id="headPic" src="img/pic_01.png" style="width: 100%;height:25vh;display: block;position: relative;">
+                <!-- 金币 -->
+                <div id='coins' >
+                    <div class='money' id='money0'>                    
+                        <div id="profit0" class="profit" style="top:25%; left: 43%;">+0.2</div>
+                        <div id="date0" class="date" style="top:36%; left: 44%;">(12.09)</div>
+                        <img src="img/pic_04.png" id="gold0" style="position: absolute; top:48%; left: 42%;z-index:5;width:2.5rem;">
+                        <div id='incomeId0' class="incomeId"></div>
+                    </div>
+                    <div class='money' id='money1'>                    
+                        <div id="profit1" class="profit" style="top:37%; left: 27%;">-0.5</div>
+                        <div id="date1" class="date" style="top:48%; left: 27%;">(12.10)</div>
+                        <img src="img/pic_04.png" id="gold1" style="position: absolute; top:60%; left: 25%;z-index: 5; width:2.5rem;">
+                        <div id='incomeId1' class="incomeId"></div>
+                    </div>
+                    <div class='money' id='money2'>                    
+                        <div id="profit2" class="profit" style="top:41%; left: 63%;">+0.5</div>
+                        <div id="date2" class="date" style="top:52%; left: 64%;">(12.08)</div>
+                        <img src="img/pic_04.png" id="gold2" style="position: absolute; top:64%; left: 62%;z-index: 5;width:2.5rem;">
+                        <div id='incomeId2' class="incomeId"></div>
+                    </div>
+                </div>
+                <!-- 提示文案 -->
+                <div id="banner" style="display: none;" >
+                    <div id='bannerContent' style=" width: 12rem; position: absolute; top:5.8rem; height: 1.6rem; border-radius: 0.685rem;left:18%;background: #fffbd6;z-index:5;">
+                        <img src="img/pic_05.png" style="float: left; position: relative;left:.1rem;top:-0.2rem;width:2rem;">
+                        <div id='bannerMsg1' class="bannerMsg" style="width: 80%;">正在努力赚钱，有空来看看吧~</div>
+                        <div id='bannerMsg2' class="bannerMsg" style="width: 82%;">你的存钱罐空空如也，快来存钱吧~</div>
+                    </div>
+                    <img src="img/pic_06.png" style="position: absolute; top:7.4rem; left:6rem; width: .8rem;z-index:5;">
+                </div>
+            </div>
+            <div style="position: relative;">
+                <img id='bottle' src="img/bottle_04.png" style="display:block;width: 100%;height:50vh;">
+                <div style="color: #294c7a;position: absolute;top:45%;width: 100%;font-size: .85rem; text-align: center;">我的存钱罐（元）</div>
+                <div id="asssetAmount" style="color:#ef621c;position: absolute;top:51%;width:100%;font-size: 1.2rem; text-align: center;">--</div>
+            </div>
+            <!-- 财富课堂和资产详情 -->
+            <div style="position: relative;">
+                <img id="bottomPic"src="img/pic_07.png" style="display:block; width: 100%; height:25vh;">
+                <img id='wealthClassroom' src="img/button_03.png" style="position: absolute; top:12%; left: 8%; width:7rem;">
+                <img id='myAssets' src="img/button_04.png" style="position: absolute; top:12%; right: 8%; width: 7rem;">
+            </div>
+            
+        </div>
+    <!-- </div> -->
+
+<script type="text/javascript" src="/tradeh5/newWap/base/js/lib/jquery.3.4.1.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script type="text/javascript" src="js/countUp.js"></script>
+<script type="text/javascript" src="js/piggyBank.js"></script>
+</body>
+
+</html>

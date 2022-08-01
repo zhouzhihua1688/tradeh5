@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>季度报告</title>
+    <link rel="stylesheet" href="./css/index.css?20220524">
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+
+<body>
+    <!-- <div class="content">
+        <div class="header">
+            <span class="header1">
+                <</span> <div class="header2">季度报告</div>
+    </div> -->
+    <div class="content1" id="app" v-cloak>
+        <div class="title">
+            <div class="content-title">报告名称</div>
+            <!-- <div class="reportContent">2021年第四季度报告</div> -->
+            <div class="reportContent" v-text="groupName?(reportName+'-'+groupName):reportName"></div>
+        </div>
+        <div class="title" v-if="quarterEndAssetDetail && quarterEndAssetDetail.length>0">
+            <div class="content-title">季末配置明细</div>
+            <div class="kinds">
+                <ul class="kinds1">
+                    <!-- <li class="flex">
+                        <div class="circularB"></div> 权益型基金
+                    </li>
+                    <li class="flex">
+                        <div class="circularY"></div>固收型基金
+                    </li>
+                    <li class="flex">
+                        <div class="circularR"></div>货币型基金
+                    </li>
+                    <li class="flex">
+                        <div class="circularG"></div>其他
+                    </li> -->
+                    <li class="flex" v-for="(value,key,index) in displayFundTypeList">
+                        <div :class="fundTypeClass[key][0]"></div>{{value}}
+                    </li>
+                </ul>
+                <div class="kinds2">
+                    <div>基金名称</div>
+                    <div>占比</div>
+                </div>
+            </div>
+            <div class="detailList" id="cHeight">
+                <template v-for="(item,index) in quarterEndAssetDetail">
+                    <div :class="'flex1 fontSize '+ fundTypeClass[item['fundTp']][1]" v-show="index<5">
+                        <div class="flex2">
+                            <div v-text="item.fundName"></div>
+                            <div v-text="item.fundId"></div>
+                        </div>
+                        <div class="colorR fontSize" v-text="item.percent + '%'"></div>
+                    </div>
+                </template>
+            </div>
+            <div class="centerAlign padd6 fontSize1 showList" v-show="quarterEndAssetDetail.length>5" @click="showList($event)">展开</div>
+            <div class="centerAlign padd6 fontSize1 dPlay hideList" @click="hideList($event)">收起</div>
+        </div>
+        <div class="title">
+            <div class="content-title">市场回顾与展望</div>
+            <!-- <div class="reportContent fontHidden ">
+                <p>经过一季度大跌后，白马蓝筹抱团现象瓦解，风格向成长切换。板块方面，双创占比明显提升；行业配置方面，医疗、食品饮料、电子仍是核吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</p>
+            </div> -->
+            <div class="reportContent fontSize1 fontHidden"><p style="white-space: pre-line;" v-text="marketReviewOutlook"></p></div>
+            <div class="fontSize1 centerAlign dPlay showContent" @click="showContent($event)">查看全部</div>
+            <div class="fontSize1 centerAlign dPlay hideContent" @click="hideContent($event)">收起</div>
+        </div>
+        <div class="title">
+            <div class="content-title">投顾服务协议履行情况</div>
+            <!-- <div class="reportContent fontSize1 fontHidden "><p>报告期内，投资顾问以客户利益第一为指导，全面履行投资顾问服务协议的相关约定。</p></div> -->
+            <div class="reportContent fontSize1 fontHidden"><p v-text="agreementPerformance"></p></div>
+            <div class="fontSize1 centerAlign dPlay showContent" @click="showContent($event)">查看全部</div>
+            <div class="fontSize1 centerAlign dPlay hideContent" @click="hideContent($event)">收起</div>
+        </div>
+        <div class="title">
+            <div class="content-title">交易执行偏差情况</div>
+            <!-- <div class="reportContent fontSize1 fontHidden "><p>报告期内，本账户交易执行和标准策略组合相比，详见投资人的投顾账户持仓情况</p></div> -->
+            <div class="reportContent fontSize1 fontHidden"><p v-text="tradeExecutionBias"></p></div>
+            <div class="fontSize1 centerAlign dPlay showContent" @click="showContent($event)">查看全部</div>
+            <div class="fontSize1 centerAlign dPlay hideContent" @click="hideContent($event)">收起</div>
+        </div>
+        <div class="title">
+            <div class="content-title">组合策略调整情况</div>
+            <!-- <div class="reportContent fontSize1 fontHidden  "><p>报告期内，本组合策略未（或有）进行调整，风险特征没有发生变化</p></div> -->
+            <div class="reportContent fontSize1 fontHidden"><p v-text="strategyAdjustment"></p></div>
+            <div class="fontSize1 centerAlign dPlay showContent" @click="showContent($event)">查看全部</div>
+            <div class="fontSize1 centerAlign dPlay hideContent" @click="hideContent($event)">收起</div>
+        </div>
+
+        <template v-for="(itemPos,key,index) in displayTransPosList">
+            <div>
+                <div class="title content1">
+                    <div class="content-title">调仓动态<span class="fontSize colorG margL" style="font-weight: normal;" v-text="'('+itemPos.transPosDateDisplay+')'"></span></div>
+                    <div class="kinds">
+                        <ul class="kinds1">
+                            <li class="flex" v-for="(value,key,index) in itemPos.displayFundTypeList">
+                                <div :class="fundTypeClass[key][0]"></div>{{value}}
+                            </li>
+                        </ul>
+                        <div class="kinds2">
+                            <div class="flexGrow7">基金名称</div>
+                            <div class="flexGrow2">调仓前占比</div>
+                            <div class="flexGrow2">调仓后占比</div>
+                        </div>
+                    </div>
+                    <div class="detailList" :id="'cHeight_' + key">
+                        <template v-for="(item,index) in itemPos.transPosDetails">
+                            <div :class="'flex1 fontSize '+ fundTypeClass[item['fundTp']][1]" v-show="index<5">
+                                <div class="flex2 flexGrow7">
+                                    <div v-text="item.fundName"></div>
+                                    <div v-text="item.fundId"></div>
+                                </div>
+                                <div class="colorR fontSize flexGrow2" v-text="item.beforePercent + '%'"></div>
+                                <div class="colorR fontSize flexGrow2" v-text="item.afterPercent + '%'"></div>
+                            </div>
+                        </template>
+                    </div>
+                    <div class="centerAlign padd6 fontSize1 showList" v-show="transPosHistories[0].transPosDetails.length>5" @click="showList($event)">展开</div>
+                    <div class="centerAlign padd6 fontSize1 dPlay hideList" @click="hideList($event)">收起</div>
+                </div>
+            </div>
+        </template>
+
+        <div class="title content1" style="display: none;" >
+            <div class="content-title">调仓动态<span class="fontSize colorG margL">(2021.03.16)</span></div>
+            <div class="kinds">
+                <ul class="kinds1">
+                    <li class="flex">
+                        <div class="circularB"></div> 权益型
+                    </li>
+                    <li class="flex">
+                        <div class="circularY"></div>固收型
+                    </li>
+                    <li class="flex">
+                        <div class="circularR"></div>货币型
+                    </li>
+                    <li class="flex">
+                        <div class="circularG"></div>其他
+                    </li>
+                </ul>
+                <div class="kinds2">
+                    <div class="flexGrow6">基金名称</div>
+                    <div class="flexGrow2">调仓前占比</div>
+                    <div class="flexGrow2">调仓后占比</div>
+                </div>
+            </div>
+            <div class="height12" id="cHeight1">
+                <div class="flex1 fontSize colorB">
+                    <div class="flex2 flexGrow6">
+                        <div>汇添富绝对收益定开混合A</div>
+                        <div>000762</div>
+                    </div>
+                    <div class="colorR fontSize flexGrow2">7.19%</div>
+                    <div class="colorR fontSize flexGrow2">7.19%</div>
+                </div>
+                <div class="flex1 fontSize colorB">
+                    <div class="flex2 flexGrow6">
+                        <div>汇添富价值创造定开混合</div>
+                        <div>005379</div>
+                    </div>
+                    <div class="colorR fontSize flexGrow2">3.42%</div>
+                    <div class="colorR fontSize flexGrow2">3.42%</div>
+                </div>
+                <div class="flex1 fontSize colorB">
+                    <div class="flex2 flexGrow6">
+                        <div>汇添富文体娱乐混合</div>
+                        <div>004424</div>
+                    </div>
+                    <div class="colorR fontSize flexGrow2">6.07%</div>
+                    <div class="colorR fontSize flexGrow2">6.07%</div>
+                </div>
+                <div class="flex1 fontSize colorY">
+                    <div class="flex2 flexGrow6">
+                        <div>汇添富货币A</div>
+                        <div>000762</div>
+                    </div>
+                    <div class="colorR fontSize flexGrow2">2.65%</div>
+                    <div class="colorR fontSize flexGrow2">2.65%</div>
+                </div>
+                <div class="flex1 fontSize colorP">
+                    <div class="flex2 flexGrow6">
+                        <div>汇添富文体娱乐混合</div>
+                        <div>004424</div>
+                    </div>
+                    <div class="colorR fontSize flexGrow2">2.65%</div>
+                    <div class="colorR fontSize flexGrow2">2.65%</div>
+                </div>
+                <!-- 隐藏部分 -->
+                <div class="flex1 fontSize colorP">
+                    <div class="flex2 flexGrow6">
+                        <div>汇添富文体娱乐混合</div>
+                        <div>004424</div>
+                    </div>
+                    <div class="colorR fontSize flexGrow2">2.65%</div>
+                    <div class="colorR fontSize flexGrow2">2.65%</div>
+                </div>
+                <div class="flex1 fontSize colorP">
+                    <div class="flex2 flexGrow6">
+                        <div>汇添富文体娱乐混合</div>
+                        <div>004424</div>
+                    </div>
+                    <div class="colorR fontSize flexGrow2">2.65%</div>
+                    <div class="colorR fontSize flexGrow2">2.65%</div>
+                </div>
+            </div>
+
+            <div class="centerAlign padd6 fontSize1" @click="showList('cHeight1')"><a href="javascript:;">展开</a></div>
+            <div class="centerAlign padd6 fontSize1" @click="hideList('cHeight1')"><a href="javascript:;">收起</a></div>
+        </div>
+
+    </div>
+    <script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+    <script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script>
+<script>
+    // balanceSerialNo (string, optional): 资产流水号 ,
+    // custNo (string, optional): 客户号 ,
+    // groupId (string, optional): 组合ID ,
+    
+    // reportName (string, optional): 季报名称: ,
+    // quarterEndAssetDetail (Array[QuarterAssetDetailBO], optional): 季末资产明细 ,
+    // marketReviewOutlook (string, optional): 市场回顾与展望 ,
+    // agreementPerformance (string, optional): 投顾协议履行情况 ,
+    // tradeExecutionBias (string, optional): 交易执行偏差情况 ,
+    // strategyAdjustment (string, optional): 组合策略调整情况 ,
+
+    // transPosHistories (Array[TransPosBO], optional): 调仓历史   // 20220524，紧急上线对应
+var vm = new Vue({
+    el: '#app',
+    data() {
+        return {
+            // balanceSerialNo: utils.getUrlParam('balanceSerialNo')?utils.getUrlParam('balanceSerialNo'):'21112714543NQKGF',
+            // serialNo: utils.getUrlParam('serialNo')?utils.getUrlParam('serialNo'):'22032300334OFRXF',
+            
+            // balanceSerialNo为必填项
+            balanceSerialNo: utils.getUrlParam('balanceSerialNo')?utils.getUrlParam('balanceSerialNo'):'',
+            // serialNo和 reportYear + reportQuarter，二选一必填，其余参数都是必填
+            serialNo: utils.getUrlParam('serialNo')?utils.getUrlParam('serialNo'):'',
+            reportYear: utils.getUrlParam('reportYear')?utils.getUrlParam('reportYear'):'',
+            reportQuarter: utils.getUrlParam('reportQuarter')?utils.getUrlParam('reportQuarter'):'',
+            // 看接口调用情况，groupId可以不做查询条件
+            groupId: utils.getUrlParam('groupId')?utils.getUrlParam('groupId'):'',  
+
+            // 季报名称
+            reportName: '',
+            // 组合名称
+            groupName: '',
+            // 季末资产明细
+            quarterEndAssetDetail: [],
+            // 市场回顾与展望
+            marketReviewOutlook: '',
+            // 投顾协议履行情况
+            agreementPerformance: '',
+            // 交易执行偏差情况
+            tradeExecutionBias: '',
+            // 组合策略调整情况
+            strategyAdjustment: '',
+         
+            // 调仓历史   // 20220524，紧急上线对应
+            transPosHistories: [],
+
+            // 展示使用，不同的fundType对应不同的颜色
+            fundTypeClass: {
+                'R': ['circularB', 'colorB'],      //权益型基金
+                'F': ['circularY', 'colorY'],      //固收型基金
+                'V': ['circularR', 'colorP'],      //货币型基金
+                'O': ['circularG', 'colorG'],      //其他
+            },
+            // 排序使用
+            fundTypeList: ['R','F','V','O'],
+
+            // 客户拥有的基金类型 -- 季末资产明细
+            displayFundTypeList: {},
+
+            // 调仓历史，包含多个调仓动态
+            displayTransPosList: [
+                // {
+                //     displayFundTypeList: {},
+                // },
+                // ...
+            ],
+
+        };
+
+    },
+    created() {
+        if(!this.balanceSerialNo){
+            return utils.showTips('参数错误，缺少balanceSerialNo');
+        }
+        if(!this.serialNo && !(this.reportYear && this.reportQuarter)) {
+            return utils.showTips('参数错误，需要serialNo或者是reportYear和reportQuarter');
+        }
+        var data = {
+            balanceSerialNo: this.balanceSerialNo,
+        }
+        this.serialNo && (data.serialNo = this.serialNo);
+        this.reportYear && (data.reportYear = this.reportYear);
+        this.reportQuarter && (data.reportQuarter = this.reportQuarter);
+        this.groupId && (data.groupId = this.groupId);
+        utils.ajax({
+            url: '/ias/v1/reports/report/quarterly/cust',
+            data,
+            type: 'GET',
+            success: function (result) {
+                if(true){
+                    // result = 
+                    // {
+                    //   "returnCode": 0,
+                    //   "returnMsg": "",
+                    //   "body": {
+                    //     "custNo": null,
+                    //     "balanceSerialNo": "21112714543NQKGF",
+                    //     "reportName": "test",
+                    //     "groupId": null,
+                    //     "marketReviewOutlook": "test",
+                    //     "agreementPerformance": "test",
+                    //     "tradeExecutionBias": "test",
+                    //     "strategyAdjustment": "test",
+                    //     "quarterEndAssetDetail": [
+                    //       {
+                    //         "fundId": "000241",
+                    //         "fundName": "宝盈核心优势灵活配置混合型证券投资基金C类",
+                    //         "fundTp": "R",
+                    //         "fundTpNm": "权益类",
+                    //         "percent": 27.67
+                    //       },
+                    //       {
+                    //         "fundId": "000251",
+                    //         "fundName": "认购基金000251",
+                    //         "fundTp": "R",
+                    //         "fundTpNm": "权益类",
+                    //         "percent": 31.15
+                    //       },
+                    //       {
+                    //         "fundId": "000330",
+                    //         "fundName": "汇添富现金宝货币",
+                    //         "fundTp": "V",
+                    //         "fundTpNm": "货币类",
+                    //         "percent": 41.18
+                    //       }
+                    //     ],
+                    //     "transPosHistories": []
+                        // "transPosHistories":[
+                        //     {"transPosDate":"20220127","transPosDateDisplay":"2022.01.27","transPosDetails":[
+                        //         {"fundId":"004119","fundName":"广发创新驱动灵活配置混合型证券投资基金","fundTp":"R","fundTpNm":"权益类","beforePercent":12,"afterPercent":0},
+                        //         {"fundId":"000123","fundName":"汇添富实业债债券C","fundTp":"F","fundTpNm":"固收类","beforePercent":18.45,"afterPercent":16},
+                        //         {"fundId":"000122","fundName":"汇添富实业债债券A","fundTp":"F","fundTpNm":"固收类","beforePercent":18.46,"afterPercent":16},
+                        //         {"fundId":"470008","fundName":"汇添富策略回报混合","fundTp":"R","fundTpNm":"权益类","beforePercent":0,"afterPercent":6},
+                        //         {"fundId":"000330","fundName":"汇添富现金宝货币","fundTp":"V","fundTpNm":"货币类","beforePercent":0,"afterPercent":19},
+                        //         {"fundId":"002553","fundName":"博时创业成长混合型证券投资基金C类","fundTp":"R","fundTpNm":"权益类","beforePercent":18.66,"afterPercent":0},
+                        //         {"fundId":"470009","fundName":"汇添富民营活力混合","fundTp":"R","fundTpNm":"权益类","beforePercent":0,"afterPercent":8},
+                        //         {"fundId":"270001","fundName":"广发聚富开放式证券投资基金","fundTp":"R","fundTpNm":"权益类","beforePercent":8.14,"afterPercent":16},
+                        //         {"fundId":"270022","fundName":"广发内需增长灵活配置混合型证券投资基金A类","fundTp":"R","fundTpNm":"权益类","beforePercent":12.08,"afterPercent":19},
+                        //         {"fundId":"050010","fundName":"博时特许价值混合型证券投资基金A类","fundTp":"R","fundTpNm":"权益类","beforePercent":12.21,"afterPercent":0}
+                        //     ]}
+                        // ]
+                    //   }
+                    // }
+                }
+                console.log(result.returnCode);
+                if (result.returnCode === 0 && result.body && result.body.custNo) {
+
+                    this.reportName = result.body.reportName;
+                    this.groupName = result.body.groupName;
+                    this.quarterEndAssetDetail = result.body.quarterEndAssetDetail.sort(function(x,y){
+                        return (this.fundTypeList.indexOf(x.fundTp) - this.fundTypeList.indexOf(y.fundTp))
+                    }.bind(this));;
+                    this.marketReviewOutlook = result.body.marketReviewOutlook;
+                    this.agreementPerformance = result.body.agreementPerformance;
+                    this.tradeExecutionBias = result.body.tradeExecutionBias;
+                    this.strategyAdjustment = result.body.strategyAdjustment;
+
+                    this.transPosHistories = result.body.transPosHistories;   // 20220524，紧急上线对应
+
+                    // 季末资产显示的资产类型（只包含当前的资产类型）
+                    this.quarterEndAssetDetail.forEach(item=>{
+                        this.displayFundTypeList[item.fundTp] = item.fundTpNm;
+                    })
+                    console.log('this.displayFundTypeList=', this.displayFundTypeList)
+
+                    // 调仓记录，可能有多个 -- 20220524
+                    this.transPosHistories.forEach(itemPos => {
+                        let displayItem = {};
+                        displayItem.transPosDate = itemPos.transPosDate;
+                        displayItem.transPosDateDisplay = itemPos.transPosDateDisplay;
+                        displayItem.transPosDetails = itemPos.transPosDetails.sort(function(x,y){
+                            return (this.fundTypeList.indexOf(x.fundTp) - this.fundTypeList.indexOf(y.fundTp))
+                        }.bind(this));
+                        displayItem.displayFundTypeList = {};
+
+                        displayItem.transPosDetails.forEach(item=>{
+                            displayItem.displayFundTypeList[item.fundTp] = item.fundTpNm;
+                        })
+                        console.log('displayItem.displayFundTypeList=', displayItem.displayFundTypeList)
+
+                        this.displayTransPosList.push(displayItem);
+                    });
+
+                    this.$nextTick(()=>{
+                        $('.reportContent').each((index,element)=>{
+                            if($(element).children('p').height() > 3.6*parseInt(oHtml.style.fontSize)){
+                                $(element).next().removeClass('dPlay');
+                            }
+                        })
+                    })
+
+                } else {
+                    utils.showTips('暂无数据');
+                    // $('#app').hide();
+                }
+            }.bind(this)
+        })
+    },
+    mounted() {},
+    watch: {},
+    computed: {},
+    methods: {
+        // 展开/收起
+        showList: function (event) {
+            var dom = $(event.srcElement)
+            dom.hide().next().show()
+            // dom.siblings('.detailList').css({'max-height': 'none'});
+            dom.siblings('.detailList').children().css({'display': 'flex'});
+        },
+        hideList: function (event) {
+            var dom = $(event.srcElement)
+            dom.hide().prev().show()
+            // dom.siblings('.detailList').css({'max-height': '13rem'});
+            dom.siblings('.detailList').children().each((index, item)=>{
+                (index>=5) && $(item).css({'display': 'none'});
+            })
+        },
+        showContent: function(event) {
+            var dom = $(event.srcElement)
+            dom.hide().next().show()
+            dom.siblings('.reportContent').css({'max-height': 'none'});
+        },
+        hideContent: function(event) {
+            var dom = $(event.srcElement)
+            dom.hide().prev().show()
+            dom.siblings('.reportContent').css({'max-height': '3.6rem'});
+        },
+        // 根据groupId跳转到投顾详情页
+        jumpUrl: function (groupId) {
+            if (isApp()) {
+                window.location.href = "htffundxjb://action?type=adviserService&subType=detail&groupId=" + groupId;
+            } else {
+                window.location.href = "/mobileEC/adviser/investGroupDetails.html?groupId=" + groupId;
+            }
+
+        },
+    }
+})
+</script>
+</body>
+
+</html>

@@ -1,0 +1,258 @@
+@charset "utf-8";
+
+table { width: 100%;border-collapse: collapse; }
+         section{background: #f6f6f6;}
+        .content1_1 { margin-bottom: 2.5rem;}
+        .content1_1 ul{width:100%;height:2.25rem;background-color: #fff}
+        .content1_1 ul li { font-size: .7rem; float: left; width: 50%; text-align: center; padding: 12px 0; border-bottom: 2px solid transparent; color: #000; }
+        .content1_1 ul li a{font-size: .75rem;}
+        .content1_1 ul li.active { border-bottom-color: #ffadae; color: #fb5c5f; }
+        .content1_1 ul li p { padding-top: 0.107rem; }
+        .content1_1 .explain { font-size: 0.346rem; color: #000; }
+        .content1_1 .explain p { line-height: 1.5;padding: 16px;  }
+        .content1_1 .explain p.ellipsis:after { content: '.....'; }
+        .content1_1 .explain p.ellipsis span { display: none; }
+        .content1_1 .upfold { width: 80px; margin: 0 auto; padding: .15rem 0 .45rem; color: #148ce6; text-align: center; line-height: 14px; font-size: .3467rem; }
+        .content1_1 .upfold:before { content: '展开'; }
+        .content1_1 .upfold.pack-up:before { content: '收起'; }
+        .content1_1 .upfold.pack-up .down { -webkit-transform: rotate(180deg); transform: rotate(180deg); }
+    
+        .btn-bottom{
+            width: 100%;
+            display: table;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+        .font26{font-size: .65rem;}
+    
+        .btn-bottom .btn{padding:0;}
+
+        .qiehuan{
+           height:100%;
+        }
+        .qiehuan .qiehuan_content{
+            height:5.45rem;
+            width:17.25rem;
+            border-radius: .5rem;
+            margin:0 auto;
+            margin-top: .5rem;
+            background:url(../../images/wezhan/red_icon1.png) no-repeat;
+            background-size: 100% 100%;
+        }
+        .qiehuan .qiehuan_content .text{
+           width:4.5rem;
+           height: 5.45rem;
+           float: left;
+           text-align: center;
+           line-height: 5.45rem;
+           color:#999;
+        }
+        .qiehuan .qiehuan_content .text .text_icon{
+            width:4.5rem;
+            height:1.45rem;
+            margin:1.25rem auto;
+            text-align: center;
+            line-height: 1.45rem;
+        }
+        .text_icon .first{
+            /* width:0.75rem; */
+            height: 0.75rem;
+            font-size:0.75rem;
+            display: inline-block;
+            font-weight:500;
+        }
+        .text_icon .second{
+            /* width:2.5rem; */
+            height: 1.25rem;
+            font-size:1.25rem;
+            display: inline-block;
+            font-weight:bold;
+            text-align: left;
+        }
+        .text_icon .third{
+
+            margin-top:-0.25rem;
+            font-size: 0.75rem;
+            display: block;
+        }
+
+        .qiehuan_content .hongbao{
+            width:11rem;
+            height:100%;
+            float:left;
+            color:#999;
+            /* border:1px solid red; */
+        }
+        .qiehuan_content .dashed{
+           width:0.025rem;
+           height:4.65rem;
+           float:left;
+           margin-top:0.35rem;
+           border-right:1px dashed #D4D4D4; 
+        }
+        .qiehuan_content .hongbao .first{
+           width: 100%;
+           font-size:0.6rem;
+           margin-top:0.8rem;
+           height:1.5rem;
+         
+        }
+        .qiehuan_content .hongbao .first span{
+            width:0.15rem;
+            height:0.15rem;
+            display:inline-block;
+            line-height: 0.2rem;
+            background:#666;
+            margin-right:0.35rem;
+            margin-bottom:0.1rem;
+            border-radius:50px;
+            margin-left:0.75rem;
+            color:#666;
+
+        }
+        .qiehuan_content .hongbao .first .justify{
+            width:80%;
+            display: block;
+            line-height:0.75rem;
+            float:left;
+        }
+        .qiehuan_content .hongbao .second{
+           width: 100%;
+           font-size:0.6rem;
+           /* margin:0 auto; */
+           height:1rem;
+           margin-top: 0.25rem;
+           line-height: 1rem;
+       
+        }
+        .qiehuan_content .hongbao .second span{
+            width:0.15rem;
+            height:0.15rem;
+            display:inline-block;
+            line-height: 0.2rem;
+            background:#666;
+            margin-right:0.35rem;
+            margin-bottom:0.1rem;
+            border-radius:50px;
+            margin-left:0.75rem;
+             color:#666;
+        }
+        .qiehuan_content .hongbao .third{
+           width: 100%;
+           font-size:0.6rem;
+           /* margin:0 auto; */
+           height:1rem;
+           margin-top: 0.25rem;
+           line-height: 1rem;
+           
+        }
+        .qiehuan_content .hongbao .third span{
+            width:0.15rem;
+            height:0.15rem;
+            display:inline-block;
+            line-height: 0.2rem;
+            background:#666;
+            margin-right:0.35rem;
+            margin-bottom:0.1rem;
+            border-radius:50px;
+            margin-left:0.75rem;
+             color:#666;
+        }
+        .qiehuan_content .promptly{
+            height:5.45rem;
+            width:1.45rem;
+            float:left;
+            color: #fb5c5f;
+        }
+        .qiehuan_content .promptly a{
+            width:0.65rem;
+            /* height:100%; */
+            display: block;
+            margin:0 auto;
+            margin-top:1.5rem;
+            font-size: 0.65rem;
+        }
+
+
+        .qiehuan_content .hongbao .four{
+           width: 100%;
+           font-size:0.6rem;
+           margin-top:1.65rem;
+           line-height: 0.65rem;
+
+        }
+        .qiehuan_content .hongbao .four span{
+            width:0.15rem;
+            height:0.15rem;
+            display:inline-block;
+            line-height: 0.2rem;
+            background:#666;
+            margin-right:0.35rem;
+            margin-bottom:0.1rem;
+            border-radius:50px;
+            margin-left:0.75rem;
+            color:#666;
+
+        }
+        .qiehuan_content .hongbao .five{
+           width: 100%;
+           font-size:0.6rem;
+           margin:0 auto;
+           line-height: 0.65rem;
+           margin-top: 0.75rem
+        }
+        .qiehuan_content .hongbao .five span{
+            width:0.15rem;
+            height:0.15rem;
+            display:inline-block;
+            line-height: 0.2rem;
+            background:#666;
+            margin-right:0.35rem;
+            margin-bottom:0.1rem;
+            border-radius:50px;
+            margin-left:0.75rem;
+             color:#666;
+        }
+         .qiehuan .check{
+            width:100%;
+            height:2rem;
+            /* border:1px solid red; */
+            color:#000;
+            text-align: center; 
+        }
+        .qiehuan .check span{
+            font-size: 0.6rem;
+            line-height: 2rem;
+        }
+        .null{
+            width:100%;
+            height:2.5rem;
+            font:0.6rem;
+            color:#666;
+            text-align: center;
+            line-height: 2.5rem
+        }
+
+        /* 已经领取 */
+        .qiehuan_content .hongbao .first_repeat{
+           width: 100%;
+           font-size:0.6rem;
+           margin-top:1rem;
+           /* height:1.5rem; */
+         
+        }
+        .qiehuan_content .hongbao .first_repeat span{
+            width:0.15rem;
+            height:0.15rem;
+            display:inline-block;
+            line-height: 0.2rem;
+            background:#000;
+            margin-right:0.35rem;
+            margin-bottom:0.1rem;
+            border-radius:50px;
+            margin-left:0.75rem;
+            color:#666;
+
+        }
+    

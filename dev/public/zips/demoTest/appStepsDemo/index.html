@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>暖冬捐步H5和App原生交互</title>
+    <style>
+@charset "utf-8";
+
+body{margin:0; padding: 10px; color: #333; font-family: 'simsun', Arial; font-size: 1em; line-height: 1.4;background-color: #fff;}
+/* a{outline: none;color: #333;} */
+
+div { width: 960px; margin: 0 auto;}
+h1 { display: block; text-align:center; font-size: 1.5em; margin: 30px 0;}
+h2 { font-size: 1em;}
+p.paddL { padding-left: 35px}
+@media screen and (max-width: 960px) { div {width: 98%;} }
+@media screen and (max-width: 960px) { div {margin: 0 auto;} }
+
+body{ padding: 0; color: #000; line-height: 1.5; }
+body::-webkit-scrollbar{ display: none; }
+.underline { text-decoration:underline; }
+h1{ font-size: 1em; margin-bottom: 0; }
+p{ font-size: .96em; }
+pre{ font-size: .96em; font-family: 'simsun', Arial; white-space: pre-wrap; word-break: break-all; }
+    </style>
+</head>
+<body>
+    <div>
+        <pre>
+<a href="https://www.baidu.com">https://www.baidu.com</a>
+
+<a href="https://static.99fund.com/mobile/agreement/quick_agreement.html">https://static.99fund.com/mobile/agreement/quick_agreement.html</a>
+
+
+1.	网页版本控制
+打开网页，app会在网页后面拼接version（app版本）信息，例如：https://www.99fund.com?version=XXX ,H5 拿到version进行版本控制；
+2.	获取用户信息
+2.1打开网页后，网页调用app方法fetchAppUserInfo，如果用户已登录，app调用js方法synAppUserInfo(userInfo)给网页，否则传空synAppUserInfo()给网页
+2.2 网页拿到空信息，表示App未登录，调用App原生方法appLogin，进行登录，登录后，刷新网页，重复2.1
+
+userInfo定义：
+custNo: 电商客户号
+invTp: 用户状态（注册、绑卡、新客户）
+custTp: 用户类型（1个人）
+nickname: 用户昵称
+avatarImage: 用户头像（https地址）
+gradeId: 用户等级（1新手 11普通 21水晶 12白银 2黄金 13白金 3钻石 14财富 15战略）
+strDt: 用户等级开始日
+endDt: 用户等级结束日
+
+用户信息：
+<textarea id="userInfo" value="" rows="3" cols="40"></textarea>
+
+<a href="javascript:;" onclick="fetchAppUserInfo()">点击执行fetchAppUserInfo()</a>
+
+3.	获取用户步数
+<a href="javascript:;" onclick="fetchAppSteps()">网页调用app方法fetchAppSteps，用户点击网页上传步数，</a>
+App调用js方法synAppSteps(步数)给网页，完成步数上传；
+用户步数：<input type="text" id="stepsCount" value="">
+
+4.	H5分享
+<a href="javascript:;" onclick="openShareMenu()">网页调用App方法callAppShare(shareInfo)，App拿到信息唤起分享组件进行分享；</a>
+shareInfo定义：
+title //分享标题
+content//分享内容
+imageUrl//分享icon
+url//分享链接
+
+<a href="javascript:;" onclick="openSharePicture()">网页调用App方法callAppShare(shareInfo)，shareInfo只传sharePicUrl</a>
+shareView.title =message.body[@"shareTitle"];
+shareView.detail =message.body[@"shareContent"];
+shareView.imgUrlString =message.body[@"sharePicUrl"];
+shareView.webUrlString =message.body[@"jumpUrl"];
+
+5. 跳转app store
+<a href="javascript:;" onclick="appUpgrade()">网页调用App方法appUpgrade("")，直接跳转到app store</a>
+
+<a href="https://www.99fund.com/m.htm">wap使用的下载现金宝APP链接</a>
+
+<a href="https://itunes.apple.com/cn/app/xian-jin-bao/id1061838086?mt=8">https://itunes.apple.com/cn/app/xian-jin-bao/id1061838086?mt=8</a>
+
+<a href="http://www.99fund.com/download/mobile/xjb_99fund_7_02.apk">http://www.99fund.com/download/mobile/xjb_99fund_7_02.apk</a>
+
+
+
+        </pre>
+    </div>
+<script>
+// 2.	获取用户信息
+// 2.1打开网页后，网页调用app方法fetchAppUserInfo，如果用户已登录，app调用js方法synAppUserInfo(userInfo)给网页，否则传空synAppUserInfo()给网页
+fetchAppUserInfo();
+function fetchAppUserInfo() {
+    console.log('fetchAppUserInfo');
+    try{
+        if(isIosApp()){
+            window.webkit.messageHandlers.fetchAppUserInfo.postMessage("");
+        }else if(isAndroidApp()){
+            handler.fetchAppUserInfo("");
+        }
+    }catch(e){
+        console.log(e);
+    }
+}
+function synAppUserInfo(userInfo){
+    console.log('synAppUserInfo userInfo=', userInfo);
+    // 2.2 网页拿到空信息，表示App未登录，调用App原生方法appLogin，进行登录，登录后，刷新网页，重复2.1
+    if(!userInfo){
+        try {
+            if(isAndroidApp()) {
+                handler.appLogin("");
+            } else if(isIosApp()) {
+                window.webkit.messageHandlers.appLogin.postMessage("");
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    } else {
+        document.getElementById('userInfo').value=(typeof userInfo=='String'?userInfo:JSON.stringify(userInfo));
+    }
+}
+
+// 3.	获取用户步数
+// 网页调用app方法fetchAppSteps，用户点击网页上传步数，App调用js方法synAppSteps(步数)给网页，完成步数上传；
+function fetchAppSteps() {
+    console.log('fetchAppSteps');
+    try{
+        if(isIosApp()){
+            window.webkit.messageHandlers.fetchAppSteps.postMessage("");
+        }else if(isAndroidApp()){
+            handler.fetchAppSteps("");
+        }
+    }catch(e){
+        console.log(e);
+    }
+}
+function synAppSteps(result) {
+    console.log('上传步数=', result);
+    document.getElementById('stepsCount').value=result;
+}
+
+// 4.	H5分享
+function openShareMenu(params) {
+    var shareInfo={
+        itemType: '',
+        itemId: '',
+        shareTitle: 'title',
+        shareContent: 'content',
+        sharePicUrl: window.location.origin + '/activity-center/act-resources/pages/familyAccount/img/weixin.png',
+        jumpUrl: 'url',
+    };
+    console.log('openShareMenu shareInfo=', shareInfo);
+    try{
+        if(isIosApp()){
+            window.webkit.messageHandlers.callAppShare.postMessage(shareInfo);
+        }else if(isAndroidApp()){
+            handler.callAppShare(JSON.stringify(shareInfo));
+        }
+    }catch(e){
+        console.log(e);
+    }
+}
+
+function openSharePicture(params) {
+// shareView.title =message.body[@"shareTitle"];
+// shareView.detail =message.body[@"shareContent"];
+// shareView.imgUrlString =message.body[@"sharePicUrl"];
+// shareView.webUrlString =message.body[@"jumpUrl"];
+var shareInfo={
+        // shareTitle: 'shareTitle',
+        // shareContent: 'shareContent',
+        sharePicUrl: 'https://static.99fund.com/mobile/app_inner/area/familyAccount/asset_home_background.png',
+        // jumpUrl: 'jumpUrl',
+    };
+    console.log('openSharePicture shareInfo=', shareInfo);
+    try{
+        if(isIosApp()){
+            window.webkit.messageHandlers.callAppShare.postMessage(shareInfo);
+        }else if(isAndroidApp()){
+            handler.callAppShare(JSON.stringify(shareInfo));
+        }
+    }catch(e){
+        console.log(e);
+    }
+}
+
+// 5. 跳转app store
+// <a href="javascript:;" onclick="appUpgrade()">网页调用App方法appUpgrade("")，直接跳转到app store</a>
+function appUpgrade() {
+    try{
+        if(isIosApp()){
+            window.webkit.messageHandlers.appUpgrade.postMessage("");
+        }else if(isAndroidApp()){
+            handler.appUpgrade("");
+        }
+    }catch(e){
+        console.log(e);
+    }
+}
+
+
+// isApp 判断是否是现金宝APP
+function isApp() {
+    if (navigator.userAgent.indexOf("htfxjb") > -1) {
+        return true;
+    } else {
+        return false;
+    }
+}
+function isAndroidApp() {
+    if (isApp()) {
+        if (navigator.userAgent.indexOf("Android") > -1
+            || navigator.userAgent.indexOf("android") > -1
+            || navigator.userAgent.indexOf('Adr') > -1) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+function isIosApp() {
+    if (isApp()) {
+        if (navigator.userAgent.indexOf("Android") > -1
+            || navigator.userAgent.indexOf("android") > -1
+            || navigator.userAgent.indexOf('Adr') > -1) {
+            return false;
+        } else {
+            return true;
+        }
+    } else {
+        return false;
+    }
+}
+</script>
+<script src="https://static.99fund.com/js/lib/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+</body>
+</html>

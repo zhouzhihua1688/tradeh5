@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="GBK">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>现金宝</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,address=no">
+    <style>
+        /* Start reset */
+        *{ margin: 0; padding: 0;}
+        html {-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;min-height: 100%;position: relative;}
+        body{ font: 14px/1em Microsoft YaHei,sans-serif;color: #666;max-width: 750px;}
+        @media only screen and (max-width: 320px) {
+            body{ font-size: 12px; }
+        }
+        ul, ol, dl{ list-style: none;}
+        em, i{ font-style: normal;}
+        input{ border: 0;line-height: normal;}
+        img{ display: block;max-width: 100%;height: auto; border: 0;}
+        table {border-collapse: collapse;border-spacing: 0;}
+        a{ text-decoration: none; }
+        a:active,a:hover { outline: 0;}
+        /* End reset */
+        .banner{
+            position: relative;
+        }
+        .title{
+            position: absolute;
+            left: 50%;
+            top: 45%;
+            width: 68%;
+            margin-left: -34%;
+            color: #666;
+            font-size: 1.8em;
+            line-height: 1.15em;
+            text-align: center;
+        }
+        .title em{
+            color: #ff7e00;
+        }
+        .word{
+            position: absolute;
+            left: 50%;
+            top: 13%;
+            width: 90%;
+            margin-left: -45%;
+            color: #ffe6c3;
+            font-size: 1.15em;
+            line-height: normal;
+            text-align: center;
+        }
+        .main{
+            text-align: center;
+            background-color: #fffef6;
+        }
+        .main h3{
+            font-size: 1.25em;
+            line-height: normal;
+            margin-bottom: .5em;
+        }
+        .main p{
+            font-size: 1.15em;
+            line-height: normal;
+            margin-bottom: .5em;
+        }
+        .main p.org{
+            color: #ff7e00;
+            font-size: 1.25em;
+            margin-bottom: 1em;
+            line-height: 1.5em;
+        }
+        .main .btn{
+            background-color: #ff7e00;
+            border-radius: 5px;
+            color: #fff;
+            height: 2.4em;
+            line-height: 2.4em;
+            text-align: center;
+            width: 78%;
+            display: inline-block;
+            font-size: 1.25em;
+            margin-bottom: 3em;
+        }
+        .content{
+            background-color: #fff0c3;
+            padding-bottom: 2em;
+        }
+        .seation{
+            width: 90%;
+            margin: 2em auto 0;
+            text-align: center;
+        }
+        .seation h4{
+            color: #565656;
+            font-size: 1.3em;
+            font-weight: normal;
+            line-height: normal;
+            margin-bottom: .5em;
+        }
+        .seation p{
+            color: #666;
+            font-size: 1em;
+            line-height: 1.5em;
+            text-align: left;
+            margin-bottom: 1em;
+        }
+        .seation p span{
+           color: #ed4325;
+        }
+        .seation .smdle{
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .modal-fade {
+            width:80%;
+            position: fixed;
+            top: 40%;
+            left:50%;
+            -webkit-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+            -o-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+            z-index: 1000;
+        }
+        div.mask {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 50;
+            overflow: hidden;
+            background-color:rgba(0,0,0,0.6);
+        }
+        .modal-body{
+            text-align:center;
+            background-color: #fff;
+            padding: 1em;
+            border-radius: 5px;
+            position: relative;
+        }
+        .modal-body .notice{
+            line-height: 1.5em;
+            font-size: 1.15em;
+            margin-bottom: 1em;
+        }
+        .modal-button{
+            background-color: #ff7e00;
+            border: 1px solid #ff7e00;
+            border-radius: 4px;
+            color: #fff;
+            height: 2em;
+            line-height: 2em;
+            text-align: center;
+            width: 50%;
+            display: inline-block;
+            font-size: 1.15em;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <!--wrapper-->
+    <div class="wrapper">
+        <div class="banner">
+            <img src="img/mac_01.png" alt=""/>
+            <h3 class="title"><em>汇添富邀请有礼！</em></h3>
+        </div>
+
+        <div class="banner">
+            <img src="img/mac_02.png" alt=""/>
+            <p class="word"> 快来注册绑卡、完成问卷，收益翻倍等着你哦~</p>
+        </div>
+
+        <div class="main">
+            <h3>现金宝</h3>
+            <p>汇添富旗下倾力打造的互联网金融投资平台</p>
+            <p class="org">金牛基金公司<br/>管理资产规模超5000亿</p>
+            <p>您的好友向您推荐ta正在使用的理财平台</p>
+            <a href="javascript:;" class="btn">开通现金宝</a>
+        </div>
+
+        <div class="content">
+            <img src="img/mac_03.jpg" alt=""/>
+            <div class="seation">
+                <h4>一折购基更实惠</h4>
+                <p>以新兴消费基金为例, 假设购买该基金1万元, 无1折优惠申购费<span>150元</span>, 有1折优惠仅需<span>15元</span>, 劲省135元！</p>
+                <img src="img/mac_04.png" alt="" class="smdle"/>
+            </div>
+            <div class="seation">
+                <h4>乐享收益不间断</h4>
+                <p>现金宝<span>7*24小时</span>为您打工，无论交易日还是节假日都能开心获得货币基金收益。</p>
+                <img src="img/mac_05.png" alt=""/>
+            </div>
+            <div class="seation">
+                <h4>安全理财好帮手</h4>
+                <p>专业<span>风控团队</span>，全程跟踪。资金同卡进出，保证<span>资产安全</span>。</p>
+                <img src="img/mac_06.png" alt=""/>
+            </div>
+        </div>
+
+    </div><!--end of wrapper-->
+
+    <!--弹出框-->
+    <div class="modal-fade" id="modal" style="display:none;">
+        <div class="modal-body">
+            <p class="notice">感谢您的参与！<br/>本期邀请好友活动已结束，<br/>下期活动将更精彩，敬请期待！</p>
+            <button class="modal-button" type="button">我知道了</button>
+        </div>
+    </div>
+    <div class="mask"></div><!--透明背景层-->
+    <script src="../basic/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../basic/basic.js"> </script>
+    <script type="text/javascript">
+        $(function () {
+        	function getUrlParam (key) {
+                var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)", "i");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) {
+                    return unescape(r[2]);
+                }
+                return "";
+            }
+
+            /* 点击‘我知道了’关闭弹出框 */
+            $(".modal-button").on("click",function(){
+                $("#modal").css("display","none");
+                $("body").css("overflow", "auto");
+                $("div.mask").hide();
+            });
+
+        	function btnFn(){
+                /* 点击‘开通现金宝’显示弹出框 */
+                $(".btn").on("click",function(e){
+                    e.preventDefault();
+                    $("#modal").css("display","block");
+                    $("body").css("overflow", "hidden");
+                    $("div.mask").show();
+                    $("html,body").animate({"scrollTop": 0 });
+                });
+        	}
+        	
+        	var isOutofDate = "0";
+        	if(getUrlParam("ic")){
+        		var data = JSON.stringify({
+    				"actid" : getUrlParam ("actid"),
+    				"ic" : getUrlParam ("ic")
+    			});
+    			$.post(WAP.requestAddr + "/activity/get_newmgm_invitecode_status", data, function(result){
+    				var jsonRe = JSON.parse(result);
+    				if(jsonRe.returnCode == 0){
+    					isOutofDate = jsonRe.body.isOutofDate;
+    					if(isOutofDate == '1'){
+    						alert("您的邀请二维码已失效，请重新点击活动生成");
+    					}	
+    				}
+    			});
+        	}
+        	
+        	if(getUrlParam("reglink")){
+        		$.get(WAP.requestAddr + "/activity/get_activity_status?activityId=" + getUrlParam ("actid"),function(result){
+        			console.log(result);
+     			   if(result.returnCode == 0){
+     				   var code = result.body.code;
+     				  if("1" == code){
+     					  //活动进行中
+     		                $(".btn").on("click",function(e){
+     		                	if(isOutofDate == '0'){
+     		                		window.location.href = getUrlParam("reglink");
+     		                	} else {
+     		                		alert("您的邀请二维码已失效，请重新点击活动生成");
+     		                	}
+     		                    
+     		                });
+     				  }else{
+     					 btnFn();
+     				  }
+     			   }
+     		   }, "json");
+        		
+        	}else{
+        		btnFn();
+        	}
+
+        })
+    </script>
+</body>
+</html>

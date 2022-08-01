@@ -1,0 +1,169 @@
+{
+    "version": "1.0",
+    "apps": [
+        {
+            "id": "001",
+            "packageName": "com.tencent.mm"
+        },
+        {
+            "id": "002",
+            "packageName": "com.tencent.mobileqq"
+        },
+        {
+            "id": "003",
+            "packageName": "com.weipai.weipaipro"
+        },
+        {
+            "id": "004",
+            "packageName": "com.blackbean.cnmeach"
+        },
+        {
+            "id": "005",
+            "packageName": "com.jianmian.app"
+        },
+        {
+            "id": "006",
+            "packageName": "com.immomo.momo"
+        },
+        {
+            "id": "007",
+            "packageName": "com.sina.weibo"
+        },
+        {
+            "id": "008",
+            "packageName": "com.bill99.kuaishua"
+        },
+        {
+            "id": "009",
+            "packageName": "com.eg.android.AlipayGphone"
+        },
+        {
+            "id": "010",
+            "packageName": "com.taobao.taobao"
+        },
+        {
+            "id": "011",
+            "packageName": "com.jingdong.app.mall"
+        },
+        {
+            "id": "012",
+            "packageName": "com.dangdang.buy2"
+        },
+        {
+            "id": "013",
+            "packageName": "com.sankuai.meituan"
+        },
+        {
+            "id": "014",
+            "packageName": "com.dianping.v1"
+        },
+        {
+            "id": "015",
+            "packageName": "ctrip.android.view"
+        },
+        {
+            "id": "016",
+            "packageName": "com.koudai.weishop"
+        },
+        {
+            "id": "017",
+            "packageName": "com.moji.mjweather"
+        },
+        {
+            "id": "018",
+            "packageName": "com.meitu.meiyancamera"
+        },
+        {
+            "id": "019",
+            "packageName": "com.sg.sledog"
+        },
+        {
+            "id": "020",
+            "packageName": "com.UCMobile"
+        },
+        {
+            "id": "021",
+            "packageName": "com.baidu.browser.apps"
+        },
+        {
+            "id": "022",
+            "packageName": "com.qihoo.browser"
+        },
+        {
+            "id": "023",
+            "packageName": "com.nuomi"
+        },
+        {
+            "id": "024",
+            "packageName": "com.netease.my.lenovo"
+        },
+        {
+            "id": "025",
+            "packageName": "com.skymoons.hqg.lenovo"
+        },
+        {
+            "id": "026",
+            "packageName": "com.tencent.pao"
+        },
+        {
+            "id": "027",
+            "packageName": "com.baidu.BaiduMap"
+        },
+        {
+            "id": "028",
+            "packageName": "com.autonavi.minimap"
+        },
+        {
+            "id": "029",
+            "packageName": "com.wangyin.payment"
+        },
+        {
+            "id": "030",
+            "packageName": "com.minxindai"
+        },
+        {
+            "id": "031",
+            "packageName": "com.daiyoubang"
+        },
+        {
+            "id": "032",
+            "packageName": "com.hexin.plat.android"
+        },
+        {
+            "id": "033",
+            "packageName": "com.android.dazhihui"
+        },
+        {
+            "id": "034",
+            "packageName": "com.shcc.microcreditpwr"
+        },
+        {
+            "id": "035",
+            "packageName": "com.lufax.android"
+        },
+        {
+            "id": "036",
+            "packageName": "com.tencent.qqlive"
+        },
+        {
+            "id": "037",
+            "packageName": "com.youku.phone"
+        },
+        {
+            "id": "038",
+            "packageName": "com.qiyi.video"
+        },
+        {
+            "id": "039",
+            "packageName": "com.ting.mp3.qianqian.android"
+        },
+        {
+            "id": "040",
+            "packageName": "com.tencent.qqmusic"
+        },
+        {
+            "id": "041",
+            "packageName": "com.sohu.sohuvideo"
+        }
+    ]
+}

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>testCheckbox</title>
+</head>
+<body>
+    <div id="app" style="width: 100%;">
+        <!-- <div style="width: 100%;border: 2px solid #ddd;">
+            <input type="checkbox" name="checkAll" id="checkAll"><label for="checkAll">全选</label>
+            <br>
+            <input type="checkbox" name="checkSingle" id="checkSingle"><label for="checkSingle">groupName</label>
+        </div>
+        <div style="width: 100%;border: 2px solid #ddd;">
+            <input type="checkbox" name="checkAll2" id="checkAll2"><label for="checkAll2">全选</label>
+            <br>
+            <input type="checkbox" name="checkSingle2" id="checkSingle2"><label for="checkSingle2">groupName</label>
+        </div> -->
+
+        <div style="border: 2px solid #333;padding: 20px;margin: 10px;" v-for="(value,key,index) in groupListObj">
+            <!-- <p>{{value}}</p><p>{{key}}</p><p>{{index}}</p> -->
+            <input type="checkbox" :name="'checkAll' + index" :id="'checkAll' + index" :checked="value.checked" @click="checkAll($event, key)">
+            <label :for="'checkAll' + index">全选--{{key}}</label>
+            <hr>
+            <template v-for="(v,k,i) in value" v-if="k!=='checked'">
+                <input type="checkbox" :name="'checkSingle' + index + '-' + i" :id="'checkSingle' + index + '-' + i" :checked="v.checked" @click="checkSingle($event, key, k)">
+                <label :for="'checkSingle' + index + '-' + i">{{k}}--{{v.groups}}</label>
+                <span style="margin-left: 20px;"></span>
+            </template>
+        </div>
+
+        <button @click="prepareData">准备选中的数据</button>
+        <p v-text="selectedData"></p>
+    </div>
+<script src="./vue.min.js"></script>
+<!-- <script src="./jquery-3.5.1.min.js"></script> -->
+<script>
+var vm = new Vue({
+    el: '#app',
+    data() {
+        return {
+            // 展示在页面的数据
+            groupListObj: {},
+
+            // 准备选中的数据
+            selectedData: '',
+
+            // 模拟修改弹窗里，后台返回的已有数据
+            mockData: {},
+        }
+    },
+    created() {
+        // /investmentMgmt/investmentInformationDisclosure/quarterlyReport/fundGroups.ajax
+        // 通过接口获取到的数据，当前测试环境93个groupId 
+        let result = {"error":0,"msg":"获取组合成功","data":[{"groupId":"A3087","groupName":"苏宁投顾A","fundgroupType":"14","fundgroupTypeName":"稳健理财","groupType":"1","groupTypeName":"保守型","rightPercent":11.79,"fixPercent":48.06,"vaPercent":40.15,"otherPercent":0,"createTime":"20220315 19:38:23","establishDate":"20220104","displayDate":null,"isInvestment":"Y","investRiskLevel":"2"},{"groupId":"A3088","groupName":"苏宁投顾B","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"1","groupTypeName":"保守型","rightPercent":14.92,"fixPercent":55.14,"vaPercent":29.94,"otherPercent":0,"createTime":"20220315 20:15:32","establishDate":"20220104","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A9978","groupName":"A9978","fundgroupType":"16","fundgroupTypeName":"教育金","groupType":"1","groupTypeName":"保守型","rightPercent":100,"fixPercent":0,"vaPercent":0,"otherPercent":0,"createTime":"20210916 15:52:47","establishDate":"20210916","displayDate":null,"isInvestment":"Y","investRiskLevel":"2"},{"groupId":"A9973","groupName":"A9973","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":31.72,"fixPercent":19.89,"vaPercent":48.39,"otherPercent":0,"createTime":"20210831 09:43:50","establishDate":"20210831","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A3076","groupName":"同花顺新三号","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"1","groupTypeName":"保守型","rightPercent":0,"fixPercent":24.88,"vaPercent":40.29,"otherPercent":34.83,"createTime":"20211029 14:08:10","establishDate":"20211029","displayDate":"20211101","isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A3075","groupName":"同花顺新二号","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"5","groupTypeName":"积极型","rightPercent":37.77,"fixPercent":36.11,"vaPercent":26.12,"otherPercent":0,"createTime":"20211029 14:08:19","establishDate":"20211029","displayDate":"20211101","isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A0956","groupName":"新的测试组合","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":32,"fixPercent":38,"vaPercent":30,"otherPercent":0,"createTime":"20211110 10:00:14","establishDate":"20211108","displayDate":null,"isInvestment":"Y","investRiskLevel":"2"},{"groupId":"A3077","groupName":"同花顺第二轮一号","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"3","groupTypeName":"平衡型","rightPercent":34.97,"fixPercent":19.98,"vaPercent":30.07,"otherPercent":14.98,"createTime":"20211202 16:59:37","establishDate":"20211202","displayDate":"20211203","isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A0951","groupName":"汇同7","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"2","groupTypeName":"稳健型","rightPercent":81.02,"fixPercent":8.97,"vaPercent":10.01,"otherPercent":0,"createTime":"20210316 09:45:26","establishDate":"20210315","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A7200","groupName":"投顾A7200","fundgroupType":"14","fundgroupTypeName":"稳健理财","groupType":"1","groupTypeName":"保守型","rightPercent":59.85,"fixPercent":19.95,"vaPercent":20.2,"otherPercent":0,"createTime":"20220211 09:39:35","establishDate":"20220211","displayDate":null,"isInvestment":"Y","investRiskLevel":"3"},{"groupId":"A9115","groupName":"A9115","fundgroupType":"14","fundgroupTypeName":"稳健理财","groupType":"1","groupTypeName":"保守型","rightPercent":47.7,"fixPercent":52.3,"vaPercent":0,"otherPercent":0,"createTime":"20210825 10:50:03","establishDate":"20210825","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A2233","groupName":"A2233","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":0,"fixPercent":74.91,"vaPercent":25.09,"otherPercent":0,"createTime":"20211011 15:05:48","establishDate":"20211011","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A9878","groupName":"中期评审系统演示组合","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":33.82,"fixPercent":57.01,"vaPercent":9.17,"otherPercent":0,"createTime":"20211202 09:01:19","establishDate":"20211201","displayDate":null,"isInvestment":"Y","investRiskLevel":"3"},{"groupId":"A8812","groupName":"一般型-A8812","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"2","groupTypeName":"稳健型","rightPercent":82.12,"fixPercent":0,"vaPercent":17.88,"otherPercent":0,"createTime":"20210705 15:27:48","establishDate":"20210705","displayDate":null,"isInvestment":"Y","investRiskLevel":"5"},{"groupId":"A8995","groupName":"基金规模风控组合","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":37.92,"fixPercent":53.08,"vaPercent":9,"otherPercent":0,"createTime":"20220309 13:49:50","establishDate":"20220309","displayDate":null,"isInvestment":"Y","investRiskLevel":"3"},{"groupId":"A3083","groupName":"苏宁投顾输出A","fundgroupType":"14","fundgroupTypeName":"稳健理财","groupType":"1","groupTypeName":"保守型","rightPercent":6.97,"fixPercent":43.14,"vaPercent":49.89,"otherPercent":0,"createTime":"20220311 17:52:10","establishDate":"20220311","displayDate":null,"isInvestment":"Y","investRiskLevel":"3"},{"groupId":"A3074","groupName":"同花顺新一号","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"1","groupTypeName":"保守型","rightPercent":48.1,"fixPercent":0,"vaPercent":36.47,"otherPercent":15.43,"createTime":"20211029 13:43:37","establishDate":"20211029","displayDate":"20211101","isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A6116","groupName":"A6116","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":19.85,"fixPercent":60.04,"vaPercent":20.11,"otherPercent":0,"createTime":"20211109 10:15:35","establishDate":"20211109","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A8907","groupName":"盈米（调仓）组合","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":60.01,"fixPercent":34.84,"vaPercent":5.15,"otherPercent":0,"createTime":"20220117 09:39:33","establishDate":"20220117","displayDate":null,"isInvestment":"Y","investRiskLevel":"2"},{"groupId":"A6669","groupName":"大赚特赚","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"1","groupTypeName":"保守型","rightPercent":0,"fixPercent":70.78,"vaPercent":0,"otherPercent":29.22,"createTime":"20220211 09:21:22","establishDate":"20220211","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A0954","groupName":"一般型-汇同10","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"3","groupTypeName":"平衡型","rightPercent":100,"fixPercent":0,"vaPercent":0,"otherPercent":0,"createTime":"20210322 14:03:14","establishDate":"20210322","displayDate":null,"isInvestment":"Y","investRiskLevel":"3"},{"groupId":"A8904","groupName":"盈米组合","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"1","groupTypeName":"保守型","rightPercent":49.22,"fixPercent":31.02,"vaPercent":19.76,"otherPercent":0,"createTime":"20220107 16:41:17","establishDate":"20220107","displayDate":null,"isInvestment":"Y","investRiskLevel":"3"},{"groupId":"A6202","groupName":"稳添利","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"4","groupTypeName":"进取型","rightPercent":65.62,"fixPercent":28.7,"vaPercent":5.68,"otherPercent":0,"createTime":"20210723 18:03:30","establishDate":"20210701","displayDate":"20210724","isInvestment":"Y","investRiskLevel":"3"},{"groupId":"A6203","groupName":"平衡双利","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"3","groupTypeName":"平衡型","rightPercent":84.63,"fixPercent":10.15,"vaPercent":5.22,"otherPercent":0,"createTime":"20210723 18:03:45","establishDate":"20210701","displayDate":"20210724","isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A0968","groupName":"A0968","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"2","groupTypeName":"稳健型","rightPercent":30,"fixPercent":0,"vaPercent":70,"otherPercent":0,"createTime":"20210730 16:27:10","establishDate":"20210719","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A9981","groupName":"A9981","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":55.11,"fixPercent":44.89,"vaPercent":0,"otherPercent":0,"createTime":"20210923 16:58:41","establishDate":"20210923","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A6110","groupName":"稳稳小确幸1号","fundgroupType":"14","fundgroupTypeName":"稳健理财","groupType":"1","groupTypeName":"保守型","rightPercent":30,"fixPercent":40,"vaPercent":30,"otherPercent":0,"createTime":"20211109 10:00:11","establishDate":"20211109","displayDate":null,"isInvestment":"Y","investRiskLevel":"3"},{"groupId":"A7114","groupName":"一般型-养老2030","fundgroupType":"17","fundgroupTypeName":"养老金","groupType":"1","groupTypeName":"保守型","rightPercent":29.42,"fixPercent":70.58,"vaPercent":0,"otherPercent":0,"createTime":"20211116 14:44:21","establishDate":"20211116","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A7103","groupName":"跟我投","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"1","groupTypeName":"保守型","rightPercent":48.87,"fixPercent":36.07,"vaPercent":15.06,"otherPercent":0,"createTime":"20220105 10:17:50","establishDate":"20220105","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A2218","groupName":"教育金-A2218","fundgroupType":"16","fundgroupTypeName":"教育金","groupType":"1","groupTypeName":"保守型","rightPercent":87.86,"fixPercent":0,"vaPercent":12.14,"otherPercent":0,"createTime":"20220223 17:09:51","establishDate":"20220223","displayDate":null,"isInvestment":"Y","investRiskLevel":"2"},{"groupId":"A1235","groupName":"A1235","fundgroupType":"14","fundgroupTypeName":"稳健理财","groupType":"1","groupTypeName":"保守型","rightPercent":52.91,"fixPercent":47.09,"vaPercent":0,"otherPercent":0,"createTime":"20210917 14:22:39","establishDate":"20210917","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A7112","groupName":"一般型-权益精选","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"1","groupTypeName":"保守型","rightPercent":18.49,"fixPercent":76.58,"vaPercent":4.93,"otherPercent":0,"createTime":"20211116 14:35:58","establishDate":"20211116","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A0063","groupName":"组合A0063","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":67.03,"fixPercent":32.97,"vaPercent":0,"otherPercent":0,"createTime":"20200723 18:27:22","establishDate":"20200619","displayDate":"20200622","isInvestment":"Y","investRiskLevel":"3"},{"groupId":"A8906","groupName":"全盈米基金组合","fundgroupType":"14","fundgroupTypeName":"稳健理财","groupType":"1","groupTypeName":"保守型","rightPercent":46.33,"fixPercent":53.67,"vaPercent":0,"otherPercent":0,"createTime":"20220112 09:48:25","establishDate":"20220112","displayDate":null,"isInvestment":"Y","investRiskLevel":"3"},{"groupId":"A8909","groupName":"暂停交易组合测试","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"1","groupTypeName":"保守型","rightPercent":72.16,"fixPercent":17.87,"vaPercent":9.97,"otherPercent":0,"createTime":"20220214 15:33:35","establishDate":"20220214","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A7999","groupName":"蚂蚁三方组合","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"2","groupTypeName":"稳健型","rightPercent":69.32,"fixPercent":30.68,"vaPercent":0,"otherPercent":0,"createTime":"20220222 14:40:52","establishDate":"20220222","displayDate":"20220223","isInvestment":"Y","investRiskLevel":"2"},{"groupId":"A9886","groupName":"盈米同花顺","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"1","groupTypeName":"保守型","rightPercent":78.35,"fixPercent":21.65,"vaPercent":0,"otherPercent":0,"createTime":"20220110 17:05:10","establishDate":"20220110","displayDate":null,"isInvestment":"Y","investRiskLevel":"2"},{"groupId":"A6201","groupName":"理财加","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"5","groupTypeName":"积极型","rightPercent":25,"fixPercent":24.97,"vaPercent":50.03,"otherPercent":0,"createTime":"20210723 18:01:54","establishDate":"20210701","displayDate":"20210724","isInvestment":"Y","investRiskLevel":"2"},{"groupId":"A6115","groupName":"A6115","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"1","groupTypeName":"保守型","rightPercent":19.85,"fixPercent":60.04,"vaPercent":20.11,"otherPercent":0,"createTime":"20211124 09:52:43","establishDate":"20211110","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A7105","groupName":"理财佳","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":0,"fixPercent":46.84,"vaPercent":53.16,"otherPercent":0,"createTime":"20220111 10:55:28","establishDate":"20220111","displayDate":null,"isInvestment":"Y","investRiskLevel":"2"},{"groupId":"A7106","groupName":"跟我投","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"1","groupTypeName":"保守型","rightPercent":15.01,"fixPercent":45.92,"vaPercent":39.07,"otherPercent":0,"createTime":"20220111 10:55:33","establishDate":"20220111","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A3058","groupName":"蚂蚁投顾001","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"2","groupTypeName":"稳健型","rightPercent":79.5,"fixPercent":0,"vaPercent":20.5,"otherPercent":0,"createTime":"20220217 14:41:56","establishDate":"20211207","displayDate":"20220226","isInvestment":"Y","investRiskLevel":"3"},{"groupId":"A9974","groupName":"外部自研RT","fundgroupType":"14","fundgroupTypeName":"稳健理财","groupType":"1","groupTypeName":"保守型","rightPercent":37.61,"fixPercent":0,"vaPercent":62.39,"otherPercent":0,"createTime":"20210831 16:29:50","establishDate":"20210831","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A6300","groupName":"testA6300","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":27.07,"fixPercent":54.1,"vaPercent":18.83,"otherPercent":0,"createTime":"20220211 10:10:50","establishDate":"20220210","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A7101","groupName":"理财佳","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":0,"fixPercent":37.85,"vaPercent":62.15,"otherPercent":0,"createTime":"20220105 10:02:09","establishDate":"20220105","displayDate":null,"isInvestment":"Y","investRiskLevel":"2"},{"groupId":"A3085","groupName":"苏宁投顾一号","fundgroupType":"14","fundgroupTypeName":"稳健理财","groupType":"1","groupTypeName":"保守型","rightPercent":6.97,"fixPercent":43.17,"vaPercent":49.86,"otherPercent":0,"createTime":"20220314 10:49:58","establishDate":"20220314","displayDate":null,"isInvestment":"Y","investRiskLevel":"2"},{"groupId":"A0970","groupName":"A0970","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":67.73,"fixPercent":0,"vaPercent":32.27,"otherPercent":0,"createTime":"20210902 09:55:28","establishDate":"20210901","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A0683","groupName":"例行组合","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":47.85,"fixPercent":28.94,"vaPercent":23.21,"otherPercent":0,"createTime":"20211026 10:47:37","establishDate":"20211026","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A7111","groupName":"一般型-低波稳健","fundgroupType":"14","fundgroupTypeName":"稳健理财","groupType":"1","groupTypeName":"保守型","rightPercent":23.33,"fixPercent":57.97,"vaPercent":18.7,"otherPercent":0,"createTime":"20211116 14:32:45","establishDate":"20211116","displayDate":null,"isInvestment":"Y","investRiskLevel":"3"},{"groupId":"A7113","groupName":"一般型-教育投资","fundgroupType":"16","fundgroupTypeName":"教育金","groupType":"1","groupTypeName":"保守型","rightPercent":29.93,"fixPercent":49.9,"vaPercent":20.17,"otherPercent":0,"createTime":"20211116 14:39:18","establishDate":"20211116","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A5998","groupName":"45分公司","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":53.38,"fixPercent":10.03,"vaPercent":36.59,"otherPercent":0,"createTime":"20211110 10:10:50","establishDate":"20211110","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A3078","groupName":"同花顺第二轮二号","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"4","groupTypeName":"进取型","rightPercent":39.88,"fixPercent":0,"vaPercent":30.2,"otherPercent":29.92,"createTime":"20211202 17:10:57","establishDate":"20211202","displayDate":"20211203","isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A9092","groupName":"三方变直销","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"2","groupTypeName":"稳健型","rightPercent":30.6,"fixPercent":39.46,"vaPercent":29.94,"otherPercent":0,"createTime":"20220301 10:32:41","establishDate":"20220228","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A3084","groupName":"苏宁投顾输出B","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":9.99,"fixPercent":44.96,"vaPercent":45.05,"otherPercent":0,"createTime":"20220311 18:07:24","establishDate":"20220311","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A8811","groupName":"一般型-A8811","fundgroupType":"14","fundgroupTypeName":"稳健理财","groupType":"1","groupTypeName":"保守型","rightPercent":100,"fixPercent":0,"vaPercent":0,"otherPercent":0,"createTime":"20210703 14:06:49","establishDate":"20210703","displayDate":null,"isInvestment":"Y","investRiskLevel":"2"},{"groupId":"A6102","groupName":"稳稳小确幸1号","fundgroupType":"14","fundgroupTypeName":"稳健理财","groupType":"1","groupTypeName":"保守型","rightPercent":19,"fixPercent":43,"vaPercent":38,"otherPercent":0,"createTime":"20211115 14:46:09","establishDate":"20211115","displayDate":null,"isInvestment":"Y","investRiskLevel":"3"},{"groupId":"A6104","groupName":"教育投资","fundgroupType":"16","fundgroupTypeName":"教育金","groupType":"1","groupTypeName":"保守型","rightPercent":37.17,"fixPercent":44.95,"vaPercent":17.88,"otherPercent":0,"createTime":"20211115 16:13:38","establishDate":"20211115","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A6106","groupName":"养老2040","fundgroupType":"17","fundgroupTypeName":"养老金","groupType":"1","groupTypeName":"保守型","rightPercent":55.35,"fixPercent":25.95,"vaPercent":18.7,"otherPercent":0,"createTime":"20211115 17:19:10","establishDate":"20211115","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A2216","groupName":"投顾风控A2216","fundgroupType":"14","fundgroupTypeName":"稳健理财","groupType":"1","groupTypeName":"保守型","rightPercent":47.79,"fixPercent":34.27,"vaPercent":17.94,"otherPercent":0,"createTime":"20220221 10:58:35","establishDate":"20220221","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A7102","groupName":"稳稳小确幸2号","fundgroupType":"14","fundgroupTypeName":"稳健理财","groupType":"1","groupTypeName":"保守型","rightPercent":34.94,"fixPercent":33.93,"vaPercent":31.13,"otherPercent":0,"createTime":"20220105 10:17:46","establishDate":"20220105","displayDate":null,"isInvestment":"Y","investRiskLevel":"3"},{"groupId":"A9970","groupName":"A9970","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":16.5,"fixPercent":83.5,"vaPercent":0,"otherPercent":0,"createTime":"20210830 19:00:01","establishDate":"20210830","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A6301","groupName":"A6301","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":27.18,"fixPercent":53.82,"vaPercent":19,"otherPercent":0,"createTime":"20220228 15:54:53","establishDate":"20220228","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A9971","groupName":"A9971","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":17.63,"fixPercent":64.37,"vaPercent":18,"otherPercent":0,"createTime":"20210830 19:00:01","establishDate":"20210830","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A9877","groupName":"评审演示","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":33.82,"fixPercent":57.01,"vaPercent":9.17,"otherPercent":0,"createTime":"20211201 09:05:09","establishDate":"20211201","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A2217","groupName":"长期投资A2217","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"1","groupTypeName":"保守型","rightPercent":51.95,"fixPercent":34.01,"vaPercent":14.04,"otherPercent":0,"createTime":"20220222 10:39:03","establishDate":"20220222","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A9101","groupName":"一般型-活钱管理","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":0,"fixPercent":80.08,"vaPercent":19.92,"otherPercent":0,"createTime":"20211029 10:21:03","establishDate":"20211029","displayDate":null,"isInvestment":"Y","investRiskLevel":"3"},{"groupId":"A7110","groupName":"一般型-货币增强","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":73.81,"fixPercent":21.07,"vaPercent":5.12,"otherPercent":0,"createTime":"20211116 14:26:44","establishDate":"20211116","displayDate":null,"isInvestment":"Y","investRiskLevel":"2"},{"groupId":"A7115","groupName":"47+同花顺基金组合","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":27.04,"fixPercent":55.02,"vaPercent":17.94,"otherPercent":0,"createTime":"20211116 15:36:38","establishDate":"20211116","displayDate":null,"isInvestment":"Y","investRiskLevel":"5"},{"groupId":"A7100","groupName":"活钱全市场","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":100,"fixPercent":0,"vaPercent":0,"otherPercent":0,"createTime":"20220223 10:29:51","establishDate":"20220223","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A6107","groupName":"养老2050","fundgroupType":"17","fundgroupTypeName":"养老金","groupType":"1","groupTypeName":"保守型","rightPercent":44.93,"fixPercent":45.04,"vaPercent":10.03,"otherPercent":0,"createTime":"20211115 17:36:21","establishDate":"20211115","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A9876","groupName":"项目汇报1","fundgroupType":"14","fundgroupTypeName":"稳健理财","groupType":"1","groupTypeName":"保守型","rightPercent":35.54,"fixPercent":59.89,"vaPercent":4.57,"otherPercent":0,"createTime":"20211129 16:37:52","establishDate":"20211129","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A6101","groupName":"理财佳","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":27,"fixPercent":54,"vaPercent":19,"otherPercent":0,"createTime":"20211115 14:07:00","establishDate":"20211115","displayDate":null,"isInvestment":"Y","investRiskLevel":"2"},{"groupId":"A6103","groupName":"跟我投","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"1","groupTypeName":"保守型","rightPercent":49.85,"fixPercent":50.15,"vaPercent":0,"otherPercent":0,"createTime":"20211115 15:47:18","establishDate":"20211115","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A6105","groupName":"养老2030","fundgroupType":"17","fundgroupTypeName":"养老金","groupType":"1","groupTypeName":"保守型","rightPercent":42.05,"fixPercent":57.95,"vaPercent":0,"otherPercent":0,"createTime":"20211115 16:42:59","establishDate":"20211115","displayDate":null,"isInvestment":"Y","investRiskLevel":"3"},{"groupId":"A9972","groupName":"管理型-投顾9972","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":28.24,"fixPercent":71.76,"vaPercent":0,"otherPercent":0,"createTime":"20210831 09:29:02","establishDate":"20210831","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A0920","groupName":"项目汇报1","fundgroupType":"14","fundgroupTypeName":"稳健理财","groupType":"1","groupTypeName":"保守型","rightPercent":38,"fixPercent":57,"vaPercent":5,"otherPercent":0,"createTime":"20211129 19:00:06","establishDate":"20211129","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A6015","groupName":"江苏投顾测试T+2申购确认","fundgroupType":"14","fundgroupTypeName":"稳健理财","groupType":"1","groupTypeName":"保守型","rightPercent":31.91,"fixPercent":32.91,"vaPercent":35.18,"otherPercent":0,"createTime":"20220310 14:12:02","establishDate":"20220310","displayDate":null,"isInvestment":"Y","investRiskLevel":"3"},{"groupId":"A8011","groupName":"A8011","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":61.15,"fixPercent":0,"vaPercent":38.85,"otherPercent":0,"createTime":"20210906 16:17:18","establishDate":"20210906","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A9979","groupName":"A9979","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":76.83,"fixPercent":0,"vaPercent":23.17,"otherPercent":0,"createTime":"20210922 17:42:57","establishDate":"20210922","displayDate":null,"isInvestment":"Y","investRiskLevel":"3"},{"groupId":"A7888","groupName":"稳定赚","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":0,"fixPercent":43.77,"vaPercent":56.23,"otherPercent":0,"createTime":"20220210 17:26:07","establishDate":"20220210","displayDate":null,"isInvestment":"Y","investRiskLevel":"2"},{"groupId":"A9983","groupName":"A9983","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":37.98,"fixPercent":42.97,"vaPercent":19.05,"otherPercent":0,"createTime":"20210930 15:52:46","establishDate":"20210930","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A8910","groupName":"净值测试投顾","fundgroupType":"14","fundgroupTypeName":"稳健理财","groupType":"1","groupTypeName":"保守型","rightPercent":35.96,"fixPercent":28.49,"vaPercent":35.55,"otherPercent":0,"createTime":"20220215 14:36:46","establishDate":"20220215","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A3086","groupName":"苏宁投顾二号","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":9.99,"fixPercent":44.97,"vaPercent":45.04,"otherPercent":0,"createTime":"20220314 11:09:20","establishDate":"20220314","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A9984","groupName":"组合演示1","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":34.15,"fixPercent":65.85,"vaPercent":0,"otherPercent":0,"createTime":"20211126 15:34:25","establishDate":"20211126","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A8798","groupName":"一般型-权益精选","fundgroupType":"15","fundgroupTypeName":"长期投资","groupType":"1","groupTypeName":"保守型","rightPercent":0,"fixPercent":62.99,"vaPercent":37.01,"otherPercent":0,"createTime":"20211118 20:56:42","establishDate":"20211118","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A3777","groupName":"苏宁苏宁","fundgroupType":"14","fundgroupTypeName":"稳健理财","groupType":"1","groupTypeName":"保守型","rightPercent":10.12,"fixPercent":45.84,"vaPercent":44.04,"otherPercent":0,"createTime":"20220315 18:52:31","establishDate":"20220315","displayDate":null,"isInvestment":"Y","investRiskLevel":"2"},{"groupId":"A9976","groupName":"A9976","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":100,"fixPercent":0,"vaPercent":0,"otherPercent":0,"createTime":"20210901 18:21:16","establishDate":"20210901","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A0957","groupName":"火钳组合","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":54,"fixPercent":10,"vaPercent":36,"otherPercent":0,"createTime":"20211110 10:00:14","establishDate":"20211110","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A0958","groupName":"0598组合","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":54,"fixPercent":28,"vaPercent":18,"otherPercent":0,"createTime":"20211110 10:00:15","establishDate":"20211110","displayDate":null,"isInvestment":"Y","investRiskLevel":"1"},{"groupId":"A9977","groupName":"全外部基金","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":100,"fixPercent":0,"vaPercent":0,"otherPercent":0,"createTime":"20210908 10:15:28","establishDate":"20210908","displayDate":null,"isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A3053","groupName":"蚂蚁投顾基金A","fundgroupType":"14","fundgroupTypeName":"稳健理财","groupType":"3","groupTypeName":"平衡型","rightPercent":60.06,"fixPercent":0,"vaPercent":39.94,"otherPercent":0,"createTime":"20220215 15:16:23","establishDate":"20210907","displayDate":"20220216","isInvestment":"Y","investRiskLevel":"4"},{"groupId":"A7104","groupName":"小确幸","fundgroupType":"14","fundgroupTypeName":"稳健理财","groupType":"1","groupTypeName":"保守型","rightPercent":5,"fixPercent":95,"vaPercent":0,"otherPercent":0,"createTime":"20220105 10:59:01","establishDate":"20220105","displayDate":null,"isInvestment":"Y","investRiskLevel":"3"},{"groupId":"A8905","groupName":"一般型-盈米组合","fundgroupType":"13","fundgroupTypeName":"活钱管理","groupType":"1","groupTypeName":"保守型","rightPercent":41.92,"fixPercent":39.48,"vaPercent":18.6,"otherPercent":0,"createTime":"20220111 14:37:00","establishDate":"20220111","displayDate":null,"isInvestment":"Y","investRiskLevel":"2"}]}
+
+        obj = {}
+        newList = [];
+        // 判断是不是投顾
+        result.data.forEach(item => { if (item.isInvestment == 'Y' && item.fundgroupType >= 13 && item.fundgroupType <= 17) newList.push(item) })
+                       
+        newList.forEach((item, index) => {
+            if (!obj[item.fundgroupTypeName]) {
+                obj[item.fundgroupTypeName] = {};
+                obj[item.fundgroupTypeName]['checked'] = false;
+            }
+            if (!obj[item.fundgroupTypeName][item.groupName]) {
+                obj[item.fundgroupTypeName][item.groupName] = {}
+                obj[item.fundgroupTypeName][item.groupName]['groups'] = item.groupId;
+                obj[item.fundgroupTypeName][item.groupName]['checked'] = false;
+            } else {
+                obj[item.fundgroupTypeName][item.groupName]['groups'] = obj[item.fundgroupTypeName][item.groupName].groups + '_' + item.groupId;
+            }
+        })
+
+        console.log('newList=', newList)
+        console.log('obj=', obj)
+
+        this.groupListObj = obj
+    },
+    mounted() {
+        // 模拟修改弹窗里，后台返回的已有数据，此处初始化准备
+        this.mockData = [
+            // 稳健理财
+            "A3087", "A7200", "A9115", "A3083", "A6110", "A6102", "A1235", "A8906", "A9974", "A3085", "A7111", "A8811", "A2216", "A7102", "A9876", "A0920", "A6015", "A8910", "A3777", "A3053", "A7104",
+            // 长期投资
+            "A3088", "A3076", "A3075", "A3077", "A3074", "A6669", "A8904", "A6202", "A6203", "A0968", "A7103","A7106", "A6103", "A7112", "A8798", "A8909", "A9886", "A6201", "A6115", "A3058", "A3078", "A2217",
+            // 教育金
+            "A9978", "A2218", "A7113", //"A6104",
+            // 活钱管理
+            "A9973", "A0956", "A0951", "A2233", "A9878", "A8812", "A8995", "A6116", "A8907", "A0954", "A9981", "A0063", "A7999", "A7105", "A7101", "A6101", "A6300", "A0970", "A0683", "A5998", "A9092", "A3084", "A9970", "A6301", "A9971", "A9877", "A9101", "A7110", "A7115", "A7100", "A9972", "A8011", "A9979", "A7888", "A9983", "A3086", "A9984", "A9976", "A0957", "A0958", "A9977", "A8905",
+            // 养老金
+            "A7114", "A6106", "A6107", "A6105",
+        ]
+
+        // 赋值展示数据groupListObj，只对应处理checked属性
+        for (let key in this.groupListObj) {
+            let item = this.groupListObj[key];
+            console.log('mounted item=', item);
+            for (let k in item) {
+                if(!item[k].groups) continue;   // k == checked的情况
+                let groups = item[k].groups.split('_');
+                // groups和mockData 两个数组取交集，如果交集不为空，则checked设置为true
+                if((new Set(groups.concat(this.mockData)).size < (groups.length + this.mockData.length) )){
+                    this.groupListObj[key][k].checked = true;
+                }
+            }
+        }
+
+        // 当前所在的全选checkbox状态，是否为选中，遍历判断
+        for (let key in this.groupListObj) {
+            let checkAllFlag = true;
+            for (p in this.groupListObj[key]) {
+                if(p =='checked') continue;
+                console.log('mounted ' + p + ' checkbox=', this.groupListObj[key][p].checked);
+                if(!this.groupListObj[key][p].checked){
+                    // 有一个checkbox没有选中，则全选checkbox也不选中
+                    console.log('有一个checkbox没有选中，则全选checkbox也不选中，退出遍历')
+                    checkAllFlag = false;
+                    break
+                }
+            }
+            console.log('mounted ' + key + ' checkAllFlag', checkAllFlag);
+            this.groupListObj[key].checked = checkAllFlag;
+        }
+
+        console.log('mounted this.groupListObj=', this.groupListObj);
+        
+    },
+    methods: {
+        // 全选按钮
+        checkAll($event, key){
+            return;
+            $event.preventDefault();
+            console.log('checkAll key=', key);
+
+            this.groupListObj[key].checked = !this.groupListObj[key].checked;
+
+            for (p in this.groupListObj[key]) {
+                this.groupListObj[key][p].checked = this.groupListObj[key].checked;
+            }
+
+        },
+        // 单个投顾
+        checkSingle($event, key, k){
+            $event.preventDefault();
+            console.log('checkSingle key=', key);
+            console.log('checkSingle k=', k);
+
+            this.groupListObj[key][k].checked = !this.groupListObj[key][k].checked;
+
+            // 当前所在的全选checkbox状态，是否为选中，遍历判断
+            let checkAllFlag = true;
+            for (p in this.groupListObj[key]) {
+                if(p =='checked') continue;
+                console.log('checkSingle ' + p + ' checkbox=', this.groupListObj[key][p].checked);
+                if(!this.groupListObj[key][p].checked){
+                    // 有一个checkbox没有选中，则全选checkbox也不选中
+                    console.log('有一个checkbox没有选中，则全选checkbox也不选中，退出遍历')
+                    checkAllFlag = false;
+                    break
+                }
+            }
+            this.groupListObj[key].checked = checkAllFlag;
+        },
+
+        // 准备选中的数据
+        prepareData() {
+            let tmpList = [];
+            for (const key in this.groupListObj) {
+                const item = this.groupListObj[key];
+                for (const k in item) {
+                    const checked = item[k].checked;
+                    const groups = item[k].groups;
+                    if(checked){
+                        tmpList = tmpList.concat(groups.split('_'));
+                    }
+                }
+            }
+            this.selectedData = tmpList;
+        },
+    },
+})
+</script>
+</body>
+</html>

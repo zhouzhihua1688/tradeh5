@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta charset="gbk">-->
+    <title></title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        }
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+                oHtml.style.fontSize = '17.06px';
+            }else if(screenWidth >= 750){
+                oHtml.style.fontSize = '40px';
+            }else{
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+            }
+        }
+        document.title="\u200E";
+    </script>
+    <style>
+    body{background:#fff}
+    .main{width:100%;}
+    .icon{width:80%;margin:0 auto;margin-top:1rem}
+    .icon div{width:2.75rem;height:3.0rem;background: url('img/icon.png') no-repeat;background-size: 100% 100%;}
+    .question{width:80%;color:#000;font-size:0.7rem;margin:0 auto;margin-top:1rem;text-align: justify;}
+    .biaoti{width:80%;color:#000;font-size:0.7rem;margin:0 auto;margin-top:1rem;text-align: justify;}
+    .new{width:80%;height:1.5rem;margin:0 auto;color:#fb5c5f;margin-top:2rem;}
+    .new a{padding:0 1rem;line-height:1.5rem;float:right;border:1px solid #fb5c5f;border-radius:1.25rem;text-align:center;font-size: 0.7rem}
+    .understand{width:80%;height:1.5rem;margin:0 auto;color:#fb5c5f;margin-top:0.75rem; margin-bottom: 4.5rem;}
+    .understand a{padding:0 1rem;line-height:1.5rem;float:right;border:1px solid #fb5c5f;border-radius:1.25rem;text-align:center;font-size: 0.7rem;}
+    .select_box {
+            width: 80%;
+            margin: 0 auto;
+            padding-top: 1rem;
+        }
+
+    .select_box .select_list {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        /* line-height: 2.5rem; */
+        padding: .75rem;
+        border-radius: 6px;
+        box-shadow:
+            0px -3px 3px #f5f5f5,  
+            3px 0px 3px #f5f5f5,
+            -3px 0px 3px #f5f5f5,
+            0px 3px 3px #f5f5f5;
+        margin-bottom: .75rem;
+    }
+
+    .select_box .select_list h4 {
+        font-size: .75rem;
+        color: #000;
+        font-weight: bold;
+    }
+    .select_box .select_list p{
+        font-size: .6rem;
+        color: #666;
+    }
+    .select_box .select_list i {
+        display: inline-block;
+        width: .75rem;
+        height: .75rem;
+        background: url(./img/choose_01.png) no-repeat;
+        background-size: 100% 100%;
+    }
+    .active {
+        background: url(./img/choose_02.png) no-repeat !important;
+        background-size: 100% 100% !important;
+    }
+    /* .footer {position: fixed;z-index: 1;} */
+    .next {
+        width: 80%;
+        height: 1.5rem;
+        margin: 0 auto;
+        color: #fb5c5f;
+        margin-top: 2rem;
+    }
+
+    .next a {
+        padding: 0 1rem;
+        line-height: 1.5rem;
+        float: right;
+        border: 1px solid #fb5c5f;
+        border-radius: 1.25rem;
+        text-align: center;
+        font-size: 0.7rem
+    }
+    </style>
+
+</head>
+<body>
+    <div class="main">
+        <div class="icon">
+            <div></div>
+        </div>
+        <div class="question">您想咨询哪笔钱呢？</div>
+        <div class="select_box">
+            <div class="select_list" data="1">
+                <div>
+                    <h4>零钱管理</h4>
+                    <!-- <p>1231231232133</p> -->
+                </div>
+                <i class="active"></i>
+            </div>
+            <div class="select_list" data="2">
+                <div>
+                    <h4>稳健理财</h4>
+                    <!-- <p>123saasd</p> -->
+                </div>
+                <i></i>
+            </div>
+            <div class="select_list" data="3">
+                
+                <div>
+                    <h4>长期投资</h4>
+                    <!-- <p>asdasdasdasd</p> -->
+                </div>
+                <i></i>
+            </div>
+            <div class="select_list" data="4">
+                <div>
+                    <h4>子女教育规划</h4>
+                    <!-- <p>qeqqweqweqwe</p> -->
+                </div>
+                <i></i>
+            </div>
+            <div class="select_list" data="5">
+                <div>
+                    <h4>个人养老计划</h4>
+                    <!-- <p>qweasd</p> -->
+                </div>
+                <i></i>
+            </div>
+        </div>
+        <div class="next"><a href="javascript:void(0);">选好了</a></div>
+    </div>
+    <!-- <div class="footer">
+        <a href="#"></a>
+    </div> -->
+    <script>    
+        var jumpUrl='./calculation_plan1.html';
+        $(".select_list").click(function () {
+            $(".select_list i").removeClass('active');
+            $(this).find('i').addClass('active');
+            data = $(this).attr('data');
+            switch (data) {
+                case '1':
+                    jumpUrl = './calculation_plan1.html';
+                    break;
+                case '2':
+                    jumpUrl = './calculation_plan2.html';
+                    break;
+                case '3':
+                    jumpUrl = './calculation_plan3.html';
+                    break;
+                case '4':
+                    jumpUrl = './calculation_plan4.html';
+                    break;
+                case '5':
+                    jumpUrl = './calculation_plan5.html';
+                    break;
+            }
+        })
+        $('.next a').click(function(){
+            window.location.href=jumpUrl;
+        })
+    </script>
+</body>
+</html>

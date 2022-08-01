@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>尽职调查</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/userInfo/base.css">
+    <link rel="stylesheet" href="../css/mobiscroll.custom-3.0.0-beta6.min.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+        .mask{width:100%;height:100%;position: absolute;top:0;left: 0;bottom:0;background: rgba(0, 0, 0, .7);display: none;z-index: 5;}
+        .animated {-webkit-animation-duration: 500ms; animation-duration: 500ms; -webkit-animation-fill-mode: both; animation-fill-mode: both; }
+        .layer { display: none;background-color: #ffffff;width: 100%; position: fixed; top: 0; left:0; overflow: auto;z-index: 10; }
+        .slideInUp .complete{border-bottom: 1px #efefef solid;height:2.6rem; line-height:2.6rem; font-size: 0.7rem; padding:0 0.75rem; color:#148ce6; position:relative; top:0px; }
+        .slideInUp .complete a:nth-of-type(1){float:left;}
+        .slideInUp .complete a:nth-of-type(2){float:right;}
+        @keyframes slideInDown{
+            0%{opacity:0;-webkit-transform:translateY(-000px);-ms-transform:translateY(-2000px);transform:translateY(-2000px)}
+            100%{-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}}
+
+        @keyframes slideInUp{
+            0%{opacity:0;-webkit-transform:translateY(100%);-ms-transform:translateY(100%);transform:translateY(100%)}
+            100%{-webkit-transform:translateY(75%);-ms-transform:translateY(75%);transform:translateY(75%)}}
+        .slideInDown{-webkit-animation-name:slideInDown;animation-name:slideInDown}
+        .slideInUp{-webkit-animation-name:slideInUp;animation-name:slideInUp;}
+        .slideInUp .giftlist .title{height:2.5rem;width:100%;text-align:center;line-height: 2.5rem;font-size: .7rem;color:#000;}
+        .slideInUp .giftlist a .title{height:2.5rem;width:100%;text-align:center;line-height: 2.5rem;font-size: .7rem;color:#000;border:1px solid #eee;}
+        .slideInUp .giftlist ul {overflow-y: auto;padding-bottom: 2.5rem;}
+        .slideInUp .giftlist ul li{height:2rem;line-height: 2rem;text-align: center;padding: 0 .75rem;font-size: .6rem;overflow: hidden; border-bottom: 1px #efefef solid;}
+        .slideInUp .giftlist ul li span{display: inline-block;color:#666;}
+        .slideInUp .giftlist ul li .circle{width: .8rem; height: .8rem; vertical-align: middle; border-radius: 50%; margin-top: .8rem; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -o-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; }
+
+        /*弹框1*/
+        .Bomb-box,.Bomb-box1,.Bomb-box2{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+        .Bomb-box .Bomb-box-main,.Bomb-box1 .Bomb-box-main,.Bomb-box2 .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+        .Bomb-box .Bomb-box-tips,.Bomb-box1 .Bomb-box-tips{  text-align: center;  color: #333;  font-size: 0.75rem;  height: 2.5rem;  line-height: 2.5rem;  }
+        .Bomb-box .Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem;  }
+        .Bomb-box .Bomb-box-content p,.Bomb-box1 .Bomb-box-content p,.Bomb-box2 .Bomb-box-content p{  line-height: 1rem;  }
+        .Bomb-box .Bomb-box-ok,.Bomb-box1 .Bomb-box-ok,.Bomb-box2 .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+        .Bomb-box .no-tips,.Bomb-box1 .no-tips,.Bomb-box2 .no-tips{font-size: 0.7rem;padding: 1.7rem 1.5rem 1.15rem 1.5rem;text-align: center;}
+        .Bomb-box .text-center,.Bomb-box1 .text-center,.Bomb-box2 .text-center{text-align: center;}
+        .Bomb-box .Bomb-box-content,
+        .Bomb-box1 .Bomb-box-content,
+        .Bomb-box2 .Bomb-box-content{ padding:.75rem 1.5rem; }
+
+        /*选择颜色变化*/
+        input[type="text"],
+        input[type="password"],
+        input[type="number"],
+        input[type="email"],
+        input[type="tel"],
+        textarea {color: #000000;}
+        input{width:50%; text-align: right;}
+        .gap{height: 1rem;}
+        .panel-title{padding-left: .75rem; padding-right: .75rem; font-size: .65rem;}
+
+        .content_1 li i {width: 1rem;height: 1rem;background: url(../images/unselected.png) no-repeat;-webkit-background-size: contain;background-size: contain;margin-right: .6rem;vertical-align: middle;display: inline-block;}
+        .content_1 li .span_txt {vertical-align: middle;display: inline-block; }
+        .content_1 li.current i {background-image: url(../images/selected.png);border-radius: 50%;}
+        .title_p {display: block; -webkit-margin-before: 1em;-webkit-margin-after: 1em;-webkit-margin-start: 0px;-webkit-margin-end: 0px; }
+
+        .info_top{padding: .5rem;color:#666666;}
+        .info_section{padding: 0 .64rem;margin-bottom:.64rem;background:#fff;}
+        .info_text{position:relative;padding: .60rem 0;color:#000;display: flex;display: -webkit-flex;}
+        .info_text_card p{flex:3;-webkit-flex:3;color:#666666;}
+        .info_text span{flex: 1;-webkit-flex:1;}
+        .info_text .flex{flex: 1;-webkit-flex:1;position: relative;margin-right: .7rem;}
+        .info_text input{flex:3;-webkit-flex:3;}
+        .info_text2 input{flex:2;-webkit-flex:2;}
+        .info_text3 input{flex:2;-webkit-flex:2;}
+        .img_code span{display: flex;display: -webkit-flex;align-items: center;-webkit-align-items: center;}
+        .img_code{padding:.20rem 0;}
+        .info_text select{flex:3;-webkit-flex:3;}
+        .info_text .veriCode{flex:3!important;-webkit-flex:3!important;display: flex;display: -webkit-flex;}
+        .info_text .veriCode input{flex:1!important;-webkit-flex:1!important;width:69%;}
+        .info_text a{border-left: 1px solid #999;padding-left:.60rem;width: 31%;text-align: center;}
+
+        .survey_textLeft{text-align: left;flex: 2; -webkit-flex: 2;text-indent: 1.4rem}
+        .survey_textLeft p:nth-of-type(-n+2){margin-bottom: 1rem;}
+        .survey_textLeft .selected{ background: url('../images/selected.png') no-repeat left center; background-size: contain; }
+        .survey_textLeft p{background: url('../images/unselected.png') no-repeat left center; background-size: contain;}
+        .grid-list-1 {padding: 0 0.75rem; height: auto; box-sizing: border-box; width: 77%; background-color: #fff; }
+        .row-1{margin: 0 0 .75rem 0;}
+        .add, .del{height: 2.5rem;line-height: 2.5rem;color: #0070fa;text-align: center; vertical-align: middle;width: 100%;padding-left: .75rem;padding-right: .75rem;}
+    </style>
+</head>
+
+<body>
+    <section class="content_1">
+        <div class="panel-title">
+            <p class="title_p">您好！根据《非居民金融账户涉税信息尽职调查管理方法》的相关需求，需要您配合完成以下调查，谢谢您的配合。</p>
+        </div>
+        <div class="info_section">
+            <div class="info_text ">
+                <span>本人声明为:</span>
+                <ul class="grid-list-1 taxResident" style="padding:0 0 0 .75rem ">
+                    <li class="li-sex current">
+                        <div class="row-1">
+                            <p><i></i><span class="span_txt">仅是中国税收居民</span></p>
+                        </div>
+                    </li>
+                    <li class="li-sex">
+                        <div class="row-1">
+                            <p><i></i><span class="span_txt">不是中国税收居民</span></p>
+                        </div>
+                    </li>
+                    <li class="li-sex">
+                        <div class="row-1">
+                            <p><i></i><span class="span_txt">不仅是中国税收居民</span></p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        </ul>
+    </section>
+    <section class="content_2" style="display: none;">
+        <div class="panel-title">
+            <p class="title_p">如选择“不是或不仅是中国税收居民”，需填写以下信息：</p>
+        </div>
+        <ul class="grid-list" style="padding:0 0 0 .75rem ">
+            <li class="grid-list-item heigth-100">
+                <div class="row">
+                    <div class="flex">
+                        <p>出生日期<span class="red">*</span></p>
+                        <input type="text" class="controller-birth-date" placeholder="请选择出生日期"/>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                        <a class=" iconi icon-arrow-right"></a>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 li-country">
+                <div class="row">
+                    <div class="flex">
+                        <p>出生地<span class="red">*</span></p>
+                        <input type="text" class="controller-country" placeholder="请选择出生地"/>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                        <a class=" iconi icon-arrow-right"></a>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100 li-province">
+                <div class="row">
+                    <div class="flex">
+                        <p></p>
+                        <input type="text" class="controller-province" placeholder="请选择所在地区"/>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                        <a class=" iconi icon-arrow-right"></a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <div class="gap"></div>
+    <section class="content_3" style="display: none;">
+        <ul class="grid-list" style="padding:0 0 0 .75rem ">
+            <li class="grid-list-item heigth-100 li-tax-country">
+                <div class="row">
+                    <div class="flex">
+                        <p>税收居民国(地区)<span class="red">*</span></p>
+                        <input type="text" class="controller-tax-country" placeholder="请选择税收居民国(地区)"/>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                        <a class=" iconi icon-arrow-right"></a>
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100">
+                <div class="row">
+                    <div class="flex">
+                        <p>纳税人识别号</p>
+                        <input type="text" class="controller-tax-number" placeholder="请输入纳税人识别号"/>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                        <!--<a class=" iconi icon-arrow-right"></a>-->
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100">
+                <div class="row">
+                    <div class="flex">
+                        <p>不能提供纳税人识别号的原因</p>
+                        <input type="text" style="width: 30%;" class="controller-tax-remark" placeholder="请输入原因"/>
+                    </div>
+                    <div class="lh-100 margin-r75">
+                        <!--<a class=" iconi icon-arrow-right"></a>-->
+                    </div>
+                </div>
+            </li>
+            <li class="grid-list-item heigth-100">
+                <div class="row">
+                    <span class="add">添加</span>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <div>
+            <button class="btn-orange" id="btn-submit">提交</button>
+        </div>
+    </section>
+    <div class="gap"></div>
+
+
+    <div class="mask"></div>
+    <!-- 提示弹窗 -->
+    <div class="Bomb-box" style="display: none;">
+        <div class="Bomb-box-main">
+            <div class="Bomb-box-content">
+                <p class="text-center"></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;">确定</a>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/lib/mobiscroll.custom-3.0.0-beta6.min.js"></script>
+    <script type="text/javascript" src='../js/lib/nations.js'> </script>
+    <script type="text/javascript" src='../js/lib/city.js'> </script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script type="text/javascript" src="../js/userInfo/dueDiligence.js"></script>
+</body>
+
+</html>

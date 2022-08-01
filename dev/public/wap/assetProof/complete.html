@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <script src="js/rem.js"></script>
+        <link rel="stylesheet" href="css/common.css">
+    </head>
+    <body>
+    <header>
+    </header>
+    <div class="content">
+        <div class="proof">
+            <div class="success_icon"></div>
+            <div class="proof_txt">资产证明申请已受理！</div>
+        </div>
+        <p class="remind">尊敬的客户，您的资产证明申请已受理，我们会在<span class="orange_txt">3个交易日</span>内处理，并通过<span class="orange_txt">短信或电话</span>方式通知您办理结果。</p>
+        <p class="remind">请保持号码畅通，有任何问题，<br/>
+请拨打免费客服热线：<span class="orange_txt">400-888-9918</span>。</p>
+        <button onclick="onClose()">完成</button>
+    </div>
+	<script type="text/javascript">
+	function onClose(){
+		if (typeof WeixinJSBridge != "undefined"){
+		    WeixinJSBridge.invoke('closeWindow',{},function(res){
+		        //alert(res.err_msg);
+		    });	
+		} else {
+            window.location.href = "/mobileEC/wap/wezhan/service.html";
+        }
+	}
+	</script>
+    </body>
+</html>

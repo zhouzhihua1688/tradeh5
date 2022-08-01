@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta charset="gbk">-->
+    <title>投顾测算</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/localStorage.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: #fff
+        }
+
+        .main {
+            width: 100%;
+        }
+
+        .icon {
+            width: 80%;
+            margin: 0 auto;
+            margin-top: 1rem
+        }
+
+        .icon div {
+            width: 2.75rem;
+            height: 3.0rem;
+            background: url('img/icon.png') no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .question {
+            width: 80%;
+            color: #000;
+            font-size: 0.7rem;
+            margin: 0 auto;
+            margin-top: 1rem;
+            text-align: justify;
+            font-weight: bold
+        }
+
+        .biaoti {
+            width: 80%;
+            color: #000;
+            font-size: 0.7rem;
+            margin: 0 auto;
+            margin-top: 0.75rem;
+            text-align: justify;
+        }
+
+        .first_text {
+            height: 1rem;
+            position: absolute;
+            left: 0;
+            bottom: -0.05rem;
+            z-index: 20
+        }
+
+        .red_text {
+            width: 2.75rem;
+            height: 0.15rem;
+            background: #ffd8b2;
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            bottom: 0.25rem;
+            z-index: 10
+        }
+
+        .next {
+            width: 80%;
+            height: 1.5rem;
+            margin: 0 auto;
+            margin-top: 1.5rem;
+        }
+
+        .next a {
+            padding: 0 1rem;
+            line-height: 1.5rem;
+            float: right;
+            border-radius: 1.25rem;
+            text-align: center;
+            font-size: 0.7rem;
+            border: 1px solid #999;
+            color: #999;
+        }
+
+        .active {
+            border: 1px solid #fb5c5f !important;
+            color: #fb5c5f !important;
+        }
+
+        .input_box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            border-bottom: 1px #eee solid;
+            line-height: 2.5rem;
+            margin: 0 auto;
+        }
+
+        .input_box input {
+            width: 90%;
+            height: 2.5rem;
+            font-size: 1rem;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .input_box span {
+            color: #000;
+            font-size: .7rem;
+            margin-top: .2rem;
+        }
+
+        .mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .7);
+            z-index: 10;
+        }
+
+        .answer {
+            position: absolute;
+            top: 50%;
+            margin-top: -3.125rem;
+            left: 50%;
+            margin-left: -7.5rem;
+            width: 15rem;
+            height: 6.25rem;
+            background-color: #fff;
+            border-radius: 0.15rem;
+            z-index: 20;
+        }
+
+        .answer .answer_text {
+            margin: 0.75rem;
+            height: 3.75rem;
+            border-bottom: 1px #eee solid;
+            line-height: 3.75rem;
+            text-align: center;
+            color: #666666;
+        }
+
+        .answer .close {
+            display: block;
+            height: 1.5rem;
+            line-height: 1rem;
+            color: #0070fa;
+            text-align: center;
+        }
+
+        input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+            color: #999;
+            font-size: .7rem;
+            font-weight: normal;
+        }
+
+        input:-moz-placeholder, textarea:-moz-placeholder {
+            color: #999;
+            font-size: .7rem;
+            font-weight: normal;
+        }
+
+        input::-moz-placeholder, textarea::-moz-placeholder {
+            color: #999;
+            font-size: .7rem;
+            font-weight: normal;
+        }
+
+        input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+            color: #999;
+            font-size: .7rem;
+            font-weight: normal;
+        }
+    </style>
+
+</head>
+<body>
+<div class="main">
+    <div class="icon">
+        <div></div>
+    </div>
+    <div class="biaoti" style="font-weight: bold;position: relative;margin-top:1.5rem"><span
+            class="first_text">稳健理财</span><span class="red_text"></span></div>
+    <div class="biaoti" style="margin-top:2rem">我会尽最大努力帮您。我们一起做一个梳理。</div>
+    <div class="biaoti" style="margin-top:.7rem;margin-bottom: .5rem;">您的目标是什么？</div>
+    <div class="input_box">
+        <input type="text" placeholder="例如：买房、结婚等" id="planTarget"/>
+        <span></span>
+    </div>
+    <div class="biaoti" style="margin-top:1.5rem;margin-bottom: .5rem;">为了实现它，您需要多少钱？</div>
+    <div class="input_box">
+        <input type="number" placeholder="例如：200000；目标金额最少10000元" id="val1"/>
+        <span>元</span>
+    </div>
+    <div class="next"><a href="javascript:;" style="margin-bottom: 6rem;">填好了</a></div>
+</div>
+<div class="mask" style="display: none;">
+    <div class="answer">
+        <div class="answer_text">填写不正确</div>
+        <a class="close">确定</a>
+    </div>
+</div>
+<div class="footer">
+    <a href="#"></a>
+</div>
+</body>
+<script>
+    var model = getQueryVariable('model')
+    var isActive = false;
+    var value = $("#var11").val();
+    var planTarget = '';
+    $("#val1").on('input', function (e) {
+        var value = $(this).val();
+        if (value >= 10000) {
+            isActive = true;
+            $('.next a').addClass('active')
+        } else {
+            $('.next a').removeClass('active')
+            isActive = false;
+        }
+        setTimeout(function () {
+            $('.footer').show();
+        },2000)
+    })
+
+    $("#planTarget").on('input', function (e) {
+         planTarget = $("#planTarget ").val();
+        //document.querySelector('#planTarget').scrollIntoView();
+    })
+
+    $('.next a').click(function () {
+        var value1 = $("#val1").val();
+        if (!isActive) {
+           $('.mask').show();
+            return;
+        } else {
+            window.location = './calculation_select1.html?model=' + model + '&planTarget=' + encodeURI(encodeURI(planTarget))
+            return false
+        }
+    })
+    $('.close').click(function () {
+        $('.mask').hide();
+    })
+    $('.input_box').click(function () {
+        $('.footer').hide();
+    })
+</script>
+</html>

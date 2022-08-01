@@ -1,0 +1,81 @@
+.card-list .left{
+    width: 20%;
+}
+
+.card-list .right{
+    width: 75%;
+    text-align: left;
+}
+
+.dialog-area .dialog-text{
+    margin-left: 3%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.dialog-area .resend-text{
+    display: none;
+    margin-left: 10px;
+}
+
+.dialog-area .resend input[type="button"]{
+    padding: 3px;
+    margin-left: 10px;
+}
+
+.dialog-area .regcode-input{
+    margin-left: 3%;
+    width: 55%;
+}
+
+.dialog-area .regcode-input  input[type="text"]{
+    height: 3em;
+    width: 100%;
+    border: 1px #cccccc solid;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.resendbutton{
+    font-size: 14px;
+}
+/* add sunchanghong 20160504 begin */
+
+.reg1{
+	width:22%;
+}
+.note{
+	margin-left: 0px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	text-align: center;
+	font-size: 12px;
+}
+.note-reg-step3{
+	margin-left: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-size: 12px;
+}
+.note-none-top{
+	background-color: #ffffff;
+	border-top:none;
+    border-bottom: 1px #cccccc solid;
+    display:block;
+    height:45px;
+}
+.line{
+	width:100%;
+	margin-left:0px;
+	margin-top:0px;
+	border-bottom:1px #cccccc solid;
+}
+.note-none-bottom{
+	background-color: #ffffff;
+	border-bottom:none;
+	display:block;
+	/* padding-top:10px; */
+    border-top: 1px #cccccc solid;
+    height:45px;
+}
+/* add sunchanghong 20160504 end */

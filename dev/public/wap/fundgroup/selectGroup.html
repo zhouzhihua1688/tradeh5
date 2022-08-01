@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>选择转换组合</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/common.css">
+<script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+</script>
+<style>
+    body,html{background: #f6f6f6;}
+    body {left: 0%; right: 0%;font:14px 'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+    button { outline: none;  }
+      /* 图片自适应 */
+    img {
+          width: 100%;
+          height: auto;
+          width: auto\9; /* ie8 */
+          -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/
+          border: none;
+          vertical-align: top;
+          outline: none;
+          display: block;
+        }
+    p { word-wrap: break-word; text-align: justify; }
+    table { width: 100%;border-collapse:collapse; }
+    .main{width:100%;height:100%;}
+    .search{width:100%;height:100%;background:#fff;padding:0.5rem 0rem;}
+    .search .enter{width:17.25rem;height:1.5rem;background:#fff;position:relative;margin:0 auto;}
+    .search img{width:0.65rem;height:0.6rem;display: inline-block;position: absolute;top:0.5rem;left:0.75rem;}
+    .search input{width:17.25rem;height:1.5rem;text-indent:2.0rem;
+        background:#f6f6f6;border-radius: 50px;color:#999;font-size:0.65rem;border:none}
+    .head{width:100%;height:2.5rem;display:flex;justify-content:space-between;align-items: center;background: #fff;}
+    .head div{width:33%;height:2.5rem;line-height: 2.5rem;text-align:center;font-size:0.75rem;color:#000;}
+    /* .head div:nth-of-type(1){padding-left:0.75rem;}
+    .head div:nth-of-type(3){padding-right:0.75rem;} */
+    .head div.active{color:#fb5c5f;border-bottom:2px solid #fb5c5f;}
+    .typeName{width:100%;padding:0.85rem 0rem;background: #fff;}
+    .typeName .typeList{width:17.25rem;height:1.5rem;display:flex;justify-content:space-between;align-items: center;background: #fff;margin:0 auto;}
+    .typeName .typeList div{width:33%;height:1.5rem;border:1px solid red;line-height:1.5rem;text-align:center;font-size:0.75rem;color:#fb5c5f;}
+    .typeName .typeList div:nth-of-type(2){border-left:0px;border-right:0px;}
+    .typeName .typeList div:nth-of-type(3){border-right:0px;}
+    .typeName .typeList div.bgColor{background: #fee5e5;}
+    .typeFund{width:100%;height:2.5rem;display:flex;justify-content:space-between;align-items: center;} 
+    .typeFund div{padding:0rem 0.35rem;height:1.5rem;line-height: 1.5rem;text-align:center;background:#fff;border-radius:50px;font-size:0.7rem;color:#666;}
+    .typeFund div:nth-of-type(1){margin-left:0.75rem;}
+    .typeFund div:nth-of-type(4){margin-right:2.75rem;}
+    .typeFund div.typeColor{color:#fb5c5f;background: #fee5e5;}
+    .titleList{width:100%;height:1.75rem;display:flex;justify-content:space-between;align-items: center;background:#fff;border-bottom:1px solid #eee;}
+    .titleList div{font-size:0.65rem;color:#000;width:33%;}
+    .titleList div:nth-of-type(1){width:40%;margin-left:0.75rem;}
+    .titleList div:nth-of-type(2){text-align:left;}
+    .titleList div:nth-of-type(3){width:15%;text-align:right;}
+    .titleList div img{width:0.45rem;height:0.3rem;display: inline-block;vertical-align: middle;margin-left:0.25rem;}
+    .titleList div:nth-of-type(3){margin-right:0.75rem;text-align:right}
+    .fundList{width:100%;display:flex;justify-content:space-between;align-items: center;background: #fff;border-bottom:1px solid #efefef;padding:0.5rem 0rem;border-bottom:1px solid #eee;}
+    .fundList .one{width:40%;font-size: 0.65rem;color:#000}
+    .fundList .one img{width:1.225rem;height:1.225rem;}
+       /* .fundList .two{width:10%;} */
+    .fundList .one .left{padding-left:0.75rem;}
+    .fundList .one .hot{padding-left:0.75rem;}
+    .fundList .third{width:15%;color:#f4333c;font-size: 0.7rem;text-align:right}
+    .fundList .third.blue{color:#009944;}
+	.fundList .third.black{color:#000;}
+    .fundList .four{width:15%;height:1rem;color:#999;text-align:right;border-radius:3px;margin-right:0.75rem;line-height:1rem ;text-align: center;font-size:0.6rem;background:#fb5c5f;color:#fff;}
+    .hidden{display: none;}
+    .fundList .no{width:20%;height:1rem;color:#999;text-align:right;border-radius:3px;margin-right:0.5rem;line-height:1rem ;text-align: center;font-size:0.6rem;}
+    .fundList .no img{width:0.75rem;height:0.75rem;display: inline-block;vertical-align: middle;margin-left:0.2rem;margin-top:-0.1rem;}
+    .fundList .one .left span{width:2.5rem;height:0.75rem;background:#ffefef;
+          font-size: 0.6rem;display: inline-block;text-align:center;line-height:0.75rem;color:#fb5c5f;}
+		  
+		  
+        .layer { background-color: #ffffff; height: 100%; width: 100%; position: fixed; top: 0; left:0; overflow: auto; z-index: 10; }
+        .layer{z-index: 99; display: none;  position: absolute;  top: 0;  left: 0;  background-color: rgba(0,0,0,0.7);  height: 100%;width: 100%;  overflow: auto; position: fixed; top: -106%; left: 0; right: 0; bottom: 0; }
+        .slideInUp .giftlist .title{height:2rem;width:95%;text-align:left;
+        line-height: 2rem;font-size: .7rem;color:#000;
+        border-bottom: 1px solid #eee;}
+        .giftlist{position: absolute; bottom: 0; left: 0; background-color: #fff; width: 100%;}
+        .giftlist .time{width: 100%; height: 8rem; overflow-y: auto; text-indent: 0.75rem; }
+        .giftlist .time span{float:left;}
+        .giftlist .current i{background: url(../images/fundgroup/chose_time.png) no-repeat; background-size: 100%; width: 0.75rem; height: 0.75rem; display: inline-block; float: right; margin-top: 0.65rem; }
+		.giftlist i{background: url(../images/fundgroup/icon3.png) no-repeat; background-size: 100%; width: 0.75rem; height: 0.75rem; display: inline-block; float: right; margin-top: 0.65rem; }
+	
+</style>
+</head>
+<body>
+<div class="main">
+    <div class="search">
+        <div class="enter">
+           <img src="../images/fundgroup/search.png" alt="">
+           <input type="search" placeholder="组合名称/组合代码">
+        </div>
+    </div>
+    <div class="head">
+        <div class="active" data="0">可转</div>
+        <div data="1">持有</div>
+        <div data="2">自选</div>
+    </div>
+
+    <div class="titleList" style="margin-top:0.5rem">
+        <div>基金名称</div>
+        <div id="select">近3年收益率<img src="../images/fundgroup/sanjiao.png" alt=""></div>
+        <div>操作</div>
+    </div>
+	<div id="list">
+	</div>
+    
+	
+</div>
+
+<div class="mask"></div>
+<div class="layer animated slideInUp" id="myDate" style="display:none;">
+	<div class="giftlist">
+
+		<div class="time">
+		<div class="title">
+		<span data="1">近1年收益率</span>
+		<i></i>
+		</div>
+		<div class="title">
+		<span data="2">近2年收益率</span>
+		<i></i>
+		</div>
+		<div class="title current">
+		<span data="3">近3年收益率</span>
+		<i></i>
+		</div>
+		<div class="cls" style="text-align:center;padding-top:.5rem;color:#000">
+		取消
+		</div>
+		</div> 
+	</div>
+</div>
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script type="text/javascript" src="../js/common.js?20210302"></script>
+<script>
+var orderFileds = 3;
+var showType = 0;
+var groupId = App.getUrlParam("groupId");
+var balanceSerialNo = App.getUrlParam("balanceSerialNo");
+	$("#select").click(function(){
+		$("#list").hide();
+		$("#myDate").show();
+		$(".mask").show();
+	})
+// 时间选择
+	$("#myDate .title").click(function () {
+		$(this).addClass('current').siblings().removeClass('current');
+		$("#myDate").hide();
+		$(".mask").hide();
+		var choesData1=$(this).find('span').text();
+		orderFileds = $(this).find('span').attr("data")
+		$("#select").html(choesData1+'<img src="../images/fundgroup/sanjiao2.png" alt="">');
+		getGroupList(showType,orderFileds);
+		$("#list").show();
+		
+	});
+	$(".cls").click(function(){
+		$("#myDate").hide();
+		$(".mask").hide();
+		$("#list").show();
+	});
+$(function(){
+    $('.head div').click(function () {
+        if ($(this).hasClass("active")) {
+            return;
+        }
+        $(this).addClass("active").siblings().removeClass('active');
+		getGroupList($(this).attr("data"),orderFileds);
+    });
+    $('.typeList div').click(function () {
+        if ($(this).hasClass("bgColor")) {
+            return;
+        }
+        $(this).addClass("bgColor").siblings().removeClass('bgColor');
+    });
+    $('.typeFund div').click(function () {
+        if ($(this).hasClass("typeColor")) {
+            return;
+        }
+        $(this).addClass("typeColor").siblings().removeClass('typeColor');
+    });
+   getGroupList(showType,orderFileds);
+})
+
+
+
+
+function getGroupList(t,orderFileds){
+	var url = '/mobile-bff/v1/transfer/canTransferFundgroupCollection?type=' + t;
+    App.isLoading(true);
+    App.get(url, null, function(result){
+		App.isLoading(false);
+		if(result.returnCode == 0){
+			var lists = result.body;
+			var htm = '';
+			if(lists.length > 0){
+			
+				//存入到session里面
+				if(t == 0){
+					App.setSession("transin_group_list",lists);
+				}
+				
+				lists.forEach(function(item){
+					htm+='    <div class="fundList">'+
+						  '<div class="one">'+
+							'<div class="hot">'+item.groupName+'</div>'+
+							'<div class="left">'+item.groupId+' '+(item.tag == null ? '' : '<span>'+item.tag+'</span>')+'</div>'+
+						  '</div>';
+						  
+						  
+
+					
+					if(orderFileds == 3){
+						if(item.threeYearsReturn == "" || item.threeYearsReturn == null){
+							htm+= '<div class="third black">--</div>';
+						}else if(Number(item.threeYearsReturn) > 0){
+							htm+= '<div class="third">+'+Number(item.threeYearsReturn)+'%</div>';
+						}else{
+							htm+= '<div class="third blue">'+Number(item.threeYearsReturn)+'%</div>';
+						}
+					}else if(orderFileds == 2){
+						if(item.twoYearsReturn  == "" || item.twoYearsReturn  == null){
+							htm+= '<div class="third black">--</div>';
+						}else if(Number(item.twoYearsReturn ) > 0){
+							htm+= '<div class="third">+'+Number(item.twoYearsReturn )+'%</div>';
+						}else{
+							htm+= '<div class="third blue">'+Number(item.twoYearsReturn )+'%</div>';
+						}
+					}else if(orderFileds == 1){
+						if(item.yearReturn  == "" || item.yearReturn  == null){
+							htm+= '<div class="third black">--</div>';
+						}else if(Number(item.yearReturn ) > 0){
+							htm+= '<div class="third">+'+Number(item.yearReturn )+'%</div>';
+						}else{
+							htm+= '<div class="third blue">'+Number(item.yearReturn )+'%</div>';
+						}
+					}
+					
+					
+					if(item.canBePurchased != 'N'){
+						htm+=  '<div class="four"  data-id="'+item.groupId+'" data-name="'+item.groupName+'" data-isSupportCustomImport="'+item.isSupportCustomImport+'" >转入</div>';
+					}else{
+						htm+= ' <div class="no">暂不支持</div>';
+					}
+						htm+='</div>'; 
+				});
+			}
+			$("#list").html(htm);
+			$(".four").click(function(e){
+                var dataIsSupportCustomImport=$(this).attr('data-isSupportCustomImport');
+                var isSupportCustomImport=dataIsSupportCustomImport?dataIsSupportCustomImport.toLowerCase().trim():''
+				window.location.href = 'transfer.html?groupId='+groupId+'&balanceSerialNo='+balanceSerialNo+'&transferInPrdid='+$(this).attr('data-id')+'&isSupportCustomImport='+isSupportCustomImport;
+				App.setSession("transin_"+$(this).attr('data-id'),$(this).attr('data-name'));
+				e.stopPropagation();
+			});
+			$(".fundList").click(function(){
+				if($(this).children("div[class=four]").attr('data-id') == "A0081"){
+					window.location.href = 'group_fund_details_xjj.html?groupId='+$(this).children("div[class=four]").attr('data-id');
+				}else{
+					window.location.href = 'group_fund_details.html?groupId='+$(this).children("div[class=four]").attr('data-id');
+				}
+			});
+		}
+	});
+
+}
+$(".search").click(function(){
+	window.location.href = 'group_search.html?groupId='+groupId+'&balanceSerialNo='+balanceSerialNo;
+});
+</script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+</body>
+</html>

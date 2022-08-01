@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>到期处理方式</title>
+
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+	<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.base64.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/echarts.min.js"></script>
+	<script type="text/javascript" src = "https://static.99fund.com/mobile/wap-lib/js/basic.js"></script>
+	<script type="text/javascript" src="../wap/js/common.js?20210106"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        };
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        .container {
+            font-size: .75rem;
+            color: #000;
+            background-color: #fff;
+        }
+        .group{
+            display: flex;
+            justify-content: space-between;
+            margin-left: .75rem;
+            border-bottom: 1px #eee solid;
+        }
+        .group_fl p:nth-of-type(1){
+            margin-top: .7rem;
+            margin-bottom: .45rem;
+            font-size: .75rem;
+            line-height: .75rem;
+            color: #000;
+        }
+        .group_fl p:nth-of-type(2){
+           font-size: .6rem;
+           line-height: .85rem;
+           color: #666;
+           margin-bottom: .5rem;
+        }
+        .group_fr{
+            display: flex;
+            align-items: center;
+            padding: 0 .75rem 0 2.25rem;
+        }
+        .group_fr i{
+            display: inline-block;
+            width: .75rem;
+            height: .75rem;
+            background:url('./img/unchoose.png') no-repeat no-repeat;
+            background-size: 100% 100%;
+        }
+        .group_fr .active{
+            background:url('./img/choose.png') no-repeat no-repeat ;
+            background-size: 100% 100%;
+        }
+
+.mask{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.7);
+    z-index: 10;
+}
+.answer{
+    position: absolute;
+    top: 50%;
+    margin-top: -3.125rem;
+    left: 50%;
+    margin-left: -7.5rem;
+    width: 15rem;
+    height: 6.25rem;
+    background: #fff;
+    border-radius: 0.15rem;
+    z-index: 20;
+}
+.answer .answer_text{
+    margin: 0 .75rem;
+    height: 3.75rem;
+    border-bottom: 1px #eee solid;
+    line-height: 3.75rem;
+    text-align: center;
+    color:#666666;
+}
+.answer .close{
+    display: block;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    color:#0070fa;
+    text-align: center;
+}
+        .red_tip{
+            display: inline-block;
+            color: #fb5c60;
+            font-size: .65rem;
+            border-radius: 3px;
+            border: 1px #fb5c60 solid;
+            padding: .1rem;
+            margin-left: .5rem;
+        }
+       .mask2{
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,.7);
+            z-index: 10;
+        }
+        .mask2 .answer1{
+            position: absolute;
+            top: 50%;
+            margin-top: -3.125rem;
+            left: 50%;
+            margin-left: -7.5rem;
+            width: 15rem;
+            /* height: 6.25rem; */
+            background: #fff;
+            border-radius: 0.15rem;
+            word-wrap: break-word;
+            z-index: 20;
+        }
+        .mask2 .answer1 .answer_text1{
+            margin: 0 .75rem;
+            margin-top:.8rem;
+            /* height: 3.75rem; */
+            border-bottom: 1px #eee solid;
+            line-height: 1.5;
+            text-align: left;
+            color:#666666;
+            padding: .5rem 0;
+        }
+        .mask2 .answer1 .close{
+            float: left;
+            width: 50%;
+            height: 1.5rem;
+            box-sizing: border-box;
+            line-height: 1.5rem;
+            margin: .5rem 0;
+            color:#0070fa;
+            text-align: center;
+        }
+        .mask2 .answer1 .close:nth-child(1){
+            border-right: 1px #eee solid;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        
+    </div>
+    <div class="mask" style="display: none;">
+        <div class="answer">
+            <div class="answer_text" id="msg1">到期处理方式修改成功</div>
+            <a href="javascript:;" class="close" id="goto">确定</a>
+        </div>
+    </div>
+    
+    <div class="mask2" style="display: none;">
+        <div class="answer1">
+            <div class="answer_text1" id="msg2"></div>
+            <div style="box-sizing:border-box;overflow: hidden;">
+                <a href="javascript:;" class="close" id="btn_cal">取消</a>
+                <a href="javascript:;" class="close" id="btn_sure">确定</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    var version = WAP.getUrlParam("version");
+	var groupId = WAP.getUrlParam("groupId");
+	var balanceSerialNo = WAP.getUrlParam("balanceSerialNo");
+	var redeemType = WAP.getUrlParam("defaultType");
+	
+	var tp = '';
+    $(".group").click(function(){
+        $(".mask").show();
+        $(this).find('i').addClass('active');
+        $(this).siblings().find('i').removeClass('active')
+    })
+    $(".close").click(function () {
+        $(".mask").hide();
+        $(".mask2").hide();
+    });
+    showTypeList(redeemType);
+    function showTypeList(tp){
+        var url = "/mobile-bff/v1/fund-group/query-redeem-type?groupId="+groupId+ "&r=" + Math.random();
+        $.get(url, function(result){
+            var data = result;
+            if(data.returnCode == 0){
+            	var htm = '';
+                for(var k in data.body){
+                	var item = data.body[k];
+                	var cls='';
+                	if(item.redeemType == tp){
+                		cls = 'active';
+                	}
+                	var rec = '';
+                	if(WAP.isNotEmpty(item.title)){
+                	htm+='<div class="group " data="'+item.title+'：'+item.secondTitle+'" tp="'+item.redeemType+'">'
+					+'<div class="group_fl ">'
+					    +'<p>'+item.title+rec+'</p>'
+					    +'<p>'+item.secondTitle+'</p>'
+					+'</div>'
+					+'<div class="group_fr ">'
+					    +'<i class="'+cls+'"></i>'
+					+'</div>'
+					+'</div>';
+					}
+                }
+                $(".container").html(htm);
+			    $(".group").click(function(){
+			        $("#msg2").html($(this).attr("data"));
+			        $(this).find('i').addClass('active');
+			        $(this).siblings().find('i').removeClass('active');
+			        $(".mask2").show();
+					$("#btn_sure").attr("tp",$(this).attr("tp"));
+			    })
+            }
+        });
+    }
+    $("#btn_cal").click(function(){
+    	if(WAP.isNotEmpty(tp)){
+    		showTypeList(tp);
+    	}else{
+    		showTypeList(redeemType);
+    	}
+    });
+    $("#btn_sure").click(function(){
+    	setRedeemType(groupId,balanceSerialNo,$(this).attr("tp"));
+    });
+
+    function setRedeemType(groupId,balanceSerialNo,redeemTypes){
+        var url = "/mobile-bff/v1/fund-group/set-redeem-type-h5?groupId="+groupId+ "&balanceSerialNo=" + balanceSerialNo+ "&redeemType=" + redeemTypes;
+        $.get(url, function(result){
+        	var data = result;
+        	if(data.returnCode == 0){
+        		if(data.body == true){
+        			$("#msg1").html("到期处理方式修改成功");
+        			$(".mask").show();
+        			tp = redeemTypes;
+        			showTypeList(tp);
+        		}else{
+        			showTypeList(redeemType);
+        		}
+        	}else{
+        		$("#msg1").html(data.returnMsg);
+        		$(".mask").show();
+        		showTypeList(redeemType);
+        	}
+        });
+    	
+    }
+
+     function checkAdroid(){
+         var u = navigator.userAgent;
+         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+         if(isAndroid){
+             handler.goBack(true);
+         } else {
+             window.location.href = "http://www.99fund.com?pageforward=1";
+         }
+     };
+    $("#goto").click(function(){
+		
+		if(Number(version) >= 6.2){
+			checkAdroid();
+		}else{
+			window.location.href = "htffundxjb://action?type=hm";
+		}
+    	
+    })
+</script>
+</html>

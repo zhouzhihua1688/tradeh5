@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--<meta charset="GBK">-->
+    <meta charset="utf8">
+    <title>领取成功</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/wezhan/base_wezhan.css">
+    <link rel="stylesheet" type="text/css" href="../css/wezhan/result.css">
+    <link rel="stylesheet" type="text/css" href="../css/base.css">
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+
+<body style="background:#fff">
+<div class="main">
+    <div class="head">
+        <div class="icon">
+             <div class="number" id="debit"><span style="font-size:0.9rem">元</span></div>
+             <div class="text">恭喜您红包领取成功</div>
+             <div class="text2"><a href="javascript:;">请在现金宝账户查看</a></div>
+        </div>
+    </div>
+    <div class="finish"><a href="redEnvelopes.html">完成</a></div>
+</div>
+	<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+	<script src="../js/common.js?20210302" type="text/javascript"></script>
+	<script type="text/javascript" src="../js/wezhan/wezhan.js"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript">
+	    $(function(){
+		    function getUrlParam (key) {
+		        var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)", "i");
+		        var r = window.location.search.substr(1).match(reg);
+		        if (r != null) {
+		            return unescape(r[2]);
+		        }
+		        return "";
+		    };
+		    var val = getUrlParam("debit");
+		    var ai = getUrlParam("ai");
+		    if(val == null || val == undefined || val == ""){
+			    $(".p1").hide();
+		    }
+		    
+		    $("#debit").html(val+'<span style="font-size:0.9rem">元</span>');
+		    if(val.length > 5){
+		    	$("#debit").addClass("m3");
+		    }
+	    });
+    </script>
+</body>
+
+</html>

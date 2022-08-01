@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>话题详情</title>
+    <link rel="stylesheet" href="../base/css/base.css">
+    <link rel="stylesheet" href="../base/css/common.css">
+    <link rel="stylesheet" href="./css/mint.css">
+    <link rel="stylesheet" href="./css/swiper-4.2.2.min.css">
+    <link rel="stylesheet" href="./css/neplayer.min.css">
+    <link rel="stylesheet" href="./css/topicDetail.css">
+    <link rel="stylesheet" href="./css/vote.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+    <style>
+        .select .second .pro_left.border{border-right:none;border-radius:50px}
+        .select .second .pro_left.hide{display: none;}
+        .select .second .pro_right.hide{display: none;}
+    </style>
+</head>
+
+<body>
+    <div id="app" style="overflow:scroll;height:100vh">
+        <div class="topBanner" :style="">
+            <div class="info">
+                <div class="infoTitle"></div>
+            </div>
+            <div class="info" style="padding-top: 0px;">
+                <div class="infoLeft">
+                    <div class="infoDesc"></div>
+                </div>
+                <div class="shareDiv" v-show='isShare'> 
+                    <a :href="'shareAct?eventCode=COMMUNITY_TOPIC_FX&eventId=' + topicId " class="share">分享</a>
+                </div>
+                <div class="follow" id="follow"> </div>
+            </div>
+
+            <div class="content" id="all" style="display: none;">
+            </div>
+            <div class="content" id="min">
+
+            </div>
+            <div class="videos" style="padding: 0 .75rem .5rem .75rem" v-if="bannerVideoInfo">
+                <!-- 视频 -->
+                <div class="video_box" style="width:100%;position:relative;"
+                    :style="bannerVideoInfo.isLive==='0'?'padding-bottom:56.25%;height:0':'height:auto'">
+                    <template v-if="bannerVideoInfo.isLive==='0'">
+                        <!-- <video width="100%" height="100%" controls controlslist="nodownload" :poster="bannerVideoInfo.picture" style="position: absolute;top:0;left: 0;width: 100%;height: 100%" @play="bannerPlayer" data-index="-1">
+                            <source :src="bannerVideoInfo.url" type="video/mp4">
+                            <p>浏览器不支持视频</p>
+                        </video> -->
+                        <video id="my-video" class="video-js vjs-big-play-centered vjs-fluid" x-webkit-airplay="allow"
+                            webkit-playsinline playsinline x5-video-player-type="h5" x5-video-player-fullscreen="true"
+                            x5-video-orientation="landscape|portrait" controls :poster="bannerVideoInfo.picture"
+                            :data-index="-1" data-setup="{}">
+                            <source :src="bannerVideoInfo.url" type="video/mp4" />
+                        </video>
+                    </template>
+                    <!-- <template v-else>
+                        <a href="javascript:;" style="display: block;" @click="openPage(bannerVideoInfo.url)">
+                            <img :src="bannerVideoInfo.picture" alt="" style="display: block;width: 100%;">
+                        </a>
+                    </template> -->
+                    <template v-else-if="bannerVideoInfo.isLive==='2'">
+                        <!-- 小鹅直播 -->
+                        <a href="javascript:;" style="display: block;" @click="openPage(bannerVideoInfo)">
+                            <img :src="bannerVideoInfo.picture" alt="" style="display: block;width: 100%;">
+                        </a>
+                    </template>
+                    <template v-else>
+                         <!-- bannerVideoInfo.isLive==='4' 火山直播 -->
+                        <a href="javascript:;" style="display: block;" @click="openPage2(bannerVideoInfo)">
+                            <img :src="bannerVideoInfo.picture" alt="" style="display: block;width: 100%;">
+                        </a>
+                    </template>
+                </div>
+            </div>
+        </div>
+        <!-- Swiper -->
+        <div class="swiper-container detail-swiper" id="swip1" style="display: none;">
+            <div class="swiper-wrapper detail-wrapper"></div>
+
+        </div>
+
+        <div class="noChoice" style="background: #fff;padding-top:0.75rem;padding-bottom:0.5rem">
+            <!--<template v-for="(item,index) in msgAllData">-->
+                <!--<template v-if="item.voteInfo.questions[0].options.length<3">-->
+                    <div id="choiceText" style="display: none">
+                        <span style="width:0.2rem;height:0.75rem;display: inline-block;background:#fb5c5f;margin:0;border-radius: 0 3px 3px 0;position: relative;top: 0.2rem;"></span>
+                        <span style="position: relative;top:-0.75rem;margin-left:0.75rem;margin-right:0.5rem;margin-top:-0.15rem;display: inline-block;font-size:0.75rem;font-weight: bold;color:#000;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical"
+                              id="surveyTitle"></span>
+                        <div style="margin-left:0.85rem;margin-top:-0.75rem;display:block;clear:both;font-size:0.6rem;font-weight: bold;color:#666;padding-top:0.75rem;padding-right: 0.75rem;text-align:justify" id="surveyDesc"></div>
+
+                    </div>
+                    <div class="vote vote_noChoice head_vote" style="padding:0.5rem 0rem;z-index:99;background: #fff;display: none">
+                        <div class="first">
+                            <span class="buy vote_buy" @click="voteBuy2(1)"></span>
+                        </div>
+                        <div class="vs"></div>
+                        <div class="second">
+                            <span class="nobuy vote_nobuy" @click="voteBuy2(2)"></span>
+                        </div>
+                    </div>
+                <!--</template>-->
+                <!--<template v-else>-->
+                    <!--多个问答单选-->
+                    <div class="moreSelect" id="no_moreSelect" style="margin-top: 0.75rem;margin:0 auto">
+                        <div id="choiceTextMore" style="display: none">
+                            <span style="width:0.2rem;height:0.75rem;display: inline-block;background:#fb5c5f;margin:0;border-radius: 0 3px 3px 0;float:left"></span>
+                            <span style="margin-left:0.75rem;margin-right:0.5rem;position: relative;bottom: 0.15rem;display: inline-block;font-size:0.75rem;font-weight: bold;color:#000;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical"
+                                  id="noSurveyTitle"></span>
+                            <div style="margin-left:0.85rem;margin-top:-0.15rem;display:block;clear:both;font-size:0.6rem;font-weight: bold;color:#666;padding-top:0.5rem;padding-right: 0.75rem;text-align:justify" id="noSurveyDesc"></div>
+
+                        </div>
+                        <template v-for="(item,index) in msgAllData">
+                            <template v-if="item.voteInfo&&item.voteInfo.questions">
+                                <template   v-for="(questionItem, questionIndex) in item.voteInfo.questions">
+                                    <!--判断是不是多选一单选questionType=='1' 未选-->
+                                    <template v-if="item.voteInfo.questions[0].questionType=='1'">
+                                       <span v-for="(itemOp,indexOp) in questionItem.options"
+                                             @click="moreSelect(item,questionItem,itemOp,indexOp)"
+                                             v-if="item.voteInfo&&item.voteInfo.complete==false">
+                                            <div class="list">
+                                                <div class="tiao one red">
+                                                </div>
+                                                <div class="text" v-text="itemOp.optionName" style="text-align: center;width: 100%;position:absolute;top:0;left:0;margin:0"></div>
+                                                <!--<div class="tick">-->
+                                                <!--<span></span>-->
+                                                <!--<span></span>-->
+                                                <!--</div>-->
+                                            </div>
+                                       </span>
+                                    </template>
+                                    <!--多选questionType=='2'-->
+                                    <template v-else>
+                                         <span v-for="(itemOp,indexOp) in questionItem.options"  @click="muchSelect2(item,questionItem,itemOp,indexOp)" v-if="item.voteInfo&&item.voteInfo.complete==false">
+                                             <!--:class="moreActiveIndex == indexOp ? 'moreActive' : ''" -->
+                                             <!--:class="{'moreActive':spanIndex.indexOf(index)>-1}"-->
+                                             <div class="list" :class="{'moreActive':moreActiveIndex.indexOf(itemOp)!=-1}">
+                                                <div class="tiao one red">
+                                                </div>
+                                                <div class="text" v-text="itemOp.optionName" style="text-align: center;width: 100%;position:absolute;top:0;left:0;margin:0"></div>
+                                                 <!--<div class="tick">-->
+                                                 <!--<span></span>-->
+                                                 <!--<span></span>-->
+                                                 <!--</div>-->
+                                            </div>
+                                         </span>
+                                        <div class="confirm" @click="confirm2(item,questionItem)" :class="{confirmActive:item.active}">投票</div>
+                                    </template>
+                                </template>
+                            </template>
+                            
+                        </template>
+                    </div>
+                <!--</template>-->
+            <!--</template>-->
+        </div>
+
+        <div class="choice" style="background: #fff;padding-bottom: 0.75rem">
+            <div class="choiceVote vote_choice" style="display:none;background: #fff" @click="choiceVote()">
+                <div class="selectTip" style="margin-top:0.75rem">
+                    <div class="active choiceOne"></div>
+                    <div class="choiceTwo"></div>
+                </div>
+                <div class="select">
+                    <div class="first first_left"></div>
+                    <div class="second">
+                        <div class="left pro_left"></div>
+                        <div class="right pro_right"></div>
+                    </div>
+                    <div class="four four_right"></div>
+                </div>
+            </div>
+
+            <div class="moreSelect" @click="showTips()" id="moreSelect" style="margin-top: 0.75rem;margin:0 auto;">
+                <div id="moreSelectText" style="display: none">
+                    <span style="width:0.2rem;height:0.75rem;display: inline-block;background:#fb5c5f;margin:0;border-radius: 0 3px 3px 0;float:left;"></span>
+                    <span style="margin-left:0.75rem;margin-right:0.5rem;position: relative;bottom: 0.15rem;display: inline-block;font-size:0.75rem;font-weight: bold;color:#000;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical" id="moreSelectTitle"></span>
+                    <div style="margin-left:0.85rem;margin-top:-0.15rem;display:block;clear:both;font-size:0.6rem;font-weight: bold;color:#666;padding-top:0.65rem;padding-right: 0.75rem;text-align:justify" id="moreSurveyDesc"></div>
+                </div>
+                <template v-for="(item,index) in msgAllData">
+                    <template v-if="item.voteInfo&&item.voteInfo.questions">
+                        <template  v-for="(questionItem, questionIndex) in item.voteInfo.questions">
+                            <!--判断是不是多选一单选 questionType=='1' 已选结果-->
+                            <template v-if="item.voteInfo.questions[0].questionType=='1'">
+                                <span v-for="(itemOp,indexOp) in questionItem.options" v-if="item.voteInfo&&item.voteInfo.complete==true">
+                                    <!--给选中的加class:moreActive-->
+                                    <div class="list" :class="{moreActive:item.voteInfo.optionStats[indexOp].optionId==item.voteInfo.answerDetails[0].optionId}">
+                                        <div class="tiao one grey" :style="{width: item.voteInfo.optionStats[indexOp].fenshu + '%'}" :class="{red:item.voteInfo.optionStats[indexOp].optionId==item.voteInfo.answerDetails[0].optionId}">
+                                        </div>
+                                        <div class="tick">
+                                            <span v-text="item.voteInfo.optionStats[indexOp].optionId==item.voteInfo.answerDetails[0].optionId?item.voteInfo.optionStats[indexOp].optionName+'  ✓':item.voteInfo.optionStats[indexOp].optionName"></span>
+                                            <span v-text="percent(item.voteInfo.optionStats[indexOp].fenshu)"></span>
+                                        </div>
+                                        <!--<div class="text" v-text="itemOp.optionName" v-if="item.voteInfo.answerDetails!=null"></div>-->
+    
+                                    </div>
+                               </span>
+                            </template>
+                            <!--是多选多已选结果-->
+                            <template v-else>
+                                   <span v-for="(itemOp,indexOp) in questionItem.options" v-if="item.voteInfo&&item.voteInfo.complete==true">
+                                    <!--给选中的加class:moreActive-->
+                                        <div class="list" :class="{moreActive:item.voteInfo.optionStats[indexOp].active}">
+                                            <div class="tiao one grey" :style="{width: item.voteInfo.optionStats[indexOp].fenshu + '%'}" :class="{red:item.voteInfo.optionStats[indexOp].active}">
+                                            </div>
+                                            <div class="tick">
+                                                <span v-text="item.voteInfo.optionStats[indexOp].active?item.voteInfo.optionStats[indexOp].optionName+'  ✓':item.voteInfo.optionStats[indexOp].optionName"></span>
+                                                <span v-text="percent(item.voteInfo.optionStats[indexOp].fenshu)"></span>
+                                            </div>
+                                            <!--<div class="text" v-text="itemOp.optionName" v-if="item.voteInfo.answerDetails!=null"></div>-->
+                                        </div>
+                                   </span>
+                                <div class="confirm confirmActive">已投票</div>
+                            </template>
+                        </template>
+                    </template>
+                    
+
+                </template>
+            </div>
+        </div>
+
+        <!-- 底部弹窗 -->
+        <div class="pop">
+            <div class="layer0 slideInUp" id="layer0" style="display: none;">
+                <div style="position: fixed;bottom:0px;display: block;width:17.25rem;padding:0 0.75rem">
+                    <div class="giftlist giftlist0">
+                        <a href="javascript:;" @click="cancelVote2()">
+                            <div class="noTips">取消投票</div>
+                        </a>
+                    </div>
+                    <div class="close" @click="close()">
+                        <a href="javascript:;" style="color:#0070fa;font-size:0.75rem">取消</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pop">
+            <div class="layer0 slideInUp" id="showTips" style="display: none;">
+                <div style="position: fixed;bottom:0px;display: block;width:17.25rem;padding:0 0.75rem">
+                    <div class="giftlist giftlist0">
+                        <a href="javascript:;" @click="cancelVote2()">
+                            <div class="noTips">取消投票</div>
+                        </a>
+                    </div>
+                    <div class="close" @click="close()">
+                        <a href="javascript:;" style="color:#0070fa;font-size:0.75rem">取消</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <post :url='postUrl' ref="post"></post>
+    </div>
+    <script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+    <script type="text/javascript" src="../base/js/lib/swiper-4.2.2.min.js"></script>
+    <script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+    <script src="./js/moment.min.js"></script>
+    <script src="./js/mint.js"></script>
+    <script src="./js/neplayer.min.js"></script>
+    <!-- <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script> -->
+    <script src="./components/post2.js"></script>
+    <script src="./js/wxShare.js"></script>
+
+    <script>
+
+        if (utils.getUrlParam('topicId') && utils.isWeixin()) {
+            wxShare('COMMUNITY_TOPIC_FX', utils.getUrlParam('topicId'));
+        }
+
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    msgAllData: [],
+                    userInfo: '',
+                    // allLoaded: false,
+                    popupVisible: false,
+                    // share
+                    isShare: false,
+                    topicId:'',
+                    userAgent: navigator.userAgent,
+                    // 上拉加载
+                    pageSize: 10,
+                    pageNum: 1,
+                    postUrl: '/sfs/api/v1/post/topic?topicId=' + utils.getUrlParam('topicId'),
+                    bannerVideoInfo: null,
+                    optionId:'',
+                    optionId2:"",
+                    surveyId:'',
+                    questionId:'',
+                    surveySceneCode:'',
+                    moreActiveIndex:[],   //用于添加样式用
+                    arrOptionId:[],
+                }
+            },
+            mounted: function () {
+                this.isShare=isApp()?true:false;  
+
+                $("#follow").click(function () {
+                    var txt = $(this).html();
+                    var data = {};
+                    data.itemId = utils.getUrlParam('topicId');
+                    data.status = $("#follow").attr('data');
+                    utils.post('/sfs/api/v1/follow/topic', JSON.stringify(data), function (res) {
+                        if (res.returnCode == 0) {
+                            if (txt != '已关注') {
+                                $("#follow").attr('data', 0);
+                                $("#follow").html('已关注');
+                            } else {
+                                $("#follow").attr('data', 1);
+                                $("#follow").html('+关注');
+                            }
+                        }
+                    });
+
+
+                });
+                if (this.topicId) {
+                    this.showDetail(this.topicId);
+                }
+
+            },
+            created() {
+                // this.getMsgList(true);
+                var topicId = utils.getUrlParam('topicId');
+                this.topicId = topicId;
+            },
+            methods: {
+                // openPage(url) {
+                //     if (isApp()) {
+                //         window.location.href = 'htffundxjb://action?type=media&subType=liveXE&link=' + btoa(url);
+                //     } else {
+                //         window.location.href = url
+                //     }
+                // },
+                openPage(videoInfo) {
+                    // 小鹅直播
+                    if (isApp()) {
+                        // IOS两个都支持，安卓只支持传videoId
+                        // window.location.href = 'htffundxjb://action?type=media&subType=liveXE&link=' + btoa(videoInfo.url);
+                        window.location.href = 'htffundxjb://action?type=media&subType=liveXE&videoId=' + videoInfo.videoId;
+                    } else {
+                        window.location.href = videoInfo.shareLinkUrl;
+                    }
+                },
+                openPage2(videoInfo) {
+                    // 火山直播
+                    if (isApp()) {
+                        // window.location.href = 'htffundxjb://action?type=media&subType=volcengine&activityId=XXX&isPortrait=1';
+                        window.location.href = videoInfo.url;
+                    } else {
+                        window.location.href = videoInfo.shareLinkUrl;
+                    }
+                },
+                showDetail(topicId) {
+                    var that = this;
+                    utils.get('/sfs/api/v1/topic/' + topicId, null, function (res) {
+                        var body = res.body;
+                        if (body) {
+                            $(".infoTitle").html(body.name);
+                            $(".infoDesc").html('讨论' + body.postCount);
+                            $(".content").html(body.content);
+                            if (body.icon) {
+                                $(".topBanner").css({ 'background': 'url(' + body.icon + ') no-repeat', 'background-size': '100% 100%' });
+                            }
+                            $("#all").each(function () {
+                                var text = $(this).text();
+                                $(this).html($(this).html() + "<a href='javascript:;' class='down' style='padding-left:.5rem;color:#fff;float:right'> 收起 ↑</a>");//如果字数超过最大字数，超出部分用...代替，并且在后面加上点击展开的链接；
+
+                                $(this).find("a").click(function () {
+                                    $("#all").hide();
+                                    $("#min").show();
+                                })
+
+                            })
+                            $("#min").each(function () {
+
+                                var maxwidth = 72;//设置最多显示的字数
+                                var text = $(this).text();
+                                if ($(this).text().length > maxwidth) {
+                                    $(this).text($(this).text().substring(0, maxwidth));
+                                    $(this).html($(this).html() + "..." + "<a href='javascript:;' class='down' style='padding-left:.5rem;color:#fff;float:right'> 更多>></a>");//如果字数超过最大字数，超出部分用...代替，并且在后面加上点击展开的链接；
+
+                                };
+                                $(this).find("a").click(function () {
+                                    $("#min").hide();
+                                    $("#all").show();
+                                })
+
+                            })
+                            if (body.follow) {
+                                $("#follow").attr('data', 0);
+                                $("#follow").html('已关注');
+                            } else {
+                                $("#follow").attr('data', 1);
+                                $("#follow").html('+关注');
+                            }
+                            //卡片列表
+                            if (body.cardList && body.cardList.length > 0) {
+                                $("#swip1").show();
+                                var cardList = body.cardList;
+                                var htm = '';
+                                cardList.forEach(function (item, index) {
+                                    htm += '<div class="swiper-slide detail" data="' + (isApp() ? item.appUrl : item.wapUrl) + '" style="background-image:url(' + item.icon + ')">'
+                                    htm += '<div class="items title">' + item.title + '</div>'
+                                    htm += '<div class="items summary">' + item.summary + '</div>'
+                                    htm += '</div>';
+                                });
+                                $(".detail-wrapper").html(htm);
+                                var swiper = new Swiper('#swip1', {
+                                    slidesPerView: 'auto',
+                                    freeMode : true,//是否滑动
+                                });
+                                $(".detail").click(function () {
+                                    if (isApp()) {
+                                        if ($(this).attr("data").slice(0, 13) == 'htffundxjb://') {
+                                            window.location.href = $(this).attr("data");
+                                        } else {
+                                            window.location.href = 'htffundxjb://action?type=url&link=' + btoa($(this).attr("data"));
+                                        }
+                                    } else {
+                                        window.location.href = $(this).attr("data");
+                                    }
+                                });
+                            } else {
+                                $("#swip1").hide();
+                            }
+                            if (body.videoInfo) {
+                                that.bannerVideoInfo = body.videoInfo;
+                            }
+
+                            var data=[];
+                            data.push(res.body);
+                            that.msgAllData=data;
+
+                            console.log( that.msgAllData);
+
+                            for(var i=0; i<that.msgAllData.length;i++){
+
+                                if(that.msgAllData[i].voteInfo!=null){
+
+                                    if(that.msgAllData[i].voteInfo.complete==true){
+
+
+                                        // var sortData = function (data){
+
+                                        // return data.voteInfo.optionStats.sort((a,b) => {
+                                        //     return a.optionId - b.optionId
+                                        //
+                                        // })
+
+
+
+                                        var num= that.msgAllData[i].voteInfo.optionStats[0].optionCount+that.msgAllData[i].voteInfo.optionStats[1].optionCount;
+
+                                        var percent1=that.msgAllData[i].voteInfo.optionStats[0].optionCount/num*100;
+                                        var percent2=that.msgAllData[i].voteInfo.optionStats[1].optionCount/num*100;
+
+                                        for(var j in that.msgAllData[i].voteInfo.optionStats){
+                                            that.msgAllData[i].voteInfo.optionStats.map(function(item){
+                                                return item.fenshu="";
+                                            })
+
+                                            that.msgAllData[i].voteInfo.optionStats[0].fenshu=percent1;
+                                            that.msgAllData[i].voteInfo.optionStats[1].fenshu=percent2;
+                                        }
+                                        that.msgAllData[i].voteInfo.optionStats.sort((a,b) => {
+                                            return a.optionId - b.optionId
+
+                                        })
+                                    }
+                                }
+                            }
+                            console.log(that.msgAllData);
+                            console.log(body);
+                            if (body.voteInfo!=null) {
+                                if (body.voteInfo.questions[0].options.length<3) {
+
+                                    $("#no_moreSelect").hide();  //当只有A,B选择，隐藏A,B,C,D的多个节点
+                                    $("#moreSelect").hide();  //隐藏
+                                    $("#choiceText").show();  //显示
+                                    $("#choiceTextMore").hide();  //当有投票数据-隐藏未投票的文案
+                                    $("#moreSelectText").hide();  //当有投票数据-隐藏有投票的文案
+
+                                    if (body.voteInfo.complete == false) {
+                                        $(".vote_noChoice").show();  //展示未投票节点
+                                        $(".vote_choice").hide();    //隐藏投票节点
+
+                                        // $(".noChoice").html(noStr);
+
+                                        var oP = that.msgAllData[0].voteInfo.questions[0];
+                                        console.log(oP)
+                                        $(".vote_buy").html(oP.options[0].optionName);
+                                        $(".vote_nobuy").html(oP.options[1].optionName);
+
+                                        if (body.voteInfo.surveyTitle) {
+                                            // $("#surveyTitle").html(body.voteInfo.surveyTitle.substr(0, 20));
+                                            $("#surveyTitle").html(body.voteInfo.surveyTitle);
+                                            // $("#surveyDesc").html(body.voteInfo.surveyDesc);
+                                            if(body.voteInfo.surveyDesc.length>70){  //20220110增加超过一定数字...查看全部
+                                               $("#surveyDesc").html(body.voteInfo.surveyDesc.substr(0,70)+'<span style="color:#148ce6" class="showText">...查看全部</span>');
+                                            }else{
+                                               $("#surveyDesc").html(body.voteInfo.surveyDesc); 
+                                            }
+                                            $(".showText").click(function(){
+                                                $("#surveyDesc").html(body.voteInfo.surveyDesc); 
+                                            })
+                                        } else {
+                                            $("#surveyTitle").html("");
+                                            $("#choiceText").hide();
+                                        }
+
+
+                                        that.optionId = oP.options[0].optionId;
+
+                                        that.optionId2 = oP.options[1].optionId;
+
+                                        that.surveyId = body.voteId;
+
+                                        that.questionId = that.msgAllData[0].voteInfo.questions[0].questionId;
+                                        that.surveySceneCode = that.msgAllData[0].voteInfo.surveySceneCode
+
+                                    } else {
+                                        var oP2 = that.msgAllData[0].voteInfo.questions[0];
+                                        console.log(oP2)
+                                        $(".vote_noChoice").hide();
+                                        $(".vote_choice").show();
+
+                                        that.optionId = oP2.options[0].optionId;
+
+                                        that.optionId2 = oP2.options[1].optionId;
+
+                                        that.surveyId = body.voteId;
+
+
+                                        if (body.voteInfo.surveyTitle) {
+                                            // $("#surveyTitle").html(body.voteInfo.surveyTitle.substr(0, 20));
+                                            $("#surveyTitle").html(body.voteInfo.surveyTitle);
+                                            // $("#surveyDesc").html(body.voteInfo.surveyDesc);
+                                            if(body.voteInfo.surveyDesc.length>70){  //20220110增加超过一定数字...查看全部
+                                               $("#surveyDesc").html(body.voteInfo.surveyDesc.substr(0,70)+'<span style="color:#148ce6" class="showText">...查看全部</span>');
+                                            }else{
+                                               $("#surveyDesc").html(body.voteInfo.surveyDesc); 
+                                            }
+                                            $(".showText").click(function(){
+                                                $("#surveyDesc").html(body.voteInfo.surveyDesc); 
+                                            })
+                                        } else {
+                                            $("#surveyTitle").html("");
+                                            $("#choiceText").hide();
+                                        }
+
+                                        that.questionId = that.msgAllData[0].voteInfo.questions[0].questionId;
+                                        that.surveySceneCode = that.msgAllData[0].voteInfo.surveySceneCode
+
+                                        $(".choiceOne").text(oP2.options[0].optionName);
+                                        $(".choiceTwo").text(oP2.options[1].optionName);
+
+
+                                        var optionStats = that.msgAllData[0].voteInfo.optionStats;         //投票数据
+
+                                        var voteList = that.msgAllData[0].voteInfo.questions[0];
+                                        var choiceOne = voteList.options[0].optionId;
+                                        var choiceTwo = voteList.options[1].optionId;
+
+                                        var prices = optionStats.reduce((p, e) => p + e.optionCount, 0); //数组值相加求百分比用
+                                        for (var j = 0; j < optionStats.length; j++) {
+                                            if (choiceOne == optionStats[j].optionId) {
+                                                var left = (optionStats[j].optionCount / prices * 100).toFixed(1);
+                                                $(".choice .select .first_left").text(left + '%');   //左边数据
+                                                // that.add(left, "");
+                                            }
+
+                                            if (choiceTwo == optionStats[j].optionId) {
+                                                var right = (optionStats[j].optionCount / prices * 100).toFixed(1);
+                                                $(".choice .select .four_right").text(right + '%');  //右边数据
+                                                // that.add("", right);
+                                            }
+                                            // alert(left,right);
+                                            that.add(left, right);
+                                        }
+
+
+                                        var answerDetails = body.voteInfo.answerDetails;         //点击投票的是哪一个数据
+
+                                        for (var m = 0; m < answerDetails.length; m++) {
+                                            if (voteList.options[0].optionName === answerDetails[m].optionName) {
+                                                $(".choice .choiceOne").text('已选 [' + answerDetails[m].optionName + '] ✓');
+                                                $(".choiceVote .choiceTwo").text(voteList.options[1].optionName)
+                                            }
+
+                                            if (voteList.options[1].optionName === answerDetails[m].optionName) {
+                                                $(".choiceVote .choiceTwo").text('已选 [' + answerDetails[m].optionName + '] ✓');
+                                                $(".choiceVote .choiceOne").text(voteList.options[0].optionName);
+                                            }
+                                        }
+                                        // }
+
+                                    }
+                                }else{   //如果是配置的A,B,C,D多个选择一个
+                                    $(".noChoice .head_vote").hide(); //隐藏A,B   2选一节点
+                                    $("#choiceText").hide();     //隐藏标题节点
+                                    that.surveyId = body.voteInfo.surveyId;
+                                    // $("#noSurveyTitle").text(body.voteInfo.surveyTitle.substr(0,20));  //未投票标题
+                                    $("#noSurveyTitle").text(body.voteInfo.surveyTitle);  //未投票标题
+                                    // $("#noSurveyDesc").html(body.voteInfo.surveyDesc);   //未投票标题描述
+
+                                    if(body.voteInfo.surveyDesc.length>70){  //20220110增加超过一定数字...查看全部
+                                       $("#noSurveyDesc").html(body.voteInfo.surveyDesc.substr(0,70)+'<span style="color:#148ce6" class="showText">...查看全部</span>');
+                                    }else{
+                                       $("#noSurveyDesc").html(body.voteInfo.surveyDesc); 
+                                    }
+                                    $(".showText").click(function(){
+                                        $("#noSurveyDesc").html(body.voteInfo.surveyDesc); 
+                                    })
+
+                                    // $("#moreSelectTitle").text(body.voteInfo.surveyTitle.substr(0,20)); //已经投票标题
+                                    $("#moreSelectTitle").text(body.voteInfo.surveyTitle); //已经投票标题
+                                    // $("#moreSurveyDesc").html(body.voteInfo.surveyDesc);   //已投票标题描述
+                                    if(body.voteInfo.surveyDesc.length>70){  //20220110增加超过一定数字...查看全部
+                                        $("#moreSurveyDesc").html(body.voteInfo.surveyDesc.substr(0,70)+'<span style="color:#148ce6" class="showText">...查看全部</span>');
+                                    }else{
+                                        $("#moreSurveyDesc").html(body.voteInfo.surveyDesc); 
+                                    }
+                                    $(".showText").click(function(){
+                                        $("#moreSurveyDesc").html(body.voteInfo.surveyDesc); 
+                                        return false;  //阻止冒泡影响父级事件
+                                    })
+                                    if (that.msgAllData[0].voteInfo.optionStats) {  //当有投票数据-下面代码取投票的数据
+                                        $("#no_moreSelect").hide();   //当有投票数据-隐藏未投票节点
+                                        $("#choiceTextMore").hide();  //当有投票数据-隐藏未投票的文案
+                                        $("#moreSelect").show();
+                                        $("#moreSelectText").show();  //当有投票数据-展示有投票的文案
+                                        for (var i = 0; i < that.msgAllData.length; i++) {
+
+                                            that.msgAllData[i].voteInfo.optionStats.sort((a, b) => {
+                                                return a.optionId - b.optionId
+                                            })
+
+                                        }
+                                        console.log("排序好的", that.msgAllData);
+
+                                        // 求总和
+                                        for (var j = 0; j < that.msgAllData.length; j++) {
+                                            var sum = that.msgAllData[j].voteInfo.optionStats.reduce((pre, cur) => {
+                                                return pre + cur.optionCount
+                                            }, 0)
+                                        }
+
+                                        for (var m = 0; m < that.msgAllData.length; m++) {
+
+                                            for (var j in that.msgAllData[m].voteInfo.optionStats) {
+
+                                                that.msgAllData[m].voteInfo.optionStats[j].fenshu = that.msgAllData[m].voteInfo.optionStats[j].optionCount / sum * 100;
+
+                                                for(var k in that.msgAllData[m].voteInfo.answerDetails){  //用来给选中投票的添加样式判断 active字段
+
+                                                    if(that.msgAllData[m].voteInfo.optionStats[j].optionId==that.msgAllData[m].voteInfo.answerDetails[k].optionId){
+                                                        that.msgAllData[m].voteInfo.optionStats[j].active=true;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        console.log("添加比分====", this.msgAllData);
+                                    }else{
+                                        $("#moreSelect").hide();//当没有投票数据-隐藏投票节点
+                                        $("#moreSelectText").hide();  //当有投票数据-隐藏有投票的文案
+                                        $("#no_moreSelect").show();
+                                        $("#choiceTextMore").show();
+                                    }
+
+                                }
+
+
+                            }else{
+                                $(".vote_noChoice").hide();  
+                                $(".vote_choice").hide();
+                                $("#choiceText").hide();
+                                $("#no_moreSelect").hide();  //隐藏
+                                $("#moreSelect").hide();  //隐藏
+                                $("#choiceTextMore").hide();  //隐藏
+                                $("#moreSelectText").hide();  //当有投票数据-隐藏有投票的文案
+                            }
+
+                        }
+                    });
+                },
+                add:function(i,k){
+                    // var i=40;
+                    // var k=60;
+                    // var tbox =$(".bar");
+                    // var tiao =$(".tiao");
+                    // var progress =$(".progress");
+                    var second =$(".select .second");
+                    var left =$(".select .second .pro_left");
+                    var right =$(".select .second .pro_right");
+                    if(i>=100){
+                        left.css("width","100%");
+                        // $(".choice .select .four").text('0.0%');  //右边数据
+
+                        $(".select .second .pro_right").addClass("hide");
+
+                        // $(".select .second .pro_left").css({
+                        //     borderRight: 'none',
+                        //     borderRadius: '50px'
+                        // });
+                        $(".select .second .pro_left").addClass("border");
+
+                        // $(".vote .first .number").html("100%");
+                    }else{
+                        left.css("width",i+"%");
+                        $(".select .second .pro_left").removeClass("border");
+                        $(".select .second .pro_right").removeClass("hide");
+                        // $(".vote .first .number").html(i+"%")
+                    }
+                    if(k>=100){
+                        right.css("width","100%");
+                        // $(".choice .select .first").text(left+'%');   //左边数据
+
+                        $(".select .second .pro_left").addClass("hide");
+
+                        $(".select .second .pro_right").css({
+                            borderRight: 'none',
+                            borderRadius: '50px',
+                            marginLeft:'0.45rem'
+                        });
+                    }else{
+                        $(".select .second .pro_left").removeClass("hide");
+                        right.css("width",k+"%");
+                    }
+                },
+                // 左边投票按钮
+                voteBuy2:function(num){
+                    var _this=this;
+                    console.log("optionId",_this.optionId);
+                    console.log("surveyId",_this.surveyId);
+                    console.log("questionId",_this.questionId);
+
+                    if(num==1){
+                        var choiceId=_this.optionId;
+                    }else{
+                        var choiceId=_this.optionId2;
+                    }
+
+                    var params={};
+
+                    var answerVoList=[
+                        {
+                            "optionArray": [choiceId],
+                            "questionId":_this.questionId
+                        }
+                    ]
+                    params.answerVoList=answerVoList;
+                    params.branchCode="247";
+                    params.surveyId=_this.surveyId;
+                    params.surveySceneCode=_this.surveySceneCode;
+                    console.log(params)
+
+                    var topicId = utils.getUrlParam('topicId');
+                    _this.topicId = topicId;
+
+                    utils.ajax({
+                        url: "/caa/v1/survey/survey",
+                        type: 'POST',
+                        data: params,
+                        success: function (result) {
+                            if (result.returnCode === 0) {
+                                // window.location.reload()
+                                _this.showDetail(this.topicId);
+                            }
+                        }.bind(this)
+                    });
+
+                },
+
+                choiceVote:function(){
+                    $("#layer0").show();
+                },
+                showTips:function(){
+                    $("#showTips").show();
+                },
+                close:function(){
+                    $("#layer0").hide();
+                    $("#showTips").hide();
+                },
+                // 调取取消问卷接口
+                cancelVote2:function(){
+                    var _this=this;
+                    console.log(_this.surveyId);
+
+                    var topicId = utils.getUrlParam('topicId');
+                    _this.topicId = topicId;
+                    utils.ajax({
+                        url: "/caa/v1/survey/survey/cancel",
+                        type: 'POST',
+                        data:{
+                            surveyId:_this.surveyId,
+                            branchCode:'247'
+                        },
+                        success: function (result) {
+                            if (result.returnCode === 0) {
+                                $("#layer0").hide();
+                                $("#showTips").hide();
+                                _this.moreActiveIndex=[];   //把上次选中的索引样式清空
+                                // window.location.reload()
+                                _this.showDetail(this.topicId);
+
+
+                            }
+                        }.bind(this)
+                    });
+
+                },
+
+    // 这是多个投票回答(A,B,C,D)单选代码
+                moreSelect:function(item,questionItem,itemOp,indexOp){
+                    var _this=this;
+                    _this.voteInfoList=[];
+                    _this.questionsList=[];
+                    _this.optionsList=[];
+
+                    for (var i= 0; i<_this.msgAllData.length; i++) {
+                        if(_this.msgAllData[i].voteInfo){
+                            _this.voteInfoList.push(_this.msgAllData[i].voteInfo);
+                        }
+
+                    }
+                    for (var k= 0; k<this.voteInfoList.length; k++) {
+                        _this.questionsList=_this.questionsList.concat(_this.voteInfoList[k].questions);
+                    }
+
+
+                    for (var m=0;m<_this.questionsList.length;m++) {
+                        if(_this.questionsList[m].options.length>2){
+                            _this.optionsList=_this.optionsList.concat(_this.questionsList[m].options);
+                        }
+                    }
+
+
+                    console.log(_this.questionsList);
+                    console.log(_this.optionsList);
+
+                    this.$nextTick(function () {
+                        _this.optionsList.forEach(function (item) {
+
+                            Vue.set(item,'active',false);
+                        });
+                        Vue.set(itemOp,'active',true);
+
+                    });
+
+                    // 调取投票接口
+                    console.log("item",item);
+                    var optionId = questionItem.options[indexOp].optionId;
+                    var questionId = questionItem.questionId;
+                    var surveyId=item.voteInfo.surveyId;
+                    var surveySceneCode=item.voteInfo.surveySceneCode;
+
+                    console.log("optionId",optionId);
+                    console.log("questionId",questionId);
+                    console.log("surveyId",surveyId);
+                    console.log("surveySceneCode",surveySceneCode);
+
+                    var params={};
+                    var answerVoList=[
+                        {
+                            "optionArray": [optionId],
+                            "questionId":questionId
+                        }
+                    ]
+                    params.answerVoList=answerVoList;
+                    params.branchCode="247";
+                    params.surveyId=surveyId;
+                    params.surveySceneCode=surveySceneCode;
+                    console.log(params);
+                    var topicId = utils.getUrlParam('topicId');
+                    console.log("topicId",topicId);
+                    // 提交投票
+                    utils.ajax({
+                        url: "/caa/v1/survey/survey",
+                        type: 'POST',
+                        data: params,
+                        success: function (result) {
+                            if (result.returnCode === 0) {
+                                _this.showDetail(topicId);
+                            }
+                        }.bind(this)
+                    });
+                },
+                percent: function (fenshu) {
+                    return fenshu?fenshu.toFixed(1)+'%':'0%';
+                },
+
+            //这是多个投票回答(A,B,C,D)选择多个的代码-多选多
+                muchSelect2:function(item,questionItem,itemOp){
+                    var _this=this;
+                    // 这一步只是列表添加样式用
+                    if (this.moreActiveIndex.indexOf(itemOp) !== -1) {  //用于添加样式用
+                        this.moreActiveIndex.splice(this.moreActiveIndex.indexOf(itemOp), 1); //取消
+                        itemOp.check=false;      //用作取消用
+                    } else {
+                        this.moreActiveIndex.push(itemOp);//选中添加到数组里
+                        itemOp.check=true;     //用作选择用
+                    }
+                    // 添加或者取消按钮的样式
+                    if(item.active){
+                        if(this.moreActiveIndex==""){
+                            Vue.set(item,'active',false);//取消按钮的样式
+                        }
+                    }else{
+                        Vue.set(item,'active',true);// 添加按钮的样式
+                    }
+                    // this.$nextTick(function () {
+                    //     _this.optionsList.forEach(function (item) {
+                    //
+                    //         Vue.set(item,'active',false);
+                    //     });
+                    //     Vue.set(itemOp,'active',true);
+                    //
+                    // });
+
+                    // 调取投票接口
+                    // console.log("item",item);
+                    //
+                    // var arr=[];
+                    // var optionId=questionItem.options[indexOp].optionId;
+
+
+                    // let text=$(this).text();
+
+                    // let text = questionItem.options.optionId;
+                    // let ind = arr.indexOf(text);
+                    //
+                    // if (ind === -1) {
+                    //     arr.push(text);
+                    // }
+                    // else {
+                    //     arr.splice(ind, 1);
+                    // }
+
+                },
+                // 点击确认投票按钮
+                confirm2:function(item,questionItem){
+                    var _this=this;
+                    var arrOptionId=[];
+                    for (var i=0;i<questionItem.options.length;i++) {
+                        if(questionItem.options[i].check&&questionItem.options[i].check==true){
+                            arrOptionId.push(questionItem.options[i].optionId);    //拿到选择的OptionId
+                        }
+                    }
+
+                    if(arrOptionId==""){
+                        return false;
+                    }
+
+                    var questionId = questionItem.questionId;
+                    var surveyId=item.voteInfo.surveyId;
+                    var surveySceneCode=item.voteInfo.surveySceneCode;
+
+                    console.log("questionId",questionId);
+                    console.log("surveyId",surveyId);
+                    console.log("surveySceneCode",surveySceneCode);
+
+
+                    var params={};
+                    var answerVoList=[
+                        {
+                            "optionArray": arrOptionId,
+                            "questionId":questionId
+                        }
+                    ]
+                    params.answerVoList=answerVoList;
+                    params.branchCode="247";
+                    params.surveyId=surveyId;
+                    params.surveySceneCode=surveySceneCode;
+                    console.log(params);
+                    var topicId = utils.getUrlParam('topicId');
+                    console.log("topicId",topicId);
+                    // 提交投票
+                    utils.ajax({
+                        url: "/caa/v1/survey/survey",
+                        type: 'POST',
+                        data: params,
+                        success: function (result) {
+                            if (result.returnCode === 0) {
+
+                                _this.showDetail(topicId);
+                            }
+                        }.bind(this)
+                    });
+
+                },
+            },
+            updated() {
+                if (this.bannerVideoInfo && this.bannerVideoInfo.isLive == '0') {
+                    var myVideo = new neplayer('my-video');
+                    myVideo.on('playing', function () {
+                        var currentIndex = this.tagAttributes['data-index'];
+                        var allVideos = document.querySelectorAll('video');
+                        allVideos.forEach(function (item) {
+                            if (Number(item.getAttribute('data-index')) !== Number(currentIndex)) {
+                                item.pause();
+                            }
+                        })
+                    })
+                }
+            },
+        })
+
+        //app调用 获取发帖管理话题信息
+        function toAppItemInfo() {
+            // itemType:{topic:{type:'1',name:'话题'},post:{type:'2',name:'动态'},fund:{type:'3',name:'基金'},comment:{type:'4',name:'留言'},reply:{type:'5',name:'回复'},user:{type:'6',name:'用户'},activity:{type:'8',name:'活动'}},
+            var itemInfo = {
+                itemType: '1',  //话题
+                itemId: utils.getUrlParam('topicId'),
+                itemName: $(".infoTitle").html()
+            };
+            console.log('toAppInfo itemInfo', itemInfo);
+            return itemInfo;
+        }
+    </script>
+
+</body>
+
+</html>

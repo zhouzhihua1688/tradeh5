@@ -1,0 +1,83 @@
+.margin-b20{
+	margin-bottom: .5rem;
+}
+table{
+	width: 100%;
+	border: 1px solid #cccccc;
+	border-collapse: collapse;
+	color: #000;
+	font-size: 0.7rem;
+}
+table td{
+	border: 1px solid #cccccc;
+	line-height: 1.5;
+}
+table th{
+	border: 1px solid #cccccc;
+	background-color: #f6f6f6;
+	font-weight: normal;
+}
+.table-group{
+	margin-top: .5rem;
+	padding: .75rem;
+	background-color: #fff;
+}
+.table-group .title{
+	font-size: .75rem;
+	font-weight: bold;
+	padding-bottom: .75rem;
+	color: #000;
+}
+
+.table-group .tip{
+	margin-top: .5rem;
+	background-color: #f7fcff;
+	color: #666;
+	font-size: 0.6rem;
+	padding: .5rem .75rem;
+	line-height: 1.5;
+}
+.table-group .tip p{
+	margin-bottom: .25rem;
+}
+.table-group .tip i{
+	display: inline-block;
+	width: 0.6rem;
+	height: .6rem;
+	line-height: .6rem;
+	font-size: .5rem;
+	text-align: center;
+	border-radius: 0.25rem 0.25rem 0.25rem 0;
+	background-color: #148ce6;
+	color: #fff;
+	margin-right: 0.15rem;
+}
+.table-group .desc{
+	font-size: 0.7rem;
+	color: #000;
+	padding-bottom:.5rem;
+}
+.table1 tr td{
+	padding: .5rem;
+}
+.table1 tr td:nth-of-type(1){
+	width: 25%;
+	text-align: center;
+	white-space:nowrap
+}
+.table1 tr td:nth-of-type(2){
+	width: 75%;
+}
+.table2 tr td,.table2 tr th{
+	width: 50%;
+	text-align: center;
+}
+.table2 th{
+	height: 2rem;
+}
+.table2 tbody td{
+	height: 2.5rem;
+}
+.table2 tbody tr:nth-of-type(even){
+	background-color: #f6f6f6;
+}

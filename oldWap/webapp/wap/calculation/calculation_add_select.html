@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!--<meta charset="gbk">-->
+    <title>投顾测算</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/localStorage.js"></script>
+    <script type="text/javascript" src="js/common.js?20210106"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: #fff
+        }
+
+        .main {
+            width: 100%;
+        }
+
+        .icon {
+            width: 80%;
+            margin: 0 auto;
+            margin-top: 1rem
+        }
+
+        .icon div {
+            width: 2.75rem;
+            height: 3.0rem;
+            background: url('img/icon.png') no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .question {
+            width: 80%;
+            color: #000;
+            font-size: 0.7rem;
+            margin: 0 auto;
+            margin-top: 1rem;
+            text-align: justify;
+            font-weight: bold
+        }
+
+        .biaoti {
+            width: 80%;
+            color: #000;
+            font-size: 0.7rem;
+            margin: 0 auto;
+            margin-top: 0.75rem;
+            text-align: justify;
+        }
+
+        .first_text {
+            height: 1rem;
+            position: absolute;
+            left: 0;
+            bottom: -0.05rem;
+            z-index: 20
+        }
+
+        .red_text {
+            width: 2.75rem;
+            height: 0.15rem;
+            background: #b8dcf7;
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            bottom: 0.25rem;
+            z-index: 10
+        }
+
+        .next {
+            width: 80%;
+            height: 1.5rem;
+            margin: 0 auto;
+            color: #fb5c5f;
+            margin-top: 1.5rem;
+        }
+
+        .next a {
+            padding: 0 1rem;
+            line-height: 1.5rem;
+            float: right;
+            border: 1px solid #fb5c5f;
+            border-radius: 1.25rem;
+            text-align: center;
+            font-size: 0.7rem
+        }
+
+        .select_box {
+            width: 80%;
+            margin: 0 auto;
+            padding-top: 1rem;
+        }
+
+        .select_box .select_list {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            line-height: 2.5rem;
+            border-bottom: #eee 1px solid;
+        }
+
+        .select_box .select_list h4 {
+            font-size: .75rem;
+            color: #000;
+        }
+
+        .select_box .select_list i {
+            display: inline-block;
+            width: .75rem;
+            height: .75rem;
+            background: url(./img/choose_01.png) no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .active {
+            background: url(./img/choose_02.png) no-repeat !important;
+            background-size: 100% 100% !important;
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="main">
+    <div class="icon">
+        <div></div>
+    </div>
+    <div class="biaoti" style="margin-top:2rem">问题1：您能承受的最大亏损是多少？</div>
+    <div class="select_box select_box1">
+        <div class="select_list" data-quetion1="A">
+            <h4>A.0-10%</h4><i></i>
+        </div>
+        <div class="select_list" data-quetion1="B">
+            <h4>B.10%-20%</h4><i></i>
+        </div>
+        <div class="select_list" data-quetion1="C">
+            <h4>C.20%-30%</h4><i></i>
+        </div>
+        <div class="select_list" data-quetion1="D">
+            <h4>D.30%以上</h4><i></i>
+        </div>
+    </div>
+    <div class="biaoti" style="margin-top:.75rem">问题2：如果最大亏损真的发生了，您希望多久之内回本？</div>
+    <div class="select_box select_box2">
+        <div class="select_list" data-quetion2="A">
+            <h4>A.30天内</h4><i></i>
+        </div>
+        <div class="select_list" data-quetion2="B">
+            <h4>B.30天-45天</h4><i></i>
+        </div>
+        <div class="select_list" data-quetion2="C">
+            <h4>C.45天-60天</h4><i></i>
+        </div>
+        <div class="select_list" data-quetion2="D">
+            <h4>D.60天以上</h4><i></i>
+        </div>
+    </div>
+    <div class="biaoti" style="margin-top:.75rem">问题3：目标收益率是多少每年？</div>
+    <div class="select_box select_box3">
+        <div class="select_list" data-quetion3="A">
+            <h4>A.4%-6% 跑赢通胀</h4><i></i>
+        </div>
+        <div class="select_list" data-quetion3="B">
+            <h4>B.6%-8% 理财升级</h4><i></i>
+        </div>
+        <div class="select_list" data-quetion3="C">
+            <h4>C.8%-10% 小得盈满</h4><i></i>
+        </div>
+        <div class="select_list" data-quetion3="D">
+            <h4>D.10%以上 长期增值</h4><i></i>
+        </div>
+    </div>
+    <div class="biaoti" style="margin-top:.75rem">问题4：投资期限是多少年？</div>
+    <div class="select_box select_box4">
+        <div class="select_list" data-quetion4="A">
+            <h4>A.活钱管理，灵活取用</h4><i></i>
+        </div>
+        <div class="select_list" data-quetion4="B">
+            <h4>B.1-3年</h4><i></i>
+        </div>
+        <div class="select_list" data-quetion4="C">
+            <h4>C.3-5年</h4><i></i>
+        </div>
+        <div class="select_list" data-quetion4="D">
+            <h4>D.5年以上</h4><i></i>
+        </div>
+    </div>
+    <div class="next" id="next" style="margin-bottom: 6rem;"><a href="javascript:void(0);">填好了</a></div>
+</div>
+<div class="footer">
+    <a href="#"></a>
+</div>
+<script>
+    var quetion1, quetion2, quetion3, quetion4 = 'A';
+    var answerList = [];
+    $(".select_box1 .select_list").click(function () {
+        $(".select_box1 .select_list i").removeClass('active');
+        $(this).find('i').addClass('active');
+        quetion1 = $(this).attr('data-quetion1');
+    })
+    $(".select_box2 .select_list").click(function () {
+        $(".select_box2 .select_list i").removeClass('active');
+        $(this).find('i').addClass('active');
+        quetion2 = $(this).attr('data-quetion2');
+    })
+    $(".select_box3 .select_list").click(function () {
+        $(".select_box3 .select_list i").removeClass('active');
+        $(this).find('i').addClass('active');
+        quetion3 = $(this).attr('data-quetion3');
+    })
+    $(".select_box4 .select_list").click(function () {
+        $(".select_box4 .select_list i").removeClass('active');
+        $(this).find('i').addClass('active');
+        quetion4 = $(this).attr('data-quetion4');
+        if (quetion4 == 'A') {
+            $("#next a").attr('href', './calculation_third.html');
+        } else if (quetion4 == 'B') {
+            $("#next a").attr('href', './calculation_four.html');
+        } else {
+            $("#next a").attr('href', './calculation_five.html');
+        }
+    })
+</script>
+
+</body>
+
+</html>

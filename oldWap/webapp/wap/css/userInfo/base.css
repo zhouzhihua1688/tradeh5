@@ -1,0 +1,140 @@
+/* 初始化 */
+body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  margin: 0;  padding: 0;  border: none;  }
+body {  font: 14px 'Microsoft YaHei', Tahoma, Arial, sans-serif;  color: #666666;  background-color: #f6f6f6;  max-width: 750px;  margin: 0 auto;  }
+em, i {  font-style: normal;  }
+input,textarea{outline: none;}
+.clearfix:after {  content: "";  display: block;  visibility: hidden;  height: 0;  clear: both;  }
+.clearfix {  zoom: 1;  }
+a {  text-decoration: none;  color: inherit;  }
+a:hover {  text-decoration: none;  }
+ul, ol {  list-style: none;  }
+h1, h2, h3, h4, h5, h6 {  font-size: 100%;  font-weight: normal;  }
+.fl{float: left;}
+.fr{float: right;}
+select:focus{outline: none;}
+/*公共样式*/
+/*字体颜色*/
+.color-blue{
+    color: #148ce6;
+}
+
+/*右箭头*/
+.arrow-icon{
+    display: inline-block;
+    background: url(../../images/arrow.png) no-repeat;
+    background-size: 100%;
+    width: 0.4rem;
+    height: 0.75rem;
+    margin-right: 0.75rem;
+    margin-top: 1.25rem;
+}
+/*段落提示样式*/
+.section-tips{
+    color: #666;
+    font-size: 0.6rem;
+    padding: 0.5rem 0.75rem 0.5rem 0.75rem;
+}
+
+/*input样式*/
+.input-list{
+    width: 100%;
+    height: 2.5rem;
+    background-color: #fff;
+}
+/*label样式*/
+.label-style{
+    width: 3.875rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    margin-left: 0.75rem;
+    font-size: 0.7rem;
+    color: #000;
+}
+/*包裹input的div样式*/
+.input-box{
+    position: relative;
+    height: 2.5rem;
+    width: 13.375rem;
+}
+/*清空input图标*/
+.icon-close{
+    position: absolute;
+    display: inline-block;
+    background: url(../../images/error.png) no-repeat;
+    background-size: 100%;
+    width: 0.75rem;
+    height: 0.75rem;
+    right: 0;
+    top:0.9rem;
+}
+.input-style{
+    height: 1rem;
+    width: 13.375rem;
+    line-height: 1rem;
+    font-size: 0.7rem;
+    margin-top: 0.75rem;
+}
+
+/*input下划线*/
+.bottom-border{
+    border-bottom: solid 1px #eeeeee;
+}
+
+/*橘黄色按钮*/
+.btn-orange{
+    width: 92%;
+    height: 2.25rem;
+    background-color: #fb5c5f;
+    color: #fff;
+    font-size: 0.75rem;
+    text-align: center;
+    line-height: 2.25rem;
+    margin: 0 4% 0 4%;
+    border-radius: 0.2rem;
+    margin-top: 1.25rem;
+}
+
+/*勾选样式*/
+.rules p{padding-left: 0.75rem;position: relative;text-indent: 0.8rem;line-height: 1rem;font-size: 0.7rem;}
+.chose-icon{
+    width: 0.65rem;
+    height: 0.65rem;
+    display: inline-block;
+    background: url(../../images/chose.png) no-repeat;
+    background-size: 100%;
+}
+.rules p .current{
+    background: url(../../images/chose_y.png) no-repeat;
+    background-size: 100%;
+}
+.rules .chose-icon{
+    position: absolute;
+    left: 0.75rem;
+    top:0.2rem;
+}
+
+.grid-list{
+    width: 100%;
+    height: 3.25rem;
+    background-color: #fff;
+}
+
+.grid-list .flex{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;
+    -webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;
+    -webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;
+    -webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;
+}
+.grid-list .flex p{line-height: 2.5rem;font-size: .75rem;color:#000;margin-right: .75rem;}
+.margin-r75{margin-right: .75rem;}
+.grid-list .iconi{padding:0 0 0 .25rem !important;margin: -2px -6px 0 0 !important;
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    vertical-align: middle;
+}
+.grid-list li{border-bottom: 1px #efefef solid;}
+.grid-list li:last-child{border:none;}
+.list-group input:focus{text-align: left;}
+.list-group  li:first-child{border-bottom:1px #efefef solid;font-size: .75rem;color:#000;}
+.list-group  li:last-child{font-size: .7rem;color:#000;}
+/* E cardManage.html */

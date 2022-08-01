@@ -1,0 +1,327 @@
+html,
+body {
+    max-width: 750px;
+    background: #f6f6f6;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+i {
+    font-style: normal
+}
+
+#app>header {
+    width: 100%;
+    box-sizing: border-box;
+    padding: .5rem .75rem;
+    background-color: #fff;
+    margin-bottom: .5rem;
+}
+
+.search {
+    background: #f6f6f6;
+    overflow: hidden;
+    border-radius: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 1.5rem;
+}
+
+.search input {
+    background: #f6f6f6;
+    height: 1.5rem;
+    width: 70%;
+    flex-grow: 7;
+    flex-basis: 70%;
+    outline: none;
+    color: #333;
+    font-size: .6rem;
+}
+
+.search span {
+    display: inline-block;
+    width: 10%;
+    flex-grow: 1;
+    flex-basis: 10%;
+}
+
+.search span:first-of-type {
+    padding-left: 1rem;
+    /* height: .65rem; */
+}
+
+.search span:last-of-type {
+    box-sizing: border-box;
+    text-align: right;
+    padding-right: .5rem;
+    height: .9rem;
+}
+
+.search span:nth-last-child(2) {
+    box-sizing: border-box;
+    padding-left: .7rem;
+}
+
+.search span:last-of-type img {
+    height: .9rem;
+    width: .6rem;
+}
+
+.search span img {
+    width: .7rem;
+    height: .65rem;
+}
+
+nav .title {
+    background: #fff;
+    font-size: .75rem;
+    overflow: hidden;
+}
+
+nav .title div {
+    height: 2.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .title div h3 {
+    width: 50%;
+    /* height: 100%; */
+    line-height: 2.25rem;
+    flex-grow: 5;
+    flex-basis: 50%;
+    text-align: center;
+    transition: background .1s linear;
+}
+
+nav .title div h3:active {
+    background: #ccc;
+}
+
+nav .title div .active {
+    color: #fb5c5f;
+}
+
+nav .title .rod {
+    display: block;
+    width: 50%;
+    background-color: #fb5c5f;
+    height: 1px;
+    transition: margin-left .2s linear;
+}
+
+nav .label {
+    overflow-x: scroll;
+    white-space: nowrap;
+    scrollbar-width: none;
+    scrollbar-width: 0;
+    -ms-overflow-style: none;
+}
+
+nav .label::-webkit-scrollbar {
+    display: none;
+}
+
+nav .label span {
+    font-size: .6rem;
+    display: inline-block;
+    margin: .5rem 0 .5rem .75rem;
+    border-radius: 1rem;
+    padding: .3rem .6rem;
+    background: #fff;
+}
+
+nav .label .active {
+    background: #fee5e5;
+    color: #fb5c5f;
+}
+
+.content {
+    background-color: #fff;
+    position: absolute;
+    top: 7.65rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.content .fundTable {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    border: none;
+    text-align: center;
+    font-size: .65rem;
+    overflow: hidden;
+}
+
+.content .fundTable tr {
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: .5px solid #eeeeee;
+}
+
+.content .fundTable tr td,
+.content .fundTable tr th {
+    width: 33.33%;
+    flex-grow: 3.3;
+    flex-basis: 33.33%;
+    padding: .5rem .75rem;
+}
+
+.content .fundTable tr td:nth-of-type(2),
+.content .fundTable tr th:nth-of-type(2) {
+    background-color: #fafafa;
+}
+.content .fundTable tr td:nth-of-type(2) {
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content .fundTable tr td:first-of-type {
+    text-align: left;
+}
+
+.content .fundTable tr td:last-of-type {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content .fundTable .yieldType {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content .fundTable .yieldType img {
+    width: .45rem;
+    margin-left: .5rem;
+}
+
+.content .fundTable,
+.content .fundTable tbody {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+}
+
+.content .fundTable thead {
+    background: #fff;
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    left: 0;
+    right: 0;
+}
+
+.content .fundTable tbody {
+    z-index: 1;
+    box-sizing: border-box;
+    padding-top: 2rem;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    scrollbar-width: 0;
+    -ms-overflow-style: none;
+}
+
+
+.content .fundTable tbody::-webkit-scrollbar {
+    display: none;
+}
+
+.content .groupTable {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    border: none;
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+}
+
+.content .groupTable tr td {
+    border-bottom: .5px solid #eeeeee;
+    padding: .7rem 0 .95rem;
+}
+
+.content .groupTable tr td .groupNm {
+    font-size: .8rem;
+    font-weight: 900;
+    color: #000;
+    margin-bottom: .75rem;
+}
+
+.content .groupTable tr td div {
+    display: flex;
+    justify-content: start;
+}
+
+.content .groupTable tr td .gYield {
+    margin-right: 3.375rem;
+}
+
+.content .groupTable tr td .gYield span {
+    display: block;
+}
+
+.content .groupTable tr td .gYield span:first-of-type {
+    margin-bottom: .5rem;
+    font-size: 1.1rem;
+    font-weight: 900;
+}
+
+.content .groupTable tr td .gYield span:last-of-type {
+    font-size: .6rem;
+    color: #666666;
+}
+
+.content .groupTable .cent {
+    font-size: .7rem;
+}
+
+.content .groupTable tbody {
+    position: absolute;
+    top: 0;
+    left: .75rem;
+    right: 0;
+    bottom: 0;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    scrollbar-width: 0;
+    -ms-overflow-style: none;
+}
+
+
+.content .groupTable tbody::-webkit-scrollbar {
+    display: none;
+}
+
+.yieldTypeList {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    padding-bottom: 11rem;
+}
+
+.yieldTypeList div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem .75rem;
+    border-bottom: .5px solid #eeeeee;
+}

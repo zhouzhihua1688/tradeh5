@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>汇款充值申请</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        body,html{background: #f6f6f6;}
+        body {left: 0%; right: 0%;font:14px 'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+        button { outline: none;  }
+      /* 图片自适应 */
+        img {
+          width: 100%;
+          height: auto;
+          width: auto\9; /* ie8 */
+          -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/
+          border: none;
+          vertical-align: top;
+          outline: none;
+          display: block;
+        }
+        p { word-wrap: break-word; text-align: justify; }
+        table { width: 100%;border-collapse:collapse; }
+        .main{width:100%;height:100%;background:#fff;}
+        .step,.shoukuan{height:1.75rem;width:100%;font-size:0.7rem;text-indent:0.75rem;color:#666;line-height:1.75rem;background:#f6f6f6;}
+        .liucheng{width:100%;padding:0.75rem 0rem 0.25rem 0rem;background: #fff;}
+        .shuoming{width:100%;padding-bottom:0.75rem;display:flex;justify-content:space-between;align-items: center;background:#fff;}
+        .shuoming div{width:27%;text-align:center}
+        .shuoming div:nth-of-type(1){margin-left:1rem;text-align:center}
+        .shuoming div:nth-of-type(3){margin-right:1rem;text-align:center}
+        .accountList,.cardList{width:100%;padding:0.75rem 0rem 0rem 0rem;display:flex;justify-content:flex-start;align-items: center;background:#fff;font-size: 0.75rem}
+        .accountList div:nth-of-type(1){width:22%;color:#666;margin-left:0.75rem;}
+        .accountList div:nth-of-type(2){width:52%;color:#000;}
+        .accountList div:nth-of-type(3){width:10%;color:#178ce6;margin-left:0.25rem;}
+        .cardList div:nth-of-type(1){width:22%;color:#666;margin-left:0.75rem;}
+        .cardList div:nth-of-type(2){width:43%;color:#000;}
+        .cardList div:nth-of-type(3){width:10%;color:#178ce6;margin-left:0.25rem;}
+        .Bomb-box{z-index: 10000000000000000000000;display: none;  position: fixed;  width: 100%;  height: 100%;  background-color: rgba(0,0,0,0.7);  top: 0;  left: 0;  }
+        .Bomb-box .Bomb-box-main{  width: 15rem; /*       height: 11rem;*/  background-color: #fff;  margin: 6rem auto 0;  border-radius: 0.3rem;  }
+        .Bomb-box .Bomb-box-tips{ display:none;  text-align: center;  color: #333;  font-size: 0.75rem;  height: 2.5rem;  line-height: 2.5rem;  }
+        .Bomb-box .Bomb-box-content{  padding-left: 1.5rem;  padding-right: 1.5rem;  margin-bottom: 0.75rem; padding-top: 0.75rem; font-size: 0.7rem; }
+        .Bomb-box .Bomb-box-content p{  line-height: 1.2rem;  }
+        .Bomb-box .Bomb-box-ok{  display: block;  width: 13.5rem;  height: 2.5rem;  line-height: 2.5rem;  text-align: center;  color: #0070fa;  font-size: 0.75rem;  border-top: solid 1px #eeeeee;  margin: 0 auto;  }
+        .Bomb-box .no-tips{font-size: 0.7rem;padding: 1.7rem 1.5rem 1.15rem 1.5rem;text-align: center;}
+        .Bomb-box .text-center{text-align: center;}
+        .Bomb-box .text-left{text-align: left;}
+		.inform {
+			padding: .5rem .75rem;
+			background-color: #fffac7;
+			color: #fe5a5b;
+			position: fixed;
+			width: 90%;
+			z-index: 99999999;
+			top: 0;
+			font-size: .65rem;
+		}
+    </style>
+</head>
+<body>
+<div style="width: 100%;height: 1rem;"  >
+	<div class="inform" >
+		建议您先使用直接充值的方式，当您充值金额超过银行通道限额或者银行通道暂停时可使用汇款充值。<br/>
+		汇款时请务必使用您现金宝绑定的银行卡。
+	</div>
+</div>
+<div class="main">
+    <div class="step">汇款步骤</div>
+    <div class="liucheng"><img src="../images/account/liucheng.png" alt=""></div>
+    <div class="shuoming">
+        <div>现金宝绑定的任一银行卡</div>
+        <div>通过网银或银行向一下账户转账</div>
+        <div>资金到账后现金宝份额实时增加</div>
+    </div>
+    <div class="shoukuan">收款方信息</div>
+      <div class="accountList">
+        <div>开户银行</div>
+        <div class="info"></div>
+        <div class="copy" data-clipboard-action="copy" data-clipboard-target=".info">复制</div>
+    </div>
+    <div class="accountList">
+        <div>户&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp名</div>
+        <div class="infoMg"></div>
+        <div style="margin-left:0.75rem" class="copyMg" data-clipboard-action="copy" data-clipboard-target=".infoMg">复制</div>
+    </div>
+    <div class="cardList" style="padding-bottom:0.75rem">
+        <div>收款账号</div>
+        <div class="infoAccount"></div>
+        <div class="copyAccount" data-clipboard-action="copy" data-clipboard-target=".infoAccount">复制</div>
+    </div>
+    <div class="tips">
+        <div class="content" id="ruleTips">
+
+        </div>  
+    </div>
+    <div class="sent"><a href="javascript:;" id="send">发送收款账号到手机</a></div>
+	
+    <style>
+        .tips{width:100%;height:100%;}
+        .tips .content{width:17.25rem;padding:0.5rem 0.75rem;background:#f6f6f6;font-size:0.6rem;text-align: justify;color:#666;}
+        .sent{width:100%;height:2.25rem;background:#F6F6F6;padding-top:0.5rem;}
+        .sent a{width:17.25rem;height:2.25rem;display:block;text-align:center;line-height:2.25rem;color:#fff;font-size:0.85rem;background: #0757b2;
+            margin:0 auto;text-decoration:none;}
+    </style>
+</div>
+    <div class="Bomb-box">
+        <div class="Bomb-box-main">
+            <p class="Bomb-box-tips"  style="padding-top: 0.75rem;"></p>
+            <div class="Bomb-box-content">
+                <p class="text-center"></p>
+            </div>
+            <a class="Bomb-box-ok" href="javascript:;">确定</a>
+        </div>
+    </div>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>    
+	<script type="text/javascript" src="../js/lib/clipboard.min.js"></script> 
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+
+<script>
+function getTradeInfo(){
+	var url = '/mobile-bff/v1/etrading/query-recharge-offline-info';
+    
+    App.get(url, null, function(result){
+		if(result.returnCode == 0){
+			$(".info").html(result.body.bankNm);
+			$(".infoMg").html(result.body.bankUserNm);
+			$(".infoAccount").html(result.body.bankAcco);
+			$("#ruleTips").html(result.body.ruleTips)
+				// 复制
+			var clipboard = new ClipboardJS(".copy",{
+				text:function(trigger) {
+				return $(".info").html();				
+				}
+			});
+			clipboard.on('success', function(e) {
+
+				alertTips("复制成功");
+				e.clearSelection();
+			});
+			clipboard.on('error', function(e) {
+			   console.error('Action:', e.action);
+			   console.error('Trigger:', e.trigger);
+			});
+
+			var clipboard = new ClipboardJS(".copyMg",{
+				text:function(trigger) {
+				return $(".infoMg").html();				
+				}
+			});
+			clipboard.on('success', function(e) {
+
+				alertTips("复制成功");
+				e.clearSelection();
+			});
+			clipboard.on('error', function(e) {
+			   console.error('Action:', e.action);
+			   console.error('Trigger:', e.trigger);
+			});
+
+			var clipboard = new ClipboardJS(".copyAccount",{
+				text:function(trigger) {
+				return $(".infoAccount").html();				
+				}
+			});
+				clipboard.on('success', function(e) {
+				alertTips("复制成功");
+				e.clearSelection();
+			});
+			clipboard.on('error', function(e) {
+			   console.error('Action:', e.action);
+			   console.error('Trigger:', e.trigger);
+			});
+		}
+	});
+	
+}
+
+$("#send").click(function(){
+
+	var url = "/mobile-bff/v1/etrading/send-beneficiary-account";
+
+	App.post(url, null, function(result) {
+	  alertTips("已发送");
+	});
+});
+getTradeInfo()
+</script>
+	<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+</body>
+</html>

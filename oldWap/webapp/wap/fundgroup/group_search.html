@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>选择转换组合</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        .search-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: .5rem .75rem;
+            background-color: #fff;
+            border-bottom: 1px #eee solid;
+        }
+
+        .search-form {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 1.5rem;
+            border-radius: .75rem;
+            background-color: #f6f6f6;
+            line-height: 1.5rem;
+        }
+        .search-box a{
+            font-size: .65rem;
+            color: #148ce6;
+        }
+        .search-form .search {
+            width: 100%;
+            height: 1rem;
+            line-height:1rem;
+            font-size: .65rem;
+            background-color: rgba(255, 255, 255, 0);
+            margin-left: .5rem;
+        }
+
+        .list {
+            background-color: #fff;
+            margin-bottom: .5rem;
+        }
+
+        .list .list-title {
+            padding-left: .75rem;
+            line-height: 2.25rem;
+            border-bottom: 1px #eee solid;
+        }
+
+        .list .list-title span:nth-of-type(1) {
+            color: #000;
+            font-size: .75rem;
+            margin-right: .5rem;
+        }
+
+        .list .list-title span:nth-of-type(2) {
+            color: #666;
+            font-size: .65rem;
+        }
+
+        .list-content li {
+            margin-left: .75rem;
+            padding-right: .75rem;
+            line-height: 2.5rem;
+            border-bottom: 1px #eee solid;
+			width:95%;
+        }
+
+        .list-content li span{
+            color: #000;
+            font-size: .75rem;
+            margin-right: .5rem;
+			display:block;
+			line-height:1.1rem;
+        }
+
+
+
+        .list-content li:last-child {
+            border: none;
+
+        }
+
+        .list-more {
+            display: block;
+            line-height: 2rem;
+            text-align: center;
+            font-size: .7rem;
+            color: #148ce6;
+            border-top: 1px solid #eee;
+        }
+		
+    .fundList{width:100%;display:flex;justify-content:space-between;align-items: center;background: #fff;border-bottom:1px solid #efefef;padding:0.5rem 0rem;border-bottom:1px solid #eee;}
+    .fundList .one{width:40%;font-size: 0.65rem;color:#000}
+    .fundList .one img{width:1.225rem;height:1.225rem;margin-top:-0.5rem;}
+       /* .fundList .two{width:10%;} */
+    .fundList .one .left{padding-left:0.75rem;}
+    .fundList .one .hot{padding-left:0.75rem;margin-top:-0.75rem;}
+    .fundList .third{width:15%;color:#f4333c;font-size: 0.7rem;text-align:right}
+    .fundList .third.blue{color:#009944;}
+	.fundList .third.black{color:#000;}
+    .fundList .four{width:15%;height:1rem;color:#999;text-align:right;border-radius:3px;margin-right:0.75rem;line-height:1rem ;text-align: center;font-size:0.6rem;background:#fb5c5f;color:#fff;}
+    .hidden{display: none;}
+    .fundList .no{width:15%;height:1rem;color:#999;text-align:right;border-radius:3px;margin-right:0.75rem;line-height:1rem ;text-align: center;font-size:0.6rem;}
+    </style>
+</head>
+
+<body>
+    <div class="search-box">
+        <form class="search-form">
+            <img src="../images/fund/Rectangle 4.png" alt="" style="width:0.65rem; height: 0.65rem;margin-left: .75rem;">
+            <input type="text" style="padding:0;outline-style: none;"  placeholder="组合名称/组合代码" class="search" id="search"/>
+        </form>
+
+    </div>
+    <div class="listbox">
+       
+    </div>
+
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script>
+var groupId = App.getUrlParam("groupId");
+var balanceSerialNo = App.getUrlParam("balanceSerialNo");
+
+var group_list = App.getSession("transin_group_list");
+if(App.isEmpty(group_list)){
+	getFundList();
+}
+
+function getFundList(){
+	var url = '/mobile-bff/v1/transfer/canTransferFundgroupCollection?type=0' ;
+    
+    App.get(url, null, function(result){
+		if(result.returnCode == 0){
+			var lists = result.body;
+
+			var htm = '';
+			if(lists.length > 0){
+				group_list = lists;
+				//存入到session里面
+				App.setSession("transin_group_list",lists);
+			}
+		}
+	})
+}
+
+    var flag = true;
+    $(".listbox").hide();
+	$("#search").focus();
+    $('#search').on('compositionstart',function(){
+        flag = false;
+    })
+    $('#search').on('compositionend',function(){
+        flag = true;
+    })
+    
+ 	$(".search").on('keypress',function(e) {
+        var keycode = e.keyCode;
+        var searchName = $(this).val();
+        if(keycode=='13') {
+        	e.preventDefault();  
+			search(searchName);
+        }
+    });
+	var searchText = '';
+    $(".search").on('input', function (e) {
+        searchText = $(this)[0].value;
+        setTimeout(function(){
+            if(flag){
+                search(searchText);
+            }
+        },0)
+    });
+
+    function search(searchText){
+
+		$(".listbox").html("");
+		if(group_list != undefined && group_list != null){
+			var SearchList = [];
+			var i = 0;
+			for(var k in group_list){
+				var item0 = group_list[k];
+				if(item0.groupName.indexOf(searchText) > -1 || item0.groupId.indexOf(searchText) > -1){
+					//标红对应的数据
+					if(item0.groupName.indexOf(searchText) > -1){
+						item0.newGroupName = item0.groupName.replace(new RegExp(searchText,'g'),"<font color=\"#fb5c5f\">"+searchText+"</font>");
+					}else{
+						item0.newGroupName = item0.groupName;
+					}
+					if(item0.groupId.indexOf(searchText) > -1){
+						item0.newGroupId = item0.groupId.replace(new RegExp(searchText,'g'),"<font color=\"#fb5c5f\">"+searchText+"</font>");
+					}else{
+						item0.newGroupId = item0.groupId;
+					}
+					SearchList[i++] = item0;
+				}
+			}
+			console.log(SearchList);
+			//主数据
+
+			$('.listbox').append('<div class="list"><ul class="list-content fund"></ul></div>');
+			$(".fund").html("");
+			for(var k in SearchList){
+				var item2 = SearchList[k];
+				//组合
+				var htm = '';
+				if(item2.canBePurchased != 'N'){
+					htm+=  '<div class="four" data-id="'+item2.groupId+'" data-name="'+item2.groupName+'">转入</div>';
+				}else{
+					htm+= ' <div class="no">暂不支持</div>';
+				}
+				$(".fund").append('<li class="fundList"><div><span>' + item2.newGroupName +
+					'</span><span>' + item2.newGroupId + '</span></div>'+htm+'</li>');
+					
+				$(".four").click(function(e){
+					window.location.href = 'transfer.html?groupId='+groupId+'&balanceSerialNo='+balanceSerialNo+'&transferInPrdid='+$(this).attr('data-id');
+					App.setSession("transin_"+$(this).attr('data-id'),$(this).attr('data-name'));
+					e.stopPropagation();
+				});
+				$(".fundList").click(function(){
+					if($(this).children("div[class=four]").attr('data-id') == "A0081"){
+						window.location.href = 'group_fund_details_xjj.html?groupId='+$(this).children("div[class=four]").attr('data-id');
+					}else{
+						window.location.href = 'group_fund_details.html?groupId='+$(this).children("div[class=four]").attr('data-id');
+					}
+				});
+				
+				
+			}
+			
+		}
+		
+		$(".listbox").show();
+	
+    }
+
+    </script>
+</body>
+
+</html>

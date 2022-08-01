@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资产管理</title>
+    <link rel="stylesheet" href="./css/base-a.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/sub-index.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        };
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+</head>
+<body>
+    <!--pages/myAsset/assetSubDetail/index.wxml-->
+<!-- <text>pages/myAsset/assetSubDetail/index.wxml</text> -->
+<div class="content" >
+    <!-- <div class="sub-card">
+        <div class="card-title">
+            <div class="title-r" >
+                <span class="title_text1">{{shareItem[0].productName}}</span>
+                <span class="title_text2">{{shareItem[0].productId}}</span>
+            </div>
+            <img class="title-l" src="./img/arrow.png" >
+        </div>
+        <div class="card-detail">
+            <div class="total-balance" >
+                总资产（元）
+            </div>
+            <div class="balance-num">
+                {{allData.totalBalance}}
+            </div>
+            <div class="fields">
+                <div class="fields-c" >
+                    <span class="fields-text1">{{allData.fields[0].title?allData.fields[0].title:'--'}}</span>
+                    <span class="fields-text2" style="color:{{allData.fields[0].color}}">{{allData.fields[0].value?allData.fields[0].value:'--'}}</span>
+                </div>
+                 <div class="fields-c" >
+                    <span class="fields-text1">{{allData.fields[1].title?allData.fields[1].title:'--'}}</span>
+                    <span class="fields-text2" style="color:{{allData.fields[1].color}}">{{allData.fields[1].value?allData.fields[1].value:'--'}}</span>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- <div class="content-title" >
+        {{allData.title?allData.title:'--'}}
+    </div> -->
+    <!-- <div class="fund-list" wx:for="{{shareItem}}" wx:key="index" data-url="{{shareItem[index]}}" bind:tap="gotoPage" >
+        <div class="fund-title" >
+            <div class="title-r">
+                <span class="title_text1">{{item.shareName}}</span>
+                <span class="title_text2" wx:if="{{item.tag}}">{{item.tag}}</span>
+            </div>
+            <img class="title-l" src="./img/arrow.png" >
+        </div>
+        <div class="fund-table">
+            <div class="table-box">
+                <span class="box-text1 text-left" >{{item.fields[0].title}}</span>
+                <span class="box-text2 text-left" style="color:{{item.fields[0].color}}">{{item.fields[0].value}}</span>
+            </div>
+             <div class="table-box">
+                <span class="box-text1 text-center">{{item.fields[1].title}}</span>
+                <span class="box-text2 text-center" style="color:{{item.fields[1].color}}">{{item.fields[1].value}}</span>
+            </div>
+             <div class="table-box">
+               <span class="box-text1 text-right">{{item.fields[2].title}}</span>
+                <span class="box-text2 text-right" style="color:{{item.fields[2].color}}">{{item.fields[2].value}}</span>
+                <!-- <text class="box-text2 text-right " wx:if="{{(item.fields[2].value==0)||(classify=='04')}}">{{item.fields[2].value}}</text> -->
+            <!-- </div>
+             <div class="table-box mbottom-40t">
+                <span class="box-text1 text-left">{{item.fields[3].title}}</span>
+                <span class="box-text2 text-left" style="color:{{item.fields[3].color}}"> {{item.fields[3].value}}</span>
+                <!-- <text class="box-text2 text-left " wx:if="{{(item.fields[3].value==0)||(classify=='04')}}">{{item.fields[3].value}}</text> -->
+            <!-- </div>
+             <div class="table-box mbottom-40t">
+                <span class="box-text1 text-center">{{item.fields[4].title}}</span>
+                <span class="box-text2 text-center" style="color:{{item.fields[4].color}}">{{item.fields[4].value}}</span>
+                <!-- <text class="box-text2 text-center " wx:if="{{(item.fields[4].value==0)||(classify=='04')}}">{{item.fields[4].value}}</text> -->
+            <!-- </div> -->
+             <!-- <div class="table-box mbottom-40t">
+                <span class="box-text1 text-right">{{item.fields[5].title}}</span>
+                <span class="box-text2 text-right" style="color:{{item.fields[5].color}}">{{item.fields[5].value}}</span> -->
+                <!-- <text class="box-text2 text-right " wx:if="{{(item.fields[5].value==0)||(classify=='04')}}">{{item.fields[5].value}}</text> -->
+            <!-- </div> --> 
+        <!-- </div> -->
+        <!-- <div class="fund-tip" wx:if="{{allData.tip}}">
+            {{allData.tip}}
+        </div> -->
+        <!-- <div class="fund-blank" wx:if="{{allData.tip}}"></div> -->
+    <!-- </div> -->
+</div>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <!-- <p class="Bomb-box-tips" style="padding-top: 0.75rem;"></p> -->
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;">我知道啦</a>
+    </div>
+</div>
+    <script src="./js/jquery-3.2.1.min.js"></script>
+    <script src="./js/subAsset.js"></script>
+    
+</body>
+
+</html>

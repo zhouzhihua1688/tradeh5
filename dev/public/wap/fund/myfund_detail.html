@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <title>基金明细</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/fund/myfund-detail.css"/>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/weixin.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210302"></script>
+    <script type="text/javascript" src="../js/fund/myfund-detail.js"></script>
+</head>
+<body>
+<div id="mf_panel">
+<div class="top-bar">
+    <div class="f12 f-white left"></div>
+    <div class="f-white f18 mid">基金明细</div>
+    <div class="f-white f12 right"><a href="" id="url" class="f-white">查看详情</a></div>
+</div>
+<div class="banner background-orange swipe-body" style="height: 90px;">
+    <div class="banner-left"><div class="inner-left f-white f18" id="f_title"></div></div>
+    <div class="banner-right"><div class="right f-white f12">最新净值<span id="f_nav"></span></div>
+        <div class="right f-white f12">昨日收益率<span id="f_rate"></span></div></div>
+</div>
+
+<div class="fund_list">
+    <div class="items">
+    <div class="item">
+        <div class="leftbox">
+            <div class="title f-black">总资产(元)</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content" id="f_total">0</div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <div class="leftbox">
+            <div class="title f-black">持有份额(份)</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content" id="f_hold">0</div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <div class="leftbox">
+            <div class="title f-black">可用份额(元)</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content" id="f_use">0</div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <div class="leftbox">
+            <div class="title f-black">累计收益</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content" id="f_profit">0</div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <div class="leftbox">
+            <div class="title f-black">定投状态</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content" id="f_invest">无</div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item" id="fit_btn">
+        <div class="leftbox">
+            <div class="title f-black">分红方式</div>
+        </div>
+        <div class="rightbox">
+            <div class="right content"><span  id="f_fits"></span><img src="../images/common/tips.png"></div>
+        </div>
+    </div>
+    <div class="line"></div>
+
+
+        <div class="bottom_bar">
+            <div class="leftbtn"><div class="button-orange button-width-mids f-white f18" id="purchase" style="display: none;">申购</div> </div>
+            <div class="rightbtn"><div class="button-orange button-width-mids f-white f18" id="back" style="display: none;">赎回</div></div>
+            <div class="rightbtn"><div class="button-orange button-width-mids f-white f18" id="change" style="display: none;">转换</div></div>
+        </div>
+</div>
+</div>
+
+</div>
+
+<div id="selected_fit_panel" style="display: none;">
+    <div class="top-bar">
+        <div class="f-white f18">选择分红</div>
+    </div>
+    <div id="limit_panel">
+        <div class="card-list1" data="0,现金分红" ><div class="left1"><div class="f16 f-black">现金分红</div><div class="f11" style="margin-top: 4px"></div></div><div class="right1"><input type="radio" name="card" checked="checked"></div></div>
+        <div class="card-list1" data="1,红利再投" ><div class="left1"><div class="f16 f-black">红利再投</div><div class="f11" style="margin-top: 4px"></div></div><div class="right1"><input type="radio" name="card"></div></div>
+    </div>
+</div>
+</body>
+</html>

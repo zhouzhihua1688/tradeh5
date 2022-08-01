@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投顾转出</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/investOut.css">
+    <script src="../base/js/baseHead.js"></script>
+</head>
+
+<body>
+<div id="app" v-cloak style="padding-bottom: 2.8rem;">
+    <div class="main">
+       <div class="fund-title">
+           <div class="fund-name" v-text="groupName"></div>
+           <div class="fund-number" v-text="groupId"></div>
+       </div> 
+       <div class="fgx"></div> 
+       <div class="redeem-amount">
+           <div>
+               <span class="redeem-title">可转出金额(元)</span>
+               <span class="redeem-explain">(包含尚未扣除的投顾服务费)</span>
+           </div>
+           <div class="redeem-money" v-text="holdRedeemAsset"></div>
+       </div> 
+       <div class="roll-out" @click="ruleBtn()">
+           <div class="roll-money">转出金额</div>
+           <div class="roll-rule">交易规则</div>
+       </div>
+       <div class="enter-amount">
+           <div class="mark">￥</div>
+           <div class="enter-money">
+               <div class="turn-chinese"><img src="images/triangle.png" v-if="inputValue"><span v-text="chinese"></span></div>
+               <div class="input-number" :class="{'small-font':!inputValue}"><input type="number" value="" @input="inputMoney()" v-model="inputValue" :placeholder="inputMoneyPlaceHolder"></div>
+           </div>
+           <div class="close" @click="close"><img src="images/close.png"></div> 
+       </div>
+       <div class="billie">
+            <div class="one-third" v-for="(item,index) in billie" v-text="item.value"  @click="changePro(index)" :class='{active:index===number}'></div>
+           <!--  <div class="half">1/2</div>
+            <div class="all">全部</div> -->
+       </div>
+       <div class="description">
+           <!-- <div>投顾转出将按照成分基金逐一确认，预计2021.11.22日24点前全部转出资金到达现金宝(货币基金实时到账)</div> -->
+           <div v-text="remark"></div>
+       </div>
+       <div class="excess" @click="showTips()" v-show="false">
+           <div>如遇转换上限</div>
+           <div class="give-up"><span v-text="giveUp"></span><img src="images/arr.png" alt=""></div>
+       </div>
+       <div class="last">
+           <div>投顾转出金额以成分基金赎回确认日的净值、相关费用(如有)为基础，按您申请转出金额/可转出金额的比例进行确认，并扣除投顾服务费，最终到账金额与您此刻看到的账户资产金额可能存在差异，该等差异并非异常情况，请您知悉。</div>
+       </div>
+    </div>
+    <footer class="footer_fiexd">
+        <div @click="nexStep()">下一步</div>
+    </footer>
+    <!-- 弹出悬浮框 -->
+    <div class="mask" style="display: none"></div>
+    <div class="layer animated slideInUp" style="display:none;">
+        <div class="show-tips">
+            <a href="javascript:;">
+                <div class="show-list" data="0" @click="showList(0)">放弃超额</div>
+            </a>
+            <a href="javascript:;">
+                <div class="show-list" data="1" @click="showList(1)">继续转出</div>
+            </a> 
+            <a href="javascript:;">
+                <div class="show-list" style="color:#f4333c" @click="closeBtn">取消</div>
+            </a>     
+        </div>
+    </div>
+    <!--弹窗确认是否继续转出 -->
+    <div class="checkOut" style="display:none">
+        <div class="checkOut-wrap">
+            <div class="checkOut-body">
+                <p class="checkOut_desc">本次交易涉及转出持仓时间较短的份额，产生较高的成分基金赎回费，请确认是否继续转出。</p>
+            </div>
+            <div class="checkBtn">
+                <div class="giveUp" @click="closeDialog('checkOut')">暂不发起</div>
+                <div class="continue" @click="continueStep('checkOut', getPreCommitData)">继续发起</div>
+            </div>
+        </div>
+    </div>
+    <!-- 弹窗一键转出数据 -->
+    <div class="detailOut" style="display:none">
+        <div class="detailOut-wrap">
+            <div class="detailOut-body">
+                <p class="detailOut_desc" v-html="employeeLimitResultBody.subTip">您当前赎回涉及不满足员工持有期限的基金份额，您可一键赎回全部满足持有期限的份额(按最新净值估算总金额约<span>135.26</span>元)</p>
+            </div>
+            <div style="height:10rem;overflow-y: auto">
+                <!-- <div class="detaiList">
+                    <div class="detaiList-name">汇添富蓝筹稳健混合</div>
+                    <div class="detaiList-money">
+                        <span class="share">100.09份</span>
+                        <span class="amount">(100.09元)</span>
+                    </div>
+                </div> -->
+                <template v-if="Array.isArray(employeeLimitResultBody.avlEmpBalanceList)">
+                    <div class="detaiList" v-for="(item, index) in employeeLimitResultBody.avlEmpBalanceList">
+                        <div class="detaiList-name" v-text="item.fundName"></div>
+                        <div class="detaiList-money">
+                            <span class="share">{{Number(item.availableQuty).toFixed(2)}}份</span><br />
+                            <span class="amount">({{Number(item.availableAmt).toFixed(2)}}元)</span>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <div class="detailBtn">
+                <div class="cancel" @click="closeDialog('detailOut')">取消</div>
+                <div class="out" @click="continueStep('detailOut', confirmEmployeeLimit)">一键转出</div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="../base/js/utils.js"></script>
+<script src="../base/js/lib/vue.min.js"></script>
+<script src="./js/investOut.js"></script>
+
+</body>
+</html>

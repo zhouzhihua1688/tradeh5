@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta charset="gbk">-->
+    <title>匹配规则</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/riskbase.css">
+    <script type="text/javascript" src="../js/zepto.min.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+            getFont();
+        }
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+                oHtml.style.fontSize = '17.06px';
+            }else if(screenWidth >= 750){
+                oHtml.style.fontSize = '40px';
+            }else{
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+            }
+        }
+    </script>
+    <style>
+        .content{padding:1.25rem .75rem 0 .75rem;}
+        .content p{font-size: .75rem;line-height: 1.2rem;color:#000;}
+        .content p:nth-of-type(2){margin-top: 1rem;}
+        .content img{margin-top: .7rem;}
+    </style>
+
+</head>
+<body>
+<div class="content">
+    <p>1、我司产品风险评价方法：产品风险等级由我司委托的第三方风险评价机构根据产品的资产配置、投资方向、基金经理和基金公司等基础因素做出的大致的风险定位。</p>
+    <p>2、客户－产品匹配表</p>
+    <img src="../images/common/macthing_table.png" alt="">
+</div>
+</body>
+</html>

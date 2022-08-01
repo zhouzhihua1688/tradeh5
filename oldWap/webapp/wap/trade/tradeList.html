@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>交易记录</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base_v1.css">
+    <link rel="stylesheet" href="../css/taxExtension/LCalendar.css">
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <link rel="stylesheet" href="../css/trade/tradeList.css">
+</head>
+<body>
+<div class="header">
+    <ul class="header-ul">
+        <li id="header-deal">
+           <span>全部交易</span><i></i>
+        </li>
+        <li id="header-product">
+            <span>全部产品</span><i></i>
+        </li>
+        <li id="header-time">
+            <span>近一年</span><i></i>
+        </li>
+    </ul>
+    <div class="header-deal header-more trade-type" data-param="">
+        <div class="box">
+            <span class="span-active" data-param="">全部交易</span>
+            <span data-param="1">买入</span>
+            <span data-param="2">卖出</span>
+            <span data-param="3">转换</span>
+            <span data-param="4">分红</span>
+            <span data-param="9">其他</span>
+        </div>
+
+    </div>
+    <div class="header-product header-more product-type">
+        <div class="box" data-param="">
+            <span class="span-active" data-param="">全部产品</span>
+            <span data-param="0">现金宝</span>
+            <span data-param="1">基金</span>
+            <span data-param="2">定期</span>
+            <span data-param="3">组合</span>
+            <span data-param="4">资管</span>
+            <span data-param="9">税延养老</span>
+        </div>
+        <div class="custom product-sub-type" style="display:none;" data-param="">
+            <div class="custom-title">
+                <p class="product-type-title"></p>
+            </div>
+            <div class="custom-content">
+                <!--<span data-param="">全部产品</span>
+                <span data-param="0">现金宝</span>
+                <span data-param="1">基金</span>
+                <span data-param="2">定期</span>-->
+            </div>
+        </div>
+    </div>
+    <div class="header-time header-more" >
+        <div class="box trade-date" data-param="1Y">
+            <span data-param="1M">近1个月</span>
+            <span data-param="3M">近3个月</span>
+            <span data-param="6M">近6个月</span>
+            <span data-param="1Y" class="span-active">近一年</span>
+            <span data-param="">自定义</span>
+        </div>
+
+        <div class="custom" style="display: none">
+            <div class="custom-title">
+                <p >自定义时间</p><p>最早可查询<i class="trade-query-start-date">2016-10-01</i>的交易</p>
+            </div>
+            <div class="custom-content">
+                <input type="text" readonly="readonly" placeholder="开始时间" id="time1"><i>-</i><input type="text" readonly="readonly" placeholder="结束时间" id="time2"><p class="btn-confirm">确定</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="header-mask">
+</div>
+
+<div class="contentBody">
+    <!--<div class="content content1">
+        <div class="content-title">
+            <span>2018-08</span><i class="choose all"></i>
+        </div>
+        <div class="content-list">
+            <ul class="list">
+                <li>
+                    <span>文案</span>
+                </li>
+                <li class="zh">
+                    <span >汇添富税延养老1号</span>
+                    <span>汇添富税号</span>
+                </li>
+                <li>
+                    <span>2019-01-12</span>
+                    <span class="red">文案文案文</span>
+                </li>
+            </ul>
+            <ul class="list">
+                <li>
+                    <span>文案</span>
+                </li>
+                <li class="zh">
+                    <span >汇添富税延养老1号</span>
+                    <span>汇添富税号</span>
+                </li>
+                <li>
+                    <span>2019-01-12</span>
+                    <span class="red">文案文案文</span>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="content content2">
+        <div class="content-title">
+            <span>2018-07</span><i class="choose all"></i>
+        </div>
+        <div class="content-list">
+            <ul class="list">
+                <li>
+                    <span>文案</span>
+                </li>
+                <li class="zh">
+                    <span >汇添富税延养老1号</span>
+                    <span>汇添富税号</span>
+                </li>
+                <li>
+                    <span>2019-01-12</span>
+                    <span class="red">文案文案文</span>
+                </li>
+            </ul>
+
+        </div>
+    </div>-->
+</div>
+<div class="data_more" style="display: none; margin-bottom: 3rem;">
+    <a href="javascript:;">加载更多</a><img src="../images/Rolling.gif" alt="">
+</div>
+
+<div class="mask"></div>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <p class="Bomb-box-tips" style="padding-top: 0.75rem;"></p>
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;">确定</a>
+    </div>
+</div>
+
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script type="text/javascript" src="../js/common.js?20210106"></script>
+<script type="text/javascript" src="../js/lib/LCalendar.js"></script>
+<script type="text/javascript" src="../js/trade/tradeList.js"></script>
+</body>
+</html>

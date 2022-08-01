@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <title>选择转换基金</title>
+  <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+  <link rel="stylesheet" href="/tradeh5/newWap/base/css/common.css">
+  <link rel="stylesheet" href="./css/index.css">
+  <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+<body>
+  <div id="app" v-cloak  @scroll="homePageNext($event)">
+    <div class="search">
+      <div class="enter">
+         <img src="./img/search.png" alt="">
+         <div class="input"  placeholder="" @click="showSearchBox">基金名称/基金代码</div>
+      </div>
+    </div>
+    <div class="category">
+      <ul class="category-tab">
+        <li v-for="(item,index) in typeList" @click="typeClick(index)" :class="typeCurrentIndex===index?'active':''" :key="index">{{item}}</li>
+      </ul>
+      <ul class="category-tab-item" v-show="typeCurrentIndex===0">
+        <li v-for="(item,index) in layoutData" :key="index" @click="itemClick(item,index)" :class="itemCurrentIndex===index?'active':''">{{item.description}}</li>
+      </ul>
+      <ul class="tab-item-sub" v-show="subDetail.length>0&&typeCurrentIndex===0">
+        <li v-for="(item,index) in subDetail" :key="index" @click="subClick(item)" :class="multaSub.includes(item.keyValue)?'active':''">{{item.keyName}}</li>
+      </ul>
+    </div>
+    <template v-if="tableData.length>0">
+      <div class="fund-list">
+        <div class="title">
+          <div>基金名称</div>
+          <div @click="openSelect">{{orderYield[currentOrderYield]}}<img src="./img/sanjiao2.png" style="width: .45rem;margin-bottom: .1rem;margin-left: .25rem;transform: rotate(180deg);" >
+          <div class="select-yield" v-show="selectIsShow">
+            <div v-for="(key,value) in orderYield" class="label" @click.stop="closeSelect(key)">
+              <label :for="value">{{key}}</label>
+              <input :id="value" type="radio" :value="value" v-model="currentOrderYield">
+              <i class="check"></i>
+            </div>
+          </div>
+          </div>
+          <div><span>操作</span></div>
+        </div>
+        <div class="list" v-for="(item,index) in tableData">
+          <div class="l-fund-name"><span>{{item.fundName}} {{item.fundId}}</span></div>
+          <div class="l-return" :style="yieldColor(item)">{{item | formatYearReturn(currentOrderYield)}}</div>
+          <div class="l-opreate" >
+            <template v-if="item.canBePurchasedForCurrent=='Y'">
+              <span style="padding: .15rem .75rem;background-color: #fb5c5f;color: #fff;border-radius: 3px;"  @click.stop="inFund(item)">转入</span>
+            </template>
+            <template v-else-if="item.canBePurchasedForCurrent=='N'&&item.canBePurchasedForCalcDatetime=='Y'">
+              <span style="padding: .15rem .75rem;background-color: #fb5c5f;color: #fff;border-radius: 3px;"  @click.stop="inFund(item)">转入</span>
+              <div class="kzg" @click="tipsShow=true">
+                <span>可转购</span><img src="./img/tanhao.png" alt="">
+              </div>
+            </template>
+            <span v-if="item.canBePurchasedForCurrent=='N'&&item.canBePurchasedForCalcDatetime=='N'">暂不支持</span>
+          </div>
+        </div>
+      </div>
+    </template>
+    <template v-else>
+      <div class="no-data" >
+        <img src="./img/noDetail.png" alt="">
+         <p>暂无可转基金</p>
+      </div>
+    </template>
+    <div class="search-box search" v-show="sBoxIsShow" >
+      <div class="searh-title">
+        <div class="search-return" @click="searchBack">
+          <img src="./img/back.png" alt="" >
+        </div>
+        <div class="enter">
+          <img src="./img/search.png" alt="">
+          <input type="search" placeholder="基金名称/基金代码"  v-model.trim="searchValue" @keyup.enter.stop="searching">
+        </div>
+      </div>
+      <template v-if="searchData&&searchData.length>0">
+        <div class="fund-list search-list" @scroll="searchPageNext($event)">
+          <div class="list" v-for="(item,index) in searchData">
+            <div class="l-fund-name"><span>{{item.fundName}} {{item.fundId}}</span></div>
+            <div class="l-return"></div>
+            <div class="l-opreate">
+              <template v-if="item.canBePurchasedForCurrent=='Y'">
+                <span style="padding: .15rem .75rem;background-color: #fb5c5f;color: #fff;border-radius: 3px;"  @click.stop="inFund(item)">转入</span>
+              </template>
+              <template v-else-if="item.canBePurchasedForCurrent=='N'&&item.canBePurchasedForCalcDatetime=='Y'">
+                <span style="padding: .15rem .75rem;background-color: #fb5c5f;color: #fff;border-radius: 3px;"  @click.stop="inFund(item)">转入</span>
+                <div class="kzg" @click="tipsShow=true">
+                  <span>可转购</span><img src="./img/tanhao.png" alt="">
+                </div>
+              </template>
+              <span v-if="item.canBePurchasedForCurrent=='N'&&item.canBePurchasedForCalcDatetime=='N'">暂不支持</span>
+            </div>
+          </div>
+        </div>
+      </template>
+      <template v-else>
+        <div class="no-data" >
+          <img src="./img/noDetail.png" alt="" >
+           <p>暂无数据</p>
+        </div>
+      </template>
+      
+    </div>
+    <div class="mask" @click.stop="closeSelect" v-show="selectIsShow"></div>
+    <div class="mask" v-show="tipsShow" style="z-index: 21;">
+      <div class="Bomb-box" style="display: block;">
+        <div class="Bomb-box-main">
+          <p class="Bomb-box-tips" style="padding-top: 0.75rem;"></p>
+          <div class="Bomb-box-content">
+            <p class="text-center">1、该基金不支持直接转换，可以通过赎回转购（系统先赎回转出基金，资金到账后自动买入）的方式实现转入<br>2、买入按赎回到账日目标基金的净值进行确认（转认购时按净值1确认）<br>3、转购交易预计确认时间T+2起（具体视赎回到账时间和买入确定时间而定）。</p>
+          </div>
+          <a class="Bomb-box-ok" href="javascript:;" @click="tipsShow=false">确定</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+  <script src="/tradeh5/newWap/base/js/utils.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> -->
+  <script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script>
+  <script src="./js/index.js"></script>
+</body>
+</html>

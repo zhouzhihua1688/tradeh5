@@ -1,0 +1,197 @@
+body,h1,h2,h3,h4,h5,h6,ul,li,ol,dl,dd,dt,p,select,option{
+    padding: 0;
+    margin: 0;
+}
+img{
+    border: 0;
+    display: block;
+}
+li{list-style: none;}
+a{text-decoration: none;}
+body{font-family:"PingFang SC","-apple-system", Helvetica Neue, Helvetica,'hiraginosansgb w3',SimHei,Arial,sans-serif;}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "PingFang SC","-apple-system", Helvetica Neue, Helvetica,'hiraginosansgb w3',SimHei,Arial,sans-serif;
+}
+input, button, select, textarea {
+    font-family: "PingFang SC","-apple-system", Helvetica Neue, Helvetica,'hiraginosansgb w3',SimHei,Arial,sans-serif;
+}
+.blank{background-color: #fff;}
+
+
+/*规则*/
+header{
+    width:100%;
+    height: 3.88rem;
+    line-height: 3.88rem;
+    text-align: center;
+    background-color: #fc7e23;
+    color:#fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.back_icon{
+    width:0.84rem;
+    height:1.58rem;
+    background:url(../images/back_icon.png) no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+    position: absolute;
+    top: 1.15rem;
+    left: 1.2rem;
+}
+h1{
+    height:100%;
+    font-size: 1.5rem;
+    font-weight: normal;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+       -moz-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+         -o-transform: translateX(-50%);
+            transform: translateX(-50%);
+}
+.content{
+    width:100%;
+    padding:0 1.2rem;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    position: absolute;
+    top: 3.88rem;
+    left: 0;
+}
+.rule_title{
+    font-size: 1.4rem;
+    font-weight: normal;
+    color:#626262;
+    /*height:2.0rem;*/
+    line-height: 1.8rem;
+    margin:1rem 0 0.8rem;
+}
+.rules{
+    line-height: 1.8rem;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+    color:#999;
+}
+.orange_txt{
+    color:#fc7e23;
+}
+
+
+/*信息填写*/
+.right{
+    height:100%;
+    position: absolute;
+    right: 1.2rem;
+    top: 0;
+    font-size: 1.25rem;
+    color:#fff;
+}
+.infor{
+    
+    width:100%;
+    position: absolute;
+    top: 3.88rem;
+    left: 0;
+}
+.in_infor{
+    margin-bottom: 1.333rem;
+}
+.infor label{
+    display: block;
+    width:100%;
+    height:4.08rem;
+    line-height: 4.08rem;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #F5F5F5;
+    padding:0 1.2rem;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    position: relative;
+}
+.infor label span{
+    display:inline-block;
+    width:23%;
+    color:#505050;
+}
+.infor label input{
+    width:65%;
+    height:2rem;
+    line-height: 2rem;
+    border: none;
+    background:transparent;
+    color:#232323;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+.clear_btn{
+    width:1.6rem;
+    height:1.6rem;
+    display:inline-block;
+    background:url(../images/clear_icon.png) no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+    position: absolute;
+    right: 1.2rem;
+    top: 50%;
+    margin-top: -0.65rem;
+    display: none;
+}
+.submit{
+    padding:0 1.2rem; 
+}
+button{
+    width:100%;
+    height:4.0rem;
+    line-height: 4rem;
+    color:#fff;
+    font-size: 1.5rem;
+    text-align: center;
+    background-color: #fe7e01;
+    border: none;
+    border-radius: 5px;
+}
+
+/*资产证明申请已受理*/
+.proof{
+    width:100%;
+    font-size: 1.667rem;
+    color:#373737;
+    margin-top: 4.2rem;
+    height:2.7rem;
+    line-height: 2.7rem;
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+.success_icon{
+    width:2.7rem;
+    height:2.7rem;
+    background:url(../images/success_icon.png) no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+    position: absolute;
+    left: 17%;
+    top: 0;
+}
+.proof_txt{
+    width:auto;
+    height:2.7rem;
+    line-height: 2.7rem;
+    position: absolute;
+    left: 29%;
+    top: 0;
+}
+.remind{
+    font-size: 1.25rem;
+    color:#626262;
+    line-height: 2rem;
+    margin-bottom:1.2rem;
+}
+
+
+

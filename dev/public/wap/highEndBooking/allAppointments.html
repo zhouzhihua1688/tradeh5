@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>全部预约</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <script src="js/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/vue.min.js"></script>
+    <script src="js/base.js"></script>
+    <script src="js/baseHead.js"></script>
+    <script src="js/needLogin.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        body, html {
+            background: #fff;
+        }
+
+        body {
+            left: 0%;
+            right: 0%;
+            font: 14px 'PingFang SC', 'Microsoft YaHei', Tahoma, Arial, sans-serif;
+        }
+
+        button {
+            outline: none;
+        }
+
+        /* 图片自适应 */
+        img {
+            width: 100%;
+            height: auto;
+            width: auto \9; /* ie8 */
+            -ms-interpolation-mode: bicubic; /*为了照顾ie图片缩放失真*/
+            border: none;
+            vertical-align: top;
+            outline: none;
+            display: block;
+        }
+
+        p {
+            word-wrap: break-word;
+            text-align: justify;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .app {
+            width: 100%;
+            background: #fff;
+        }
+
+        .enter {
+            width: 17.25rem;
+            height: 1.5rem;
+            background: #f6f6f6;
+            margin: 0 auto;
+            margin-top: 1rem;
+            border-radius: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .enter .search {
+            width: 0.65rem;
+            height: 1.5rem;
+            display: flex;
+            align-items: center
+        }
+
+        .enter .search img {
+            width: 0.65rem;
+            height: 0.625rem;
+            margin-left: 0.75rem;
+            align-items: center;
+        }
+
+        .enter input {
+            width: 15.5rem;
+            height: 1.5rem;
+            background: #f6f6f6;
+            border-radius: 1.25rem;
+            display: inline-block;
+            text-indent: 0.75rem;
+            font-size: 0.65rem
+        }
+
+        input::-webkit-input-placeholder {
+            color: #999;
+        }
+
+        input::-moz-input-placeholder {
+            color: #999;
+        }
+
+        input::-ms-input-placeholder {
+            color: #999;
+        }
+
+        .enter .microphone img {
+            width: 0.55rem;
+            height: 0.95rem;
+            margin-right: 0.75rem;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        #tag {
+            width: 100%;
+            background: #fff;
+            margin-top: 0.75rem;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        #tag .text {
+            display: inline-block;
+            height: 1.25rem;
+            padding: 0rem 0.55rem;
+            background: #f6f6f6;
+            color: #999;
+            text-align: center;
+            line-height: 1.25rem;
+            border-radius: 3px;
+            margin-left: 0.5rem;
+            color: #666666;
+        }
+
+        #tag .text.active {
+            background: #ffefef;
+            color: #fb5c5f;
+        }
+
+        #tag.text {
+
+        }
+
+        .all {
+            width: 100%;
+            padding: 0rem 0rem;
+            margin-top: 1rem;
+        }
+
+        .all .allText {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding: 0.75rem 0rem;
+        }
+
+        .all .allText:nth-of-type(1) {
+            padding-top: 0rem;
+            margin-top: 1rem;
+        }
+
+        .all .allText div:nth-of-type(1) {
+            width:30%;
+        }
+
+        .all .allText div:nth-of-type(2) {
+            width:70%;
+            margin-right: 0.75rem;
+            margin-top: -0.25rem;
+        }
+
+        .all .allText img {
+            width:4.5rem;
+            height:4.5rem;
+            margin-left:0.25rem;
+            padding-top: 0.35rem;
+        }
+
+        .all .allText .one {
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin: 0rem 0rem;
+        }
+
+        .all .allText .two {
+            color: #000;
+            font-size: 0.7rem;
+            text-align: justify;
+            margin: 0rem 0rem;
+            margin-top: 0.5rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+
+        .alertTips {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.507);
+            font-size: .7rem;
+        }
+
+        .alertTips .bg {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            margin-left: -7.25rem;
+            padding: 0rem 0.75rem 0.5rem 0.75rem;
+            border-radius: .2rem;
+            background: url('img/alert.png') no-repeat;
+            background-size: 100% 100%;
+            width: 13rem;
+            height:16rem;
+        }
+
+        .alertTips .bg .touxiang img {
+            display: inline-block;
+            width:3.75rem;
+            height:3.75rem;
+            float: left;
+            margin-top: 0.75rem;
+            /* margin-left: 0.75rem; */
+        }
+
+        .alertTips .bg .touxiang span {
+            height: 2.5rem;
+            line-height: 2.5rem;
+            float: left;
+            display: inline-block;
+            color: #693619;
+            font-size: 0.85rem;
+            /* margin-left: 0.75rem; */
+            margin-top: 1.25rem;
+            font-weight: bold
+        }
+
+        .alertTips .bg .choose {
+            font-size: 0.65rem;
+            clear: both;
+            color: #666;
+            padding-top: 0.5rem;
+            margin-left: 0.75rem;
+        }
+
+        .alertTips .bg .list {
+            width: 100%;
+            margin-top:0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .alertTips .bg .list div:nth-of-type(1) {
+            width: 80%;
+        }
+
+        .alertTips .bg .list .border {
+            width: 0.15rem;
+            height: 0.75rem;
+            display: inline-block;
+            background: #d8a453;
+            position: relative;
+            top: 0.1rem;
+            margin-left: 0.75rem;
+        }
+
+        .alertTips .bg .list .one {
+            font-size: 0.7rem;
+            color: #000;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .alertTips .bg .list .two {
+            font-size: 0.6rem;
+            color: #666;
+            margin-top:0.25rem;
+            margin-left: 1.2rem;
+        }
+
+        .alertTips .bg .list div:nth-of-type(2) {
+            width: 10%;
+        }
+
+        .alertTips .bg .list div img {
+            width: 0.4rem;
+            height: 0.75rem;
+        }
+
+        .alertTips .bg .close {
+            font-size: 0.75rem;
+            text-align: center;
+            color: #006bfe;
+            margin-top: 0.05rem;
+        }
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="enter">
+        <div class="search"><img src="img/search.png" alt="" id="searchImg"></div>
+        <input type="text" placeholder="输入基金经理名称" id="manager">
+        <!-- <div class="microphone"><img src="img/microphone.png" alt=""></div> -->
+    </div>
+
+    <div class="listMore">
+        <div id="tag">
+            <!--  <div class="text">消费行业</div>
+             <div class="text">金牛基金经理</div>
+             <div class="text">医药行业</div>
+             <div class="text">医药行业</div>
+             <div class="text">医药行业</div> -->
+        </div>
+    </div>
+
+    <div class="all" style="clear: both">
+        <!-- <div class="allText" v-for="(item,index) in search(keywords)" :key="index">
+            <div><img src="img/touxiang.png" alt=""></div>
+            <div>
+                <p class="one" v-text='item.name'></p>
+                <p class="two" v-text='item.text'></p>
+            </div>
+        </div> -->
+        <!-- <div class="allText">
+            <div><img src="img/touxiang.png" alt=""></div>
+            <div>
+                <p class="one">刘江</p>
+                <p class="two">复旦大学经济学硕士，证券投资基金从业资格，汇添富价值精选混合基金经理，汇添富高级投资顾问。</p>
+            </div>
+        </div>
+        <div class="allText">
+            <div><img src="img/touxiang.png" alt=""></div>
+            <div>
+                <p class="one">郑慧莲</p>
+                <p class="two">复旦大学经济学硕士，证券投资基金从业资格，汇添富价值精选混合基金经理，汇添富高级投资顾问。</p>
+            </div>
+        </div> -->
+        <!-- <div class="allText">
+            <div><img src="img/touxiang.png" alt=""></div>
+            <div>
+                <p class="one">劳杰男</p>
+                <p class="two">复旦大学经济学硕士，证券投资基金从业资格，汇添富价值精选混合基金经理，汇添富高级投资顾问。</p>
+            </div>
+        </div> -->
+    </div>
+    <div class="alertTips" style="display: none">
+        <div class="bg">
+            <div class="touxiang"><img src="img/touxiang.png" alt=""><span class="actName"></span></div>
+            <div class="choose">请选择预约：</div>
+            <div style="height:8rem;overflow-y:auto;margin-top:-0.25rem" class="actList">
+                <!-- <div class="list">
+                    <div>
+                        <p class="border"></p>
+                        <p class="one"></p>
+                        <p class="two"></p>
+                    </div>
+                    <div><img src="img/arr.png" alt=""></div>
+                </div> -->
+                <!--  <div class="list">
+                     <div>
+                         <p class="border"></p>
+                         <p class="one">基金经理线上交流会</p>
+                         <p class="two">预约截止时间：2021.04.26</p>
+                     </div>
+                     <div><img src="img/arr.png" alt=""></div>
+                 </div> -->
+            </div>
+            <div class="close">取消</div>
+        </div>
+    </div>
+    <!-- <div class=""></div> -->
+    <style>
+      .close{height:2.5rem;width:110%;text-align:center;line-height:2.5rem;background: #fff;border-top:1px solid #eee;margin-left:-5%;}
+    </style>
+</div>
+<script src="js/utils.js"></script>
+<script>
+    // new Vue({
+    //     el: '#app',
+    //     data: {
+    //         keywords:'',
+    //         tagList:[],
+    //         listText:[
+    //             {
+    //                 name:"劳杰男",
+    //                 text:'复旦大学经济学硕士，证券投资基金从业资格，汇添富价值精选混合基金经理，汇添富高级投资顾问。'
+    //             },
+    //             {
+    //                 name:"刘江",
+    //                 text:'复旦大学经济学硕士，证券投资基金从业资格，汇添富价值精选混合基金经理，汇添富高级投资顾问。'
+    //             },
+    //             {
+    //                 name:"刘江",
+    //                 text:'复旦大学经济学硕士，证券投资基金从业资格，汇添富价值精选混合基金经理，汇添富高级投资顾问。'
+    //             },
+    //             {
+    //                 name:"郑慧莲",
+    //                 text:'复旦大学经济学硕士，证券投资基金从业资格，汇添富价值精选混合基金经理，汇添富高级投资顾问。'
+    //             },
+    //         ]
+    //     },
+    //     created() {
+    //       var _this=this;
+    //       _this.getTags();
+    //      },
+    //     watch: {
+
+    //     },
+    //     computed: {
+
+    //     },
+    //     methods:{
+    //         // 搜索
+    //         search(keywords){
+    //             return this.listText.filter(function(item){
+    //                 if(item.name.includes(keywords)){
+    //                 return item
+    //                 }
+    //             })
+    //         },
+
+    //         getTags: function (){
+    //             var _this=this;
+    //             utils.get('/activity-center/api/v1/preorder/query/all-tags', null, function (result) {
+    //                 if (result.returnCode == 0) {
+    //                     _this.tagList=result.body;
+    //                 }
+    //             });
+    //         },
+    //         getActive:function(i){
+    //           console.log(i)
+    //           console.log($('.listMore .text').index(this))
+    //           if($('.listMore .text').index(i).hasClass("active")){
+    //             $('.listMore .text').index(i).removeClass("active")
+    //           }else{
+    //             $('.listMore .text').index(i).addClass("active")
+    //           }
+    //         }
+
+    //     }
+    // })
+    $(function () {
+        getTags();
+        Allmanager()
+        // $("#manager").keypress(function(){
+        //     console.log($("#manager").val())
+        // })
+
+        // $(".search").click(function(){
+        //     var managerName=$("#manager").val()
+        //     managerSearch(managerName)
+        // })
+        var flag = false;
+        $('#manager').on({
+            'compositionstart': function() {
+              flag = true;
+            },
+            'compositionend': function() {
+              flag = false;
+              if(!flag) {
+                //do something...
+                var managerName = $("#manager").val();
+                    if (managerName == "") {
+                        Allmanager()
+                    } else {
+                        managerSearch(managerName)
+                    }
+              }
+            },
+            'input propertychange': function() {
+                if(!flag) {
+                  //do something...
+                  var managerName = $("#manager").val();
+                    if (managerName == "") {
+                        Allmanager()
+                    } else {
+                        managerSearch(managerName)
+                    }
+                }
+            }
+        });
+
+        // $('#manager').on('propertychange input', function () {
+        //     var managerName = $("#manager").val();
+        //     if (managerName == "") {
+        //         Allmanager()
+        //     } else {
+        //         managerSearch(managerName)
+        //     }
+        // });
+        $(".close").click(function () {
+            $(".alertTips").hide();
+        })
+    })
+
+    // 列表标签
+    // var tag = [];
+    // var tag2 = "";
+
+    function getTags() {
+        utils.get('/activity-center/api/v1/preorder/query/all-tags', null, function (result) {
+            if (result.returnCode == 0) {
+                var tagList = result.body;
+                var htm = '';
+                tagList.forEach(function (item, index) {
+                    htm += '<div class="text">' + tagList[index] + '</div>'
+                })
+                $("#tag").html('<div class="text active">全部</div>' + htm);
+            }
+
+            $('.listMore .text').on('click', function () {
+                $("#manager").val("");
+                var all = $(this).text();
+                if (all === '全部') { // 当点击全部时
+                    $('.listMore .text').removeClass('active');
+                    $('.listMore .text').eq(0).addClass('active');
+                } else {
+                    $('.listMore .text').eq(0).removeClass('active');
+                    if ($(this).hasClass('active')) { // 已选中状态需要取消选中
+                        $(this).removeClass('active');
+                        $('.listMore .text.active').length === 0 && ($('.listMore .text').eq(0).addClass('active')); // 其它标签都未选择时自动选择全部
+                    } else {
+                        $(this).addClass('active');
+                    }
+                }
+                if ($('.listMore .text.active').length === 1 && $('.listMore .text.active').text() === '全部') {
+                    Allmanager()
+                } else {
+                    var tag = [];
+                    $('.listMore .text.active').each(function (index, item) {
+                        tag.push(item.innerHTML);
+                    });
+                    tagNameList(tag.join(','))  //根据标签查询
+                }
+
+            });
+
+            // $('.listMore .text').on('click', function () {
+            //     var all = $(this).text();
+            //     var _that = $('.listMore .text').index(this)
+            //
+            //     if ($(this).hasClass("active")) {
+            //         if (all != "全部") {  //不等于全部并且保留一个
+            //             $(this).removeClass("active")
+            //         }
+            //
+            //     } else {
+            //         $(this).addClass("active")
+            //     }
+            //
+            //     if ($(this).hasClass("active") && all == "全部") {  //当类样式active在全部标签上，则其他标签没有类样式active
+            //         $(this).removeClass("active")
+            //         $(this).addClass("active").siblings().removeClass('active')
+            //     }
+            //
+            //     if ($(this).hasClass("active") && all != "全部") {  //当标签都没有类样式active时，active加在全部这个标签上
+            //         $(this).addClass("active").siblings().eq(0).removeClass('active')
+            //     }
+            //
+            //     if ($('.listMore .text').hasClass("active")) {    //当为类样式active只保留在标签上的最后一个
+            //         console.log(true)
+            //     } else {
+            //         $(this).addClass("active").siblings().eq(0).removeClass('active')
+            //     }
+            //
+            //     if ($(this).hasClass("active") && all != "全部") {   //获取标签
+            //         if ($('.listMore .text').hasClass("active")) {
+            //             tag[_that - 1] = $(this).text()
+            //         }
+            //     } else {
+            //         tag.splice($(this).index() - 1, 1)
+            //     }
+            //
+            //     var listTag = tag.filter(function (item, index) { //过滤数组相同的
+            //         return tag.indexOf(item) === index
+            //     })
+            //     var tags = listTag.filter(s => $.trim(s).length > 0).join(',') //去除空值和转成字符串
+            //     console.log(tags)
+            //     if (all == "全部") {
+            //         Allmanager()
+            //     } else {
+            //         tagNameList(tags)  //根据标签查询
+            //     }
+            //
+            // });
+        });
+    }
+
+    // 根据标签名查询
+    function tagNameList(tag) {
+        utils.get('/activity-center/api/v1/preorder/query/by-tag-name?tagName=' + tag, null, function (result) {
+            if (result.returnCode == 0) {
+                var managerList = "";
+                managerList = result.body;
+                var htm = '';
+                var actId = "";
+                managerList.forEach(function (item, index) {
+                    item.actInfoList.forEach(function (itemInfo) {
+                        actId = itemInfo.actId  //获取ID
+                    })
+                    htm += '<div class="allText" id="' + actId + '" num="' + item.managerActNumer + '" img="' + item.managerPicUrl + '" manager="' + item.managerName + '">' +
+                        '<div><img src="' + item.managerPicUrl + '" alt=""></div>' +
+                        '<div><p class="one">' + item.managerName + '</p><p class="two">' + item.managerBrief + '</p></div>' +
+                        '</div>'
+
+                })
+
+                $(".all").html(htm);
+                $(".all .allText").click(function () {
+                    var _that = $(".all .allText").index(this)
+                    var allList = "";
+                    allList = result.body[_that];
+                    // console.log(allList)
+                    var actId = $(this).attr('id')
+                    var num = $(this).attr('num')
+                    var img = $(this).attr('img')
+                    var name = $(this).attr('manager')
+                    var managerHtmls = "";
+                    if (num > 1) {            //当有多条预约记录
+                        $(".alertTips .touxiang img").attr('src', img);
+                        $(".alertTips .touxiang .actName").text(name);
+
+                        allList.actInfoList.forEach(function (item) {
+                            managerHtmls += ' <div class="list">' +
+                                '<div>' +
+                                '<p class="border"></p>' +
+                                '<p class="one" style="text-indent:0.25rem">' + item.actName + '</p>' +
+                                '<p class="two">预约截止时间:' + (item.preorderDeadline.replace(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/g, '$1.$2.$3')) + '</p>' +
+                                '</div>' +
+                                '<div><img src="img/arr.png" alt=""></div>' +
+                                '</div>'
+                        })
+                        $(".actList").html(managerHtmls);
+                        $(".alertTips").show();
+                    } else {
+                        window.location.href = "exclusiveAppointment.html?actId=" + actId;
+                    }
+                })
+            }
+        });
+    }
+
+    // // 查询所有的
+    function Allmanager() {
+        utils.get('/activity-center/api/v1/preorder/query/act-manager-info', null, function (result) {
+            if (result.returnCode == 0) {
+                var managerList = result.body;
+                var htm = '';
+                var allList = [];
+                managerList.forEach(function (item, index) {
+                    allList.push(item.actInfoList);
+                    var actId = '';
+                    if (item.actInfoList.length == 1) {
+                        actId = item.actInfoList[0].actId;
+                    }
+                    else {
+                        actId = item.actInfoList.map(function(actInfoItem){return actInfoItem.actId}).join(',');
+                    }
+                    // item.actInfoList.forEach(function(itemInfo){
+                    htm += '<div class="allText" index="' + index + '" id="' + actId + '" num="' + item.managerActNumer + '" img="' + item.managerPicUrl + '" manager="' + item.managerName + '">' +
+                        '<div><img src="' + item.managerPicUrl + '" alt=""></div>' +
+                        '<div><p class="one">' + item.managerName + '</p><p class="two">' + item.managerBrief + '</p></div>' +
+                        '</div>'
+                    // })
+
+                })
+
+                $(".all").html(htm);
+                $(".all .allText").click(function () {
+                    var actId = $(this).attr('id');
+                    var index = $(this).attr('index');
+                    var num = $(this).attr('num');
+                    var img = $(this).attr('img');
+                    var name = $(this).attr('manager');
+                    var managerHtml = "";
+                    if (num > 1) {                   //当有多条预约记录
+                        $(".alertTips .touxiang img").attr('src', img);
+                        $(".alertTips .touxiang .actName").text(name);
+
+                        allList[index].forEach(function (item, detailIndex) {
+                            managerHtml += ' <a class="list" href="exclusiveAppointment.html?actId=' + actId.split(',')[detailIndex] + '">' +
+                                '<div>' +
+                                '<p class="border"></p>' +
+                                '<p class="one" style="text-indent:0.25rem">' + item.actName + '</p>' +
+                                '<p class="two">预约截止时间:' + (item.preorderDeadline.replace(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/g, '$1.$2.$3')) + '</p>' +
+                                '</div>' +
+                                '<div><img src="img/arr.png" alt=""></div>' +
+                                '</a>'
+                        })
+                        $(".actList").html(managerHtml);
+                        $(".alertTips").show();
+                    } else {
+                        window.location.href = "exclusiveAppointment.html?actId=" + actId;
+                    }
+
+                })
+            }
+        })
+
+    }
+
+
+    // 根据基金经理查询
+    function managerSearch(managerName) {
+      console.log("===",managerName)
+        utils.get('/activity-center/api/v1/preorder/query/preorder-act-by-manager-name?managerName=' + managerName, null, function (result) {
+            if (result.returnCode == 0) {
+                var managerList = result.body;
+                var htm = '';
+                 var allList = [];
+                console.log(managerList)
+                managerList.forEach(function (item, index) {
+
+
+                    // allList = item.actInfoList
+                    // item.actInfoList.forEach(function (itemInfo) {
+                    //     htm += '<div class="allText" id="' + itemInfo.actId + '" num="' + item.managerActNumer + '" img="' + item.managerPicUrl + '" manager="' + item.managerName + '">' +
+                    //         '<div><img src="' + item.managerPicUrl + '" alt=""></div>' +
+                    //         '<div><p class="one">' + item.managerName + '</p><p class="two">' + item.managerBrief + '</p></div>' +
+                    //         '</div>'
+                    // })
+                     allList.push(item.actInfoList);
+                    var actId = '';
+                    if (item.actInfoList.length == 1) {
+                        actId = item.actInfoList[0].actId;
+                    }
+                    else {
+                        actId = item.actInfoList.map(function(actInfoItem){return actInfoItem.actId}).join(',');
+                    }
+                    // item.actInfoList.forEach(function(itemInfo){
+                    htm += '<div class="allText" index="' + index + '" id="' + actId + '" num="' + item.managerActNumer + '" img="' + item.managerPicUrl + '" manager="' + item.managerName + '">' +
+                        '<div><img src="' + item.managerPicUrl + '" alt=""></div>' +
+                        '<div><p class="one">' + item.managerName + '</p><p class="two">' + item.managerBrief + '</p></div>' +
+                        '</div>'
+                    // })
+                })
+                $(".all").html(htm);
+                // $(".all .allText").click(function () {
+                //     var actId = $(this).attr('id')
+                //     var num = $(this).attr('num')
+                //     var img = $(this).attr('img')
+                //     var name = $(this).attr('manager')
+                //     var managerHtml2 = "";
+                //     if (num > 1) {                   //当有多条预约记录
+                //         $(".alertTips .touxiang img").attr('src', img);
+                //         $(".alertTips .touxiang .actName").text(name);
+
+                //         allList[index].forEach(function (item) {
+                //             managerHtml2 += ' <div class="list">' +
+                //                 '<div>' +
+                //                 '<p class="border"></p>' +
+                //                 '<p class="one" style="text-indent:0.25rem">' + item.actName + '</p>' +
+                //                 '<p class="two">预约截止时间:' + (item.preorderDeadline.replace(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/g, '$1.$2.$3')) + '</p>' +
+                //                 '</div>' +
+                //                 '<div><img src="img/arr.png" alt=""></div>' +
+                //                 '</div>'
+                //         })
+                //         $(".actList").html(managerHtml2);
+                //         $(".alertTips").show();
+                //     } else {
+                //         window.location.href = "exclusiveAppointment.html?actId=" + actId;
+                //     }
+                // })
+                  $(".all .allText").click(function () {
+                    var actId = $(this).attr('id');
+                    var index = $(this).attr('index');
+                    var num = $(this).attr('num');
+                    var img = $(this).attr('img');
+                    var name = $(this).attr('manager');
+                    var managerHtml = "";
+                    if (num > 1) {                   //当有多条预约记录
+                        $(".alertTips .touxiang img").attr('src', img);
+                        $(".alertTips .touxiang .actName").text(name);
+
+                        allList[index].forEach(function (item, detailIndex) {
+                            managerHtml += ' <a class="list" href="exclusiveAppointment.html?actId=' + actId.split(',')[detailIndex] + '">' +
+                                '<div>' +
+                                '<p class="border"></p>' +
+                                '<p class="one" style="text-indent:0.25rem">' + item.actName + '</p>' +
+                                '<p class="two">预约截止时间:' + (item.preorderDeadline.replace(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/g, '$1.$2.$3')) + '</p>' +
+                                '</div>' +
+                                '<div><img src="img/arr.png" alt=""></div>' +
+                                '</a>'
+                        })
+                        $(".actList").html(managerHtml);
+                        $(".alertTips").show();
+                    } else {
+                        window.location.href = "exclusiveAppointment.html?actId=" + actId;
+                    }
+
+                })
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

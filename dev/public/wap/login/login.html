@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>现金宝用户登录</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/login/login.css">
+    <!-- <link rel="stylesheet" href="css/login_main.css"> -->
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <style>
+        body { background-color: #fff; height: 100%;}
+        .huge{ text-align: center; padding: 2.5rem 0 2.6rem;}
+        .huge h2  {width: 2.8rem; margin: 0 auto;}
+        .huge div { font-size: .75rem; margin-top: .9rem; color: #fb5c5f;}
+        .logo { width: 100%; }
+
+        .main { padding:0 .75rem; color: #333; }
+        .main li { border-bottom: 1px solid #eeeeee; padding: 2px 0;}
+        .main p { padding: .7rem 0 0 .75rem; font-size: .6rem; }
+        .main p span { width: .6rem; height: .6rem; vertical-align: middle; background: url("../images/chose1_y.png") no-repeat left center; display: inline-block;  background-size: contain; margin: -.2rem .25rem 0 -.75rem; }
+        .main p span.current { background-image: url("../images/chose1.png");}
+        .main p a { color: #3295e8; cursor: pointer;}
+    </style>
+</head>
+<body>
+<div class="content">
+    <section class="huge">
+        <h2><img class="logo" width="30" height="40" src="../images/logo.png" alt=""></h2>
+        <div style="color:#000;font-size:0.7rem">汇添富现金宝，理财好账户!<!--<br>-->
+            <!--<span style="color:#fb5c5f;font-size:0.8rem">4.459%</span>-->
+        </div>
+    </section>
+    <section class="main">
+        <ul>
+            <li>
+                <div class="input-group">
+                    <span class="input-group-addon"><img style="width: .62rem;" src="../images/phone.png" alt=""></span>
+                    <input type="text" class="form-control phone" placeholder="手机/身份证/邮箱" data-rquire="data-rquire" data-rquire-msg="手机号码不能为空">
+                    <span class="input-group-addon clearInputTxt"><img src="../images/clear.png" alt=""></span>
+                </div>
+            </li>
+            <li>
+                <div class="input-group">
+                    <span class="input-group-addon"><img style="width: .62rem;" src="../images/clock.png" alt=""></span>
+                    <input type="password" class="form-control pwd" placeholder="请输入密码" data-rquire="data-rquire" data-rquire-msg="密码不能为空">
+                </div>
+            </li>
+            
+            <li id="pic_code" style="display:none;">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                         <img  style="width: .65rem;" src="../images/yanzheng.png" alt="">
+                    </span>
+                    <input type="text" maxlength="4" disabled="disabled" class="form-control code" placeholder="点击验证码可刷新">
+                    <span class="input-group-btn" style="width:5rem;height:auto">
+                          <img src="../images/yanzhengma.png" alt="icon-veri" class="auth-code-pic">
+                    </span>
+                </div>
+            </li>
+        </ul>
+        <p  class="rules" style="font-size:0.65rem; display: none;"><span class="chose-icon current"></span>同意<a href="javascript:;">《汇添富基金微信服务平台身份验证协议》</a></p>
+        <a  id="login_btn" class="btn btn-default" style="background:#fe7e01">登录</a>
+        <div class="register" style="margin-top:5rem"> 
+           <a id="register_btn" href="javascript:void(0);">快速注册</a>
+        <!-- <a href="">若已有账户，请您进行“绑定”；若未开通账户，请您进行“注册”，注册成功后将自动绑定</a> -->
+        </div>
+        <div style="margin-top:2rem; font-size:0.6rem;color:#959595;padding-bottom:2.5rem">
+            若已有账户，请您进行“绑定”；若未开通账户，请您进行“注册”，注册成功后将自动绑定
+        </div>
+    </section>
+<!-- <footer class="footer-tips"> -->
+    <!-- <div> 
+        <a href="">注册</a>
+        <a href="">若已有账户，请您进行“绑定”；若未开通账户，请您进行“注册”，注册成功后将自动绑定</a>
+    </div> -->
+<!-- </footer> -->
+    <!-- S footer 添加 -->
+    <style type="text/css">
+        .bottom{background: rgba(0,0,0,.6);width:100%;position: fixed;bottom: 0;left:0;padding:.47em 0;}
+        .bottom .logo,.bottom .text{float:left;}
+        .bottom .logo{background: url(../images/logo.png) no-repeat;background-size:contain;width:2.475em;height: 2.507em;margin-right: .379em;margin-left: 1.035em;}
+
+        .bottom .text .p1{font-size: .966em;color:#fff;}
+        .bottom .text .p2{font-size: .689em;color:#fff;}
+        .bottom a{display: block;float:right;background: #ff7e00;color:#fff;font-size: .896em;margin-right: 1.035em;height: 2.071em;width: 5.516em;line-height: 2.071em;text-align: center;border-radius: 3px;margin-top: .220em;}
+        .bottom .logo {padding: 0;}
+        .bottom .text p{margin: 0;}
+        .bottom a {text-decoration: none;}
+        .bottom{display: none;}  /* 先隐藏，再在common.js控制显示，小米金融渠道不显示 */
+    </style>
+    <div class="bottom">
+        <div class="logo"></div>
+        <div class="text">
+            <p class="p1">汇添富现金宝</p>
+            <p class="p2">添富现金宝，理财好账户！</p>
+        </div>
+        <a href="https://www.99fund.com/m.htm">下载App</a>
+    </div>
+    <!-- E footer 添加 -->
+
+</div>
+
+ <div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <p class="Bomb-box-tips"  style="padding-top: 0.75rem;"></p>
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;">确定</a>
+    </div>
+</div>
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/lib/weixin.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script type="text/javascript" src="../js/common.js?20210414"></script>
+<script type="text/javascript" src="../js/login/login_v1.js?t=20210323"></script>
+<script>
+var fm = document.createElement('script'); fm.type = 'text/javascript'; fm.async = true;
+var curUrl = window.location.href;
+if((/^https:\/\/[^\/]*?99fund\.com\//.test(curUrl) && curUrl.indexOf('https://wxappdev.99fund.com/') !==0) || curUrl.indexOf('https://m.99fund.com:8099/') ==0){
+	fm.src = 'https://dfp.99fund.com/public/downloads/frms-fingerprint.js?custID=htf&serviceUrl=https://dfp.99fund.com/public/generate/jsonp&channel=WEB&loadSource=script';
+}else{
+	fm.src = 'http://10.50.16.71:9080/public/downloads/frms-fingerprint.js?custID=htf&serviceUrl=http://10.50.16.71:9080/public/generate/jsonp&channel=WEB&loadSource=script';
+}
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fm, s);
+</script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>填写验证码</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/common.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/realNameRegister/css/inputCode.css">
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+<body>
+<div class="step2">
+    <div class="title">
+        验证码已发送至您<span class="red"></span>的手机上
+    </div>
+    <div class="input-block">
+        <div class="img">
+            <img src="/tradeh5/newWap/realNameRegister/img/pen.png">
+        </div>
+        <div class="content">
+            <input type="text" class="input-code">
+        </div>
+        <div class="text sendCode"></div>
+    </div>
+    <div class="next-btn">
+        下一步
+    </div>
+</div>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;"
+           onclick="this.parentElement.parentElement.style='display:none'">我知道啦</a>
+    </div>
+</div>
+<script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script>
+    $(function () {
+        var time = 60;
+        var intervalFlag = true;
+        var serialNo = decodeURIComponent(utils.getUrlParam('serialNo'));
+        var registerInfo = utils.getSession('__registerInfo');
+        var mobileNo = registerInfo.mobileNo;
+        var referUrl = decodeURIComponent(utils.getUrlParam("referUrl"));
+        $('.red').text(mobileNo.slice(0, 3) + '****' + mobileNo.slice(-4));
+        $('.sendCode').text(time + '秒后重发');
+        var intervalID  = setInterval(function () {
+            time--;
+            if (time === 0) {
+                time = 60;
+                $('.sendCode').text('发送验证码');
+                intervalFlag = false;
+                clearInterval(intervalID);
+            } else {
+                $('.sendCode').text(time + '秒后重发');
+            }
+        }, 1000);
+
+        $('.sendCode').on('click', function () {
+            if (intervalFlag || !serialNo || !mobileNo) { // 计时器存在
+                return false;
+            }
+            sendCodeBySerialNo();
+        });
+
+        function sendCodeBySerialNo() {
+            utils.ajax({
+                url: '/mobile-bff/v1/account/register',
+                data: registerInfo,
+                type: 'POST',
+                success: function (result) {
+                    if (result.returnCode == 0) {
+                        serialNo = result.body.serialNo; // 重置serialNo
+                        intervalID = setInterval(function () {
+                            $('.sendCode').text(time + '秒后重发');
+                            time--;
+                            if (time === 0) {
+                                time = 60;
+                                $('.sendCode').text('发送验证码');
+                                intervalFlag = false;
+                                clearInterval(intervalID);
+                            } else {
+                                $('.sendCode').text(time + '秒后重发');
+                            }
+                        }, 1000);
+                    } else if (result.returnCode != 0 && result.returnCode != 9999) {
+                        $('.text-center').text(result.returnMsg);
+                        $('.Bomb-box').show();
+                    } else {
+                        $('.text-center').text('系统异常，请稍后再试!');
+                        $('.Bomb-box').show();
+                    }
+                },
+                error: function () {
+                    $('.text-center').text('系统异常，请稍后再试!');
+                    $('.Bomb-box').show();
+                }
+            });
+        }
+
+        $('.input-code').on('input', function (event) {
+            if ($(this).val()) {
+                $('.next-btn').addClass('active');
+            } else {
+                $('.next-btn').removeClass('active');
+            }
+        });
+
+        $('.next-btn').on('click', function () {
+            if (!serialNo || !$(this).hasClass('active')) {
+                return false;
+            }
+            var smsCode = $('.input-code').val().replace(/\s*/g,"");
+            if(!smsCode){
+                utils.showTips('请输入验证码');
+                return;
+            }
+
+            var data = {
+                // certificateConst: 'string',
+                serialNo: serialNo,
+                smsCode: $('.input-code').val().replace(/\s*/g,""),
+                thirdCustFlag: '0',
+            };
+            
+            // 20210809 小米金融引流活动
+            // 小米新用户注册分发红包活动加ic和actId两个参数
+            // var ic = 'xxxxx11111';  
+            // var actId = '12345678'; //格式为全数字
+            var openId = utils.getSession("__openId");
+            var openUid = utils.getSession("__openUid");
+        
+            var ic = utils.getSession("ic");
+            if(openId){
+                var actId = utils.getSession(openId+"actId");
+            }else if(openUid){
+                var actId = utils.getSession(openUid+"actId");
+            }else{
+                var actId = utils.getSession("actId");
+            }
+            
+            ic && (data.ic = ic);
+            actId && (data.actId = actId);
+            // 20210809 小米金融引流活动
+            
+            utils.ajax({
+                url: '/mobile-bff/v1/account/registerConfirm',
+                type: 'POST',
+                data: data,
+                success: function (result) {
+                    if (result.returnCode == 0) {
+                        //清空验证码
+                        $('.input-code').val('');
+                        window.location.href = '/tradeh5/newWap/realNameRegister/setPwd.html'+ (referUrl?'?referUrl='+encodeURIComponent(referUrl):'');
+                    } else if (result.returnCode != 0 && result.returnCode != 9999) {
+                        $('.text-center').text(result.returnMsg);
+                        $('.Bomb-box').show();
+                    } else {
+                        $('.text-center').text('系统异常，请稍后再试!');
+                        $('.Bomb-box').show();
+                    }
+                },
+                error: function () {
+                    $('.text-center').text('系统异常，请稍后再试!');
+                    $('.Bomb-box').show();
+                }
+            });
+        });
+
+    });
+</script>
+</body>
+</html>

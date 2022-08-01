@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>投顾定投</title>
+  <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+  <link rel="stylesheet" href="./css/investPurchaseMip.css">
+  <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <style>
+        .choose-time li.on .annulus ,
+        .choose-time2 li.on .annulus ,
+        .strategy li.on .annulus ,
+        .deduction_cycle_type_list li.on .annulus{  float: right; border-radius: 50%;  width: 0.8rem;  height: 0.79rem;  margin-top: 0.9rem; display: block; border: 1px solid #ff7e01; position: relative;}
+        .choose-time li.on  .annulus:after,
+        .choose-time2 li.on  .annulus:after,
+        .strategy li.on  .annulus:after ,
+        .deduction_cycle_type_list li.on  .annulus:after { display: block; content: ""; width: .4rem; height: .4rem; background-color: #ff7e01; position: absolute;top: 50%;left: 50%;  border-radius: 50%; margin: -.2rem 0 0 -.2rem;}
+        .list-group { margin: 0.5rem 0; background-color: #fff;padding: 0 0.75rem; }
+        .list-group .list-group-item { min-height: 1.725rem; line-height: 1.725rem; }
+
+        .list-group2 { margin: 0.5rem 0; background-color: #f6f6f6;padding: 0 0.75rem; }
+        .list-group2 .list-group-item2 { min-height: .5rem; line-height: .5rem; }
+        .no-margin-top { margin-top: 0 !important; }
+        .lh-100 { line-height: 2.5rem !important; }
+        .bottom-border {border-bottom: solid 1px #eeeeee;}
+    </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="fund-title margin-b20">
+      <p><span class="font-30 black">汇添富跟我投</span><span class="font-26 grey">A0107</span></p>
+      <a href="javascript:;"><img src="./images/arr.png" /></a>
+    </div>
+    <div class="invest-amount">
+      <div class="invest-money">每期投资金额 (元)</div>
+      <div class="invest-rule"></div>
+    </div>
+    <!-- 输入金额 -->
+    <div class="enter-amount">
+       <div class="mark">￥</div>
+       <div class="enter-money">
+           <div class="turn-chinese"><img src="images/triangle.png"><span v-text="chinese"></span></div>
+           <div class="input-number"><input type="text" value="" placeholder="请输入投资金额" @input="inputMoney()" v-model="inputValue"></div>
+       </div>
+       <div class="close" @click="close"><img src="images/close.png"></div> 
+    </div>
+    <div class="fund-operate margin-b20">
+      <!-- <p class="operate-title black font-30 border-b">每期投资金额（元）</p>
+      <div class="operate-amount border-b">
+        <span>￥</span>
+        <input type="text" placeholder="100元起">
+        <img src="./images/close.png" alt="">
+      </div> -->
+      <div class="operate-account font-30 border-b">
+        <span>投顾账户</span>
+        <!-- <p>长期投资账户1</p> -->
+        <input type="text" :value="defaultAcct">
+        <a href="javascript:;" class="font-26" @click="accountListShow = true">选择已有账户</a>
+      </div>
+      <div class="operate-cycle  border-b selected-deduction-cycle">
+        <span class="font-30">扣款周期</span>
+        <div class="select">
+          <span class="font-30 appDate">每月01日</span>
+          <img src="./images/arr.png" alt="">
+        </div>
+      </div>
+    </div>
+    <!-- 扣款期数 -->
+    <div class="choose-time animated slideInDown " style="display: none;z-index: 10;">
+        <ul class="list-group no-margin-top lh-100">
+            <li class="bottom-border font-28" data-choose-time="MM"><div>每月<span class="annulus"></span></div></li>
+            <li class="bottom-border font-28" data-choose-time="2W"><div>每双周<span class="annulus"></span></div></li>
+            <li class="bottom-border font-28" data-choose-time="WW"><div>每周<span class="annulus"></span></div></li>
+            <li class="bottom-border font-28" data-choose-time="ED"><div>每日<span class="annulus"></span></div></li>
+        </ul>
+    </div>
+    <div class="layer choose-time2" style="display: none; z-index: 10;">
+        <ul class="list-group no-margin-top lh-100"></ul>
+    </div>
+
+    <div class="fund-paymode font-30"  @click="choosePay()">
+      <span>支付方式</span>
+      <div class="select">
+        <span class="font-30">现金宝</span>
+        <img src="./images/arr.png" alt="">
+      </div>
+    </div>
+    
+     <!-- 选择支付方式浮层 -->
+    <div class="choose-pay animated slideInDown" style="z-index:100;" v-if="showCard" @click="closePay()">
+      <div class="bank-card">
+          <div class="xjb">
+              <div class="xjb-img"><img src="images/xjb.png" alt=""></div>
+              <div class="xjb-title">
+                <div class="xjb-name">现金宝</div>
+                <div class="xjb-balance">可用余额<span>1234656</span>元</div>
+              </div>
+          </div>
+          <div class="card">
+              <div class="card-img"><img src="images/xjb.png" alt=""></div>
+              <div class="card-title">
+                <div class="card-name">工行快易付 [尾号9900]</div>
+                <div class="card-balance">单笔500万，日累计50000元</div>
+              </div>
+              <div class="card-btn">
+                  <div class="card-text">快捷</div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="paymode-info grey">
+      <p class="font-24">现金宝可用余额<span class="red">52,745.53</span>元</p>
+      <a href="javascript:;" class="font-26">去充值</a>
+    </div>
+    <p class="estimated-time font-24 grey">下次扣款时间<span class="red">2019-07-18</span>，遇非交易日顺延</p>
+    <div class="agreement">
+      <div class="unicheck">
+        <div class="choose-img" @click="checkBox()" :class="bgIndex ==1 ? 'nobgActive':'bgActive'"></div>
+      </div>
+      <div class="agree">我已同意<a class="agree-color">《基金投资组合策略方案说明书》、</a><a class="agree-color">《管理型基金投顾风险揭示书》、</a><a
+          class="agree-color">《汇添富基金管理股份有限公司投资顾问服务协议》</a></div>
+    </div>
+
+    <div class="next-step active">下一步</div>
+
+    <div class="mask-protocol" style="display: none;" v-show="protocolShow">
+      <div class="protocol-wraper">
+        <div class="protocol-pdf">
+          <button class="fixed-btn" disabled @click="protocolShow = false">我知道了{{countDown}}s</button>
+        </div>
+      </div>
+    </div>
+    <div class="layer animated slideInDown" style="z-index:100;display:none;" v-show="accountListShow" @click="accountListShow = false">
+      <div class="account">
+        <div class="account-title">已有账户</div>
+        <div class="account-List" v-for="(item,index) in accountList" @click.stop="selectAcct(index)">
+          <div class="account-name" v-text="item.value"></div>
+          <div><img src="images/arr.png" alt=""></div>
+        </div>
+        <div class="newAccount">
+          <div class="addAccount" @click.stop="selectAcct('create')">+使用新账户</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+  <script src="/tradeh5/newWap/base/js/utils.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.14/vue.js"></script>
+  <script src="./js/pdf.js"></script>
+  <script src="./js/investPurchaseMip.js"></script>
+  <!-- <script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script> -->
+  <!-- 扣款周期 -->
+  <script src="js/deductionTime.js"></script> 
+
+</body>
+</html>

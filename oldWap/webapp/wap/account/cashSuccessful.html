@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>完成</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/account/cash.css">
+    <script>
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            screenWidth = screenWidth > 750 ? 750 : screenWidth;
+            oHtml.style.fontSize = screenWidth / 7.5 + 'px';
+        }
+    </script>
+</head>
+<body style="background: #fff;">
+    <div class="cash_success">
+    	<div id="successInfo" style="display:none;">
+        <div class="process_type">
+            <h3 id="first"></h3>
+        </div>
+        <div class="process_type receive" style="margin-bottom: 0.8rem;">
+            <h3 id="second"></h3>
+        </div>
+        </div>
+        <p>注：具体时间以银行卡实际入账时间为准</p>
+        <a href="javascript:void(0)" id="confirm_btn">确认</a>
+    </div>
+</body>
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/lib/weixin.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script type="text/javascript" src="../js/common.js?20210106"></script>
+<script type="text/javascript">
+
+//takecashSuccess
+
+$(function() {
+	//查询取现成功信息
+	var ecTradeSerialNo = App.getSession(App.ecTradeSerialNo);
+	queryTips()
+	function queryTips(){
+	    var url = "/smac/v1/trade/trade-tip?serialNo="+ecTradeSerialNo+"&r=" + (new Date()).getTime();
+	    App.get(url, null, function(result) {
+	        var body = result.body;
+	        if (body != null && body != undefined) {
+	        	$("#first").html(body.successListInfo[0].info);
+	        	$("#second").html(body.successListInfo[1].info);
+	        	$("#successInfo").show();
+				App.queryCard();
+				App.queryAccountInfo();
+				App.confirmBtnEvent(function() {
+					App.bind("#confirm_btn", "tap", function() {
+					var forwardUrl = App.getUrlParam("forwardUrl");
+			            if(App.isNotEmpty(forwardUrl)){
+			            	window.location = forwardUrl;
+			            }else{
+							window.location = "../wezhan/service.html";
+						}
+					})
+				})
+	        }
+	    });
+	}
+
+});
+</script>
+</html>

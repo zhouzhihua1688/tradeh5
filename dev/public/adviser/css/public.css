@@ -1,0 +1,52 @@
+body {
+	background-color: #eee;
+}
+section {
+	background: #fff;
+	padding: 0.15rem;
+}
+.title {
+	font-size: 0.18rem;
+	border-left: 0.04rem #ec7e5d solid;
+	text-indent: 0.1rem;
+	margin: 0.1rem 0;
+}
+
+.subtitle,
+.title {
+	color: #000;
+	font-weight: 900;
+}
+section p:not(:first-of-type) {
+	margin-top: 0.1rem;
+}
+section p {
+	font-size: 0.14rem;
+}
+section:not(:first-of-type) {
+	margin-top: 0.1rem;
+}
+
+table {
+    text-align: center;
+    margin-top: .1rem;
+    font-size: 0.14rem;
+    border-collapse: collapse;
+	vertical-align: middle;
+}
+table thead {
+	color: #000;
+	font-size: 0.14rem;
+	font-weight: 900;
+}
+table td,table th {
+    border: 1px solid #000;
+    margin-left: -.01rem;
+}
+h1.header{
+    margin: .2rem 0;
+    text-align: center;
+    font-size: .18rem;
+    font-weight: 900;
+    color: #000;
+}

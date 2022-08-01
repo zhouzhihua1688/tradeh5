@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的校招</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <script src="js/base.js"></script>
+    <!-- <script src="js/baseHead.js"></script>
+    <script src="js/needLogin.js"></script> --> 
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/needLogin.js"></script>
+    <!-- <script type="text/javascript" src="/tradeh5/newWap/base/js/utils.js"></script> -->
+    <!-- <script type="text/javascript" src="/tradeh5/newWap/base/js/vueMixins.js"></script>
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/lib/vue.min.js"></script> -->
+<script>
+    // 相对字体大小设置
+    var oHtml = document.documentElement;
+    getFont();
+    window.onresize = function () {
+        getFont();
+    }
+
+    function getFont() {
+        var screenWidth = oHtml.clientWidth;
+        if (screenWidth <= 320) {
+            oHtml.style.fontSize = '17.06px';
+        } else if (screenWidth >= 750) {
+            oHtml.style.fontSize = '40px';
+        } else {
+            oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+        }
+    }
+</script>
+<style>
+    body,html{background: #f6f6f6;}
+    body {left: 0%; right: 0%;font:14px 'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+    button { outline: none;  }
+      /* 图片自适应 */
+    img {
+          width: 100%;
+          height: auto;
+          width: auto\9; /* ie8 */
+          -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/
+          border: none;
+          vertical-align: top;
+          outline: none;
+          display: block;
+        }
+    p { word-wrap: break-word; text-align: justify; }
+    table { width: 100%;border-collapse:collapse; }
+    .main{width:100%;background:#fff;}
+    .head{width:100%;height: 19.375rem;background: url('img/index_02.png') no-repeat;background-size:cover;}
+    .list{width:100%;height:2.75rem;background: url('img/index_03.png') no-repeat;background-size:cover;}
+    .list .textList{width:16.5rem;display: flex;justify-content: space-between;align-items: center;margin:0 auto;margin-top:2.5rem;}
+    .list .textList div{width:45%;text-align:center;padding-top:2rem;margin-top:-2rem;}
+    .list .textList div:nth-of-type(2){width:50%;text-align:center}
+    .trailer{width:100%;height:11.125rem;background: url('img/index_04.png') no-repeat;background-size:cover;}
+    .trailer .video_box {width:16.25rem; border-radius:0.25rem; height:8.0rem; overflow: hidden; margin: 0 auto;}
+    .htf{width:18.75rem;height:2.625rem;background:url('img/index_05.png') no-repeat;background-size:100% 100%;}
+    .about{background: #ff8724;}
+    .img05{width:100%;height:14.75rem;background:url('img/index_05.png') no-repeat;background-size:100% 100%;}
+    .img051{width:100%;height:18.25rem;background:url('img/index_051.png') no-repeat;background-size:100% 100%;}
+    .about .textAbout{width:17.25rem;background:#fff;margin:0 auto;text-align:justify;margin-top:-0.01rem;border-radius:0 0 0.25rem 0.25rem;padding:1rem 0rem;}
+    .about .textAbout p{font-size:0.65rem;color:#666;padding:0rem 0.75rem;}
+    .last{width:100%;height:7.125rem;background:url('img/index_06.png') no-repeat;background-size:100% 100%;}
+
+    .tips {position: fixed; top: 0; left: 0; bottom: 0; right: 0; background-color: rgba(0, 0, 0, 0.507); font-size: .7rem; }
+    .tips > div {width:15.75rem;height:16.5rem;
+        position: absolute; left:9%; right: 10%; top: 50%; transform: translateY(-50%); 
+        /* padding: .5rem .75rem 0;
+         border-radius: .2rem; */
+        background: url('img/tip.png') no-repeat;
+        background-size: cover;
+     }
+    .tips .tips_text {padding: .75rem; text-align: center; color: #000; }
+    .tips .button {display: flex; align-items: center; text-align: center; border-top: 1px solid #eee; margin-top: .75rem; }
+    .tips .button span {margin-top: .25rem; padding: .625rem 0; margin-bottom: .25rem; width: 100%; color: #1370fa; }
+    .tips .button span:nth-of-type(1) {
+        /* border-right: 1px solid #eee; */
+    }
+
+    .tips .name {width: 13.25rem; height: 1.5rem; border: 1px solid #eee; margin: 0 auto; border-radius: 0.125rem; }
+    .tips .name input {width: 13.25rem; height: 1.5rem; }
+    .tips .shut{width:1.5rem;height:1.5rem;display: inline-block}
+    .toudi{width:12rem;height: 2.25rem;display:block;margin: 0 auto;}
+</style>
+</head>
+<body>
+<div class="main">
+    <div class="head"></div>
+    <div class="list">
+        <a href="javascript:;" class="toudi get" data='1'></a>
+       <!--  <div class="textList">
+            <div class="apply get" data='2'>我的申请</div>
+            <div class="yuyue get" data='3'>宣讲会预约</div>
+            <div class="question">常见问题</div>
+        </div> -->
+    </div>
+    <div class="trailer">
+        <div style="height:2.5rem"></div>
+        <div class="video_box">
+                <video width="100%" height="100%" id="video_self" controls muted loop playsinline poster="img/video.png">
+                    <source type="video/mp4" src="http://jdvodx9jhc6ce.vod.126.net/jdvodx9jhc6ce/50a00f27-e29d-4447-89df-f2c76b5be498.mp4">
+                    <p>浏览器不支持视频</p>
+                </video>
+        </div>
+    </div>
+    <!--<div class="htf" style="margin-top:-0.1rem"></div>-->
+    <!--<div class="about">-->
+        <!--<div class="textAbout">-->
+            <!--<p class="listText">汇添富基金成立于2005年，是中国一流的综合性资产管理公司之一。公司总部设立于上海，在北京、上海、广州、成都等地设有分公司，在香港及上海设有子公司。截至2020年二季度，汇添富公募基金(非货币)月均管理规模达3364.88亿元。汇添富及旗下子公司-->
+            <!--</p>-->
+            <!--<span style="color:#148ce6;font-size: 0.6rem;text-align:center;display:block;margin-top:0.75rem" class="moreText">查看更多</span>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="img05"></div>
+    <div class="img051"></div>
+    <div class="last"></div>
+    <!-- 弹窗 -->
+    <div class="tips" style="display:none">
+        <div>
+            <span class="shut"></span>
+            <div class="phone">
+                <input type="text" id="phone" maxlength="11">
+                <div class="close"></div>
+            </div>
+            <div class="code">
+                <input type="text" placeholder="请输入验证码" id="code" maxlength="6">
+                <div class="getCode">获取验证码</div>
+            </div>
+            <div class="binding">立刻绑定</div>
+            <div style="font-size: 0.5rem;color:#666;margin:0rem 0.75rem;text-align: justify;margin-top:0.75rem">注：我们承诺不会在未经应聘者同意的情况下，收集超过注册用户电话号码和简历内容范围之外的信息。现金宝APP账号或下载现金宝APP并不影响正常的应聘流程与结果。</div>
+            <!-- <p class="tips_text"></p>
+            <a href="javascript:;"><p class="button close"><span>我知道了</span></p></a> -->
+        </div>
+    </div>
+    <style>
+        .tips .phone{width:14rem;height:2rem;margin-top:3.5rem;margin-left:0.75rem;}
+        .tips .phone input{width:10rem;height:2rem;font-size: 0.75rem;color:#000;margin-left:0.75rem;float:left;}
+        .tips .phone .close{width:1rem;height:1rem;float:right;margin-top:0.5rem;}
+        .tips .code{width:14rem;height:2rem;margin-top:0.5rem;margin-left:0.75rem;}
+        .tips .code input{width:8rem;height:2rem;font-size: 0.75rem;color:#000;float:left;margin-left:0.75rem;margin-top:0.25rem;}
+        .tips .code input::-webkit-input-placeholder {
+            color: #999;
+        }
+
+        .tips .code input::-moz-input-placeholder {
+            color: #999;
+        }
+
+        .tips .code input::-ms-input-placeholder {
+            color: #999;
+        }
+        .tips .getCode{float:right;height:2rem;line-height: 2rem;margin-right:0.75rem;color:#fb5c5f;font-size:0.65rem;margin-top:0.1rem;}
+        .tips .binding{width:8.5rem;height:1.75rem;margin:0 auto;margin-top:1.35rem;text-align: center;line-height:1.75rem;
+            font-size: 0.75rem;color: #fff;
+        }
+    </style>
+</div>
+<script src="js/jquery.3.4.1.min.js"></script>
+<!-- <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script> -->
+<script src="/tradeh5/newWap/base/js/utils.js"></script> 
+<script>
+    // var video = document.getElementById("video_self");
+    // video.play();
+    // document.addEventListener('WeixinJSBridgeReady',function(){
+    //     video.play();
+    // },false);
+
+  // 获取登录态cookieInfo
+    var cookieInfo =utils.getCookie('sso_cookie');
+    console.log("cookie",cookieInfo);
+   
+$(function(){ 
+    var dataStatus="";
+
+    $(".get").click(function(){
+       dataStatus=$(this).attr('data');
+       // if(!isApp()){
+            receiveWelfare(dataStatus);
+       // } 
+    })
+    
+    // 常见问题
+    $(".question").click(function(){
+        window.location.href="https://www.baidu.com/s?ie=UTF-8&wd=%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"; 
+    })
+
+    //展开收缩
+    $(".listText").each(function () {
+        var targetEle = $(".listText");
+        var btnCtrl = $(".moreText");
+        var strAll = targetEle.text();
+        if (strAll.length >125) {
+            var sonStr = strAll.substr(0,125);
+            targetEle.text(sonStr + "......")
+            btnCtrl.click(function () {
+                if (btnCtrl.text() == "查看更多") {
+                    targetEle.html(strAll);
+                    btnCtrl.text("收起");
+                } else {
+                    targetEle.text(sonStr + "......")
+                    btnCtrl.text("查看更多");
+                }
+            });
+        } else {
+            btnCtrl.text("");
+        }
+    });
+    
+    $(".close").click(function(){
+        $("#phone").val("");
+    })
+    //关闭弹窗
+    $(".shut").click(function(){
+        $(".tips").hide();
+    })
+  
+    //60秒手机验证码倒计时---点击验证码
+    $(".getCode").click(function(){
+        verify();
+        // var time = 60;
+        // var timer = setInterval(function () {
+        //     time--;
+        //     $(".getCode").css("color", "#999").text(time + "s重新获取");
+        //         if (time == 0) {
+        //         time = 60;
+        //         clearInterval(timer);
+        //         $(".getCode").css("color", "#fb5c5f").text("获取验证码");
+        //         }
+        // }.bind(".getCode"), 1000);
+    })
+
+
+      //点击立刻绑定
+    $(".binding").click(function(){
+
+        var phoneReg = /(^1[3|4|5|7|8]\d{9}$)|(^09\d{8}$)/; 
+        var phone = $.trim($('#phone').val());
+        var code=$('#code').val()
+        if (!phoneReg.test(phone)) {
+                alert('请输入有效的手机号码并验证！');
+                return false;
+            } 
+        if (code=="") {
+                alert('请输入验证码！');
+                return false;
+            } 
+        if (!verifySMSPwd(code)) {
+                return;
+            }
+        login(phone,code,dataStatus)    
+    })
+
+    // receiveWelfare();
+    
+    //滑动验证码初始化
+    // var _fmOpt = {
+    //     display: 'popup',
+    //     partner: "huitianfu",
+    //     appName: "huitianfu_h5",
+    //     fmb: true,
+    //     initialTime: new Date().getTime(),
+    //     token: "huitianfu" + "-" + new Date().getTime() + "-" + Math.random().toString(16).substr(2),
+    //     getinfo: function () {
+    //         return "e3Y6ICIyLjUuMCIsIG9zOiAid2ViIiwgczogMTk5LCBlOiAianMgbm90IGRvd25sb2FkIn0=";
+    //     },
+    //     env:1
+    // };
+    // var fm = document.createElement('script');
+    // fm.type = 'text/javascript';
+
+    // fm.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'static.tongdun.net/captcha/main/tdc.js?ver=1.0&t=' + (new Date().getTime() / 600000).toFixed(0);
+    // var s = document.getElementsByTagName('script')[0];
+    // s.parentNode.insertBefore(fm, s);
+
+})
+
+  //滑动验证码初始化
+  var _fmOpt = {
+        display: 'popup',
+        partner: "huitianfu",
+        appName: "huitianfu_h5",
+        fmb: true,
+        initialTime: new Date().getTime(),
+        token: "huitianfu" + "-" + new Date().getTime() + "-" + Math.random().toString(16).substr(2),
+        getinfo: function () {
+            return "e3Y6ICIyLjUuMCIsIG9zOiAid2ViIiwgczogMTk5LCBlOiAianMgbm90IGRvd25sb2FkIn0=";
+        },
+        env:1
+    };
+    var fm = document.createElement('script');
+    fm.type = 'text/javascript';
+
+    fm.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'static.tongdun.net/captcha/main/tdc.js?ver=1.0&t=' + (new Date().getTime() / 600000).toFixed(0);
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(fm, s);
+
+
+var serialNo="";
+var slideAuthCode="";
+    function verify() { //滑动验证
+            var mobileNo = $.trim($('#phone').val());
+            if (!/^1[0-9]{10}$/.test(mobileNo)) {
+                alert('您输入的手机号有误，请重新输入')
+                return;
+            };
+            //获取滑动验证码开始
+            utils.ajax({
+                type: 'GET',
+                url: '/cos/v1/identity/captcha/token?validateType=1',
+                data: {},
+                dataType: 'json',
+                t: new Date(),
+                success: function (result) {
+                    if (result.returnCode == 0) {
+                        //渲染验证码
+                        _fmOpt.triggerCaptcha(result.body);
+                        console.log(result.body)
+                    } else {
+                        alert('系统异常，请稍后再试')
+                    }
+                },
+                error: function () {
+                    alert('系统异常，请稍后再试')
+                }
+            });
+            //获取滑动验证码结束     
+            // 验证成功回调，有效token由此传入
+            _fmOpt.onSuccess = function (validateToken) {
+                slideAuthCode = validateToken;
+                // var mobileNo = mobileNo;
+                var data = JSON.stringify({
+                    // "slideAuthCode": validateToken,
+                    "mobileNo": mobileNo
+                });
+                // this.verifyCode = ''; //清空已填写的验证码
+                utils.ajax({
+                    type: 'POST',
+                    // url: '/mobileEC/services/account/login_sms_check',
+                    url: '/mobile-bff/v1/login/login-sms-check',
+                    data,
+                    dataType: 'json',
+                    t: new Date(),
+                    success: function (result) {
+                        if (result.returnCode == 0) {
+                           // verifiedMobileNo = mobileNo;
+                            serialNo = result.body.serialNo;
+                            // this.showBlackTips('发送验证码成功');
+                            countDown() //倒计时
+                            // alert('发送验证码成功');
+                        } else {
+                            // utils.showTips({
+                            //     content: result.returnMsg,
+                            //     confirmText: '确定', //确认按钮文字
+                            // })
+
+                            alert(result.returnMsg);
+                        }
+                    },
+                    error: function () {
+                        // this.showBlackTips('系统异常，请稍后再试')
+                        alert('系统异常，请稍后再试');
+                    }
+                });
+            }
+    }
+
+
+    // 倒计时
+    function countDown() {
+       var time = 60;
+        var timer = setInterval(function () {
+            time--;
+            $(".getCode").css("color", "#999").text(time + "s重新获取");
+                if (time == 0) {
+                time = 60;
+                clearInterval(timer);
+                $(".getCode").css("color", "#fb5c5f").text("获取验证码");
+                }
+        }.bind(".getCode"), 1000);
+    }
+     
+// 立即绑定调用函数
+    function login(phone,code,dataStatus) { //登录
+        console.log("===",dataStatus)
+            let data = {
+                // proccessNo: this.serialNo,
+                // authCode: this.verifyCode,
+                // certNum: this.verifiedMobileNo,
+                // slideAuthCode: this.slideAuthCode
+                
+                proccessNo:serialNo,
+                authCode: code,
+                certNum: phone,
+                slideAuthCode:slideAuthCode
+            }
+            console.log(data)
+            utils.ajax({
+                type: 'POST',
+                async: true,
+                url: '/mobileEC/services/account/login_sms_confirm',
+                data: JSON.stringify(data),
+                dataType: 'json',
+                t: new Date(),
+                success: (result) => {
+                    var rescode = result.returnCode;
+                    var resmsg = result.returnMsg;
+                    if (rescode != "0") {
+                        if (rescode == 1008) { //验证码错误
+                            // return this.showTips({
+                            //     content: resmsg, //内容
+                            //     cancelText: '找回密码', //取消按钮文字，默认不展示
+                            //     confirmText: '取消', //确认按钮文字，默认确定
+                            //     cancel: () => { //需跳转找回密码页面
+                            //         window.location = '/tradeh5/newWap/findPwd/IDcheck.html';
+                            //     }
+                            // })
+                            alert(resmsg)
+                        }
+                        // return this.showTips({
+                        //     content: resmsg,
+                        //     confirmText: '确定',
+                        // })
+                        alert(resmsg)
+                    } else if (rescode == "0") {
+                        // alert("绑定成功")
+                        $(".tips").hide();
+                        receiveWelfare(dataStatus);
+                        
+                        // window.location.reload();
+                        
+                        // var referUrl = this.getUrlParam("referUrl");
+                        // if (!this.isEmpty(referUrl)) {
+                        //     window.location = referUrl;
+                        // } else {
+                        //     window.location = "/mobileEC/wap/wezhan/service.html";
+                        // }
+                    }
+                }
+            })
+    }
+
+// 验证验证码
+function verifySMSPwd(pwd) {
+        if (/^\w{6}$/.test(pwd)) {
+            return true;
+        }
+        alert('短信验证码必须是六个数字或字母组成！')
+        return false;
+    }
+
+
+// 调用活动验证接口
+    function receiveWelfare(dataStatus){
+            var that = this;
+           // var openid=localStorage.getItem("openId");
+            //alert(openid);
+            var url = "{{user-take-part}}?actId={{$actId}}";
+            var dataMap = {
+                //openid:openid
+            };
+            $.ajax({
+                url: url,
+                data: JSON.stringify(dataMap),
+                type: 'POST',
+                contentType: 'application/json;charset=utf-8',
+                success: function (result) {
+                    // alert(result);
+                    var data2 = result;
+                    var code = data2.returnCode;
+                    if (result.returnCode == "1000") { //重定向到登录页面
+
+                        // var curUrl = window.location.href;
+                        // var baseUrl=curUrl.split('?')[0];
+                        // curUrl = curUrl.split('?')[1];
+                        // curUrl=encodeURIComponent(curUrl);
+                        // curUrl=btoa(curUrl);
+                        // loginUrl = "{{wap-user-login}}?referUrl="+baseUrl+'?'+ curUrl;
+                        // alert(loginUrl);
+                        // window.location = loginUrl;
+                        
+                        $(".tips").show();
+                        $(".tips .shut").click(function(){
+                            window.location.href="https://htffund.m.zhiye.com/xiaoyuan.html?jc=2";
+                        })
+
+                    } else if (result.returnCode == 0) {
+
+                        if(dataStatus=='1'){     //投递简历
+                               window.location.href="https://htffund.m.zhiye.com/xiaoyuan.html?jc=2";
+                            
+                        }else if(dataStatus=='2'){  //我的申请 
+                               window.location.href="https://htffund.m.zhiye.com/xiaoyuan.html?jc=2";
+                        }else{                   //宣讲会预约
+                               window.location.href="https://htffund.m.zhiye.com/xiaoyuan.html?jc=2";
+                        }
+
+                        // $(".toudi").css('href', 'https://www.baidu.com/s?ie=UTF-8&wd=%E6%8A%95%E9%80%92%E7%AE%80%E5%8E%86');
+
+
+                        // awardDesc = result.body[0].awardDesc;                            
+                    } else if (result.returnCode == '10003') {
+                       alert(result.returnMsg);
+                        
+                    } else {
+                      alert(result.returnMsg);
+                    }
+                },
+                error: function () {
+
+                }
+            });
+    }
+</script>
+</body>
+</html>

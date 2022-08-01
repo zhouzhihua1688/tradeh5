@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>填写开户证件号码</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/common.css">
+    <link rel="stylesheet" href="css/mobileSelect.css">
+    <link rel="stylesheet" href="css/idCardAuth.css">
+    <script src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+<body>
+<div class="title">请输入您的证件号以验证身份</div>
+<div class="id-info">
+    <div class="input-block">
+        <div class="name-label">证件类型</div>
+        <div class="name-input">
+            <span id="idType">身份证</span>
+        </div>
+        <div class="arrow">
+            <img src="img/arrow.png">
+        </div>
+    </div>
+    <div class="input-block">
+        <div class="name-label">证件号码</div>
+        <div class="name-input">
+            <input id="idNo" type="text" placeholder="请输入您的证件号码">
+        </div>
+    </div>
+</div>
+<div class="next-btn">下一步</div>
+<div id="change"><a href="javascript:;">更换验证方式</a></div>
+<div id="selectType" style="display: none;"></div>
+<!--<div id="change"><a href="javascript:;">更换验证方式</a></div>-->
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;"
+           onclick="this.parentElement.parentElement.style='display:none'">确定</a>
+    </div>
+</div>
+<script src="/tradeh5/newWap/base/js/lib/jquery-3.2.1.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script src="js/mobileSelect.min.js"></script>
+<script src="js/cosBase.js"></script>
+<script src="js/idCardAuth.js"></script>
+</body>
+</html>

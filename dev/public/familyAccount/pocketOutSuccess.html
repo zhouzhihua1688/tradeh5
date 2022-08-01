@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>完成</title>
+    <!-- <link rel="stylesheet" href="css/base.css"> -->
+    <link rel="stylesheet" href="../base/css/base.css">
+    <link rel="stylesheet" href="css/pocketOutSuccess.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+</head>
+
+<body>
+<div id="app" v-cloak>
+    <div class="main">
+        <div class="success-radio">
+            <img src="img/active.png" alt="">
+            <span v-if="realTime=='1'">成功申请快速取现<span style="color:#FB5C5F"
+                                                     v-text="numFormat(successMoney)"></span>元</span>
+            <span v-if="realTime=='0'">成功申请普通取现<span style="color:#FB5C5F"
+                                                     v-text="numFormat(successMoney)"></span>元</span>
+            <!-- <span>成功申请快速取现<span style="color:#FB5C5F">2,000,00</span>元</span> -->
+        </div>
+        <div class="straight-line"></div>
+        <div class="success-sign">
+            <div><img src="img/sign.png" alt=""></div>
+            <div v-if="realTime=='1'"><span>资金预计1分钟内到账</span><span v-text="bankAccoDisplay"></span></div>
+            <div v-if="realTime=='0'"><span>资金预计</span><span v-text="paymentDate"></span><span
+                    v-text="bankAccoDisplay"></span></div>
+            <!-- <img src="img/sign.png" alt="">
+            <p><span>资金预计1分钟内到账尾号6577的农业银行快富</p> -->
+            <!-- <p><span>资金预计1分钟内到账</span><span v-text="bankAccoDisplay"></span></p> -->
+        </div>
+        <div class="tips">注：具体时间以银行卡实际入账时间为准</div>
+        <div class="buy-btn" @click="jumpUrl()">确认</div>
+    </div>
+</div>
+<script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../base/js/utils.js"></script>
+<script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+<!-- <script src="js/jquery-3.2.1.min.js"></script>
+<script src="./js/utils.js"></script>
+<script src="./js/vue.js"></script> -->
+<!-- <script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script> -->
+<!-- <script src="./js/pdf.js"></script> -->
+<script src="./js/pocketOutSuccess.js"></script>
+
+</body>
+
+</html>

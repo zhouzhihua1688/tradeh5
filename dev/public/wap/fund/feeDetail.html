@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../css/base.css">
+	<link rel="stylesheet" href="../css/fund/fee-detail-base.css">
+	<link rel="stylesheet" href="../css/fund/fee-detail-common.css">
+	<script type="text/javascript" src="../js/lib/phone-size.js"></script>
+	<style>
+		html,
+		body {
+			color: #000;
+			background: #f6f6f6;
+		}
+
+		.content1 {
+			background: #fff;
+			height: 2.5rem;
+			line-height: 2.5rem;
+			font-size: .75rem;
+		}
+		.content2{
+			background: #fff;
+		}
+		.content h2 {
+			font-size: .7rem;
+			font-weight: bold;
+			height: 1.75rem;
+			line-height: 1.75rem;
+			background: #f6f6f6;
+		}
+
+		.table1 {
+			width: 100%;
+			font-size: .65rem;
+		}
+
+		.table1 th {
+			height: 2.25rem;
+			line-height: 2.25rem;
+			border-bottom: 1px #e7e7e7 solid;
+		}
+		.table1 th:nth-of-type(1){
+			padding-left: .75rem;
+		}
+		.table1 th:last-of-type{
+			padding-left: .75rem;
+		}
+		.table1 tr{
+			padding: 0 .75rem;
+			border-bottom: 1px #e7e7e7;
+		}
+		.table1 tr td {
+			line-height: 2.5rem;
+			border-bottom: 1px #e7e7e7 solid;
+		}
+		.table1 tr td:nth-of-type(1) {
+			text-align: left;
+			padding-left: .75rem;
+		}
+		.table1 tr td:last-of-type {
+			padding-right:.75rem ;
+		}
+
+		.table1 tr td i {
+			display: inline-block;
+			width: .75rem;
+			height: .75rem;
+			vertical-align: middle;
+
+		}
+		.down{
+			background: url("../images/fund/select_down.png") no-repeat;
+			background-size: 100% 100%;
+		}
+		.up{
+			background: url("../images/fund/select_up.png") no-repeat;
+			background-size: 100% 100%;
+		}
+		.table1 tbody tr {
+			position: relative;
+			/* overflow: hidden; */
+		}
+		.table1 tbody .tablebox{
+			display: none;
+			border-bottom: none;
+		}
+		.table1 tbody .tablebox td{
+			padding: 0 .75rem;
+		}
+		.table1 tbody .tablebox td .box-container{
+			position: relative;
+			width: 100%;
+			background: #f7fcff;
+			border: 1px #e5f4fe solid;
+			border-radius: 3px;
+		}
+		.table1 tbody .tablebox td .box-container img{
+			position: absolute;
+			width: .75rem;
+			height: .375rem ;
+			top: -0.375rem;
+			left: 50%;
+		}
+		.table1 tbody .tablebox td .box-container ul{
+			padding: .5rem 1rem;
+			font-size: .65rem;
+		}
+		.table1 tbody .tablebox td .box-container ul li{
+			height: 1.5rem;
+			line-height: 1.5rem;
+		}
+		.table1 tbody .tablebox td .box-container ul li span{
+			display: inline-block;
+			vertical-align: middle;
+		}
+		.tb-span-w20{
+			width: 20%;
+			text-align: left;
+		}
+		.tb-span-w40{
+			width: 40%;
+			text-align: right;
+		}
+		.tb-span-w80{
+			width: 80%;
+			text-align: right;
+		}
+		.content .table-footer {
+			font-size: .6rem;
+			height: 1.75rem;
+			line-height: 1.75rem;
+			background: #fff;
+		}
+		.content3 ul {
+			background: #fff;
+			padding: .5rem .75rem;
+			border-bottom: 1px #e7e7e7 solid;
+		}
+		.content3 ul li {
+			height: 1.5rem;
+			line-height: 1.5rem;
+			font-size: .65rem;
+		}
+
+		.content4 {
+			display: flex;
+			line-height: 1rem;
+			font-size: .65rem;
+			padding: .5rem .75rem 1rem .75rem;
+		}
+		.content4 span{
+			display: block;
+			margin-right: .2rem;
+		}
+		.content4 p{
+			width: 96%;
+		}
+		.th-right{padding-right: .75rem;}
+	</style>
+</head>
+
+<body style="display: none;">
+
+<div class="content1 clear-both padding-rl30 sum-fee-amt">
+	<p class="fl name">估算转换费用</p>
+	<p class="fr"><span class="red sum-feeAmount"></span><span id="currencyUnit">元</span></p>
+</div>
+<div class="content2 content">
+	<h2 class="padding-rl30">赎回费率（<span class="fundName"></span>）</h2>
+	<table class="table1">
+		<thead class="color666 text-align-r ">
+		<tr >
+			<th class="width12 li-1 text-align-l">费率</th>
+			<th class="width26 li-2">持有期限</th>
+			<th class="width28 li-3">当前持有份额</th>
+			<th class="width34 li-4" style="color: #000; font-weight: bold;"><span style="margin-right: .75rem;">本次申请份额</span></th>
+		</tr>
+		</thead>
+		<tbody class="text-align-r redeem-fee-body">
+		<!--<tr>
+			<td>1.50%</td>
+			<td>T＜7天</td>
+			<td>3456.00</td>
+			<td>3456.00<i class="down"></i></td>
+		</tr>
+		<tr class="tablebox ">
+			<td colspan="4">
+				<div class="box-container">
+					<img src="./img/sanjiao.png" alt="">
+					<ul>
+						<li class="color666"><span>持有天数</span><span>当前持有份额</span><span>本次申请份额</span></li>
+						<li><span>3天</span><span>12000</span><span>0.00</span></li>
+						<li><span>4天</span><span>672230.12</span><span>823.56</span></li>
+						<li><span>5天</span><span>623.56</span><span>623.56</span></li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>0.50%</td>
+			<td>7天≤T＜1年</td>
+			<td>8023.12</td>
+			<td>8023.12<i class="down"></i></td>
+		</tr>
+		<tr class="tablebox ">
+			<td colspan="4">
+				<div class="box-container">
+					<img src="./img/sanjiao.png" alt="">
+					<ul>
+						<li class="color666"><span>持有天数</span><span>当前持有份额</span><span>本次申请份额</span></li>
+						<li><span>3天</span><span>12000</span><span>0.00</span></li>
+						<li><span>4天</span><span>672230.12</span><span>823.56</span></li>
+						<li><span>5天</span><span>623.56</span><span>623.56</span></li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>0.25%</td>
+			<td>1年≤T＜2年</td>
+			<td>3456.00</td>
+			<td>3456.00<i class="down"></i></td>
+		</tr>
+		<tr class="tablebox ">
+			<td colspan="4">
+				<div class="box-container">
+					<img src="./img/sanjiao.png" alt="">
+					<ul>
+						<li class="color666"><span>持有天数</span><span>当前持有份额</span><span>本次申请份额</span></li>
+						<li><span>3天</span><span>12000</span><span>0.00</span></li>
+						<li><span>4天</span><span>672230.12</span><span>823.56</span></li>
+						<li><span>5天</span><span>623.56</span><span>623.56</span></li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>0.00%</td>
+			<td>T≥2年</td>
+			<td>856.34</td>
+			<td>856.34<i class="down"></i></td>
+		</tr>
+		<tr class="tablebox ">
+			<td colspan="4">
+				<div class="box-container">
+					<img src="./img/sanjiao.png" alt="">
+					<ul>
+						<li class="color666"><span>持有天数</span><span>当前持有份额</span><span>本次申请份额</span></li>
+						<li><span>3天</span><span>12000</span><span>0.00</span></li>
+						<li><span>4天</span><span>672230.12</span><span>823.56</span></li>
+						<li><span>5天</span><span>623.56</span><span>623.56</span></li>
+					</ul>
+				</div>
+			</td>
+		</tr>-->
+		</tbody>
+	</table>
+	<div class="text-align-c table-footer color666 redeem-fee-amt">估算赎回费用<span class="red feeAmount"></span>元</div>
+</div>
+<div class="content3 content">
+	<h2 class="padding-rl30">申购补差费率</h2>
+	<ul class="clear-both">
+		<li>
+			<p class="fl">转出基金申购费率（<span class="fundName"></span>）</p>
+			<p class="fr fundFeeRate"></p>
+		</li>
+		<li>
+			<p class="fl" >转入基金<span id="isShow">申购</span>费率（<span class="ofundName"></span>）</p>
+			<p class="fr ofundFeeRate"></p>
+		</li>
+		<li>
+			<p class="fl">申购补差费率</p>
+			<p class="fr subDiffRate"></p>
+		</li>
+		<li>
+			<p class="fl">折后费率</p>
+			<p class="fr feeRate"></p>
+		</li>
+	</ul>
+	<div class="text-align-c table-footer color666"><span class="newText">估算申购补差费用</span><span class="red subFeeAmount"></span>元</div>
+</div>
+<div class="content4 color666" id="bottomTips">
+	<span>*</span>
+	<p>
+		<span class="remark_1">转换费用=转出基金赎回费+转入基金申购补差费，转换交易T+1确认</span>
+		<span class="remark_2">实际费用以TA最终确认为准，估算费用仅供参考。因未知价交易原则及存在多笔交易时TA处理顺序与发生顺序可能存在差异的情况，估算费用与实际费用存在一定偏差。</span>
+	</p>
+</div>
+
+
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script type="text/javascript" src="../js/common.js?20210302"></script>
+<script type="text/javascript" src="../js/fund/feeDetail.js?t=20200623"></script>
+</body>
+
+</html>

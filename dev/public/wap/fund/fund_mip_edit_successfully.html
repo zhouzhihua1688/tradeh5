@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>成功</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/base_v1.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+        body { background-color: #fff;}
+        .wrap {
+            padding: 3rem 0.75rem;
+        }
+        .wrap-top {
+            height: 1.25rem;
+            line-height: 1.25rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color:#333333;
+        }
+        .wrap-top i {
+            width: 1.25rem;
+            height: 1.25rem;
+            font-size: 0.8rem;
+        }
+        .wrap-middle {
+            padding: 1.95rem 0 0 1rem;
+        }
+        .wrap-middle p {
+            color:#333333;
+            font-size: 0.65rem;
+            text-align: center;
+            padding-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="wrap-top">
+        <i class="icon icon-ok-red"></i> 您的修改定投计划申请已提交
+    </div>
+    <div>
+        <button class="btn-orange" id="btn-submit">确认</button>
+    </div>
+</div>
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/lib/phone-size.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script type="text/javascript" src="../js/common.js?20210302"></script>
+<script>
+    $("#btn-submit").click(function () {
+		var purObj = App.getSession(App.serialNo_success_show_data);
+		if(purObj && purObj.arAcct){//从亲情宝入口的交易
+			window.location.href = '/tradeh5/newWap/familyAccount/home.html';
+		}else{
+			window.location.href = "../fundgroup/my_mip.html?showTp=0"
+		}
+        
+    });
+    // console.log("successInfo:", App.getSession(App.successInfo));
+    var si = App.getSession(App.successInfo);
+    if(si){
+        si = si.replace("size=14", "class='f16'");
+        si = si.replace("size=6", "class='f12'");
+        si = si.replace("size=12", "class='f11'");
+        $("#successInfo").html(si);
+    }
+    //风险留痕
+	function queryTips(){
+        var show_data = App.getSession(App.serialNo_success_show_data);
+        if(show_data){
+            var fundRiskLevel = App.getSession("fundRiskLevel");
+            var fundId = show_data['fundId'];
+            var reminderType = App.getSession("reminderType");
+            var fundIdToFundRiskLevelMap = '{"'+fundId+'":"'+fundRiskLevel+'"}';
+            var dataMap = {};
+            var dataMap2 = {};
+            dataMap2[fundId] = fundRiskLevel;
+            dataMap["confirmStatus"]= 1;
+            dataMap["agreementStatus"]= 1;
+            dataMap["fundIdToFundRiskLevelMap"]= dataMap2;
+            dataMap["agreementIds"] = App.getSession("mip_agreementIds");
+            dataMap["reminderType"] = reminderType;
+            var url = "/mobileEC/services/common/customer_risk_leave_mark";
+            // var url = "/mobile-bff/v1/common/customer-risk-leave-mark"
+            App.post(url,JSON.stringify(dataMap), null, function(result) {
+                var body = result.body;
+                if (body != null && body != undefined) {
+
+                }
+            });
+        }
+	}
+	queryTips();
+    
+</script>
+</body>
+</html>

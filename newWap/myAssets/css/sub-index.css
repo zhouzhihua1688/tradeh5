@@ -1,0 +1,148 @@
+/* pages/myAsset/assetSubDetail/index.wxss */
+body{
+    background-color: #f6f6f6;
+}
+.text-center{
+    text-align: center;
+}
+.text-left{
+    text-align: left;
+}
+.text-right{
+    text-align: right;
+}
+.mbottom-40t{
+    margin-top: 1rem;
+}
+.black{
+    color: #000;
+}
+.content{
+    padding: .5rem .75rem;
+}
+.sub-card{
+    background-color: #fff;
+    padding-left: .75rem;
+    border-radius: .2rem;
+}
+.sub-card .card-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 2.7rem;
+    border-bottom:1px solid #efefef;
+    color: #000;
+}
+.sub-card .card-title .title-r .title_text1{
+    font-size: .85rem;
+    margin-right: .25rem;
+}
+.sub-card .card-title .title-r .title_text2{
+    font-size: .65rem;
+}
+.sub-card .card-title .title-l {
+    width: .4rem;
+    height: .75rem;
+    margin-right: .75rem;
+}
+.sub-card .card-detail .total-balance{
+    padding-top: .75rem;
+    font-size: .65rem;
+    color: #666;
+    line-height: .65rem;
+}
+.sub-card .card-detail .balance-num{
+    font-family:Helvetica Neue;
+    font-weight:400;
+    font-size: 1.3rem;
+    line-height: 1.125rem;
+    margin-top: .75rem;
+    margin-bottom: 1rem;
+}
+.sub-card .card-detail .fields{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: .875rem;
+}
+.sub-card .card-detail .fields .fields-c{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding-right: .75rem;
+}
+.sub-card .card-detail .fields .fields-text1{
+    font-size: .65rem;
+    line-height: .65rem;
+    color: #666;
+    margin-bottom: .5rem;
+}
+.sub-card .card-detail .fields .fields-text2{
+    font-size: .8rem;
+    line-height: .75rem;
+    font-family:Helvetica Neue;
+    font-weight:400;
+}
+.content-title{
+    line-height: 1.75rem;
+    color: #666;
+    font-size: .65rem;
+}
+.fund-list{
+    background-color: #fff;
+    border-radius: .2rem;
+    margin-bottom: .5rem;
+}
+.fund-list .fund-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 2.25rem;
+    border-bottom:1px solid #efefef;
+    padding: 0 .75rem;
+}
+.fund-list .fund-title .title-r .title_text1{
+    font-size: .8rem;
+    margin-right: .5rem;
+    color: #000;
+}
+.fund-list .fund-title .title-r .title_text2{
+    font-size: .65rem;
+    color: #666;
+}
+.fund-list .fund-title .title-l {
+    width: .4rem;
+    height: .75rem;
+}
+.fund-list .fund-table{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap:wrap;
+    padding: .75rem;
+}
+.fund-list .fund-table .table-box{
+    display: flex;
+    flex-direction: column;
+    width: 33.3%;
+}
+.fund-list .fund-table .table-box .box-text1{
+    font-size: .6rem;
+    line-height: .6rem;
+    margin-bottom: .375rem;
+    color: #666;
+}
+.fund-list .fund-table .table-box .box-text2{
+    font-size: .8rem;
+    line-height: .75rem;
+}
+.fund-tip{
+    background-color: #ffefef;
+    line-height: 1.25rem;
+    padding: 0 .75rem;
+    color: #fb5c5f;
+    font-size: .65rem;
+    border-radius: .15rem;
+    margin: 0 .75rem;
+}
+.fund-blank{
+    height: .75rem;
+}

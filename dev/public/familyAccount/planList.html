@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>全部计划</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/common.css">
+    <link rel="stylesheet" href="./css/planList.css">
+    <link rel="stylesheet" href="./css/swiper-4.2.2.min.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+    <script type="text/javascript" src="../base/js/needLogin.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="main">
+	<div class="contentTop">
+		<div class="content">
+			<div class="contentTitle">
+			<div class="contentTitleLeft">
+			家庭资产(<span class="currencyTypeUnit">-</span>)
+			</div>
+			<div class="contentTitleRight">
+			家庭成员<img src="./img/list_arrow.png" alt="">
+			</div>
+			</div>
+			<div class="contentMoney assetTotalAmount">
+			--
+			</div>
+			<div class="contentBottom">
+				<div class="infoLeft">
+					<div class="infoTitle yieldDate">最新收益
+					</div>
+					<div class="infoContent lastYield">
+					--
+					</div>
+				</div>
+				<div class="infoMid">
+					<div class="infoTitle">持有收益<!--<img src="./img/list_point.png" alt="">-->
+					</div>
+					<div class="infoContent holdYield">
+					--
+					</div>
+				</div>
+				<div class="infoRight">
+					<div class="infoTitle">累计收益
+					</div>
+					<div class="infoContent totalYield">
+					--
+					</div>
+				</div>
+				<div class="banfoot"><div class="left"></div><img src="./img/list_arrow.png" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="contentMid">
+		<div class="contentMidTitle">
+		家庭成员
+		</div>
+		<div class="contentMidDesc">
+		点击头像可查看为该成员的投资
+		</div>
+
+		
+		<div class="container">
+			<div class="swiper-container swiper1">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide"><div class="icons icons-all"></div><div class="desc">全部</div></div>
+					<div class="swiper-slide last"><div class="icons icons-add"></div><div class="desc">添加成员</div></div>
+				</div>
+			</div>
+			
+
+		</div>
+	</div>
+	<div class="contentList">
+		<div class="listTitle">
+			<div class="titleRight">
+				<div class="titleLeft">计划详情</div>
+				<div class="selectInfo" id="order1">
+					全部计划<img src="img/jiantou.png" alt="" style="width:0.45rem;height:0.275rem;margin-left:0.25rem;margin-top:-0.1rem">
+				</div>
+				<div class="selectInfo" id="order2">
+					排序<img src="img/jiantou.png" alt="" style="width:0.45rem;height:0.275rem;margin-left:0.25rem;margin-top:-0.1rem">
+				</div>
+			</div>
+		</div>
+		<style>
+			.titleRight{width:100%;display: flex;justify-content: space-between; align-items: center;}
+			.titleRight div{width:30%;text-align:center;line-height: 1.25rem}
+			.titleRight div:nth-of-type(1){width:20%;margin-left: 0.5rem}
+			.titleRight div:nth-of-type(3){margin-right: 0.75rem}
+		</style>
+		<div id="listItem">
+			
+		</div>
+		<!-- 没有数据的时候 -->
+		<div class="noContent" style="display: none;">
+			<div style="text-align: center;"><img src="img/noDetail.png" alt=""></div>
+			<div class="text">暂无计划</div>		
+		</div>
+	</div>
+
+	<div class="footBtn">
+		<button class="btn-orange" id="btn-submit" style="width: 100%;margin:0;">+新建计划</button>
+	</div>
+</div>
+
+<div class="mask" style="display:none"></div>
+<div class="layer0 animated slideInUp" id="layer0" style="display: none;">
+	<div class="giftlist giftlist0">
+		<a href="javascript:;">
+			<div class="title" data="UPDATE_TIME">按修改时间</div>
+		</a>
+		<a href="javascript:;">
+			<div class="title" data="BALANCE_PROFIT">按持有收益</div>
+		</a>
+		<a href="javascript:;">
+			<div class="title" data="TOTAL_ASSET">按计划总资产</div>
+		</a> 
+		<a href="javascript:;">
+			<div class="title" data="CREATE_TIME">按创建时间</div>
+		</a>      
+	</div>
+	<div class="close">
+		<a href="javascript:;" style="color:#0070fa;font-size:0.75rem" >取消</a>
+	</div> 
+</div>
+
+<div class="layer0 animated slideInUp" id="layer2" style="display: none;">
+	<div class="giftlist giftlist2">
+		<a href="javascript:;">
+			<div class="title" data="NOT_FILTER">全部计划</div>
+		</a>
+		<a href="javascript:;">
+			<div class="title" data="MY_CREATED">我创建的计划</div>
+		</a>
+		<a href="javascript:;">
+			<div class="title" data="MY_INVESTED">我投资的计划</div>
+		</a>      
+	</div>
+	<div class="close">
+		<a href="javascript:;" style="color:#0070fa;font-size:0.75rem" >取消</a>
+	</div> 
+</div>
+
+<div class="layer0 animated slideInUp" id="layer1" style="display: none;">
+	<div class="giftlist giftlist1">
+		<!--
+		<a href="javascript:;">
+			<div class="title import">现有持仓导入</div>
+		</a>-->
+		<a href="javascript:;">
+			<div class="title addInvest">追加投资</div>
+		</a>
+		<a href="javascript:;">
+			<div class="title addOther">买入其他产品</div>
+		</a>         
+	</div>
+	<div class="close">
+		<a href="javascript:;" style="color:#0070fa;font-size:0.75rem" >取消</a>
+	</div> 
+</div>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;"
+           onclick="this.parentElement.parentElement.style='display:none'">确定</a>
+    </div>
+</div>
+<script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../base/js/utils.js"></script>
+<script type="text/javascript" src="../base/js/lib/swiper-4.2.2.min.js"></script>
+<script>
+	var selectOrder = '';
+	var selectFilter = 'NOT_FILTER';
+
+	// S 20210423 获取userInfo信息，并存入session中(三方登录情况)
+	getUserInfo();
+	// E 20210423 获取userInfo信息，并存入session中(三方登录情况)
+
+	getAccount();
+	$(function(){
+		
+		$(".giftlist0").children("a").each(function(index, val) {
+			var ele = $(this);
+			ele.on("click", function() {
+				selectOrder = $(this).children("div").attr("data");
+				$("#order2").html($(this).children("div").text()+'<img src="img/jiantou.png" alt="" style="width:0.45rem;height:0.275rem;margin-left:0.25rem;margin-top:-0.1rem">');
+				var selectedMemberId = utils.getSession("selectedMemberId");
+				var selectedTeamId = utils.getSession("selectedTeamId");				
+				showPlans(teamId,selectedMemberId,selectOrder,selectFilter);
+				$(".mask,.layer0").hide()
+
+			});
+		});
+		$(".giftlist2").children("a").each(function(index, val) {
+			var ele = $(this);
+			ele.on("click", function() {
+				selectFilter = $(this).children("div").attr("data");
+				$("#order1").html($(this).children("div").text()+'<img src="img/jiantou.png" alt="" style="width:0.45rem;height:0.275rem;margin-left:0.25rem;margin-top:-0.1rem">');
+				var selectedMemberId = utils.getSession("selectedMemberId");
+				var selectedTeamId = utils.getSession("selectedTeamId");				
+				showPlans(teamId,selectedMemberId ,selectOrder,selectFilter);
+				$(".mask,.layer0").hide()
+
+			});
+		});
+	});
+    // 关闭浮层
+	$(".close").click(function(){
+		$(".mask,.layer0").hide()
+		$("#order2").html($("#order2").html().replace("jiantou2","jiantou"));
+		$("#order1").html($("#order1").html().replace("jiantou2","jiantou"));
+	})
+
+	$("#btn-submit").click(function(){
+		window.location.href='createPlan.html';
+	});
+	$(".last").click(function(){
+		window.location.href = 'inviteMemList.html';
+	});
+	$(".contentTitleRight").click(function(){
+		window.location.href = 'familyMember.html';
+	});
+	var teamId = '';//当前登录用户的teamId
+
+	function setCurrentSlide(ele, index) {
+		$(".swiper1 .swiper-slide").removeClass("selected");
+		ele.addClass("selected");
+		utils.setSession("selectedIndex",index);
+		if(index > 0){
+			if($(ele).attr("data-teamid")){//展示资产数据
+				//存入当前选中的成员数据
+				utils.setSession("selectedTeamId",$(ele).attr("data-teamid"));
+				utils.setSession("selectedMemberId",$(ele).attr("data-memberid"));
+				showPlans(teamId,$(ele).attr("data-memberid"),'UPDATE_TIME','NOT_FILTER');
+				
+			}
+		}else if(index == 0){//展示全部数据
+			//存入当前选中的成员数据
+			utils.setSession("selectedTeamId",teamId);
+			utils.removeSession("selectedMemberId");
+			showPlans(teamId,'','UPDATE_TIME','NOT_FILTER');
+		}
+		var selectedMemberId = utils.getSession("selectedMemberId");
+		var selectedTeamId = utils.getSession("selectedTeamId");
+		var selectedIndex = utils.getSession("selectedIndex");
+		if(selectedTeamId && selectedMemberId ){
+			//绑定跳转
+			$(".banfoot").click(function(){
+				window.location.href = 'assetDetail.html?teamId='+selectedTeamId+'&memberId='+selectedMemberId;
+			});
+		}else{
+
+			//绑定跳转
+			$(".banfoot").click(function(){
+				window.location.href = 'assetDetail.html?teamId='+teamId;
+			});
+		}
+		
+	}
+	
+	//获取当前用户userInfo信息（三方登录情况需要重新设置userInfo到sessionStorage
+	function getUserInfo(){
+		utils.get('/icif/v1/custs/get-simple-by-cust-no',null,function(result){
+			console.log('get-simple-by-cust-no result=', result);
+			if(result && result.returnCode == 0){
+				result.body && utils.setSession(utils.userInfo, result.body);
+			}
+		});
+	}
+
+	//是否开启亲情宝
+	function getAccount(){
+		utils.get('/sfs/v1/accounts/is-open?version=6.6',null,function(result){
+			if(result.returnCode == 0){
+				if(result.body.isOpen){
+					teamId = result.body.teamId
+					//渲染成员列表
+					getTeam(teamId);
+					
+				}
+				(!result.body.isOpen)&&(window.location.href="/tradeh5/newWap/familyAccount/open.html");
+			}
+		});
+	}
+	//家庭成员列表
+	function getTeam(teamId){
+		utils.get('/sfs/v1/accounts/member/list?teamId='+teamId,null,function(result){
+			if(result.returnCode == 0){
+				var list = result.body;
+				var htm = '';
+				list.forEach(function(item,index){
+					var admin = '';
+					if(item.admin){
+						admin = '<div class="admin">管理员</div>';
+					}
+
+					htm+='<div class="swiper-slide" data-teamId="'+item.teamId+'" data-memberId="'+item.memberId+'" ><div class="icons" style="background:url(\''+item.avatarImage+'\');background-size: 100%;"></div>'+admin+'<div class="desc">'+item.memberNameDisplay+'</div><div class="desc2">('+item.memberRoleName+')</div></div>';
+					
+				});
+				$(htm).insertBefore('.last');
+				
+				var swiper1 = new Swiper('.swiper1', {
+		//					设置slider容器能够同时显示的slides数量(carousel模式)。
+		//					可以设置为number或者 'auto'则自动根据slides的宽度来设定数量。
+		//					loop模式下如果设置为'auto'还需要设置另外一个参数loopedSlides。
+					slidesPerView: 5,
+					paginationClickable: true,//此参数设置为true时，点击分页器的指示点分页器会控制Swiper切换。
+					spaceBetween: 10,//slide之间的距离（单位px）。
+					freeMode: true,//默认为false，普通模式：slide滑动时只滑动一格，并自动贴合wrapper，设置为true则变为free模式，slide会根据惯性滑动且不会贴合。
+					loop: false,//是否可循环
+					onTab: function(swiper) {
+						var n = swiper1.clickedIndex;
+					}
+				});
+				swiper1.slides.each(function(index, val) {
+					var ele = $(this);
+					ele.on("click", function() {
+						if(swiper1.slides.length != index +1){
+							setCurrentSlide(ele, index);
+							//展示对应的数据
+						}
+
+					});
+				});
+
+				var selectedMemberId = utils.getSession("selectedMemberId");
+				var selectedTeamId = utils.getSession("selectedTeamId");
+				var selectedIndex = utils.getSession("selectedIndex");
+				if(selectedTeamId && selectedMemberId && selectedIndex){
+
+					showPlans(selectedTeamId,selectedMemberId,'UPDATE_TIME','NOT_FILTER');
+					$(".swiper1 .swiper-slide").removeClass("selected");
+					$(".swiper1 .swiper-slide").eq(selectedIndex).addClass("selected");
+					//绑定跳转
+					$(".banfoot").click(function(){
+						window.location.href = 'assetDetail.html?teamId='+selectedTeamId+'&memberId='+selectedMemberId;
+					});
+				}else{
+
+					showPlans(teamId,'','UPDATE_TIME','NOT_FILTER');
+					$(".swiper1 .swiper-slide").removeClass("selected");
+					$(".swiper1 .swiper-slide").eq(0).addClass("selected");
+					//绑定跳转
+					$(".banfoot").click(function(){
+						window.location.href = 'assetDetail.html?teamId='+teamId;
+					});
+				}
+
+			}
+		});
+	}
+
+	//计划信息
+	function showPlans(teamId,memberId,sortType,filterType){
+		var url = '/sfs/v1/accounts/assets/stat?teamId='+teamId; 
+		if(memberId){
+			url+='&memberId='+memberId;
+		}
+		if(sortType){
+			url+='&sortType='+sortType;
+		}
+		if(filterType){
+			url+='&filterType='+filterType;
+		}
+		utils.get(url,null,function(result){
+			var body = result.body;
+			if(result.returnCode == 0){
+				if(body.investMemberCount > 0){
+					$(".banfoot .left").html(body.investMemberCount+'位家庭成员正在参与投资');
+					$(".banfoot").show();
+				}else{
+					$(".banfoot").hide();
+				}
+				$(".assetTotalAmount").html(formatMoney(body.totalAssetAmount));
+				$(".currencyTypeUnit").html(body.currencyTypeUnit);
+				$(".holdYield").html(formatMoney(body.holdYield));
+				$(".lastYield").html(formatMoney(body.lastYieldAmount));
+				$(".totalYield").html(formatMoney(body.totalYield));
+				$(".yieldDate").html('最新收益('+(body.navDate ? body.navDate.substring(4,6)+'.'+body.navDate.substring(6,8):'--')+')');
+				var planList = body.plansList;
+				var htm = '';
+				$("#listItem").html(htm);
+				planList.forEach(function(item,index){
+					htm+='<div class="listItem">'+
+						'<div class="itemTitle">'+item.planName+
+						'</div>'+
+						'<div class="itemMid">'+
+							'<div class="infoLeft">'+
+								'<div class="infoTitle">持有金额(元)'+
+								'</div>'+
+								'<div class="infoContent">'+formatMoney(item.holdAmount) +
+								'</div>'+
+							'</div>'+
+							'<div class="infoMid">'+
+								'<div class="infoTitle">持有收益<img src="./img/list_point.png" alt="">'+
+								'</div>'+
+								'<div class="infoContent"  style="color: '+showColor(item.holdYield)+' ">'+formatMoney(item.holdYield) +
+								'</div>'+
+							'</div>'+
+							'<div class="infoRight">'+
+								'<div class="infoTitle">最新收益('+(item.yieldDate ? item.yieldDate.substring(4,6)+'.'+item.yieldDate.substring(6,8) : "--")+')'+
+								'</div>'+
+								'<div class="infoContent"  style="color: '+showColor(item.lastYield)+' ">'+formatMoney(item.lastYield) +
+								'</div>'+
+							'</div>'+
+						'</div>'+
+						'<div class="line"></div>'+
+						'<div class="itemFoot">';
+							if(item.permission != 3){
+								htm+='<div class="itemRight" style="width:100%" onclick="gotoDetail(\''+item.accountId+'\')">查看详情</div>';
+							}else{
+							htm+=	'<div class="itemLeft" data="'+item.arAcct+'" data-accountId="'+item.accountId+'" >立即存入</div>'+
+							'<div class="midLine"></div><div class="itemRight" onclick="gotoDetail(\''+item.accountId+'\')">查看详情</div>';
+							}
+
+						htm+='</div>'+
+					'</div>';
+				});
+				$("#listItem").html(htm);
+				if(planList.length == 0){
+					$("#listItem").hide();
+					$(".noContent").show()
+				}else{
+					$("#listItem").show();
+					$(".noContent").hide()	
+				}
+
+				//立即存入
+				$(".itemLeft").click(function(){
+
+					var arAcct = $(this).attr("data");
+					var accountId = $(this).attr("data-accountId");
+					$(".mask,#layer1").show()
+					//买入其他产品
+					$(".addOther").click(function(){
+						window.location.href = "allFund.html?arAcct="+arAcct;
+					})
+					//追加投资
+					$(".addInvest").click(function(){
+						window.location.href = "addInvest.html?arAcct="+arAcct+"&accountId="+accountId;
+					})
+					
+				});
+				
+
+			}
+		});
+	}
+	//跳去计划详情
+	function gotoDetail(accountId){
+		if(accountId) window.location.href = 'planDetail.html?accountId='+accountId;
+	}
+
+	//选择排序
+	$("#order2").click(function(){
+		if($("#order2").text().trim() == "排序"){
+			$("#order2").html('按修改时间<img src="img/jiantou.png" alt="" style="width:0.45rem;height:0.275rem;margin-left:0.25rem;margin-top:-0.1rem">');
+		}
+		//遍历选中对应的选项
+		$(".giftlist0").children("a").each(function(index, val) {
+			var ele = $(this);
+
+			if(ele.children("div").text().trim()  == $("#order2").text().trim() ){
+				ele.children("div").addClass("selectedRed");
+			}else{
+				ele.children("div").removeClass("selectedRed");
+			}
+		});
+		$("#order2").html($(this).html().replace("jiantou","jiantou2"));
+		$(".mask,#layer0").show()
+	});
+	//选择排序
+	$("#order1").click(function(){
+		//遍历选中对应的选项
+		$(".giftlist2").children("a").each(function(index, val) {
+			var ele = $(this);
+
+			if(ele.children("div").text().trim()  == $("#order1").text().trim() ){
+				ele.children("div").addClass("selectedRed");
+			}else{
+				ele.children("div").removeClass("selectedRed");
+			}
+		});
+		$("#order1").html($(this).html().replace("jiantou","jiantou2"));
+		$(".mask,#layer2").show()
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="GBK">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>成功</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,address=no">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+    * {
+	    margin: 0;
+	    padding: 0;
+	}
+        body{
+         	font: 16px/1em Microsoft YaHei,sans-serif;
+         	color: #999;
+            margin: 0;
+            padding: 0;
+        }
+        a{text-decoration: none;}
+@media only screen and (max-width: 320px) {
+    body{ font-size: 14px; }
+}
+/* getSuccess.html */
+.title-success{
+    background-color: #fe7e01;
+    height: 2.5em;
+    line-height: 2.5em;
+    text-align: center;
+    color: #fff;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+    font-size: 1.17em;
+}
+.wrap{
+    padding: 13% 5% 5%;
+}
+.wrap-top{
+    text-align: center;
+    margin-bottom: 1.5em;
+}
+.wrap-top img{
+    display: inline-block;
+    width: 14%;
+    vertical-align: bottom;
+}
+.wrap-top span{
+    display: inline-block;
+    font-size: 1.5em;
+    line-height: 1.8em;
+    color: #333;
+    margin-left: 5px;
+}
+.wrap p{
+    font-size: 1em;
+    line-height: 1.5em;
+    color: #666;
+}
+.wrap p span{
+    color: #fe7e01;
+}
+.wrap-bottom{
+    width: 100%;
+    margin: 3em auto;
+}
+.wrap-bottom a{
+    width: 48%;
+    height: 2.3em;
+    line-height: 2.3em;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1.2em;
+    outline: none;
+    -webkit-tap-highlight-color:transparent;
+}
+.wrap-bottom .btn-border{
+    border: 1px solid #fe7e01;
+    color: #fe7e01;
+    border-radius: 4px;
+    float: left;
+}
+.wrap-bottom .btn-background {
+    float: right;
+    border: 1px solid #fe7e01;
+    background-color:#fe7e01;
+    color: #fff;
+    border-radius: 4px;
+}
+/* .getSuccess{
+    margin:25%  auto 30px;
+} */
+.getSuccess .allBuy{
+    width: 75%;
+    margin:16%  auto 30px;
+    text-align: center;
+    font-family: "microsoft yahei",sans-serif;
+    color:#323232;
+    border:1px solid #fe7e01;
+    white-space:nowrap;
+}
+.getSuccess .allBuy h3{
+    font-size:1.5em;
+    color:#fe7e01;
+    margin-top: -10px;
+    letter-spacing: 2px;
+}
+.getSuccess .allBuy h3 span{
+    padding: 0 10px;
+    background-color: #f6f6f6;
+}
+.getSuccess .allBuy .p1{
+    padding-top: 8%;
+    color:#fe7e01;
+    font-size: 1em;
+    line-height: 1.2em;
+    font-weight:bold;
+}
+.getSuccess .allBuy .p2{
+    color:#323232;
+    font-size: 1.5em;
+    line-height: 1.5em;
+    height: 1.5em;
+    letter-spacing:1px;
+    position: relative;
+}
+.getSuccess .allBuy .p2 span{
+    background-color: #f6f6f6;
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+.getSuccess .allBuy .p3{
+    font-size:1.07em;
+}
+.getSuccess .allBuy .p4{
+    font-size:0.8em;
+    font-weight: bold;
+    padding-top: 6%;
+    margin-bottom: -15px;
+}
+.getSuccess .allBuy .p4 span{
+    padding:0 9px;
+    display: inline-block;
+    /*height:1.1em;*/
+    line-height: 1.6em;
+    border-radius:1em;
+    border: 1px solid #fe7e01;
+    background-color: #f6f6f6;
+}
+.getSuccess .allBuy .p4 i{
+    color:#fe7e01;
+}
+    </style>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/weixin.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script type="text/javascript" src="js/reg_sucess.js"></script>
+</head>
+
+<body class="getSuccess">
+    <h3 class="title-success">成功</h3>
+    <div class="wrap">
+        <div class="wrap-top">
+            <img src="img/icon.png" alt="icon">
+            <span>领取成功！</span>
+        </div>
+
+        <p>恭喜您成功领取体验金。领取体验金后您可以获得连续 <span id="vDay"></span>的现金宝收益，收益将以货币基金份额的形式发放至您的现金宝直销账户中。</p>
+
+        <div class="wrap-bottom">
+            <a href="../wezhan/service.html" class="btn-border">返回首页</a>
+            <a href="javascript:;" id="confirm_main" class="btn-background">添加银行卡</a>
+        </div>
+    </div>
+	<div class="allBuy">
+	     <h3><span>大家都在买</span></h3>
+	     <p class="p1">现金宝货币基金（基金代码000330）</p>
+	     <p class="p2"><span>七日年化收益率超4%</span></p>
+	     <p class="p3">（数据截止5月22日）</p>
+	     <p class="p4"><span>一分起存 快速取现 0手续费 500万额度</span></p>
+	</div>
+ 	<p style="text-align: center;font-size: 12px;padding-top: 8%;">基金投资需谨慎</p>
+   
+    <!--输入密码弹出框-->
+    <div class="modal-fade" id="modal" style="display:none;">
+        <!-- <form class="" action="addCard.html"> -->
+            <div class="modal-body setpwd">
+                <h4 class="modal-title settitle">设置交易密码</h4>
+                <p class="notice setnotice">为了您的资金安全，请设置您的交易密码</p>
+
+                <div class="modal-input cls-trade-pwd">
+                    <input type="password" maxlength="6" class="trade-pwd" placeholder="设置交易密码"/>
+                    <span class="error">X</span>
+                </div>
+                <div class="modal-input cls-trade-pwd-again">
+                    <input type="password" maxlength="6" class="trade-pwd-again" placeholder="再次确认交易密码"/>
+                    <span class="error">X</span>
+                </div>
+
+                <div class="modal-bottom">
+                    <button class="btnleft" id="cancel_modal" type="button">取消</button>
+                    <button class="btnright" id="confirm_modal" type="button">确定</button>
+                </div>
+            </div>
+       <!--  </form> -->
+    </div>
+    <div class="mask"></div><!--透明背景层-->
+</body>
+</html>

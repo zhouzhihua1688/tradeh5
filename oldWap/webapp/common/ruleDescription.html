@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>取现规则</title>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            screenWidth = screenWidth > 640 ? 640 : screenWidth;
+            oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+
+        }
+    </script>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/public.css">
+</head>
+
+<body>
+    <div class="table-group">
+        <h4 class="title">预计到账时间</h4>
+        <table class="table1">
+            <tbody>
+                <tr>
+                    <td>快速取现</td>
+                    <td>当天到账</td>
+                </tr>
+                <tr>
+                    <td>普通取现</td>
+                    <td>交易日15:00前取现第二个交易日到账<br>交易日15:00后取现第三个交易日到账节假日顺延</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="tip">注：交易日是指上海证券交易所、深圳证券交易所的正常交易日。</p>
+    </div>
+    <div class="table-group">
+        <h4 class="title">快速取现限额</h4>
+        <table class="table1">
+            <tbody>
+                <tr>
+                    <td>快速取现</td>
+                    <td>每日最高6万，每天5笔</td>
+                </tr>
+                <tr>
+                    <td>普通取现</td>
+                    <td>额度不限，次数不限</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="tip">
+            <p>注：</p>
+            <p><i>1</i>快速取现是汇添富为用户提供的免费增值服务，在极端情况下有可能出现取现总额度超出服务上线，届时将自动切换到普通取现，在快速取现服务额度恢复前，用户只能使用普通取现服务;</p>
+            <p><i>2</i>在节假日或者周末等取现高峰期，快速取现的每人日限额可能会下调，低于6万;</p>
+            <p><i>3</i>当日充值金额需等到第二日才能发起快速取现，如需取出该部分金额，可使用普通取现替代;</p>
+            <p><i>4</i>部分特权客户当日充值金额可在当日发起快速取现，该部分实际赎回份额=该部分快速取现申请金额+手续费，该部分实际赎回份额当日无收益。当天充值金额当天可快速取现的限额为：每人每天6万元。该服务暂不收取手续费，汇添富享有根据业务需要对该服务(包括但不限于快速取现手续费、金额上限等服务内容)进行改进、调整的权力。</p>
+            <p><i>5</i>快速取现的资金和收益均遵循先进先出原则。</p>
+            <p><i>6</i>银行II类卡入账限额：日累计1万元(全渠道)，如取现超过限额建议分批操作。</p>
+            <p><i>7</i>取现业务遵循同卡进出原则。</p>
+        </div>
+    </div>
+    <div class="table-group margin-b20">
+        <h4 class="title">对收益的影响</h4>
+        <p class="desc">普通取现比快速取现可多获得至少一天的收益</p>
+        <table class="table2 margin-b20">
+            <thead>
+                <tr>
+                    <th>取现时间</th>
+                    <th>快速取现收益截止时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>周一24点前</td>
+                    <td>周日</td>
+                </tr>
+                <tr>
+                    <td>周二24点前</td>
+                    <td>周一</td>
+                </tr>
+                <tr>
+                    <td>周三24点前</td>
+                    <td>周二</td>
+                </tr>
+                <tr>
+                    <td>周四24点前</td>
+                    <td>周三</td>
+                </tr>
+                <tr>
+                    <td>周五24点前</td>
+                    <td>周四</td>
+                </tr>
+                <tr>
+                    <td>周六24点前</td>
+                    <td>周五</td>
+                </tr>
+                <tr>
+                    <td>周日24点前</td>
+                    <td>周六</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table2">
+            <thead>
+                <tr>
+                    <th>取现时间</th>
+                    <th>普通取现收益截止时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>周一15:00-周二15:00</td>
+                    <td>周二</td>
+                </tr>
+                <tr>
+                    <td>周二15:00-周三15:00</td>
+                    <td>周三</td>
+                </tr>
+                <tr>
+                    <td>周三15:00-周四15:00</td>
+                    <td>周四</td>
+                </tr>
+                <tr>
+                    <td>周四15:00-周五15:00</td>
+                    <td>周日</td>
+                </tr>
+                <tr>
+                    <td>周五15:00-周六15:00</td>
+                    <td>下周一</td>
+                </tr>
+                <tr>
+                    <td>周六15:00-周日15:00</td>
+                    <td>下周一</td>
+                </tr>
+                <tr>
+                    <td>周日15:00-周一15:00</td>
+                    <td>下周一</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="tip">注:如遇到国家法定节假日，则收益截止日期顺延</p>
+    </div>
+</body>
+
+</html>

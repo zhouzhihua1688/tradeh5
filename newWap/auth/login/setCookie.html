@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汇添富基金</title>
+</head>
+
+<body>
+    <h1>跳转中...</h1>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+    <script>
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg); //匹配目标参数
+            if (r != null) return unescape(r[2]);
+            return '';
+        }
+        var referUrl = getUrlParam('referUrl');
+        var cookie = getUrlParam('cookie').replace(',', '; ');
+        console.log('referUrl:', referUrl);
+        console.log('cookie:', cookie);
+        var date = new Date();
+        var expireDays = 30; //将date设置为30天以后的时间
+        date.setTime(date.getTime() + expireDays * 24 * 3600 * 1000);
+        cookie.split('; ').forEach(function (value) {
+            if (!/Domain/.test(value) && !/Path/.test(value)) {
+                document.cookie = value + '; expires=' + date.toGMTString() + '; Domain=.99fund.com' + '; Path=/';
+            }
+        });
+        console.log('document.cookie:', document.cookie);
+        wx.miniProgram.redirectTo({
+            url: '/pages/index/index?referUrl=' + encodeURIComponent(referUrl)
+        });
+    </script>
+</body>
+
+</html>

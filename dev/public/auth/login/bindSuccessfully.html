@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>绑定成功</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="https://wx.99fund.com/mobileEC/wap/css/base.css">
+    <link rel="stylesheet" href="https://wx.99fund.com/mobileEC/wap/css/login/login.css">
+    <!-- <link rel="stylesheet" href="css/login_main.css"> -->
+    <script type="text/javascript" src="https://wx.99fund.com/mobileEC/wap/js/lib/phone-size.js"></script>
+    <style>
+        body { background-color: #fff;}
+        .wrap {
+            padding: 3rem 0.75rem;
+        }
+        .wrap-top {
+            height: 1.25rem;
+            line-height: 1.25rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color:#333333;
+        }
+        .wrap-top i {
+            width: 1.25rem;
+            height: 1.25rem;
+            font-size: 0.8rem;
+        }
+        .wrap-middle {
+            padding: 1.95rem 0 0 1rem;
+        }
+        .wrap-middle p {
+            color:#333333;
+            font-size: 0.65rem;
+            text-align: center;
+            padding-bottom: 1rem;
+        }
+/*橘黄色按钮*/
+.btn-orange{
+	width: 92%;
+	height: 2.25rem;
+	background-color: #fe7e01;
+	color: #fff;
+	font-size: 0.75rem;
+	text-align: center;
+	line-height: 2.25rem;
+	margin: 0 4% 0 4%;
+	border-radius: 0.1rem;
+	margin-top: 1.25rem;
+}
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="wrap-top">
+        <i class="icon icon-ok-red"></i> 绑定成功!
+    </div>
+    <div class="wrap-middle">
+       <p id="result_txt">亲，恭喜您绑定成功啦，绑定同时您已开通微信提醒服务！如需修改提醒方式，可通过官网"服务设置"或现金宝APP"我的-设置"进行修改。</p>
+    </div>
+    <div>
+        <button class="btn-orange" id="btn-submit">确认</button>
+    </div>
+</div>
+<script type="text/javascript" src="https://wx.99fund.com/mobileEC/wap/js/lib/jquery.3.4.1.min.js"></script>
+<!-- <script type="text/javascript" src="https://wx.99fund.com/mobileEC/wap/js/lib/weixin.js"></script> -->
+<script type="text/javascript" src="../js/lib/jweixin-1.6.0.js"></script>
+<script type="text/javascript" src="https://wx.99fund.com/mobileEC/wap/js/common.js?v=1"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script>
+        $(function () {
+            var message = getUrlParam("msgCode");
+            var txt = '';
+            if("0" == message){
+                txt = "已成功向您发送了一个现金红包。";
+            }else if("1" == message){
+                txt =  "您已经领过一次啦，下次再来玩吧~~";
+            }else if("2" == message || "3" == message){
+                txt = "亲现金红包已领完，下次活动见哦~~";
+            }else {
+                txt = '亲，恭喜您绑定成功啦，绑定同时您已开通微信提醒服务！如需修改提醒方式，可通过官网“服务设置”或现金宝APP“我的-设置”进行修改。';
+            }
+            $("#result_txt").html(txt);
+        });
+
+        function getUrlParam (key) {
+            var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return "";
+        }
+
+        $("#btn-submit").click(function () {//重定向url
+            var referUrl = getUrlParam("referUrl");
+            if (window.__wxjs_environment === 'miniprogram' ) { // 微信兼容性处理
+                wx.miniProgram.navigateTo({
+                    url: '/pages/index/index?cookie=' + escape(document
+                        .cookie) + '&referUrl=' + encodeURIComponent(
+                        referUrl)
+                });
+            } else {
+                if(isNotEmpty(referUrl)){
+                    window.location = referUrl;
+                } else if (typeof WeixinJSBridge != "undefined"){
+                    WeixinJSBridge.invoke('closeWindow',{},function(res){
+                        //alert(res.err_msg);
+                    });
+                }
+            }
+        });
+
+        function isNotEmpty (str){
+            if(str == null || str == undefined || str == "" || str.trim() == "" ){
+                return false;
+            }
+            return true;
+        }
+    </script>
+	
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>自动充值</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/base_wx.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+        .bank-name{
+            font-size: 0.7rem;
+            color: #000;
+        }
+        .bank-id{
+            color: #666;
+            font-size: 0.6rem;
+        }
+        .list-title{
+            margin-top: 0.6rem;
+        }
+        .list-title p{
+            margin-bottom: 0.2rem;
+        }
+        .notes{
+            margin-top: 0.5rem;
+        }
+        .notes .input-style{
+            font-size: 0.7rem;
+            color: #000;
+        }
+        .my-select {
+            position: relative;
+            width: 6.625rem;
+            height: 2.5rem;
+        }
+        .my-select span{
+            font-size: 0.7rem;
+            color: #000;
+            line-height: 2.5rem;
+        }
+        .select-style{
+            /*position: absolute;*/
+            width: 6.625rem;
+            height: 2.5rem;
+            background-color: #fff;
+            /*z-index: 1;*/
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+        .select-style input{
+            width: 6.625rem;
+            background-color: #fff;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            color: #000;
+            font-size: 0.7rem;
+        }
+        .selectDown-icon{
+            width: 0.75rem;
+            height: 0.4rem;
+            display: inline-block;
+            background: url(../images/select_down.png) no-repeat;
+            background-size: 100%;
+            position: absolute;
+            right: 0.4rem;
+            top: 1.1rem;
+            /*z-index: 10000;*/
+            background-color: #fff;
+        }
+
+
+        /*日期样式*/
+        .chose-time{
+            background-color: #fff;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top:0;
+            left: 0;
+            display: none;
+            overflow: hidden;
+            overflow-y: auto;
+        }
+        .chose-time .current i{
+            background: url(../images/chose_time.png) no-repeat;
+            background-size: 100%;
+            width: 0.75rem;
+            height: 0.75rem;
+            margin-top: 0.9rem;
+        }
+        .chose-time ul{
+            padding: 0 0.75rem 0 0.75rem;
+            font-size: 0.7rem;
+            color: #000;
+            background-color: #fff;
+        }
+        .chose-time ul li{
+            height: 2.5rem;
+            border-bottom: solid 1px #eeeeee;
+            line-height: 2.5rem;
+        }
+
+    </style>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/weixin.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script type="text/javascript" src="../js/account/autoTopUp.js"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+</head>
+<body>
+    <div>
+        <ul class="grid-list">
+            <li class="grid-list-item heigth-130 selectBankCard">
+                <div class="row">
+                    <div class="lh-130" id="bank_icon_div">
+
+                    </div>
+                    <div class="col-1">
+                        <div class="list-title">
+                            <p class="bank-name bank_name_selected"></p>
+                            <p class="bank-id bank_id_selected"></p>
+                        </div>
+                    </div>
+                    <div class="lh-130">
+                        <a class="icon icon-arrow-right"></a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <p class="section-tips" id="topup_txt"></p>
+    </div>
+    <form action="">
+        <div class="input-list bottom-border">
+            <div class="fl label-style">
+                <label for="">充值金额</label>
+            </div>
+            <div class="fl input-box">
+                <input placeholder="请输入充值金额" class="input-style my-money" type="number" data-rquire-msg="充值金额不能为空" >
+                <i class="error-icon"></i>
+            </div>
+        </div>
+        <div class="input-list">
+            <div class="fl label-style">
+                <label for="">充值日期</label>
+            </div>
+            <div class="fl">
+                <div class="fl my-select">
+                    <div class="select-style first-select">
+                        <span class="my-time-1" chose-data="0">请选择</span>
+                    </div>
+                    <i class="selectDown-icon"></i>
+                </div>
+                <div class="fl my-select">
+                    <div class="select-style second-select">
+                        <span class="my-time-2">请选择</span>
+                    </div>
+                    <i class="selectDown-icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-list notes">
+            <div class="fl label-style">
+                <label for="">备注 </label>
+            </div>
+            <div class="fl">
+                <input class="input-style autoTopUpRemark" type="text" maxlength="10">
+            </div>
+        </div>
+    </form>
+    <div>
+        <p class="section-tips">为使您的资金利用率最大化，扣款日期如为节假日，系统将自动顺延至下一个基金交易日扣款。请在扣款日前确保账户资金充足。</p>
+    </div>
+
+    <div class="rules">
+        <p><i class="chose-icon current" opt="0"></i>&nbsp;&nbsp;同意<a class="color-blue" href="http://static.99fund.com/mobile/agreement/auto_investment_agreement.html">《自动充值服务协议》</a></p>
+    </div>
+
+    <!--提交-->
+    <div>
+        <button class="btn-orange btn-sure">确认</button>
+    </div>
+
+    <!-- bankCard list -->
+    <div class="layer animated slideInDown" id="bankCardList" style="display: none;">
+        <ul class="grid-list">
+            <!-- <li class="grid-list-item heigth-130 bottom-border">
+                <div class="row">
+                    <div class="lh-130">
+                        <i class="bank ico_705 no-margin-left"></i>
+                    </div>
+                    <div class="col-1">
+                        <div class="list-title">
+                            <p class="bank-name">招商银行</p>
+                            <p class="bank-id">尾号2462</p>
+                        </div>
+                    </div>
+                    <div class="lh-130">
+                        <a class="icon icon-union">银联通</a>
+                    </div>
+                </div>
+            </li>
+             -->
+        </ul>
+    </div>
+<div class="Bomb-box">
+    <div class="Bomb-box-main">
+        <p class="Bomb-box-tips"  style="padding-top: 0.75rem;"></p>
+        <div class="Bomb-box-content">
+            <p class="text-center"></p>
+        </div>
+        <a class="Bomb-box-ok" href="javascript:;">确定</a>
+    </div>
+</div>
+
+    <!--选择日期-->
+    <div class="chose-time time-01 animated slideInDown">
+        <ul>
+            <li class="current" data="MM">
+                <span>每月</span><i class="fr"></i>
+            </li>
+            <li data="2W">
+                <span>每双周</span><i class="fr"></i>
+            </li>
+            <li data="WW">
+                <span>每周</span><i class="fr"></i>
+            </li>
+        </ul>
+    </div>
+    <div class="chose-time time-02 animated slideInDown">
+        <ul>
+            <li class="current">
+                <span>周一</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>周二</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>周三</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>周四</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>周五</span><i class="fr"></i>
+            </li>
+
+        </ul>
+    </div>
+    <div class="chose-time time-03 animated slideInDown">
+        <ul>
+            <li class="current">
+                <span>1日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>2日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>3日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>4日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>5日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>6日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>7日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>8日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>9日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>10日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>11日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>12日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>13日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>14日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>15日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>16日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>17日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>18日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>19日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>20日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>21日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>22日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>23日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>24日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>25日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>26日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>27日</span><i class="fr"></i>
+            </li>
+            <li>
+                <span>28日</span><i class="fr"></i>
+            </li>
+        </ul>
+    </div>
+
+</body>
+</html>

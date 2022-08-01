@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的预约/报名</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <script src="js/base.js"></script>  
+    <script src="js/baseHead.js"></script> 
+    <script src="js/needLogin.js"></script> 
+<script>
+    // 相对字体大小设置
+    var oHtml = document.documentElement;
+    getFont();
+    window.onresize = function () {
+        getFont();
+    }
+
+    function getFont() {
+        var screenWidth = oHtml.clientWidth;
+        if (screenWidth <= 320) {
+            oHtml.style.fontSize = '17.06px';
+        } else if (screenWidth >= 750) {
+            oHtml.style.fontSize = '40px';
+        } else {
+            oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+        }
+    }
+</script>
+<style>
+    body,html{background: #f6f6f6;}
+    body {left: 0%; right: 0%;font:14px 'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+    button { outline: none;  }
+      /* 图片自适应 */
+    img {
+          width: 100%;
+          height: auto;
+          width: auto\9; /* ie8 */
+          -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/
+          border: none;
+          vertical-align: top;
+          outline: none;
+          display: block;
+        }
+    p { word-wrap: break-word; text-align: justify; }
+    table { width: 100%;border-collapse:collapse; }
+    .main{width:100%;background:#fff;}
+    .order{width:100%;height:2.0rem;margin:0 auto;display: flex;justify-content: space-between;align-items: center;
+        border-bottom:0.5px solid #eee;
+    }
+    .order div{width:50%;color:#000;font-size: 0.7rem}
+    .order div:nth-of-type(2){width:0.75rem;margin-right:0.75rem;}
+    .order div img{width:0.75rem;height:0.4rem;}
+    .all{width:100%;height:3.25rem;margin:0 auto;display: flex;justify-content: space-between;align-items: center;border-bottom:0.5px solid #eee;
+        padding-left:0.75rem
+    }
+    .all div:nth-of-type(1){width:80%;margin-top: -0.2rem;}
+    .all div:nth-of-type(2){width:18%;text-align:right}
+    .all div .one{font-size: 0.85rem;color:#000;font-weight: bold;}
+    .all div .two{width:2.5rem;height:0.75rem;font-size:0.6rem;background: #eee ;border-radius:1.25rem;display: inline-block;text-align: center;line-height:0.75rem;margin-left:0.25rem;color:#666;position:relative;bottom:0.1rem;}
+    .all div .two.color{background:#ffefef;color:#fb5c5f;}
+    .all div .three{height:0.75rem;font-size:0.65rem;color:#666;margin-top:0.2rem;}
+    .all .icon img{width:3.0rem;height:1.25rem;}
+    .more{font-size: 0.7rem;color:#148ce6;text-align:center;padding:0.75rem 0rem;}
+    .more1{font-size: 0.7rem;color:#148ce6;text-align:center;padding:0.75rem 0rem;}
+    .noMore{font-size: 0.7rem;color:#999;text-align:center;padding:0.75rem 0rem;height:10rem;line-height:10rem}
+    .baoming{width:100%;height:2.0rem;margin:0 auto;display: flex;justify-content: space-between;align-items: center;
+        border-bottom:0.5px solid #eee;
+    }
+    .baoming div{width:50%;color:#000;font-size: 0.7rem}
+    .baoming div:nth-of-type(2){width:0.75rem;margin-right:0.75rem;}
+    .baoming div img{width:0.75rem;height:0.4rem;}
+    .touzi{width:100%;height:3.25rem;margin:0 auto;display: flex;justify-content: space-between;align-items: center;border-bottom:0.5px solid #eee;
+         padding-left:0.75rem
+    }
+    .touzi div:nth-of-type(1){width:80%;}
+    .touzi div:nth-of-type(2){width:18%;text-align:right}
+    .touzi div .one{font-size: 0.85rem;color:#000;font-weight: bold;}
+    .touzi div .two{width:2.5rem;height:0.75rem;font-size:0.6rem;background: #eee;border-radius:1.25rem;display: inline-block;text-align: center;line-height:0.75rem;margin-left:0.25rem;color:#666;position:relative;bottom:0.1rem;}
+    .touzi div .two.color{background:#ffefef;color:#fb5c5f;}
+    .touzi div .three{height:0.75rem;font-size:0.65rem;color:#666;margin-top:0.25rem;}
+    .touzi .icon img{width:3.0rem;height:1.25rem;}
+    .more2{font-size: 0.7rem;color:#148ce6;text-align:center;padding:0.75rem 0rem;}
+    .more3{font-size: 0.7rem;color:#148ce6;text-align:center;padding:0.75rem 0rem;}
+    .noSign{font-size: 0.7rem;color:#999;text-align:center;padding:0.75rem 0rem;height:10rem;line-height:10rem}
+</style>
+</head>
+<body>
+<div class="main">
+    <div class="order">
+        <div style="text-indent:0.75rem">我的预约</div>
+        <div>
+            <!-- <img src="img/jiantou.png" alt=""> -->
+        </div>
+    </div>
+    <div class="info">
+        <!-- <div class="all">
+           <div>
+                <span class="one">劳老师三月一对一交流</span>
+                <span class="two">未开始</span>
+                <div class="three">预约时间:2021.05.10</div>
+           </div>
+           <div class="icon"><img src="img/baoming.png" alt=""></div>  
+        </div>
+        <div class="all">
+           <div>
+                <span class="one">劳老师三月一对一交流</span>
+                <span class="two noColor">已取消</span>
+                <div class="three">预约时间:2021.05.10</div>
+           </div>
+           <div class="icon"><img src="img/baomingNo.png" alt=""></div>  
+        </div>
+        <div class="all">
+           <div>
+                <span class="one">劳老师三月一对一交流</span>
+                <span class="two">未开始</span>
+                <div class="three">预约时间:2021.05.10</div>
+           </div>
+        </div> -->
+        <!-- <div class="hidden" style="display: none">
+            <div class="all">
+               <div>
+                    <span class="one">劳老师三月一对一交流</span>
+                    <span class="two color">已取消</span>
+                    <div class="three">预约时间:2021.05.10</div>
+               </div>
+            </div>
+            <div class="all">
+               <div>
+                    <span class="one">劳老师三月一对一交流</span>
+                    <span class="two">未开始</span>
+                    <div class="three">预约时间:2021.05.10</div>
+               </div>
+            </div>
+        </div> -->
+        <div class="noMore" style="display: none">暂无预约</div>
+    </div>
+    <div class="more" style="display: none">展开更多</div>
+    <div class="more1" style="display: none">收起</div>
+    <div style="background:#f6f6f6;height:0.5rem"></div>
+    <div class="baoming">
+        <div style="text-indent:0.75rem">我的报名</div>
+        <div>
+            <!-- <img src="img/jiantou.png" alt=""> -->
+        </div>
+    </div>
+    <div class="infoHtml">
+        <!-- <div class="touzi">
+           <div>
+                <span class="one">投资直通车</span>
+                <span class="two">已取消</span>
+                <div class="three">报名时间:2021.05.10</div>
+           </div>
+        </div> -->
+        <div class="noSign" style="display: none">暂无报名</div>
+    </div>
+    <div class="more2" style="display: none">展开更多</div>
+    <div class="more3" style="display: none">收起</div>
+</div>
+<script src="js/jquery.3.4.1.min.js"></script>
+<script src="js/utils.js"></script> 
+<script>
+    // 展开更多
+$(function(){
+    $(".more").click(function(){
+        $(".hidden").slideToggle()
+        $(".more").hide()
+    })
+    $(".more2").click(function(){
+        $(".more2").hide()
+    })
+
+    $('.left').on('click',function(){  
+        if ($(this).hasClass("active")) {
+                return;
+            }
+            $(this).addClass("active").parents().siblings().find(".left").removeClass('active');      
+        });
+
+    preorderList();
+})
+   
+function  preorderList(){
+    utils.get('/activity-center/api/v1/preorder/query/preorder-info-list', null, function (result) {
+        if (result.returnCode == 0) {
+            var infoList=result.body;
+            // var infoList=info;
+            var htm='';
+            var htm2='';
+            var infoHtml='';
+            var infoHtml2='';
+            var preorder = [];
+            var signInfo=[];
+            if(infoList==null||result.body.preorderList==""||result.body.preorderList.length<0){
+                $(".noMore").show();
+            }else{
+                infoList.preorderList.map(function (itemStatus) {   //匹配设置相应文本
+                        if (itemStatus.status == '0') {
+                            itemStatus.statusText = "已取消";
+                        }
+                        else if (itemStatus.status == '1') {
+                            itemStatus.statusText = "未开始";
+                        } else if (itemStatus.status == '2') {
+                            itemStatus.statusText = "已使用";
+                        }
+                        return preorder = infoList.preorderList
+                });
+
+                if(preorder.length>3){  //数据3个以上
+                    for(var i=0;i<3;i++){
+                        // preorder.forEach(function(item,index){   //预约信息
+                            if(preorder[i].confirmTakepartTtime==""){
+                                // '<div class="three">预约时间:'+(preorder[i].confirmTakepartTtime.replace(/(\d{4})-(\d{2})-(\d{2})/g, '$1.$2.$3'))+'</div>'+
+                              var html='<div class="three" >'+(preorder[i].confirmTakepartTtime.replace(/(\d{4})-(\d{2})-(\d{2})/g, '$1.$2.$3'))+'</div>';
+                            } else{
+                              var html='<div class="three" >预约时间:'+(preorder[i].confirmTakepartTtime.replace(/(\d{4})-(\d{2})-(\d{2})/g, '$1.$2.$3'))+'</div>';
+                            }
+                            if(preorder[i].status ==1){
+                                htm+='<div class="all" id="'+preorder[i].preorderActId+'" status="'+preorder[i].status+'">'+
+                                     '<div><span class="one">'+preorder[i].activityName+'</span>'+
+                                        '<span class="two color">'+preorder[i].statusText+'</span>'+html+
+                                        '</div>'+
+                                    '</div>'  
+                            }else{
+                                htm+='<div class="all" id="'+preorder[i].preorderActId+'" status="'+preorder[i].status+'">'+
+                                '<div><span class="one">'+preorder[i].activityName+'</span>'+
+                                    '<span class="two">'+preorder[i].statusText+'</span>'+html+
+                                '</div>'+
+                                '</div>'
+                            } 
+                        }
+
+                    $(".more").show(); 
+                    $(".info").html(htm);              
+                }
+
+                if(preorder.length<=3){    //数据3个以下    
+                    for(var k=0;k<preorder.length;k++){
+                         if(preorder[k].confirmTakepartTtime==""){
+                                // '<div class="three">预约时间:'+(preorder[i].confirmTakepartTtime.replace(/(\d{4})-(\d{2})-(\d{2})/g, '$1.$2.$3'))+'</div>'+
+                              var html='<div class="three" >'+(preorder[k].confirmTakepartTtime.replace(/(\d{4})-(\d{2})-(\d{2})/g, '$1.$2.$3'))+'</div>';
+                            } else{
+                              var html='<div class="three" >预约时间:'+(preorder[k].confirmTakepartTtime.replace(/(\d{4})-(\d{2})-(\d{2})/g, '$1.$2.$3'))+'</div>';
+                            }
+                        if(preorder[k].status ==1){
+                            htm+='<div class="all" id="'+preorder[k].preorderActId+'" status="'+preorder[k].status+'">'+
+                                 '<div><span class="one">'+preorder[k].activityName+'</span>'+
+                                    '<span class="two color">'+preorder[k].statusText+'</span>'+html+
+                                 '</div>'+
+                                 '</div>' 
+                        }else{
+                             htm+='<div class="all" id="'+preorder[k].preorderActId+'" status="'+preorder[k].status+'">'+
+                                 '<div><span class="one">'+preorder[k].activityName+'</span>'+
+                                    '<span class="two">'+preorder[k].statusText+'</span>'+html+
+                                 '</div>'+
+                                 '</div>' 
+                        }  
+                    } 
+                        $(".more").hide();
+                        $(".info").html(htm); 
+                }
+
+                $(".more").click(function(){    //3个以上点击更多
+                        for(var j=0;j<preorder.length;j++){
+                            if(preorder[j].confirmTakepartTtime==""){
+                                // '<div class="three">预约时间:'+(preorder[i].confirmTakepartTtime.replace(/(\d{4})-(\d{2})-(\d{2})/g, '$1.$2.$3'))+'</div>'+
+                              var html='<div class="three" >'+(preorder[j].confirmTakepartTtime.replace(/(\d{4})-(\d{2})-(\d{2})/g, '$1.$2.$3'))+'</div>';
+                            } else{
+                              var html='<div class="three" >预约时间:'+(preorder[j].confirmTakepartTtime.replace(/(\d{4})-(\d{2})-(\d{2})/g, '$1.$2.$3'))+'</div>';
+                            }
+                            if(preorder[j].status ==1){
+                                htm2+='<div class=hidden""><div class="all" id="'+preorder[j].preorderActId+'" status="'+preorder[j].status+'">'+
+                                     '<div><span class="one">'+preorder[j].activityName+'</span>'+
+                                        '<span class="two color">'+preorder[j].statusText+'</span>'+html+
+                                     '</div>'+
+                                     '</div></div>' 
+                            }else{
+                                 htm2+='<div class="all" id="'+preorder[j].preorderActId+'" status="'+preorder[j].status+'">'+
+                                '<div><span class="one">'+preorder[j].activityName+'</span>'+
+                                    '<span class="two">'+preorder[j].statusText+'</span>'+html+
+                                '</div>'+
+                                '</div>'
+                            }
+                        }
+                        $(".info").html(htm2);
+
+                    $(".info .all").click(function(){
+                        var actId=$(this).attr('id');
+                        var status=$(this).attr('status');
+                        // window.location.href="exclusiveAppointment.html?actId="+actId+ '&status=' + status;
+                         window.location.href="exclusiveAppointment.html?actId="+actId;   
+                      
+                         // $(".infoHtml a").attr('href', "exclusiveAppointment.html?actId="+actId);
+                     })
+                    $(".more1").show()
+                })
+
+                $(".info .all").click(function(){
+                    var actId=$(this).attr('id');
+                    var status=$(this).attr('status');
+                    window.location.href="exclusiveAppointment.html?actId="+actId;
+                    // $(".infoHtml a").attr('href', "exclusiveAppointment.html?actId="+actId);
+                }) 
+
+
+                $(".more1").click(function(){
+                    $(".info").html('')
+                    preorder = [];
+                    $(".more").show(); 
+                    $(".more1").hide();
+                    $(".info").html(htm); 
+                }) 
+
+            }
+
+
+            // if(result.body.enterList==""){
+            //      $(".noSign").show();
+            // }else{
+            //     infoList.enterList.forEach(function(item){   //报名信息
+            //         infoHtml+=' <div class="touzi">'+
+            //         '<div><span class="one">'+item.activityName+'</span>'+
+            //              '<div class="three">'+item.confirmTakepartTtime+'</div>'+
+            //         '</div>'+
+            //         '</div>'
+            //         })
+            //         $(".infoHtml").html(infoHtml); 
+            //     }
+
+
+            // 我的报名
+                            
+            if(result.body==null||result.body.enterList==""||result.body.enterList.length<0){
+                $(".noSign").show();
+            }else{
+                infoList.enterList.map(function (itemStatus) {   //匹配设置相应文本
+                        if (itemStatus.status == '0') {
+                            itemStatus.statusText = "已取消";
+                        }
+                        else if (itemStatus.status == '1') {
+                            itemStatus.statusText = "未开始";
+                        } else if (itemStatus.status == '2') {
+                            itemStatus.statusText = "已开始";
+                        }
+                        return signInfo = infoList.enterList
+                });
+                if(signInfo.length>3){  //数据3个以上
+                    for(var i=0;i<3;i++){
+                        // preorder.forEach(function(item,index){   //预约信息
+                            if(signInfo[i].status ==1){
+                                infoHtml+='<div class="touzi" id="'+signInfo[i].preorderActId+'" status="'+signInfo[i].status+'">'+
+                                     '<div><span class="one">'+signInfo[i].activityName+'</span>'+
+                                        '<div class="three">报名时间:'+(signInfo[i].actStartTime.replace(/(\d{4})-(\d{2})-(\d{2})/g, '$1.$2.$3'))+'</div>'+
+                                        '</div>'+
+                                        '</div>' 
+                            }else{
+                                infoHtml+='<div class="touzi" id="'+signInfo[i].preorderActId+'" status="'+signInfo[i].status+'">'+
+                                '<div><span class="one">'+signInfo[i].activityName+'</span>'+
+                                    '<div class="three">报名时间:'+(signInfo[i].actStartTime.replace(/(\d{4})-(\d{2})-(\d{2})/g, '$1.$2.$3'))+'</div>'+
+                                '</div>'+
+                                '</div>'
+                            } 
+                        }
+
+                    $(".more2").show(); 
+                    $(".infoHtml").html(infoHtml);              
+                }
+
+                if(signInfo.length<=3){    //数据3个以下
+                    for(var k=0;k<signInfo.length;k++){
+                        if(signInfo[k].status ==1){
+                            infoHtml+='<div class="touzi" id="'+signInfo[k].preorderActId+'" status="'+signInfo[k].status+'">'+
+                                 '<div><span class="one">'+signInfo[k].activityName+'</span>'+
+                                    '<div class="three">报名时间:'+(signInfo[k].actStartTime.replace(/(\d{4})-(\d{2})-(\d{2})/g, '$1.$2.$3'))+'</div>'+
+                                 '</div>'+
+                                 '</div>' 
+                        }else{
+                             infoHtml+='<div class="touzi" id="'+signInfo[k].preorderActId+'" status="'+signInfo[k].status+'">'+
+                                 '<div><span class="one">'+signInfo[k].activityName+'</span>'+
+                                    '<div class="three">报名时间:'+(signInfo[k].actStartTime.replace(/(\d{4})-(\d{2})-(\d{2})/g, '$1.$2.$3'))+'</div>'+
+                                 '</div>'+
+                                 '</div>' 
+                        }  
+                    } 
+                        $(".more2").hide();
+                        $(".infoHtml").html(infoHtml); 
+                }
+
+                $(".more2").click(function(){    //3个以上点击更多
+                        for(var j=0;j<signInfo.length;j++){
+                            if(signInfo[j].status ==1){
+                                infoHtml2+='<div class="touzi" id="'+signInfo[j].preorderActId+'" status="'+signInfo[j].status+'">'+
+                                     '<div><span class="one">'+signInfo[j].activityName+'</span>'+
+                                        '<div class="three">报名时间:'+(signInfo[j].actStartTime.replace(/(\d{4})-(\d{2})-(\d{2})/g, '$1.$2.$3'))+'</div>'+
+                                     '</div>'+
+                                     '</div>' 
+                            }else{
+                                 infoHtml2+='<div class="touzi" id="'+signInfo[j].preorderActId+'" status="'+signInfo[j].status+'">'+
+                                '<div><span class="one">'+signInfo[j].activityName+'</span>'+
+                                    '<div class="three">报名时间:'+(signInfo[j].actStartTime.replace(/(\d{4})-(\d{2})-(\d{2})/g, '$1.$2.$3'))+'</div>'+
+                                '</div>'+
+                                '</div>'
+                            }
+                        }
+                        $(".infoHtml").html(infoHtml2);
+                         $(".more3").show()
+
+                    $(".infoHtml .touzi").click(function(){
+                        var actId=$(this).attr('id');
+                        var status=$(this).attr('status');
+                        // $(".infoHtml a").attr('href', "activityBooking.html?actId="+actId);
+                        window.location.href="activityBooking.html?actId="+actId;
+                     })
+                })
+
+                $(".infoHtml .touzi").click(function(){
+                    var actId=$(this).attr('id');
+                    var status=$(this).attr('status');
+                    window.location.href="activityBooking.html?actId="+actId;
+                }) 
+
+                $(".more3").click(function(){
+                    $(".infoHtml").html('')
+                    signInfo = [];
+                    $(".more2").show(); 
+                    $(".more3").hide();
+                    $(".infoHtml").html(infoHtml); 
+                })  
+
+            }
+        }
+    });
+
+
+}
+</script>
+</body>
+</html>

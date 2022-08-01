@@ -1,0 +1,186 @@
+body {
+    background-color: #f6f6f6;
+}
+
+.mb20 {
+    margin-bottom: 0.5rem /* 20/40 */;
+}
+
+.input-group {
+    display: flex;
+    padding-left: 0.75rem /* 30/40 */;
+    height: 2.5rem /* 100/40 */;
+    line-height: 2.5rem /* 100/40 */;
+    font-size: 0.75rem /* 30/40 */;
+    background-color: #fff;
+}
+
+.input-group .text {
+    width: 5.25rem /* 210/40 */;
+    border-bottom: 0.025rem /* 1/40 */ solid #eee;
+    color: #666;
+}
+
+.input-group .input-area {
+    flex: 1;
+    border-bottom: 0.025rem /* 1/40 */ solid #eee;
+}
+
+.input-group .input-long-date {
+    width: 4rem;
+}
+
+.input-group .input-area > input {
+    height: 1.2rem;
+    font-size: 0.75rem /* 30/40 */;
+    color: #000;
+}
+
+.input-group .arrow {
+    padding-right: 0.75rem /* 30/40 */;
+    width: 0.4rem /* 16/40 */;
+    border-bottom: 0.025rem /* 1/40 */ solid #eee;
+    vertical-align: middle;
+}
+
+.input-group .arrow > img {
+    display: inline;
+    width: 0.4rem /* 16/40 */;
+    height: 0.75rem /* 30/40 */;
+}
+
+.input-group.no-border .text {
+    border-bottom: 0;
+}
+
+.input-group.no-border .input-area {
+    border-bottom: 0;
+}
+
+::-webkit-input-placeholder {
+    color: #999;
+}
+
+:-moz-placeholder {
+    color: #999;
+}
+
+::-moz-placeholder {
+    color: #999;
+}
+
+:-ms-input-placeholder {
+    color: #999;
+}
+
+.input-group .input-area.gray {
+    color: #999;
+}
+
+.grid-list { padding: 0 0.75rem; height: auto; box-sizing: border-box;width: 100%; background-color: #fff;  }
+.grid-list-item {  height: 3.25rem;}
+
+.grid-list .bank-name{ font-size: 0.7rem; color: #000; }
+.grid-list .bank-id{ color: #666; font-size: 0.6rem; }
+.grid-list .list-title{ margin-top: 0.72rem; }
+.grid-list .list-title p{ margin-bottom: 0.2rem; }
+.grid-list .bank-icon { margin-left: 0;}
+
+.row { display: -webkit-flex; display: flex;}
+.layer .list-group { margin-bottom: 5rem;}
+.bottom-border{ border-bottom: solid 1px #eeeeee; }
+
+.section1 h1 { font-size: 0.65rem; line-height: 1.75rem; padding:0 0.75rem;}
+.layer .list-group {margin-bottom: 5rem;margin-top: 0; margin: 0.5rem 0; background-color: #fff;padding: 0 0.75rem;}
+.icon { display: inline-block;  width: 0.75rem; height: 0.74rem; vertical-align: middle; margin: -2px 0px 0 0; padding: 0 5px;  }
+.icon-arrow-right { background: url("../img/arrow.png") no-repeat center center; background-size: contain; }
+/*  快捷 */
+.icon-shorcut {  border: 1px solid #488bc7; color: #488bc7;}
+/* 网银*/
+.icon-E-bank {   border: 1px solid #ee8837; color: #ee8837;}
+/*  银联通 */
+.icon-union {    border: 1px solid #eb6561; color: #eb6561;}
+.icon-shorcut,
+.icon-E-bank,
+.icon-union {  width: 3.1rem; text-align: center;height: 1rem;line-height: 1rem;border-radius: 0.5rem; font-size: 0.6rem;-webkit-box-sizing: border-box; box-sizing: border-box; }
+.bank-logo-new{
+    width:30px;
+    height:30px;
+    margin-right: 17px;
+    margin-top: 20px;
+}
+.font-28 { font-size: .7rem !important; }
+.col-1 { -webkit-flex: 1; flex: 1; }
+
+.layer { background-color: #ffffff; height: 100%; width: 100%; position: fixed; top: 0;
+    left:0; overflow: auto;z-index: 10;}
+
+
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@keyframes slideInDown{
+    0%{opacity:0;-webkit-transform:translateY(-2000px);-ms-transform:translateY(-2000px);transform:translateY(-2000px)}
+    100%{-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}}
+
+.select-agreement {
+    display: flex;
+    padding: 0 0.75rem /* 30/40 */;
+    margin-top: 0.75rem /* 30/40 */;
+    font-size: 0.6rem /* 24/40 */;
+    color: #666;
+}
+
+.select-agreement .img {
+    width: 1.05rem /* 42/40 */;
+}
+
+.select-agreement .img.no-check {
+    background: url("/tradeh5/newWap/realNameRegister/img/no_check.png") no-repeat 0 0.2rem /* 4/40 */;
+    background-size: 0.5rem /* 20/40 */;
+}
+
+.select-agreement .img.check {
+    background: url("/tradeh5/newWap/realNameRegister/img/check.png") no-repeat 0 0.2rem /* 4/40 */;
+    background-size: 0.5rem /* 20/40 */;
+}
+
+.select-agreement .agreement {
+    flex: 1;
+}
+
+.btn {
+    display: none;
+    height: 2.25rem /* 90/40 */;
+    line-height: 2.25rem /* 90/40 */;
+    text-align: center;
+    background-color: #fd7e23;
+    color: #fff;
+    margin: 1.25rem 0.75rem 0 .75rem /* 30/40 */;
+    font-size: 0.85rem /* 34/40 */;
+    border-radius: 0.075rem /* 3/40 */;
+}
+
+#btn-submit {
+    display: none;
+    height: 2.25rem /* 90/40 */;
+    line-height: 2.25rem /* 90/40 */;
+    text-align: center;
+    background-color: #fd7e23;
+    color: #fff;
+    margin: 1.25rem 0.75rem 0 .75rem /* 30/40 */;
+    font-size: 0.85rem /* 34/40 */;
+    border-radius: 0.075rem /* 3/40 */;
+}
+
+.bottom-text {
+    margin-top: 0.625rem /* 25/40 */;
+    padding: 0 0.75rem /* 30/40 */;
+    line-height: 0.875rem /* 35/40 */;
+    font-size: 0.6rem /* 24/40 */;
+    color: #666;
+}

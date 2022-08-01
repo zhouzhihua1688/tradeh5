@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <title>绑定手机号</title>
+    <link rel="stylesheet" href="/tradeh5/newWap/base/css/base.css">
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+
+        body {
+            min-width: 320px;
+            background-color: #fff;
+        }
+        .huge{ text-align: center; padding:1rem 0 1rem;}
+        .huge h2  {width: 2.8rem; margin: 0 auto;}
+        .huge div { font-size: .75rem; margin-top: .9rem; color: #fb5c5f;}
+        .logo { width: 100%; height: auto;}
+        .group-box {height: 2.5rem;border-bottom: .5px solid #eeeeee;display: flex;justify-content: space-between;align-items: center;padding-right: .75rem;}
+        .formData {box-sizing: border-box;padding-left: .75rem;background-color: #fff;}
+        .group-box .phonenum {display: inline-block;background: url('/tradeh5/newWap/auth/img/phone.png') no-repeat 1% 50% #fff;background-size: .55rem .75rem;height: 100%;padding-left: 1.25rem;-webkit-box-shadow: none;-moz-box-shadow: none;box-shadow: none;-webkit-appearance: none;z-index: 100;outline: none;font-size: .75rem;color: #000;}
+        .group-box .lock {
+            background: url('/tradeh5/newWap/auth/img/lock.png') no-repeat 1% 50% #fff;
+            background-size: .6rem .75rem;
+        }
+        .group-box .pen {
+            background: url('/tradeh5/newWap/auth/img/pen.png') no-repeat 1% 50% #fff;
+            background-size: .75rem .75rem;
+        }
+        .group-box .clear {
+            width: .75rem;
+            height: .75rem;
+            background: url('/tradeh5/newWap/auth/img/del.png') no-repeat;
+            background-size: .75rem;
+        }
+        input:focus {
+            outline-offset: 0px;
+            border: none;
+        }
+        .group-box .code {padding-left: .5rem;text-align: right;border-left: .5px solid #eeeeee;line-height: 1.5rem;font-size: .6rem;color:#148ce6;}
+        button {margin: 0;padding: 0;outline: none;border-radius: 0;background-color: transparent;line-height: inherit;border: none;width: max-content;}
+        button:after {
+            border: none;
+        }
+        .remark {width:17.25rem;margin: 1.5rem;color: #148ce6;font-size: .6rem;text-align: center;font-size: 0.65rem}
+        .btn {display: block;background-color: #ffd9b3;line-height: 2.25rem;margin: 0 auto;width: 92%;font-size: .85rem;color: #fff;border-radius: .2rem;margin-top:1rem;}
+        .btnClass {display: block;background-color:#ff7e00;line-height: 2.25rem;margin: 0 auto;width: 92%;font-size: .85rem;color: #fff;border-radius: .2rem;margin-top:1rem;}
+        .blackTips{position: fixed;top: 50%;left: 50%;transform: translateY(-50%) translateX(-50%);padding: .55rem .85rem;background: #6d6d6d;border-radius: .3rem;color: #fff;font-size: .65rem;white-space:nowrap;transition:all .5s linear;z-index: 999;}
+        .tips{width:17.25rem;padding:0.75rem 0 0rem 0;margin: 0 auto;font-size:0.65rem;color:#666}
+        ::-webkit-input-placeholder { /* WebKit browsers */
+            color: #999;
+        }
+        :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            color: #999;
+        }
+        ::-moz-placeholder { /* Mozilla Firefox 19+ */
+            color: #999;
+        }
+        :-ms-input-placeholder { /* Internet Explorer 10+ */
+            color: #999;
+        }
+    </style>
+    <!--<script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>-->
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+</head>
+
+<body>
+<div id="app" >
+    <section class="huge">
+    </section>
+    <div class="formData">
+        <div class="group-box">
+            <!--<input type="text" class="phonenum" placeholder="请输入手机号" maxlength="11" v-model='mobileNo' v-if="mobileNo">-->
+            <template  v-if="mobileNo&&hasPhone">
+                <div type="text" class="phonenum"><span v-text='mobileNo' style="margin-top:0.75rem;display: inline-block"></span></div>
+            </template>
+            <template  v-else>
+                <input type="text" class="phonenum" placeholder="请输入手机号" maxlength="11" v-model='mobileNo'>
+            </template>
+            <!--<span class="clear" v-show='mobileNo.length' @click='mobileNo=""'></span>-->
+        </div>
+        <div class="group-box">
+            <input type="text" class="phonenum pen" placeholder="请输入短信验证码" autocomplete='off' maxlength="6"
+                   v-model.trim='verifyCode'>
+            <span class="clear" v-show='verifyCode.length' @click='verifyCode=""'></span>
+            <span class="code" @click='verify' v-cloak v-if='!countDownStatus'>
+                    发送验证码
+                </span>
+            <span class="code" style="color: #ccc;" v-cloak v-else>
+                    {{countNum}}秒重新发送
+                </span>
+        </div>
+    </div>
+
+    <div class="tips" v-if="!flag"><span style="color:#f85d63">*</span>温馨提示：建议使用您本人身份证办理的手机号</div>
+    <button :class="[flag==true?'btnClass':'btn']" @click='loginAndBind' v-cloak>下一步</button>
+    <p class="remark" v-cloak>
+        <span @click='codeTips'>收不到验证码？</span>
+    </p>
+    <div class="blackTips" v-if="tipsTextStatus" :style="{opacity:tipsTextStatus?1:0 }" v-cloak>
+        {{tipsText}}
+    </div>
+</div>
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script type="text/javascript" src="/tradeh5/newWap/base/js/lib/vue.min.js"></script>
+<script type="text/javascript" src="../js/userInfo/mobileBind.js"></script>
+</body>
+</html>

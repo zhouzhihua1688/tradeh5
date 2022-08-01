@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf8">
+    <title>礼券详情</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/wezhan/base_wezhan.css">
+    <link rel="stylesheet" type="text/css" href="../css/wezhan/gift_details.css">
+    <link rel="stylesheet" type="text/css" href="../css/base.css">
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+
+<body>
+<div class="main">
+  <div class="head">
+       <div class="number" id="info">
+
+        </div>
+  </div>
+  <div class="zhishi">
+     <div class="xian" style="margin-right:0.15rem"></div>
+     <div style="display:inline-block">理财小知识</div>
+     <div class="xian" style="margin-left:0.15rem"></div>
+   </div>
+  <div class="finish">定投，即定期定额投资，具有摊薄投资成本、凸显复利、不用考虑投资时点、手续方便等优点</div>
+</div>
+<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+	<script src="../js/common.js?20210302" type="text/javascript"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script>
+	var custNo = App.getCookie("sso_cookie_ext_dp");
+	var id = App.getUrlParam("id");
+	if(custNo == null || id == ""){
+		window.location = App.loginPage + "?referUrl=" + encodeURIComponent(window.location.href);
+	}
+	var item = App.getSession(custNo+id);
+	console.log(item);
+	var suffix = '';
+	if(item.fullInfo.funcValueSuffix != ""){
+		suffix = '<i style="font-size:0.75rem">'+item.fullInfo.funcValueSuffix+'</i>';
+	}
+
+	var htm = '<div class="first">'+item.fullInfo.funcValuePrefix+'</div>'
+          +'<div class="second">'+item.couponAmt+suffix+'</div>'
+          +'<div class="quan">'+item.fullInfo.couponTypeName+'</div>'
+          if(item.couponSt == "1"){
+			htm+='<div class="use gary_bg"><a href="javascript:;" >立即使用</a></div>';
+		  }else{
+			htm+='<div class="use"><a href="usingRange.html?id='+item.couponSerialNo+'">立即使用</a></div>';
+		  }
+          htm+='<div class="third">'+item.detailRemarks[0]+'</div>'
+          +'<div class="four">'+item.detailRemarks[1]+'</div>'
+          +'<div class="five">'+item.detailRemarks[2]+'</div>'
+          +'<div class="six">'+item.detailRemarks[3]+'</div>';
+		  if(item.simpleRemarks[4] != "" && item.simpleRemarks[4] != undefined){
+		  htm+='<div class="five">'+item.detailRemarks[4]+'</div>';
+		  }
+		  if(item.simpleRemarks[5] != "" && item.simpleRemarks[5] != undefined){
+          htm+='<div class="six">'+item.detailRemarks[5]+'</div>';
+		  }
+		  $("#info").html(htm);
+
+	</script>
+</body>
+
+</html>

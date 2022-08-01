@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>创建计划</title>
+    <link rel="stylesheet" href="../base/css/base.css">
+    <link rel="stylesheet" href="../base/css/common.css">
+    <link rel="stylesheet" href="../base/css/base_bank.css">
+    <link rel="stylesheet" href="./css/swiper-4.2.2.min.css">
+    <link rel="stylesheet" href="../base/css/mobileSelect.css">
+    <link rel="stylesheet" href="./css/createPlan.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+    <script type="text/javascript" src="../base/js/lib/swiper-4.2.2.min.js"></script>
+    <script type="text/javascript" src="../base/js/needLogin.js"></script>
+
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="header">
+            <img src="./img/index/creat_title.png" alt="" class="title">
+            <div class="plan-wrapper">
+                <div class="plan-box">
+                    <input type="text" placeholder="请写下您的亲情计划" maxlength="12" v-model="planTxt">
+                    <p class="limit-tip">{{textLen}}/12</p>
+                </div>
+            </div>
+            <div class="rotate-box">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" v-for="(item,index) in sceneNameList" :key="index">
+                            <div class="box" >
+                                <p>{{item.planTypeName}}</p>
+                                <img :src="item.bigIcon" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-content">
+            <div class="form-box">
+                <p class="title">投资产品</p>
+                <div class="selectFund" @click="selectFund">
+                    <template v-if="prdTitle">
+                        <span v-text="prdTitle">汇添富中盘价值精选混合A</span>
+                    </template>
+                    <template v-else>
+                        <span style="color: #148ce6;">+请选择产品</span>
+                    </template>
+                    <img src="./img/index/arrow.png" alt="">
+                </div>
+                <!-- 36381 【UAT环境】WAP端：创建计划下单页，选择计划名称，未默认填入UOP配置的产品参数信息 -->
+                <div class="recommend" v-show="recommentShow">
+                    <div class="fund-desc">
+                        <img :src="currentRecomment.secondaryInfoImgUrl" alt=""
+                            v-show="currentRecomment.secondaryInfoImgUrl">
+                        <span v-text="currentRecomment.secondaryInfoTitle"></span>
+                    </div>
+                    <div class="fund-detail">
+                        <div class="detail1">
+                            <div>
+                                <span class="fundname" v-text="currentRecomment.prdTitle">亲情宝</span>
+                                <!-- <img src="./img/index/icon0.png" alt=""> -->
+                                <i v-show="currentRecomment.prdRecomIdentify">{{currentRecomment.prdRecomIdentify}}</i>
+                            </div>
+                            <p :class="currentRecomment.recomElementVal>0?'red':'green'">{{currentRecomment.recomElementVal+currentRecomment.recomElementUnit}}</p>
+                        </div>
+                        <div class="detail2">
+                            <p v-text="currentRecomment.prdTagList?currentRecomment.prdTagList.join(''):''">优选货币基金和债券基金</p>
+                            <p v-text="currentRecomment.recomElementNm">近一年收益率</p>
+                        </div>
+                        <div class="detail3">
+                            <a href="javascript:;" class="choose-this"
+                                @click="chooseThis">{{currentRecomment.prdBtnName}}</a>
+                            <a href="javascript:;" class="refresh" @click="refresh" v-show="recommendData.length>=1">
+                                <img src="./img/index/refresh.png" alt="">
+                                <span>换一换</span>
+                            </a>
+                        </div>
+                    </div>
+                    <img src="./img/index/del.png" alt="" class="close-detail" @click="recommentShow=false">
+                    <img src="./img/index/t-ara.png" alt="" class="t-arrow">
+                </div>
+                <div class="input-mode">
+                    <div class="mode-box">
+                        <label class="" for="ones">
+                            <span>一次存入</span>
+                            <input type="radio" id="ones" value="ones" v-model="inputMode">
+                            <i></i>
+                        </label>
+                    </div>
+                    <div class="mode-box">
+                        <label class="" for="week">
+                            <span>周期定投</span>
+                            <input type="radio" id="week" value="week" v-model="inputMode">
+                            <i></i>
+                        </label>
+                    </div>
+                </div>
+                <div class="setNum margin-t20">
+                    <div class="title">
+                        <p>{{inputMode=='week'?'设置投入周期':'设置投入金额'}}</p>
+                        <p v-show="inputMode=='week'"><span id="select-week"></span><img src="./img/index/arrow.png"
+                                alt="" style="width: .4rem;"></p>
+                    </div>
+                    <div class="sum-num">
+                        <span>￥</span>
+                        <input type="number" :placeholder="minNum" v-model="buyAmt">
+                    </div>
+                </div>
+                <div class="setNum margin-t20">
+                    <div class="title">
+                        <p>
+                            <span>我想为谁投资</span>
+                            <img src="./img/index/tanhao.png" alt="" style="width: .7rem;" @click="tipState">
+                        </p>
+                    </div>
+                    <div class="outside-select" @click="selectMember">
+                        <template v-if="member">
+                            <span v-text="member"></span>
+                        </template>
+                        <template v-else>
+                            <span style="color: #999;">请选择对象</span>
+                        </template>
+                        <img src="./img/index/arrow.png" alt="">
+                    </div>
+                </div>
+                <template v-if="!prdType||prdType==1">
+                    <div class="setNum margin-t20" v-show="inputMode=='ones'" @click="selectPayWay">
+                        <div class="title">
+                            <p>
+                                <span>支付方式</span>
+                            </p>
+                        </div>
+                        <div class="outside-select">
+                            <span v-text="bankGrpName">现金宝</span>
+                            <img src="./img/index/arrow.png" alt="">
+                        </div>
+                    </div>
+                </template>
+                <template v-if="prdType==2" >
+                    <div class="setNum margin-t20" @click="selectPayWay">
+                        <div class="title">
+                            <p>
+                                <span>支付方式</span>
+                            </p>
+                        </div>
+                        <div class="outside-select">
+                            <span v-text="bankGrpName">现金宝</span>
+                            <img src="./img/index/arrow.png" alt="">
+                        </div>
+                    </div>
+                </template>
+                <div class="agreement">
+                    <template v-if="ruleList=='week'">
+                        <label for="isAgreement">
+                            <input type="checkbox" id="isAgreement" v-model="isAgreement">
+                            <i style="display: block;"></i>
+                        </label>
+                        <p>
+                            <span>我已同意</span><a href="http://static.99fund.com/mobile/agreement/zhihuidingtou_agreement.html">《汇添富基金管理股份有限公司定投业务协议》</a><span>及依次从主账户现金宝、银行卡扣款。</span>
+                        </p>
+                    </template>
+                    <template v-if="ruleList&&Array.isArray(ruleList)&&(ruleList.length==0)&&(prdType!=1)">
+                        <label for="isAgreement1">
+                            <input type="checkbox" id="isAgreement1" v-model="isAgreement">
+                            <i style="display: block;"></i>
+                        </label>
+                        <p>
+                            <span>我已同意</span><a href="http://static.99fund.com/mobile/agreement/funds_group_agreement.html">《汇添富组合产品服务协议》</a><a href="#" class="group_detail">《各基金产品资料概要》</a><span>。</span>
+                        </p>
+                    </template>
+                    <template v-if="ruleList&&Array.isArray(ruleList)&&(ruleList.length>0)">
+                        <div v-show="inputMode=='ones'">
+                            <div v-for="(item,index) in ruleList" :key="index" class="styleFlex">
+                                <label :for="'isAgreements'+index">
+                                    <input type="checkbox" :id="'isAgreements'+index" v-model="isAgreement2"
+                                        :value="item.contractCategory">
+                                    <i></i>
+                                </label>
+                                <p>
+                                    <span>我已同意</span><a :href="item.url">《{{item.title}}》</a><span>。</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div v-show="inputMode=='week'" class="styleFlex">
+                            <label for="isAgreements">
+                                <input type="checkbox" id="isAgreements" v-model="isAgreement">
+                                <i style="display: block;"></i>
+                            </label>
+                            <p>
+                                <span>我已同意</span><a href="#">《汇添富基金管理股份有限公司定投业务协议》、</a><a v-for="(item,index) in ruleList" :key="index"
+                                    :href="item.url">《{{item.title}}》<span
+                                        v-show="index!==(ruleList.length-1)">、</span></a><span>及依次从主账户现金宝、银行卡扣款。</span>
+                            </p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+        <a href="javascript:;" class="submit" @click="openPlan">开启计划</a>
+        <!-- 弹窗 -->
+        <div class="Bomb-box">
+            <div class="Bomb-box-main">
+                <!-- <p class="Bomb-box-tips" style="padding-top: 0.75rem;"></p> -->
+                <div class="Bomb-box-content">
+                    <p class="text-center " v-html="tipInfo"></p>
+                </div>
+                <a class="Bomb-box-ok" href="javascript:;" @click="$('.Bomb-box').hide();">我知道了</a>
+            </div>
+        </div>
+        <!-- 提示窗 -->
+        <p class="toast-box" v-text="tipInfo"></p>
+        <!-- 银行卡 -->
+        <div class="layer animated slideInDown" id="bankCardList" style="display: none">
+            <ul class="grid-list" style="height: 92%;overflow-x: scroll;">
+                
+                <!-- //wap只需支持快捷和招行一网通 20210705全放开 -->
+                <li :class="'grid-list-item heigth-130 bottom-border ' + (item.tradeFlag === '1' ? '' : 'not-support-bank-card-color')" v-for="(item,index) in cardList" :key="index" @click="selectBankCard(item)"  v-if="(item.tradeFlag === '1') && (true || item.signWay == null || item.signWay == 1 || item.signWay == 7)">
+                    <div class="row">
+                        <div class="lh-130" v-if="item.bankGrpName.indexOf('现金宝') === -1">
+                            <img :src="'/mobileEC/images/bank/'+item.bankNo+'.png'" class="bank-logo-new"/>
+                        </div>
+                        <div class="lh-130" v-else>
+                            <img src="../base/img/icon_05.png" alt="" style="width:1rem;height:1rem;margin-left: 0.3rem;margin-right: 17px;">
+                        </div>
+                        <div class="col-1">
+                            <div class="list-title">
+                                <p class="bank-name" v-if="item.bankGrpName.indexOf('现金宝') === -1">{{item.bankGrpName}} [ {{item.bankAccoDisplay}} ]</p>
+                                <p class="bank-name" v-else>{{item.bankGrpName}}</p>
+                                <p class="bank-id" v-text="item.limitRemark"></p>
+                            </div>
+                        </div>
+                        <div :class="'lh-130 ' + (item.signWay ==='1'?'shorcut':(item.signWay ==='2'?'union':'E-bank'))" v-if="item.bankGrpName.indexOf('现金宝') === -1">
+                            <a class="icon icon-shorcut" v-show="item.signWay =='1'">快捷</a>
+                            <a class="icon icon-union" v-show="item.signWay =='2'">银联通</a>
+                            <a class="icon icon-E-bank" v-show="item.signWay =='3'">网银</a>
+                            <a class="icon icon-E-bank" v-show="item.signWay =='4'">联通</a>
+                            <a class="icon icon-E-bank" v-show="item.signWay =='6'">云闪付</a>
+                            <a class="icon icon-E-bank" v-show="item.signWay =='7'">一网通</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <footer class="fixed-bottom border-top-red add_card_btn" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                <ul class="grid-list">
+                    <li class="grid-list-item heigth-100 lh-100 text-center font-34">
+                        <a class="goBindCard" href="/mobileEC/wap/card/bindCardInputCardInfo.html?fr=add" class="red">+添加银行卡</a>
+                    </li>
+                </ul>
+            </footer>
+        </div>
+    </div>
+    <script type="text/javascript" src="../base/js/lib/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../base/js/lib/swiper-4.2.2.min.js"></script>
+    <script type="text/javascript" src="../base/js/utils.js"></script>
+    <script src="../base/js/lib/mobileSelect.min.js"></script>
+    <script type="text/javascript" src="../base/js/lib/vue.min.js"></script>
+    <script src="./js/createPlan.js"></script>
+</body>
+
+</html>

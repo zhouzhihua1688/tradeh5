@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <title>养老金计算器</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script type="text/javascript" src="https://www.99fund.com/download/mobile/app_jump.js"></script>
+    <script src="js/phone-size.js"></script>
+
+</head>
+<body>
+<div id="allPage">
+    <div class="homePage homePages" id="homePage1">
+        <div>
+            <img src="img/bg.png" alt="" style="display: block;">
+        </div>
+        <div class="main">
+            <div class="content">
+                <div class="optionlist">
+                    <div class="tag">
+                        <p>所在省份</p>
+                    </div>
+                    <div>
+                        <select id="" v-model="province">
+                            <option value="上海" v-if="false">上海</option>
+                            <option v-for="(item,index) in provindeSalary" :key="index" v-text="item.value"
+                                    :value="item.value"></option>
+
+                        </select>
+                        <span class="to_right"></span>
+                    </div>
+
+                </div>
+                <div class="optionlist">
+                    <div class="tag">
+                        <p>当前年龄</p>
+                    </div>
+                    <div>
+                        <select id="" v-model="age">
+                            <option value="25" v-if="false">25岁</option>
+                            <option v-for="(item,index) in currentAge" :key="index" v-text="item.text"
+                                    :value="item.value"></option>
+                        </select>
+                        <span class="to_right"></span>
+                    </div>
+
+                </div>
+                <div class="optionlist">
+                    <div class="tag">
+                        <p>计划退休年龄</p>
+                    </div>
+                    <div>
+                        <select id="" v-model="retireAge">
+                            <option value="60" v-if="false">60岁</option>
+                            <option v-for="(item,index) in retirementAge" :key="index" :value="item.value"
+                                    v-text='item.text'></option>
+
+                        </select>
+                        <span class="to_right"></span>
+                    </div>
+
+                </div>
+                <div class="optionlist">
+                    <div class="tag">
+                        <p>已工作年限</p>
+                    </div>
+                    <div>
+                        <select id="" v-model="hasWorkedYear">
+                            <option value="0">0年</option>
+                            <option v-for="(item,index) in paidPensionYears" :value="item.value"
+                                    v-text="item.text"></option>
+
+                        </select>
+                        <span class="to_right"></span>
+                    </div>
+
+                </div>
+                <div class="optionlist">
+                    <div class="tag">
+                        <p>当前月工资(元)</p>
+                    </div>
+                    <div>
+                        <input type="number" style="padding-right: 20px;" placeholder="请输入当前月收入" v-model="currentIncome" value="6000"/>
+                    </div>
+
+                </div>
+                <div class="optionlist">
+                    <div class="tag">
+                        <p>预计工资年增长率</p>
+                    </div>
+                    <div>
+                        <select id="salaryRate" v-model="incomeYearIncreaseRate">
+                            <option value="0.05" v-if="false">5%</option>
+                            <option v-for="(item,index) in salaryRate" :value="item.value" v-text="item.text"></option>
+                        </select>
+                        <span class="to_right"></span>
+                    </div>
+
+                </div>
+                <div class="btnStart">
+                    <a href="javascript:;" @click="nextPage" onselectstart="return false" oncontextmenu="return false">开始计算</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="homePage2 homePages" id="homePage2">
+        <div class="main2">
+            <div>
+                <img src="img/titles_03.png" alt="">
+            </div>
+            <div class="zhizhen">
+                <img src="img/zhuanpan.png" alt="" class="zhuanpan">
+                <img src="img/zhizhen1.png" alt="" class="relzhizhen">
+            </div>
+            <div class="zhishu">
+                <p class="score">
+                    <span>评分</span>
+                    <span class="relscore" v-text="happinessCoefficient"></span>
+                    <i class="tips " @click="tip1"></i>
+                </p>
+                <p class="line"></p>
+                <a href="#homePage1" class="rewrite" @click="rewrite">重新填写现状信息</a>
+                <div class="predict">
+                    <ul class="predictList">
+                        <li>
+                            <a href="javascript:;">
+                                <span></span>
+                                <span>预计退休前月工资</span>
+                                <i class="tips" @click="tip2"></i>
+                            </a>
+                            <a href="javascript:;">
+                                <span class="" v-text="Fix(incomeAtRetire,0)"></span>
+                                <span>元</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <span></span>
+                                <span>退休后每月养老金</span>
+                                <i class="tips" @click="tip3"></i>
+                            </a>
+                            <a href="javascript:;">
+                                <span class="" v-text="Fix(pensionForMonth,0)"></span>
+                                <span>元</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p>若不进行任何额外的养老投资，剔除物价上涨的影响，您退休后每月养老金相当于现在的<span class="" v-text="Fix(pensionForMonthAtNow,0)">2350.60</span>元
+                    </p>
+                    <template v-if="happinessCoefficient<=90">
+                        <div class="content2">
+                            <h4>根据计算，如果您想保持目前的生活质量，退休后每月的养老金与目标相差<span class="red"
+                                                                       v-text="Fix(currentIncome - pensionForMonthAtNow,0)">3988.56</span>元。
+                            </h4>
+                        </div>
+                        <div class="content3">
+                            <h4>想要过上更加美滋滋的退休生活，现在就来规划一下养老投资吧。</h4>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <div class="content2">
+                            <h4>根据计算，如果您想保持目前的生活质量，退休后每月的养老金与目标仅相差<span class="red"
+                                                                        v-text="Fix(currentIncome - pensionForMonthAtNow,0)">3988.56</span>元。
+                            </h4>
+                        </div>
+                        <div class="content3">
+                            <h4>为退休生活锦上添花，现在就来规划一下养老投资吧。</h4>
+                        </div>
+                    </template>
+
+                    <a href="#homePage3" class="monthly" @click="nextPageMonth(1)" onselectstart="return false"
+                       oncontextmenu="return false">按月定投方案</a>
+                    <a href="#homePage3" class="single" @click="nextPageSingle(0)" onselectstart="return false"
+                       oncontextmenu="return false">一次性投资方案</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="homePage3 homePages" id="homePage3">
+        <div class="main3">
+            <div class="section">
+                <div class="section1">
+                    <span></span>
+                    <span>参考当前物价水平，您想要的养老金收入</span>
+                </div>
+                <div class="section2">
+                    <div class="bigslide" id="bigslide">
+                        <div class="smallslide" id="smallslide">
+                        </div>
+                    </div>
+                    <div class="figureTip" @touchstart.stop.prevent="touchstart" @touchmove.stop.prevent="touchmove"
+                         @touchend.stop.prevent="touchend">
+                        <h2>养老金月收入</h2>
+                        <h1><span v-text="relFigure">4987</span>元</h1>
+                    </div>
+                </div>
+                <div class="section3">
+                    <p><span class="" v-text="minFigure"></span>元</p>
+                    <p><span class="" v-text="maxFigure"></span>元</p>
+                </div>
+                <div class="section4">
+                    <p>社保养老金收入水平</p>
+                    <p>当前收入水平</p>
+                </div>
+                <div class="section5">
+                </div>
+                <div class="section6">
+                    <span></span>
+                    <span>您的养老投资产品预期年化收益率：</span>
+                </div>
+                <div class="section7">
+                    <h2><span v-text="percent">60</span>%</h2>
+                    <div class="ruling">
+                        <img src="img/pointer.png" alt="" @touchstart.stop.prevent="percentStart"
+                             @touchmove.stop.prevent="percentMove" @touchend.stop.prevent="percentEnd" class="pointer">
+                    </div>
+                </div>
+                <div class="section8">
+                    <img src="img/title_04.png" alt="">
+                </div>
+                <div class="section9">
+                    <h4>在您期望的收益水平下，若
+                        <span class="payment" v-if="type==1">按月存入</span>
+                        <span class="payment" v-if="type==0">一次性存入</span>
+                    </h4>
+                    <h2 class="red font-60">
+                        <span class="font-40">￥</span>
+                        <span class="figure1" v-if="type==1"
+                              v-text="needAddCount2.count<1?'1':Fix(needAddCount2.count,0)">530</span>
+                        <span class="figure1" v-if="type==0"
+                              v-text="needAddCount1.count<1?'1':Fix(needAddCount1.count,0)">530</span>
+                    </h2>
+                    <h4>您退休时的养老金总资产有望达到</h4>
+                    <h2 class="red font-60">
+                        <span class="font-40">￥</span>
+                        <span class="figure2" v-if="type==1" v-text="Fix(needAddCount2.total,0)">1028888</span>
+                        <span class="figure2" v-if="type==0" v-text="Fix(needAddCount1.total,0)">1028888</span>
+                    </h2>
+                    <h4>参考当前物价水平，您的养老金月收入可提升至</h4>
+                    <h2 class="red font-60"><span class="font-40">￥</span><span class="figure3"
+                                                                                v-text="Fix(WishPensionForMonth,0)">6800</span>
+                    </h2>
+                </div>
+                <div class="section10">
+                    <img src="img/title_05.png" alt="">
+                </div>
+                <div class="section11">
+                    <div class="headers">
+                        <div class="buttonLeft button-echart" @click="buttonLeft" v-show="!isFofFund">
+                            <img src="img/buttons_03.png" alt="">
+                        </div>
+                        <div class="titles">
+                            <h3 v-text="fundCombinationInfo.fundName[currentFundIndex]"></h3>
+                            <p>
+                                <span v-text="fundCombinationInfo.fundDesc[currentFundIndex]"></span>
+                            </p>
+                        </div>
+                        <div class="buttonRight button-echart" @click="buttonRight" v-show="!isFofFund">
+                            <img src="img/buttons_05.png" alt="">
+                        </div>
+                    </div>
+                    <div class="echartList" v-show="!isFofFund" onselectstart="return false"
+                         oncontextmenu="return false">
+                        <div id="list1" class="lineChart" style="display: none"></div>
+                        <div id="list2" class="lineChart"></div>
+                        <div id="list3" class="lineChart" style="display: none"></div>
+                    </div>
+                </div>
+                <div class="section12" onselectstart="return false" oncontextmenu="return false">
+                    <a :href="'javascript:goPage(\''+fundCombinationInfo.urls[currentFundIndex]+'\')'" class="buy" v-text="type==1? '立即定投':'立即购买' ">立即购买</a>
+                    <!--<a :href="javascript:goPage('fundCombinationInfo.urls[currentFundIndex]')" class="buy" v-text="type==1? '立即定投':'立即购买' ">立即购买</a>-->
+                    <!--<a :href="javascript:goPage('fundCombinationInfo.urls[currentFundIndex]')" class="buy" v-text="type==1? '立即定投':'立即购买' ">立即购买</a>-->
+                </div>
+            </div>
+        </div>
+        <div class="footer">本方案根据您预计的年化收益率进行估算，仅作参考，用于优化您的理财计划，不代表您未来真实的投资情况，市场有风险，投资需谨慎。坚持定投，更有希望达成投资目标。</div>
+    </div>
+    <div class="Bomb-box flex flex-align-center flex-pack-center hideBomb">
+        <div class="Bomb-box-main">
+            <p class="Bomb-box-tips" style="padding-top: 0.75rem;"></p>
+            <div class="Bomb-box-content font-30"><p class="text-center"></p></div>
+            <a class="Bomb-box-ok" href="javascript:;" @click="BombboxOk">我知道了</a>
+        </div>
+    </div>
+    <div class="navBars" v-if="!(firstEnterPageOne&&firstEnterPageTwo)" v-cloak>
+        <span class="to_lefts" @click="prev" v-show="leftShow"></span>
+        <span class="to_rights" @click="next" v-show="rightShow"></span>
+    </div>
+</div>
+<!--弹窗-->
+
+<script src="js/vue.min.js"></script>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/echarts.js"></script>
+<script src="js/main.js"></script>
+<script>
+    function showBomb(){
+        $(".Bomb-box-content").html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本预测基于您输入的基础数据和若干假设，不考虑税收以及通货膨胀等因素的影响，仅作投资参考，不作为收益保证。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;组合收益根据中证800、中证全债、中证货币指数进行模拟，从模拟结果分析，有25%的情形收益高于较好预期，有5%的情形收益低于较差预期，取所有模拟收益的均值为平均预期。");
+        $(".Bomb-box").removeClass('hideBomb');
+    }
+</script>
+</body>
+
+</html>

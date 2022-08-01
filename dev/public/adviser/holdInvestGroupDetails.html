@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>持有明细</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="css/base_hold2.css">
+	<link rel="stylesheet" href="css/style_hold2.css">
+	<link rel="stylesheet" href="css/holdInvestGroupDetails.css">
+
+	<script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+
+</head>
+<body>
+<section class="content1">
+	<div class="header" style="position:relative;padding: 1.5rem 0 0.75rem 0;">
+		<h4>参考市值(元) <span style="position:absolute;right:0.75rem;color: #148CE6;font-size: .65rem;" onclick="layerShow2()">收益说明</span></h4>
+		<p class="figure1 red font-arial" id="marketValue"></p>
+	</div>
+	<div class="nav" style="padding:0.75rem 0.75rem;">
+		<div class="navlite" style="width: 32%;">
+			<p id="yes"><span id="income_title">最新收益</span>(<span id="income_dt"></span>)</p>
+			<span class="red font-arial figure" id="income"></span>
+		</div>
+		<div class="navlite" style="width: 36%;">
+			<p><span>持有收益(元)</span></p>
+			<span class="red font-arial figure" id="holdingProfit"></span>
+		</div>
+		<div class="navlite" style="width: 32%">
+			<p><span>持有收益率</span></p>
+			<span class="red font-arial figure" id="holdingYield"></span>
+		</div>
+	</div>
+	<div class="nav1">
+		<div class="navlite" style="width: 32%;">
+			<p><span>日涨跌幅</span></p>
+			<span class="red font-arial figure" id="groupYieldRate"></span>
+		</div>
+		<div class="navlite" style="width: 36%;">
+			<p>持仓成本(元)</p>
+			<span class="font-arial figure" id="holdingCost"></span>
+		</div>
+		<div class="navlite" style="width: 32%">
+			<p><span>累计收益(元)</span></p>
+			<span class="red font-arial figure" id="totalProfit"></span>
+		</div>
+	</div>
+
+	<!-- add by MZ 20200202 S -->
+
+
+</section>
+<section class="content0" style="/* display:block;margin-top:0.5rem */">
+	<ul class="wrap">
+	</ul>
+</section>
+<div class="dear_investor" style="display:none;">
+	<div class="box-l">
+		<h4 class="title">
+			<i id="dear_img"></i><span class="dear_txt">亲爱的投资人</span>
+		</h4>
+		<p class="s_title">这只产品已为您带来<span>56.2%</span>收益。坚信长期的力量！</p>
+		<div class="bar" style="--percent: 60;">
+			<p class="bartip">已持有142天，建议持有730天</p>
+			<img src="./img/tip-top.png"/>
+		</div>
+		<div class="barVoids"></div>
+	</div>
+	<a href="javascript:;" class="box-r"><img src="./img/pieArrow.png" alt=""></a>
+</div>
+<div style="width: 100%;height: 0.5rem;background-color: #f6f6f6;"></div>
+
+<!-- 目标盈相关内容 -->
+<div class="target-container-1" style="display: none;">
+	<!-- <div class="container">
+		<p><img src="./img/shijian.png" alt="">本期<span>已运作142天</span>，服务到期日2022.05.21</p>
+		<p>到期日15:00前可支持修改到期处理方式</p>
+	</div> -->
+</div>
+<div class="target-container-2" style="display: none;">
+	<div class="container">
+		<div class="title" onclick="$('.showDue').show()">
+			<h4>止盈或到期处理方式</h4>
+			<a href="javascript:;"><span class="duetype-showtext">自动转入新策略</span><img src="./img/new.png" alt=""></a>
+		</div>
+		<p>达到止盈目标或到期后，<span>自动转出再转入</span>到同类型的投顾策略中，继续享受投顾服务；若当期无销售中的同类策略，则<span>转出资金默认充值到现金宝。</span> </p>
+	</div>
+</div>
+<!--<div class="baogao" id ="baogao" style="margin-bottom: 0.5rem">-->
+<!--	<div class="text">定期报告 <img src="img/arrow.png" alt="" style="width:0.4rem;height:0.75rem;float:right"></div>-->
+<!--</div>-->
+<div class="report_cg" style="display: none;height: auto;">
+	<div class="top">
+		<div><img src="img/report_icon.png" alt=""></div>
+		<div class="new_report_name">超级股票全明星4月报</div>
+		<!-- <div class="new_report_date">2021.05.23</div> -->
+	</div>
+	<!-- <span>请查收您的投顾策略成绩单！</span> -->
+</div>
+<!-- 20220329 新增投顾月报/季报 S -->
+<div class="report_routine" style="display: none;height: auto;padding-bottom: 0.5rem;">
+	<div class="top">
+		<div><img src="img/report_icon.png" alt=""></div>
+		<div class="new_report_name">跟我投2022年第一季度报告</div>
+		<div class="new_report_date">2021.05.23</div>
+	</div>
+	<span>请查收您的投顾策略成绩单！</span>
+</div>
+<!-- 20220329 新增投顾月报/季报 E -->
+<section class="content2" id="profitChart" style="height:405px;width: 100%;">
+	<div>
+<!--		<div class="title1" id="chartTitle" style="background:#fff;padding-top:0.5rem;color:#000;font-size: 0.8rem;font-weight: bold">收益走势图 <img src="img/warningIcon.png" alt="" style="width: 0.75rem;height:0.75rem;position:absolute;right:0.75rem;top:1.05rem" onclick="showTips(22)"></div>-->
+		<ul class="tab_cg">
+			<li class="active" data="1">收益走势</li>
+			<!-- <li data="2">组合业绩</li> -->
+		</ul>
+		<div class="diagram" style="height: 300px;">
+			<div>
+				<div id="pie1" style="width: 100%;height: 300px;"></div>
+			</div>
+			<div class="noData" style="display: none;">
+				<p style="color: #999;font-size: .5rem;">暂无足够的数据展示</p>
+			</div>
+		</div>
+	</div>
+	<ul class="clearfix tab2" style="display:block;" id="ul">
+		<li class="active" value="1"><a>近1月</a></li>
+		<li value="2"><a>近3月</a></li>
+		<li value="3"><a>近6月</a></li>
+		<li value="4"><a>近1年</a></li>
+		<li value="6"><a>首购以来</a></li>
+	</ul>
+</section>
+
+<section class="content1_1" style="margin-top:0.5rem;">
+	<ul class="clearfix tab3">
+		<li class="active first" data="1"><a>收益记录</a></li>
+		<li class="first" data="2"><a>分红记录</a></li>
+		<li class="first" data="3"><a>交易记录<span id="_num"></span></a></li>
+	</ul>
+	<!--收益记录-->
+	<div class="shouyi">
+	</div>
+	<!-- 第二个的切换分红-->
+	<div class="fenfong" style="display:none">
+	</div>
+	<!-- 第三个切换，交易记录 -->
+	<div class="jiaoyi" style="display:none">
+	</div>
+</section>
+<div class="more">
+	<a id="tabNoMore" href="javascript:;" style="display:none;">暂无数据</a>
+	<a id="tabMore" data="1" href="javascript:;">查看更多</a>
+</div>
+
+
+<!-- 收益记录 -->
+<section class="content4" style="clear:both">
+	<table>
+		<tbody>
+		</tbody>
+	</table>
+</section>
+<section class="content5" style="padding-bottom:0.75rem;background:#fff;margin-bottom: 0rem;border-bottom: 0.5rem solid #eee;">
+	<div class="title1" style="background:#fff;padding-top:0.5rem">
+		<p class="left" style="color:#000;font-size: 0.75rem;font-weight:bold">资产配置比例</p>
+		<p class="left" style="margin-left:0.25rem;font-size:0.6rem;color:#666" id = "jzrq">截至2020.08.01</p>
+		<p class="right" style="font-size: .7rem;color: #148ce6;" id="checkDeg">偏离度情况</p>
+	</div>
+
+	<section class="content3 scrollBox" style="margin-top: 0rem">
+		<div style="width:100%;height:9rem;margin:0 auto;position: relative;">
+			<div id="pie2" style="width:100%; height:9rem;position: absolute; left:-3.25rem;"></div>
+			<ul class="legend fund-list" style="width:40%;position: absolute;right:1.5rem;top:3.5rem">
+
+			</ul>
+
+		</div>
+	</section>
+</section>
+
+<div class="jijin_mingxi">
+	<div class="jijin_title">
+		<div class="title_1">基金名称</div>
+		<div class="title_2">占比</div>
+		<div class="title_3"><span>持有金额</span></div>
+	</div>
+	<div class="jijin_list" id="jijin_list">
+	</div>
+</div>
+
+<div style="width: 100%;display: none;">
+	<div style="height:0.5rem;background-color:#f6f6f6;"></div>
+</div>
+<!-- <div class="baogao" id ="xieyi" style="margin-bottom: 0.25rem;">
+	<div class="text" style="display: flex;justify-content: space-between;align-items: center;"><span>投顾协议</span><img src="img/arrow.png" alt="" style="width:0.4rem;height:0.75rem;"></div>
+</div> -->
+<!-- <div class="baogao" id ="tcReward" style="margin-bottom: 0.25rem;">
+	<div class="text" style="display: flex;justify-content: space-between;align-items: center;"><span>调仓记录</span><img src="img/arrow.png" alt="" style="width:0.4rem;height:0.75rem;"></div>
+</div> -->
+<div class="invest_report" style="margin-bottom:.5rem">
+	<!-- <div class="title">投顾公告</div> -->
+	<div style="display: flex;align-items: center;justify-content: space-between;padding:.65rem .5rem .65rem 0;color: #000;font-size: .75rem;">
+		<p>
+			<span style="float:left;font-size:0.75rem;font-weight: bold">定期报告</span>
+		</p>
+		<p class="jump" style="color:#666;font-size:0.75rem"><span style="display: inline-block;width: 1rem;"></span><img style="width:0.4rem;margin-left:0.25rem;height:0.75rem;vertical-align: middle;margin-top:-0.15rem;display: inline-block" src="img/new.png"></p>
+	</div>
+</div>
+<div class="invest_notice">
+	<!-- <div class="title">投顾公告</div> -->
+	<div style="display: flex;align-items: center;justify-content: space-between;padding:.65rem .5rem .65rem 0;color: #000;font-size: .75rem;">
+		<p>
+			<span style="float:left;font-size:0.75rem;font-weight: bold">信息披露</span>
+		</p>
+		<p style="color:#666;font-size:0.75rem"><span style="display: inline-block;width: 1rem;"></span><img style="width:0.4rem;margin-left:0.25rem;height:0.75rem;vertical-align: middle;margin-top:-0.15rem;display: inline-block" src="img/new.png"></p>
+	</div>
+</div>
+<div style="padding: 0 .75rem;height:2rem;line-height: 2rem; font-size: .6rem;">注：您可以通过截屏的方式存留相关信息</div>
+<style>
+.footer_area { position: fixed; bottom: 0; width: 100%;z-index:99999999999999999999}
+.footer_area ul { display: flex; justify-content: center; align-items: center;}
+.footer_area ul li:first-of-type { border-left: none;}
+.footer_area ul li { height: 2.5rem; background-color: #4f423d; width: 100%; border-top: 1px #eee solid; border-left: 1px #eee solid;}
+.footer_area ul li a {display: flex; justify-content: center; align-items: center; flex-direction: column; width: 100%; height: 100%; text-align: center; color: #d2af55; font-size: .8rem; }
+.footer_area ul li.white { background-color: #fff;}
+.footer_area ul li.white a{ color: #4f423d;}
+.footer_area1 { position: fixed; bottom: 0; width: 100%;z-index:99999999999999999999}
+.footer_area1 ul { display: flex; justify-content: center; align-items: center;}
+.footer_area1 ul li:first-of-type { border-left: none;}
+.footer_area1 ul li { height: 2.5rem; background-color: #4f423d; width: 100%; border-top: 1px #eee solid; border-left: 1px #eee solid;}
+.footer_area1 ul li a {display: flex; justify-content: center; align-items: center; flex-direction: column; width: 100%; height: 100%; text-align: center; color: #d2af55; font-size: .8rem; }
+.footer_area1 ul li.white { background-color: #fff;}
+.footer_area1 ul li.white a{ color: #4f423d;}
+</style>
+<div class="fgx" style="height:2.5rem;display: none;"></div>
+<div class="footer_area" style="display: none;">
+	<ul>
+		<li class="btn_out white" ><a href="javascript:;"><span>转出</span></a></li>
+		<li class="btn_in" ><a href="javascript:;" ><span>追加/定投</span></a></li>
+	</ul>
+</div>
+<div class="footer_area1" style="display: none;">
+	<ul>
+		<li class="btn_target_out white" ><a href="javascript:;"><span>转出</span></a></li>
+		<li class="btn_target_in" ><a href="javascript:;" ><span>追加</span></a></li>
+	</ul>
+</div>
+<!-- start-20211125新加入浮框 -->
+<!-- 目标盈弹窗 -->
+<!-- 选择到期处理方式浮层-->
+<div class="layer1 layer animated slideInDown showDue" style="z-index:100;display: none;"  >
+	
+</div>
+<!-- 弹出悬浮框 -->
+<div class="mask" style="display:none"></div>
+<div class="layer animated slideInUp" id="showDialog" style="display:none;">
+    <div class="show-tips">
+        <a href="javascript:;">
+            <div class="show-list" data="0" id="addBtn">追加</div>
+        </a>
+        <a href="javascript:;">
+            <div class="show-list" data="1" id="investBtn">定投</div>
+        </a> 
+        <a href="javascript:;">
+            <div class="show-list" style="color:#f4333c" id="closeBtn">取消</div>
+        </a>     
+    </div>
+</div>
+<!-- end-20211125新加入浮框 -->
+
+<!--弹框-->
+
+<div class="layer" id="layer1">
+	<div class="layer-wrap">
+		<div class="layer-body">
+			<p class="display_yield_desc1" ></p>
+		</div>
+		<button>我知道了</button>
+	</div>
+</div>
+
+<div class="layer" id="layer2">
+	<div class="layer-wrap">
+		<div class="layer-body">
+			<p class="display_yield_desc" >该组合周末及节假日无收益。</p>
+		</div>
+		<button>我知道了</button>
+	</div>
+</div>
+
+<div class="layer" id="tip33" style="display: none;">
+	<div class="layer-wrap">
+		<div class="layer-body">
+			<p id = "zbwa">占比文案待定</p>
+		</div>
+		<button style="color:#006bfe">我知道了</button>
+	</div>
+</div>
+<div class="layer" id="tip22" style="display: none;">
+	<div class="layer-wrap">
+		<div class="layer-body">
+			<p>根据组合成分基金的占比和净值变化测算的组合业绩，因模拟测算未考虑交易费用，且客户跟投存在时间偏差等情况，组合业绩与客户实际获取收益可能存在一定偏差。</p>
+		</div>
+		<button style="color:#006bfe">确定</button>
+	</div>
+</div>
+<div class="layer" id="tip4" style="z-index: 999999999">
+	<div class="layer-wrap">
+		<div class="layer-body">
+			<p class="display_yield_desc" style="text-align: center;line-height: 1.5;color: #000;">偏离度：<em id="irrelevanceStr" style="font-style: normal;color: #fb5c5f;"></em><br>投资顾问将视情况采取调整措施</p>
+		</div>
+		<button>我知道了</button>
+	</div>
+</div>
+
+<!-- 20211122 S  -->
+
+<!-- <script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src = "https://static.99fund.com/mobile/wap-lib/js/jquery.base64.js"></script>
+<script type="text/javascript" src = "https://static.99fund.com/mobile/wap-lib/js/basic.js"></script> -->
+<script src="../wap/js/lib/jquery-3.2.1.min.js"></script>
+<script src="/tradeh5/newWap/base/js/utils.js"></script>
+<script src="/tradeh5/newWap/base/js/lib/vue.min.js"></script>
+<!-- <script src="./js/vue.js"></script> -->
+
+
+<!-- <script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/echarts.min.js"></script> -->
+<script type="text/javascript" src="../wap/js/lib/echarts.min.js"></script>
+<!-- <script type="text/javascript" src="../wap/js/common.js?20210309"></script> -->
+<script src="./js/holdInvestGroupDetails.js"></script>
+
+<script>
+
+	
+</script>
+
+</body>
+</html>

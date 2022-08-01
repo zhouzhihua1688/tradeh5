@@ -1,0 +1,85 @@
+.logo-body{
+    height: 150px;
+    width: 100%;
+    padding-top: 20px;
+
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+
+.login-input input{
+    color: #b2b2b2;
+}
+.login-body{
+    width: 100%;
+    margin-top: 2px;
+
+    /* Safari、Opera 以及 Chrome */
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+
+.login-title {
+    clear: both;
+    width: 70px;
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    line-height: 20px;
+    background-color: #ffffff;
+}
+
+.logo{
+    width: 80px;
+}
+
+.user-input{
+    width: 180px;
+}
+
+.login{
+    margin-top: 20px;
+    width: 100%;
+
+    /* Safari、Opera 以及 Chrome */
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+
+.login-button{
+    width: 260px;
+    padding: 15px;
+}
+.reg-button{
+    width: 70px;
+    font-size: 14px;
+    padding: 3px;
+}
+
+.reg{
+    margin-top: 20px;
+    width: 100%;
+
+    /* Safari、Opera 以及 Chrome */
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+
+.button-orange-login{
+    background-image: url("../images/common/button_grey.png");
+    border: 1px #ff8203 solid;
+    border-radius: 4px;
+    color: #ff8203;
+    text-align: center;
+}
+
+.button-width-big{
+    width: 80%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

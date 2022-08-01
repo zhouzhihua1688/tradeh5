@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义赎回</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        html,
+        body {
+            /* font-family: 'SimHei'; */
+            background: #f6f6f6;
+        }
+
+        .content li {
+            padding:0rem 0.75rem;
+        }
+        .content .high {background: #fff; display: flex; justify-content: space-between; align-items: center; }
+        .content .high .bank {display: flex; justify-content: space-between; align-items: center; }
+        .content .high .bank span {display: flex; justify-content: space-between; align-items: center; }
+        .content .black { font-size: 0.75rem; color: #000; }
+        .content img {
+            height: .75rem;
+        }
+
+        .content .high .sign {
+            height: 1rem;
+        }
+
+        .content .dim { font-size: 0.6rem; color: #666666;height: 1.75rem; line-height: 1.75rem; padding:0rem .75rem; }
+        .content .grey {
+            /* font-size: 0.6rem; */
+            color: #666666;
+        }
+        .content .red {
+            /* font-size: 0.6rem; */
+            color: #FE5A5B;
+        }
+        .fundList .red {
+            color: #f4333c;
+        }
+        .content .blue,
+        .fundList .blue {
+            color: #148ce6;
+        }
+        .content .pt5,
+        .fundList .pt5 {
+            padding-top: 0.25rem;
+        }
+        .content .ml15,
+        .fundList .ml15 {
+            margin-left: .75rem;
+        }
+        .content .ml10,
+        .fundList .ml10 {
+            margin-left: .5rem;font-size:0.65rem;
+            color:#40a7ef;
+        }
+    
+       /* 参考市值 */
+       .shangxian{width:100%;height:2.5rem;background:#fff;border-bottom:1px solid #eee;}
+       .shangxian .left{width:60%;font-size:0.75rem;color:#000;margin-left:0.75rem;text-align:left;line-height:2.5rem;float:left;}
+       .shangxian .right{width:20%;font-size:0.75rem;margin-right:0.75rem;color:#000;float:right;text-align:right;line-height:2.5rem}
+       .shangxian .right div:nth-of-type(1){text-align:left;float:left;}
+       .shangxian .right div:nth-of-type(2){text-align:right;float:right;}
+
+       .prompt{width:100%;}
+       .prompt>div{width:17.25rem;margin:0 auto;font-size:0.6rem;color:#666;margin-top:0.75rem;}
+       .confirm{width:100%;height:2.25rem;}
+       .confirm>a{width:17.25rem;height:2.25rem;display: block; text-align: center;line-height:2.25rem; margin:0 auto;font-size:0.6rem;color:#666;background:#ddd6d6;color:#fff;font-size:0.85rem;border-radius:2px;}
+        .fundList{width:100%;display:flex;justify-content:space-between;align-items: center;background: #fff;border-bottom:1px solid #efefef;padding:0.5rem 0rem;}
+        .fundList div{color:#000;font-size:0.75rem;}
+        .fundList .one{width:45%;}
+        .fundList .two{width:10%;}
+        .fundList .third{width:22%;text-align:right;}
+        .fundList .four{width:50%;text-align:right;padding-right:0.75rem;}
+        .fundList .one .zhuan{width:100%;font-size:0.6rem;margin:0.2rem 0rem 0.2rem 0.75rem;color:#666;}
+        .fundList .one .zhuan img{width:0.45rem;height:0.45rem;display: inline-block;vertical-align: middle;}
+        .fundList .four input{width:55%;height:1.5rem;font-size:0.75rem;color:#000;background: #f6f6f6;text-align: center}
+        .fundList .one div:nth-of-type(3){color:#148CE6;font-size:0.65rem}
+        .guize{font-size:0.65rem;color:#148CE6;height:1.75rem;text-align: right;line-height:1.75rem;padding-right:0.75rem;}
+        .content .money{width:100%;display:flex;justify-content:space-between;align-items: center;background: #fff;padding:0.75rem 0rem;}
+        .content .money div{font-size:0.75rem;color:#000;padding:0rem 0.75rem;}
+
+        .section2 p {padding: 0.75rem .75rem; font-size: 0.5rem; color: #666; line-height: 1rem; margin: 0;}
+        .rules span {width: .6rem; height: .61rem; vertical-align: middle; background: url(../images/fundgroup/chose1_y.png) no-repeat left center; display: inline-block; background-size: contain; margin: -.2rem .25rem 0 -.75rem; }
+        .rules span.current { background-image: url("../images/fundgroup/chose1.png");}
+        .tips { position: fixed; top: 0; left: 0; bottom: 0; right: 0; background-color: rgba(0, 0, 0, 0.507); font-size: .7rem; }
+
+        .tips>div {background: #fff; position: absolute; left: 10%; right: 10%; top: 50%; transform: translateY(-50%); padding: .5rem .75rem 0; border-radius: .2rem; }
+
+        .tips .tips_text {padding: .75rem; border-bottom: 1px solid #eee; }
+
+        .tips .button {display: flex; align-items: center; text-align: center; }
+
+        .tips .button span {margin-top: .25rem; padding: .625rem 0; margin-bottom: .25rem; width: 50%; color: #1370fa; }
+
+        .tips .button span:nth-of-type(1) {border-right: 1px solid #eee;}
+		
+    .layer { background-color: #ffffff; height: 100%; width: 100%; position: fixed;
+      /*top: 0;*/
+    left:0; overflow: auto;z-index: 10;}
+   #myGift1{
+    background-color: #ffffff;
+    height:27rem;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    z-index: 10;
+   }
+   @keyframes slideInDown{
+    0%{opacity:0;-webkit-transform:translateY(-000px);-ms-transform:translateY(-2000px);transform:translateY(-2000px)}
+    100%{-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}}
+ 
+    @keyframes slideInUp{
+    0%{opacity:0;-webkit-transform:translateY(100%);-ms-transform:translateY(100%);transform:translateY(100%)}
+    100%{-webkit-transform:translateY(65%);-ms-transform:translateY(65%);transform:translateY(65%)}}  
+	
+
+        #c_more_list .nameList{width:100%; display:flex;justify-content:space-between;align-items: center;}
+        #c_more_list .nameList div{width:50%;}
+        #c_more_list .nameList .one{padding-left:0.45rem;font-weight:bold;color:#000}
+        #c_more_list .nameList .two{font-size:0.65rem;color:#666;padding-right:0.45rem;text-align:right}
+        
+        #c_more_list .detailList{width:100%; display:flex;justify-content:space-between;align-items: center;}
+        #c_more_list .detailList div{width:50%;}
+        #c_more_list .detailList .one{padding-left:0.45rem;color:#666;font-size:0.6rem;}
+        #c_more_list .detailList .two{font-size:0.6rem;color:#000;padding-right:0.45rem;text-align:right}
+         
+        #c_more_list.button{width:100%;font-size: 0.7rem}
+        #c_more_list .button span {
+            margin-top: .25rem;
+            padding: .625rem 0;
+            margin-bottom: .25rem;
+            width: 100%;
+            color: #1370fa;
+        }
+        #c_more_list .button span:nth-of-type(1) {border-right:0px;}
+    </style>
+</head>
+
+<body>
+        <input type="hidden" value="" id="minRedeemAmount">
+		<input type="hidden" value="" id="holdRedeemAsset">
+		<input type="hidden" value="0" id="largeRedeemFlag">
+    <ul class="content">
+        <li class="dim" style="background-color: #fffac7;"><span class="red inform"></span></li>
+       
+        <li class="high" style="height:1.75rem;border-bottom:1px solid #efefef">
+            <div>
+                <p class="black">基金名称</p>
+            </div>
+            <a href="javascript:;"><div class="bank black" style="font-size:0.75rem"><span>赎回份额(份)</span>
+            </div></a>
+        </li>     
+    </ul>
+
+   
+    <div class="guize"><a href="../../adviser/fundGroupTrade.html">交易规则</a></div>
+    <div class="shangxian" id="selectGift1">
+        <div class="left">如遇赎回上限</div>
+        <div class="right">
+            <div id="tl">放弃超额</div>
+            <div><img src="../images/fundgroup/arr.png" alt="" style="width:0.4rem;height:0.75rem;margin-top:0.95rem;"></div>
+        </div>
+    </div>
+    <div class="prompt">
+        <div id="info1"> </div>
+        <!-- <div>温馨提示：持有本基金不满7天赎回费不低于1.50%，费率详见基金合同。</div> -->
+    </div>
+    <div class="prompt">
+        <div id="info"> </div>
+        <!-- <div>温馨提示：持有本基金不满7天赎回费不低于1.50%，费率详见基金合同。</div> -->
+    </div>
+    <section class="section2 contract-div" style="padding: 0 0 0.35rem 0;">
+        <p class="rules" style="font-size:0.65rem;margin-left: .75rem;"><span id="isRead" class="chose-icon current"></span>&nbsp我已同意<a href="javascript:;" style="color:#008ae9">《汇添富组合产品服务协议》</a></p>
+    </section>
+    <div class="confirm" style="padding-bottom:2rem;">
+        <a href="javascript:;" id="btn-submit">下一步</a>
+    </div>
+
+    <!-- 弹窗 -->
+    <div class="tips" id="alert_tip" style="display:none">
+        <div>
+            <p class="tips_text" id="alert_msg"></p>
+            <a href="javascript:;"><p class="button"><span>取消</span><span id="goTo">继续赎回</span></p></a>
+        </div>
+    </div>
+	
+	<div class="mask"></div>
+<div class="layer animated slideInUp" id="myGift1" style="display:none;">
+    <div class="giftlist">
+        <a href="javascript:;">
+            <div class="title" style="height:3rem;line-height:3rem;" data="0">放弃超额</div></a>
+        <a href="javascript:;">
+            <div class="title" style="height:3rem;line-height:3rem;border-top:1px solid #eee" data="1">继续赎回</div></a>
+        <div style="height:0.25rem;background:#f6f6f6"></div>
+        <div class="title" style="height:3rem;line-height:3rem;">
+            <a href="javascript:;" style="color:#008ae9;font-size:0.75rem" id="close">取消</a>
+        </div>      
+    </div>
+</div>
+
+    <!-- 弹窗 -->
+    <div class="tips" id="c_more_list" style="display:none">
+        <div>
+            <p class="tips_text" id="info2"></p>
+			<div id="list_" style="padding-top:.5rem;">
+
+
+            </div>
+            <p class="button"><span>确定</span></p>
+        </div>
+    </div>
+<script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+<script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+<script type="text/javascript" src="../js/common.js?20210106"></script>
+    <script>
+var redeemObj = {};
+var branchCode = '247';
+var groupId = App.getUrlParam("groupId");
+var balanceSerialNo = App.getUrlParam("balanceSerialNo");
+
+getTradeInfo()
+
+$(".giftlist a").on("click",function(event){
+	$("#tl").html($(this).children(".title").html());
+	$("#largeRedeemFlag").val($(this).children(".title").attr('data'));
+    $("#myGift1").hide();
+    $(".mask").hide();
+})
+    $("#selectGift1").click(function(){
+        $("#myGift1").show();
+        $(".mask").show();
+    })
+function getTradeInfo(){
+	var url = '/mobile-bff/v1/fund-group/trade-info?tradeTp=CR&groupId=' + groupId+ '&balanceSerialNo=' + balanceSerialNo;
+    
+    App.get(url, null, function(result){
+		if(result.returnCode == 0){
+			$("#info").html(result.body.remark);
+		}
+	});
+	
+}
+function redeemAll(id){
+	$("#val_"+id).val($("#max_"+id).val());
+	checkSub()
+}
+function getHoldDetail(){
+	var url = '/mobile-bff/v1/fund-group/hold/detailInfo?groupId=' + groupId+ '&balanceSerialNo=' + balanceSerialNo;
+    
+    App.get(url, null, function(result){
+		if(result.returnCode == 0){
+			redeemObj.tradeAcco = result.body.tradeAcco;
+			var holdGroupInfo = result.body.holdGroupInfo;
+			branchCode = result.body.branchCode;
+			$(".inform").html(holdGroupInfo.redeemTips);
+			var fundGroupDetail = holdGroupInfo.fundGroupDetails;
+			var htm = '';
+			for(var k in fundGroupDetail){
+				var item = fundGroupDetail[k];
+					htm+='   <div class="fundList">'+
+				  '<div class="one">'+
+					'<div style="padding-left:0.75rem">'+item.fundName+'</div><input type="hidden" id="max_'+item.fundId+'" value="'+item.avaliable+'">'+
+					'<div class="zhuan">可用'+item.avaliable+'份('+item.marketvalue+'元)</div><input type="hidden" id="min_'+item.fundId+'" value="'+item.minRedeemQuty+'">'+
+					'<div style="padding-left:0.75rem" onclick="redeemAll(\''+item.fundId+'\')">全部赎回</div><input type="hidden" id="nav_'+item.fundId+'" value="'+item.nav+'">'+
+				  '</div>'+
+				  '<div class="four"><input type="text" class="redeem_amt" data="'+item.fundId+'" id="val_'+item.fundId+'" value="" placeholder="建议'+item.minRedeemQuty+'份起"></div>'+
+			   '</div>';
+
+			}
+			$(".content").after(htm);
+			$(".redeem_amt").on("input", function () {
+				checkSub()
+			});
+		}
+	});
+
+}
+var amount = 0;
+function checkSub(){
+	$("#info1").html("");
+	var contractLength = $(".contract-div").children("p").length;
+	var chkCnt = 0;
+	$(".contract-div").children("p").each(function(){
+		if($(this).children("span").hasClass("current")){
+			chkCnt+=1;
+		}
+	});
+	amount = 0;
+	var isMoney = false; 
+	var redeemReqDetail = [];
+	var amt_cnt = 0;
+	$(".redeem_amt").each(function(){
+		var id_ = '#val_'+$(this).attr("data");
+		var val = $(id_).val().replace(/[,A-z]/g, '');
+		if(val > 0){
+			if(val.length > 11){
+				val = val.substring(0,11);
+			}
+
+			$(id_).val(val);
+			amt_cnt++;
+			var map = {};
+			var nav = $('#nav_'+$(this).attr("data")).val();
+			map['fundId'] = $(this).attr("data");
+			map['redQty'] = val;
+			map['redeemQuty'] = val;
+			map['nav'] = nav;
+			amount = Number(Number(amount) + Number(val)*Number(nav)).toFixed(2);
+			redeemObj.amt = amount;
+			redeemReqDetail.push(map);
+		}else{
+			isMoney = false; 
+			$(id_).val("");
+		}
+
+	});
+	if(amt_cnt > 0){
+		isMoney = true;
+	}
+	redeemObj.redeemReqDetail = redeemReqDetail;
+	redeemEsti();
+
+    if(isMoney &&  (contractLength == chkCnt)){
+    	$("#btn-submit").css({'background-color':'#fd7e23'});
+		App.unbind('#btn-submit', "tap",purchaseCheck);
+    	App.bind('#btn-submit', "tap",purchaseCheck);
+		
+    }else{
+    	App.unbind('#btn-submit', "tap",purchaseCheck);
+    	$("#btn-submit").css({'background-color':'#ddd6d6'});
+    }
+}
+
+	//检查参数
+	function purchaseCheck(){
+
+		redeemPre();
+		
+	}
+	var allBalanceRedeem = false;
+    $(function(){
+		getHoldDetail()
+		 $("#close").click(function(){  //删值
+			$("input").val("")
+		 })
+
+	   $('.bifen div').click(function () {   //切换
+			if ($(this).hasClass("active")) {
+				return;
+			}
+			$(this).addClass("active").siblings().removeClass('active');
+		   
+		});
+		$('.tips span').eq(0).on('click', function () {//关闭弹窗
+			$('.tips').hide()
+
+		})
+        $('.redeem div').click(function () {
+            if ($(this).hasClass("hot")) {
+                return;
+            }
+            $(this).addClass("hot").siblings().removeClass('hot');
+        });
+
+            //勾选
+        $(".rules").click(function () {
+            $(".chose-icon").toggleClass("current");
+			checkSub();
+        });
+    })
+	//费用估算
+	function redeemEsti(){
+			
+			var url = "/mobile-bff/v1/fund-group/redeem-fee-tips/estimate";
+			var data = JSON.stringify({
+				"groupId": groupId,
+				"cashFrom":"V",
+				"accepteMode":"M",
+				"branchCode":branchCode,
+				"balanceSerialNo": balanceSerialNo,
+				"currencyTp": "156",
+				"redeemReqDetail":redeemObj.redeemReqDetail
+			});
+			App.post(url, data, function(result) {
+				if(result.body.estimateRedeemFeeTip != null){
+					$("#info1").html(result.body.estimateRedeemFeeTip+'<span style="color:#148ce6" class="c_more">估算详情</span>');
+					$("#info2").html(result.body.estimateRedeemFeeTip);
+					var tradeList = result.body.tradeFeeDetailList ;
+					var htm = '';
+					for(var k in tradeList){
+						var item = tradeList[k];
+						htm+='				<div class="nameList">'+
+							'<div class="one">'+item.fundName +'</div>'+
+							'<div  class="two">估算费用</div>'+
+						'</div>'+
+						'<div class="detailList">'+
+							'<div class="one">赎回份额'+item.subQuty +'份</div>'+
+							'<div class="two">'+App.formatMoney(item.feeAmount) +'元</div>'+
+						'</div>'; 
+					}
+				}
+				$("#list_").html(htm);
+				$(".button").click(function(){
+					$("#c_more_list").hide();
+				});
+				$(".c_more").click(function(){
+					$("#c_more_list").show();
+				});
+			});
+	}
+
+
+	//预校验
+	function redeemPre(){
+		
+		var url = "/fundgroup/v1/group-fund/trade-order-validate";
+		var data = JSON.stringify({
+			"groupId": groupId,
+			"type":"R",
+			"balanceSerialNo": balanceSerialNo
+
+		});
+		//写入session
+		redeemObj.allBalanceRedeem = allBalanceRedeem;
+		redeemObj.largeFlg = $("#largeRedeemFlag").val();
+		App.setSession("fundGroup_redeem",redeemObj);
+		App.post(url, data, function(result) {
+			if(result.returnCode == 0){
+				if(result.body != ""){
+					$("#alert_msg").html(result.body);
+					$("#alert_tip").show();
+				}else{
+					var forwardUrl = App.getUrlParam("forwardUrl");
+					if(App.isNotEmpty(forwardUrl)){
+						window.location.href = "redeem_confirm.html?groupId="+groupId+"&balanceSerialNo="+balanceSerialNo+"&forwardUrl="+forwardUrl+"&custom=1";
+					}else{
+						window.location.href = "redeem_confirm.html?groupId="+groupId+"&balanceSerialNo="+balanceSerialNo+"&custom=1";
+					}
+				}
+			}
+		});
+
+
+	}
+	$("#goTo").click(function(){
+		var forwardUrl = App.getUrlParam("forwardUrl");
+		if(App.isNotEmpty(forwardUrl)){
+			window.location.href = "redeem_confirm.html?groupId="+groupId+"&balanceSerialNo="+balanceSerialNo+"&forwardUrl="+forwardUrl+"&custom=1";
+		}else{
+			window.location.href = "redeem_confirm.html?groupId="+groupId+"&balanceSerialNo="+balanceSerialNo+"&custom=1";
+		}
+	});
+    </script>
+
+</body>
+
+</html>

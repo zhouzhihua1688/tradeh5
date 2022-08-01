@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>账户安全险</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <script>
+        // 相对字体大小设置
+        let oHtml = document.documentElement;
+        getFont();
+        window.onresize = getFont;
+        function getFont() {
+            let screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = "17.06px";
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = "40px";
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + "px";
+            }
+        }
+    </script>
+    <style>
+        html, body {background-color: #eee; max-width: 750px;}
+        .content>div{
+            font-size: 0;
+        }
+        img{
+            display: block;
+            width: 100%;
+        }
+        /* .content div:nth-of-type(2){
+            position: relative;
+        }
+        .content div .jump_protocol{
+            position: absolute;
+            right: 4.75rem;
+            bottom: 1.5rem;
+            width: 2.5rem;
+            height: .75rem;
+        }
+        .content div .update_xjb{
+            position: absolute;
+            right: 2.875rem;
+            bottom: 2.875rem;
+            width: 13rem;
+            height: 2.5rem;
+        } */
+        .content .agreement {
+            font-size: .55rem;
+            padding: .8875rem 0;
+            text-align: center;
+        }
+        /* .content .button {
+            font-size: .9rem;
+            padding: .675rem 0;
+            text-align: center;
+            background-color: orange;
+            color: #fff;
+        } */
+    </style>
+</head>
+<body>
+    <div class="content" style="display: none;">
+        <div>
+            <img src="./images/bg_02.png" alt="">
+        </div>
+        <div style="position: relative;">
+            <img src="./images/bg_033.png"  alt="">
+            <p style="position:absolute;font-size: 0.6rem; bottom:1.5rem; margin: 0 2.25rem;">现金宝账户安全险保障额度最高10万，在保障期内<span id='period'>（2021.05.23至2022.20.28）</span>，无赔付次数限制。</p>
+        </div>
+        <div>
+            <img src="./images/bg_04.png" alt="">
+        </div>
+        <div class="agreement">
+            查看<a href="javascript:;" class="jump_1">《保险条款》</a>、<a href="javascript:;" class="jump_2">《投保须知》</a>相关协议
+        </div>
+        <div class="button-area">
+            <img src="./images/bg_07.png" alt="">
+        </div>
+    </div>
+	
+    
+    <script src="./js/jquery.3.4.1.min.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/common.js?20210302"></script>
+    <script>
+        // 直接 查询客户是否投保
+        utils.ajax({
+            url: '/cos/v1/config/monitor/za/cust/insurance',
+            type: 'GET',
+            success: function (result) {
+                console.log(result);
+                if (result.returnCode === 0) {
+                        // $('.content').show();
+                        // return;
+                    if(result.body){
+                        $('.content').show();
+                        if(result.body.effectiveDate && result.body.expireDate){
+                            $('#period').text('（' + App.formatTargetDateStr("yyyy.MM.dd", new Date(result.body.effectiveDate)) + '至' + App.formatTargetDateStr("yyyy.MM.dd", new Date(result.body.expireDate)) + '）')
+                        }
+                    } else {
+                        // 页面所有元素隐藏
+                        $('.content').hide();
+                        utils.showTips({
+                            title: '您的账户不符合领取条件',
+                            content: '感谢您的关注',
+                            confirmText: '我知道了', //确认按钮文字，默认确定
+                            complete: function() { //需使用bind()
+                                if(isApp()){
+                                    window.location.href = 'htffundxjb://action?type=hm';
+                                } else [
+                                    // 非APP情况，暂不处理
+                                ]
+                            }.bind(this),
+                        })
+                    }
+                }
+            }.bind(this)
+        })
+        
+        $(".button-area").click(function(){
+            if(isApp()){
+                // 跳转到在线客服
+                window.location.href="htffundxjb://action?type=cs";
+            }else{
+                // 报错提示，需要在APP内打开
+                utils.showTips("请在现金宝APP内打开页面");
+            }
+        })
+        $(".jump_1").click(function(){
+            let url = window.location.href.replace(/index.html/, 'insuranceTerms.html');
+            if(isApp()){
+                window.location.href = 'htffundxjb://action?type=url&link=' + btoa(url);
+            }else{
+                window.location.href = url;
+            }
+        })
+        $(".jump_2").click(function(){
+            let url = window.location.href.replace(/index.html/, 'insuranceNotice.html');
+            if(isApp()){
+                window.location.href = 'htffundxjb://action?type=url&link=' + btoa(url);
+            }else{
+                window.location.href = url;
+            }
+        })
+
+		// var params={
+		// 	acceptMode: "M",
+		// 	apkind: "985",
+		// 	branchCode: "247",
+		// 	subApkind: "MAC001"
+		// };
+        // $(".update_xjb").click(params,function(e){
+		// 	utils.ajax({
+		// 		url: '/mobile-bff/v1/smac/fund/convert',
+		// 		type: 'POST',
+		// 		data: e.data,
+		// 		success: function (result) {console.log(result.returnCode);
+		// 			if (result.returnCode === 0) {
+        //                 alertTips3('升级成功','您的现金宝钱包已升级！','去查看',jumpuri);
+        //                 $(".Bomb-box-tips").css({"font-size":".75rem","color":"#000","padding-top":".9rem"});
+        //                 $(".Bomb-box-content").css({"font-size":".7rem","color":"#666","padding":".8rem","padding-top":".6rem"});
+        //                 $(".Bomb-box-ok").css({"font-size":".75rem","color":"#006bfe"});
+		// 			} 
+		// 		}.bind(this)
+		// 	})
+        // })
+        // $(".jump_protocol").click(function(){
+        //     if(utils.isProdEnv()){
+        //         window.location.href="https://app.99fund.com/tradeh5/newWap/tradeProcess/cash/xjb_upgrade_agreement.html"
+        //     }else{
+        //         window.location.href="http://appuat.99fund.com.cn:7081/tradeh5/newWap/tradeProcess/cash/xjb_upgrade_agreement.html"
+        //     }
+        // })
+		// function jumpuri(){
+		// 	window.location.href="/tradeh5/newWap/myAssets/asset.html"
+		// }
+    </script>
+</body>
+</html>

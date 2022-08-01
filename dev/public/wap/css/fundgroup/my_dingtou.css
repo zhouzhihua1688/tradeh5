@@ -1,0 +1,225 @@
+@charset "utf-8";
+
+table { width: 100%;border-collapse: collapse; }
+         section{background: #fff;}
+        .content1 ul { height: 1.5rem; padding: 0.8rem 0.4rem; font-size:0.7rem; padding-bottom:2rem;}
+        .content1 ul li { float: left; width:33%; color: #666666; text-align: center; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;border-right: 1px #eeeeee solid; }
+        .content1 ul li:last-child { border: 0; }
+        .content1 ul li p { padding-top: 0.1rem; text-align: center; font-size: 1rem;}
+        .content1>p { line-height: 1.5; padding: 0.4rem; text-align: justify; }
+        .content1 ul li:nth-of-type(2) h4 i { display: inline-block; width: 0.7rem; height: 0.7rem; margin-left: 0.1rem; background: url(../../images/fundgroup/question.png) no-repeat; background-size: 100%; vertical-align: middle; margin-bottom: .1rem;}
+        .content1 table { width: 100%; text-align: center; background-color: #fff7f7; color: #666666; position: relative; font-size: 12px; }
+        .content1 table td { padding: .3rem 0; font-size: .32rem; }
+        .content1 table td span { color: #fe5a5b; }
+        .content1 table:before { content: ''; display: block; position: absolute; left: 72%; top: -20px; margin-left: -10px; border: 10px solid transparent; border-bottom-color: #fff7f7; }
+        .content1_1 { margin-bottom: 2.5rem;}
+        .content1_1 ul li { font-size: .7rem; float: left; width: 50%; text-align: center; padding: 12px 0; border-bottom: 2px solid transparent; color: #000; }
+        .content1_1 ul li a{font-size: .75rem;}
+        .content1_1 ul li.active { border-bottom-color: #ffadae; color: #fb5c5f; }
+        .content1_1 ul li p { padding-top: 0.107rem; }
+        .content1_1 .explain { font-size: 0.346rem; color: #000; }
+        .content1_1 .explain p { line-height: 1.5;padding: 16px;  }
+        .content1_1 .explain p.ellipsis:after { content: '.....'; }
+        .content1_1 .explain p.ellipsis span { display: none; }
+        .content1_1 .upfold { width: 80px; margin: 0 auto; padding: .15rem 0 .45rem; color: #148ce6; text-align: center; line-height: 14px; font-size: .3467rem; }
+        .content1_1 .upfold:before { content: '展开'; }
+        .content1_1 .upfold.pack-up:before { content: '收起'; }
+        .content1_1 .upfold.pack-up .down { -webkit-transform: rotate(180deg); transform: rotate(180deg); }
+     
+        /*弹框*/
+        .layer { z-index: 99999999; display: none; position: fixed; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.7); height: 100%; width: 100%; overflow: auto; font-size: 0.32rem; }
+        .layer-wrap { margin: 40% 8% 5% 8%; background-color: #fff; border-radius: 3px; text-align: center; padding-bottom: 2px; }
+        .layer-wrap .layer-body p { padding: 8% 5% 8% 5%; font-size: 14px; line-height: 25px; color: #666; text-align: left; }
+        .layer-wrap .layer-body span { font-size: 16px; display: block; padding-top: 10px; color: #333; font-weight: 600; }
+        .layer-wrap button { font-size: 14px; color: #333; background-color: #fff; border-top: solid 1px #ccc; width: 90%; height: 45px; color: #148ce6; }
+        .layer-wrap button:focus { outline: none; }
+        .text-left{float: left;}
+        .text-right{float: right;}
+        .money{
+          width:100%;
+          /* height:4rem; */
+          /*background:red;*/
+          margin:0 auto;
+          /*border:1px solid red;*/
+        }
+        .money p{
+            text-align: center;
+            padding:1.5rem 0 .2rem 0;;
+            font-size: 0.7rem;
+            color:#666666;
+        }
+        .money span{
+           text-align: center;
+           display: block;
+           font-size: 1.75rem; 
+           color:#f4333c;
+        }
+          
+
+
+        .fundname{
+
+
+            font-size: .75rem;
+        }
+        .color-red{
+            color:#fb5c5f!important;
+        }
+        .color-green{
+            color:#009944!important;
+        }
+       
+          .btn-bottom{
+            width: 100%;
+            display: table;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+        .font26{font-size: .65rem;}
+        .btn {
+            display: inline-block;
+            *display: inline; /*IE 6/7*/
+            zoom: 1;
+            line-height: normal;
+            white-space: nowrap;
+            vertical-align: baseline;
+            text-align: center;
+            cursor: pointer;
+            -webkit-user-drag: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            width: 100%;
+            font-family: inherit;
+            font-size: 100%;
+            *font-size: 90%; /*IE 6/7 - To reduce IE's oversized button text*/
+            *overflow: visible; /*IE 6/7 - Because of IE's overly large left/right padding on buttons */
+            padding: 0.8em 0;
+            color: #fff; /* rgba not supported (IE 8) */
+            border: 1px solid #999;  /*IE 6/7/8*/
+            border: none rgba(0, 0, 0, 0);  /*IE9 + everything else*/
+            text-decoration: none;
+        }
+        .btn-light{
+            background-color: #fe7e01;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            font-size:.85rem;
+        }
+        .btn-bottom .btn{padding:0;}
+
+         .title_tip{height:.5rem;background: #f6f6f6;}
+        
+        .qiehuan table td:first-child{
+            padding-left:.7rem;
+        }
+        .qiehuan table td:last-child{
+            padding-right:.7rem;
+        }
+        .qiehuan .thead{
+            border-bottom: #eee solid 1px
+        }
+        .qiehuan .thead td:nth-of-type(1){
+            font-size: .8rem;
+            color: black;
+            height: 2.5rem;
+            line-height: 2.5rem;
+        }
+        .qiehuan .thead td:nth-of-type(2){
+            font-size: .7rem;
+            color: #666666;
+            text-align: right;
+            height: 2.8rem;
+            line-height: 2.8rem;
+        }
+        .qiehuan .thead span {
+            display: inline-block;
+            background-color: #ffe5e5;
+            color:#fb5c5f;
+            height: .8rem;
+            line-height:.8rem;
+            font-size:.7rem;
+            padding: 0 .5rem;
+            border-radius: 5rem;
+            margin-left: .2rem;
+            vertical-align: middle;
+
+        }
+       
+        .qiehuan .tbody tr:nth-of-type(odd) td{
+            color: #666666;
+            font-size: .7rem;
+
+            padding-top: .75rem;
+
+        }
+        .qiehuan .tbody tr:nth-of-type(even) td{
+            color: black;
+            padding-top: .5rem;
+            font-size: .8rem;
+        }
+        .qiehuan .tbody tr:last-child td{
+            padding-bottom: .7rem;
+        }
+        /* 底部按钮 */
+.footer_fiexd{position:fixed;left: 0;bottom: 0;height:2.5rem;width:100%;background: #fff;}
+.footer_fiexd ul{display: flex;}
+.footer_fiexd ul li{flex: 1;height:2.5rem;background:#fe7e01 ;}
+/* .footer_fiexd ul li:nth-of-type(1){	} */
+.footer_fiexd ul li{border-left:1px #fff solid;}
+.footer_fiexd ul li:nth-of-type(1){background: #fff;}
+.footer_fiexd ul li a{display:block;width:100%;height: 100%;line-height: 2.5rem;text-align: center;color:#fff;font-size: .8rem;}
+.footer_fiexd ul li:first-child a{color: #fe7e01; border-top: 1px #eee solid;}
+.footer_fiexd ul li a:first-child img{width: 0.7rem;height: 0.7rem;padding-right: 0.2rem;padding-top: 0.2rem;}
+
+
+.qiehuan_2 table td:first-child{
+    padding-left:.7rem;
+}
+.qiehuan_2 table td:last-child{
+    padding-right:.7rem;
+}
+.qiehuan_2 .thead{
+    border-bottom: #eee solid 1px
+}
+.qiehuan_2 .thead td:nth-of-type(1){
+    font-size: .8rem;
+    color: black;
+    height: 2.5rem;
+    line-height: 2.5rem;
+}
+.qiehuan_2 .thead td:nth-of-type(2){
+    font-size: .7rem;
+    color: #666666;
+    text-align: right;
+    height: 2.8rem;
+    line-height: 2.8rem;
+}
+.qiehuan_2 .tbody tr td:nth-of-type(1){
+    text-align: left;
+
+}
+.qiehuan_2 .tbody tr td:nth-of-type(2){
+    text-align: center;
+
+}
+.qiehuan_2 .tbody tr td:nth-of-type(3){
+    text-align: right;
+}
+.qiehuan_2 .tbody tr:nth-of-type(odd) td{
+    color: #666666;
+    font-size: .7rem;
+
+    padding-top: .75rem;
+
+}
+.qiehuan_2 .tbody tr:nth-of-type(even) td{
+    color: black;
+    padding-top: .5rem;
+    font-size: .8rem;
+}
+.qiehuan_2 .tbody tr:last-child td{
+    padding-bottom: .7rem;
+}

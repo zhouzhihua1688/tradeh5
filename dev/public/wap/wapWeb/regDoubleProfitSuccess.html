@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--<meta charset="utf8">-->
+    <title>注册成功</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/doubleprofitbase.css">
+    <style type="text/css">
+        html,body{
+            height: 100%;
+        }
+        .main{
+            text-align: center;
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+            text-align: center;
+            position: relative;
+            height: 100%;
+        }
+        .main .succes-title{
+            padding-top: 4.5rem;
+        }
+        .main .succes-title i{
+            display: inline-block;
+            width: 1.125rem;
+            height: 1.1rem;
+            background: url(img/icon_03.png) no-repeat;
+            background-size: contain;
+            vertical-align: bottom;
+            margin-right: 0.15rem;
+        }
+        .main .succes-title span{
+            font-size: 0.8rem;
+            color: #333;
+            font-weight: bold;
+        }
+        .main p{
+            font-size: 0.6rem;
+            color: #666;
+            margin-top: 1.875rem;
+            margin-bottom: 1.15rem;
+        }
+        .main a{
+            font-size: 0.75rem;
+            color: #fff;
+            display: inline-block;
+            width: 17.25rem;
+            height: 2.25rem;
+            line-height: 2.25rem;
+            text-align: center;
+            background-color: #fe7e01;
+        }
+        .footer{
+            font-size: 0.55rem;
+            padding-right: 0.75rem;
+            padding-bottom: 1.35rem;
+            color: #666;
+            line-height: 0.8rem;
+            text-align: left;
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+    <script type="text/javascript">
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function(){
+
+            getFont();
+
+        }
+        function getFont(){
+            var screenWidth = oHtml.clientWidth;
+            if(screenWidth <= 320){
+
+                oHtml.style.fontSize = '17.06px';
+            }else if(screenWidth >= 750){
+
+                oHtml.style.fontSize = '40px';
+            }else{
+
+                oHtml.style.fontSize = screenWidth/(750/40)+'px';
+
+            }
+        }
+    </script>
+    <script type="text/javascript" src="../js/lib/jquery.3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/lib/weixin.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+    <script type="text/javascript" src="../js/common.js?20210302"></script>
+    <script type="text/javascript" src="js/reg_sucess.js"></script>
+</head>
+<body>
+<div class="main">
+    <div class="succes-title">
+        <i></i>
+        <span>领取成功！</span>
+    </div>
+    <p>您已获得连续<span id="profitDay">3</span>天现金宝收益<span id="power"></span>倍奖励，<!-- <span id="actEndDate"></span>前 -->尽快前往现金宝APP进行投资哦~收益不等人！</p>
+    <a href="../account/topup.html">马上投资</a>
+    <div class="footer">
+        风险提示：购买货币市场基金并不等于将资金作为存款存放在银行或存款类金融机构，不保证基金一定盈利，也不保证最低收益。
+    </div>
+</div>
+
+</body>
+</html>

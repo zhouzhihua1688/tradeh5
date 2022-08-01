@@ -1,0 +1,141 @@
+{
+    "version": "1.0",
+    "apps": [
+        {
+            "id": "001",
+            "packageName": "mqq"
+        },
+        {
+            "id": "002",
+            "packageName": "weixin"
+        },
+        {
+            "id": "003",
+            "packageName": "taobao"
+        },
+        {
+            "id": "004",
+            "packageName": "dianping"
+        },
+        {
+            "id": "005",
+            "packageName": "sinaweibo"
+        },
+        {
+            "id": "006",
+            "packageName": "alipay"
+        },
+        {
+            "id": "007",
+            "packageName": "imeituan"
+        },
+        {
+            "id": "008",
+            "packageName": "youku"
+        },
+        {
+            "id": "009",
+            "packageName": "wpweipai"
+        },
+        {
+            "id": "010",
+            "packageName": "momochat"
+        },
+        {
+            "id": "011",
+            "packageName": "CtripWireless"
+        },
+        {
+            "id": "012",
+            "packageName": "rm434209233MojiWeather"
+        },
+        {
+            "id": "013",
+            "packageName": "ucbrowser"
+        },
+        {
+            "id": "014",
+            "packageName": "bdbrowser"
+        },
+        {
+            "id": "015",
+            "packageName": "bainuo"
+        },
+        {
+            "id": "016",
+            "packageName": "tencent100692648"
+        },
+        {
+            "id": "017",
+            "packageName": "baidumap"
+        },
+        {
+            "id": "018",
+            "packageName": "iosamap"
+        },
+        {
+            "id": "019",
+            "packageName": "amihexin"
+        },
+        {
+            "id": "020",
+            "packageName": "dzhiphone"
+        },
+        {
+            "id": "021",
+            "packageName": "qiyi-iphone"
+        },
+        {
+            "id": "022",
+            "packageName": "QQmusic"
+        },
+        {
+            "id": "023",
+            "packageName": "sohuvideo"
+        },
+        {
+            "id": "024",
+            "packageName": "openapp.jdmobile"
+        },
+        {
+            "id": "025",
+            "packageName": "wallet"
+        },
+        {
+            "id": "026",
+            "packageName": "QuickSwipe"
+        },
+        {
+            "id": "027",
+            "packageName": "alimly"
+        },
+        {
+            "id": "028",
+            "packageName": "myxj.open"
+        },
+        {
+            "id": "029",
+            "packageName": "haomatongliteInHouseWidget"
+        },
+        {
+            "id": "030",
+            "packageName": "kdweidian"
+        },
+        {
+            "id": "031",
+            "packageName": "kdapp"
+        },
+        {
+            "id": "032",
+            "packageName": "qihoobrowser"
+        },
+        {
+            "id": "033",
+            "packageName": "daiyb"
+        },
+        {
+            "id": "034",
+            "packageName": "tenvideo"
+        }
+    ]
+}

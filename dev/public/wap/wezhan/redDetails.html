@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--<meta charset="GBK">-->
+    <meta charset="utf8">
+    <title>红包详情</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/wezhan/base_wezhan.css">
+    <link rel="stylesheet" type="text/css" href="../css/wezhan/red_details.css">
+    <link rel="stylesheet" type="text/css" href="../css/base.css">
+    <script type="text/javascript" src="/tradeh5/newWap/base/js/baseHead.js"></script>
+</head>
+
+<body>
+<div id="alert-password-div" style="display: none;">
+<div class="alert-password-background">
+    <div class="alert-dialog">
+        <div class="alert-title f-black f16">请输入交易密码</div>
+        <div class="alert-subtitle f12" id="alert_info"></div>
+        <div><input class="alert-input" id="pwd" type="password" maxlength="6"></div>
+        <div class="alert-button"><div class="button-left"><input type="button" class="button-style" id="cancel" value="取消"></div><div class="button-right"><input type="button" class="button-style" id="confirm" value="确定"></div></div>
+    </div>
+</div>
+</div>
+<div class="main">
+    <div class="head">
+       <div class="first">
+           <div class="text">红包名称</div>
+           <div class="text1" id="name"></div>
+       </div>
+    </div>
+    <div class="head">
+       <div class="first">
+           <div class="text">红包金额</div>
+           <div class="text1" id="mny"></div>
+       </div>
+    </div>
+    <div class="head">
+       <div class="first">
+           <div class="text">红包类型</div>
+           <div class="text1" id="type">现金</div>
+       </div>
+    </div>
+    <div class="head">
+       <div class="first">
+           <div class="text">来源</div>
+           <div class="text1" id="source"></div>
+       </div>
+    </div>
+    <div class="head">
+       <div class="first">
+           <div class="text">获得日期</div>
+           <div class="text1" id="getDate"></div>
+       </div>
+    </div>
+    <div class="head">
+       <div class="first">
+           <div class="text">有效期至</div>
+           <div class="text1" id="endDate"></div>
+       </div>
+    </div>
+</div>
+<div class="explain">使用说明：在有效期内, 领取后, 可增加同面额现金宝份额到您的
+现金宝账户。</div>
+<div class="finish" id="finish"><a href="javascript:;">立刻领取</a></div>
+
+<div class="tip2 bind_card_tip" style="display: none;">
+    <div class="tip_wrap">
+        <div class="tip_content">
+            <p id="bind_card_tip">您还未绑定银行卡，请先绑定银行卡</p>
+        </div>
+        <div class="tip_btn" >
+            <ul style="width: 100%;">
+                <li style="float: left;width:100%;box-sizing: border-box;"><a href="../card/manage_card.html" id="go_to_bind_card">添加银行卡</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+	<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/js/jquery.3.4.1.min.js"></script>
+	<script type="text/javascript" src="https://static.99fund.com/mobile/wap-lib/wap/js/lib/hammer.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.hammer.js"></script>
+	<script src="/tradeh5/newWap/base/js/utils.js"></script>
+	<script src="../js/common.js?20210302" type="text/javascript"></script>
+    <script type="text/javascript" src="../js/lib/phone-size.js"></script>
+    <script type="text/javascript" src="https://static.99fund.com/js/stat/stat_new.js"></script>
+	<script>
+	var custNo = App.getCookie("sso_cookie_ext_dp");
+	var id = App.getUrlParam("id");
+	if(custNo == null || id == ""){
+		window.location = App.loginPage + "?referUrl=" + encodeURIComponent(window.location.href);
+	}
+	
+	$(function() {
+		$("#layout").hide();
+		var item = App.getSession(custNo+id);
+        var isSetPwd = 'N';
+		console.log(item);
+		$("#finish").click(function(){getBack()});
+		$("#cancel").click(function(){App.cancel_alert()});
+		$("#confirm").click(function(){inputTradePwd()});
+
+		function getBack(){
+
+            // var url = App.projectNm + "/account/has_set_trade_pwd?r=" + (Math.random() * 10000).toFixed(0);
+            var url = "/mobile-bff/v1/account/has-set-trade-pwd";
+            App.post(url, null, function (result) {
+                if (result.body != undefined && result.body != null) {
+                    // alert("是否设置过交易密码："+ result.body.isSetPwd + " \n银行卡数量：" + cardsCount);
+                    if(App.isNotEmpty(result.body.isSetPwd)){
+                        isSetPwd = result.body.isSetPwd;
+                    }
+                    // var cards = App.getSession(App.cards);
+                    // cardsCount = cards.length;
+                    if(isSetPwd != "1"){
+                    
+                        $("#bind_card_tip").html("您还未设置交易密码，请先设置交易密码");
+                        $("#go_to_bind_card").html("去设置");
+                        $(".bind_card_tip").show();
+                        $("#go_to_bind_card").attr("href", "../card/bindCardInputPassword_1.html?referUrl=" + encodeURIComponent(document.URL));                    
+                        return;
+                    }else{
+                        var url = App.projectNm + "/activity/receive_bonus";
+			
+                        var data = JSON.stringify({
+                            "bonusId": item.bonusId,
+                            "debit": item.debit
+                        });
+                        App.post(url, data, function() {
+                            //App.bind("#finish", "click", getBack())
+                        }, function(result) {
+                            App.show_alert();
+                            //$("#alert_info").html(result.body.info);
+                            App.setSession(App.serialNo, result.body.serialNo)
+                        })
+                    }                    
+                }
+            });
+		
+		};
+
+
+		function inputTradePwd() {
+			//App.unbind("#confirm", "click", inputTradePwd);
+			var pwd = $("#pwd").val();
+			App.tradeBffPwd(pwd, function() {
+				//App.bind("#confirm", "click", inputTradePwd)
+			}, function(result) {
+				App.cancel_alert();
+				App.setSession(App.successInfo, result.body.successInfo);
+				window.location = "./receiveSuccess.html?debit="+item.debit;
+			})
+            };
+
+		$("#name").html(item.bonusName)
+		$("#mny").html(item.debit)
+		$("#source").html(item.bonusFrom)
+		$("#getDate").html(item.startDate)
+		$("#endDate").html(item.availDate)
+
+	});
+	</script>
+</body>
+
+</html>

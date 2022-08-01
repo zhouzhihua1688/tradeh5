@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>资产证明</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../base/css/base.css">
+    <script type="text/javascript" src="../base/js/baseHead.js"></script>
+    <script>
+        // 相对字体大小设置
+        var oHtml = document.documentElement;
+        getFont();
+        window.onresize = function () {
+            getFont();
+        }
+
+        function getFont() {
+            var screenWidth = oHtml.clientWidth;
+            if (screenWidth <= 320) {
+                oHtml.style.fontSize = '17.06px';
+            } else if (screenWidth >= 750) {
+                oHtml.style.fontSize = '40px';
+            } else {
+                oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #fff;}
+        body {left: 0%; right: 0%;font:14px 'PingFang SC','Microsoft YaHei', Tahoma, Arial, sans-serif;}
+        button { outline: none;  }
+        /* 图片自适应 */
+        img {
+            width: 100%;
+            height: auto;
+            width: auto\9; /* ie8 */
+            -ms-interpolation-mode: bicubic;/*为了照顾ie图片缩放失真*/
+            border: none;
+            vertical-align: top;
+            outline: none;
+            display: block;
+        }
+        p { word-wrap: break-word; text-align: justify; }
+        table { width: 100%;border-collapse:collapse; }
+        .main{width:100%;height:100%;}
+        .text{color:#000;font-size:0.7rem;margin-left:0.75rem;padding:1rem 0rem 0.5rem 0rem;}
+        .shuru{width:17.25rem;height:2.0rem;margin:0 auto;border-radius:2px;}
+        .shuru input{width:17.25rem;height:2.0rem;background: #f6f6f6;text-indent:0.75rem;font-size:0.7rem;border-radius:2px;color:#000;outline: none;}
+        input::-webkit-input-placeholder { 
+        /* WebKit browsers */ 
+        color: #999; 
+        } 
+        input:-moz-placeholder { 
+        /* Mozilla Firefox 4 to 18 */ 
+        color: #999; 
+        } 
+        input::-moz-placeholder { 
+        /* Mozilla Firefox 19+ */ 
+        color: #999; 
+        } 
+        input:-ms-input-placeholder { 
+        /* Internet Explorer 10+ */ 
+        color: #999; 
+        }
+        .check{color:#fb5c5f;font-size:0.6rem;margin-left:0.75rem;display:none;margin-top:0.25rem;}
+        .send{width:17.25rem;height:2.25rem;font-size:0.85rem;line-height: 2.25rem;
+            color:#fff;margin:0 auto;text-align:center;margin-top:1.25rem;background:#b5cde8;border-radius:2px;}
+        .color{background:#0757b2;}
+        .last{width:17.25rem;margin:0 auto;font-size:0.6rem;text-align: justify;margin-top: 0.75rem; color: #666;}
+
+        /* 弹窗 */
+        .layer{z-index: 9999999; display: none;  position: fixed;  top: 0;  left: 0;  background-color: rgba(0,0,0,0.7);  height: 100%;  width: 100%;  overflow: auto;}
+        .layer-wrap{margin: 40% 15% 5% 15%;background-color: #fff;border-radius: 8px;}
+        .layer-body{padding: 7% 8% 1% 8%;text-align: center;}
+        .layer-wrap .layer-body p{font-size:14px;line-height: 21px; color: #666;display: inline-block;text-align: justify}
+        .layer-wrap .layer-body span{font-size: 16px;display: block;  padding-top: 10px;color: #333;font-weight: 600;}
+        .layer-wrap button{font-size: 16px;
+          color: #fb5c5f;
+          background-color: #fff;
+          border-top: solid 1px #eeeeee;
+          width: 90%;
+          height:2.5rem;
+          display: block;
+          margin: 0 auto;
+        }
+        .layer-wrap button:focus{outline: none;}
+        .layer .choose{padding:0.2rem 0.75rem;display:flex;justify-content:space-between;
+        align-items: center;font-size: 0.75rem;color:#006bfe;}
+        .layer .choose div{width:50%;text-align:center;}
+        .layer .choose div:nth-of-type(2){width:1%;border-right:1px solid #eee;height:2rem}
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="text">资产证明接收邮箱:</div>
+    <div class="shuru"><input type="text" id="inputValue" placeholder="请输入接收资产证明的邮箱地址"></div>
+    <div class="check">请输入正确的邮箱地址</div>
+    <div class="send">立即发送</div>
+    <div class="last">温馨提示：资产证明可助您快速办理资产申报等业务，点击“发送”后，系统将在5分钟内以邮件方式将您的资产证明发送到对应接收邮箱。</div>
+</div>
+<div class="layer" style="display:none;" id="tip1">
+      <div class="layer-wrap">
+        <div class="layer-body">
+          <p style="color:#666;font-size:0.7rem">即将发送该账户的资产清单到邮箱：<i class="mail">288886666@qq.com</i>，请确认是否发送？</p>
+        </div>
+        <!-- <button style="color:#fb5c5f" id="but"></button> -->
+        <div style="border-top:1px solid #eee;width:90%;margin:0 auto;margin-top:0.5rem"></div>
+        <div class="choose">
+            <div class="noSend">暂不发送</div>
+            <div></div>
+            <div class="sendNow">立即发送</div>
+        </div>
+      </div>
+</div>
+<div class="layer" style="display: none;" id="tip2">
+      <div class="layer-wrap">
+        <div class="layer-body">
+          <p style="color:#666;font-size:0.7rem">您已超出单日发送次数限制，请于下一日再申请。</p>
+        </div>
+        <button style="color:#006bfe;margin-top:0.5rem;" id="but">我知道了</button>
+      </div>
+</div>
+
+<script src="../base/js/lib/jquery.3.4.1.min.js"></script>
+<script src="../base/js/utils.js"></script>
+<script>
+    $(function(){
+        var date = utils.getUrlParam("date");
+        var year = utils.getUrlParam("year");
+        console.log('date',date);
+        $("#inputValue").keydown(function(){
+            if($("#inputValue").val()!=""){
+              $(".send").addClass('color')
+            }else{
+               $(".send").removeClass('color')
+            }
+        })
+         $("#inputValue").keyup(function(){
+            if($("#inputValue").val()!=""){
+              $(".send").addClass('color')
+            }else{
+               $(".send").removeClass('color')
+            }
+        })
+        $(".send").click(function(){
+            var regex =/^[\w\-\.]+@[a-z0-9]+(\-[a-z0-9]+)?(\.[a-z0-9]+(\-[a-z0-9]+)?)*\.[a-z]{2,4}$/i;
+            var checkValue=$("#inputValue").val() 
+            if (regex.test(checkValue)){
+                   $(".check").hide()
+                   $("#tip1").show()
+                   $(".mail").html(checkValue)
+                }else{
+                   $(".check").show()
+                }
+        })
+        $(".sendNow").click(function(){
+            var params={};
+            params.email=$("#inputValue").val();
+            if(date){
+                params.date=date;
+            }
+            if(year){
+                params.year=year;
+            }
+            utils.ajax({
+                url: '/assetcenter/v1/asset/asset-export/apply',
+                data :params,
+                success: function (result) {
+                    if(result.returnCode==0){
+                        $("#tip1").hide()
+                        $("#tip2").show()
+                        $("#tip2 p").html("资产清单申请成功，系统将在5分钟内以邮件方式将您的资产清单发送到对应接收邮箱。")
+                    }else{
+                        $("#tip1").hide()
+                        $("#tip2").show()
+                        $("#tip2 p").html(result.returnMsg) 
+                    }
+                }.bind(this)
+            })
+        })
+        
+
+        // 关闭
+        $("#but,.noSend").click(function(){
+            $("#tip1").hide()
+            $("#tip2").hide()
+        })
+    })
+</script>
+</body>
+</html>
